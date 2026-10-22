@@ -5,6 +5,8 @@
 - หน้ารวมเกม: https://songyisong88.github.io/teepuan-games/
 - **หอคอยเหล็ก (STEEL STACK)**: https://songyisong88.github.io/teepuan-games/steel-stack/
   แตะให้ถูกจังหวะ วางบล็อกเหล็กซ้อนให้สูงที่สุด วางตรงเป๊ะได้คอมโบ
+- **งูมือถือยุค 90 (SNAKE '98)**: https://songyisong88.github.io/teepuan-games/snake/
+  มือถือปุ่มกดจอเขียว บังคับงูกินจุด มี 3 โหมด: คลาสสิก / ไม่มีกำแพง / เขาวงกต
 
 สถานะ: ต้นแบบ v0.1 ยังไม่มีตารางอันดับหรือเซิร์ฟเวอร์ สถิติสูงสุดเก็บในเครื่องผู้เล่น (localStorage)
 

@@ -72,7 +72,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .btn.ad{background:var(--gold);color:#2a1a00;border-color:#b8860b}
 .btn[disabled]{opacity:.45;pointer-events:none}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.pair .btn{margin-top:0;height:100%;min-height:64px}
+.pair .btn{margin-top:0;height:100%;min-height:64px;font-size:clamp(13px,4.2vw,16px);padding:4px 6px}
+.pair .btn .tv{margin-right:5px}
 .note{font-size:12px;color:var(--dim);text-align:center;margin-top:10px;line-height:1.4}
 .list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
 .item{display:flex;align-items:center;gap:10px;background:#120a2a;border:2px solid var(--line);border-radius:12px;padding:8px}
@@ -167,7 +168,7 @@ let LANG=(()=>{try{const s=localStorage.getItem(KEY+'.lang');if(s==='th'||s==='e
   const ls=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en'];return ls.some(l=>/^th\b/i.test(l||''))?'th':'en'})();
 let langPicked=false;try{langPicked=!!localStorage.getItem(KEY+'.lang')}catch(e){}
 const T=(th,en)=>LANG==='th'?th:en;
-function setLang(l,remember){LANG=l;document.documentElement.lang=l;if(remember){langPicked=true;try{localStorage.setItem(KEY+'.lang',l)}catch(e){}}renderAll();if(MODAL.re)MODAL.re()}
+function setLang(l,remember){LANG=l;document.documentElement.lang=l;if(remember){langPicked=true;try{localStorage.setItem(KEY+'.lang',l)}catch(e){}}renderAll();if(MODAL.open&&MODAL.re){RR=true;try{MODAL.re()}finally{RR=false}}}
 function ftime(s){s=Math.max(0,Math.ceil(s));const m=Math.floor(s/60),r=s%60;if(m<60)return m+':'+String(r).padStart(2,'0');const h=Math.floor(m/60);return h+T(' ชม. ','h ')+(m%60)+T(' น.','m')}
 function dayKey(d){d=d||new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
 
@@ -239,12 +240,12 @@ const Ads=(()=>{
   }
   function fake(kind,rewardText,cb){
     const ov=$('adov'),num=$('adNum'),bar=$('adBar'),cl=$('adClose');
-    $('adLab').textContent=T('โฆษณาตัวอย่าง (ยังไม่ใช่โฆษณาจริง)','SAMPLE AD (not a real ad)');
+    const labels=()=>{$('adLab').textContent=T('โฆษณาตัวอย่าง (ยังไม่ใช่โฆษณาจริง)','SAMPLE AD (not a real ad)');
     $('adKind').textContent=kind==='reward'?T('โฆษณาแลกรางวัล · รางวัล: ','Rewarded ad · reward: ')+rewardText:T('โฆษณาคั่น (ไม่มีรางวัล)','Break ad (no reward)');
     $('adS1').textContent=T('พื้นที่แสดงคลิปโฆษณา','Ad video area');
-    $('adS2').textContent=T('บนเว็บเกมจริง (เช่น Y8) ตรงนี้จะเป็นคลิปโฆษณา เดโมนี้ไม่เรียกเครือข่ายโฆษณาและไม่เก็บข้อมูลใดๆ','On a real game portal (e.g. Y8) an ad video plays here. This demo calls no ad network and collects no data.');
+    $('adS2').textContent=T('บนเว็บเกมจริง (เช่น Y8) ตรงนี้จะเป็นคลิปโฆษณา เดโมนี้ไม่เรียกเครือข่ายโฆษณาและไม่เก็บข้อมูลใดๆ','On a real game portal (e.g. Y8) an ad video plays here. This demo calls no ad network and collects no data.')};
     const t0=performance.now();let fin=false,closed=false;
-    const paint=()=>{const el=(performance.now()-t0)/1000,left=Math.max(0,AD_SECONDS-el);fin=left<=0;num.textContent=fin?'OK':String(Math.ceil(left));bar.style.width=Math.min(100,el/AD_SECONDS*100)+'%';
+    const paint=()=>{labels();const el=(performance.now()-t0)/1000,left=Math.max(0,AD_SECONDS-el);fin=left<=0;num.textContent=fin?'OK':String(Math.ceil(left));bar.style.width=Math.min(100,el/AD_SECONDS*100)+'%';
       if(kind==='reward'){cl.disabled=false;cl.textContent=fin?T('ปิด และรับรางวัล','Close & get reward'):T('ปิด (ไม่ได้รับรางวัล)','Close (no reward)')}
       else{cl.disabled=!fin;cl.textContent=fin?T('ปิดโฆษณา','Close ad'):T('ปิดได้ใน ','Close in ')+Math.ceil(left)+T(' วินาที','s')}
       cl.classList.toggle('done',fin)};
@@ -601,11 +602,12 @@ function renderChips(){const a=Ads.available();$('chips').style.display=a?'flex'
   cr.className='chip'+(radarOn?' act':capOk('radar')?'':' cd');
   cr.innerHTML=radarOn?'<b>'+T('เรดาร์','RADAR')+'</b><span>'+T('เปิดอยู่','on')+'</span>':capLeft('radar')<=0?'<b>'+T('เรดาร์','RADAR')+'</b><span>'+T('พรุ่งนี้','tomorrow')+'</span>':capWait('radar')>0?'<b>'+T('เรดาร์','RADAR')+'</b><span>'+ftime(capWait('radar'))+'</span>':chipHTML(T('เรดาร์','RADAR'),T('ส่องแคปซูล','capsules'))}
 function renderNav(){$('nAlbT').textContent=T('สมุดสะสม','Album')+' '+Object.keys(S.album).length+'/'+PZ.length;$('nUpT').textContent=T('อัปเกรด','Upgrades');$('nThT').textContent=T('ธีมตู้','Themes');$('nDayT').textContent=T('รางวัลรายวัน','Daily')}
-function renderAll(){renderHud();renderNav();document.title="CLAWTRON '95 \u00b7 "+T('ตู้คีบไครอน','Kairon Arcade')}
+function renderAll(){renderHud();renderNav();document.title="CLAWTRON '95 \u00b7 "+T('ห้องเกม ไครอน','Kairon Arcade')}
 
 /* ---------------- modals ---------------- */
 const MODAL={open:false,re:null,onClose:null};
-function setModal(html,re,onClose){MODAL.open=true;MODAL.re=re||null;MODAL.onClose=onClose||null;$('sheet').innerHTML=html;$('modal').classList.add('on');held.L=held.R=false}
+let RR=false;/* true while a popup is being re-rendered (e.g. language switch) */
+function setModal(html,re,onClose){const sh=$('sheet'),top=RR?sh.scrollTop:0;MODAL.open=true;MODAL.re=re||null;MODAL.onClose=onClose||null;sh.style.animation=RR?'none':'';sh.innerHTML=html;sh.scrollTop=top;$('modal').classList.add('on');held.L=held.R=false}
 function closeModal(){if(!MODAL.open)return;MODAL.open=false;MODAL.re=null;$('modal').classList.remove('on');const f=MODAL.onClose;MODAL.onClose=null;if(f)f();renderAll()}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function adBtnLabel(t){return '<span class="tv"></span>'+t}
@@ -616,7 +618,7 @@ function offer(o){const cap=o.place;
       '<div class="big">'+esc(o.reward())+'</div>'+
       '<div class="pair"><button class="btn" id="oNo">'+T('ไม่เป็นไร','No thanks')+'</button><button class="btn ad" id="oYes"'+(ok?'':' disabled')+'>'+adBtnLabel(ok?T('ดูโฆษณา','Watch ad'):left<=0?T('ครบวันนี้แล้ว','Done today'):T('รอ ','Wait ')+ftime(w))+'</button></div>'+
       '<div class="note">'+T('โฆษณาเป็นทางเลือก ไม่ดูก็เล่นต่อได้ตามปกติ · เหลือวันนี้ ','Ads are optional - you can keep playing without them · left today ')+Math.max(0,left)+'/'+CAP[cap].day+'</div>'+(o.more?o.more():''),show,o.onNo);
-    adStat(cap,'o');
+    if(!RR)adStat(cap,'o');
     $('oNo').onclick=()=>{SFX.ui();closeModal()};
     $('oYes').onclick=()=>{if(!capOk(cap))return;SFX.ui();const fin=o.onNo;MODAL.onClose=null;closeModal();
       Ads.rewarded(cap,o.reward(),()=>{capUse(cap);adStat(cap,'w');o.grant();save();renderAll()},why=>{toast(why==='dismissed'?T('ปิดโฆษณาก่อนจบ ยังไม่ได้รับรางวัล','Ad closed early - no reward'):T('ตอนนี้ไม่มีโฆษณา ลองใหม่ภายหลัง','No ad right now - try later'));fin&&fin()})};
@@ -638,16 +640,16 @@ function radar(){const it=mkItem(true);it.pz=rollPrize(true,true);M.queue.unshif
 function prizeCanvas(pz,size){return iconCanvas(prizeSpr(pz),size,'ico')}
 function openWin(w){SFX.claim();
   const wrap=document.createElement('div');
-  const rows=w.wins.map((x,i)=>{const p=PZ[x.pz];return '<div class="item" style="border-color:'+RAR[p.rar].col+'"><span id="wi'+i+'"></span><div class="tx"><div class="nm">'+esc(pname(p))+(x.isNew?' · '+T('ใหม่!','NEW!'):'')+'</div><div class="ds">'+esc(rname(p.rar))+(x.cap?' · '+T('จากแคปซูล','from a capsule'):'')+'</div></div><div class="nm">+'+x.tix+'</div></div>'}).join('');
+  const mkRows=()=>w.wins.map((x,i)=>{const p=PZ[x.pz];return '<div class="item" style="border-color:'+RAR[p.rar].col+'"><span id="wi'+i+'"></span><div class="tx"><div class="nm">'+esc(pname(p))+(x.isNew?' · '+T('ใหม่!','NEW!'):'')+'</div><div class="ds">'+esc(rname(p.rar))+(x.cap?' · '+T('จากแคปซูล','from a capsule'):'')+'</div></div><div class="nm">+'+x.tix+'</div></div>'}).join('');
   const dblOk=Ads.available()&&!w.dbl;
   const draw=()=>{setModal('<h2>'+(w.wins.length>1?T('คีบได้ '+w.wins.length+' ชิ้น!','Got '+w.wins.length+' prizes!'):T('คีบได้แล้ว!','You got it!'))+'</h2>'+
-    (w.m>1?'<div class="sub">'+T('คอมโบ x','Combo x')+w.m.toFixed(2).replace(/\.?0+$/,'')+'</div>':'')+'<div class="list">'+rows+'</div>'+
+    (w.m>1?'<div class="sub">'+T('คอมโบ x','Combo x')+w.m.toFixed(2).replace(/\.?0+$/,'')+'</div>':'')+'<div class="list">'+mkRows()+'</div>'+
     w.sets.map(r=>'<div class="note" style="color:'+RAR[r].col+'">'+T('สะสมครบชุด '+rname(r)+' +'+RAR[r].set+' ตั๋ว','Completed the '+rname(r)+' set +'+RAR[r].set+' tickets')+'</div>').join('')+
     '<div class="big">+'+(w.dbl?w.tot*2:w.tot)+' '+T('ตั๋ว','tickets')+'</div>'+
-    (dblOk&&!w.dbl?'<div class="pair"><button class="btn go" id="wOk">'+T('เก็บ','Collect')+'</button><button class="btn ad" id="wDbl"'+(capOk('dbl')?'':' disabled')+'>'+adBtnLabel(capOk('dbl')?T('ตั๋ว x2 (ดูโฆษณา)','x2 tickets (ad)'):capLeft('dbl')<=0?T('ครบวันนี้','Done today'):T('รอ ','Wait ')+ftime(capWait('dbl')))+'</button></div><div class="note">'+T('ดูโฆษณาเพื่อรับ +'+w.tot+' ตั๋วเพิ่ม · ไม่บังคับ','Watch an ad for +'+w.tot+' more tickets · optional')+'</div>':'<button class="btn go" id="wOk">'+T('เก็บ','Collect')+'</button>'),draw,()=>{maybeBreak()});
+    (dblOk&&!w.dbl?'<div class="pair"><button class="btn go" id="wOk">'+T('เก็บ','Collect')+'</button><button class="btn ad" id="wDbl"'+(capOk('dbl')?'':' disabled')+'>'+adBtnLabel(capOk('dbl')?T('ตั๋ว x2 ดูโฆษณา','x2 tickets (ad)'):capLeft('dbl')<=0?T('ครบวันนี้','Done today'):T('รอ ','Wait ')+ftime(capWait('dbl')))+'</button></div><div class="note">'+T('ดูโฆษณาเพื่อรับ +'+w.tot+' ตั๋วเพิ่ม · ไม่บังคับ','Watch an ad for +'+w.tot+' more tickets · optional')+'</div>':'<button class="btn go" id="wOk">'+T('เก็บ','Collect')+'</button>'),draw,()=>{maybeBreak()});
     w.wins.forEach((x,i)=>{const s=$('wi'+i);if(s)s.replaceWith(prizeCanvas(x.pz,48))});
     $('wOk').onclick=()=>{SFX.ui();closeModal()};
-    const b=$('wDbl');if(b){adStat('dbl','o');b.onclick=()=>{if(!capOk('dbl'))return;MODAL.onClose=null;closeModal();Ads.rewarded('dbl',T('+'+w.tot+' ตั๋ว','+'+w.tot+' tickets'),()=>{capUse('dbl');adStat('dbl','w');w.dbl=true;S.tix+=w.tot;SFX.coin();save();renderAll();toast(T('ได้ตั๋วเพิ่ม +','Bonus +')+w.tot)},()=>{toast(T('ยังไม่ได้รับรางวัล','No reward this time'))})}}};
+    const b=$('wDbl');if(b){if(!RR)adStat('dbl','o');b.onclick=()=>{if(!capOk('dbl'))return;MODAL.onClose=null;closeModal();Ads.rewarded('dbl',T('+'+w.tot+' ตั๋ว','+'+w.tot+' tickets'),()=>{capUse('dbl');adStat('dbl','w');w.dbl=true;S.tix+=w.tot;SFX.coin();save();renderAll();toast(T('ได้ตั๋วเพิ่ม +','Bonus +')+w.tot)},()=>{toast(T('ยังไม่ได้รับรางวัล','No reward this time'))})}}};
   draw()}
 function openAlbum(){const got=Object.keys(S.album).length;let h='<h2>'+T('สมุดสะสมตุ๊กตา','Prize Album')+'</h2><div class="sub">'+got+'/'+PZ.length+' · '+T('คีบครบแต่ละระดับรับโบนัสตั๋ว','Complete a rarity for bonus tickets')+'</div><div class="bar2"><i style="width:'+(got/PZ.length*100)+'%"></i></div>';
   for(let r=0;r<5;r++){const ps=PZ.filter(p=>p.rar===r),n=ps.filter(p=>S.album[p.i]).length;
@@ -681,12 +683,12 @@ function openDaily(){const ready=dailyReady(),idx=ready?dayIdx():(S.daily.streak
   const txt=k=>'+'+R.c*k+' '+T('เหรียญ','coins')+' · +'+R.t*k+' '+T('ตั๋ว','tickets');
   h+='<div class="big">'+txt(1)+'</div>';
   const adOk=capOk('daily');
-  if(Ads.available()){h+='<div class="pair"><button class="btn go" id="dOk">'+T('รับปกติ','Claim')+'</button><button class="btn ad" id="dAd"'+(adOk?'':' disabled')+'>'+adBtnLabel(T('รับ x2 (ดูโฆษณา)','Claim x2 (ad)'))+'</button></div><div class="note">'+T('ดูโฆษณาเพื่อรับเป็น ','Watch an ad to get ')+txt(2)+T(' · ไม่บังคับ',' · optional')+'</div>'}
+  if(Ads.available()){h+='<div class="pair"><button class="btn go" id="dOk">'+T('รับปกติ','Claim')+'</button><button class="btn ad" id="dAd"'+(adOk?'':' disabled')+'>'+adBtnLabel(T('รับ x2 ดูโฆษณา','Claim x2 (ad)'))+'</button></div><div class="note">'+T('ดูโฆษณาเพื่อรับเป็น ','Watch an ad to get ')+txt(2)+T(' · ไม่บังคับ',' · optional')+'</div>'}
   else h+='<button class="btn go" id="dOk">'+T('รับรางวัล','Claim')+'</button>';
   setModal(h,openDaily);
   const claim=k=>{S.daily.streak=idx+1;S.daily.last=dayKey();S.coins+=R.c*k;S.tix+=R.t*k;SFX.claim();vib(25);save();renderAll();toast(txt(k))};
   $('dOk').onclick=()=>{claim(1);closeModal()};
-  const b=$('dAd');if(b){adStat('daily','o');b.onclick=()=>{if(!capOk('daily'))return;MODAL.onClose=null;closeModal();Ads.rewarded('daily',txt(2),()=>{capUse('daily');adStat('daily','w');if(dailyReady())claim(2)},()=>{toast(T('ยังไม่ได้รับ x2 · กดรับปกติได้เลย','No x2 this time · you can still claim normally'));openDaily()})}}}
+  const b=$('dAd');if(b){if(!RR)adStat('daily','o');b.onclick=()=>{if(!capOk('daily'))return;MODAL.onClose=null;closeModal();Ads.rewarded('daily',txt(2),()=>{capUse('daily');adStat('daily','w');if(dailyReady())claim(2)},()=>{toast(T('ยังไม่ได้รับ x2 · กดรับปกติได้เลย','No x2 this time · you can still claim normally'));openDaily()})}}}
 function openSet(){const tg=(on)=>on?T('เปิด','On'):T('ปิด','Off');
   setModal('<h2>'+T('ตั้งค่า','Settings')+'</h2><div class="list"><div class="item"><div class="tx"><div class="nm">'+T('เสียง','Sound')+'</div></div><button class="btn" id="sS">'+tg(S.set.sfx)+'</button></div>'+
     '<div class="item"><div class="tx"><div class="nm">'+T('สั่น','Vibration')+'</div></div><button class="btn" id="sV">'+tg(S.set.vib)+'</button></div>'+
@@ -696,8 +698,8 @@ function openSet(){const tg=(on)=>on?T('เปิด','On'):T('ปิด','Off')
   $('sS').onclick=()=>{S.set.sfx=!S.set.sfx;if(AU.m)AU.m.gain.value=S.set.sfx?.45:0;save();openSet()};
   $('sV').onclick=()=>{S.set.vib=!S.set.vib;save();openSet()};
   $('sL').onclick=()=>setLang(LANG==='th'?'en':'th',true);
-  $('sR').onclick=()=>{setModal('<h2>'+T('ลบข้อมูลทั้งหมด?','Reset everything?')+'</h2><div class="sub">'+T('ตุ๊กตา ตั๋ว และอัปเกรดจะหายหมด','Prizes, tickets and upgrades will be lost')+'</div><div class="pair"><button class="btn" id="rN">'+T('ยกเลิก','Cancel')+'</button><button class="btn" id="rY" style="border-color:#ff5a5a">'+T('ลบเลย','Reset')+'</button></div>');
-    $('rN').onclick=()=>openSet();$('rY').onclick=()=>{S=defaults();save();C.super=false;C.st='idle';C.x=HOME;initialFill();closeModal();toast(T('เริ่มใหม่แล้ว','Fresh start'))}};
+  $('sR').onclick=()=>{const openReset=()=>{setModal('<h2>'+T('ลบข้อมูลทั้งหมด?','Reset everything?')+'</h2><div class="sub">'+T('ตุ๊กตา ตั๋ว และอัปเกรดจะหายหมด','Prizes, tickets and upgrades will be lost')+'</div><div class="pair"><button class="btn" id="rN">'+T('ยกเลิก','Cancel')+'</button><button class="btn" id="rY" style="border-color:#ff5a5a">'+T('ลบเลย','Reset')+'</button></div>',openReset);
+    $('rN').onclick=()=>openSet();$('rY').onclick=()=>{S=defaults();save();C.super=false;C.st='idle';C.x=HOME;initialFill();closeModal();toast(T('เริ่มใหม่แล้ว','Fresh start'))}};openReset()};
   $('mX').onclick=()=>closeModal()}
 
 /* ---------------- input ---------------- */

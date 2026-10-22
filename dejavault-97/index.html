@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22 shape-rendering=%22crispEdges%22%3E%3Crect width=%2216%22 height=%2216%22 fill=%22%231b2550%22/%3E%3Crect x=%222%22 y=%222%22 width=%2212%22 height=%2212%22 fill=%22%23ffd43b%22/%3E%3Crect x=%224%22 y=%224%22 width=%228%22 height=%228%22 fill=%22%231b2550%22/%3E%3Crect x=%227%22 y=%225%22 width=%222%22 height=%226%22 fill=%22%23ffd43b%22/%3E%3Crect x=%225%22 y=%227%22 width=%226%22 height=%222%22 fill=%22%23ffd43b%22/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>DEJAVAULT '97 — ปล้นวนลูป 10 วินาที | Kairon Arcade</title>
-<meta name="description" content="DEJAVAULT '97 — a 90s pixel-art time-loop heist puzzle by Kairon Arcade. เกมปล้นวนลูปเวลา 10 วินาที โดย ห้องเกม ไครอน">
+<title>DEJAVAULT '97 — ปล้นวนลูปเวลา | Kairon Arcade</title>
+<meta name="description" content="DEJAVAULT '97 — a 90s pixel-art time-loop heist puzzle by Kairon Arcade. เกมปล้นวนลูปเวลา 30 ด่าน โดย ห้องเกม ไครอน">
 <meta name="theme-color" content="#0b0e22">
 
 <style>
@@ -72,6 +72,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
 @keyframes pulse{50%{outline-color:#fff4b0}}
 .soon{padding:14px 12px 16px;color:var(--dim);font-size:14px;text-align:center}
 .soon b{color:var(--yel)}
+.help{text-align:left;max-height:58vh;overflow:auto;font-size:14px;line-height:1.5;margin:0 0 12px;padding-right:4px}.hsec{margin:0 0 10px}.hz{display:block;color:var(--yel);font-size:12px;letter-spacing:.1em;margin-bottom:2px}.zlock{color:var(--dim)}
 /* game */
 #scr-game{background:var(--navy)}
 #hud{display:flex;flex-direction:column;gap:6px;padding:8px 10px 6px;padding-top:max(8px,env(safe-area-inset-top));background:rgba(11,14,34,.95);border-bottom:2px solid var(--line);z-index:3}
@@ -216,10 +217,10 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
 /* DEJAVAULT '97 — deterministic time-loop simulation (shared by game + offline verifier). Kairon Arcade. */
 const DV=(()=>{
 const DIRS={U:[0,-1],D:[0,1],L:[-1,0],R:[1,0],W:[0,0]};
-const PLATE='abc',DOOR='ABC',INV='123',TBTN='xy',TDOOR='XY';
+const PLATE='abc',DOOR='ABC',INV='123',TBTN='xy',TDOOR='XY',LIFT='pq';
 function parse(def){
   const rows=def.map,h=rows.length,w=Math.max(...rows.map(r=>r.length));
-  const L={def,w,h,g:[],start:null,exit:null,loot:[],plates:{a:[],b:[],c:[]},doors:[],tbtn:{x:[],y:[]},keys:[],lasers:[],guards:[],T:def.timer||5,steps:def.steps,clones:def.clones==null?5:def.clones};
+  const L={def,w,h,g:[],start:null,exit:null,loot:[],plates:{a:[],b:[],c:[]},doors:[],tbtn:{x:[],y:[]},keys:[],lasers:[],guards:[],lifts:[],liftAt:{},paradox:!!def.paradox,T:def.timer||5,steps:def.steps,clones:def.clones==null?5:def.clones};
   for(let y=0;y<h;y++){const row=[];for(let x=0;x<w;x++){let c=rows[y][x]||' ';
     if(c==='S'){L.start={x,y};c='.'}
     else if(c==='E'){L.exit={x,y}}
@@ -231,10 +232,12 @@ function parse(def){
     else if(INV.includes(c))L.doors.push({x,y,kind:'inv',ch:PLATE[INV.indexOf(c)],i:L.doors.length});
     else if(TDOOR.includes(c))L.doors.push({x,y,kind:'tm',ch:c.toLowerCase(),i:L.doors.length});
     else if(c==='K')L.doors.push({x,y,kind:'key',ch:'k',i:L.doors.length});
+    else if(LIFT.includes(c)){let P=L.lifts.find(q=>q.ch===c);if(!P){P={ch:c,pads:[]};L.lifts.push(P)}P.pads.push({x,y})}
     row.push(c)}L.g.push(row)}
   L.doorAt={};L.doors.forEach(d=>L.doorAt[d.x+','+d.y]=d);
+  L.lifts.forEach(P=>{if(P.pads.length!==2)throw new Error('lift '+P.ch+' needs exactly 2 pads');const [a,b]=P.pads;L.liftAt[a.x+','+a.y]=b;L.liftAt[b.x+','+b.y]=a});
   (def.lasers||[]).forEach(l=>L.lasers.push(Object.assign({},l)));
-  (def.guards||[]).forEach(g=>L.guards.push({path:g.path.map(p=>({x:p[0],y:p[1]})),view:g.view||4,d:g.d||'D'}));
+  (def.guards||[]).forEach(g=>L.guards.push({path:g.path.map(p=>({x:p[0],y:p[1]})),view:g.view||(g.cam?3:4),d:g.d||'D',spin:g.spin||0,cam:!!g.cam}));
   return L;
 }
 function init(L,nSelves){
@@ -263,6 +266,7 @@ function canMove(L,s,ds,o,a){
 }
 function laserActive(L,s,l){
   if(l.ch)return !pressed(L,s,l.ch);
+  if(l.tb)return !(s.tm[l.tb]>0);
   if(l.per){const p=l.per[0]+l.per[1];return ((s.t+(l.ph||0))%p)<l.per[0]}
   return true;
 }
@@ -273,22 +277,30 @@ function beams(L,s,ds){
     out.push({l,cells})}
   return out;
 }
+/* sight cone: centre column out to `view`; from distance 2 the cone is 3 wide. Walls and closed doors block (side columns are shadowed once blocked). */
+function blocks(L,ds,x,y){if(solid(L,x,y))return true;const d=L.doorAt[x+','+y];return !!(d&&!ds[d.i])}
 function sight(L,s,g,ds){
-  const v=DIRS[g.d];const cells=[];let x=g.x,y=g.y;
-  const G=L.guards[s.guards.indexOf(g)];const n=G?G.view:4;
-  for(let i=0;i<n;i++){x+=v[0];y+=v[1];if(solid(L,x,y))break;const d=L.doorAt[x+','+y];if(d&&!ds[d.i])break;cells.push([x,y])}
+  const v=DIRS[g.d];const px=-v[1],py=v[0];const cells=[];
+  const G=L.guards[s.guards.indexOf(g)];const n=G?G.view:4;const side={'-1':true,'1':true};
+  for(let i=1;i<=n;i++){const x=g.x+v[0]*i,y=g.y+v[1]*i;if(blocks(L,ds,x,y))break;cells.push([x,y]);
+    if(i>=2)for(const k of [-1,1]){if(!side[k])continue;const sx=x+px*k,sy=y+py*k;if(blocks(L,ds,sx,sy)){side[k]=false;continue}cells.push([sx,sy])}}
   return cells;
 }
 /* advance one step. acts[i] = action of self i ('U','D','L','R','W'). present = last self */
 function step(L,s0,acts){
   const s=clone(s0);if(s.alarm||s.won)return s;
   const ds=doorStates(L,s);
-  for(let i=0;i<s.selves.length;i++){const o=s.selves[i],a=acts[i]||'W';o.lx=o.x;o.ly=o.y;
+  const nS=s.selves.length;
+  for(let i=0;i<nS;i++){const o=s.selves[i],a=acts[i]||'W';o.lx=o.x;o.ly=o.y;o.tp=null;
     if(a!=='W')o.f=a;
-    if(!canMove(L,s,ds,o,a)){o.bump=a!=='W';continue}o.bump=false;
+    if(!canMove(L,s,ds,o,a)){o.bump=a!=='W';
+      /* real paradox (zones 3-4): a past self cannot repeat its recorded move because the present changed the world */
+      if(o.bump&&L.paradox&&i<nS-1&&!s.alarm)s.alarm={type:'paradox',x:o.x,y:o.y,who:i,d:a};
+      continue}o.bump=false;
     const v=DIRS[a];const nx=o.x+v[0],ny=o.y+v[1];const d=L.doorAt[nx+','+ny];
     if(d&&d.kind==='key'&&!ds[d.i]&&!s.kopen[d.i]){o.keys--;s.kopen[d.i]=true;ds[d.i]=true}
-    o.x=nx;o.y=ny}
+    o.x=nx;o.y=ny;
+    const lf=L.liftAt[nx+','+ny];if(lf){o.tp={x:nx,y:ny};o.x=lf.x;o.y=lf.y}}
   // pickups
   s.selves.forEach((o,i)=>{
     L.keys.forEach((k,j)=>{if(s.keyTaken[j]<0&&k.x===o.x&&k.y===o.y){s.keyTaken[j]=i;o.keys++}});
@@ -299,8 +311,9 @@ function step(L,s0,acts){
   s.t++;
   const ds2=doorStates(L,s);
   // guards
+  const gPrev=s.guards.map(g=>({x:g.x,y:g.y}));
   s.guards.forEach((g,gi)=>{
-    const G=L.guards[gi];
+    const G=L.guards[gi];g.lx=g.x;g.ly=g.y;
     if(G.path.length>1){let ni=g.pi+g.dir;if(ni<0||ni>=G.path.length){g.dir=-g.dir;ni=g.pi+g.dir}
       const tp=G.path[ni];const dx=Math.sign(tp.x-g.x),dy=Math.sign(tp.y-g.y);
       if(dx||dy){const nx=g.x+dx,ny=g.y+dy;const d=L.doorAt[nx+','+ny];g.d=dx>0?'R':dx<0?'L':dy>0?'D':'U';
@@ -309,12 +322,11 @@ function step(L,s0,acts){
     else if(G.spin){const order='URDL';if(s.t%G.spin===0)g.d=order[(order.indexOf(g.d)+1)%4]}
   });
   // hazards
-  for(const b of beams(L,s,ds2))for(const c of b.cells)for(let i=0;i<s.selves.length;i++){const o=s.selves[i];if(o.x===c[0]&&o.y===c[1]){s.alarm={type:'laser',x:o.x,y:o.y,who:i};break}}
+  if(!s.alarm)for(const b of beams(L,s,ds2)){if(s.alarm)break;for(const c of b.cells){if(s.alarm)break;for(let i=s.selves.length-1;i>=0;i--){const o=s.selves[i];if(o.x===c[0]&&o.y===c[1]){s.alarm={type:'laser',x:o.x,y:o.y,who:i};break}}}}
   if(!s.alarm)s.guards.forEach((g,gi)=>{if(s.alarm)return;const cells=sight(L,s,g,ds2);const seen=[];
-    s.selves.forEach((o,i)=>{if((o.x===g.x&&o.y===g.y)||cells.some(c=>c[0]===o.x&&c[1]===o.y))seen.push(i)});
-    const uniq=new Set(seen.map(i=>s.selves[i].x+','+s.selves[i].y));
-    if(seen.length>=2)s.alarm={type:'paradox',x:g.x,y:g.y,who:seen[seen.length-1],guard:gi};
-    else if(seen.length===1)s.alarm={type:'seen',x:g.x,y:g.y,who:seen[0],guard:gi};
+    const gp=gPrev[gi];
+    s.selves.forEach((o,i)=>{if((o.x===g.x&&o.y===g.y)||(o.x===gp.x&&o.y===gp.y&&o.lx===g.x&&o.ly===g.y)||cells.some(c=>c[0]===o.x&&c[1]===o.y))seen.push(i)});
+    if(seen.length)s.alarm={type:L.guards[gi].cam?'cam':'seen',x:g.x,y:g.y,who:seen[seen.length-1],guard:gi};
   });
   if(!s.alarm){const p=s.selves[s.selves.length-1];if(L.exit&&p.x===L.exit.x&&p.y===L.exit.y&&s.taken.every(v=>v>=0))s.won=true}
   return s;
@@ -349,12 +361,12 @@ function jointSolvable(L,n,maxT,limit){
     fr=nf;if(!fr.length)break}
   return false;
 }
-return{DIRS,parse,init,step,run,doorStates,doorOpen,canMove,beams,sight,pressed,solvePresent,jointSolvable,laserActive,clone};
+return{DIRS,blocks,parse,init,step,run,doorStates,doorOpen,canMove,beams,sight,pressed,solvePresent,jointSolvable,laserActive,clone};
 })();
 if(typeof module!=='undefined')module.exports=DV;
 
 /* DEJAVAULT '97 levels — every level verified solvable by mklevels.cjs (Kairon Arcade) */
-const LEVELS=[{"id":"1-1","z":1,"n":{"th":"เวลาเปิดทำการ","en":"Opening Hours"},"tip":{"th":"เดินด้วยปุ่มลูกศร/ปัด เก็บถุงเงิน $ แล้วไปที่ทางออก","en":"Move with arrows/swipe. Grab the $ bag, then reach the exit."},"steps":30,"map":["#########","#S.#....#","#..#.##.#","#.....#$#","###.#.#.#","#E..#...#","#########"],"sol":["RDDRRUURRRDDUULLLDDLDDLL"],"par":{"loops":1,"steps":24},"minProof":true},{"id":"1-2","z":1,"n":{"th":"ฉันสองคน","en":"Two of Me"},"tip":{"th":"แผ่นกดเปิดประตู กด LOOP เพื่อย้อนเวลา ตัวคุณในอดีตจะทำซ้ำทุกการกระทำ","en":"Plates open doors. Press LOOP to rewind: your past self repeats every move."},"steps":16,"map":["#########","#S.....a#","#.#######","#...A..$#","#####.###","    #E#  ","    ###  "],"sol":["RRRRRR","WWDDRRRRRRLLDD"],"par":{"loops":2,"steps":14},"minProof":true},{"id":"1-3","z":1,"n":{"th":"ฝากหยิบหน่อย","en":"Errand Girl"},"tip":{"th":"ตัวไหนเก็บเงินก็นับ ให้ตัวในอดีตไปหยิบแทนได้","en":"Loot counts no matter which self grabs it."},"steps":16,"map":["#########","#$.....a#","#.#####.#","#.#S..#.#","#.#.#.#.#","#...#..A#","#######E#","      ###"],"sol":["DDLLUUUURRRRRR","WWWWWWWWWRRDDRRD"],"par":{"loops":2,"steps":16},"minProof":true},{"id":"1-4","z":1,"n":{"th":"สองกะซ้อน","en":"Double Shift"},"tip":{"th":"สองประตู สองแผ่นกด ต้องใช้ตัวช่วยมากกว่าหนึ่ง","en":"Two doors, two plates. You will need more than one helper."},"steps":20,"map":["###########","#a.......b#","#.#######.#","#....S....#","####A#B####","   #.#.#   ","   #$#E#   ","   #####   "],"sol":["LLLLUU","RRRRUU","WWWWWLDDDUUURRDDD"],"par":{"loops":3,"steps":17},"minProof":true},{"id":"1-5","z":1,"n":{"th":"ต่อกันเป็นทอด","en":"Chain of Command"},"steps":18,"map":["###########","#S..a#...b#","#....A....#","#....######","##B########","#$...E#    ","#######    "],"sol":["WRRR","RRRDRRURRR","WWWWWWWRDDDDLRRRR"],"par":{"loops":3,"steps":17},"minProof":true},{"id":"1-6","z":1,"n":{"th":"ผีขยัน","en":"Busy Ghost"},"tip":{"th":"ตัวในอดีตทำได้หลายงานในลูปเดียว ลองกด WAIT เพื่อรอจังหวะ","en":"One past self can do several jobs in one loop. Use WAIT to time it."},"steps":22,"map":["###########","#b...S...a#","####A###B##","   #$# #E# ","   ### ### "],"sol":["RRRRWWLLLLLLLL","WWWLDDUWWURRRRDD"],"par":{"loops":2,"steps":16},"minProof":true},{"id":"1-7","z":1,"n":{"th":"สองถุงใหญ่","en":"Two Big Bags"},"steps":16,"map":["#############","#$...a#....$#","#.###.#.###.#","#.....S.....#","######A######","     #E#     ","     ###     "],"sol":["WWWLUULLLLRRRR","RUURRRRDDLLLLLDD"],"par":{"loops":2,"steps":16},"minProof":true},{"id":"1-8","z":1,"n":{"th":"ประตูกลับด้าน","en":"Inverted"},"tip":{"th":"ประตูลายทางจะปิดเมื่อแผ่นกดถูกเหยียบ","en":"Striped doors CLOSE while their plate is pressed."},"steps":20,"map":["#########","#a..S..1E","##A######"," #$#     "," ###     "],"sol":["LLLWWWWWWWR","WLLDDUURRRRRR"],"par":{"loops":2,"steps":13},"minProof":true},{"id":"1-9","z":1,"n":{"th":"จังหวะประตู","en":"Swing Shift"},"steps":20,"map":["############","#S..A.1.B.2E","#.##########","#..a....b..#","############"],"sol":["DDRRRRRRRWR","WWRRRWRRRRRRR"],"par":{"loops":2,"steps":13},"minProof":true},{"id":"1-10","z":1,"n":{"th":"ห้องนิรภัยกำมะหยี่","en":"The Velvet Vault"},"steps":24,"map":["############","#S...a#...b#","#.....A....#","#.....##B###","##1#####$#  "," #E#  ###   "],"sol":["WRRRRWWWWWWWWWWWWWWWWD","RRRRDRRURRR","WWWRRRRDRRRDDUULLLDLLLDD"],"par":{"loops":3,"steps":24},"minProof":true}];
+const LEVELS=[{"id":"1-1","z":1,"n":{"th":"เวลาเปิดทำการ","en":"Opening Hours"},"tip":{"th":"เดินด้วยปุ่มลูกศร/ปัด เก็บถุงเงิน $ แล้วไปที่ทางออก","en":"Move with arrows/swipe. Grab the $ bag, then reach the exit."},"steps":30,"map":["#########","#S.#....#","#..#.##.#","#.....#$#","###.#.#.#","#E..#...#","#########"],"sol":["RDDRRUURRRDDUULLLDDLDDLL"],"par":{"loops":1,"steps":24},"minProof":true},{"id":"1-2","z":1,"n":{"th":"ฉันสองคน","en":"Two of Me"},"tip":{"th":"แผ่นกดเปิดประตู กด LOOP เพื่อย้อนเวลา ตัวคุณในอดีตจะทำซ้ำทุกการกระทำ","en":"Plates open doors. Press LOOP to rewind: your past self repeats every move."},"steps":16,"map":["#########","#S.....a#","#.#######","#...A..$#","#####.###","    #E#  ","    ###  "],"sol":["RRRRRR","WWDDRRRRRRLLDD"],"par":{"loops":2,"steps":14},"minProof":true},{"id":"1-3","z":1,"n":{"th":"ฝากหยิบหน่อย","en":"Errand Girl"},"tip":{"th":"ตัวไหนเก็บเงินก็นับ ให้ตัวในอดีตไปหยิบแทนได้","en":"Loot counts no matter which self grabs it."},"steps":16,"map":["#########","#$.....a#","#.#####.#","#.#S..#.#","#.#.#.#.#","#...#..A#","#######E#","      ###"],"sol":["DDLLUUUURRRRRR","WWWWWWWWWRRDDRRD"],"par":{"loops":2,"steps":16},"minProof":true},{"id":"1-4","z":1,"n":{"th":"สองกะซ้อน","en":"Double Shift"},"tip":{"th":"สองประตู สองแผ่นกด ต้องใช้ตัวช่วยมากกว่าหนึ่ง","en":"Two doors, two plates. You will need more than one helper."},"steps":20,"map":["###########","#a.......b#","#.#######.#","#....S....#","####A#B####","   #.#.#   ","   #$#E#   ","   #####   "],"sol":["LLLLUU","RRRRUU","WWWWWLDDDUUURRDDD"],"par":{"loops":3,"steps":17},"minProof":true},{"id":"1-5","z":1,"n":{"th":"ต่อกันเป็นทอด","en":"Chain of Command"},"steps":18,"map":["###########","#S..a#...b#","#....A....#","#....######","##B########","#$...E#    ","#######    "],"sol":["WRRR","RRRDRRURRR","WWWWWWWRDDDDLRRRR"],"par":{"loops":3,"steps":17},"minProof":true},{"id":"1-6","z":1,"n":{"th":"ผีขยัน","en":"Busy Ghost"},"tip":{"th":"ตัวในอดีตทำได้หลายงานในลูปเดียว ลองกด WAIT เพื่อรอจังหวะ","en":"One past self can do several jobs in one loop. Use WAIT to time it."},"steps":22,"map":["###########","#b...S...a#","####A###B##","   #$# #E# ","   ### ### "],"sol":["RRRRWWLLLLLLLL","WWWLDDUWWURRRRDD"],"par":{"loops":2,"steps":16},"minProof":true},{"id":"1-7","z":1,"n":{"th":"สองถุงใหญ่","en":"Two Big Bags"},"steps":16,"map":["#############","#$...a#....$#","#.###.#.###.#","#.....S.....#","######A######","     #E#     ","     ###     "],"sol":["WWWLUULLLLRRRR","RUURRRRDDLLLLLDD"],"par":{"loops":2,"steps":16},"minProof":true},{"id":"1-8","z":1,"n":{"th":"ประตูกลับด้าน","en":"Inverted"},"tip":{"th":"ประตูลายทางจะปิดเมื่อแผ่นกดถูกเหยียบ","en":"Striped doors CLOSE while their plate is pressed."},"steps":20,"map":["#########","#a..S..1E","##A######"," #$#     "," ###     "],"sol":["LLLWWWWWWWR","WLLDDUURRRRRR"],"par":{"loops":2,"steps":13},"minProof":true},{"id":"1-9","z":1,"n":{"th":"จังหวะประตู","en":"Swing Shift"},"steps":20,"map":["############","#S..A.1.B.2E","#.##########","#..a....b..#","############"],"sol":["DDRRRRRRRWR","WWRRRWRRRRRRR"],"par":{"loops":2,"steps":13},"minProof":true},{"id":"1-10","z":1,"n":{"th":"ห้องนิรภัยกำมะหยี่","en":"The Velvet Vault"},"steps":24,"map":["############","#S...a#...b#","#.....A....#","#.....##B###","##1#####$#  "," #E#  ###   "],"sol":["WRRRRWWWWWWWWWWWWWWWWD","RRRRDRRURRR","WWWRRRRDRRRDDUULLLDLLLDD"],"par":{"loops":3,"steps":24},"minProof":true},{"id":"2-1","z":2,"n":{"th":"กุญแจดอกแรก","en":"The First Key"},"tip":{"th":"เก็บกุญแจ k แล้วประตูกุญแจจะเปิดค้างไว้ตลอด","en":"Grab the key, and its key door stays open for good."},"steps":30,"map":["##########","#S...#..$#","#.##.K.###","#k##.###E#","####.....#","##########"],"sol":["DDUURRRDRRURRLLDLLDDRRRRU"],"par":{"loops":1,"steps":25},"minProof":true},{"id":"2-2","z":2,"n":{"th":"ปุ่มนาฬิกาทราย","en":"Hourglass Button"},"tip":{"th":"ปุ่มจับเวลาเปิดประตูต่ออีกไม่กี่ก้าวหลังก้าวออก ตัวเลขบนประตูคือก้าวที่เหลือ","en":"A timed button keeps its doors open for a few steps after you leave. The door shows how many are left."},"steps":24,"timer":3,"map":["###########","#S.#..$.y.#","#..X.####Y#","#x.######E#","###########"],"sol":["DDURRRURRRRRDD"],"par":{"loops":1,"steps":14},"minProof":true},{"id":"2-3","z":2,"n":{"th":"ห้องแสงสีชมพู","en":"The Pink Room"},"tip":{"th":"ห้ามเดินผ่านเลเซอร์ เส้นที่มีป้าย A จะดับเมื่อมีคนยืนบนแผ่นกด A","en":"Never cross a laser. The one tagged A switches off while plate A is held."},"steps":26,"map":["#############","#S.....#...$#","#.###.##.##.#","#.#a#.....#.#","#.#.#####.#.#","#.........#E#","#############"],"lasers":[{"x":12,"y":2,"d":"L","ch":"a"},{"x":9,"y":6,"d":"U"}],"sol":["WWWWWWWDDDDRRUU","RRRRDDRRRUURRRDDDD"],"par":{"loops":2,"steps":18},"minProof":true},{"id":"2-4","z":2,"n":{"th":"จังหวะไฟกะพริบ","en":"Strobe Rhythm"},"tip":{"th":"เลเซอร์บางเส้นกะพริบตามจังหวะ และประตูที่ปิดอยู่บังลำแสงได้","en":"Some lasers blink on a beat, and a closed door blocks the beam."},"steps":28,"map":["#############","#S.........a#","#.#######.###","#.#.....#.#$#","#.#.###.#.#A#","#.......#E..#","#############"],"lasers":[{"x":3,"y":0,"d":"D","per":[2,2],"ph":0},{"x":5,"y":0,"d":"D","per":[2,2],"ph":2},{"x":7,"y":0,"d":"D","per":[2,2],"ph":1},{"x":12,"y":4,"d":"L","per":[3,2],"ph":0}],"sol":["WWWWWWWWRRRRRRRRRR","WWWWRRRRRRRRDDDDRRUUWWDDLL"],"par":{"loops":2,"steps":26},"minProof":true},{"id":"2-5","z":2,"n":{"th":"สวิตช์ตั้งเวลา","en":"Delay Switch"},"tip":{"th":"เลเซอร์ที่มีป้าย x ดับไปพร้อมกับปุ่มจับเวลา x และกลับมาเมื่อหมดเวลา","en":"The laser tagged x shuts off with timed button x, and comes back when time runs out."},"steps":30,"timer":4,"map":["#############","#S....#.....#","#.###.#.###.#","#.#x#...#$X.#","#.#.#####.###","#...#E....###","#############"],"lasers":[{"x":12,"y":2,"d":"L","tb":"x"}],"sol":["WWWWWWWDDDDRRUU","RRRRDDRRUURRRRDDLLDDLLLL"],"par":{"loops":2,"steps":24},"minProof":true},{"id":"2-6","z":2,"n":{"th":"ระบบกุญแจ","en":"Key Economy"},"tip":{"th":"ร่างโคลนเก็บกุญแจแทนได้ แต่ทางออกเปิดด้วยปุ่มจับเวลาเท่านั้น","en":"A ghost can fetch the key for you, but only the timed button opens the exit."},"steps":40,"timer":5,"map":["#############","#S..A.....k.#","#.#.#####.###","#.#.#$K...#E#","#.#.#######X#","#a#x........#","#############"],"sol":["DDDDWWUUUURRDDDD","WWRRRRRRRRRLDDLLLL","WWRRDDDDRRRRRRRRUU"],"par":{"loops":3,"steps":18},"minProof":true},{"id":"2-7","z":2,"n":{"th":"ห้องจัดแสดงหลัก","en":"The Grand Gallery"},"tip":{"th":"ทุกอย่างที่เรียนมา กุญแจ ปุ่มจับเวลา เลเซอร์ตั้งเวลา และไฟกะพริบ","en":"Everything so far: a key, a timed button, a delay laser and a strobe."},"steps":40,"timer":4,"map":["###############","#S..A......k..#","#.#.#######.###","#.#.#$$K....#E#","#.#.#########X#","#a#x..........#","###############"],"lasers":[{"x":9,"y":0,"d":"D","tb":"x"},{"x":8,"y":6,"d":"U","per":[2,2],"ph":0}],"sol":["DDDDUUUURRDDDD","WWRRRWWWWRRRRRRRDDLLLLLL","WWWWRRDDDDRRRRRRWWRRRRUU"],"par":{"loops":3,"steps":24},"minProof":true}];
 if(typeof module!=="undefined")module.exports=LEVELS;
 
 /* ===================== ART — every pixel drawn in code (Kairon Arcade original) ===================== */
@@ -457,13 +469,24 @@ function glyph(x,ch,cx,cy,col){x.fillStyle=col;if(ch==='a'){x.fillRect(cx-1,cy-2
 /* ---------- static tile layer ---------- */
 function isWall(L,x,y){if(x<0||y<0||x>=L.w||y>=L.h)return true;const c=L.g[y][x];return c==='#'||c===' '}
 function isVoid(L,x,y){if(x<0||y<0||x>=L.w||y>=L.h)return true;return L.g[y][x]===' '}
-function floorTile(x,th,px,py,i,j){x.fillStyle=(i+j)%2?th.floorA:th.floorB;x.fillRect(px,py,16,16);
-  x.fillStyle=th.floorC;x.fillRect(px+7,py+2,2,1);x.fillRect(px+5,py+4,6,1);x.fillRect(px+3,py+6,10,1);x.fillRect(px+5,py+8,6,1);x.fillRect(px+7,py+10,2,1);
-  x.fillStyle=th.dot;if((i*7+j*3)%5===0){x.fillRect(px+1,py+1,1,1);x.fillRect(px+14,py+14,1,1)}
+function floorTile(x,th,px,py,i,j,zone){x.fillStyle=(i+j)%2?th.floorA:th.floorB;x.fillRect(px,py,16,16);
+  if(zone===2){/* museum: polished stone slabs, grout and a soft neon sheen */
+    x.fillStyle=th.floorC;x.fillRect(px,py,16,1);x.fillRect(px,py,1,16);if((i+j)%2===0){x.fillRect(px+8,py+1,1,15)}
+    x.fillStyle='rgba(127,216,255,.10)';x.fillRect(px+2,py+2,5,1);x.fillRect(px+2,py+3,2,1);
+    if((i*5+j*3)%7===0){x.fillStyle=th.dot;x.globalAlpha=.35;x.fillRect(px+11,py+11,2,1);x.globalAlpha=1}}
+  else if(zone===3){/* casino: carpet with a gold diamond lattice */
+    x.fillStyle=th.floorC;for(let k=0;k<8;k++){x.fillRect(px+k*2,py+k*2,2,1);x.fillRect(px+14-k*2,py+k*2,2,1)}
+    x.fillStyle=th.dot;x.globalAlpha=.55;x.fillRect(px+7,py+7,2,2);if((i+j)%2===0){x.fillRect(px,py,1,1);x.fillRect(px+15,py+15,1,1)}x.globalAlpha=1}
+  else if(zone===4){/* vault: steel plates with rivets and a cyan grid */
+    x.fillStyle=th.floorC;x.fillRect(px+1,py+1,14,1);x.fillRect(px+1,py+1,1,14);
+    x.fillStyle='#0d1024';x.fillRect(px+2,py+2,1,1);x.fillRect(px+13,py+2,1,1);x.fillRect(px+2,py+13,1,1);x.fillRect(px+13,py+13,1,1);
+    x.fillStyle=th.dot;x.globalAlpha=.18;x.fillRect(px,py+8,16,1);x.fillRect(px+8,py,1,16);x.globalAlpha=1}
+  else{x.fillStyle=th.floorC;x.fillRect(px+7,py+2,2,1);x.fillRect(px+5,py+4,6,1);x.fillRect(px+3,py+6,10,1);x.fillRect(px+5,py+8,6,1);x.fillRect(px+7,py+10,2,1);
+    x.fillStyle=th.dot;if((i*7+j*3)%5===0){x.fillRect(px+1,py+1,1,1);x.fillRect(px+14,py+14,1,1)}}
   x.fillStyle='rgba(0,0,0,.18)';x.fillRect(px,py+15,16,1);x.fillRect(px+15,py,1,16)}
 function staticLayer(L,zone){const th=THEME[zone]||THEME[1];const W=L.w*TS,H=L.h*TS+6;const [c,x]=mk(W,H);const [wc,w]=mk(W,H);
   x.fillStyle=th.voidc;x.fillRect(0,0,W,H);x.translate(0,6);w.translate(0,6);const fx=x;
-  for(let j=0;j<L.h;j++)for(let i=0;i<L.w;i++){const px=i*TS,py=j*TS;if(isWall(L,i,j))continue;floorTile(x,th,px,py,i,j);
+  for(let j=0;j<L.h;j++)for(let i=0;i<L.w;i++){const px=i*TS,py=j*TS;if(isWall(L,i,j))continue;floorTile(x,th,px,py,i,j,zone);
     // wall shadow on floor
     if(isWall(L,i,j-1)){x.fillStyle='rgba(5,6,20,.45)';x.fillRect(px,py,16,4)}
     if(isWall(L,i-1,j)){x.fillStyle='rgba(5,6,20,.25)';x.fillRect(px,py,3,16)}}
@@ -479,6 +502,7 @@ function staticLayer(L,zone){const th=THEME[zone]||THEME[1];const W=L.w*TS,H=L.h
   // plates & buttons & exit base
   for(const ch of 'abc')for(const p of L.plates[ch]){const px=p.x*TS,py=p.y*TS;x.fillStyle='#0d1024';x.fillRect(px+2,py+3,12,11);x.fillStyle='#4a4f6a';x.fillRect(px+3,py+4,10,9)}
   for(const ch of 'xy')for(const p of L.tbtn[ch]){const px=p.x*TS,py=p.y*TS;x.fillStyle='#0d1024';x.fillRect(px+3,py+4,10,10);x.fillStyle='#3a3f5a';x.fillRect(px+4,py+5,8,8)}
+  for(const P of (L.lifts||[]))for(const p of P.pads){const px=p.x*TS,py=p.y*TS;x.fillStyle='#0d1024';x.fillRect(px+1,py+2,14,13);x.fillStyle='#2a3054';x.fillRect(px+2,py+3,12,11);x.fillStyle='#3a4268';x.fillRect(px+3,py+4,10,9)}
   if(L.exit){const px=L.exit.x*TS,py=L.exit.y*TS;x.fillStyle='#0d1024';x.fillRect(px+1,py+1,14,14);x.fillStyle='#1d2748';x.fillRect(px+2,py+2,12,12)}
   return {floor:c,walls:wc}}
 /* ---------- dynamic tiles ---------- */
@@ -510,7 +534,26 @@ function keyItem(x,px,py,t){const b=Math.round(Math.sin(t/180));py+=b;x.fillStyl
 function coinIcon(x,px,py,s){s=s||1;x.fillStyle='#0d1024';x.fillRect(px+1*s,py,4*s,6*s);x.fillRect(px,py+1*s,6*s,4*s);x.fillStyle='#ffd23f';x.fillRect(px+1*s,py+1*s,4*s,4*s);x.fillStyle='#fff4b0';x.fillRect(px+2*s,py+1*s,1*s,2*s)}
 function star(x,px,py,s,on){s=s||1;const R=['...#...','..###..','#######','.#####.','..###..','.##.##.','##...##'];
   R.forEach((r,j)=>{for(let i=0;i<7;i++)if(r[i]==='#'){x.fillStyle=on?(j<2?'#fff4b0':'#ffd23f'):'#2a3054';x.fillRect(px+i*s,py+j*s,s,s)}})}
-return{TS,mk,text,textW,F,OUTFITS,GHOSTS,hero,ghost,guardSpr,THEME,CH,staticLayer,plate,tbtn,door,exitTile,loot,keyItem,coinIcon,star,glyph};
+/* lift pad: paired pads share colour + arrow glyph */
+const LIFTC={p:{col:'#5fd8f0',dk:'#2a7f9a'},q:{col:'#d8a8ff',dk:'#7a52b8'}};
+function liftPad(x,p,ch,t,busy){const px=p.x*TS,py=p.y*TS,C=LIFTC[ch]||LIFTC.p;const k=.5+.5*Math.sin(t/200+(p.x+p.y));
+  x.fillStyle=C.dk;x.fillRect(px+4,py+5,8,7);x.fillStyle=C.col;x.globalAlpha=.35+.4*k;x.fillRect(px+3,py+4,10,1);x.fillRect(px+3,py+12,10,1);x.fillRect(px+3,py+4,1,9);x.fillRect(px+12,py+4,1,9);x.globalAlpha=1;
+  x.fillStyle=busy?'#fff8d0':C.col;x.fillRect(px+7,py+6,2,1);x.fillRect(px+6,py+7,4,1);x.fillRect(px+6,py+9,4,1);x.fillRect(px+7,py+10,2,1)}
+/* laser emitter on a wall, facing dir */
+function emitter(x,l,on,t){const px=l.x*TS,py=l.y*TS-6;const v={U:[0,-1],D:[0,1],L:[-1,0],R:[1,0]}[l.d];const cx0=px+8+v[0]*6,cy0=py+8+v[1]*6+(l.d==='D'?6:0);
+  x.fillStyle='#0d1024';x.fillRect(cx0-3,cy0-3,6,6);x.fillStyle=on?'#ff5a9a':'#4a3050';x.fillRect(cx0-2,cy0-2,4,4);if(on){x.fillStyle='#ffd0e4';x.fillRect(cx0-1,cy0-1,2,2)}
+  const tag=l.ch||l.tb;if(tag&&CH[tag]){x.fillStyle=CH[tag].col;x.fillRect(cx0-3,cy0+3,6,1)}else if(l.per){x.fillStyle='#ffd23f';x.fillRect(cx0-3,cy0+3,((t/120)|0)%2?6:3,1)}}
+function beam(x,cells,d,t){const vert=d==='U'||d==='D';const w=.6+.4*Math.sin(t/60);
+  for(const c of cells){const px=c[0]*TS,py=c[1]*TS;x.fillStyle='rgba(255,90,154,'+(.22*w)+')';if(vert)x.fillRect(px+5,py-2,6,16);else x.fillRect(px,py+3,16,6);
+    x.fillStyle='#ff5a9a';if(vert)x.fillRect(px+7,py-2,2,16);else x.fillRect(px,py+5,16,2);x.fillStyle='#ffd0e4';if(vert)x.fillRect(px+7,py-2,1,16);else x.fillRect(px,py+5,16,1)}}
+/* sight cone cells */
+function cone(x,cells,t,hot){for(const c of cells){x.fillStyle=hot?'rgba(255,210,63,.42)':'rgba(255,210,63,'+(.16+.05*Math.sin(t/200))+')';x.fillRect(c[0]*TS+1,c[1]*TS+1,14,14)}}
+/* security camera on a post, lens facing dir */
+function camera(x,g,t){const px=g.x*TS,py=g.y*TS;const v={U:[0,-1],D:[0,1],L:[-1,0],R:[1,0]}[g.d];
+  x.fillStyle='rgba(0,0,0,.35)';x.fillRect(px+4,py+12,8,3);x.fillStyle='#0d1024';x.fillRect(px+7,py+2,2,11);x.fillStyle='#4a5070';x.fillRect(px+7,py+3,1,9);
+  const hx=px+8+v[0]*2,hy=py+2+v[1]*2;x.fillStyle='#0d1024';x.fillRect(hx-5,hy-4,10,8);x.fillStyle='#c8d0f0';x.fillRect(hx-4,hy-3,8,6);x.fillStyle='#8a93c0';x.fillRect(hx-4,hy+2,8,1);
+  const lx=hx+v[0]*4,ly=hy+v[1]*3;x.fillStyle='#0d1024';x.fillRect(lx-2,ly-2,4,4);x.fillStyle=(Math.floor(t/300)%2)?'#ffd23f':'#5fd8f0';x.fillRect(lx-1,ly-1,2,2)}
+return{TS,mk,floorTile,text,textW,F,OUTFITS,GHOSTS,hero,ghost,guardSpr,THEME,CH,staticLayer,plate,tbtn,door,exitTile,loot,keyItem,coinIcon,star,glyph,liftPad,LIFTC,emitter,beam,cone,camera};
 })();
 
 /* ===================== AUDIO — original chiptune + SFX synthesised live (Kairon Arcade) ===================== */
@@ -541,6 +584,28 @@ const SONGS={
   R,R,64,R,67,R,71,R,72,R,71,R,67,R,64,R, R,R,62,R,65,R,69,R,71,R,69,R,65,R,62,R,
   R,R,60,R,64,R,67,R,69,R,67,R,64,R,60,R, R,R,59,R,63,R,66,R,71,R,R,R,R,R,R,R],
   bass:[40,38,36,35],chords:[[52,55,59],[50,53,57],[48,52,55],[47,51,54]],drums:'K...h...S...h..h'},
+ museum:{bpm:112,lead:[
+  74,R,R,77,R,R,81,R,79,R,77,R,76,R,74,R, 72,R,R,76,R,R,79,R,77,R,76,R,74,R,72,R,
+  70,R,R,74,R,R,77,R,76,R,74,R,72,R,70,R, 69,R,73,R,76,R,79,R,81,R,79,R,76,R,73,R,
+  R,R,86,R,84,R,81,R,R,R,84,R,81,R,77,R, R,R,84,R,81,R,79,R,R,R,81,R,79,R,76,R,
+  R,R,82,R,81,R,77,R,79,R,R,R,74,R,R,R, 73,R,76,R,79,R,82,R,81,R,R,R,R,R,R,R],
+  bass:[50,48,46,45,50,48,46,45],chords:[[62,65,69],[60,64,67],[58,62,65],[57,61,64],[62,65,69],[60,64,67],[58,62,65],[57,61,64]],drums:'K..hS..hK.h.S.hh'},
+ casino:{bpm:132,lead:[
+  72,R,76,79,R,76,72,R,74,R,77,81,R,77,74,R, 76,R,79,84,R,79,76,R,74,R,72,R,71,R,R,R,
+  72,R,76,79,R,76,72,R,74,R,77,81,R,77,74,R, 79,R,77,R,76,R,74,R,72,R,R,R,R,R,R,R,
+  84,R,83,R,81,R,79,R,77,R,76,R,74,R,72,R, 81,R,79,R,77,R,76,R,74,R,72,R,71,R,69,R,
+  77,R,76,R,74,R,72,R,71,R,74,R,79,R,83,R, 84,R,R,R,79,R,R,R,76,R,R,R,72,R,R,R],
+  bass:[48,45,50,43,48,45,50,43],chords:[[60,64,67],[57,60,64],[62,65,69],[55,59,62],[60,64,67],[57,60,64],[62,65,69],[55,59,62]],drums:'K.hhS.h.K.hKS.hh'},
+ vault:{bpm:140,lead:[
+  64,R,64,67,R,64,71,R,69,R,67,R,64,R,62,R, 64,R,64,67,R,64,72,R,71,R,67,R,71,R,R,R,
+  60,R,60,64,R,60,69,R,67,R,64,R,60,R,59,R, 62,R,62,66,R,62,71,R,69,R,66,R,74,R,R,R,
+  76,R,R,76,79,R,76,R,74,R,72,R,71,R,69,R, 72,R,R,72,76,R,72,R,71,R,69,R,67,R,66,R,
+  69,R,R,69,72,R,69,R,67,R,66,R,64,R,63,R, 64,R,67,R,71,R,76,R,75,R,R,R,R,R,R,R],
+  bass:[40,40,36,38,40,40,36,35],chords:[[52,55,59],[52,55,59],[48,52,55],[50,54,57],[52,55,59],[52,55,59],[48,52,55],[47,51,54]],drums:'K.hKS.hhK.hKS.hS'},
+ ending:{bpm:100,lead:[
+  76,R,R,R,79,R,R,R,84,R,R,R,83,R,81,R, 79,R,R,R,77,R,R,R,76,R,R,R,74,R,R,R,
+  72,R,R,R,76,R,R,R,81,R,R,R,79,R,77,R, 76,R,R,R,74,R,R,R,79,R,R,R,R,R,R,R],
+  bass:[48,43,45,41,48,43,41,43],chords:[[60,64,67],[55,59,62],[57,60,64],[53,57,60],[60,64,67],[55,59,62],[53,57,60],[55,59,62]],drums:'K...h.h.S...h.hh'},
  story:{bpm:84,lead:[
   72,R,R,R,71,R,67,R,R,R,64,R,67,R,R,R, 69,R,R,R,67,R,64,R,R,R,60,R,62,R,R,R,
   65,R,R,R,64,R,60,R,R,R,57,R,60,R,R,R, 62,R,R,R,64,R,R,R,59,R,R,R,R,R,R,R],
@@ -572,7 +637,9 @@ const sfx={
  type(){osc('square',1200+Math.random()*200,1200,.015,.025)},
  coin(){osc('square',988,988,.05,.08);osc('square',1319,1319,.12,.08,c&&c.currentTime+.05)},
  err(){osc('square',180,120,.15,.08)},
- timeup(){osc('triangle',440,220,.3,.12)}
+ timeup(){osc('triangle',440,220,.3,.12)},
+ lift(){if(!c)return;const t=c.currentTime;osc('sine',300,1200,.16,.1,t);osc('triangle',1200,500,.14,.07,t+.08)},
+ cam(){osc('square',1500,1500,.03,.04)}
 };
 return{init,unlock,apply,play,stop,sfx,ctx:()=>c,master:()=>m};
 })();
@@ -660,7 +727,7 @@ const T=(th,en)=>LANG==='th'?th:en;
 const tx=o=>o?(LANG==='th'?o.th:o.en):'';
 const SAVEKEY=(window.Y8_CONFIG&&Y8_CONFIG.STORAGE)||'dejavault97';
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
-function defS(){return{v:1,lang:null,set:{mus:true,sfx:true,vib:true},lv:{},coins:0,outfit:'classic',gstyle:'cyan',own:{o:{classic:1},g:{cyan:1}},caps:{},daily:'',intro:false,z1end:false,hints:{},tips:{},stats:{loops:0,clears:0}}}
+function defS(){return{v:1,lang:null,set:{mus:true,sfx:true,vib:true},lv:{},coins:0,outfit:'classic',gstyle:'cyan',own:{o:{classic:1},g:{cyan:1}},caps:{},daily:'',intro:false,z1end:false,seen:{},hints:{},tips:{},stats:{loops:0,clears:0}}}
 let S=defS();
 try{const r=JSON.parse(localStorage.getItem(SAVEKEY)||'null');if(r&&r.v===1)S=Object.assign(defS(),r,{set:Object.assign(defS().set,r.set||{}),own:Object.assign(defS().own,r.own||{})})}catch(e){}
 window.S=S;
@@ -677,9 +744,9 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 /* ---------- zones & level helpers ---------- */
 const ZONES=[
  {id:1,th:'ธนาคารกำมะหยี่',en:'The Velvet Bank',ready:true},
- {id:2,th:'พิพิธภัณฑ์นีออน',en:'Neon Museum',ready:false,teaser:{th:'เลเซอร์ กุญแจ และปุ่มจับเวลา',en:'Lasers, keys and timed switches'}},
- {id:3,th:'หอคาสิโนลัคกี้',en:'Lucky Tower Casino',ready:false,teaser:{th:'ยามลาดตระเวน และกฎพาราด็อกซ์',en:'Patrolling guards and the paradox rule'}},
- {id:4,th:'ห้องนิรภัยเวลา VEXMORE',en:'VEXMORE Time Vault',ready:false,teaser:{th:'ทุกกลไกรวมกัน',en:'Everything at once'}}];
+ {id:2,th:'พิพิธภัณฑ์นีออน',en:'Neon Museum',ready:true,teaser:{th:'เลเซอร์ กุญแจ และปุ่มจับเวลา',en:'Lasers, keys and timed switches'}},
+ {id:3,th:'หอคาสิโนลัคกี้',en:'Lucky Tower Casino',ready:true,teaser:{th:'ยามลาดตระเวน และกฎพาราด็อกซ์',en:'Patrolling guards and the paradox rule'}},
+ {id:4,th:'ห้องนิรภัยเวลา VEXMORE',en:'VEXMORE Time Vault',ready:true,teaser:{th:'ทุกกลไกรวมกัน',en:'Everything at once'}}];
 const lvIndex=id=>LEVELS.findIndex(l=>l.id===id);
 const lvRec=id=>S.lv[id]||null;
 const isDone=id=>{const r=lvRec(id);return !!(r&&(r.st>0||r.skip))};
@@ -718,7 +785,8 @@ function doAct(a){const L=G.L,s=cur();if(s.t>=L.steps)return;const ds=DV.doorSta
   const d1=DV.doorStates(L,n);if(d1.some((v,i)=>v!==ds[i]&&!(n.selves.some(o=>o.x===L.doors[i].x&&o.y===L.doors[i].y))))sfx('door',d1.some((v,i)=>v&&!ds[i]));
   n.taken.forEach((v,j)=>{if(v>=0&&s.taken[j]<0){sfx('loot');vib(25);burst(L.loot[j].x,L.loot[j].y,'#ffd23f',14);floatTxt(L.loot[j].x,L.loot[j].y,'+$')}});
   n.keyTaken.forEach((v,j)=>{if(v>=0&&s.keyTaken[j]<0){sfx('key');burst(L.keys[j].x,L.keys[j].y,'#fff4b0',10)}});
-  n.selves.forEach((o,i)=>{if(i<n.selves.length-1&&o.bump)puff(o.x,o.y)});
+  n.selves.forEach((o,i)=>{if(i<n.selves.length-1&&o.bump&&!L.paradox)puff(o.x,o.y);if(o.tp){burst(o.tp.x,o.tp.y,ART.LIFTC[L.g[o.tp.y][o.tp.x]].col,8);setTimeout(()=>burst(o.x,o.y,ART.LIFTC[L.g[o.tp.y][o.tp.x]].col,10),STEP_MS/2)}});
+  if(n.selves.some(o=>o.tp))sfx('lift');
   if(a==='W')sfx('wait');else{sfx('step');dust(me.x,me.y)}
   updHud();
   if(n.alarm){G.mode='alarm';G.shake=1;G.flash=1;sfx('alarm');vib([60,40,60]);G.fails++;setTimeout(()=>{if(G.mode==='alarm'){G.over='alarm';renderOver()}},650);return}
@@ -757,7 +825,7 @@ const cv=$('cv'),cx=cv.getContext('2d');let VW=0,VH=0,DPR=1,VIEW={s:1,ox:0,oy:0}
 function fitBoard(){const b=$('board');DPR=Math.min(3,window.devicePixelRatio||1);VW=b.clientWidth;VH=b.clientHeight;cv.width=Math.max(1,Math.round(VW*DPR));cv.height=Math.max(1,Math.round(VH*DPR));
   if(!G.L)return;const W=G.L.w*16,H=G.L.h*16+6;let s=Math.min((VW-12)/W,(VH-16)/H);if(s>=3)s=Math.floor(s*2)/2;VIEW={s,ox:Math.round((VW-W*s)/2),oy:Math.round((VH-H*s)/2)+6*s}}
 const lerp=(a,b,t)=>a+(b-a)*t;
-function selfPos(o,p){return{x:lerp(o.lx,o.x,p),y:lerp(o.ly,o.y,p)}}
+function selfPos(o,p){if(o.tp){if(p<.5)return{x:lerp(o.lx,o.tp.x,p*2),y:lerp(o.ly,o.tp.y,p*2)};return{x:o.x,y:o.y}}return{x:lerp(o.lx,o.x,p),y:lerp(o.ly,o.y,p)}}
 const SELF_COL=['#5fd8f0','#ffd23f','#b48cff','#6fe8b4','#ffb04a','#f4f1e6'];
 function drawBoard(now){const L=G.L;if(!L)return;cx.setTransform(1,0,0,1,0,0);cx.fillStyle=(ART.THEME[G.def.z]||ART.THEME[1]).bg;cx.fillRect(0,0,cv.width,cv.height);
   // vignette background pattern
@@ -780,6 +848,9 @@ function drawBoard(now){const L=G.L;if(!L)return;cx.setTransform(1,0,0,1,0,0);cx
   const allLoot=st.taken.every(v=>v>=0);if(L.exit)ART.exitTile(cx,L,allLoot,now);
   L.loot.forEach((l,j)=>{if(st.taken[j]<0)ART.loot(cx,l.x*16,l.y*16,now+j*300)});
   L.keys.forEach((k,j)=>{if(st.keyTaken[j]<0)ART.keyItem(cx,k.x*16,k.y*16,now)});
+  for(const P of L.lifts)for(const pd of P.pads)ART.liftPad(cx,pd,P.ch,now,st.selves.some(o=>o.x===pd.x&&o.y===pd.y));
+  // guard / camera sight cones (on the floor, under everyone)
+  {const dsc=DV.doorStates(L,st);st.guards.forEach(g=>ART.cone(cx,DV.sight(L,st,g,dsc),now,st.alarm&&st.alarm.guard===st.guards.indexOf(g)))}
   // door animation bookkeeping
   const ds=DV.doorStates(L,st);if(!G.doorPrev||G.doorPrev.length!==ds.length){G.doorPrev=ds.slice();G.doorAnim=ds.map(()=>0)}
   ds.forEach((v,i)=>{if(v!==G.doorPrev[i]){G.doorPrev[i]=v;G.doorAnim[i]=now}});
@@ -788,11 +859,15 @@ function drawBoard(now){const L=G.L;if(!L)return;cx.setTransform(1,0,0,1,0,0);cx
   const ps=prev||null;const nS=st.selves.length;
   st.selves.forEach((o,i)=>{let pos;if(ps&&ps.selves[i]){const a=ps.selves[i];pos={x:lerp(o.x,a.x,1-p),y:lerp(o.y,a.y,1-p)}}else pos=selfPos(o,p);
     const isP=i===nS-1&&!G.hint;const moving=(pos.x!==o.x||pos.y!==o.y);ents.push({y:Math.ceil(pos.y-0.001),z:isP?2:1,draw:()=>drawSelf(o,i,pos,isP,moving,now,nS)})});
-  st.guards.forEach((g,gi)=>ents.push({y:g.y,z:1,draw:()=>{cx.drawImage(ART.guardSpr(g.d,0),g.x*16,g.y*16-5)}}));
+  st.guards.forEach((g,gi)=>{const Gd=L.guards[gi];let gx=g.x,gy=g.y,mv=false;if(!Gd.cam&&ps&&ps.guards&&ps.guards[gi]){const a=ps.guards[gi];gx=lerp(g.x,a.x,1-p);gy=lerp(g.y,a.y,1-p)}
+    else if(!Gd.cam&&g.lx!=null){gx=lerp(g.lx,g.x,p);gy=lerp(g.ly,g.y,p)}
+    mv=gx!==g.x||gy!==g.y;
+    ents.push({y:Math.ceil(gy-0.001),z:1,draw:()=>{if(Gd.cam)ART.camera(cx,g,now);else{cx.fillStyle='rgba(0,0,0,.3)';cx.fillRect(Math.round(gx*16)+4,Math.round(gy*16)+12,8,2);cx.drawImage(ART.guardSpr(g.d,mv?Math.floor(now/90)%2:0),Math.round(gx*16),Math.round(gy*16-5))}}})});
   for(let j=0;j<=L.h;j++){cx.drawImage(G.layer.walls,0,j*16,L.w*16,16,0,j*16-6,L.w*16,16);
     ents.filter(e=>e.y===j).sort((a,b)=>a.z-b.z).forEach(e=>e.draw())}
   // beams & sight
-  const ds2=DV.doorStates(L,st);for(const b of DV.beams(L,st,ds2)){cx.fillStyle='rgba(255,90,140,.85)';for(const c of b.cells)cx.fillRect(c[0]*16+(b.l.d==='U'||b.l.d==='D'?7:0),c[1]*16+(b.l.d==='L'||b.l.d==='R'?7:0),b.l.d==='U'||b.l.d==='D'?2:16,b.l.d==='L'||b.l.d==='R'?2:16)}
+  const ds2=DV.doorStates(L,st);for(const b of DV.beams(L,st,ds2))ART.beam(cx,b.cells,b.l.d,now);
+  for(const l of L.lasers)ART.emitter(cx,l,DV.laserActive(L,st,l),now);
   // particles
   G.parts=G.parts.filter(q=>q.life>0);for(const q of G.parts){q.x+=q.vx;q.y+=q.vy;q.vy+=q.txt?0:.05;q.life-=q.dec;cx.globalAlpha=Math.max(0,Math.min(1,q.life*1.5));
     if(q.txt)ART.text(cx,q.txt,Math.round(q.x),Math.round(q.y),q.col,1,'c');else{cx.fillStyle=q.col;cx.fillRect(q.x,q.y,q.sz,q.sz)}}cx.globalAlpha=1;
@@ -822,15 +897,17 @@ function rewindFx(now){const k=(now-G.rw.t0)/G.rw.dur;cx.fillStyle='rgba(20,26,6
 /* ---------- overlays (re-render on language change) ---------- */
 function renderOver(){const o=$('over');if(!G.over){o.classList.remove('on');o.innerHTML='';return}
   let h='';const s=cur();
-  if(G.over==='alarm'){const t=s.alarm&&s.alarm.type;const why=t==='laser'?T('โดนเลเซอร์!','Laser tripped!'):t==='paradox'?T('พาราด็อกซ์! ยามเห็นคุณสองคนพร้อมกัน','PARADOX! A guard saw two of you at once'):T('ยามเห็นคุณ!','A guard spotted you!');
+  if(G.over==='alarm'){const t=s.alarm&&s.alarm.type;const al=s.alarm||{};const who=al.who!=null&&al.who<s.selves.length-1?T(' (ร่างโคลน #'+(al.who+1)+')',' (ghost #'+(al.who+1)+')'):'';
+    const why=t==='laser'?T('โดนเลเซอร์!','Laser tripped!')+who:t==='paradox'?T('พาราด็อกซ์! ร่างโคลน #'+(al.who+1)+' ทำซ้ำก้าวที่บันทึกไว้ไม่ได้ เพราะคุณเปลี่ยนอดีต','PARADOX! Ghost #'+(al.who+1)+' could not repeat its recorded move because you changed the past'):t==='cam'?T('กล้องวงจรปิดจับภาพได้!','A camera caught you!')+who:T('ยามเห็นคุณ!','A guard spotted you!')+who;
     h='<div class="panel"><h2>'+T('สัญญาณเตือนภัย!','ALARM!')+'</h2><p>'+why+'</p><div class="btns"><button class="btn" data-o="undo">'+T('ย้อน 1 ก้าว','Undo step')+'</button><button class="btn ghost" data-o="restart">'+T('เริ่มลูปใหม่','Restart loop')+'</button></div></div>'}
   else if(G.over==='time'){h='<div class="panel"><h2>'+T('หมดเวลา!','OUT OF TIME!')+'</h2><p>'+T('ร่างโคลนหมดแล้ว ลองย้อนแก้ หรือเริ่มด่านใหม่','No clones left. Undo a few moves, or reset the level.')+'</p><div class="btns"><button class="btn" data-o="undo">'+T('ย้อน 1 ก้าว','Undo step')+'</button><button class="btn ghost" data-o="reset">'+T('เริ่มด่านใหม่','Reset level')+'</button></div></div>'}
   o.innerHTML=h;o.classList.add('on');
   o.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{sfx('ui');const k=b.dataset.o;if(k==='undo')undo();else if(k==='restart')restartLoop();else resetLevel()})}
 /* ---------- screens ---------- */
 let SCR='title';
+const ZSONG={1:'heist',2:'museum',3:'casino',4:'vault'};
 function show(id){SCR=id;document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('on',e.id==='scr-'+id));G.on=id==='game';
-  if(id==='game'){AU.play('heist');requestAnimationFrame(fitBoard)}else if(id==='title'||id==='map')AU.play('title');if(id==='map')renderMap();if(id==='title')renderTitle()}
+  if(id==='game'){AU.play(ZSONG[G.def&&G.def.z]||'heist');requestAnimationFrame(fitBoard)}else if(id==='title'||id==='map')AU.play('title');if(id==='map')renderMap();if(id==='title')renderTitle()}
 /* ---------- modal system: builders re-run on language change ---------- */
 let MOD=null;
 function openModal(build){MOD=build;renderModal();$('modal').classList.add('on')}
@@ -857,23 +934,38 @@ function openPause(){if(!G.on||G.rp)return;if(G.hint)stopHint();
     on(k){if(k==='resume')closeModal();else if(k==='map'){closeModal();show('map')}else if(k==='restart'){closeModal();restartLoop()}else if(k==='reset'){closeModal();resetLevel()}
       else if(k==='set')openSettings(openPause);else if(k==='help')openHelp(openPause);
       else if(k==='skip'){const lv=G.def;adOffer({cap:'skip',title:()=>T('ข้ามด่านนี้?','Skip this level?'),reward:()=>T('ปลดล็อกด่านถัดไปทันที (ไม่ได้ดาว)','Unlock the next level now (no stars)'),onNo:openPause,onOk:()=>{S.lv[lv.id]=Object.assign({st:0},S.lv[lv.id]||{},{skip:true});save();toast(T('ข้ามด่านแล้ว','Level skipped'));nextLevel(true)}})}}})}
-function openHelp(back){openModal({html(){return '<h2>'+T('วิธีเล่น','How to play')+'</h2><p style="text-align:left">'+T('• หยิบ <b>ถุงเงินทุกใบ</b> แล้วไปที่ <b>ทางออก</b><br>• กด <b>วนลูป</b> เพื่อย้อนเวลา ตัวคุณในลูปก่อนจะกลายเป็นร่างโคลนที่ทำซ้ำทุกการกระทำ<br>• ยืนบน <b>แผ่นกด</b> เพื่อเปิดประตูสีเดียวกัน (ประตูลายทางจะปิดแทน)<br>• <b>รอ</b> 1 จังหวะได้ด้วยปุ่มกลาง<br>• ย้อนพลาดได้เสมอด้วย <b>ย้อน</b>','• Grab <b>every bag</b> and reach the <b>exit</b><br>• Press <b>LOOP</b> to rewind time. Your past self becomes a ghost that repeats every move<br>• Stand on a <b>plate</b> to open the matching door (striped doors close instead)<br>• <b>Wait</b> one beat with the middle button<br>• Mistakes are fine: <b>Undo</b> any time')+'</p><div class="btns one">'+B('ok',T('เข้าใจแล้ว','Got it'))+'</div>'},on(){back?back():closeModal()}})}
+function openHelp(back){openModal({html(){const sec=(z,th,en)=>'<div class="hsec"><b class="hz">'+T('โซน ','ZONE ')+z+'</b>'+T(th,en)+'</div>';
+  return '<h2>'+T('วิธีเล่น','How to play')+'</h2><div class="help">'+
+  sec(1,'• หยิบ <b>ถุงเงินทุกใบ</b> แล้วไปที่ <b>ทางออก</b><br>• กด <b>วนลูป</b> เพื่อย้อนเวลา ตัวคุณในลูปก่อนจะกลายเป็นร่างโคลนที่ทำซ้ำทุกการกระทำ<br>• ยืนบน <b>แผ่นกด</b> เพื่อเปิดประตูสีเดียวกัน (ประตูลายทางจะปิดแทน)<br>• <b>รอ</b> 1 จังหวะได้ด้วยปุ่มกลาง และย้อนพลาดได้เสมอด้วย <b>ย้อน</b>',
+     '• Grab <b>every bag</b> and reach the <b>exit</b><br>• Press <b>LOOP</b> to rewind time. Your past self becomes a ghost that repeats every move<br>• Stand on a <b>plate</b> to open the matching door (striped doors close instead)<br>• <b>Wait</b> one beat with the middle button. Mistakes are fine: <b>Undo</b> any time')+
+  sec(2,'• <b>กุญแจ</b> เปิดประตูกุญแจได้ถาวร ใครเก็บก็ได้ แม้แต่ร่างโคลน<br>• <b>ปุ่มจับเวลา</b> เปิดประตูต่อไปอีกไม่กี่ก้าวหลังก้าวออก (ดูตัวเลขบนประตู)<br>• <b>เลเซอร์</b> ห้ามเดินผ่าน บางเส้นดับเมื่อมีคนยืนบนแผ่นกด บางเส้นกะพริบตามจังหวะ และประตูที่ปิดอยู่จะบังลำแสงได้',
+     '• A <b>key</b> opens its key door for good. Anyone can grab it, even a ghost<br>• A <b>timed button</b> keeps its doors open for a few steps after you step off (see the number on the door)<br>• Never cross a <b>laser</b>. Some switch off while a plate is held, some blink on a rhythm, and a closed door blocks the beam')+
+  sec(3,'• <b>ยาม</b> เดินตามเส้นทาง และมองเห็นเป็นกรวยกว้าง 3 ช่อง (สีเหลือง) กำแพงและประตูที่ปิดบังสายตาได้<br>• <b>กล้อง</b> หมุนอยู่กับที่ ถ้าใครถูกเห็น สัญญาณเตือนดังทันที<br>• <b>ลิฟต์</b> พาคุณไปยังแท่นสีเดียวกันทันที<br>• <b>พาราด็อกซ์:</b> ถ้าคุณเปลี่ยนอดีตจนร่างโคลนทำซ้ำก้าวเดิมไม่ได้ สัญญาณเตือนจะดัง',
+     '• <b>Guards</b> walk a route and see a 3-wide cone (yellow). Walls and closed doors block their view<br>• <b>Cameras</b> spin in place. If anyone is seen, the alarm goes off<br>• A <b>lift</b> sends you instantly to the pad of the same colour<br>• <b>Paradox:</b> if your changes stop a ghost from repeating a recorded move, the alarm goes off')+
+  sec(4,'• ห้องนิรภัยเวลา VEXMORE ใช้ทุกกลไกพร้อมกัน วางแผนให้ดีก่อนวนลูป','• The VEXMORE Time Vault uses every mechanic at once. Plan before you loop')+
+  '</div><div class="btns one">'+B('ok',T('เข้าใจแล้ว','Got it'))+'</div>'},on(){back?back():closeModal()}})}
 function openSettings(back){openModal({html(){const tg=(k,l)=>'<label data-m="t_'+k+'">'+l+'<span class="tog '+(S.set[k]?'on':'')+'"></span></label>';
     return '<h2>'+T('ตั้งค่า','Settings')+'</h2><div class="set"><label>'+T('ภาษา','Language')+'<span class="lang"><button data-m="l_th" class="'+(LANG==='th'?'on':'')+'">ไทย</button><button data-m="l_en" class="'+(LANG==='en'?'on':'')+'">EN</button></span></label>'+tg('mus',T('เพลง','Music'))+tg('sfx',T('เสียงเอฟเฟกต์','Sound effects'))+tg('vib',T('สั่น','Vibration'))+'</div><div class="btns one">'+B('ok',T('เสร็จ','Done'))+'</div><div class="note">DEJAVAULT \'97 · '+BRAND.en+' · '+BRAND.th+'</div>'},
   on(k){if(k.startsWith('t_')){const n=k.slice(2);S.set[n]=!S.set[n];save();AU.apply();renderModal()}else if(k.startsWith('l_'))setLang(k.slice(2));else back?back():closeModal()}})}
 /* ---------- level clear ---------- */
 function showClear(){const r=G.result,d=G.def;sfx('star',0);
-  openModal({html(){const par=d.par;const last=G.idx>=LEVELS.length-1;
+  openModal({html(){const par=d.par;const last=zoneEnd(G.idx);
       let h='<h2>'+T('ปล้นสำเร็จ!','HEIST COMPLETE!')+'</h2>'+starsHtml(r.st)+'<div class="res"><div>'+T('จำนวนลูป','Loops')+'<b>'+r.loops+'</b></div><div>'+T('ก้าวลูปสุดท้าย','Final-loop steps')+'<b>'+r.steps+'</b></div></div>';
       h+='<div class="goal">★ '+T('ผ่านด่าน','Clear the level')+'<br><span class="'+(r.loops<=par.loops?'ok':'')+'">★ '+T('ใช้ไม่เกิน '+par.loops+' ลูป','Use '+par.loops+' loop'+(par.loops>1?'s':'')+' or fewer')+'</span><br><span class="'+(r.steps<=par.steps?'ok':'')+'">★ '+T('ลูปสุดท้ายไม่เกิน '+par.steps+' ก้าว','Final loop in '+par.steps+' steps or fewer')+'</span></div>';
       h+='<p>'+(r.earn?T('ได้รับ ','Earned ')+'<b>+'+r.earn+'</b> '+T('เหรียญ','coins')+(r.dbl?' (x2)':''):T('ทำดาวเพิ่มเพื่อรับเหรียญ','Earn new stars to get coins'))+'</p>';
       if(r.earn&&!r.dbl&&Ads.available()&&capOK('dbl'))h+='<div class="btns one" style="margin-bottom:10px">'+B('dbl',T('▶ ดูโฆษณา รับเหรียญ x2','▶ Watch ad: double coins'),'ghost')+'</div>';
-      h+='<div class="btns">'+B('replay',T('เล่นอีกครั้ง','Replay'),'ghost')+B('next',last?T('จบโซน 1','Finish zone 1'):T('ด่านต่อไป ▶','Next ▶'))+'</div>';return h},
+      h+='<div class="btns">'+B('replay',T('เล่นอีกครั้ง','Replay'),'ghost')+B('next',last?T('จบโซน '+d.z,'Finish zone '+d.z):T('ด่านต่อไป ▶','Next ▶'))+'</div>';return h},
     after:paintStars,
     on(k){if(k==='replay'){closeModal();loadLevel(G.idx)}else if(k==='next'){closeModal();nextLevel(false)}
       else if(k==='dbl'){adOffer({cap:'dbl',title:()=>T('เหรียญสองเท่า','Double coins'),reward:()=>'+'+r.earn+' '+T('เหรียญ','coins'),onNo:showClear,onOk:()=>{setCoins(S.coins+r.earn);r.dbl=true;sfx('coin');toast('+'+r.earn);showClear()}})}}})
   setTimeout(()=>{for(let i=0;i<r.st;i++)setTimeout(()=>sfx('star',i),i*180)},150)}
-function nextLevel(skipped){const go=()=>{if(G.idx>=LEVELS.length-1){if(!S.z1end){S.z1end=true;save();playCut('z1end',()=>show('map'))}else show('map');return}loadLevel(G.idx+1)};
+function zoneEnd(i){return i>=LEVELS.length-1||LEVELS[i+1].z!==LEVELS[i].z}
+function cutSeen(k){return !!((S.seen&&S.seen[k])||(k==='z1end'&&S.z1end))}
+function markCut(k){S.seen=S.seen||{};S.seen[k]=1;if(k==='z1end')S.z1end=true;save()}
+function nextLevel(skipped){const go=()=>{const i=G.idx,z=LEVELS[i].z,fin=i>=LEVELS.length-1;
+    const cont=()=>{if(fin){show('map');return}loadLevel(i+1);show('game')};
+    if(!zoneEnd(i)){loadLevel(i+1);return}
+    const k=fin&&z>=4?'ending':'z'+z+'end';if(CUTS[k]&&!cutSeen(k)){markCut(k);playCut(k,cont)}else cont()};
   if(!skipped&&sessionClears>=2&&Ads.canInter())Ads.interstitial('next_level',go);else go()}
 /* ---------- hint (solution replay) ---------- */
 function openHint(){if(!G.on||G.rw||G.rp||G.mode==='won')return;const id=G.def.id;
@@ -886,20 +978,29 @@ function startHint(){const d=G.def;const st=DV.run(G.L,d.sol.slice(0,-1),d.sol[d
 function stopHint(){G.hint=null;$('hintBar').classList.remove('on')}
 /* ---------- level map ---------- */
 function zoneArt(c,z,now){const W=c.width,H=c.height,x=c.getContext('2d');const th=ART.THEME[z]||ART.THEME[1];x.fillStyle=th.bg;x.fillRect(0,0,W,H);
-  for(let j=0;j<H/16+1;j++)for(let i=0;i<W/16+1;i++){x.fillStyle=(i+j)%2?th.floorA:th.floorB;x.fillRect(i*16,j*16+20,16,16)}
+  for(let j=0;j<H/16+1;j++)for(let i=0;i<W/16+1;i++)ART.floorTile(x,th,i*16,j*16+20,i,j,z);
   x.fillStyle=th.wallTop;x.fillRect(0,0,W,22);x.fillStyle=th.wallFace;x.fillRect(0,22,W,8);x.fillStyle=th.trim;x.fillRect(0,22,W,1);
   for(let i=0;i<W;i+=40){x.fillStyle=th.trim;x.fillRect(i+18,6,4,10);x.fillStyle=th.wallTop2;x.fillRect(i+8,4,24,1)}
   if(z===1){for(let i=0;i<5;i++)ART.loot(x,W-30-i*20,H-24,i*500)}
-  if(z>1){x.fillStyle='rgba(5,6,18,.55)';x.fillRect(0,0,W,H)}
+  else if(z===2){for(let i=0;i<3;i++){x.fillStyle=th.trim;x.fillRect(150+i*52,5,30,14);x.fillStyle=['#5fd8f0','#ffd23f','#d8a8ff'][i];x.fillRect(152+i*52,7,26,10)}
+    x.fillStyle='rgba(255,90,140,.85)';x.fillRect(150,58,W-150,2);x.fillRect(196,40,W-196,2);ART.keyItem(x,W-36,H-30,0)}
+  else if(z===3){ART.camera(x,{x:W/16-2,y:2,d:'L'},0);ART.cone(x,[[W/16-3,2],[W/16-4,2],[W/16-4,1],[W/16-4,3],[W/16-5,1],[W/16-5,2],[W/16-5,3]],0,false);
+    for(let i=0;i<4;i++){x.fillStyle='#0d1024';x.beginPath();x.arc(166+i*14,H-18,6,0,7);x.fill();x.fillStyle=i%2?'#ffd23f':'#f4f1e6';x.beginPath();x.arc(166+i*14,H-18,5,0,7);x.fill();x.fillStyle='#2c3a7a';x.fillRect(164+i*14,H-20,4,4)}
+    x.drawImage(ART.guardSpr('L',0),W-56,H-40)}
+  else if(z===4){const vx=W-50,vy=H/2+12;x.fillStyle='#0d1024';x.beginPath();x.arc(vx,vy,30,0,7);x.fill();x.fillStyle='#7a86a8';x.beginPath();x.arc(vx,vy,27,0,7);x.fill();x.fillStyle='#4a5478';x.beginPath();x.arc(vx,vy,19,0,7);x.fill();
+    x.strokeStyle='#ffd23f';x.lineWidth=3;for(let i=0;i<3;i++){const b=i*2.094+.4;x.beginPath();x.moveTo(vx,vy);x.lineTo(vx+Math.cos(b)*15,vy+Math.sin(b)*15);x.stroke()}x.fillStyle='#ffd23f';x.fillRect(vx-3,vy-3,6,6)}
+  const fi=LEVELS.findIndex(l=>l.z===z);if(fi<0||!unlocked(fi)){x.fillStyle='rgba(5,6,18,.6)';x.fillRect(0,0,W,H)}
   x.fillStyle='rgba(5,6,18,.0)';const g=x.createLinearGradient(0,H*0.3,0,H);g.addColorStop(0,'rgba(5,6,18,0)');g.addColorStop(1,'rgba(5,6,18,.85)');x.fillStyle=g;x.fillRect(0,0,W,H)}
 function renderMap(){$('mapTtl').textContent=T('เลือกด่าน','LEVELS');const today_=today();
   $('bDaily').style.display=S.daily===today_?'none':'';$('bDaily').textContent=T('★ รางวัลรายวัน','★ Daily');
   let h='';for(const z of ZONES){const lv=LEVELS.filter(l=>l.z===z.id);const got=lv.reduce((a,l)=>a+((lvRec(l.id)||{}).st||0),0);
     h+='<div class="zone"><div class="zhead"><canvas width="320" height="96" data-z="'+z.id+'"></canvas><div class="zt"><div class="zn">'+T('โซน ','ZONE ')+z.id+'</div><div class="zname">'+esc(tx(z))+'</div>'+(z.ready?'<div class="zprog">★ '+got+' / '+lv.length*3+'</div>':'')+'</div></div>';
-    if(z.ready){h+='<div class="lvgrid">';lv.forEach(l=>{const i=lvIndex(l.id);const r=lvRec(l.id);const un=unlocked(i);const nxt=un&&!isDone(l.id);
+    const zf=LEVELS.findIndex(l=>l.z===z.id);const zl=zf<0||!unlocked(zf);
+    if(z.ready&&lv.length&&zl)h+='<div class="soon zlock">'+T('ผ่านโซน '+(z.id-1)+' เพื่อปลดล็อก','Finish zone '+(z.id-1)+' to unlock')+'<br>'+esc(tx(z.teaser))+'</div>';
+    else if(z.ready&&lv.length){h+='<div class="lvgrid">';lv.forEach(l=>{const i=lvIndex(l.id);const r=lvRec(l.id);const un=unlocked(i);const nxt=un&&!isDone(l.id);
         let st='';for(let k=0;k<3;k++)st+=k<(r&&r.st||0)?'★':'<i>★</i>';
         h+='<button class="lv '+(un?(nxt?'cur':'done'):'lock')+'" data-i="'+i+'" '+(un?'':'disabled')+' aria-label="'+l.id+'"><span class="n">'+(un?l.n0||(l.id.split('-')[1]):'—')+'</span><span class="st">'+(un?(r&&r.skip&&!r.st?T('ข้าม','SKIP'):st):'&nbsp;')+'</span></button>'});h+='</div>'}
-    else h+='<div class="soon"><b>'+T('เร็วๆ นี้','COMING SOON')+'</b><br>'+esc(tx(z.teaser))+'</div>';h+='</div>'}
+    else h+='<div class="soon">'+esc(tx(z.teaser))+'</div>';h+='</div>'}
   h+='<div class="soon" style="max-width:760px;margin:0 auto">'+T('ดาวรวม ','Total stars ')+totalStars()+' · '+BRAND.en+'</div>';
   $('mapScroll').innerHTML=h;$('mapScroll').querySelectorAll('canvas[data-z]').forEach(c=>zoneArt(c,+c.dataset.z,0));
   $('mapScroll').querySelectorAll('.lv[data-i]').forEach(b=>b.onclick=()=>{sfx('ui');AU.unlock();loadLevel(+b.dataset.i);show('game')});setCoins(S.coins)}
@@ -922,15 +1023,28 @@ const CUTS={
  intro:[
   {s:'soi',th:'กรุงเทพฯ ปี 1997 ร้านตู้เกมเล็กๆ ในซอย 9 ที่คุณปู่ชัยทิ้งไว้ให้... กำลังจะถูกยึด',en:'Bangkok, 1997. The tiny arcade on Soi 9 that Grandpa Chai left behind... is about to be seized.'},
   {s:'watch',th:'มะลิ อายุ 17 รื้อตู้เกมเครื่องสุดท้ายของปู่ แล้วเจอนาฬิกาข้อมือแปลกๆ สลักว่า LOOP-97',en:'Mali, 17, takes apart Grandpa\'s last cabinet and finds a strange wristwatch engraved LOOP-97.'},
-  {s:'echo',th:'กดปุ่มเดียว เวลาย้อนกลับ 10 วินาที แต่ตัวเธอจากเมื่อครู่ยังอยู่ และทำซ้ำทุกการกระทำเหมือนเงาสะท้อน',en:'One press rewinds time ten seconds. But the girl she was a moment ago stays behind, repeating every move like an echo.'},
+  {s:'echo',th:'กดปุ่มเดียว เวลาย้อนกลับไปจุดเริ่มต้น แต่ตัวเธอจากเมื่อครู่ยังอยู่ และทำซ้ำทุกการกระทำเหมือนเงาสะท้อน',en:'One press rewinds time to the start of the heist. But the girl she was a moment ago stays behind, repeating every move like an echo.'},
   {s:'vex',th:'บริษัท VEXMORE ขโมยสิทธิบัตรของปู่ แล้วขังแบบพิมพ์เขียวไว้ในห้องนิรภัยทั่วเมือง',en:'VEXMORE Corp. stole Grandpa\'s patents and locked his blueprints in vaults across the city.'},
-  {s:'plan',th:'สิบวินาที ห้าเงาสะท้อน หนึ่งการปล้นที่สมบูรณ์แบบ',en:'Ten seconds. Five echoes. One perfect heist.'}],
+  {s:'plan',th:'ไม่กี่วินาที ห้าเงาสะท้อน หนึ่งการปล้นที่สมบูรณ์แบบ',en:'A few seconds. Five echoes. One perfect heist.'}],
  z1end:[
   {s:'escape',th:'แบบพิมพ์เขียวชิ้นแรกกลับมาแล้ว! แต่ในห้องนิรภัยมีบันทึกเขียนไว้ว่า...',en:'The first blueprint is back! But a note left in the vault says...'},
-  {s:'museum',th:'...ชิ้นที่เหลือถูกย้ายไปพิพิธภัณฑ์นีออนแล้ว  โซน 2 เร็วๆ นี้',en:'...the rest were moved to the Neon Museum.  Zone 2 is coming soon.'}]};
+  {s:'museum',th:'...ชิ้นที่เหลือถูกย้ายไปพิพิธภัณฑ์นีออนแล้ว คืนนี้มะลิจะไปเอาคืน',en:'...the rest were moved to the Neon Museum. Tonight, Mali takes them back.'}],
+ z2end:[
+  {s:'museumOut',th:'เลเซอร์ดับ ประตูปิดตามหลัง พิมพ์เขียวชิ้นที่สองอยู่ในกระเป๋าแล้ว',en:'Lasers down, doors sealed behind her. The second blueprint is in the bag.'},
+  {s:'casino',th:'แต่ VEXMORE ไหวตัวทัน ชิ้นที่สามถูกขังไว้บนยอดหอคาสิโนลัคกี้ ที่มียามและกล้องทุกชั้น',en:'But VEXMORE is onto her. The third is locked atop the Lucky Tower Casino, with guards and cameras on every floor.'},
+  {s:'glitch',th:'แล้วนาฬิกา LOOP-97 ก็เริ่มกะพริบ ถ้ามะลิเปลี่ยนอดีตจนร่างโคลนทำซ้ำไม่ได้ เวลาจะแตก... พาราด็อกซ์',en:'Then LOOP-97 starts to flicker. If Mali changes the past so a ghost can\'t repeat itself, time cracks... PARADOX.'}],
+ z3end:[
+  {s:'towerOut',th:'ลิฟต์พุ่งลงสู่ถนน ยามยังงงอยู่เลยว่ามะลิมีกี่คนกันแน่',en:'The lift drops her to the street. The guards still can\'t work out how many Malis there were.'},
+  {s:'vaultDoor',th:'ชิ้นสุดท้ายอยู่ใต้แม่น้ำ ในห้องนิรภัยเวลาของ VEXMORE ที่ที่นาฬิกาเรือนนี้ถูกสร้างขึ้น',en:'The last piece lies under the river, in VEXMORE\'s Time Vault, where the watch itself was built.'}],
+ ending:[
+  {s:'vaultOpen',th:'ประตูห้องนิรภัยเวลาเปิดออก แบบพิมพ์เขียวทุกแผ่นของปู่ชัยอยู่ตรงหน้า',en:'The Time Vault swings open. Every one of Grandpa Chai\'s blueprints is right there.'},
+  {s:'news',th:'เช้าวันรุ่งขึ้น ข่าวหน้าหนึ่ง: VEXMORE ถูกสอบสวน สิทธิบัตรกลับคืนสู่เจ้าของ',en:'Next morning, the front page: VEXMORE under investigation. The patents go back to their owner.'},
+  {s:'farewell',th:'ร่างโคลนทั้งห้าโบกมือลา แล้วจางหายไปกับแสงยามเช้า',en:'Her five echoes wave goodbye and fade into the morning light.'},
+  {s:'arcadeSaved',th:'ร้านตู้เกมในซอย 9 เปิดไฟอีกครั้ง พร้อมตู้ใหม่ที่มะลิสร้างเอง: DEJAVAULT \'97',en:'The arcade on Soi 9 lights up again, with a new cabinet Mali built herself: DEJAVAULT \'97.'},
+  {s:'credits',th:'ขอบคุณที่เล่น!  สร้างโดย Kairon Arcade · ห้องเกม ไครอน',en:'Thanks for playing!  Made by Kairon Arcade · ห้องเกม ไครอน'}]};
 const cutX=$('cutCv').getContext('2d');let CUT=null;
-function playCut(name,done){CUT={list:CUTS[name],i:0,t0:performance.now(),chars:0,done,lastType:0};$('cut').classList.add('on');AU.play('story');relabelCut()}
-function relabelCut(){if(!CUT)return;$('bCutSkip').textContent=T('ข้าม','Skip');$('bCutNext').textContent=CUT.i>=CUT.list.length-1?T('เริ่มเลย ▶','Start ▶'):T('ต่อไป ▶','Next ▶')}
+function playCut(name,done){const list=name==='story'?['intro','z1end','z2end','z3end','ending'].filter(k=>k==='intro'||cutSeen(k)).reduce((a,k)=>a.concat(CUTS[k]),[]):CUTS[name];CUT={name,list,i:0,t0:performance.now(),chars:0,done,lastType:0};$('cut').classList.add('on');AU.play('story');relabelCut()}
+function relabelCut(){if(!CUT)return;$('bCutSkip').textContent=T('ข้าม','Skip');$('bCutNext').textContent=CUT.i>=CUT.list.length-1?(CUT.name==='intro'?T('เริ่มเลย ▶','Start ▶'):CUT.name==='ending'||CUT.name==='story'?T('จบ','The end'):T('ไปต่อ ▶','Continue ▶')):T('ต่อไป ▶','Next ▶')}
 function cutNext(){if(!CUT)return;const full=tx(CUT.list[CUT.i]);if(CUT.chars<full.length){CUT.chars=full.length;return}
   if(CUT.i<CUT.list.length-1){CUT.i++;CUT.t0=performance.now();CUT.chars=0;relabelCut();sfx('ui')}else endCut()}
 function endCut(){if(!CUT)return;const d=CUT.done;CUT=null;$('cut').classList.remove('on');d&&d()}
@@ -966,14 +1080,57 @@ const SCENES={
  plan(x,t){sky(x,'#0b0e22','#1d2748');const cxp=96,cyp=54;x.fillStyle='#0d1024';x.beginPath();x.arc(cxp,cyp,40,0,7);x.fill();x.fillStyle='#3a4268';x.beginPath();x.arc(cxp,cyp,36,0,7);x.fill();
   x.fillStyle='#ffd23f';x.beginPath();x.arc(cxp,cyp,30,0,7);x.fill();x.fillStyle='#2c3a7a';x.beginPath();x.arc(cxp,cyp,27,0,7);x.fill();
   const a=t/700;x.strokeStyle='#ffd23f';x.lineWidth=3;for(let i=0;i<3;i++){const b=a+i*2.094;x.beginPath();x.moveTo(cxp,cyp);x.lineTo(cxp+Math.cos(b)*20,cyp+Math.sin(b)*20);x.stroke()}
-  x.fillStyle='#ffd23f';x.fillRect(cxp-3,cyp-3,6,6);ART.text(x,'10s',28,46,'#ffd23f',2,'c');ART.text(x,'x5',164,46,'#ffd23f',2,'c')},
+  x.fillStyle='#ffd23f';x.fillRect(cxp-3,cyp-3,6,6);ART.text(x,'<<',28,46,'#ffd23f',2,'c');ART.text(x,'x5',164,46,'#ffd23f',2,'c')},
  escape(x,t){sky(x,'#0b0e22','#1d2748');x.fillStyle='#2c3a7a';x.fillRect(0,20,192,50);x.fillStyle='#e8b83a';x.fillRect(0,68,192,2);ART.text(x,'VELVET BANK',96,30,'#e8b83a',1,'c');
   for(let i=0;i<5;i++){x.fillStyle='#3a4a92';x.fillRect(20+i*36,40,10,28)}x.fillStyle='#1d2748';x.fillRect(0,70,192,38);
   const k=(t/30)%240-40;bigSpr(x,ART.hero(S.outfit,'R',Math.floor(t/120)%2),k,62,2);ART.loot(x,k+24,70,t);
   const bl=Math.floor(t/250)%2;x.fillStyle=bl?'#5fd8f0':'#2a8fb8';x.fillRect(150,18,8,4);x.fillRect(34,18,8,4)},
  museum(x,t){sky(x,'#05060f','#22264a');x.fillStyle='#22264a';x.fillRect(30,40,132,68);x.fillStyle='#3a3f6a';x.beginPath();x.moveTo(24,42);x.lineTo(96,14);x.lineTo(168,42);x.fill();
   for(let i=0;i<6;i++){x.fillStyle='#4a5080';x.fillRect(40+i*21,48,8,50)}const on=Math.floor(t/300)%4!==0;x.fillStyle=on?'#7fd8ff':'#2a5070';x.fillRect(56,30,80,9);ART.text(x,'NEON MUSEUM',96,32,'#0b0e22',1,'c');
-  x.fillStyle='rgba(127,216,255,.18)';x.fillRect(30,98,132,10);if(Math.floor(t/500)%2)ART.text(x,'ZONE 2 - SOON',96,100,'#ffd23f',1,'c')}};
+  x.fillStyle='rgba(127,216,255,.18)';x.fillRect(30,98,132,10);if(Math.floor(t/500)%2)ART.text(x,'ZONE 2',96,100,'#ffd23f',1,'c')},
+ museumOut(x,t){sky(x,'#05060f','#22264a');x.fillStyle='#22264a';x.fillRect(0,26,192,62);x.fillStyle='#3a3f6a';for(let i=0;i<4;i++){x.fillRect(14+i*48,34,26,20);x.fillStyle=['#5fd8f0','#d8a8ff','#ffd23f','#6fe8b4'][i];x.globalAlpha=.6;x.fillRect(17+i*48,37,20,14);x.globalAlpha=1;x.fillStyle='#3a3f6a'}
+  const off=t>900;for(let i=0;i<3;i++){if(!off||Math.floor(t/60)%7===0){x.fillStyle='rgba(255,90,140,.8)';x.fillRect(0,62+i*8,192,1)}}
+  x.fillStyle='#141a3e';x.fillRect(0,88,192,20);const k=Math.min(1,t/2400);bigSpr(x,ART.hero(S.outfit,'R',Math.floor(t/120)%2),20+k*120,58,2);ART.loot(x,44+k*120,66,t);
+  x.fillStyle='#4a5080';x.fillRect(176,40,10,48);x.fillStyle='#ffd23f';x.fillRect(178,60,2,4)},
+ casino(x,t){sky(x,'#05060f','#1d2748');for(let i=0;i<40;i++){x.fillStyle='rgba(244,241,230,'+(0.2+0.5*rnd(i))+')';x.fillRect(rnd(i+3)*192|0,rnd(i+7)*50|0,1,1)}
+  x.fillStyle='#141a3e';x.fillRect(0,80,192,28);for(let i=0;i<6;i++){const h=20+rnd(i)*30|0;x.fillStyle='#10142e';x.fillRect(i*34,80-h,26,h)}
+  x.fillStyle='#2a3054';x.fillRect(74,10,44,90);x.fillStyle='#3a4268';x.fillRect(80,4,32,8);
+  for(let j=0;j<10;j++)for(let i=0;i<4;i++){const lit=rnd(i*13+j+Math.floor(t/700))>.35;x.fillStyle=lit?'#ffd23f':'#1d2550';x.fillRect(79+i*9,16+j*8,5,4)}
+  const on=Math.floor(t/250)%2;x.fillStyle=on?'#ffd23f':'#d9a520';x.fillRect(66,0,60,10);ART.text(x,'LUCKY',96,2,'#0b0e22',1,'c');
+  const a=Math.sin(t/600)*.6;x.fillStyle='rgba(255,210,63,.13)';x.beginPath();x.moveTo(96,10);x.lineTo(96+Math.sin(a)*200-24,108);x.lineTo(96+Math.sin(a)*200+24,108);x.fill();
+  x.drawImage(ART.guardSpr('R',Math.floor(t/200)%2),30+((t/40)%40),84);x.drawImage(ART.guardSpr('L',Math.floor(t/200)%2),150-((t/40)%40),84)},
+ glitch(x,t){sky(x,'#0b0e22','#141a3e');const g=Math.floor(t/90)%9===0;
+  x.fillStyle='#0d1024';x.fillRect(66,24,60,60);x.fillStyle='#ffd23f';x.fillRect(70,28,52,52);x.fillStyle='#0d1024';x.fillRect(74,32,44,44);
+  ART.text(x,g?'?!':'97',96+(g?((Math.random()*6)|0)-3:0),48,'#ffd23f',2,'c');
+  if(g){for(let i=0;i<6;i++){x.fillStyle='rgba(95,216,240,.6)';x.fillRect(0,(Math.random()*108)|0,192,2)}}
+  for(let i=0;i<2;i++){x.globalAlpha=.35+(g?.3:0);bigSpr(x,ART.ghost(S.gstyle,'D',0),i?140:20,40+(g&&i?4:0),2)}x.globalAlpha=1;
+  ART.text(x,'PARADOX',96,90,Math.floor(t/400)%2?'#ffd23f':'#d9a520',1,'c')},
+ towerOut(x,t){sky(x,'#1d2748','#0b0e22');x.fillStyle='#2a3054';x.fillRect(70,0,52,108);x.fillStyle='#141a3e';x.fillRect(84,0,24,108);
+  const k=Math.min(1,t/1800),ly=4+k*66;x.fillStyle='#5fd8f0';x.fillRect(86,ly,20,24);x.fillStyle='#0d1024';x.fillRect(88,ly+2,16,20);bigSpr(x,ART.hero(S.outfit,'D',0),88,ly+3,1);
+  x.fillStyle='rgba(95,216,240,.35)';for(let i=0;i<5;i++)x.fillRect(90+i*3,ly-10-i*4,1,8);
+  x.fillStyle='#10142e';x.fillRect(0,96,192,12);x.drawImage(ART.guardSpr('U',0),40,70);x.drawImage(ART.guardSpr('U',0),140,70);
+  if(t>1900){ART.text(x,'?',48,60,'#ffd23f',1,'c');ART.text(x,'?',148,60,'#ffd23f',1,'c')}},
+ vaultDoor(x,t){sky(x,'#05060f','#141a3e');for(let i=0;i<6;i++){x.fillStyle='rgba(95,216,240,'+(.06+.04*Math.sin(t/500+i))+')';x.fillRect(0,i*6,192,3)}
+  x.fillStyle='#1d2550';x.fillRect(0,30,192,78);const vx=96,vy=66;x.fillStyle='#0d1024';x.beginPath();x.arc(vx,vy,34,0,7);x.fill();x.fillStyle='#7a86a8';x.beginPath();x.arc(vx,vy,31,0,7);x.fill();
+  x.fillStyle='#4a5478';x.beginPath();x.arc(vx,vy,22,0,7);x.fill();const a=t/1500;x.strokeStyle='#ffd23f';x.lineWidth=3;for(let i=0;i<3;i++){const b=a+i*2.094;x.beginPath();x.moveTo(vx,vy);x.lineTo(vx+Math.cos(b)*18,vy+Math.sin(b)*18);x.stroke()}
+  x.fillStyle='#ffd23f';x.fillRect(vx-3,vy-3,6,6);ART.text(x,'VEXMORE',96,22,'#5fd8f0',1,'c');bigSpr(x,ART.hero(S.outfit,'U',0),16,70,2)},
+ vaultOpen(x,t){sky(x,'#141a3e','#05060f');const k=Math.min(1,t/1500);x.fillStyle='#ffd23f';x.globalAlpha=.25+.2*k;x.beginPath();x.moveTo(96,30);x.lineTo(20,108);x.lineTo(172,108);x.fill();x.globalAlpha=1;
+  x.fillStyle='#0d1024';x.fillRect(66,20,60,60);x.fillStyle='#ffd23f';x.fillRect(70,24,52,52);
+  for(let i=0;i<5;i++){const py=30+i*9-(k*4);x.fillStyle='#f4f1e6';x.fillRect(76+((i%2)*6),py,34,7);x.fillStyle='#2c3a7a';x.fillRect(79+((i%2)*6),py+2,26,1);x.fillRect(79+((i%2)*6),py+4,18,1)}
+  x.fillStyle='#7a86a8';x.save();x.translate(126,50);x.scale(1-k*.8,1);x.beginPath();x.arc(0,0,30,0,7);x.fill();x.restore();bigSpr(x,ART.hero(S.outfit,'U',0),82,84,1.5)},
+ news(x,t){sky(x,'#1d2748','#141a3e');x.save();x.translate(96,54);x.rotate(Math.max(0,1-t/800)*-.4);x.scale(Math.min(1,.2+t/800),Math.min(1,.2+t/800));
+  x.fillStyle='#f4f1e6';x.fillRect(-70,-42,140,84);x.fillStyle='#0b0e22';x.fillRect(-64,-36,128,12);ART.text(x,'BANGKOK DAILY',0,-34,'#ffd23f',1,'c');
+  ART.text(x,'VEXMORE',-30,-18,'#0b0e22',1,'c');ART.text(x,'BUSTED',-30,-8,'#0b0e22',1,'c');x.fillStyle='#2c3a7a';for(let i=0;i<5;i++)x.fillRect(-62,6+i*6,60,2);
+  x.fillStyle='#1d2550';x.fillRect(4,-20,58,50);x.fillStyle='#ffd23f';x.fillRect(10,10,46,4);x.fillStyle='#2a3054';x.fillRect(16,-14,34,24);ART.text(x,'1997',33,18,'#f4f1e6',1,'c');x.restore()},
+ farewell(x,t){sky(x,'#ffd23f','#2c3a7a');x.fillStyle='rgba(255,255,255,.25)';x.beginPath();x.arc(96,94,40,0,7);x.fill();x.fillStyle='#1d2748';x.fillRect(0,90,192,18);
+  for(let g=0;g<5;g++){const fade=Math.max(0,1-Math.max(0,t-800-g*350)/1200);x.globalAlpha=.75*fade;bigSpr(x,ART.ghost(S.gstyle,'D',Math.floor(t/250+g)%2),18+g*22+(g>1?44:0),56-(1-fade)*14,2)}
+  x.globalAlpha=1;bigSpr(x,ART.hero(S.outfit,'D',0),84,56,2)},
+ arcadeSaved(x,t){SCENES.soi(x,t);x.fillStyle='rgba(255,210,63,.18)';x.fillRect(60,60,72,30);
+  x.fillStyle='#1d2550';x.fillRect(86,64,20,26);x.fillStyle='#ffd23f';x.fillRect(88,66,16,9);x.fillStyle='#0b0e22';x.fillRect(89,67,14,7);ART.text(x,'97',96,68,'#ffd23f',1,'c');
+  for(let i=0;i<3;i++)x.drawImage(ART.hero(['classic','classic','classic'][i],'U',Math.floor(t/300+i)%2),30+i*48+(i===1?20:0),88)},
+ credits(x,t){sky(x,'#0b0e22','#141a3e');for(let i=0;i<40;i++){x.fillStyle='rgba(255,210,63,'+(0.15+0.4*rnd(i))+')';x.fillRect(rnd(i+1)*192|0,(rnd(i+2)*108+t/40*rnd(i+5))%108|0,1,1)}
+  const L=[["DEJAVAULT '97",2],['',1],['A GAME BY',1],['KAIRON ARCADE',2],['',1],['DESIGN  CODE',1],['PIXELS  MUSIC',1],['KAIRON ARCADE',1],['',1],['STARRING',1],['MALI',1],['AND HER ECHOES',1],['',1],['THANKS FOR PLAYING',1],['',1],['THE END',2]];
+  let y=108-((t/45)%((L.length*14)+120));for(const [s,sc] of L){if(s&&y>-14&&y<108)ART.text(x,s,96,y|0,sc>1?'#ffd23f':'#f4f1e6',sc,'c');y+=sc>1?18:12}}};
 /* ---------- title screen ---------- */
 const tbg=$('titleBg'),tbx=tbg.getContext('2d');let TB={w:0,h:0,sc:3};
 function sizeTitle(){const sc=Math.max(2,Math.round(Math.min(innerWidth,innerHeight)/200));TB={w:Math.ceil(innerWidth/sc),h:Math.ceil(innerHeight/sc),sc};tbg.width=TB.w;tbg.height=TB.h}
@@ -988,7 +1145,7 @@ function drawLogo(now){const c=$('logo'),x=c.getContext('2d');x.clearRect(0,0,23
   ART.text(x,'DEJAVAULT',lx+3,8,'#05060f',sc);ART.text(x,'DEJAVAULT',lx+j+2,4,'#2c3a7a',sc);ART.text(x,'DEJAVAULT',lx,2,'#ffd23f',sc);
   x.fillStyle='#ffd23f';x.fillRect(lx,36,w,2);const w2=ART.textW("'97",3);x.fillStyle='#2c3a7a';x.fillRect(230-lx-w2-12,44,w2+12,28);ART.text(x,"'97",230-lx-w2-6,48,'#ffd23f',3)}
 function renderTitle(){const prog=Object.keys(S.lv).length>0;$('bPlay').textContent=prog?T('เล่นต่อ','CONTINUE'):T('เริ่มปล้น','PLAY');$('bStory').textContent=T('ดูเรื่องราว','Story');
-  $('sub').textContent=T('ปล้นวนลูป 10 วินาที','The 10-second time-loop heist');$('tag').textContent=T('ย้อนเวลา ชวนตัวเองในอดีตมาช่วย แล้วปล้นให้เนียน','Rewind time. Team up with your past selves. Rob the bank.');
+  $('sub').textContent=T('ปล้นวนลูปเวลา','The time-loop heist');$('tag').textContent=T('ย้อนเวลา ชวนตัวเองในอดีตมาช่วย แล้วปล้นให้เนียน','Rewind time. Team up with your past selves. Rob the bank.');
   $('brand').textContent='by '+BRAND.en+' · '+BRAND.th;document.querySelectorAll('#langT button').forEach(b=>b.classList.toggle('on',b.dataset.l===LANG))}
 /* ---------- language ---------- */
 function relabelStatic(){document.documentElement.lang=LANG;document.title="DEJAVAULT '97 - "+BRAND.en;
@@ -1015,7 +1172,7 @@ $('board').addEventListener('pointerup',e=>{if(!sw)return;const dx=e.clientX-sw.
 const on=(id,f)=>$(id).addEventListener('click',e=>{AU.unlock();f(e)});
 on('bLoop',()=>commitLoop());on('bUndo',()=>undo());on('bRestart',()=>restartLoop());on('bPause',()=>{sfx('ui');openPause()});on('bHint',()=>{sfx('ui');if(G.hint)stopHint();else openHint()});on('bHintClose',()=>{sfx('ui');stopHint()});
 on('bPlay',()=>{sfx('ui');if(!S.intro){playCut('intro',()=>{S.intro=true;save();loadLevel(0);show('game')})}else show('map')});
-on('bStory',()=>{sfx('ui');playCut('intro',()=>{S.intro=true;save();if(SCR==='title')renderTitle()})});
+on('bStory',()=>{sfx('ui');playCut('story',()=>{S.intro=true;save();if(SCR==='title')renderTitle()})});
 on('bSetT',()=>{sfx('ui');openSettings()});on('bMapBack',()=>{sfx('ui');show('title')});on('bShop',()=>{sfx('ui');openShop()});on('bDaily',()=>{sfx('ui');claimDaily()});
 on('bCutNext',()=>cutNext());on('bCutSkip',()=>{sfx('ui');endCut()});$('cutCv').addEventListener('click',()=>cutNext());
 document.querySelectorAll('#langT button').forEach(b=>b.addEventListener('click',()=>{sfx('ui');setLang(b.dataset.l)}));

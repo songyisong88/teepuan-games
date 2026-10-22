@@ -175,7 +175,13 @@ footer .k{font-size:13px;color:var(--amber);font-weight:600}
     chips.forEach(function(c){c.setAttribute('aria-pressed',c===ch?'true':'false')});
     cards.forEach(function(c){c.hidden=!(f==='all'||(' '+c.getAttribute('data-c')+' ').indexOf(' '+f+' ')>=0)});
     document.getElementById('sectitle').textContent=names[f];
+    var h=toHash[f];if(history.replaceState)history.replaceState(null,'',h?'#'+h:location.pathname+location.search);
   })});
+  // deep links for the LINE menu: #action, #timing, #strategy (#all = everything)
+  var toHash={action:'action',fast:'timing',plan:'strategy'},fromHash={action:'action',timing:'fast',strategy:'plan',all:'all'};
+  function applyHash(){var f=fromHash[(location.hash||'').slice(1).toLowerCase()];if(!f)return;
+    var ch=document.querySelector('.chip[data-f="'+f+'"]');if(ch){ch.click();var g=document.querySelector('.chips');if(g&&f!=='all')g.scrollIntoView({block:'start'});}}
+  window.addEventListener('hashchange',applyHash);applyHash();
 })();
 </script>
 </body>

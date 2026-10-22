@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0d1016">
 <link rel="icon" href="data:,">
-<title>KAIRON K-98 · SNAKE '98 · ตี้ป่วน</title>
+<title>SNAKE '98 · ห้องเกม ไครอน</title>
 <style>
 html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#0d1016;overscroll-behavior:none}
 body{position:fixed;inset:0;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
@@ -370,7 +370,7 @@ function composeLogoSweep(t){
   if(t<350){fb.fill(1);return;}
   statusBar();
   var reveal=Math.min(1,(t-450)/700);
-  text5c('KAIRON',30,2);
+  text5c('KAIRON ARCADE',33,1);
   var cut=Math.floor(8+reveal*72);
   for(var y=28;y<46;y++)for(var x=cut;x<FB;x++)pset(x,y,0);
   if(t>1300)text5c('K-98',52,1);
@@ -495,7 +495,7 @@ function drawLCD(){
   rr(LCD.x-6,LCD.y-6,LCD.w+12,LCD.h+12,6);X.fillStyle=gl;X.fill();
 }
 function hint(){
-  if(st==='off')return['ตี้ป่วน · งูยุค 90','กดปุ่มไหนก็ได้ เพื่อเปิดเครื่อง'];
+  if(st==='off')return['ห้องเกม ไครอน · งูยุค 90','กดปุ่มไหนก็ได้ เพื่อเปิดเครื่อง'];
   if(st==='boot')return['กำลังเปิดเครื่อง...',''];
   if(st==='title')return['กด OK หรือแตะจอ เพื่อเริ่ม','ปุ่ม SOUND เปิด/ปิดเสียง'];
   if(st==='menu')return[MODE_TH[menuSel],'ลูกศร ขึ้น/ลง เลือก · OK เริ่ม'];

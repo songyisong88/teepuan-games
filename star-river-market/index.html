@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/coin.webp">
 <title>ตลาดน้ำอวกาศ · Star River Market · Kairon Arcade</title>
 <meta name="description" content="ตลาดน้ำอวกาศ เกมเปิดร้านขายของบนแม่น้ำดวงดาว จาก Kairon Arcade">
-<link rel="stylesheet" href="style.css?v=ed93ab6b">
+<link rel="stylesheet" href="style.css?v=7285ff82">
 </head>
 <body>
 <div id="side-bg"></div>
@@ -26,7 +26,7 @@
     <button class="round txt" id="btn-lang">EN</button>
     <button class="round" id="btn-set" aria-label="settings"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L14.9 3h-4l-.4 2.9a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.4 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.9h4l.4-2.9a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM12.9 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button>
   </div>
-  <div id="journey"><img src="assets/i_map.webp" alt=""><div class="jbar"><i id="jfill"></i></div><img class="j2" src="assets/lock.webp" alt=""><span id="jtxt"></span></div>
+  <div id="journey"><img id="j1" src="assets/i_map.webp" alt=""><div class="jbar"><i id="jfill"></i></div><img id="j2" class="j2" src="assets/i_planet2.webp" alt=""><span id="jtxt"></span></div>
 
   <button id="adbtn" class="hidden" data-k=""><img src="assets/tv.webp" alt=""><b id="adbtn-t">VIP</b></button>
   <div id="hint" class="hidden" data-t="hold"></div>
@@ -37,10 +37,12 @@
   <button id="cta"><span data-t="setoff"></span><small id="cta-sub"></small></button>
 
   <nav id="bar">
-    <button class="nb" data-p="boat"><img src="assets/i_boat.webp" alt=""><span data-t="boat"></span><i class="dot"></i></button>
-    <button class="nb" data-p="staff"><img src="assets/i_staff.webp" alt=""><span data-t="staff"></span><i class="dot"></i></button>
-    <button class="nb" data-p="goods"><img src="assets/i_goods.webp" alt=""><span data-t="goods"></span><i class="dot"></i></button>
-    <button class="nb" data-p="map"><img src="assets/i_map.webp" alt=""><span data-t="map"></span><i class="dot"></i></button>
+    <button class="nb" data-p="boat"><img src="assets/i_boat.webp" alt=""><span data-t="nBoat"></span><i class="dot"></i></button>
+    <button class="nb" data-p="staff"><img src="assets/i_staff.webp" alt=""><span data-t="nStaff"></span><i class="dot"></i></button>
+    <button class="nb" data-p="goods"><img src="assets/i_goods.webp" alt=""><span data-t="nGoods"></span><i class="dot"></i></button>
+    <button class="nb" data-p="shop"><img src="assets/i_shop.webp" alt=""><span data-t="nShop"></span><i class="dot bang"></i></button>
+    <button class="nb" data-p="quests"><img src="assets/i_quest.webp" alt=""><span data-t="nQuest"></span><i class="dot bang"></i></button>
+    <button class="nb" data-p="map"><img src="assets/i_map.webp" alt=""><span data-t="nMap"></span><i class="dot bang"></i></button>
   </nav>
   <div id="brand">Kairon Arcade</div>
 
@@ -49,6 +51,7 @@
   <img id="hand" class="hidden" src="assets/hand.webp" alt="">
   <div id="modal" class="hidden"><div id="sheet"></div></div>
   <div id="ad" class="hidden"></div>
+  <div id="warp" class="hidden"><div class="wv"><img id="warp-i" src="assets/i_planet2.webp" alt=""><small id="warp-t"></small><b id="warp-n"></b></div></div>
   <div id="splash">
     <div class="sp-in">
       <img src="assets/boat.webp" alt="" class="sp-boat">
@@ -59,6 +62,6 @@
     </div>
   </div>
 </div>
-<script src="game.js?v=ed93ab6b"></script>
+<script src="game.js?v=7285ff82"></script>
 </body>
 </html>

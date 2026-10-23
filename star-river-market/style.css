@@ -160,3 +160,55 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 #hand:not(.press){animation:handb 0.9s ease-in-out infinite}
 @keyframes handb{50%{margin-top:12px}}
 @keyframes handp{0%,100%{margin-top:0}40%,60%{margin-top:14px;width:46px}}
+
+/* ---------- stage 2: 6-tab nav, Candy Planet, shop, quests, warp ---------- */
+#bar{gap:4px;padding:5px}
+.nb{height:80px;border-radius:14px;padding-bottom:5px;min-width:0}
+.nb img{width:46px;height:42px}
+.nb span{font-size:12px}
+.nb .dot{top:3px;right:3px;width:20px;height:20px;background-size:16px}
+.nb .dot.bang{background:var(--yel);color:var(--navy);font-style:normal;font-weight:900;font-size:14px;line-height:20px;text-align:center}
+.nb .dot.bang::after{content:'!'}
+#cta{bottom:calc(120px + env(safe-area-inset-bottom))}
+@media (min-width:600px){.nb span{font-size:13px}.nb img{width:52px;height:46px}.nb{height:86px}}
+#journey img.j2{width:24px;height:24px;opacity:1}
+#journey img.j2.lockd{filter:grayscale(.7) brightness(.6)}
+body.p2 #side-bg{background-image:url(assets/bg_candy.webp)}
+#tut.bot #tut-bub{top:auto;bottom:calc(10px + env(safe-area-inset-bottom))}
+.pop-ic.big{width:150px;height:130px}
+.newrow{display:flex;justify-content:center;gap:8px;margin:2px 0 10px}
+.newrow img{width:70px;height:66px;object-fit:contain;filter:drop-shadow(0 3px 4px #0008)}
+.newrow.sm img{width:48px;height:48px}
+.planet.here{border-color:var(--yel)}
+.planet .pm{flex:1;min-width:0}
+.buy.trv{display:inline-flex;margin-top:6px;height:40px;min-width:110px;font-size:15px}
+.shopd{font-size:13px;opacity:.8;margin:-2px 0 6px;text-align:center}
+.gembal{text-align:center;font-weight:800;font-size:20px;color:var(--yel);margin-bottom:4px}
+.gembal .ci,.ds .ci,.arew .ci{width:20px;height:20px;vertical-align:-4px;margin-right:2px}
+.prev{display:flex;justify-content:center;margin:2px 0 8px}
+.prev .pb{position:relative;width:min(220px,58%);margin-top:34px}
+.prev .pb>img{width:100%;display:block;filter:drop-shadow(0 4px 6px #0009)}
+.prev .pb img.ph{position:absolute;transform-origin:50% 100%;height:auto}
+.sec{font-weight:800;font-size:16px;color:var(--yel);margin:12px 2px 8px;display:flex;justify-content:space-between;align-items:baseline}
+.qreset{font-size:12px;font-weight:600;opacity:.75}
+.row.on{border-color:var(--yel)}
+.ic.wide{object-fit:contain}
+.ic.ach{padding:6px}
+.qbar{position:relative;height:16px;border-radius:9px;background:#0a1030;border:2px solid #2b3f94;margin:4px 0 3px;overflow:hidden}
+.qbar i{display:block;height:100%;background:var(--yel)}
+.qbar span{position:absolute;inset:0;text-align:center;font-size:11px;line-height:12px;font-weight:800;color:var(--yel);text-shadow:0 0 3px #0a1030,0 0 3px #0a1030,0 1px 2px #000}
+.qbtns{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.buy.sm{height:34px;min-width:84px;font-size:14px}
+.buy.sm img{width:20px;height:18px}
+.buy.alt{background:var(--navy3);color:var(--yel);box-shadow:0 3px 0 #0a1030;border:2px solid #4a62c4}
+.row.q.done{opacity:.6}
+.arew{font-weight:800;color:var(--yel);font-size:15px;min-width:64px;text-align:center}
+#warp{position:absolute;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;pointer-events:auto;
+  background:radial-gradient(circle,#fff 0%,#ffd24a 18%,#121c4a 62%);opacity:0;transition:opacity .45s}
+#warp.on{opacity:1}
+#warp .wv{display:flex;flex-direction:column;align-items:center;gap:6px;transform:scale(.6);transition:transform 1.2s cubic-bezier(.2,1.2,.3,1)}
+#warp.on .wv{transform:scale(1)}
+#warp img{width:140px;height:130px;object-fit:contain;animation:spin 1.6s linear infinite}
+#warp small{font-size:16px;font-weight:700;color:var(--yel)}
+#warp b{font-size:30px;font-weight:900;color:var(--yel);text-shadow:0 2px 0 #121c4a}
+@keyframes spin{from{transform:rotate(-8deg) scale(.95)}50%{transform:rotate(8deg) scale(1.05)}to{transform:rotate(-8deg) scale(.95)}}

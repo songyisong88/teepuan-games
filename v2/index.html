@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F4F6FB">
+<title>ห้องเกม ไครอน — Kairon Arcade</title>
+<meta name="description" content="ห้องเกม ไครอน by Kairon Arcade เกมเล่นฟรีบนมือถือ กดเล่นได้ทันที ไม่ต้องโหลดแอป">
+<link rel="icon" type="image/png" href="assets/logo-96.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preload" href="assets/fonts/kanit-600-thai.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Kanit';font-weight:400;font-display:swap;src:url(assets/fonts/kanit-400-thai.woff2) format('woff2');unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC}
+@font-face{font-family:'Kanit';font-weight:400;font-display:swap;src:url(assets/fonts/kanit-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212}
+@font-face{font-family:'Kanit';font-weight:600;font-display:swap;src:url(assets/fonts/kanit-600-thai.woff2) format('woff2');unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC}
+@font-face{font-family:'Kanit';font-weight:600;font-display:swap;src:url(assets/fonts/kanit-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212}
+@font-face{font-family:'Kanit';font-weight:800;font-display:swap;src:url(assets/fonts/kanit-800-thai.woff2) format('woff2');unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC}
+@font-face{font-family:'Kanit';font-weight:800;font-display:swap;src:url(assets/fonts/kanit-800-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+2191,U+2193,U+2212}
+:root{
+  --navy:#13214A;--navy2:#1D2F66;--navy3:#2A3F80;
+  --yel:#FFC62E;--yel2:#FFE49A;--yelsoft:#FFF6D9;
+  --bg:#F4F6FB;--surf:#FFFFFF;--ink:#13214A;--mute:#5B6687;--line:#E1E6F2;
+  --sh1:0 1px 2px rgba(19,33,74,.06),0 4px 14px rgba(19,33,74,.06);
+  --sh2:0 2px 6px rgba(19,33,74,.08),0 18px 40px rgba(19,33,74,.14);
+  --r:20px;--ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);scroll-behavior:smooth}
+body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Kanit",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:400;
+  padding-bottom:calc(env(safe-area-inset-bottom) + 84px);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+:focus-visible{outline:3px solid var(--yel);outline-offset:2px;border-radius:12px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);background:rgba(244,246,251,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);transition:box-shadow .2s}
+.top.sc{box-shadow:0 1px 0 var(--line)}
+.bar{display:flex;align-items:center;gap:12px;height:64px}
+.logo{width:40px;height:40px;border-radius:11px;display:block;box-shadow:var(--sh1)}
+.brand{line-height:1.1}
+.brand b{display:block;font-weight:800;font-size:18px}
+.brand small{display:block;font-size:12px;color:var(--mute);font-weight:400;letter-spacing:.02em}
+.lang{margin-left:auto;display:flex;background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:3px;box-shadow:var(--sh1)}
+.lang button{height:30px;min-width:40px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:600;color:var(--mute);transition:background .2s,color .2s}
+.lang button[aria-pressed="true"]{background:var(--navy);color:#fff}
+
+/* greeting + search */
+.hello{margin-top:6px}
+.hello h1{font-weight:800;font-size:28px;line-height:1.2;letter-spacing:-.01em}
+.hello p{margin-top:4px;color:var(--mute);font-size:15px}
+.search{margin-top:16px;position:relative}
+.search input{width:100%;height:50px;border-radius:16px;border:1px solid var(--line);background:var(--surf);box-shadow:var(--sh1);
+  padding:0 16px 0 46px;font:400 16px "Kanit",system-ui,sans-serif;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+.search input::placeholder{color:#8F98B4}
+.search input:focus{border-color:var(--navy3);box-shadow:0 0 0 4px rgba(255,198,46,.45)}
+.search svg{position:absolute;left:16px;top:50%;width:20px;height:20px;transform:translateY(-50%);stroke:var(--mute);fill:none;stroke-width:2.2;stroke-linecap:round}
+
+/* hero */
+.hero{margin-top:20px;position:relative;display:grid;border-radius:28px;overflow:hidden;background:var(--navy);color:#fff;box-shadow:var(--sh2);isolation:isolate}
+.hero .shot{position:relative;aspect-ratio:4/3;overflow:hidden}
+.hero .shot img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform .8s var(--ease)}
+.hero:hover .shot img{transform:scale(1.07)}
+.hero .shot:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,33,74,0) 45%,rgba(19,33,74,.9) 88%,var(--navy))}
+.hero .info{position:relative;padding:0 22px 22px;margin-top:-64px;z-index:1}
+.pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:var(--yel);color:var(--navy);font-weight:600;font-size:13px}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--navy);display:block;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.hero h2{margin-top:12px;font-weight:800;font-size:32px;line-height:1.1;letter-spacing:-.01em}
+.hero .sub{margin-top:3px;font-size:14px;font-weight:600;opacity:.7;letter-spacing:.08em}
+.hero p{margin-top:10px;font-size:15px;line-height:1.6;opacity:.86;max-width:46ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.facts span{font-size:13px;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14)}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;height:54px;padding:0 28px;width:100%;border-radius:16px;background:var(--yel);color:var(--navy);font-weight:800;font-size:18px;transition:transform .2s var(--ease),box-shadow .2s}
+.cta svg{width:18px;height:18px;fill:currentColor}
+.hero:hover .cta{box-shadow:0 10px 24px rgba(255,198,46,.35)}
+.hero:active .cta{transform:scale(.97)}
+.hero .ring{position:absolute;z-index:-1;right:-120px;top:-120px;width:340px;height:340px;border-radius:50%;border:56px solid rgba(255,198,46,.10)}
+
+/* section heads */
+.sh{display:flex;align-items:baseline;justify-content:space-between;margin:34px 0 14px}
+.sh h3{font-weight:800;font-size:22px;letter-spacing:-.01em}
+.sh span{font-size:14px;color:var(--mute)}
+
+/* new row (horizontal scroller) */
+.row{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:4px 18px 18px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.wide{scroll-snap-align:start;display:block;border-radius:var(--r);background:var(--surf);box-shadow:var(--sh1);overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.wide .im{aspect-ratio:16/10;overflow:hidden;background:var(--navy)}
+.wide .im img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.wide .tx{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.wide .tx img{width:46px;height:46px;border-radius:12px;object-fit:cover;flex:none}
+.wide .tx b{display:block;font-weight:600;font-size:16px;line-height:1.2}
+.wide .tx small{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+.get{margin-left:auto;flex:none;height:34px;padding:0 16px;border-radius:999px;background:var(--bg);color:var(--navy);font-weight:600;font-size:14px;display:flex;align-items:center;transition:background .2s}
+
+/* chips */
+.chips{position:sticky;top:calc(env(safe-area-inset-top) + 64px);z-index:10;display:flex;gap:8px;overflow-x:auto;margin:0 -18px;padding:10px 18px;background:rgba(244,246,251,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:40px;padding:0 16px;border-radius:999px;background:var(--surf);border:1px solid var(--line);font-weight:600;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:7px;transition:background .2s,border-color .2s,transform .15s}
+.chip svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chip:active{transform:scale(.95)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;margin-top:8px}
+.card{display:flex;flex-direction:column;border-radius:var(--r);background:var(--surf);box-shadow:var(--sh1);overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s var(--ease);animation:in .45s var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateY(12px)}}
+.card .im{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--navy)}
+.card .im img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.card .play{position:absolute;right:10px;bottom:10px;width:40px;height:40px;border-radius:50%;background:var(--yel);display:grid;place-items:center;box-shadow:0 6px 16px rgba(19,33,74,.3);transform:scale(.6);opacity:0;transition:transform .3s var(--ease),opacity .3s}
+.card .play svg{width:15px;height:15px;fill:var(--navy);margin-left:2px}
+.tagnew{position:absolute;left:10px;top:10px;height:24px;padding:0 10px;border-radius:999px;background:var(--yel);color:var(--navy);font-size:12px;font-weight:800;display:flex;align-items:center;letter-spacing:.04em}
+.card .bd{padding:11px 12px 13px;display:flex;flex-direction:column;flex:1}
+.card b{font-weight:600;font-size:15.5px;line-height:1.25}
+.card p{font-size:13px;line-height:1.45;color:var(--mute);margin-top:3px;flex:1}
+.meta{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:12px;color:var(--mute)}
+.meta .c{padding:2px 9px;border-radius:999px;background:var(--yelsoft);color:var(--navy);font-weight:600}
+.meta svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.card:active,.wide:active{transform:scale(.97)}
+.empty{grid-column:1/-1;text-align:center;padding:40px 10px;color:var(--mute)}
+@media (hover:hover){
+  .card:hover,.wide:hover{transform:translateY(-6px);box-shadow:var(--sh2)}
+  .card:hover .im img,.wide:hover .im img{transform:scale(1.08)}
+  .card:hover .play{transform:scale(1);opacity:1}
+  .wide:hover .get{background:var(--yel)}
+  .chip:hover{border-color:var(--navy3)}
+}
+
+/* about + footer */
+.about{margin-top:40px;border-radius:28px;background:var(--yel);color:var(--navy);padding:26px 22px;display:grid;gap:18px;position:relative;overflow:hidden}
+.about h3{font-weight:800;font-size:24px;line-height:1.2}
+.about p{font-size:15px;line-height:1.6;margin-top:6px;max-width:52ch}
+.feat{display:grid;gap:10px}
+.feat div{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.55);border-radius:16px;padding:12px 14px;font-weight:600;font-size:15px}
+.feat svg{width:26px;height:26px;flex:none;fill:none;stroke:var(--navy);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+footer{margin-top:34px;padding:22px 0 10px;border-top:1px solid var(--line);display:flex;align-items:center;gap:12px;color:var(--mute);font-size:13px}
+footer img{width:34px;height:34px;border-radius:9px}
+footer b{color:var(--ink);font-weight:600}
+
+/* mobile bottom tab bar */
+.tabs{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 10px);z-index:30;height:62px;border-radius:22px;background:rgba(19,33,74,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 12px 30px rgba(19,33,74,.3)}
+.tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:rgba(255,255,255,.62);transition:color .2s}
+.tabs a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tabs a.on{color:var(--yel)}
+
+@media (min-width:640px){
+  .row{grid-auto-columns:46%}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 16px}
+}
+@media (min-width:900px){
+  body{padding-bottom:30px}
+  .tabs{display:none}
+  .wrap{padding:0 28px}
+  .bar{height:76px}
+  .chips{top:76px;margin:0 -28px;padding:12px 28px}
+  .hello{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:14px}
+  .hello h1{font-size:40px}
+  .search{margin:0;width:360px;flex:none}
+  .hero{grid-template-columns:1.25fr 1fr;align-items:center;margin-top:26px}
+  .hero .shot{aspect-ratio:auto;height:100%;min-height:420px}
+  .hero .shot:after{background:linear-gradient(90deg,rgba(19,33,74,0) 55%,var(--navy))}
+  .hero .info{margin:0;padding:36px 40px 36px 18px}
+  .hero h2{font-size:46px}
+  .cta{width:auto}
+  .row{grid-auto-columns:calc((100% - 42px)/4);margin:0;padding:4px 0 18px;overflow:visible}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 20px}
+  .about{grid-template-columns:1.1fr 1fr;align-items:center;padding:40px}
+  .about h3{font-size:30px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap bar">
+    <img class="logo" src="assets/logo-96.png" alt="Kairon Arcade" width="40" height="40">
+    <div class="brand"><b data-i="brand">ห้องเกม ไครอน</b><small>Kairon Arcade</small></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button data-l="th" aria-pressed="true">ไทย</button><button data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="home">
+  <section class="hello">
+    <div><h1 data-i="h1">วันนี้เล่นอะไรดี?</h1><p data-i="h1s">เกมเล่นฟรี กดแล้วเล่นได้ทันที ไม่ต้องโหลดแอป</p></div>
+    <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="q" type="search" autocomplete="off" placeholder="ค้นหาเกม" aria-label="ค้นหาเกม"></label>
+  </section>
+
+  <a class="hero" id="hero" href="../dejavault-97/">
+    <div class="shot"><img src="thumbs/hero-dejavault-97.webp" alt="" width="800" height="600" fetchpriority="high"></div>
+    <div class="info">
+      <span class="pill"><i></i><span data-i="feat">เกมเด่นประจำสัปดาห์</span></span>
+      <h2 data-i="htitle">ปล้นข้ามเวลา</h2>
+      <div class="sub">DEJAVAULT '97</div>
+      <p data-i="hdesc">ย้อนเวลาได้ทีละ 10 วินาที แล้วร่วมมือกับตัวเองในอดีตเพื่องัดตู้เซฟ 30 ด่าน 4 โซน พร้อมฉากจบ</p>
+      <div class="facts"><span data-i="hf1">30 ด่าน</span><span data-i="hf2">ไขปริศนา</span><span data-i="hf3">เล่นฟรี</span></div>
+      <span class="cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5l12.5 7.5L7 19.5z"/></svg><span data-i="play">เล่นเลย</span></span>
+    </div>
+    <span class="ring" aria-hidden="true"></span>
+  </a>
+
+  <div class="sh" id="new"><h3 data-i="newh">มาใหม่</h3><span data-i="news">เพิ่งเปิดให้เล่น</span></div>
+  <div class="row" id="row"></div>
+
+  <div class="sh" id="all"><h3 id="secT">เกมทั้งหมด</h3><span id="cnt"></span></div>
+  <div class="chips" id="chips" role="toolbar" aria-label="หมวดเกม"></div>
+  <div class="grid" id="grid"></div>
+
+  <section class="about" id="about">
+    <div><h3 data-i="ah">ห้องเกม ไครอน<br>by Kairon Arcade</h3><p data-i="ap">สตูดิโอเกมเล็ก ๆ ที่ทำเกมเองทุกชิ้นตั้งแต่ศูนย์ เล่นได้บนมือถือและคอมพิวเตอร์ ผ่านเบราว์เซอร์</p></div>
+    <div class="feat">
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span data-i="f1">เปิดปุ๊บเล่นปั๊บ ไม่ต้องติดตั้ง</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg><span data-i="f2">ออกแบบมาให้เล่นบนมือถือ</span></div>
+      <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.6-9.5 9-9.5 9z"/></svg><span data-i="f3">เล่นฟรีทุกเกม</span></div>
+    </div>
+  </section>
+
+  <footer><img src="assets/logo-96.png" alt="" width="34" height="34"><div><b data-i="brandf">ห้องเกม ไครอน</b> · Kairon Arcade<br><span data-i="copy">© 2026 Kairon Arcade สงวนลิขสิทธิ์</span></div></footer>
+</main>
+
+<nav class="tabs" aria-label="เมนู">
+  <a href="#home" class="on" data-t="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg><span data-i="t1">หน้าแรก</span></a>
+  <a href="#new" data-t="new"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg><span data-i="t2">มาใหม่</span></a>
+  <a href="#all" data-t="all"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i="t3">ทุกเกม</span></a>
+  <a href="#about" data-t="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg><span data-i="t4">เกี่ยวกับ</span></a>
+</nav>
+
+<script>
+(function(){
+var G=[
+ {s:'dejavault-97',n:1,c:'puzzle',th:'ปล้นข้ามเวลา',en:"DEJAVAULT '97",dt:'ย้อนเวลา 10 วิ ร่วมมือกับตัวเองในอดีต งัดตู้เซฟ',de:'Rewind 10 seconds and team up with your past self to crack the vault.',tt:'30 ด่าน',te:'30 levels'},
+ {s:'locktide-93',n:1,c:'puzzle',th:'ประตูน้ำ',en:"LOCKTIDE '93",dt:'คุมระดับน้ำ พาเรือข้ามหิน ลอดสะพาน เข้าท่า',de:'Control the tide to steer every boat past rocks and bridges.',tt:'20 ด่าน',te:'20 levels'},
+ {s:'umbramble-99',n:1,c:'puzzle',th:'เดินบนเงา',en:"UMBRAMBLE '99",dt:'เลื่อนโคมไฟให้เงากลายเป็นทางเดิน พาอัมบี้ถึงประตู',de:'Move the lamps so shadows become paths to the door.',tt:'20 ด่าน',te:'20 levels'},
+ {s:'clawtron-95',n:1,c:'fast',th:'ตู้คีบตุ๊กตา',en:"CLAWTRON '95",dt:'เล็งให้ดี คีบตุ๊กตาสะสมให้ครบอัลบั้ม',de:'Aim the claw and collect every plush for your album.',tt:'ชิลล์',te:'Chill'},
+ {s:'mergetron-96',c:'plan',th:'ร้านตู้เกมรวมร่าง',en:"MERGETRON '96",dt:'รวมตู้เกมเหมือนกันเป็นตู้ใหม่ 18 ระดับ',de:'Merge matching arcade cabinets across 18 tiers.',tt:'ชิลล์',te:'Chill'},
+ {s:'bulwark',c:'action',th:'ป้อมปราการสุดท้าย',en:'LAST BULWARK',dt:'ยิงเอาตัวรอด อัปอาวุธ สู้บอส 3 เฟส',de:'Survive the waves, upgrade weapons, beat a 3-phase boss.',tt:'5 นาที',te:'5 min'},
+ {s:'frog',c:'action classic',th:'กบข้ามถนน',en:"KLONG HOP '94",dt:'พากบหลบรถ ขี่ขอนไม้ข้ามคลองเข้ารัง',de:'Dodge traffic and ride logs across the canal.',tt:'1 นาที',te:'1 min'},
+ {s:'pinball',c:'action classic',th:'พินบอลแกนโลก',en:'DEEP CORE PINBALL',dt:'ตีลูกชนบัมเปอร์ เจาะลงสู่แกนโลก',de:'Hit the bumpers and drill down to the core.',tt:'3 นาที',te:'3 min'},
+ {s:'steel-stack',c:'fast',th:'หอคอยเหล็ก',en:'STEEL STACK',dt:'แตะให้ถูกจังหวะ ซ้อนบล็อกให้สูงที่สุด',de:'Tap on time and stack the tallest tower.',tt:'30 วิ',te:'30 sec'},
+ {s:'snake',c:'fast classic',th:'งูมือถือ',en:'SNAKE PHONE',dt:'มือถือจอเขียว บังคับงูกินจุด 3 โหมด',de:'The green-screen phone classic with 3 modes.',tt:'1 นาที',te:'1 min'},
+ {s:'retro90',c:'fast classic',th:'เครื่องเกมกด',en:'PIXTRON',dt:'เครื่องเกมกดจอ LCD แข่งรถและงูกินจุด',de:'A pocket LCD console with racing and snake.',tt:'2 นาที',te:'2 min'}
+];
+var CATS=[
+ {f:'all',th:'ทั้งหมด',en:'All',ic:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>'},
+ {f:'puzzle',th:'ไขปริศนา',en:'Puzzle',ic:'<path d="M9 3h6v3a2 2 0 104 0V3h2v18H3V3h2v3a2 2 0 104 0z"/>'},
+ {f:'action',th:'แอคชัน',en:'Action',ic:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'},
+ {f:'fast',th:'จังหวะไว',en:'Quick play',ic:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>'},
+ {f:'plan',th:'วางแผน',en:'Strategy',ic:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'},
+ {f:'classic',th:'คลาสสิก',en:'Classic',ic:'<rect x="2" y="7" width="20" height="11" rx="4"/><path d="M7 11v3M5.5 12.5h3M16 12h.01M18 14h.01"/>'}
+];
+var T={th:{brand:'ห้องเกม ไครอน',brandf:'ห้องเกม ไครอน',h1:'วันนี้เล่นอะไรดี?',h1s:'เกมเล่นฟรี กดแล้วเล่นได้ทันที ไม่ต้องโหลดแอป',q:'ค้นหาเกม',feat:'เกมเด่นประจำสัปดาห์',htitle:'ปล้นข้ามเวลา',hdesc:'ย้อนเวลาได้ทีละ 10 วินาที แล้วร่วมมือกับตัวเองในอดีตเพื่องัดตู้เซฟ 30 ด่าน 4 โซน พร้อมฉากจบ',hf1:'30 ด่าน',hf2:'ไขปริศนา',hf3:'เล่นฟรี',play:'เล่นเลย',newh:'มาใหม่',news:'เพิ่งเปิดให้เล่น',ah:'ห้องเกม ไครอน<br>by Kairon Arcade',ap:'สตูดิโอเกมเล็ก ๆ ที่ทำเกมเองทุกชิ้นตั้งแต่ศูนย์ เล่นได้บนมือถือและคอมพิวเตอร์ผ่านเบราว์เซอร์',f1:'เปิดปุ๊บเล่นปั๊บ ไม่ต้องติดตั้ง',f2:'ออกแบบมาให้เล่นบนมือถือ',f3:'เล่นฟรีทุกเกม',copy:'© 2026 Kairon Arcade สงวนลิขสิทธิ์',t1:'หน้าแรก',t2:'มาใหม่',t3:'ทุกเกม',t4:'เกี่ยวกับ',all:'เกมทั้งหมด',games:' เกม',none:'ไม่พบเกมที่ค้นหา',get:'เล่น',nw:'ใหม่'},
+ en:{brand:'Kairon Arcade',brandf:'Kairon Arcade',h1:'What are we playing today?',h1s:'Free games that start instantly. No app to install.',q:'Search games',feat:'Featured this week',htitle:"DEJAVAULT '97",hdesc:'Rewind time 10 seconds at a time and team up with your past self to crack the vault. 30 levels, 4 zones and a real ending.',hf1:'30 levels',hf2:'Puzzle',hf3:'Free to play',play:'Play now',newh:'New releases',news:'Just landed',ah:'Kairon Arcade',ap:'A small studio that builds every game from scratch. Play on phone or desktop, right in your browser.',f1:'Instant play, nothing to install',f2:'Made for mobile',f3:'Every game is free',copy:'© 2026 Kairon Arcade. All rights reserved.',t1:'Home',t2:'New',t3:'Games',t4:'About',all:'All games',games:' games',none:'No games match your search',get:'Play',nw:'NEW'}};
+var L='th',F='all',Q='';
+try{L=localStorage.getItem('ka-lang')||(/^th/i.test(navigator.language)?'th':'th')}catch(e){}
+var $=function(s){return document.querySelector(s)};
+var PLAY='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5l12.5 7.5L7 19.5z"/></svg>';
+var CLK='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+function cat(g){var f=g.c.split(' ')[0];for(var i=0;i<CATS.length;i++)if(CATS[i].f===f)return CATS[i][L];return''}
+function title(g){return L==='th'?g.th:g.en}
+function sub(g){return L==='th'?g.en:''}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function row(){
+  $('#row').innerHTML=G.filter(function(g){return g.n}).map(function(g){
+    return '<a class="wide" href="../'+g.s+'/"><div class="im"><img src="thumbs/'+g.s+'.webp" alt="" width="640" height="480" loading="lazy"></div>'+
+      '<div class="tx"><img src="thumbs/'+g.s+'.webp" alt="" width="46" height="46" loading="lazy"><div><b>'+esc(title(g))+'</b><small>'+esc(L==='th'?g.en+' · '+cat(g):cat(g)+' · '+g.te)+'</small></div><span class="get">'+T[L].get+'</span></div></a>'}).join('');
+}
+function chips(){
+  $('#chips').innerHTML=CATS.map(function(c){return '<button class="chip" data-f="'+c.f+'" aria-pressed="'+(c.f===F)+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+c.ic+'</svg>'+c[L]+'</button>'}).join('');
+}
+function grid(){
+  var q=Q.trim().toLowerCase();
+  var list=G.filter(function(g){
+    var okc=F==='all'||(' '+g.c+' ').indexOf(' '+F+' ')>=0;
+    var okq=!q||(g.th+' '+g.en+' '+g.dt+' '+g.de+' '+g.s).toLowerCase().indexOf(q)>=0;
+    return okc&&okq});
+  $('#grid').innerHTML=list.length?list.map(function(g,i){
+    return '<a class="card" style="animation-delay:'+(i*40)+'ms" href="../'+g.s+'/"><div class="im"><img src="thumbs/'+g.s+'.webp" alt="" width="640" height="480" loading="lazy">'+(g.n?'<span class="tagnew">'+T[L].nw+'</span>':'')+'<span class="play">'+PLAY+'</span></div>'+
+      '<div class="bd"><b>'+esc(title(g))+'</b><p>'+esc(L==='th'?g.dt:g.de)+'</p><div class="meta"><span class="c">'+cat(g)+'</span>'+CLK+'<span>'+(L==='th'?g.tt:g.te)+'</span></div></div></a>'}).join('')
+    :'<div class="empty">'+T[L].none+'</div>';
+  var c=null;CATS.forEach(function(x){if(x.f===F)c=x});
+  $('#secT').textContent=F==='all'?T[L].all:c[L];
+  $('#cnt').textContent=list.length+T[L].games;
+}
+function lang(l){
+  L=l;try{localStorage.setItem('ka-lang',l)}catch(e){}
+  document.documentElement.lang=l;
+  [].forEach.call(document.querySelectorAll('[data-i]'),function(el){var k=el.getAttribute('data-i');if(T[l][k]!=null)el.innerHTML=T[l][k]});
+  [].forEach.call(document.querySelectorAll('.lang button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-l')===l)});
+  $('#q').placeholder=T[l].q;$('#q').setAttribute('aria-label',T[l].q);
+  $('.hero .sub').style.display=l==='th'?'':'none';
+  row();chips();grid();
+}
+document.querySelector('.lang').addEventListener('click',function(e){var b=e.target.closest('button');if(b)lang(b.getAttribute('data-l'))});
+$('#chips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;F=b.getAttribute('data-f');
+  [].forEach.call(document.querySelectorAll('.chip'),function(c){c.setAttribute('aria-pressed',c===b)});grid();
+  var h=toHash[F];if(history.replaceState)history.replaceState(null,'',h?'#'+h:location.pathname+location.search);});
+$('#q').addEventListener('input',function(){Q=this.value;grid()});
+// deep links kept compatible with the LINE menu: #action #timing #strategy #puzzle #classic
+var toHash={action:'action',fast:'timing',plan:'strategy',puzzle:'puzzle',classic:'classic'},fromHash={action:'action',timing:'fast',strategy:'plan',puzzle:'puzzle',classic:'classic'};
+function applyHash(){var f=fromHash[(location.hash||'').slice(1).toLowerCase()];if(!f)return;F=f;chips();grid();$('#all').scrollIntoView({block:'start'})}
+window.addEventListener('hashchange',applyHash);
+// header shadow + active tab
+var tabs=[].slice.call(document.querySelectorAll('.tabs a'));
+window.addEventListener('scroll',function(){
+  $('#top').classList.toggle('sc',scrollY>4);
+  var cur='home';['new','all','about'].forEach(function(id){var el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.45)cur=id});
+  tabs.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-t')===cur)});
+},{passive:true});
+lang(L);applyHash();
+})();
+</script>
+</body>
+</html>

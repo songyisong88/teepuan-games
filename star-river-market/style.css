@@ -289,3 +289,8 @@ body.p4 #side-bg{background-image:url(assets/bg_forest.webp)}
 .calnote{font-size:14px;opacity:.9}
 .calrule{font-size:12px;opacity:.7;text-align:center;margin-top:10px;line-height:1.4}
 .ci{object-fit:contain}
+/* living characters: friendship level under each sticker */
+.stw{display:flex;flex-direction:column;align-items:stretch;gap:7px;min-width:0}
+.stw .frl{font-size:10px;line-height:1.25;font-weight:600;color:#e9ecff;text-align:center;opacity:.9}
+.stw .frl b{display:block;font-size:11px;letter-spacing:1px;min-height:13px}
+.stw .frl.lv2,.stw .frl.lv3{color:var(--yel);opacity:1}

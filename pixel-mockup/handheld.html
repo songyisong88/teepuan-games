@@ -38,8 +38,8 @@ html,body{height:100%}body{background:var(--navy);font-family:Kanit,sans-serif;d
 <div class="hint">กด ◀ ▶ หรือปัดจอเพื่อเลือกเกม · กด "เล่น" เข้าเกมได้ทันที ไม่ต้องโหลดแอป</div>
 <div class="spk"><i></i><i></i><i></i><i></i></div></div>
 <script src="games.js"></script><script>
-const C=['','แอคชัน','จังหวะไว','วางแผน'];let ci=0,i=0,L=G;
-function show(){const g=L[i];im.src='thumbs/'+g[0]+'.jpg';nm.textContent=g[1];ds.textContent=g[2]+' · '+g[3];bd.textContent=g[4];bd.style.display=g[4]?'':'none';a.href=BASE+g[0]+'/';
+const C=['','แอคชัน','จังหวะไว','วางแผน','ไขปริศนา'];let ci=0,i=0,L=G;
+function show(){const g=L[i];im.src='../v2/thumbs/'+g[0]+'.webp';nm.textContent=g[1];ds.textContent=g[2]+' · '+g[3];bd.textContent=g[4];bd.style.display=g[4]?'':'none';a.href=BASE+g[0]+'/';
 dots.innerHTML=L.map((_,k)=>`<i class="${k==i?'on':''}"></i>`).join('');b.textContent=C[ci]||'ทุกเกม'}
 const mv=s=>{i=(i+s+L.length)%L.length;show()};l.onclick=u.onclick=()=>mv(-1);r.onclick=d.onclick=()=>mv(1);
 b.onclick=()=>{ci=(ci+1)%C.length;L=G.filter(g=>!C[ci]||g[2]==C[ci]);i=0;show()};

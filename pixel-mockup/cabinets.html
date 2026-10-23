@@ -32,10 +32,10 @@ body{background:var(--wall);color:var(--tx);font-family:Kanit,sans-serif;min-hei
 </style></head><body>
 <div class="sign"><div class="box"><img src="logo.png" alt=""><div><b>ห้องเกม ไครอน</b><small>KAIRON ARCADE</small></div></div>
 <div class="sub">เดินเลือกตู้ แตะแล้วเล่นได้ทันที ไม่ต้องโหลดแอป</div></div>
-<div class="tabs" id="tabs"><button class="tab on" data-c="">ทุกตู้</button><button class="tab" data-c="แอคชัน">แอคชัน</button><button class="tab" data-c="จังหวะไว">จังหวะไว</button><button class="tab" data-c="วางแผน">วางแผน</button></div>
+<div class="tabs" id="tabs"><button class="tab on" data-c="">ทุกตู้</button><button class="tab" data-c="แอคชัน">แอคชัน</button><button class="tab" data-c="จังหวะไว">จังหวะไว</button><button class="tab" data-c="วางแผน">วางแผน</button><button class="tab" data-c="ไขปริศนา">ไขปริศนา</button></div>
 <div class="room" id="room"></div><div class="floor"></div>
 <div class="foot">เล่นฟรี · © Kairon Arcade</div>
 <script src="games.js"></script><script>
-function draw(c){room.innerHTML=G.filter(g=>!c||g[2]==c).map(g=>`<a class="cab" href="${BASE}${g[0]}/"><div class="mq">${g[1]}</div><div class="bd"><div class="scr"><img src="thumbs/${g[0]}.jpg" alt="">${g[4]?`<span class="badge">${g[4]}</span>`:''}</div><div class="pan"><span class="joy"></span><span class="go">แตะเล่น</span><span class="bt"><i></i><i></i></span></div></div><div class="cat">${g[2]}</div></a>`).join('')}
+function draw(c){room.innerHTML=G.filter(g=>!c||g[2]==c).map(g=>`<a class="cab" href="${BASE}${g[0]}/"><div class="mq">${g[1]}</div><div class="bd"><div class="scr"><img src="../v2/thumbs/${g[0]}.webp" alt="">${g[4]?`<span class="badge">${g[4]}</span>`:''}</div><div class="pan"><span class="joy"></span><span class="go">แตะเล่น</span><span class="bt"><i></i><i></i></span></div></div><div class="cat">${g[2]}</div></a>`).join('')}
 tabs.onclick=e=>{const b=e.target.closest('.tab');if(!b)return;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x==b));draw(b.dataset.c)};draw('');
 </script></body></html>

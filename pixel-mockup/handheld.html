@@ -1,0 +1,48 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#181B2A"><title>ห้องเกม ไครอน</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#181B2A;--deep:#10121C;--amb:#FFC13D;--amb2:#E9AC2C;--mut:#9AA0B8}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{height:100%}body{background:var(--navy);font-family:Kanit,sans-serif;display:flex;justify-content:center;align-items:flex-start;padding:calc(env(safe-area-inset-top) + 14px) 12px 14px}
+.dev{width:100%;max-width:420px;background:var(--amb);border-radius:34px 34px 70px 34px;padding:16px 16px 26px;box-shadow:inset 0 -6px 0 var(--amb2),0 18px 40px rgba(0,0,0,.45)}
+.hd{display:flex;align-items:center;gap:10px;color:var(--deep);padding:0 4px 12px}.hd img{width:34px;height:34px;border-radius:50%}
+.hd b{font-weight:800;font-size:18px;line-height:1}.hd small{display:block;font:8px 'Press Start 2P';margin-top:4px}
+.led{margin-left:auto;width:10px;height:10px;border-radius:50%;background:var(--deep)}
+.bez{background:var(--deep);border-radius:16px;padding:12px}
+.scr{position:relative;border-radius:8px;overflow:hidden;background:#000;aspect-ratio:1}
+.scr img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .15s}
+.scr:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.2) 0 1px,transparent 1px 3px);pointer-events:none}
+.badge{position:absolute;top:8px;left:8px;background:var(--amb);color:var(--deep);font-size:12px;font-weight:800;padding:1px 9px;border-radius:99px;z-index:2}
+.info{color:#fff;padding:10px 2px 0}.info b{font-size:21px;font-weight:800}.info p{color:var(--mut);font-size:13px}
+.dots{display:flex;gap:5px;justify-content:center;margin-top:10px}.dots i{width:7px;height:7px;border-radius:50%;background:#3A4066}.dots i.on{background:var(--amb)}
+.ctl{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding:0 6px}
+.pad{position:relative;width:118px;height:118px}
+.pad button{position:absolute;background:var(--deep);border:0;width:40px;height:40px;color:var(--amb);font-size:16px}
+.pad .u{left:39px;top:0;border-radius:6px 6px 0 0}.pad .d{left:39px;bottom:0;border-radius:0 0 6px 6px}
+.pad .l{left:0;top:39px;border-radius:6px 0 0 6px}.pad .r{right:0;top:39px;border-radius:0 6px 6px 0}
+.pad .c{left:39px;top:39px;border-radius:0;pointer-events:none}
+.ab{display:flex;gap:16px;align-items:flex-end}
+.ab a,.ab button{width:66px;height:66px;border-radius:50%;background:var(--deep);color:var(--amb);border:0;display:flex;align-items:center;justify-content:center;font:800 15px Kanit;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.ab button{width:52px;height:52px;font-size:12px;margin-bottom:24px}
+.ab a:active,.ab button:active,.pad button:active{transform:translateY(2px)}
+.hint{text-align:center;color:var(--deep);font-size:12px;margin-top:16px;font-weight:600}
+.spk{display:flex;gap:6px;justify-content:flex-end;margin-top:8px;padding-right:14px}.spk i{width:5px;height:26px;border-radius:3px;background:var(--amb2);transform:rotate(-25deg)}
+</style></head><body>
+<div class="dev">
+<div class="hd"><img src="logo.png" alt=""><div><b>ห้องเกม ไครอน</b><small>KAIRON ARCADE</small></div><span class="led"></span></div>
+<div class="bez"><div class="scr" id="scr"><span class="badge" id="bd"></span><img id="im" alt=""></div>
+<div class="info"><b id="nm"></b><p id="ds"></p></div><div class="dots" id="dots"></div></div>
+<div class="ctl"><div class="pad"><button class="u" id="u">▲</button><button class="l" id="l">◀</button><span class="c"></span><button class="r" id="r">▶</button><button class="d" id="d">▼</button></div>
+<div class="ab"><button id="b">หมวด</button><a id="a">เล่น</a></div></div>
+<div class="hint">กด ◀ ▶ หรือปัดจอเพื่อเลือกเกม · กด "เล่น" เข้าเกมได้ทันที ไม่ต้องโหลดแอป</div>
+<div class="spk"><i></i><i></i><i></i><i></i></div></div>
+<script src="games.js"></script><script>
+const C=['','แอคชัน','จังหวะไว','วางแผน'];let ci=0,i=0,L=G;
+function show(){const g=L[i];im.src='thumbs/'+g[0]+'.jpg';nm.textContent=g[1];ds.textContent=g[2]+' · '+g[3];bd.textContent=g[4];bd.style.display=g[4]?'':'none';a.href=BASE+g[0]+'/';
+dots.innerHTML=L.map((_,k)=>`<i class="${k==i?'on':''}"></i>`).join('');b.textContent=C[ci]||'ทุกเกม'}
+const mv=s=>{i=(i+s+L.length)%L.length;show()};l.onclick=u.onclick=()=>mv(-1);r.onclick=d.onclick=()=>mv(1);
+b.onclick=()=>{ci=(ci+1)%C.length;L=G.filter(g=>!C[ci]||g[2]==C[ci]);i=0;show()};
+let x0=null;scr.addEventListener('touchstart',e=>x0=e.touches[0].clientX);scr.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>30)mv(dx<0?1:-1);x0=null});
+show();
+</script></body></html>

@@ -6,3 +6,5 @@ Music & sound effects: original, synthesised procedurally in Python (numpy) by o
 Voice lines (Thai): generated with VachanaTTS voice "th_f_2" (VIZINTZOR/VachanaTTS on Hugging Face, model license: MIT),
   then pitch-shifted by our own ffmpeg script. MIT permits commercial use.
 Font: Kanit by Cadson Demak — SIL Open Font License 1.1 (fonts/OFL-Kanit.txt), self-hosted.
+
+Travel update (v2): the new art (riverless space backdrop, floating islets, Fang portrait, pointer hand), the new sounds (paddle loop, dock chime, combo, gift, set-off, fanfare) and the new Thai voice lines were made the same way as above.

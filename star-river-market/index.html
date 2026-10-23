@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/coin.webp">
 <title>ตลาดน้ำอวกาศ · Star River Market · Kairon Arcade</title>
 <meta name="description" content="ตลาดน้ำอวกาศ เกมเปิดร้านขายของบนแม่น้ำดวงดาว จาก Kairon Arcade">
-<link rel="stylesheet" href="style.css?v=5549d3e1">
+<link rel="stylesheet" href="style.css?v=ed93ab6b">
 </head>
 <body>
 <div id="side-bg"></div>
@@ -16,7 +16,7 @@
   <canvas id="scene"></canvas>
 
   <div id="hud">
-    <div class="pill" id="pill-coin"><img src="assets/coin.webp" alt=""><span id="coins">0</span><button class="plus" id="coin-plus" aria-label="+">+</button></div>
+    <div class="pill" id="pill-coin"><img src="assets/coin.webp" alt=""><span id="coins">0</span></div>
     <div class="pill" id="pill-gem"><img src="assets/gem.webp" alt=""><span id="gems">0</span></div>
     <div class="pill" id="pill-lvl"><img src="assets/i_map.webp" alt=""><span id="lvl">Lv. 1</span></div>
   </div>
@@ -24,10 +24,17 @@
   <div id="tools">
     <button class="round" id="btn-mute" aria-label="sound"><svg viewBox="0 0 24 24"><path id="mute-ico" d=""/></svg></button>
     <button class="round txt" id="btn-lang">EN</button>
+    <button class="round" id="btn-set" aria-label="settings"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L14.9 3h-4l-.4 2.9a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.4 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.9h4l.4-2.9a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM12.9 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button>
   </div>
+  <div id="journey"><img src="assets/i_map.webp" alt=""><div class="jbar"><i id="jfill"></i></div><img class="j2" src="assets/lock.webp" alt=""><span id="jtxt"></span></div>
 
-  <button id="tv" class="hidden" aria-label="x2"><img src="assets/tv.webp" alt=""><b>x2</b></button>
-  <div id="boost" class="hidden"><b id="boost-t">x2 2:00</b></div>
+  <button id="adbtn" class="hidden" data-k=""><img src="assets/tv.webp" alt=""><b id="adbtn-t">VIP</b></button>
+  <div id="hint" class="hidden" data-t="hold"></div>
+  <div id="stock" class="hidden">
+    <div id="tripbar"><i id="tripfill"></i><span id="tripmk"></span><img id="tripboat" src="assets/i_boat.webp" alt=""><img class="tb-end" src="assets/stall.webp" alt=""></div>
+    <div id="chips"></div>
+  </div>
+  <button id="cta"><span data-t="setoff"></span><small id="cta-sub"></small></button>
 
   <nav id="bar">
     <button class="nb" data-p="boat"><img src="assets/i_boat.webp" alt=""><span data-t="boat"></span><i class="dot"></i></button>
@@ -38,6 +45,8 @@
   <div id="brand">Kairon Arcade</div>
 
   <div id="toast"></div>
+  <div id="tut" class="hidden"><div id="tut-bub"><img src="assets/fang.webp" alt=""><div class="tb"><p id="tut-txt"></p><div class="tut-b"><button id="tut-next">ต่อไป</button><button id="tut-skip">ข้าม</button></div></div></div></div>
+  <img id="hand" class="hidden" src="assets/hand.webp" alt="">
   <div id="modal" class="hidden"><div id="sheet"></div></div>
   <div id="ad" class="hidden"></div>
   <div id="splash">
@@ -50,6 +59,6 @@
     </div>
   </div>
 </div>
-<script src="game.js?v=5549d3e1"></script>
+<script src="game.js?v=ed93ab6b"></script>
 </body>
 </html>

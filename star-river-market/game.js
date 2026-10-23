@@ -176,7 +176,7 @@ function t(k,v){var s=(T[S.lang]||T.th)[k];if(s==null)s=T.th[k]||k;if(v)for(var 
 Object.assign(T.th,{fr0:'คนแปลกหน้า',fr1:'คนรู้จัก',fr2:'ขาประจำ',fr3:'เพื่อนซี้',frUp:'สนิทกันขึ้นแล้ว: {l}!',frGift:'ของขวัญ! +{n}',gemW:'เพชร',frD:'ขายให้บ่อยๆ แล้วจะสนิทกันขึ้น ขาประจำจะทักทาย ให้ทิปเพิ่ม และบางทีก็มีของขวัญ',
   p_curious:'ขี้สงสัย',p_lonely:'ขี้เหงา',p_impatient:'ใจร้อน',p_sweet:'ติดหวาน',p_shy:'ขี้อาย',p_showoff:'ขี้อวด',p_dreamy:'ช่างฝัน',p_jolly:'ใจดี',p_wise:'สุขุม',p_fiery:'ใจร้อนแต่น่ารัก'});
 Object.assign(T.en,{fr0:'Stranger',fr1:'Acquaintance',fr2:'Regular',fr3:'Best friend',frUp:'Friendship up: {l}!',frGift:'Gift! +{n}',gemW:'gems',frD:'Serve them often to become friends. Regulars greet you, tip extra and sometimes bring gifts.',
-  p_curious:'Curious',p_lonely:'Lonely',p_impatient:'Impatient',p_sweet:'Sweet tooth',p_shy:'Shy',p_showoff:'Show-off',p_dreamy:'Dreamy',p_jolly:'Jolly',p_wise:'Wise',p_fiery:'Fiery'});
+  p_curious:'Curious',p_lonely:'Lonely',p_impatient:'Impatient',p_sweet:'Sweet tooth',p_shy:'Shy',p_showoff:'Show-off',p_dreamy:'Dreamy',p_jolly:'Jolly',p_wise:'Wise',p_fiery:'Fiery',p_sparky:'Sparky',p_gloomy:'Gloomy',p_grumbly:'Grumbly'});
 Object.assign(T.th,{planet5:'ดาวภูเขาไฟลาวา',planet5d:'ของร้อนขายไวได้ราคาเต็ม แตะฟองลาวาก่อนเรือชน',
   lavasoup:'ซุปลาวา',potato:'มันเผาดวงดาว',lavacake:'เค้กลาวา',meteorbun:'ซาลาเปาอุกกาบาต',
   mapNote2:'อยากเริ่มใหม่ให้รวยกว่าเดิม? ใช้ “เริ่มตำนานใหม่” ด้านล่าง',
@@ -220,6 +220,7 @@ Object.assign(T.en,{planet5:'Lava Volcano Planet',planet5d:'Sell hot goods fast 
   vMusic:'Music',vSfx:'Sound effects',vVoice:'Voice',credits:'Credits',creditsD:'Made by Kairon Arcade. Art, music and sound effects are our own. Thai voice by VachanaTTS (MIT). Font: Kanit (OFL).',creditsFile:'Read the full credits',
   loading:'Loading… {n}%',a_planet5:'Reach Lava Volcano Planet',a_crown1:'Win a royal crown',a_crown5:'Win all 5 crowns',a_legend1:'Start your first New Legend'});
 
+Object.assign(T.th,{"planet6": "ดาวเมฆฟ้าร้อง", "planet6d": "แม่น้ำบนก้อนเมฆ กางใบรับลม ปล่อยมือเมื่อฟ้าแลบ", "cloudbun": "ซาลาเปาก้อนเมฆ", "rainjelly": "เยลลี่หยดฝน", "zapsoda": "โซดาสายฟ้า", "rainbowmochi": "โมจิสายรุ้ง", "ul6T": "ดาวเมฆฟ้าร้องเปิดแล้ว!", "ul6D": "แม่น้ำที่ไหลบนก้อนเมฆ! เรือของน้องฟางมีใบเรือแล้ว ลมมาเมื่อไร กดค้างไว้เพื่อกางใบรับลม ถ้าฟ้าแลบเตือน ให้ปล่อยมือนะ", "ul6Go": "ไปดาวเมฆฟ้าร้อง", "ar6T": "ยินดีต้อนรับสู่ดาวเมฆฟ้าร้อง!", "ar6D": "เห็นลูกศรลมเมื่อไร กดค้างไว้ (หรือกด Space) เพื่อกางใบเรือ เรือจะแล่นเร็วขึ้นมาก ถ้าฟ้าแลบเตือน รีบปล่อยมือลดใบเรือนะ", "edge6T": "ค้าขายครบทุกดาวแล้ว!", "edge6D": "น้องฟางพายเรือไปถึงดาวเมฆฟ้าร้องแล้ว เก่งที่สุดเลย! จะเริ่มตำนานใหม่เพื่อรับดาวตำนานก็ได้นะ", "gustT": "ลมมาแล้ว! กดค้างกางใบ", "gustOn": "กางใบ! เร็วขึ้น", "gustOk": "รับลมเก่งมาก!", "boltW": "ฟ้าแลบ! ปล่อยมือ", "zapT": "โดนฟ้าผ่า! เรือโคลง", "safeT": "หลบฟ้าผ่าได้!", "sailH": "กดค้าง = กางใบเรือ · ฟ้าแลบ = ปล่อยมือ", "sailHD": "กดเมาส์ค้างหรือกด Space = กางใบ · ฟ้าแลบ = ปล่อย", "king6": "ราชาเมฆฟ้าร้อง", "crownN": "มงกุฎ {n}/6", "p_sparky": "ซ่าส์ ไฟแรง", "p_gloomy": "ขี้เหงา ใจดี", "p_grumbly": "ขี้บ่นแต่ใจดี", "a_planet6": "เปิดดาวเมฆฟ้าร้อง", "a_story1": "ช่วยเพื่อนซี้สำเร็จ 1 เรื่อง", "h18": "ดาวเมฆฟ้าร้อง: ลูกศรลมขึ้นเมื่อไร กดค้าง (หรือ Space) กางใบเรือ ฟ้าแลบเตือนเมื่อไร ปล่อยมือ ถ้าค้างไว้ตอนฟ้าผ่า เรือจะโคลงและช้าลงนิดหน่อย", "h19": "เทศกาล: ช่วงเทศกาลจะมีป้ายนับถอยหลังที่ท่าเรือ ทำของเทศกาล ขายให้ชาวดาว สะสมแต้มไปแลกของพิเศษที่ได้ถาวร", "h20": "ภารกิจเพื่อนซี้: เมื่อเป็นเพื่อนซี้กับชาวดาว เขาจะมีเรื่องมาขอให้ช่วย ดูความคืบหน้าในสมุดสติกเกอร์", "ev_loy2026": "ลอยกระทงอวกาศ", "evD_loy2026": "เทศกาลลอยกระทงมาถึงแม่น้ำดวงดาวแล้ว! ทำกระทงไปลอยระหว่างเดินทาง ขายขนมเทศกาลให้ชาวดาว สะสมดอกบัวไปแลกชุดไทยและเรือกระทง ได้เป็นของเราตลอดไป", "evDay_loy2026": "คืนลอยกระทงจริง: วันอังคารที่ 24 พ.ย. 2569", "evWin_loy2026": "งานเทศกาล 14–27 พ.ย. (ตามเวลาในเครื่อง)", "evEnds": "เหลือเวลา {t}", "evStarts": "เริ่มในอีก {t}", "evDay": "{d} วัน ", "evPts": "ดอกบัว", "evCraft": "ทำของเทศกาล", "evCraftD": "ทำที่ท่าเรือ แล้วนำไปใช้ระหว่างเดินทาง (มีได้ชนิดละ 5)", "evShop": "ร้านเทศกาล (ได้ถาวร)", "evOpen": "ไปงานเทศกาล", "evLater": "ไว้ทีหลัง", "evHave": "มี {n}", "evFloatBtn": "ลอยกระทง", "evFloated": "ลอยกระทง! +{n} ดอกบัว", "evGot": "+{n} ดอกบัว", "evFull": "เต็มแล้ว", "evOwned": "ได้แล้ว", "evOnly": "ของเทศกาล", "evTease": "เร็วๆ นี้: ลอยกระทงอวกาศ", "evTeaseD": "งานลอยกระทงอวกาศจะเริ่มเร็วๆ นี้ เตรียมตัวทำกระทงกันนะ!", "evBuyOk": "ได้ของเทศกาลแล้ว! เป็นของเราตลอดไป", "evNoPts": "ดอกบัวยังไม่พอ", "evMade": "ทำ{i}แล้ว!", "evWant": "ขอ{i}หน่อย!", "evBan": "ลอยกระทง", "evNoKr": "ทำกระทงที่ท่าเรือก่อนนะ", "ei_krathong": "กระทงดาว", "ei_khanom": "ขนมทองหยอด", "ei_lantern": "โคมลอย", "ei_malai": "พวงมาลัย", "eid_krathong": "กดปุ่มลอยกระทงตอนเดินทาง +{n} ดอกบัว", "eid_sell": "ชาวดาวบางคนจะขอระหว่างทาง +{n} ดอกบัว", "hat_chada": "ชฎาทอง", "hat_jasmine": "มาลัยดอกมะลิ", "boat_krathong": "เรือกระทงใบตอง", "adNone": "ยังไม่มีโฆษณาตอนนี้ ลองใหม่ทีหลังนะ", "adInter": "โฆษณาสั้นๆ", "adTest": "โหมดทดสอบโฆษณา", "adSkip": "ข้าม", "sqLog": "ภารกิจเพื่อนซี้", "sqLogD": "เป็นเพื่อนซี้ (♥♥♥) กับชาวดาวแล้ว เขาจะมีเรื่องมาขอให้ช่วย", "sqLock": "ต้องเป็นเพื่อนซี้กับ{a}ก่อน", "sqReady": "{a} รอคุยอยู่!", "sqTalk": "คุยกัน", "sqDone": "สำเร็จ", "sqLater2": "พักไว้", "sqStep": "ตอนที่ {i}/{n}", "sqAccept": "ได้เลย ช่วยกัน!", "sqLater": "ไว้ก่อนนะ", "sqClaim": "รับรางวัล", "sqGo": "ตกลง!", "sqGot": "ของที่ระลึก: {i}", "sqNew": "ภารกิจเพื่อนซี้ใหม่!", "sqStepDone": "ภารกิจเพื่อนซี้: ทำตอนนี้สำเร็จ!", "sqk_sellTo": "ขายของให้{a} {n} ครั้ง", "sqk_gift": "เก็บของขวัญบนแม่น้ำ {n} ชิ้น", "sqk_trip": "เดินทางบน{p}ให้ครบ {n} รอบ", "sqk_combo": "ทำคอมโบที่ท่าเรือให้ถึง {n}", "sqk_crate": "เก็บลังของที่ลอยมา {n} ลัง", "sqk_ff": "จับหิ่งห้อย {n} ตัว", "sqk_pop": "จิ้มฟองลาวา {n} ลูก", "sqk_gust": "กางใบรับลม {n} ครั้ง", "sqk_safe": "หลบฟ้าผ่า {n} ครั้ง", "an_alien_blue": "บลูบี้", "an_alien_marsh": "มาร์ชี่", "an_alien_snow": "สโนวี่", "an_alien_frog": "อ๊บอ๊บ", "an_alien_ember": "ถ่านแดง", "an_alien_drizzle": "ปรอยปรอย", "qi_shell": "เปลือกหอยดาว", "qi_musicbox": "กล่องดนตรีลูกกวาด", "qi_scarf": "ผ้าพันคออุ่นๆ", "qi_bouquet": "ช่อดอกไม้ป่า", "qi_letter": "จดหมายหัวใจ", "qi_umbrella": "ร่มสายรุ้ง", "sqt_shell": "เปลือกหอยดาวที่หายไป", "sqo_shell": "น้องฟาง... ฉันทำเปลือกหอยดาวของคุณยายหล่นลงแม่น้ำ ช่วยตามหาด้วยกันได้ไหม?", "sqf_shell": "เจอแล้ว! ขอบคุณน้องฟางที่สุดเลย เก็บอันนี้ไว้เป็นที่ระลึกนะ", "sqa_shell0": "ก่อนอื่น ขายของให้ฉันหน่อย จะได้มีแรงดำน้ำ!", "sqa_shell1": "ลองเก็บของขวัญที่ลอยมาบนแม่น้ำดูนะ อาจเป็นเปลือกหอยก็ได้", "sqa_shell2": "มันไหลไปทางปลายแม่น้ำ พาฉันไปจนสุดทางอีกสองรอบนะ", "sqm_shell0": "อิ่มแล้ว! ฉันเห็นอะไรวิบวับอยู่ใต้น้ำแน่ะ", "sqm_shell1": "เกือบแล้ว! เห็นแสงวิบวับไกลๆ", "sqt_musicbox": "กล่องดนตรีลูกกวาด", "sqo_musicbox": "กล่องดนตรีของฉันเงียบไปแล้ว... ถ้าได้ฟังเพลงอีกครั้งคงดีใจมาก", "sqf_musicbox": "ลัลลา~ เพลงกลับมาแล้ว! อันนี้ให้น้องฟางนะ", "sqa_musicbox0": "ขายขนมให้ฉันหน่อย ฉันจะเอากระดาษห่อมาซ่อมลาน", "sqa_musicbox1": "ทำคอมโบที่ท่าเรือให้ถึงสิบ จังหวะเพลงจะได้กลับมา!", "sqa_musicbox2": "พากล่องดนตรีไปฟังเสียงลมที่ปลายทางอีกสองรอบนะ", "sqm_musicbox0": "ได้กระดาษห่อสีสวยแล้ว!", "sqm_musicbox1": "ติ๊ง ติ๊ง! เริ่มมีเสียงแล้ว", "sqt_scarf": "ผ้าพันคออุ่นๆ", "sqo_scarf": "ฉันอยากถักผ้าพันคอให้เพื่อนเพนกวิน แต่ไหมพรมหมดแล้ว...", "sqf_scarf": "เสร็จแล้ว! ถักเผื่อน้องฟางด้วยหนึ่งผืน อุ่นไหม?", "sqa_scarf0": "ขายของให้ฉันหน่อยนะ จะได้มีเงินซื้อไหมพรม", "sqa_scarf1": "ในลังที่ลอยบนน้ำแข็งมีกระดุมอยู่ ช่วยเก็บมาให้หน่อย", "sqa_scarf2": "พาฉันไปส่งที่ปลายทางสองรอบนะ", "sqm_scarf0": "ซื้อไหมพรมสีแดงได้แล้ว!", "sqm_scarf1": "กระดุมครบแล้ว อีกนิดเดียว", "sqt_bouquet": "ช่อดอกไม้ป่า", "sqo_bouquet": "อ๊บ! ฉันอยากให้ดอกไม้คุณแม่ แต่ดอกไม้ป่าบานเฉพาะตอนมีแสงหิ่งห้อย...", "sqf_bouquet": "คุณแม่ชอบมาก! ช่อนี้ฉันทำให้น้องฟางด้วยนะ", "sqa_bouquet0": "ขายของให้ฉันก่อนนะ จะได้มีแรงกระโดดเก็บดอกไม้", "sqa_bouquet1": "ตอนกลางคืน ช่วยจับหิ่งห้อยให้ดอกไม้บานหน่อยนะ", "sqa_bouquet2": "พาฉันไปให้ถึงปลายทางสองรอบ จะได้เลือกดอกที่สวยที่สุด", "sqm_bouquet0": "อ๊บๆ! มีแรงแล้ว", "sqm_bouquet1": "ดอกไม้บานสวยมาก!", "sqt_letter": "จดหมายหัวใจ", "sqo_letter": "ฉัน... อยากเขียนจดหมายขอบคุณราชามังกร แต่เขินจัง ช่วยหน่อยได้ไหม?", "sqf_letter": "ราชาตอบกลับมาด้วย! ฉันเขียนอีกฉบับให้น้องฟางนะ ขอบคุณที่เป็นเพื่อนกัน", "sqa_letter0": "ขายของร้อนๆ ให้ฉันหน่อย จะได้กล้าขึ้น", "sqa_letter1": "จิ้มฟองลาวาให้หน่อย ฉันจะใช้ไอร้อนปิดผนึกซองจดหมาย", "sqa_letter2": "ช่วยพาจดหมายไปส่งถึงปลายทางสองรอบนะ", "sqm_letter0": "อุ่นใจขึ้นแล้ว!", "sqm_letter1": "ซองปิดสนิทแล้ว", "sqt_umbrella": "ร่มสายรุ้ง", "sqo_umbrella": "ฝนตกใส่ตัวฉันทั้งวันเลย... ถ้ามีร่มสายรุ้งสักคันคงดีใจมาก", "sqf_umbrella": "ร่มสายรุ้งของฉัน! ไม่เปียกแล้ว ขอบคุณน้า อันนี้ให้น้องฟาง", "sqa_umbrella0": "ช่วยกางใบเรือรับลมหน่อย ลมจะพาสายรุ้งมา", "sqa_umbrella1": "ระวังฟ้าผ่านะ ปล่อยมือหลบให้ได้", "sqa_umbrella2": "สุดท้าย ขายของให้ฉันหน่อย จะเก็บเงินซื้อด้ามร่ม", "sqm_umbrella0": "เห็นสายรุ้งแล้ว!", "sqm_umbrella1": "ฟ้าใสขึ้นแล้ว"});Object.assign(T.en,{"planet6": "Thundercloud Planet", "planet6d": "A cloud river: sail with the wind, let go for lightning", "cloudbun": "Cloud Bun", "rainjelly": "Raindrop Jelly", "zapsoda": "Zap Soda", "rainbowmochi": "Rainbow Mochi", "ul6T": "Thundercloud Planet is open!", "ul6D": "A river that flows over the clouds! Fang's boat now has a sail. When the wind blows, hold to raise it. When lightning flashes a warning, let go!", "ul6Go": "Sail to the clouds", "ar6T": "Welcome to Thundercloud Planet!", "ar6D": "When the wind arrow shows, hold (or press Space) to raise the sail and zoom ahead. When lightning flashes a warning, let go to lower the sail.", "edge6T": "Every route is done!", "edge6D": "Fang has traded all the way to Thundercloud Planet. Amazing! You can start a New Legend to earn Legend Stars.", "gustT": "Wind! Hold to raise the sail", "gustOn": "Sail up! Faster!", "gustOk": "Great sailing!", "boltW": "Lightning! Let go!", "zapT": "Zap! The boat wobbles", "safeT": "Dodged it!", "sailH": "Hold = raise the sail · Lightning = let go", "sailHD": "Hold the mouse or Space = sail · Lightning = let go", "king6": "Thunder King", "crownN": "Crowns {n}/6", "p_sparky": "Sparky", "p_gloomy": "Gloomy", "p_grumbly": "Grumbly", "a_planet6": "Open Thundercloud Planet", "a_story1": "Finish a best-friend story", "h18": "Thundercloud Planet: when the wind arrow shows, hold (or Space) to raise the sail. When lightning warns, let go. Holding during a strike makes the boat wobble and slow down a little.", "h19": "Festivals: during an event a countdown banner shows at port. Make festival items, sell them to aliens and collect points for rewards you keep forever.", "h20": "Best-friend stories: when an alien becomes your best friend, they ask for help. Track them in the sticker book.", "ev_loy2026": "Space Loy Krathong", "evD_loy2026": "Loy Krathong has come to the star river! Make krathongs to float on your trips, sell festival treats to aliens, and collect lotus for Thai outfits and a krathong boat you keep forever.", "evDay_loy2026": "Real Loy Krathong night: Tuesday 24 Nov 2026", "evWin_loy2026": "Festival: 14–27 Nov (your device time)", "evEnds": "Ends in {t}", "evStarts": "Starts in {t}", "evDay": "{d}d ", "evPts": "Lotus", "evCraft": "Make festival items", "evCraftD": "Make them at port and use them on your trips (up to 5 each)", "evShop": "Festival shop (yours forever)", "evOpen": "Join the festival", "evLater": "Later", "evHave": "Have {n}", "evFloatBtn": "Float", "evFloated": "Krathong afloat! +{n} lotus", "evGot": "+{n} lotus", "evFull": "Full", "evOwned": "Owned", "evOnly": "Festival reward", "evTease": "Coming soon: Space Loy Krathong", "evTeaseD": "Space Loy Krathong starts soon. Get ready to make krathongs!", "evBuyOk": "Festival reward unlocked! Yours forever", "evNoPts": "Not enough lotus yet", "evMade": "Made a {i}!", "evWant": "A {i}, please!", "evBan": "Loy Krathong", "evNoKr": "Make a krathong at port first", "ei_krathong": "Star Krathong", "ei_khanom": "Thong Yod sweets", "ei_lantern": "Sky lantern", "ei_malai": "Flower garland", "eid_krathong": "Float it during a trip: +{n} lotus", "eid_sell": "Some aliens ask for it on the river: +{n} lotus", "hat_chada": "Golden Chada", "hat_jasmine": "Jasmine Garland", "boat_krathong": "Krathong Boat", "adNone": "No ad right now. Try again later", "adInter": "A short ad", "adTest": "Ad test mode", "adSkip": "Skip", "sqLog": "Best-friend stories", "sqLogD": "Become best friends (♥♥♥) with an alien and they will ask for your help", "sqLock": "Become best friends with {a} first", "sqReady": "{a} wants to talk!", "sqTalk": "Talk", "sqDone": "Done", "sqLater2": "Paused", "sqStep": "Part {i}/{n}", "sqAccept": "Sure, let's do it!", "sqLater": "Maybe later", "sqClaim": "Claim reward", "sqGo": "Okay!", "sqGot": "Keepsake: {i}", "sqNew": "New best-friend story!", "sqStepDone": "Story part complete!", "sqk_sellTo": "Sell to {a} {n} times", "sqk_gift": "Collect {n} river gifts", "sqk_trip": "Finish {n} trips on {p}", "sqk_combo": "Reach a {n} combo at a dock", "sqk_crate": "Grab {n} floating crates", "sqk_ff": "Catch {n} fireflies", "sqk_pop": "Pop {n} lava bubbles", "sqk_gust": "Sail with {n} gusts", "sqk_safe": "Dodge {n} lightning strikes", "an_alien_blue": "Bluey", "an_alien_marsh": "Marshy", "an_alien_snow": "Snowy", "an_alien_frog": "Hopper", "an_alien_ember": "Ember", "an_alien_drizzle": "Drizzle", "qi_shell": "Star shell", "qi_musicbox": "Candy music box", "qi_scarf": "Cosy scarf", "qi_bouquet": "Forest bouquet", "qi_letter": "Heart letter", "qi_umbrella": "Rainbow umbrella", "sqt_shell": "The lost star shell", "sqo_shell": "Fang... I dropped Grandma's star shell into the river. Will you help me look for it?", "sqf_shell": "Found it! Thank you so much, Fang. Keep this one as a keepsake!", "sqa_shell0": "First, sell me some snacks so I have energy to dive!", "sqa_shell1": "Try collecting the gifts floating on the river. One might be the shell!", "sqa_shell2": "It drifted to the end of the river. Paddle me there two more times!", "sqm_shell0": "All full! I saw something sparkly under the water.", "sqm_shell1": "So close! I can see it twinkling far away.", "sqt_musicbox": "The candy music box", "sqo_musicbox": "My music box went quiet... I would be so happy to hear it play again.", "sqf_musicbox": "La la la~ the song is back! This one is for you, Fang.", "sqa_musicbox0": "Sell me some sweets. I will use the wrappers to fix the key.", "sqa_musicbox1": "Reach a 10 combo at a dock to bring back the rhythm!", "sqa_musicbox2": "Take it to hear the wind at the end of the route two times.", "sqm_musicbox0": "Pretty wrappers, got them!", "sqm_musicbox1": "Ting ting! It is starting to play.", "sqt_scarf": "A cosy scarf", "sqo_scarf": "I want to knit a scarf for my penguin friend, but I ran out of yarn...", "sqf_scarf": "Done! I knitted one for you too, Fang. Cosy?", "sqa_scarf0": "Sell me a few treats so I can buy some yarn.", "sqa_scarf1": "The floating crates have buttons inside. Please grab some!", "sqa_scarf2": "Take me to the end of the route two times.", "sqm_scarf0": "I bought red yarn!", "sqm_scarf1": "Enough buttons. Almost there!", "sqt_bouquet": "A forest bouquet", "sqo_bouquet": "Ribbit! I want to give Mum flowers, but forest flowers only bloom in firefly light...", "sqf_bouquet": "Mum loved it! I made this bouquet for you too, Fang.", "sqa_bouquet0": "Sell me some snacks so I can hop around picking flowers.", "sqa_bouquet1": "At night, catch fireflies so the flowers can bloom.", "sqa_bouquet2": "Take me to the end of the route twice so I can pick the best ones.", "sqm_bouquet0": "Ribbit! Full of energy.", "sqm_bouquet1": "The flowers are blooming!", "sqt_letter": "The heart letter", "sqo_letter": "I... want to write a thank-you letter to the Dragon King, but I am shy. Can you help?", "sqf_letter": "The King wrote back! I wrote one for you too, Fang. Thank you for being my friend.", "sqa_letter0": "Sell me some hot food to warm up my courage.", "sqa_letter1": "Pop some lava bubbles. I will use the heat to seal the envelope.", "sqa_letter2": "Please carry the letter to the end of the route two times.", "sqm_letter0": "I feel braver already!", "sqm_letter1": "Sealed tight!", "sqt_umbrella": "The rainbow umbrella", "sqo_umbrella": "I rain on myself all day... A rainbow umbrella would make me so happy.", "sqf_umbrella": "My rainbow umbrella! No more rain on me. Thank you, Fang. This one is for you!", "sqa_umbrella0": "Raise your sail in the wind. The wind brings rainbows!", "sqa_umbrella1": "Watch out for lightning. Let go and dodge it!", "sqa_umbrella2": "Last one: sell me some treats so I can buy the handle.", "sqm_umbrella0": "I can see a rainbow!", "sqm_umbrella1": "The sky is clearing up."});
 // ---------- config ----------
 var GOODS=[
  {id:'fruit',  base:4,   unlock:0,     img:'g_fruit'},
@@ -235,12 +236,15 @@ GOODS.push({id:'berry',base:1500,unlock:0,img:'g_berry',pl:4},{id:'honey',base:6
   {id:'glowshroom',base:24000,unlock:5000000,img:'g_glowshroom',pl:4},{id:'emerald',base:95000,unlock:30000000,img:'g_emerald',pl:4});
 GOODS.push({id:'lavasoup',base:8000,unlock:0,img:'g_lavasoup',pl:5,hot:1},{id:'potato',base:32000,unlock:3000000,img:'g_potato',pl:5,hot:1},
   {id:'lavacake',base:130000,unlock:25000000,img:'g_lavacake',pl:5,hot:1},{id:'meteorbun',base:520000,unlock:180000000,img:'g_meteorbun',pl:5,hot:1});
+GOODS.push({id:'cloudbun',base:40000,unlock:0,img:'g_cloudbun',pl:6},{id:'rainjelly',base:160000,unlock:15e6,img:'g_rainjelly',pl:6},
+  {id:'zapsoda',base:650000,unlock:120e6,img:'g_zapsoda',pl:6},{id:'rainbowmochi',base:2.6e6,unlock:9e8,img:'g_rainbowmochi',pl:6});
 GOODS.forEach(function(g){if(!g.pl)g.pl=1;});
 var ALIENS1=[{img:'alien_blue',likes:['fruit','crystal']},{img:'alien_green',likes:['jelly']},{img:'alien_pink',likes:['candy']}];
 var ALIENS2=[{img:'alien_gummy',likes:['cotton','donut']},{img:'alien_marsh',likes:['lolli']},{img:'alien_choco',likes:['syrup']}];
 var ALIENS3=[{img:'alien_snow',likes:['snowcone','pearl']},{img:'alien_icejel',likes:['aurora']},{img:'alien_peng',likes:['cocoa']}];
 var ALIENS4=[{img:'alien_shroom',likes:['berry','honey']},{img:'alien_leaf',likes:['glowshroom']},{img:'alien_frog',likes:['emerald']}];
 var ALIENS5=[{img:'alien_magma',likes:['lavasoup','meteorbun']},{img:'alien_ember',likes:['potato']},{img:'alien_pebble',likes:['lavacake']}];
+var ALIENS6=[{img:'alien_puff',likes:['cloudbun','rainbowmochi']},{img:'alien_zap',likes:['zapsoda']},{img:'alien_drizzle',likes:['rainjelly']}];
 // planets: own look, customers, goods, route length and income multiplier
 var PLANETS={
  1:{n:1,name:'planet1',desc:'planet1d',icon:'i_map',aliens:ALIENS1,vip:'alien_pink',trips:8,len:360,mul:1,music:'music',
@@ -252,10 +256,12 @@ var PLANETS={
  4:{n:4,name:'planet4',desc:'planet4d',icon:'i_forest',aliens:ALIENS4,vip:'alien_owl',trips:16,len:480,mul:2,music:'music_forest',fork:true,
     bg:'bg_forest',isl:'fislet',stall:'stall_forest',river:['rgba(210,255,225,0.8)','rgba(90,200,150,0.86)','rgba(30,110,100,0.92)'],shine:'#e6ffe9',bank:'#f4fff0',flow:['#ffffff','#c9ffb8','#fff3a6'],glow:'green',rip:'#effff2'},
  5:{n:5,name:'planet5',desc:'planet5d',icon:'i_lava',aliens:ALIENS5,vip:'alien_sala',trips:18,len:500,mul:2.6,music:'music_lava',lava:true,
-    bg:'bg_lava',isl:'lislet',stall:'stall_lava',river:['rgba(255,236,200,0.84)','rgba(255,160,96,0.88)','rgba(178,70,96,0.92)'],shine:'#fff0d6',bank:'#fff6ea',flow:['#ffffff','#ffe2a0','#ffc4d6'],glow:'warm',rip:'#fff4e6'}
+    bg:'bg_lava',isl:'lislet',stall:'stall_lava',river:['rgba(255,236,200,0.84)','rgba(255,160,96,0.88)','rgba(178,70,96,0.92)'],shine:'#fff0d6',bank:'#fff6ea',flow:['#ffffff','#ffe2a0','#ffc4d6'],glow:'warm',rip:'#fff4e6'},
+ 6:{n:6,name:'planet6',desc:'planet6d',icon:'i_cloud',aliens:ALIENS6,vip:'alien_rainbow',trips:20,len:520,mul:3.2,music:'music_cloud',cloud:true,
+    bg:'bg_cloud',isl:'kislet',stall:'stall_cloud',river:['rgba(244,240,255,0.84)','rgba(176,160,240,0.88)','rgba(92,80,180,0.92)'],shine:'#f1edff',bank:'#ffffff',flow:['#ffffff','#e6dcff','#c8f0ff'],glow:'lav',rip:'#f6f2ff'}
 };
 // stage 5: one king per planet (big royal order at the end of the route, then every few trips)
-var KINGS={1:{img:'king1',pers:'jolly'},2:{img:'king2',pers:'sweet'},3:{img:'king3',pers:'dreamy'},4:{img:'king4',pers:'wise'},5:{img:'king5',pers:'fiery'}};
+var KINGS={1:{img:'king1',pers:'jolly'},2:{img:'king2',pers:'sweet'},3:{img:'king3',pers:'dreamy'},4:{img:'king4',pers:'wise'},5:{img:'king5',pers:'fiery'},6:{img:'king6',pers:'grumbly'}};
 var KING_EVERY=6,KING_GEMS=15;
 // stage 4: boat classes (each has its own empty-deck art; cargo is drawn from what is really on board)
 // hx/hy/s/ar: hat anchor transform from the original boat art; pets: per-pet anchors; slots: cargo spots; lan: lantern glow
@@ -272,7 +278,8 @@ function petPos(pet,T){var a=T.pets&&T.pets[pet.id];return a?{x:a[0],y:a[1],w:pe
 // sticker book: every kind of alien on every planet (golden twins are rare)
 var BOOK=[{pl:1,al:['alien_blue','alien_green','alien_pink']},{pl:2,al:['alien_gummy','alien_marsh','alien_choco']},
   {pl:3,al:['alien_snow','alien_icejel','alien_peng','alien_yeti']},{pl:4,al:['alien_shroom','alien_leaf','alien_frog','alien_owl']},
-  {pl:5,al:['alien_magma','alien_ember','alien_pebble','alien_sala']}];
+  {pl:5,al:['alien_magma','alien_ember','alien_pebble','alien_sala']},
+  {pl:6,al:['alien_puff','alien_zap','alien_drizzle','alien_rainbow']}];
 // 7-day gifts (device local date); day 7 = Forest Bunny pet
 var LOGIN=[{k:'coin',n:30},{k:'gem',n:3},{k:'coin',n:80},{k:'ff',n:5},{k:'gem',n:6},{k:'coin',n:200},{k:'pet',n:'bunny'}];
 var FF_ITEMS=[{id:'jar',cost:6,ic:'i_jar'},{id:'lure',cost:8,ic:'i_lure'}];
@@ -280,8 +287,8 @@ function PL(){return PLANETS[S.planet]||PLANETS[1];}
 var ALIENS=ALIENS1;
 // star-gem shop: permanent boosts + cosmetics (all visible in play)
 var BOOSTS=[{id:'inc',ic:'gem',cost:[10,20,35,50,75]},{id:'cap',ic:'i_boat',cost:[8,15,25,40,60]},{id:'pat',ic:'i_goods',cost:[6,12,20,32,50]},{id:'rush',ic:'stall',cost:[8,15,25,40,60]}];
-var HATS=[{id:'none',cost:0},{id:'bow',cost:15,x:.71,y:.15,w:.17,r:.3},{id:'star',cost:20,x:.59,y:.085,w:.27,r:0},{id:'wizard',cost:25,x:.585,y:.17,w:.27,r:0},{id:'crown',cost:30,x:.59,y:.10,w:.21,r:0},{id:'leaf',ff:12,cost:0,x:.585,y:.11,w:.25,r:0}];
-var SKINS=[{id:'classic',cost:0,img:'boat'},{id:'pink',cost:20,img:'boat_pink'},{id:'mint',cost:20,img:'boat_mint'},{id:'night',cost:35,img:'boat_night'},{id:'forest',ff:20,cost:0,img:'boat_forest'}];
+var HATS=[{id:'none',cost:0},{id:'bow',cost:15,x:.71,y:.15,w:.17,r:.3},{id:'star',cost:20,x:.59,y:.085,w:.27,r:0},{id:'wizard',cost:25,x:.585,y:.17,w:.27,r:0},{id:'crown',cost:30,x:.59,y:.10,w:.21,r:0},{id:'leaf',ff:12,cost:0,x:.585,y:.11,w:.25,r:0},{id:'jasmine',ev:1,cost:0,x:.585,y:.165,w:.25,r:0},{id:'chada',ev:1,cost:0,x:.59,y:.125,w:.17,r:0}];
+var SKINS=[{id:'classic',cost:0,img:'boat'},{id:'pink',cost:20,img:'boat_pink'},{id:'mint',cost:20,img:'boat_mint'},{id:'night',cost:35,img:'boat_night'},{id:'forest',ff:20,cost:0,img:'boat_forest'},{id:'krathong',ev:1,cost:0,img:'boat_t1_krathong'}];
 function incMul(){return (1+0.1*(S.shop.inc||0))*PL().mul*(trip&&trip.jar?1.25:1)*legendMul();}
 function legendMul(){return 1+0.1*((S.legend&&S.legend.stars)|0);}
 // daily quests + achievements
@@ -295,7 +302,8 @@ var ACH=[{id:'sold100',f:function(){return S.stats.sold;},n:100,g:5},{id:'trips1
  {id:'planet3',f:function(){return S.unlocked.indexOf(3)>=0?1:0;},n:1,g:20},{id:'orders',f:function(){return S.stats.orders|0;},n:10,g:10},
  {id:'planet4',f:function(){return S.unlocked.indexOf(4)>=0?1:0;},n:1,g:25},{id:'book10',f:function(){return Object.keys(S.book.s).length;},n:10,g:15},
  {id:'planet5',f:function(){return S.unlocked.indexOf(5)>=0?1:0;},n:1,g:30},{id:'crown1',f:function(){return crownCount();},n:1,g:15},
- {id:'crown5',f:function(){return crownCount();},n:5,g:40},{id:'legend1',f:function(){return (S.legend&&S.legend.n)|0;},n:1,g:30}];
+ {id:'crown5',f:function(){return crownCount();},n:5,g:40},{id:'legend1',f:function(){return (S.legend&&S.legend.n)|0;},n:1,g:30},
+ {id:'planet6',f:function(){return S.unlocked.indexOf(6)>=0?1:0;},n:1,g:35},{id:'story1',f:function(){return S.stats.story|0;},n:1,g:20}];
 var ARRIVE_GEMS=25;
 // home-port market stalls (build in order; each earns coins per second, also while away)
 var STALLS=[{id:'coffee',img:'mk_coffee',cost:1500,rate:0.4,x:.21,y:.45,w:.24},{id:'souv',img:'mk_souv',cost:9000,rate:2,x:.79,y:.45,w:.24},
@@ -310,7 +318,7 @@ var STAFF=[{id:'s1',hire:600,name:'staff1'},{id:'s2',hire:6000,name:'staff2'}];
 var UPS=[{id:'cap',ic:'i_boat',cost:80,g:1.5},{id:'spd',ic:'i_map',cost:120,g:1.6},{id:'pat',ic:'i_goods',cost:100,g:1.55}];
 var AD={cap:10,cooldown:90,watch:5};
 var OFFLINE_CAP=3*3600, DOCK_TIME=10;
-var SAVE_KEY='kairon.starriver.save', SAVE_VERSION=7;
+var SAVE_KEY='kairon.starriver.save', SAVE_VERSION=8;
 
 function goodPrice(g,lv){var m=1;if(lv>=10)m*=2;if(lv>=25)m*=2;if(lv>=50)m*=2;return Math.round(g.base*(1+0.25*(lv-1))*m);}
 function goodUpCost(g,lv){return Math.round(g.base*12*Math.pow(1.25,lv-1));}
@@ -325,15 +333,15 @@ function xpNeed(n){return Math.round(120*Math.pow(1.8,n-1));}
 
 // ---------- state + save/migrate ----------
 function fresh(){return {v:SAVE_VERSION,coins:0,gems:0,lvl:1,xp:0,planet:1,unlocked:[1],arrived:[1],up:{cap:1,spd:1,pat:1},
-  goods:{fruit:1,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0,lavasoup:0,potato:0,lavacake:0,meteorbun:0},staff:[0,0],
-  load:{fruit:30,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0,lavasoup:0,potato:0,lavacake:0,meteorbun:0},
-  routes:{'1':{trips:0,done:false},'2':{trips:0,done:false},'3':{trips:0,done:false},'4':{trips:0,done:false},'5':{trips:0,done:false}},dist:0,cur:null,ulSeen:false,ul3Seen:false,ul4Seen:false,ul5Seen:false,tut:{done:false},
+  goods:{fruit:1,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0,lavasoup:0,potato:0,lavacake:0,meteorbun:0,cloudbun:0,rainjelly:0,zapsoda:0,rainbowmochi:0},staff:[0,0],
+  load:{fruit:30,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0,lavasoup:0,potato:0,lavacake:0,meteorbun:0,cloudbun:0,rainjelly:0,zapsoda:0,rainbowmochi:0},
+  routes:{'1':{trips:0,done:false},'2':{trips:0,done:false},'3':{trips:0,done:false},'4':{trips:0,done:false},'5':{trips:0,done:false},'6':{trips:0,done:false}},dist:0,cur:null,ulSeen:false,ul3Seen:false,ul4Seen:false,ul5Seen:false,ul6Seen:false,tut:{done:false},
   tier:1,ff:0,items:{jar:0,lure:0},book:{s:{},g:{},pc:{},gc:{}},login:{last:'',streak:0,total:0,pop:''},
   market:{st:{coffee:0,souv:0,repair:0,smooth:0,lantern:0},bank:0,last:Date.now()},pets:{own:[],on:''},ev:{seen:''},friend:{p:{},g:0},
   shop:{inc:0,cap:0,pat:0,rush:0},cos:{hats:[],boats:['classic'],hat:'none',boat:'classic'},
   quests:{day:'',list:[],prog:{},rerolled:false},ach:{},
   ad:{day:'',count:0,last:0},stats:{sold:0,earned:0,trips:0,bestCombo:0,quests:0,orders:0},
-  vol:{m:1,s:1,v:1},king:{},legend:{stars:0,n:0,base:0},
+  vol:{m:1,s:1,v:1},king:{},legend:{stars:0,n:0,base:0},live:{pts:{},inv:{},seen:'',tease:''},sq:{},
   lang:'th',mute:false,lastSeen:Date.now(),created:Date.now()};}
 // Every stage adds a step here. Old saves are upgraded, never wiped.
 function migrate(d){
@@ -372,17 +380,25 @@ function migrate(d){
     if(r4&&(r4.done||(r4.trips|0)>=16)){r4.done=true;if(!Array.isArray(d.unlocked))d.unlocked=[1];if(d.unlocked.indexOf(5)<0)d.unlocked.push(5);d.ul5Seen=false;}
     d.king={};d.legend={stars:0,n:0,base:0};d.vol={m:1,s:1,v:1};d.v=7;
   }
+  if(d.v===7){ // stage 5 -> stage 6: Thundercloud Planet opens for anyone who already finished the Lava route; events + stories start fresh
+    var r5=d.routes&&d.routes['5'];
+    if(r5&&(r5.done||(r5.trips|0)>=18)){r5.done=true;if(!Array.isArray(d.unlocked))d.unlocked=[1];if(d.unlocked.indexOf(6)<0)d.unlocked.push(6);d.ul6Seen=false;}
+    d.live={pts:{},inv:{},seen:'',tease:''};d.sq={};d.v=8;
+  }
   var f=fresh();
   for(var k in f){if(d[k]===undefined||(d[k]===null&&k!=='cur'))d[k]=f[k];}
-  ['up','goods','load','routes','tut','shop','cos','quests','ach','ad','stats','market','pets','ev','items','book','login','friend','vol','king','legend'].forEach(function(o){if(typeof d[o]!=='object')d[o]=f[o];for(var j in f[o])if(d[o][j]===undefined)d[o][j]=f[o][j];});
+  ['up','goods','load','routes','tut','shop','cos','quests','ach','ad','stats','market','pets','ev','items','book','login','friend','vol','king','legend','live','sq'].forEach(function(o){if(typeof d[o]!=='object')d[o]=f[o];for(var j in f[o])if(d[o][j]===undefined)d[o][j]=f[o][j];});
   while(d.staff.length<STAFF.length)d.staff.push(0);
   if(!(d.goods.fruit>0))d.goods.fruit=1;
   if(!Array.isArray(d.unlocked)||!d.unlocked.length)d.unlocked=[1];
   if(!Array.isArray(d.arrived))d.arrived=[1];
   if(d.unlocked.indexOf(d.planet)<0)d.planet=1;
   if(d.unlocked.indexOf(2)>=0&&!(d.goods.cotton>0))d.goods.cotton=1;
-  ['1','2','3','4','5'].forEach(function(n){if(typeof d.routes[n]!=='object'||!d.routes[n])d.routes[n]={trips:0,done:false};});
-  [3,4,5].forEach(function(n){if(d.unlocked.indexOf(n)>=0)starterGoods(d,n);});
+  ['1','2','3','4','5','6'].forEach(function(n){if(typeof d.routes[n]!=='object'||!d.routes[n])d.routes[n]={trips:0,done:false};});
+  [3,4,5,6].forEach(function(n){if(d.unlocked.indexOf(n)>=0)starterGoods(d,n);});
+  ['pts','inv'].forEach(function(k){if(typeof d.live[k]!=='object'||!d.live[k])d.live[k]={};for(var j in d.live[k])d.live[k][j]=Math.max(0,d.live[k][j]|0);});for(var ik in d.live.inv)d.live.inv[ik]=Math.min(5,d.live.inv[ik]);
+  for(var qk in d.sq){var Q=d.sq[qk];if(typeof Q!=='object'||!Q)delete d.sq[qk];else{Q.s=Math.max(0,Q.s|0);Q.p=Math.max(0,Q.p|0);}}
+  GOODS.forEach(function(g){if(!(d.goods[g.id]>=0))d.goods[g.id]=0;if(!(d.load[g.id]>=0))d.load[g.id]=0;});
   ['m','s','v'].forEach(function(k){var x=+d.vol[k];d.vol[k]=isFinite(x)?Math.max(0,Math.min(1,x)):1;});
   for(var kk in d.king){var K=d.king[kk];if(typeof K!=='object'||!K)delete d.king[kk];else{K.c=Math.max(0,K.c|0);K.at=Math.max(0,K.at|0);}}
   d.legend.stars=Math.max(0,d.legend.stars|0);d.legend.n=Math.max(0,d.legend.n|0);d.legend.base=Math.max(0,+d.legend.base||0); // every newer planet starts with two goods, so mixed orders work on arrival
@@ -419,7 +435,8 @@ var SOUNDS=['tap','coin','sell','upgrade','ufo','unlock','nope','popup','music',
  'music_forest','fork','firefly','sticker','page','login','boatup','golden','night',
  'r_hop','r_wave','r_pout','r_startle','r_heart','r_bubble','r_bye','r_sing','v_yawn','v_tired','v_sing','v_excited','v_friend','v_regular','v_present','v_oops','v_sorry','v_yay2',
  'v_forestopen','v_forest','v_fork','v_risky','v_safe','v_night','v_firefly','v_boatup','v_sticker','v_golden','v_page','v_login','v_day7','v_swap',
- 'music_lava','lpop','sizzle','stove','kingfan','crown','legend','v_lava','v_lavaopen','v_hot','v_cool','v_pop','v_splash','v_king','v_kingwin','v_kingfail','v_kingsoon','v_legend'];
+ 'music_lava','lpop','sizzle','stove','kingfan','crown','legend','v_lava','v_lavaopen','v_hot','v_cool','v_pop','v_splash','v_king','v_kingwin','v_kingfail','v_kingsoon','v_legend',
+ 'music_cloud','music_loy','gust','sail','thunderwarn','thunder','float','festival','story','v_cloud','v_cloudopen','v_gust','v_sailup','v_thunder','v_zap','v_safe','v_loy','v_loyfloat','v_craft','v_story','v_storydone'];
 function audioInit(){
   if(A.ctx)return;
   var C=window.AudioContext||window.webkitAudioContext;if(!C)return;
@@ -442,7 +459,7 @@ function audioUnlock(){
   startMusic();startPaddle();
 }
 function startMusic(){ // each planet has its own loop (Candy Planet: brighter music-box variation)
-  var m=PL().music;if(A.ctx&&!A.buf[m]){loadSnd(m);return;}
+  var m=curMusic();if(A.ctx&&!A.buf[m]){loadSnd(m);return;}
   if(!A.ctx||!A.buf[m]||A.ctx.state!=='running')return;
   if(A.musicSrc){if(A.musicName===m)return;var old=A.musicSrc,og=A.musicG;og.gain.setTargetAtTime(0,A.ctx.currentTime,0.25);setTimeout(function(){try{old.stop();}catch(e){}},1500);}
   var g=A.ctx.createGain();g.gain.value=0;g.connect(A.music);g.gain.setTargetAtTime(1,A.ctx.currentTime,0.3);
@@ -477,7 +494,7 @@ document.addEventListener('visibilitychange',function(){
 });
 
 // ---------- images ----------
-var _IMG={},ASSETS={};["alien_blue","alien_blue_nf","alien_choco","alien_choco_nf","alien_ember","alien_ember_nf","alien_frog","alien_frog_nf","alien_green","alien_green_nf","alien_gummy","alien_gummy_nf","alien_icejel","alien_icejel_nf","alien_leaf","alien_leaf_nf","alien_magma","alien_magma_nf","alien_marsh","alien_marsh_nf","alien_owl","alien_owl_nf","alien_pebble","alien_pebble_nf","alien_peng","alien_peng_nf","alien_pink","alien_pink_nf","alien_sala","alien_sala_nf","alien_shroom","alien_shroom_nf","alien_snow","alien_snow_nf","alien_yeti","alien_yeti_nf","bg_candy","bg_forest","bg_ice","bg_lava","bg_space","boat","boat_mint","boat_night","boat_pink","boat_t1","boat_t1_forest","boat_t1_forest_r","boat_t1_mint","boat_t1_mint_r","boat_t1_night","boat_t1_night_r","boat_t1_pink","boat_t1_pink_r","boat_t1_r","boat_t2","boat_t2_forest","boat_t2_forest_r","boat_t2_mint","boat_t2_mint_r","boat_t2_night","boat_t2_night_r","boat_t2_pink","boat_t2_pink_r","boat_t2_r","boat_t3","boat_t3_forest","boat_t3_forest_r","boat_t3_mint","boat_t3_mint_r","boat_t3_night","boat_t3_night_r","boat_t3_pink","boat_t3_pink_r","boat_t3_r","cislet0","cislet1","cislet2","cislet3","coin","fang","firefly","fislet0","fislet1","fislet2","fislet3","g_aurora","g_berry","g_candy","g_cocoa","g_cotton","g_crystal","g_donut","g_emerald","g_fruit","g_glowshroom","g_honey","g_jelly","g_lavacake","g_lavasoup","g_lolli","g_meteorbun","g_pearl","g_potato","g_snowcone","g_syrup","gem","hand","hat_bow","hat_crown","hat_leaf","hat_star","hat_wizard","i_boat","i_boatup","i_book","i_crown","i_forest","i_gift","i_goods","i_ice","i_jar","i_lava","i_legend","i_lure","i_map","i_market","i_meteor","i_pet","i_planet2","i_planet3","i_quest","i_shop","i_staff","iislet0","iislet1","iislet2","iislet3","islet0","islet1","islet2","islet3","king1","king1_nf","king2","king2_nf","king3","king3_nf","king4","king4_nf","king5","king5_nf","lislet0","lislet1","lislet2","lislet3","lock","market_base","mk_coffee","mk_lantern","mk_repair","mk_sign","mk_smooth","mk_souv","ob_crate","ob_ice","ob_log","ob_meteor","ob_thorn","pet_bird","pet_bird_nf","pet_bunny","pet_bunny_nf","pet_cat","pet_cat_nf","pet_octo","pet_octo_nf","sign_fork","staff","stall","stall_candy","stall_forest","stall_ice","stall_lava","tv"].forEach(function(n){ASSETS[n]=1;});
+var _IMG={},ASSETS={};["alien_blue","alien_blue_nf","alien_choco","alien_choco_nf","alien_drizzle","alien_drizzle_nf","alien_ember","alien_ember_nf","alien_frog","alien_frog_nf","alien_green","alien_green_nf","alien_gummy","alien_gummy_nf","alien_icejel","alien_icejel_nf","alien_leaf","alien_leaf_nf","alien_magma","alien_magma_nf","alien_marsh","alien_marsh_nf","alien_owl","alien_owl_nf","alien_pebble","alien_pebble_nf","alien_peng","alien_peng_nf","alien_pink","alien_pink_nf","alien_puff","alien_puff_nf","alien_rainbow","alien_rainbow_nf","alien_sala","alien_sala_nf","alien_shroom","alien_shroom_nf","alien_snow","alien_snow_nf","alien_yeti","alien_yeti_nf","alien_zap","alien_zap_nf","bg_candy","bg_cloud","bg_forest","bg_ice","bg_lava","bg_space","boat","boat_mint","boat_night","boat_pink","boat_t1","boat_t1_forest","boat_t1_forest_r","boat_t1_krathong","boat_t1_krathong_r","boat_t1_mint","boat_t1_mint_r","boat_t1_night","boat_t1_night_r","boat_t1_pink","boat_t1_pink_r","boat_t1_r","boat_t2","boat_t2_forest","boat_t2_forest_r","boat_t2_krathong","boat_t2_krathong_r","boat_t2_mint","boat_t2_mint_r","boat_t2_night","boat_t2_night_r","boat_t2_pink","boat_t2_pink_r","boat_t2_r","boat_t3","boat_t3_forest","boat_t3_forest_r","boat_t3_krathong","boat_t3_krathong_r","boat_t3_mint","boat_t3_mint_r","boat_t3_night","boat_t3_night_r","boat_t3_pink","boat_t3_pink_r","boat_t3_r","cislet0","cislet1","cislet2","cislet3","coin","ev_khanom","ev_krathong","ev_lantern","ev_lotus","ev_loy","ev_malai","fang","firefly","fislet0","fislet1","fislet2","fislet3","g_aurora","g_berry","g_candy","g_cloudbun","g_cocoa","g_cotton","g_crystal","g_donut","g_emerald","g_fruit","g_glowshroom","g_honey","g_jelly","g_lavacake","g_lavasoup","g_lolli","g_meteorbun","g_pearl","g_potato","g_rainbowmochi","g_rainjelly","g_snowcone","g_syrup","g_zapsoda","gem","hand","hat_bow","hat_chada","hat_crown","hat_jasmine","hat_leaf","hat_star","hat_wizard","i_boat","i_boatup","i_book","i_cloud","i_crown","i_forest","i_gift","i_goods","i_ice","i_jar","i_lava","i_legend","i_lure","i_map","i_market","i_meteor","i_pet","i_planet2","i_planet3","i_quest","i_sail","i_shop","i_staff","i_story","iislet0","iislet1","iislet2","iislet3","islet0","islet1","islet2","islet3","king1","king1_nf","king2","king2_nf","king3","king3_nf","king4","king4_nf","king5","king5_nf","king6","king6_nf","kislet0","kislet1","kislet2","kislet3","lislet0","lislet1","lislet2","lislet3","lock","market_base","mk_coffee","mk_lantern","mk_repair","mk_sign","mk_smooth","mk_souv","ob_crate","ob_ice","ob_log","ob_meteor","ob_thorn","pet_bird","pet_bird_nf","pet_bunny","pet_bunny_nf","pet_cat","pet_cat_nf","pet_octo","pet_octo_nf","q_bouquet","q_letter","q_musicbox","q_scarf","q_shell","q_umbrella","sign_fork","staff","stall","stall_candy","stall_cloud","stall_forest","stall_ice","stall_lava","tv"].forEach(function(n){ASSETS[n]=1;});
 var IMG=new Proxy(_IMG,{get:function(o,k){if(typeof k==='string'&&!(k in o)&&ASSETS[k]){var i=new Image();i.decoding='async';i.src='assets/'+k+'.webp';o[k]=i;}return o[k];}});
 var IMGS=['bg_space','staff','alien_blue','alien_green','alien_pink','stall','g_fruit','g_candy','g_jelly','g_crystal','coin','gem','islet0','islet1','islet2','islet3','i_map',
  'bg_candy','stall_candy','cislet0','cislet1','cislet2','cislet3','alien_gummy','alien_marsh','alien_choco','g_cotton','g_lolli','g_syrup','g_donut',
@@ -501,7 +518,7 @@ function makeGlow(r,g,b){var c=document.createElement('canvas');c.width=c.height
   gr.addColorStop(0,'rgba('+r+','+g+','+b+',1)');gr.addColorStop(0.35,'rgba('+r+','+g+','+b+',.45)');gr.addColorStop(1,'rgba('+r+','+g+','+b+',0)');x.fillStyle=gr;x.fillRect(0,0,64,64);return c;}
 var GLOW={warm:makeGlow(255,190,100),cyan:makeGlow(120,230,255),lav:makeGlow(190,160,255),gold:makeGlow(255,215,90),white:makeGlow(255,255,255),green:makeGlow(150,255,170)};
 // ---------- living characters: faces, rigs, simulated brain (all on-device: no network, no API, works offline) ----------
-var FACES={"alien_blue":{"e":[[0.441,0.328,0.045,0.064],[0.673,0.299,0.04,0.062]],"m":[0.57,0.384,0.09],"sk":"#9ad1ed","ar":0.78},"alien_green":{"e":[[0.349,0.353,0.033,0.039],[0.481,0.345,0.037,0.041],[0.62,0.39,0.037,0.041]],"m":[0.459,0.448,0.107],"sk":"#e4ded2","ar":0.9367},"alien_pink":{"e":[[0.345,0.292,0.028,0.037],[0.555,0.32,0.032,0.037]],"m":[0.435,0.354,0.073],"sk":"#dfa2e6","ar":1.03},"alien_gummy":{"e":[[0.431,0.373,0.047,0.058],[0.665,0.347,0.042,0.056]],"m":[0.56,0.419,0.09],"sk":"#fa7e1f","ar":0.89},"alien_marsh":{"e":[[0.439,0.465,0.045,0.052],[0.672,0.444,0.038,0.046]],"m":[0.569,0.512,0.087],"sk":"#dabae1","ar":0.9867},"alien_choco":{"e":[[0.441,0.449,0.047,0.057],[0.67,0.427,0.042,0.053]],"m":[0.567,0.492,0.093],"sk":"#955c43","ar":0.94},"alien_snow":{"e":[[0.417,0.408,0.043,0.05],[0.661,0.39,0.04,0.05]],"m":[0.547,0.452,0.087],"sk":"#f3edf0","ar":0.9633},"alien_icejel":{"e":[[0.416,0.412,0.043,0.05],[0.649,0.395,0.038,0.048]],"m":[0.541,0.454,0.09],"sk":"#c6ecf7","ar":1.0},"alien_peng":{"e":[[0.416,0.331,0.04,0.051],[0.641,0.316,0.037,0.051]],"m":[0.537,0.383,0.077],"sk":"#f5eae5","ar":0.9164},"alien_yeti":{"e":[[0.438,0.376,0.04,0.047],[0.649,0.363,0.037,0.046]],"m":[0.551,0.419,0.077],"sk":"#e5cae6","ar":0.99},"alien_shroom":{"e":[[0.407,0.44,0.04,0.046],[0.639,0.422,0.038,0.046]],"m":[0.532,0.478,0.083],"sk":"#f8e5d2","ar":1.0167},"alien_leaf":{"e":[[0.435,0.421,0.049,0.051],[0.677,0.404,0.042,0.049]],"m":[0.567,0.468,0.097],"sk":"#c6cd74","ar":1.057},"alien_frog":{"e":[[0.338,0.171,0.054,0.064],[0.684,0.145,0.05,0.062]],"m":[0.531,0.297,0.194],"sk":"#a7c8a6","ar":0.8829},"alien_owl":{"e":[[0.412,0.366,0.047,0.053],[0.646,0.353,0.042,0.05]],"m":[0.536,0.422,0.067],"sk":"#f8e7da","ar":1.0134},"pet_cat":{"e":[[0.381,0.581,0.085,0.066],[0.806,0.564,0.075,0.066]],"m":[0.605,0.638,0.155],"sk":"#d9b8e9","ar":1.435},"pet_octo":{"e":[[0.368,0.418,0.062,0.069],[0.689,0.403,0.058,0.069]],"m":[0.538,0.48,0.115],"sk":"#fb9ea8","ar":1.015},"pet_bird":{"e":[[0.645,0.462,0.04,0.069],[0.844,0.439,0.038,0.069]],"m":[0.751,0.503,0.065],"sk":"#fabe4f","ar":0.6935},"pet_bunny":{"e":[[0.447,0.569,0.065,0.054],[0.793,0.555,0.058,0.052]],"m":[0.62,0.649,0.06],"sk":"#fbece5","ar":1.3618},"alien_pebble":{"e":[[0.385,0.394,0.062,0.056],[0.61,0.395,0.066,0.062]],"m":[0.495,0.484,0.101],"sk":"#7e6348","ar":0.9363},"alien_sala":{"e":[[0.252,0.212,0.058,0.066],[0.462,0.222,0.06,0.068]],"m":[0.3,0.335,0.12],"sk":"#e3988c","ar":0.9599},"king1":{"e":[[0.371,0.321,0.032,0.033],[0.555,0.331,0.037,0.035]],"m":[0.454,0.379,0.088],"sk":"#7ab3cf","ar":1.059},"king2":{"e":[[0.367,0.326,0.032,0.033],[0.544,0.335,0.036,0.034]],"m":[0.446,0.386,0.081],"sk":"#d18a9c","ar":1.0634},"king3":{"e":[[0.371,0.287,0.029,0.031],[0.536,0.294,0.035,0.032]],"m":[0.45,0.388,0.1],"sk":"#bac5c9","ar":1.0447},"king4":{"e":[[0.357,0.345,0.03,0.034],[0.537,0.349,0.046,0.044]],"m":[0.437,0.397,0.079],"sk":"#a0b668","ar":1.0648},"king5":{"e":[[0.343,0.314,0.027,0.029],[0.542,0.326,0.036,0.032]],"m":[0.44,0.417,0.134],"sk":"#d3703f","ar":1.1336},"alien_magma":{"e":[[0.391,0.403,0.059,0.06],[0.641,0.401,0.055,0.064]],"m":[0.516,0.483,0.107],"sk":"#e9570d","ar":0.9732},"alien_ember":{"e":[[0.331,0.447,0.05,0.05],[0.563,0.464,0.062,0.056]],"m":[0.433,0.53,0.097],"sk":"#edb22a","ar":1.1174}};
+var FACES={"alien_blue":{"e":[[0.441,0.328,0.045,0.064],[0.673,0.299,0.04,0.062]],"m":[0.57,0.384,0.09],"sk":"#9ad1ed","ar":0.78},"alien_green":{"e":[[0.349,0.353,0.033,0.039],[0.481,0.345,0.037,0.041],[0.62,0.39,0.037,0.041]],"m":[0.459,0.448,0.107],"sk":"#e4ded2","ar":0.9367},"alien_pink":{"e":[[0.345,0.292,0.028,0.037],[0.555,0.32,0.032,0.037]],"m":[0.435,0.354,0.073],"sk":"#dfa2e6","ar":1.03},"alien_gummy":{"e":[[0.431,0.373,0.047,0.058],[0.665,0.347,0.042,0.056]],"m":[0.56,0.419,0.09],"sk":"#fa7e1f","ar":0.89},"alien_marsh":{"e":[[0.439,0.465,0.045,0.052],[0.672,0.444,0.038,0.046]],"m":[0.569,0.512,0.087],"sk":"#dabae1","ar":0.9867},"alien_choco":{"e":[[0.441,0.449,0.047,0.057],[0.67,0.427,0.042,0.053]],"m":[0.567,0.492,0.093],"sk":"#955c43","ar":0.94},"alien_snow":{"e":[[0.417,0.408,0.043,0.05],[0.661,0.39,0.04,0.05]],"m":[0.547,0.452,0.087],"sk":"#f3edf0","ar":0.9633},"alien_icejel":{"e":[[0.416,0.412,0.043,0.05],[0.649,0.395,0.038,0.048]],"m":[0.541,0.454,0.09],"sk":"#c6ecf7","ar":1.0},"alien_peng":{"e":[[0.416,0.331,0.04,0.051],[0.641,0.316,0.037,0.051]],"m":[0.537,0.383,0.077],"sk":"#f5eae5","ar":0.9164},"alien_yeti":{"e":[[0.438,0.376,0.04,0.047],[0.649,0.363,0.037,0.046]],"m":[0.551,0.419,0.077],"sk":"#e5cae6","ar":0.99},"alien_shroom":{"e":[[0.407,0.44,0.04,0.046],[0.639,0.422,0.038,0.046]],"m":[0.532,0.478,0.083],"sk":"#f8e5d2","ar":1.0167},"alien_leaf":{"e":[[0.435,0.421,0.049,0.051],[0.677,0.404,0.042,0.049]],"m":[0.567,0.468,0.097],"sk":"#c6cd74","ar":1.057},"alien_frog":{"e":[[0.338,0.171,0.054,0.064],[0.684,0.145,0.05,0.062]],"m":[0.531,0.297,0.194],"sk":"#a7c8a6","ar":0.8829},"alien_owl":{"e":[[0.412,0.366,0.047,0.053],[0.646,0.353,0.042,0.05]],"m":[0.536,0.422,0.067],"sk":"#f8e7da","ar":1.0134},"pet_cat":{"e":[[0.381,0.581,0.085,0.066],[0.806,0.564,0.075,0.066]],"m":[0.605,0.638,0.155],"sk":"#d9b8e9","ar":1.435},"pet_octo":{"e":[[0.368,0.418,0.062,0.069],[0.689,0.403,0.058,0.069]],"m":[0.538,0.48,0.115],"sk":"#fb9ea8","ar":1.015},"pet_bird":{"e":[[0.645,0.462,0.04,0.069],[0.844,0.439,0.038,0.069]],"m":[0.751,0.503,0.065],"sk":"#fabe4f","ar":0.6935},"pet_bunny":{"e":[[0.447,0.569,0.065,0.054],[0.793,0.555,0.058,0.052]],"m":[0.62,0.649,0.06],"sk":"#fbece5","ar":1.3618},"alien_pebble":{"e":[[0.385,0.394,0.062,0.056],[0.61,0.395,0.066,0.062]],"m":[0.495,0.484,0.101],"sk":"#7e6348","ar":0.9363},"alien_sala":{"e":[[0.252,0.212,0.058,0.066],[0.462,0.222,0.06,0.068]],"m":[0.3,0.335,0.12],"sk":"#e3988c","ar":0.9599},"king1":{"e":[[0.371,0.321,0.032,0.033],[0.555,0.331,0.037,0.035]],"m":[0.454,0.379,0.088],"sk":"#7ab3cf","ar":1.059},"king2":{"e":[[0.367,0.326,0.032,0.033],[0.544,0.335,0.036,0.034]],"m":[0.446,0.386,0.081],"sk":"#d18a9c","ar":1.0634},"king3":{"e":[[0.371,0.287,0.029,0.031],[0.536,0.294,0.035,0.032]],"m":[0.45,0.388,0.1],"sk":"#bac5c9","ar":1.0447},"king4":{"e":[[0.357,0.345,0.03,0.034],[0.537,0.349,0.046,0.044]],"m":[0.437,0.397,0.079],"sk":"#a0b668","ar":1.0648},"king5":{"e":[[0.343,0.314,0.027,0.029],[0.542,0.326,0.036,0.032]],"m":[0.44,0.417,0.134],"sk":"#d3703f","ar":1.1336},"alien_magma":{"e":[[0.391,0.403,0.059,0.06],[0.641,0.401,0.055,0.064]],"m":[0.516,0.483,0.107],"sk":"#ed5410","ar":0.9732},"alien_ember":{"e":[[0.331,0.447,0.05,0.05],[0.563,0.464,0.062,0.056]],"m":[0.433,0.53,0.097],"sk":"#fcbd2e","ar":1.1174},"alien_puff":{"e":[[0.39,0.363,0.045,0.052],[0.628,0.359,0.052,0.058]],"m":[0.506,0.439,0.1],"sk":"#f0e5e0","ar":0.9298},"alien_zap":{"e":[[0.333,0.413,0.042,0.045],[0.55,0.427,0.055,0.047]],"m":[0.428,0.483,0.093],"sk":"#f4d556","ar":1.1067},"alien_drizzle":{"e":[[0.358,0.448,0.068,0.045],[0.617,0.448,0.068,0.045]],"m":[0.495,0.503,0.11],"sk":"#96d6ef","ar":0.9867},"alien_rainbow":{"e":[[0.247,0.257,0.047,0.062],[0.473,0.273,0.052,0.066]],"m":[0.36,0.346,0.1],"sk":"#e2cbbc","ar":0.9799},"king6":{"e":[[0.344,0.319,0.028,0.028],[0.544,0.332,0.037,0.034]],"m":[0.442,0.414,0.124],"sk":"#a49da9","ar":1.1489}};
 var FANG={"1":{"e":[[0.6203,0.2903,0.0126,0.0206],[0.6963,0.2588,0.0093,0.0183]],"m":[0.6683,0.3012,0.027],"sk":"#e4b084","piv":[0.742,0.4005],"foot":[0.6071,0.6087],"body":[[0.4418,0.0915],[0.5059,0.0114],[0.7083,0.0],[0.7723,0.0915],[0.7673,0.2517],[0.7926,0.4577],[0.7589,0.5995],[0.5059,0.6133],[0.4351,0.5034]],"pad":[[0.7083,0.3616],[0.8516,0.7368]],"padw":0.0169,"blade":[[0.8381,0.7277],[0.8735,0.6865],[0.9241,0.7437],[0.9747,0.8513],[0.9983,0.9565],[0.9781,0.9931],[0.9376,0.9794],[0.8938,0.9108],[0.86,0.8284],[0.8398,0.778]],"hand":[0.7454,0.3936,0.0337,0.0595]},"2":{"e":[[0.3138,0.3649,0.0101,0.0181],[0.3746,0.3371,0.0067,0.0168]],"m":[0.3523,0.3753,0.0219],"sk":"#e4b185","piv":[0.4125,0.4534],"foot":[0.2946,0.7202],"body":[[0.1599,0.2202],[0.2189,0.1036],[0.404,0.1036],[0.4411,0.2073],[0.4411,0.5181],[0.4209,0.7124],[0.2357,0.7254],[0.1431,0.5181]],"pad":[[0.4209,0.4275],[0.0875,0.9534]],"padw":0.0118,"blade":null,"hand":[0.4158,0.4456,0.0337,0.0622]},"3":{"e":[[0.6859,0.4204,0.0114,0.0139],[0.7499,0.4012,0.0079,0.0129]],"m":[0.7265,0.4291,0.0229],"sk":"#e2b288","piv":[0.7746,0.496],"foot":[0.669,0.6845],"body":[[0.5018,0.2976],[0.581,0.2183],[0.7394,0.2143],[0.8187,0.2976],[0.8134,0.496],[0.7923,0.6746],[0.5458,0.6845],[0.5194,0.496]],"pad":[[0.7482,0.4722],[0.8803,0.7579]],"padw":0.0176,"blade":[[0.8627,0.7381],[0.8944,0.7242],[0.9296,0.7698],[0.9718,0.8532],[0.9859,0.9087],[0.9595,0.9286],[0.919,0.9028],[0.8891,0.8433],[0.8662,0.7837]],"hand":[0.7835,0.496,0.0387,0.0476]}};
 // viewer-right arm cut [x0,y0,x1,y1,pivotX,pivotY] (normalized). Pink has no arms: it waves with its whole body.
 var ARMS={alien_blue:[.79,.03,1,.42,.8,.4],alien_green:[.8,.24,1,.52,.81,.5],alien_gummy:[.84,.2,1,.55,.85,.52],alien_marsh:[.82,.27,1,.52,.83,.5],
@@ -513,10 +530,11 @@ var PETR={cat:{tail:[0,.62,.23,.94,.22,.8]},bunny:{ears:[[.06,0,.5,.33,.33,.31],
 // personalities per alien type: patience, tips, envy, chattiness; favourite goods come from each alien's likes
 var PERS={curious:{pat:1,tip:1,envy:.25,chat:.6},lonely:{pat:1.15,tip:1.05,envy:.15,chat:.65,fr:1},impatient:{pat:.8,tip:1.3,envy:.7,chat:.5,th:[.3,.6]},
   sweet:{pat:1,tip:1.1,envy:.35,chat:.55,fav:1.5},shy:{pat:1.2,tip:1.1,envy:.1,chat:.3,jumpy:1},showoff:{pat:.95,tip:1.4,envy:.5,chat:.6},dreamy:{pat:1.3,tip:1,envy:.1,chat:.45,th:[.6,.85]},
-  jolly:{pat:1.1,tip:1.2,envy:.1,chat:.7},wise:{pat:1.2,tip:1,envy:.1,chat:.5},fiery:{pat:.9,tip:1.3,envy:.4,chat:.7,th:[.35,.65]}};
+  jolly:{pat:1.1,tip:1.2,envy:.1,chat:.7},wise:{pat:1.2,tip:1,envy:.1,chat:.5},fiery:{pat:.9,tip:1.3,envy:.4,chat:.7,th:[.35,.65]},
+  sparky:{pat:.9,tip:1.25,envy:.3,chat:.7,jumpy:1},gloomy:{pat:1.25,tip:1.05,envy:.1,chat:.4,fr:1},grumbly:{pat:1,tip:1.35,envy:.3,chat:.6,th:[.3,.6]}};
 var PTYPE={alien_blue:'curious',alien_green:'lonely',alien_pink:'shy',alien_gummy:'sweet',alien_marsh:'dreamy',alien_choco:'showoff',alien_snow:'dreamy',alien_icejel:'curious',
   alien_peng:'impatient',alien_yeti:'showoff',alien_shroom:'shy',alien_leaf:'lonely',alien_frog:'impatient',alien_owl:'dreamy',
-  alien_magma:'sweet',alien_ember:'impatient',alien_pebble:'shy',alien_sala:'showoff',king1:'jolly',king2:'sweet',king3:'dreamy',king4:'wise',king5:'fiery'};
+  alien_magma:'sweet',alien_ember:'impatient',alien_pebble:'shy',alien_sala:'showoff',king1:'jolly',king2:'sweet',king3:'dreamy',king4:'wise',king5:'fiery',alien_puff:'dreamy',alien_zap:'sparky',alien_drizzle:'gloomy',alien_rainbow:'showoff',king6:'grumbly'};
 function persOf(img){return PERS[PTYPE[img]||'curious'];}
 // thought bubble pool [TH, EN]; {good} {planet} {pet} {boat} {time} are filled at draw time so the TH/EN toggle redraws them
 var POOL={
@@ -555,6 +573,12 @@ var POOL={
  k3:[['ข้าชอบของเย็นๆ แต่ใจอุ่นนะ','Cool treats, warm heart'],['ฮ้าว... เร็วหน่อยนะ','Yawn... be quick now']],
  k4:[['ป่าทั้งป่ารอของจากเจ้า','The whole forest awaits'],['ใจเย็นๆ แต่อย่าช้านะ','Calm, but do not dawdle']],
  k5:[['ข้าคือมังกรน้อยผู้ยิ่งใหญ่!','I am the great little dragon!'],['ร้อนๆ เท่านั้นนะ!','Only piping hot ones!']],
+ k6:[['ฮึ่ม! ข้าคือราชาเมฆฝน!','Hmph! I am the Rain Cloud King!'],['เร็วๆ ก่อนฟ้าจะร้องอีก','Hurry, before it thunders again']],
+ sparky:[['ซ่าๆ! ขอ{good}หน่อย!','Zzzap! A {good}, please!'],['ขนฉันตั้งหมดเลย ตื่นเต้น!','My fur is standing up, so exciting!']],
+ gloomy:[['ฝนตกอีกแล้ว... ขอ{good}นะ','Raining again... a {good}, please'],['{good}ทำให้ใจสดใส','A {good} cheers me up']],
+ grumbly:[['ฮึ่ม ช้าจริง','Hmph, so slow'],['เอา{good}ดีๆ นะ','Only a good {good}, mind you']],
+ cloud:[['ระวังฟ้าผ่านะ!','Watch out for lightning!'],['ลมแรงดีจัง','Nice strong wind today'],['บนเมฆนุ่มดีนะ','The clouds are so soft']],
+ loy:[['สุขสันต์วันลอยกระทง!','Happy Loy Krathong!'],['กระทงสวยจัง!','What a pretty krathong!'],['ขอของเทศกาลหน่อย!','Festival treats, please!']],
  kwin:[['ยอดเยี่ยม! รับมงกุฎไปเลย','Splendid! Take this crown'],['ข้าพอใจมาก!','We are most pleased!']],
  kfail:[['ไม่เป็นไร ไว้มาใหม่นะ','No matter, come again'],['คราวหน้าเอาใหม่นะ','Next time, then']]};
 var TIMEW={th:['เช้า','บ่าย','เย็น','ดึก'],en:['morning','afternoon','evening','night']};
@@ -686,7 +710,7 @@ function onArrive(a){if(a.dock){a.wv=0.6;return;}a.wv=1.3;sfx('r_wave',{vol:0.45
   if(lv>=2&&Math.random()<0.75){bubble(a,lv>=3?'best':'reg');if(!trip||!trip.regSaid){if(trip)trip.regSaid=1;if(Math.random()<0.5)say('regular',8000);}return;}
   if(Math.random()>P.chat*0.75)return;
   var c=[];if(a.likes&&stock[a.good.id]>0)c.push('fav','fav');if(S.pets.on){c.push('pet');if(P===PERS.curious)c.push('pet');}if(S.cos.boat&&S.cos.boat!=='classic')c.push('boat');
-  if(nightS>0.5)c.push('night','night');if(isWk())c.push('meteor');c.push('greet','greet','time',PTYPE[a.img]||'curious');
+  if(nightS>0.5)c.push('night','night');if(isWk())c.push('meteor');c.push('greet','greet','time',PTYPE[a.img]||'curious');if(cloudOn())c.push('cloud');if(liveEv())c.push('loy','loy');
   var k=c[Math.floor(Math.random()*c.length)];if(bubble(a,k)&&(k==='pet'||k==='boat'||k==='fav'))emote(a,'love',1.3);}
 function onLeaveSad(a){if(a.dock)return;emote(a,'sad',1);if(Math.random()<0.35)bubble(a,'sad');fang.emo='sad';fang.emoT=1.1;if(Math.random()<0.25)say('sorry',9000);}
 // returns extra coins from friendship (added as a tip)
@@ -840,7 +864,7 @@ function drawKing(){
   outlined(t('kingT')+' · '+Math.ceil(a.pat-a.t),0,-bh/2-11,16);
   cx.restore();
 }
-function popLB(b,q,r){b.done=1;b.t=0;b.pop=1;play('lpop',{rate:0.95+Math.random()*0.15});sparkle(q.x,q.y-r*0.6,16);
+function popLB(b,q,r){sqEvent('pop');b.done=1;b.t=0;b.pop=1;play('lpop',{rate:0.95+Math.random()*0.15});sparkle(q.x,q.y-r*0.6,16);
   var amt=Math.round(Math.max(1,bestPrice())*incMul()*0.4);addCoins(amt);if(trip)trip.earned+=amt;floats.push({x:q.x,y:q.y-r*1.4,txt:'+'+fmt(amt),t:0});say('pop',6000);}
 function lavaHit(b){b.done=1;b.t=0;spd*=0.55;bumpT=1;boatSquash=1;var bx=L.boat.x+boatU*KX,big=null;
   for(var k in stock){var g=gById(k);if(g&&g.hot&&stock[k]>0&&(!big||stock[k]>stock[big]))big=k;}
@@ -858,7 +882,7 @@ function doLegend(){
   GOODS.forEach(function(x){S.goods[x.id]=0;S.load[x.id]=0;});S.goods.fruit=1;
   S.staff=STAFF.map(function(){return 0;});if(L5.stars>=3)S.staff[0]=1;
   STALLS.forEach(function(x){S.market.st[x.id]=0;});S.market.bank=0;S.market.last=Date.now();
-  for(var k in S.routes)S.routes[k]={trips:0,done:false};S.unlocked=[1];S.planet=1;S.cur=null;S.ulSeen=S.ul3Seen=S.ul4Seen=S.ul5Seen=false;
+  for(var k in S.routes)S.routes[k]={trips:0,done:false};S.unlocked=[1];S.planet=1;S.cur=null;S.ulSeen=S.ul3Seen=S.ul4Seen=S.ul5Seen=S.ul6Seen=false;
   if(S.tier===2)S.tier=1; // coin boat starts over; the gem raft stays
   for(var kk in S.king)S.king[kk].at=0;
   trip=null;phase='port';aliens=[null,null,null,null];dockC=[null,null,null,null,null];gifts=[];obs=[];lbs=[];fork=null;ffs=[];lane=0;boatU=0;for(var s2 in stock)stock[s2]=0;
@@ -896,7 +920,7 @@ function setOff(){
   var z0=dist,len=PL().len,n=(S.routes['1'].trips>=3||S.planet>1)?3:2,docks=[];
   for(var i=1;i<=n;i++)docks.push(z0+len*(i/(n+1))+(hash(z0+i)*16-8));
   trip={z0:z0,docks:docks,end:z0+len,di:0,sold:0,tips:0,best:0,earned:0,tut:!S.tut.done,heat:{}};
-  PG().forEach(function(g){if(g.hot&&stock[g.id]>0)trip.heat[g.id]=1;});if(Object.keys(trip.heat).length)setTimeout(function(){say('hot',0);},2600);lbs=[];lbNext=dist+14;kingC=null;
+  PG().forEach(function(g){if(g.hot&&stock[g.id]>0)trip.heat[g.id]=1;});if(Object.keys(trip.heat).length)setTimeout(function(){say('hot',0);},2600);lbs=[];lbNext=dist+14;kingC=null;cloudInit();festT=12+Math.random()*8;try{Ads.gameplay(true);}catch(e){}
   if(!trip.tut&&stockTotal()>=5&&kingDue(S.planet))reserveKing();
   piers=piers.filter(function(p){return p.z>dist-4;});
   docks.forEach(function(z,j){piers.push({z:z,side:j%2?1:-1,kind:'dock'});});
@@ -963,7 +987,7 @@ function custPos(a){if(a.king)return kingPos(a);
 function ease(k){return 1-Math.pow(1-k,3);}
 function allCust(){return aliens.concat(dockC).filter(function(a){return a;});}
 function orderNext(a){for(var i=0;i<a.order.length;i++)if(!a.got[i]&&stock[a.order[i].id]>0)return i;return -1;}
-function oldestCust(byStaff){var b=null;allCust().forEach(function(a){if(a.state==='wait'&&(a.vip?!byStaff:a.order?(!byStaff&&orderNext(a)>=0):stock[a.good.id]>0)&&(!b||a.born<b.born))b=a;});return b;}
+function oldestCust(byStaff){var b=null;allCust().forEach(function(a){if(a.state==='wait'&&(a.evg?(!byStaff&&evInv(a.evg)>0):a.vip?!byStaff:a.order?(!byStaff&&orderNext(a)>=0):stock[a.good.id]>0)&&(!b||a.born<b.born))b=a;});return b;}
 function orderVal(a,onlyGot){var s=0;a.order.forEach(function(g,i){if(!onlyGot||a.got[i])s+=goodPrice(g,S.goods[g.id])*heatMul(g.id);});return s*incMul();}
 function deliverOrder(a){
   var p=custPos(a),idx=orderNext(a);
@@ -974,7 +998,7 @@ function deliverOrder(a){
   else{var amt=Math.round(orderVal(a)*1.8*forkMul()*(a.gold?3:1));a.state='out';bookAdd(a);a.t=0;a.happy=true;amt+=onServed(a,false,amt);addCoins(amt);S.stats.sold+=n;S.stats.orders=(S.stats.orders|0)+1;qAdd('sell',n);
     if(trip){trip.sold+=n;trip.earned+=amt;}
     coinBurst(p.x,p.y-10,9);sparkle(p.x,p.y,36);floats.push({x:p.x,y:p.y-p.w*0.5,txt:t('orderDone',{n:fmt(amt)}),t:0,big:true});
-    play('order');play('sell',{vol:0.6});say('order',0);}
+    play('order');play('sell',{vol:0.6});say('order',0);sqEvent('sellTo',a.img);}
   if(stockTotal()<=0)onEmpty();hudDirty=true;return true;
 }
 function orderPartial(a){ // the alien leaves early: still pays for what it got
@@ -982,6 +1006,7 @@ function orderPartial(a){ // the alien leaves early: still pays for what it got
   floats.push({x:p.x,y:p.y-p.w*0.5,txt:'+'+fmt(amt),t:0});play('coin',{vol:0.6});}
 function sellTo(a,byStaff){
   if(!a||a.state!=='wait')return false;
+  if(a.evg)return evSell(a,byStaff);
   if(a.order&&!a.vip){if(byStaff)return false;return deliverOrder(a);}
   var p=custPos(a),amt,tip=0;
   if(a.vip){amt=a.pay;}
@@ -991,7 +1016,7 @@ function sellTo(a,byStaff){
     amt=Math.round(goodPrice(a.good,S.goods[a.good.id])*incMul()*forkMul()*(a.gold?3:1)*heatMul(a.good.id));if(a.likes)amt=Math.round(amt*1.25);
     if(!a.dock&&!byStaff&&a.t<a.pat*(petOn('octo')?0.55:0.4)){tip=Math.max(1,Math.round(amt*0.5*(petOn('octo')?1.5:1)));}
     if(a.dock&&!byStaff){combo++;comboT=1.6;comboPop=1;var mult=1+0.1*Math.min(combo,20);amt=Math.round(amt*mult);
-      if(trip)trip.best=Math.max(trip.best,combo);qMax('combo',combo);
+      if(trip)trip.best=Math.max(trip.best,combo);qMax('combo',combo);sqEvent('combo',combo);
       play('combo',{rate:Math.min(1.9,1+combo*0.04),vol:0.7});
       if(combo===5||combo===15)say('combo',0);else if(combo===10||combo===20)say('great',0);}
   }
@@ -1059,7 +1084,9 @@ function endHold(){holding=false;sw=null;}
 function steer(d){if(forkChoosing()){pickFork(d);return;}if(!(iceOn()&&phase==='travel'))return;var n=Math.max(-1,Math.min(1,lane+d));if(n===lane){boatSquash=0.5;return;}lane=n;play('steer',{vol:0.7,rate:d>0?1.08:0.94});}
 window.addEventListener('pointermove',function(e){if(!sw||!laneOn())return;var r=cv.getBoundingClientRect(),dx=e.clientX-r.left-sw.x,dy=e.clientY-r.top-sw.y;
   if(!sw.done&&Math.abs(dx)>34&&Math.abs(dx)>Math.abs(dy)*1.2){steer(dx>0?1:-1);sw.done=1;}}); // one lane per swipe
+window.addEventListener('keyup',function(e){if(e.key===' '||e.code==='Space'){if(holding)endHold();}});
 window.addEventListener('keydown',function(e){if(splashOn||openPanel||adOpen)return;var k=e.key;
+  if((k===' '||e.code==='Space')&&phase==='travel'){e.preventDefault();if(!e.repeat&&!holding){audioUnlock();holding=true;holdAcc=0;}return;}
   if(k==='ArrowLeft'||k==='a'||k==='A'){if(laneOn()){steer(-1);e.preventDefault();}}
   else if(k==='ArrowRight'||k==='d'||k==='D'){if(laneOn()){steer(1);e.preventDefault();}}});
 function bump(o){
@@ -1069,7 +1096,7 @@ function bump(o){
   floats.push({x:bx,y:L.boat.y-L.boat.h*0.55,txt:t('bumpT')+(big?' -1':''),t:0,big:true});
   play('bump');brainBump(o);if(Math.random()<0.6)say('bump',5000);sparkle(bx,L.boat.y-L.boat.h*0.2,14);hudDirty=true;
 }
-function grabCrate(o){
+function grabCrate(o){sqEvent('crate');
   var u=unlockedGoods(),g=u[Math.floor(Math.random()*u.length)],n=2+(Math.random()<0.3?1:0),bx=L.boat.x+boatU*KX;
   stock[g.id]+=n;emptyNoted=false;var amt=Math.round(Math.max(1,bestPrice())*incMul());addCoins(amt);if(trip)trip.earned+=amt;
   floats.push({x:bx,y:L.boat.y-L.boat.h*0.6,txt:t('grabT',{n:n,g:t(g.id)}),t:0,big:true});coinBurst(bx,L.boat.y-L.boat.h*0.3,5);sparkle(bx,L.boat.y-L.boat.h*0.3,26);
@@ -1093,7 +1120,7 @@ function clearOb(o,q){o.done=true;o.t=0;o.push=o.u>=0?1:-1;o.tapped=1;play('grab
   var amt=Math.round(Math.max(1,bestPrice())*incMul()*0.5);addCoins(amt);if(trip)trip.earned+=amt;floats.push({x:q.x,y:q.y-KX*q.p*0.6,txt:'+'+fmt(amt),t:0});}
 function nightK(){if(nightForce!=null)return nightForce;if(!forkOn())return 0;var v=Math.sin(dist/45);return Math.max(0,Math.min(1,(-v-0.2)/0.35));}
 function ffPos(f){return {x:f.x+Math.sin(f.t*1.3+f.ph)*18,y:f.y+Math.cos(f.t*1.7+f.ph)*12};}
-function catchFF(f,p){f.got=true;var n=petOn('bunny')?2:1;S.ff+=n;sparkle(p.x,p.y,14);floats.push({x:p.x,y:p.y-24,txt:t('ffGot',{n:n}),t:0,big:false});
+function catchFF(f,p){f.got=true;sqEvent('ff');var n=petOn('bunny')?2:1;S.ff+=n;sparkle(p.x,p.y,14);floats.push({x:p.x,y:p.y-24,txt:t('ffGot',{n:n}),t:0,big:false});
   play('firefly',{rate:0.95+Math.random()*0.15});say('firefly',6000);hudDirty=true;}
 function goldOf(n){if(GOLD[n])return GOLD[n];var im=IMG[n];if(!ok(im))return null;var c=document.createElement('canvas');c.width=iw(im);c.height=ih(im);var x=c.getContext('2d');
   x.drawImage(im,0,0);x.globalCompositeOperation='source-atop';x.fillStyle='rgba(255,205,60,0.55)';x.fillRect(0,0,c.width,c.height);
@@ -1123,7 +1150,7 @@ function claimLogin(m){var nx=loginNext();if(!nx)return;var r=loginRew(nx.day);
   play('login');play('sell',{vol:0.5});say(nx.day===7?'day7':'login',0);coinBurst(W/2,H*0.45,10);sparkle(W/2,H*0.4,40);if(r.k==='pet'){boatSquash=1;toast(t('petNew'));}
   save();hudDirty=true;}
 function takeGift(g,q){
-  g.taken=true;qAdd('gifts');
+  g.taken=true;qAdd('gifts');sqEvent('gift');
   var amt=Math.round(bestPrice()*3*incMul()),y=q.y-KX*q.p*0.5;addCoins(amt);if(trip)trip.earned+=amt;
   coinBurst(q.x,y,6);sparkle(q.x,y,18);floats.push({x:q.x,y:y-20,txt:'+'+fmt(amt),t:0,big:true});
   play('gift',{vol:0.8});say('gift',3000);
@@ -1140,9 +1167,10 @@ function frame(now){
   requestAnimationFrame(frame);
 }
 function update(dt){
+  cloudTick(dt);evTrip(dt);
   // speed
   var target=0,bs=baseSpeed();
-  if(phase==='travel'){target=bs*(holding?1.75:1);
+  if(phase==='travel'){target=bs*(holding?1.75*gustBoost():1);
     if(trip.tut&&(tut.step==='tap'||tut.step==='hold'||tut.step==='nice')&&trip.di===0&&stopZ()-dist<40)target=bs*0.25; // tutorial: wait before first dock
   }
   spd+=(target-spd)*Math.min(1,dt*(target>spd?2.2:3));
@@ -1234,7 +1262,7 @@ function arriveStop(){
   updatePhaseUi();
 }
 function arriveDest(dock){ // destination
-    kingC=null;phase='arrive';RT().trips++;S.stats.trips++;qAdd('trips');S.stats.bestCombo=Math.max(S.stats.bestCombo,trip.best);
+    kingC=null;phase='arrive';RT().trips++;S.stats.trips++;qAdd('trips');interTrips++;sqEvent('trip');try{Ads.gameplay(false);}catch(e){}S.stats.bestCombo=Math.max(S.stats.bestCombo,trip.best);
     if(dock){play('dock');play('fanfare',{vol:0.7});say('arrive',0);sparkle(W/2,H*0.45,40);}save();
     var sc={sold:trip.sold,tips:trip.tips,best:trip.best,earned:trip.earned};setTimeout(function(){open('_summary',sc);},dock?900:200);
   updatePhaseUi();
@@ -1264,6 +1292,9 @@ function finishTrip(x2){
     if(S.planet===4){ // Lava Volcano Planet opens after the Emerald route
       if(S.unlocked.indexOf(5)<0)S.unlocked.push(5);starterGoods(S,5);S.ul5Seen=true;save();
       setTimeout(function(){open('_unlock',{n:5});play('fanfare');say('lavaopen',0);sparkle(W/2,H*0.4,60);},300);return;}
+    if(S.planet===5){ // Thundercloud Planet opens after the Lava route
+      if(S.unlocked.indexOf(6)<0)S.unlocked.push(6);starterGoods(S,6);S.ul6Seen=true;save();
+      setTimeout(function(){open('_unlock',{n:6});play('fanfare');say('cloudopen',0);sparkle(W/2,H*0.4,60);},300);return;}
     save();setTimeout(function(){open('_edge');play('fanfare');say('arrive',0);sparkle(W/2,H*0.4,60);},300);return;}
   if(!S.tut.done&&tut.step==='wait_port')setTimeout(function(){tutShow('up');},400);
   else if(!S.tut.done&&!tut.step)setTimeout(function(){if(!openPanel&&phase==='port')tutShow('intro');},400);
@@ -1281,7 +1312,7 @@ function draw(dt){
   // sky: big nebula background with gentle parallax that follows the river's turns
   var th=PL(),bg=IMG[th.bg];
   if(ok(bg)){var s=Math.max(W/720,H/1280)*1.18,bw=720*s,bh=1280*s,sh=-rcd(dist)*W*0.35;
-    cx.drawImage(bg,(W-bw)/2+sh,(H-bh)/2-H*0.04,bw,bh);}else{cx.fillStyle=S.planet===2?'#d9a8e0':S.planet===3?'#8fc8ee':S.planet===4?'#2f6b4a':'#120f45';cx.fillRect(0,0,W,H);}
+    cx.drawImage(bg,(W-bw)/2+sh,(H-bh)/2-H*0.04,bw,bh);}else{cx.fillStyle=S.planet===2?'#d9a8e0':S.planet===3?'#8fc8ee':S.planet===4?'#2f6b4a':S.planet===6?'#6f66b8':'#120f45';cx.fillRect(0,0,W,H);}
   // warp stars stream out of the horizon (stronger when paddling fast)
   cx.globalCompositeOperation='lighter';cx.fillStyle='#fff';
   var fast=spd/Math.max(1,baseSpeed());
@@ -1291,6 +1322,7 @@ function draw(dt){
     else{cx.fillRect(x-r/2,y-r/2,r,r);}});
   cx.globalCompositeOperation='source-over';cx.globalAlpha=1;
   if(isWk())drawMeteors(dt);
+  drawLanterns();
   drawRiver();
   // world sprites far -> near
   var objs=[],mkZ=[];
@@ -1305,6 +1337,7 @@ function draw(dt){
   gifts.forEach(function(g){if(!g.taken)objs.push({z:g.z,kind:'gift',u:g.u,g:g});});
   obs.forEach(function(o){if(!(o.done&&o.k==='crate'))objs.push({z:o.z,kind:'ob',u:o.u,o:o});});
   lbs.forEach(function(b){objs.push({z:b.z,kind:'lb',u:b.u,b:b});});
+  drawEvWorld(objs);
   if(fork){objs.push({z:fork.z0-3,kind:'fsign',u:0});
     for(var fz=fork.z0+2;fz<fork.z1;fz+=5.5)objs.push({z:fz,kind:'fdiv',u:0,n:Math.floor(hash(fz)*4)});
     for(var cz=fork.z0-10;cz<fork.z1;cz+=4)objs.push({z:cz,kind:'fcoin',u:fork.rich*LANE});}
@@ -1319,6 +1352,7 @@ function draw(dt){
       cx.beginPath();cx.moveTo(W/2+sx*r0,HY+H*0.12+sy*r0);cx.lineTo(W/2+sx*(r0+len),HY+H*0.12+sy*(r0+len));cx.stroke();}
     cx.globalAlpha=1;}
   if(nightS>0.01)drawNight();
+  drawSky();
   // customers (screen space)
   if(lavaOn()&&trip&&trip.heat&&(phase==='travel'||phase==='dock'))drawSteam();
   dockC.forEach(drawCust);aliens.forEach(drawCust);
@@ -1357,7 +1391,7 @@ function drawRiver(){
     cx.beginPath();cx.ellipse(W/2+(q.x-W/2)*0.3+(rp.u||0)*KX*q.p,q.y+L.boat.h*0.12,L.boat.w*(0.25+k*0.5)*q.p,L.boat.h*(0.05+k*0.05)*q.p,0,0,6.283);cx.stroke();});
   cx.globalAlpha=1;cx.globalCompositeOperation='source-over';
 }
-function drawObj(o){
+function drawObj(o){if(o.kind==='kr'){drawKr(o);return;}
   var q=proj(o.z,o.u);if(q.d<-3.2||q.d>DF)return;var fog=Math.min(1,(DF-q.d)/12)*Math.min(1,(q.d+3.2)/1.2);
   if(q.x<-W*0.6||q.x>W*1.6)return;
   if(o.kind==='islet'){var w=KX*q.p*(o.small?1.7:2.6),y=q.y-KX*q.p*(0.9+0.25*Math.sin(time*0.8+o.ph));
@@ -1396,14 +1430,14 @@ function drawConvoy(){
   drawBoat();
 }
 function drawBoat(){
-  var b0=L.boat,b={x:b0.x+boatU*KX,y:b0.y,w:b0.w,h:b0.h},bob=Math.sin(time*1.6)*4,tilt=-(rc(dist+3)-rc(dist))*0.12,rot=Math.sin(time*1.1)*0.025+Math.max(-0.08,Math.min(0.08,tilt))+(lane*LANE-boatU)*0.12+Math.sin(bumpT*14)*bumpT*0.06,sq=Math.sin(boatSquash*Math.PI)*0.06;
+  var b0=L.boat,b={x:b0.x+boatU*KX,y:b0.y,w:b0.w,h:b0.h},bob=Math.sin(time*1.6)*4,tilt=-(rc(dist+3)-rc(dist))*0.12,rot=Math.sin(time*1.1)*0.025+Math.max(-0.08,Math.min(0.08,tilt))+(lane*LANE-boatU)*0.12+Math.sin(bumpT*14)*bumpT*0.06+Math.sin(time*30)*sky.zt*0.07,sq=Math.sin(boatSquash*Math.PI)*0.06;
   cx.globalCompositeOperation='lighter';glow('lav',b.x,b.y+b.h*0.3,b.w*0.7,0.45);cx.globalCompositeOperation='source-over';
   // V wake behind the boat
   if(spd>0.3){cx.globalAlpha=Math.min(0.5,spd*0.06);cx.strokeStyle='#efe9ff';cx.lineWidth=2.5;
     cx.beginPath();cx.moveTo(b.x-b.w*0.3,b.y+b.h*0.32);cx.lineTo(b.x-b.w*0.75,H*0.98);cx.moveTo(b.x+b.w*0.3,b.y+b.h*0.32);cx.lineTo(b.x+b.w*0.75,H*0.98);cx.stroke();cx.globalAlpha=1;}
   var T=tierOf(),im=IMG[boatImg(S.cos.boat)];if(!ok(im))im=IMG[T.img];if(!ok(im))return;
   var tn=Math.max(1,Math.min(3,S.tier|0||1)),nm=ok(IMG[boatImg(S.cos.boat)])?boatImg(S.cos.boat):T.img,R=fangRig(nm,String(tn));
-  cx.globalAlpha=1;cx.save();cx.translate(b.x,b.y+bob);cx.rotate(rot);cx.scale(1+sq,1-sq);var x0=-b.w/2,y0=-b.h/2;cx.drawImage(R?R.base:im,x0,y0,b.w,b.h);
+  cx.globalAlpha=1;cx.save();cx.translate(b.x,b.y+bob);cx.rotate(rot);cx.scale(1+sq,1-sq);var x0=-b.w/2,y0=-b.h/2;cx.drawImage(R?R.base:im,x0,y0,b.w,b.h);drawSail(b);
   cargoIcons().forEach(function(c,i){var sl=T.slots[i],cw=b.w*T.cw,gi=IMG[c];if(!sl||!ok(gi))return;var ch=cw*ih(gi)/iw(gi);
     cx.drawImage(gi,-b.w/2+b.w*sl[0]-cw/2,-b.h/2+b.h*sl[1]-ch*0.85+Math.sin(time*2+i)*0.8,cw,ch);});
   var ch2=fang.cheer>0?Math.sin(fang.cheer/0.7*Math.PI):0;
@@ -1472,12 +1506,12 @@ function drawCust(a){
   else if(a.state==='wait'){
     var bx=p.x+sh,by=p.y-p.w*0.95,r=p.w*0.31,pop=Math.min(1,a.t/0.2);r*=0.6+0.4*ease(pop);
     if(bx-r<6)bx=r+6;if(bx+r>W-6)bx=W-6-r;
-    var have=a.vip||stock[a.good.id]>0;
+    var evi=a.evg&&liveEv()&&evItem(liveEv(),a.evg),have=evi?evInv(a.evg)>0:(a.vip||stock[a.good.id]>0);
     cx.fillStyle=have?'#fffaf0':'#c9c6dc';cx.beginPath();cx.arc(bx,by,r,0,6.283);cx.fill();
     cx.beginPath();cx.moveTo(bx-r*0.25,by+r*0.85);cx.lineTo(p.x,by+r*1.35);cx.lineTo(bx+r*0.25,by+r*0.85);cx.fill();
     var left=Math.max(0,1-a.t/a.pat);cx.strokeStyle='#ffd24a';cx.lineWidth=4;cx.lineCap='round';cx.beginPath();cx.arc(bx,by,r+3,-Math.PI/2,-Math.PI/2+left*6.283);cx.stroke();
     if(a.vip){drawImg('coin',bx,by,r*1.3,.5,.5);}
-    else{drawImg(a.good.img,bx,by+Math.sin(time*4)*1.5,r*1.35,.5,.5,0,have?1:0.45);
+    else{drawImg(evi?evi.img:a.good.img,bx,by+Math.sin(time*4)*1.5,r*1.35,.5,.5,0,have?1:0.45);
       if(!have){cx.strokeStyle='#121c4a';cx.lineWidth=4;cx.beginPath();cx.moveTo(bx-r*0.45,by-r*0.45);cx.lineTo(bx+r*0.45,by+r*0.45);cx.moveTo(bx+r*0.45,by-r*0.45);cx.lineTo(bx-r*0.45,by+r*0.45);cx.stroke();}
       if(a.likes&&have){cx.fillStyle='#ffd24a';heart(bx+r*0.75,by-r*0.7,7);}}
   }else if(a.state==='out'&&a.happy){
@@ -1581,10 +1615,10 @@ function updateHud(){
   $('xpfill').style.width=Math.min(100,S.xp/xpNeed(S.lvl)*100)+'%';
   var can=canBuy();document.querySelectorAll('.nb').forEach(function(b){b.classList.toggle('can',!!can[b.dataset.p]);});
   $('jtxt').textContent=t(PL().name)+' · '+t('route',{a:Math.min(RT().trips,PL().trips),b:PL().trips});
-  var j1=$('j1'),j2=$('j2'),i1='assets/'+PL().icon+'.webp',i2=S.planet===1?'assets/i_planet2.webp':S.planet===2?'assets/i_ice.webp':S.planet===3?'assets/i_forest.webp':S.planet===4?'assets/i_lava.webp':'assets/i_legend.webp';
+  var j1=$('j1'),j2=$('j2'),i1='assets/'+PL().icon+'.webp',i2=S.planet===1?'assets/i_planet2.webp':S.planet===2?'assets/i_ice.webp':S.planet===3?'assets/i_forest.webp':S.planet===4?'assets/i_lava.webp':S.planet===5?'assets/i_cloud.webp':'assets/i_legend.webp';
   if(j1.getAttribute('src')!==i1)j1.setAttribute('src',i1);if(j2.getAttribute('src')!==i2)j2.setAttribute('src',i2);
-  j2.classList.toggle('lockd',S.planet<5?S.unlocked.indexOf(S.planet+1)<0:!legendAvail());
-  $('mkbtn').classList.toggle('can',!!can.market);$('petbtn').classList.toggle('can',!!can.pets);$('bookbtn').classList.toggle('can',!!can.book||bookNew);$('calbtn').classList.toggle('can',!!can.cal);
+  j2.classList.toggle('lockd',S.planet<6?S.unlocked.indexOf(S.planet+1)<0:!legendAvail());
+  $('mkbtn').classList.toggle('can',!!can.market);$('petbtn').classList.toggle('can',!!can.pets);$('bookbtn').classList.toggle('can',!!can.book||bookNew||sqCan());$('calbtn').classList.toggle('can',!!can.cal);
   $('evb').classList.toggle('hidden',!isWk());
   renderChips();
   if(openPanel&&openPanel!=='map'&&openPanel!=='settings'&&openPanel!=='credits'&&openPanel.charAt(0)!=='_')renderPanel(openPanel,true);
@@ -1602,11 +1636,12 @@ function tickTripUi(){
   var kind=null;
   if((phase==='travel'||phase==='dock')&&!(trip&&trip.tut)&&adAvailable()){if(stockTotal()<=0)kind='restock';else if(vipWin>0&&phase==='travel')kind='vip';}
   var ab=$('adbtn');if(ab.dataset.k!==(kind||'')){ab.dataset.k=kind||'';ab.classList.toggle('hidden',!kind);if(kind)$('adbtn-t').textContent=t(kind==='vip'?'vipBtn':'rsBtn');}
-  var ice=iceOn()&&phase==='travel'&&!(trip&&trip.tut),hk=ice?'steerH':'hold',he=$('hint');
+  var ice=iceOn()&&phase==='travel'&&!(trip&&trip.tut),cl=cloudOn()&&phase==='travel'&&!(trip&&trip.tut),hk=ice?'steerH':cl?(matchMedia('(pointer:fine)').matches?'sailHD':'sailH'):'hold',he=$('hint');
   if(he.dataset.t!==hk){he.dataset.t=hk;he.textContent=t(hk);}
-  he.classList.toggle('hidden',!(ice?RT().trips<2:(phase==='travel'&&!holding&&S.stats.trips<3&&!(tut.step==='hold'))));
+  he.classList.toggle('hidden',!(ice?RT().trips<2:cl?(RT().trips<3&&!holding&&sky.bw<=0&&sky.gw<=0&&sky.g<=0):(phase==='travel'&&!holding&&S.stats.trips<3&&!(tut.step==='hold'))));
   var fc=forkChoosing();$('lanes').classList.toggle('hidden',!ice||fc);
   var fu=$('forkui');fu.classList.toggle('hidden',!fc);
+  if(fc){var fh=fu.offsetHeight||110,btop=L.boat.y-L.boat.h*0.58,ft=Math.max(HUDY()+56,btop-fh-6);if(fu.dataset.top!==String(Math.round(ft))){fu.dataset.top=String(Math.round(ft));fu.style.top=Math.round(ft)+'px';}}
   if(fc){var fkk=fork.rich+':'+fork.ch+':'+S.lang;if(fu.dataset.k!==fkk){fu.dataset.k=fkk;
     [[-1,'fk-l'],[1,'fk-r']].forEach(function(r){var b=$(r[1]),rich=r[0]===fork.rich;b.innerHTML='<img src="assets/'+(rich?'coin':'i_boat')+'.webp" alt=""><span>'+t(rich?'fkRich':'fkSafe')+'</span><small>'+(rich?'x1.8':'x0.85')+'</small>';
       b.classList.toggle('rich',rich);b.classList.toggle('on',fork.ch===r[0]);});$('fk-t').textContent=t('fkPick');}}
@@ -1650,7 +1685,7 @@ function open(p,ctx){openPanel=p;panelCtx=ctx||null;var m=$('modal');m.classList
   if(p==='load'&&tut.step==='load'){tutShow('go');var gb=$('go');if(gb&&gb.scrollIntoView)gb.scrollIntoView({block:'nearest'});}if(p==='boat'&&tut.step==='up')tutShow('up2');}
 function close(){var was=openPanel;openPanel=null;panelCtx=null;$('modal').classList.add('hidden');
   if(was==='boat'&&tut.step==='up2')tutShow('done');if(was==='load'&&tut.step==='go')tutShow('load');}
-var STICKY={_welcome:1,_summary:1,_edge:1,_unlock:1,_arrive:1,_meteor:1,_king:1,_legend:1};
+var STICKY={_welcome:1,_summary:1,_edge:1,_unlock:1,_arrive:1,_meteor:1,_king:1,_legend:1,_live:1,_story:1};
 $('modal').addEventListener('pointerdown',function(e){if(e.target.id==='modal'&&openPanel&&!STICKY[openPanel])close();});
 function head(title){return '<div class="sh-h"><h2>'+title+'</h2><button class="x" data-a="close">×</button></div>';}
 function buyBtn(cost,label,act,arg,maxed){
@@ -1698,7 +1733,7 @@ function renderPanel(p,soft){
   }else if(p==='map'){
     h=head(t('map'));
     h+='<div class="crownbar"><img src="assets/i_crown.webp" alt=""><b>'+t('crownN',{n:crownCount()})+'</b>'+(S.legend.n?'<span>'+t('legendLv',{n:S.legend.n+1})+'</span>':'')+'</div>';
-    [1,2,3,4,5].forEach(function(n){var P=PLANETS[n],un=S.unlocked.indexOf(n)>=0,rt=S.routes[n],K=kingOf(n),kl=kingLeft(n);
+    [1,2,3,4,5,6].forEach(function(n){var P=PLANETS[n],un=S.unlocked.indexOf(n)>=0,rt=S.routes[n],K=kingOf(n),kl=kingLeft(n);
       h+='<div class="planet'+(un?'':' lock')+(S.planet===n?' here':'')+'"><div class="pl"><img class="p" src="assets/'+P.icon+'.webp" alt="">'+(un?'':'<img class="lk" src="assets/lock.webp" alt="">')+'</div><div class="pm"><div class="nm" style="font-weight:800;font-size:18px">'+t(P.name)+'</div><div class="ds" style="font-size:14px;opacity:.8">'+t(P.desc)+'</div>'+
         '<div class="ds" style="font-size:14px">'+(un?t('route',{a:Math.min(rt.trips,P.trips),b:P.trips})+(P.mul>1?' · '+t('incomeX',{n:P.mul}):''):t('route',{a:Math.min(S.routes[n-1].trips,PLANETS[n-1].trips),b:PLANETS[n-1].trips}))+'</div>'+
         (un?'<div class="ds kgl"><img src="assets/'+KINGS[n].img+'.webp" alt="">'+t('king'+n)+(K.c?' <img class="cr" src="assets/i_crown.webp" alt="">':'')+' · '+(kl<=0?t('kingDue'):t('kingNext',{n:kl}))+'</div>':'')+
@@ -1758,20 +1793,20 @@ function renderPanel(p,soft){
       (can&&c2.earned>0?'<div class="pop-d" style="font-size:14px;margin-bottom:10px">'+t('sumAd',{n:fmt(c2.earned)})+'</div><div class="btns"><button class="b-yes" data-a="adwatch" data-i="trip2x">'+t('sumX2')+'</button><button class="b-no" data-a="sumok">'+t('sumOk')+'</button></div>'
         :'<div class="btns"><button class="b-yes" data-a="sumok">'+t('sumOk')+'</button></div>');
   }else if(p==='_edge'){ // end of the newest route: the next planet is coming soon
-    if(S.planet===5){h='<img class="pop-ic big" src="assets/i_legend.webp" alt=""><div class="pop-t">'+t('edge5T')+'</div><div class="pop-d">'+t('edge5D')+'</div>'+
+    if(S.planet>=5){var e6=S.planet===6;h='<img class="pop-ic big" src="assets/i_legend.webp" alt=""><div class="pop-t">'+t(e6?'edge6T':'edge5T')+'</div><div class="pop-d">'+t(e6?'edge6D':'edge5D')+'</div>'+
       '<div class="btns eq"><button class="b-yes" data-a="legendask">'+t('edgeLegend')+'</button><button class="b-yes alt" data-a="edgeok">'+t('edgeOk')+'</button></div>';sh.innerHTML=h;return;}
     var e4=S.planet===4;
     h='<img class="pop-ic" src="assets/'+(e4?'i_forest':'i_ice')+'.webp" alt="" style="width:120px;height:110px"><div class="pop-t">'+t(e4?'edge4T':'edge3T')+'</div><div class="pop-d">'+t(e4?'edge4D':'edge3D')+'</div>'+
       '<div class="planet lock" style="margin-bottom:14px"><div class="pl"><img class="p" src="assets/i_planet3.webp" alt=""><img class="lk" src="assets/lock.webp" alt=""></div><div><div class="nm" style="font-weight:800;font-size:18px">'+t(e4?'planet5':'planet4')+'</div><span class="tag">'+t('soon')+'</span></div></div>'+
       '<div class="btns"><button class="b-yes" data-a="edgeok">'+t('edgeOk')+'</button></div>';
   }else if(p==='_unlock'){
-    var un=(panelCtx&&panelCtx.n)||2,un3=un===3,un4=un===4,un5=un===5,UA=un5?ALIENS5.concat([{img:'alien_sala'}]):un4?ALIENS4.concat([{img:'alien_owl'}]):un3?ALIENS3.concat([{img:'alien_yeti'}]):ALIENS2;
-    h='<img class="pop-ic big" src="assets/'+(un5?'i_lava':un4?'i_forest':un3?'i_ice':'i_planet2')+'.webp" alt=""><div class="pop-t">'+t(un5?'ul5T':un4?'ul4T':un3?'ul3T':'ulT')+'</div><div class="pop-d">'+t(un5?'ul5D':un4?'ul4D':un3?'ul3D':'ulD')+'</div>'+
+    var un=(panelCtx&&panelCtx.n)||2,un3=un===3,un4=un===4,un5=un===5,un6=un===6,UA=un6?ALIENS6.concat([{img:'alien_rainbow'}]):un5?ALIENS5.concat([{img:'alien_sala'}]):un4?ALIENS4.concat([{img:'alien_owl'}]):un3?ALIENS3.concat([{img:'alien_yeti'}]):ALIENS2;
+    h='<img class="pop-ic big" src="assets/'+(un6?'i_cloud':un5?'i_lava':un4?'i_forest':un3?'i_ice':'i_planet2')+'.webp" alt=""><div class="pop-t">'+t(un6?'ul6T':un5?'ul5T':un4?'ul4T':un3?'ul3T':'ulT')+'</div><div class="pop-d">'+t(un6?'ul6D':un5?'ul5D':un4?'ul4D':un3?'ul3D':'ulD')+'</div>'+
       '<div class="newrow">'+UA.map(function(a){return '<img src="assets/'+a.img+'.webp" alt="">';}).join('')+'</div>'+
-      '<div class="btns"><button class="b-yes" data-a="ulgo">'+t(un5?'ul5Go':un4?'ul4Go':un3?'ul3Go':'ulGo')+'</button><button class="b-no" data-a="ulstay">'+t('ulStay')+'</button></div>';
+      '<div class="btns"><button class="b-yes" data-a="ulgo">'+t(un6?'ul6Go':un5?'ul5Go':un4?'ul4Go':un3?'ul3Go':'ulGo')+'</button><button class="b-no" data-a="ulstay">'+t('ulStay')+'</button></div>';
   }else if(p==='_arrive'){
     var an=(panelCtx&&panelCtx.n)||2;
-    h='<img class="pop-ic big" src="assets/'+PLANETS[an].icon+'.webp" alt=""><div class="pop-t">'+t(an===5?'ar5T':an===4?'ar4T':an===3?'ar3T':'arT')+'</div><div class="pop-d">'+t(an===5?'ar5D':an===4?'ar4D':an===3?'ar3D':'arD')+'</div>'+
+    h='<img class="pop-ic big" src="assets/'+PLANETS[an].icon+'.webp" alt=""><div class="pop-t">'+t(an===6?'ar6T':an===5?'ar5T':an===4?'ar4T':an===3?'ar3T':'arT')+'</div><div class="pop-d">'+t(an===6?'ar6D':an===5?'ar5D':an===4?'ar4D':an===3?'ar3D':'arD')+'</div>'+
       '<div class="newrow">'+PLANETS[an].aliens.map(function(a){return '<img src="assets/'+a.img+'.webp" alt="">';}).join('')+'</div>'+
       '<div class="newrow sm">'+PG().map(function(g){return '<img src="assets/'+g.img+'.webp" alt="">';}).join('')+'</div>'+
       '<div class="pop-d" style="font-size:15px">'+t('arGift')+'</div><div class="pop-big">'+gemsTxt((panelCtx&&panelCtx.g)||ARRIVE_GEMS)+'</div>'+
@@ -1785,11 +1820,11 @@ function renderPanel(p,soft){
     h+='<div class="sec">'+t('sFang')+'</div>';
     HATS.forEach(function(x){var own=x.id==='none'||S.cos.hats.indexOf(x.id)>=0,on=S.cos.hat===x.id;
       h+='<div class="row'+(on?' on':'')+'"><img class="ic" src="assets/'+(x.id==='none'?'fang':'hat_'+x.id)+'.webp" alt=""><div class="mid"><div class="nm">'+t('hat_'+x.id)+'</div><div class="ds">'+(own?t('owned'):'')+'</div></div>'+
-        (on?'<button class="buy max">'+t('wearing')+'</button>':own?'<button class="buy" data-a="wear" data-i="'+x.id+'">'+t('wear')+'</button>':(x.ff?ffBtn(x.ff,'buyhat',x.id):gemBtn(x.cost,'buyhat',x.id)))+'</div>';});
+        (on?'<button class="buy max">'+t('wearing')+'</button>':own?'<button class="buy" data-a="wear" data-i="'+x.id+'">'+t('wear')+'</button>':(x.ev?'<span class="tag evtag">'+t('evOnly')+'</span>':x.ff?ffBtn(x.ff,'buyhat',x.id):gemBtn(x.cost,'buyhat',x.id)))+'</div>';});
     h+='<div class="sec">'+t('sBoat')+'</div>';
     SKINS.forEach(function(x){var own=S.cos.boats.indexOf(x.id)>=0,on=S.cos.boat===x.id;
       h+='<div class="row'+(on?' on':'')+'"><img class="ic wide" src="assets/'+boatImg(x.id)+'.webp" alt=""><div class="mid"><div class="nm">'+t('boat_'+x.id)+'</div><div class="ds">'+(own?t('owned'):'')+'</div></div>'+
-        (on?'<button class="buy max">'+t('using')+'</button>':own?'<button class="buy" data-a="useboat" data-i="'+x.id+'">'+t('use')+'</button>':(x.ff?ffBtn(x.ff,'buyboat',x.id):gemBtn(x.cost,'buyboat',x.id)))+'</div>';});
+        (on?'<button class="buy max">'+t('using')+'</button>':own?'<button class="buy" data-a="useboat" data-i="'+x.id+'">'+t('use')+'</button>':(x.ev?'<span class="tag evtag">'+t('evOnly')+'</span>':x.ff?ffBtn(x.ff,'buyboat',x.id):gemBtn(x.cost,'buyboat',x.id)))+'</div>';});
   }else if(p==='quests'){
     var can3=adAvailable();
     h=head(t('quests'))+'<div class="sec">'+t('qDaily')+'<span class="qreset">'+t('qReset',{t:untilMidnight()})+'</span></div>';
@@ -1831,7 +1866,8 @@ function renderPanel(p,soft){
           (o?'<small class="frl lv'+lv+'"><b>'+'♥♥♥'.slice(0,lv)+'</b>'+t('fr'+lv)+'<br>'+t('p_'+(PTYPE[a]||'curious'))+'</small>':'<small class="frl">?</small>')+'</div>';}).join('')+'</div>'+
         '<div class="row brw"><div class="mid"><div class="ds">'+coinsTxt(rw.c)+' &nbsp;'+gemsTxt(rw.g)+'</div></div>'+(S.book.pc[i]?'<button class="buy max">'+t('pageDone')+'</button>':full?'<button class="buy" data-a="pgclaim" data-i="'+i+'">'+t('pageClaim')+'</button>':'<span class="arew">'+pg.al.filter(function(a){return S.book.s[a];}).length+' / '+pg.al.length+'</span>')+'</div>'+
         '<div class="row brw"><div class="mid"><div class="ds">'+t('goldPage')+' · '+gemsTxt(30)+'</div></div>'+(S.book.gc[i]?'<button class="buy max">'+t('pageDone')+'</button>':gfull?'<button class="buy" data-a="pggold" data-i="'+i+'">'+t('pageClaim')+'</button>':'<span class="arew">'+pg.al.filter(function(a){return S.book.g[a];}).length+' / '+pg.al.length+'</span>')+'</div></div>';});
-    h+='<div class="bpage"><div class="sec">'+t('crowns')+' · '+crownCount()+'/5</div><div class="stk">'+[1,2,3,4,5].map(function(n){var K=kingOf(n);
+    h+=sqLog();
+    h+='<div class="bpage"><div class="sec">'+t('crowns')+' · '+crownCount()+'/6</div><div class="stk">'+[1,2,3,4,5,6].map(function(n){var K=kingOf(n);
       return '<div class="stw"><div class="st'+(K.c?' gold':' miss')+'"><img src="assets/'+KINGS[n].img+'.webp" alt="">'+(K.c?'<i><img src="assets/i_crown.webp" alt="" style="width:18px;height:18px;vertical-align:middle"> x'+K.c+'</i>':'')+'</div><small class="frl">'+t('king'+n)+'</small></div>';}).join('')+'</div></div>';
   }else if(p==='cal'){
     var nx=loginNext(),cd=nx?nx.day:0,done=nx?cd-1:S.login.streak,adC=nx&&cd<7&&adAvailable();
@@ -1847,6 +1883,12 @@ function renderPanel(p,soft){
         :'<div class="btns"><button class="b-yes" data-a="lclaim">'+t('claimGift')+'</button></div>';}
     else h+='<div class="pop-d calr">'+t('comeBack',{n:S.login.streak>=7?1:S.login.streak+1})+'</div>';
     h+='<div class="ds calrule">'+t('loginRule')+'</div>';
+  }else if(p==='live'){h=livePanel();
+  }else if(p==='_live'){var LE=liveEv();
+    if(panelCtx&&panelCtx.tease||!LE){var TE=liveTease()||EVENTS[0];h='<img class="evban" src="assets/'+TE.banner+'.webp" alt=""><div class="pop-t">'+t('evTease')+'</div><div class="pop-d">'+t('evTeaseD')+'</div><div class="pop-d evday">'+t('evDay_'+TE.id)+'</div><div class="btns"><button class="b-yes" data-a="evlater">'+t('evOpen')+'</button></div>';}
+    else h='<img class="evban" src="assets/'+LE.banner+'.webp" alt=""><div class="pop-t">'+t('ev_'+LE.id)+'</div><div class="pop-d">'+t('evD_'+LE.id)+'</div><div class="pop-d evday">'+t('evDay_'+LE.id)+'</div><div class="ds evwin">'+t('evWin_'+LE.id)+'</div>'+
+      '<div class="btns"><button class="b-yes" data-a="evgo">'+t('evOpen')+'</button><button class="b-no" data-a="evlater">'+t('evLater')+'</button></div>';
+  }else if(p==='_story'){h=storyPanel();
   }else if(p==='_meteor'){
     h='<img class="pop-ic big" src="assets/i_meteor.webp" alt=""><div class="pop-t">'+t('evT')+'</div><div class="pop-d">'+t('evD')+'</div>'+
       '<div class="pop-big">'+gemsTxt('x2')+'</div><div class="btns"><button class="b-yes" data-a="evok">'+t('evOk')+'</button></div>';
@@ -1862,6 +1904,8 @@ function renderPanel(p,soft){
 $('sheet').addEventListener('click',function(e){
   var b=e.target.closest('[data-a]');if(!b)return;var a=b.dataset.a,i=b.dataset.i;audioUnlock();
   if(a==='close'){play('tap',{vol:0.5});close();return;}
+  if(a.slice(0,2)==='sq'&&storyAct(a,i)){hudDirty=true;return;}
+  if(/^ev(craft|buy|go|later)$/.test(a)){if(liveAct(a,i)===true)return;save();hudDirty=true;if(openPanel)renderPanel(openPanel,true);return;}
   if(a==='up'){var u=UPS.filter(function(x){return x.id===i;})[0],lv=S.up[i];if(lv>=UP_MAX)return;if(!spend(upCost(u,lv)))return;S.up[i]++;play('upgrade');say('upgrade',800);sparkle(L.boat.x,L.boat.y,30);boatSquash=1;
     if(tut.step==='up2'){save();close();return;}}
   else if(a==='staff'){var s=STAFF[+i],lv2=S.staff[+i],c2=lv2?staffUpCost(s,lv2):s.hire;if(lv2>=STAFF_MAX)return;if(!spend(c2))return;S.staff[+i]++;
@@ -1884,7 +1928,7 @@ $('sheet').addEventListener('click',function(e){
   else if(a==='replay'){S.tut.done=false;save();close();if(phase==='port')tutShow('intro');else toast(t('tutLater'));return;}
   else if(a==='adwatch'){adReturnCtx={panel:openPanel,ctx:panelCtx};close();startAd(i);return;}
   else if(a==='wbclaim'){addCoins(panelCtx.amt);welcomeAmt=0;coinBurst(W/2,H*0.5,10);play('sell');close();save();afterWelcome();return;}
-  else if(a==='sumok'){play('coin');close();finishTrip();return;}
+  else if(a==='sumok'){play('coin');close();maybeInter(finishTrip);return;}
   else if(a==='travel'){if(phase!=='port')return;close();warpTo(+i);return;}
   else if(a==='ulgo'){var un=(panelCtx&&panelCtx.n)||2;close();warpTo(un);return;}
   else if(a==='evok'){play('tap');close();return;}
@@ -1899,8 +1943,8 @@ $('sheet').addEventListener('click',function(e){
   else if(a==='ulstay'){play('tap');close();if(!S.tut.done&&tut.step==='wait_port')tutShow('up');hudDirty=true;return;}
   else if(a==='arok'){play('coin');close();save();hudDirty=true;return;}
   else if(a==='boost'){var bo=BOOSTS.filter(function(x){return x.id===i;})[0],bc=boostCost(bo);if(!bc)return;if(!spendGems(bc))return;S.shop[i]++;bought();if(i==='cap'&&phase==='port')fixLoad();}
-  else if(a==='buyhat'){var hx=hatOf(i);if(S.cos.hats.indexOf(i)>=0)return;if(hx.ff?!spendFF(hx.ff):!spendGems(hx.cost))return;S.cos.hats.push(i);S.cos.hat=i;bought();if(hx.ff)say('swap',0);}
-  else if(a==='buyboat'){var sx=skinOf(i);if(S.cos.boats.indexOf(i)>=0)return;if(sx.ff?!spendFF(sx.ff):!spendGems(sx.cost))return;S.cos.boats.push(i);S.cos.boat=i;bought();if(sx.ff)say('swap',0);}
+  else if(a==='buyhat'){var hx=hatOf(i);if(S.cos.hats.indexOf(i)>=0||hx.ev)return;if(hx.ff?!spendFF(hx.ff):!spendGems(hx.cost))return;S.cos.hats.push(i);S.cos.hat=i;bought();if(hx.ff)say('swap',0);}
+  else if(a==='buyboat'){var sx=skinOf(i);if(S.cos.boats.indexOf(i)>=0||sx.ev)return;if(sx.ff?!spendFF(sx.ff):!spendGems(sx.cost))return;S.cos.boats.push(i);S.cos.boat=i;bought();if(sx.ff)say('swap',0);}
   else if(a==='ffbuy'){var fx=FF_ITEMS.filter(function(x){return x.id===i;})[0];if(!fx||!spendFF(fx.cost))return;S.items[i]=(S.items[i]|0)+1;play('firefly');play('buy',{vol:0.6});say('swap',0);toast(t('swapOk'));sparkle(W/2,H*0.4,24);}
   else if(a==='tier'){var TT=TIERS[+i-1];if(!TT||+i!==S.tier+1)return;if(TT.cur==='gem'?!spendGems(TT.cost):!spend(TT.cost))return;S.tier=+i;layout();
     play('boatup');play('unlock',{vol:0.5});say('boatup',0);boatSquash=1;sparkle(L.boat.x,L.boat.y-L.boat.h*0.2,50);coinBurst(L.boat.x,L.boat.y,8);}
@@ -1937,7 +1981,7 @@ $('adbtn').addEventListener('click',function(){audioUnlock();play('tap');var k=t
 
 // ---------- rewarded ads (mock; real SDK plugs in here) ----------
 function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
-function adSdkReady(){return !urlNoAds;}  // real SDK: return sdk.isRewardedReady()
+function adSdkReady(){return !urlNoAds&&!!(Ads.ready&&Ads.ready());}
 function adAvailable(){
   if(!adSdkReady())return false;
   if(S.ad.day!==today()){S.ad.day=today();S.ad.count=0;}
@@ -1948,25 +1992,23 @@ function adAvailable(){
 var adOpen=null,adReturnCtx=null;
 function startAd(kind){
   if(!adAvailable()){toast(t('adLimit'));reopen(kind);return;}
-  adOpen={kind:kind,t0:performance.now(),done:false};holding=false;
-  if(A.ctx)A.master.gain.setTargetAtTime(0,A.ctx.currentTime,0.05);
-  $('ad').classList.remove('hidden');renderAd();adTick();
+  holding=false;adMute(true);try{Ads.gameplay(false);}catch(e){}
+  requestRewarded(kind).then(function(ok){adOpen=null;adMute(false);
+    if(!ok){toast(t(Ads.name==='mock'?'adEarly':'adNone'));reopen(kind);return;}adGrant(kind);});
 }
-function adTick(){if(!adOpen)return;var left=Math.ceil(AD.watch-(performance.now()-adOpen.t0)/1000);
+function adTick(){if(!adOpen||adOpen.sdk)return;var left=Math.ceil(adOpen.w-(performance.now()-adOpen.t0)/1000);
   if(left<=0&&!adOpen.done){adOpen.done=true;renderAd();return;}if(!adOpen.done){var c=$('adc');if(c)c.textContent=left;}setTimeout(adTick,200);}
 function renderAd(){
-  var e=$('ad'),left=Math.max(0,Math.ceil(AD.watch-(performance.now()-adOpen.t0)/1000));
-  e.innerHTML='<button class="adx" data-a="adclose">×</button><div class="adl">'+t('adLabel')+'</div><img src="assets/tv.webp" alt=""><div class="adt">'+t('title')+'</div>'+
-   (adOpen.done?'<div class="adt">'+t('adDone')+'</div><div class="btns" style="width:80%"><button class="b-yes" data-a="adclaim">'+t('claim')+'</button></div>'
+  var e=$('ad'),left=Math.max(0,Math.ceil(adOpen.w-(performance.now()-adOpen.t0)/1000));
+  e.innerHTML='<button class="adx" data-a="adclose">×</button><div class="adl">'+t(adOpen.inter?'adInter':'adLabel')+' · '+t('adTest')+'</div><img src="assets/tv.webp" alt=""><div class="adt">'+t('title')+'</div>'+
+   (adOpen.done?'<div class="adt">'+t('adDone')+'</div><div class="btns" style="width:80%"><button class="b-yes" data-a="adclaim">'+t(adOpen.inter?'adSkip':'claim')+'</button></div>'
      :'<div class="adc" id="adc">'+left+'</div><div class="adl">'+t('adWait')+'</div>');
 }
 function reopen(kind){if(kind==='king10')return;var r=adReturnCtx;adReturnCtx=null;if(r&&(r.panel==='_welcome'||r.panel==='_summary'))open(r.panel,r.ctx);else if(kind==='q2x'||kind==='qreroll')open('quests');else if(kind==='mk2x')open('market');else if(kind==='login2x')open('cal');}
-$('ad').addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b||!adOpen)return;
-  var k=adOpen.kind,good=b.dataset.a==='adclaim'&&adOpen.done;
-  if(b.dataset.a==='adclose'&&adOpen.done)good=true; // finished: closing still grants
-  $('ad').classList.add('hidden');adOpen=null;
-  if(A.ctx)A.master.gain.setTargetAtTime(S.mute?0:1,A.ctx.currentTime,0.05);
-  if(!good){toast(t('adEarly'));reopen(k);return;}
+$('ad').addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b||!adOpen||!adResolve)return;
+  var good=adOpen.done&&(b.dataset.a==='adclaim'||b.dataset.a==='adclose'); // finished: closing still grants
+  if(adOpen.inter)good=true;$('ad').classList.add('hidden');var res=adResolve;adResolve=null;res(good);});
+function adGrant(k){
   var r=adReturnCtx;adReturnCtx=null;
   S.ad.count++;S.ad.last=Date.now();
   if(k==='vip'){vipWin=0;var c=spawnAlien(null,true);if(!c){aliens[0]=null;spawnAlien(null,true);}play('unlock');}
@@ -1980,7 +2022,7 @@ $('ad').addEventListener('click',function(e){var b=e.target.closest('[data-a]');
   else if(k==='login2x'){if(loginNext())claimLogin(2);say('x2',1500);open('cal');}
   else if(k==='welcome'&&welcomeAmt){addCoins(welcomeAmt*2);coinBurst(W/2,H*0.5,14);play('sell');say('x2',0);welcomeAmt=0;afterWelcome();}
   save();hudDirty=true;
-});
+}
 var welcomeAmt=0;
 $('kingui').addEventListener('click',function(e){var b=e.target.closest('[data-kg]');if(!b||!kingC)return;audioUnlock();
   if(b.dataset.kg==='ad'){if(!kingAdUsed&&adAvailable())startAd('king10');return;}kingGive(b.dataset.kg);});
@@ -2020,12 +2062,14 @@ function qTick(){ // once a second: midnight reset, new achievements, live count
   // 7-day gifts: pop up once per day at port when nothing else is showing
   if(S.login.pop!==today()&&loginNext()&&!splashOn&&!openPanel&&!adOpen&&phase==='port'&&S.tut.done&&!tut.step){S.login.pop=today();save();open('cal');play('gift');return;}
   // weekend meteor shower: announce once per day, only when nothing else is on screen
+  if(liveTick())return;
+  if(sqTick())return;
   if(isWk()&&S.ev.seen!==today()&&!splashOn&&!openPanel&&!adOpen&&phase==='port'&&S.tut.done&&!tut.step){S.ev.seen=today();save();open('_meteor');play('meteor');say('meteor',0);sparkle(W/2,H*0.3,40);}
 }
 setInterval(qTick,1000);
 
 // ---------- planets: warp between Home Star and Candy Planet ----------
-function applyPlanet(){document.body.classList.toggle('p2',S.planet===2);document.body.classList.toggle('p3',S.planet===3);document.body.classList.toggle('p4',S.planet===4);document.body.classList.toggle('p5',S.planet===5);ALIENS=PL().aliens;startMusic();hudDirty=true;}
+function applyPlanet(){document.body.classList.toggle('p2',S.planet===2);document.body.classList.toggle('p3',S.planet===3);document.body.classList.toggle('p4',S.planet===4);document.body.classList.toggle('p5',S.planet===5);document.body.classList.toggle('p6',S.planet===6);ALIENS=PL().aliens;evMusic=curMusic();startMusic();hudDirty=true;}
 function warpTo(n){
   if(S.unlocked.indexOf(n)<0||phase!=='port')return;
   var w=$('warp');$('warp-t').textContent=t('warpTo');$('warp-n').textContent=t(PLANETS[n].name);$('warp-i').src='assets/'+PLANETS[n].icon+'.webp';
@@ -2093,6 +2137,219 @@ function placeHand(){
   hd.classList.remove('hidden');hd.classList.toggle('press',press);hd.style.transform='translate('+(x-14)+'px,'+(y-4)+'px)';
 }
 
+// ---------- stage 6: Thundercloud Planet (wind gusts + lightning, sail) ----------
+var sky={gT:7,g:0,gw:0,gDir:1,gh:0,bT:13,bw:0,flash:0,sail:0,zt:0,bolt:null,said:0};
+function cloudOn(){return !!PL().cloud;}
+function cloudInit(){sky.gT=6+Math.random()*3;sky.g=0;sky.gw=0;sky.gh=0;sky.bT=11+Math.random()*7;sky.bw=0;sky.flash=0;sky.bolt=null;sky.said=0;}
+function smallBonus(){return Math.max(5,Math.round(bestPrice()*incMul()*0.6));}
+function gustBoost(){return cloudOn()&&sky.g>0&&holding?1.45:1;}
+function cloudTick(dt){
+  var trav=cloudOn()&&phase==='travel';
+  sky.sail+=((trav&&holding?1:0)-sky.sail)*Math.min(1,dt*7);
+  sky.flash=Math.max(0,sky.flash-dt*2.4);sky.zt=Math.max(0,sky.zt-dt*0.9);if(sky.bolt){sky.bolt.t+=dt;if(sky.bolt.t>0.45)sky.bolt=null;}
+  if(!(trav&&trip&&!trip.tut)){sky.gw=0;sky.g=0;sky.bw=0;return;}
+  var nearStop=stopZ()-dist<12;
+  if(sky.gw>0){sky.gw-=dt;if(sky.gw<=0){sky.g=4.2;sky.gh=0;sky.said=0;play('gust',{vol:0.85});}}
+  else if(sky.g>0){sky.g-=dt;
+    if(holding){sky.gh+=dt;if(!sky.said){sky.said=1;play('sail',{vol:0.75});say('sailup',3500);}}
+    if(sky.g<=0){if(sky.gh>=1.2){sqEvent('gust');var gb=smallBonus();addCoins(gb);if(trip)trip.earned+=gb;var bx=L.boat.x+boatU*KX;
+        floats.push({x:bx,y:L.boat.y-L.boat.h*0.7,txt:t('gustOk')+' +'+fmt(gb),t:0,big:true});sparkle(bx,L.boat.y-L.boat.h*0.4,18);}
+      sky.gh=0;sky.gT=7+Math.random()*5;}}
+  else if(sky.bw<=0&&!nearStop){sky.gT-=dt;if(sky.gT<=0){sky.gw=0.9+Math.random()*0.3;sky.gDir=Math.random()<0.5?-1:1;play('gust',{vol:0.35,rate:1.25});
+    if(RT().trips<3||Math.random()<0.35)say('gust',5000);}}
+  if(sky.bw>0){sky.bw-=dt;if(sky.bw<=0)strike();}
+  else if(sky.g<=0&&sky.gw<=0&&!nearStop){sky.bT-=dt;if(sky.bT<=0){sky.bw=1.5;sky.bT=11+Math.random()*7;sky.bx=0.3+Math.random()*0.4;play('thunderwarn',{vol:0.9});say('thunder',0);}}
+}
+function strike(){
+  sky.flash=1;play('thunder',{vol:0.9});var bx=L.boat.x+boatU*KX;sky.bolt={x:W*sky.bx,t:0,seed:Math.random()*99};
+  if(holding&&sky.sail>0.35){ // gentle penalty: wobble and slow down, nothing is lost
+    bumpT=1;boatSquash=1;spd*=0.55;sky.zt=1;floats.push({x:bx,y:L.boat.y-L.boat.h*0.6,txt:t('zapT'),t:0,big:true});
+    say('zap',0);brainBump({});sparkle(bx,L.boat.y-L.boat.h*0.5,20);
+  }else{sqEvent('safe');var sb=smallBonus();addCoins(sb);if(trip)trip.earned+=sb;floats.push({x:bx,y:L.boat.y-L.boat.h*0.6,txt:t('safeT')+' +'+fmt(sb),t:0,big:true});
+    if(Math.random()<0.6)say('safe',3000);}
+  hudDirty=true;
+}
+function drawSail(b){ // procedural sail on the boat (inside the boat transform)
+  if(!cloudOn())return;var s=sky.sail,mx=-b.w*0.22,my=-b.h*0.02,mh=b.h*(0.62+0.5*s);
+  cx.strokeStyle='#7a5a3a';cx.lineWidth=Math.max(2,b.w*0.018);cx.lineCap='round';cx.beginPath();cx.moveTo(mx,my+b.h*0.1);cx.lineTo(mx,my-mh);cx.stroke();
+  if(s<0.08){cx.fillStyle='#f6f0ff';cx.beginPath();cx.ellipse(mx,my-mh*0.55,b.w*0.03,mh*0.28,0,0,6.283);cx.fill();return;}
+  var bl=(sky.g>0?1:0.5)*s,sw=b.w*0.30*s,top=my-mh+b.h*0.04,bot=my-b.h*0.06,bulge=sw*(0.25+0.25*bl+0.05*Math.sin(time*6));
+  cx.globalAlpha=0.95;cx.fillStyle='#fbf7ff';cx.beginPath();cx.moveTo(mx,top);cx.quadraticCurveTo(mx+sw*0.6+bulge,(top+bot)/2,mx+sw*0.15,bot);cx.lineTo(mx,bot);cx.closePath();cx.fill();
+  cx.fillStyle='#b9a6ff';cx.beginPath();cx.moveTo(mx,top+(bot-top)*0.42);cx.quadraticCurveTo(mx+sw*0.55+bulge,(top+bot)*0.5+(bot-top)*0.08,mx+sw*0.32,top+(bot-top)*0.6);cx.lineTo(mx,top+(bot-top)*0.6);cx.closePath();cx.fill();
+  cx.globalAlpha=1;cx.fillStyle='#ffd24a';cx.beginPath();cx.moveTo(mx,top-b.h*0.02);cx.lineTo(mx+b.w*0.07,top+b.h*0.02);cx.lineTo(mx,top+b.h*0.06);cx.closePath();cx.fill();
+}
+function drawSky(){ // gust arrow + streaks, lightning warning and flash (screen space)
+  if(!cloudOn())return;
+  if(sky.gw>0||sky.g>0){var act=sky.g>0,a=act?Math.min(1,sky.g/0.6):0.6+0.4*Math.sin(time*14),d=sky.gDir;
+    cx.strokeStyle='#ffffff';cx.lineCap='round';
+    for(var i=0;i<(act?10:4);i++){var k=(time*(act?1.6:0.8)+i*0.137)%1,y=H*(0.22+0.5*hash(i*7.7)),x=d>0?-W*0.2+k*W*1.4:W*1.2-k*W*1.4,len=W*(0.08+0.08*hash(i*3.3));
+      cx.globalAlpha=a*0.35*Math.sin(k*Math.PI);cx.lineWidth=2+hash(i)*2;cx.beginPath();cx.moveTo(x,y);cx.quadraticCurveTo(x+d*len*0.5,y-6,x+d*len,y);cx.stroke();}
+    var ay=Math.max(HUDY()+70,H*0.25),ax=W/2+Math.sin(time*5)*6*d,s=Math.min(W,520)*0.11;
+    cx.globalAlpha=Math.min(1,a+0.2);cx.fillStyle='#ffffff';cx.strokeStyle='#121c4a';cx.lineWidth=4;cx.lineJoin='round';
+    cx.save();cx.translate(ax,ay);cx.scale(d,1);cx.beginPath();cx.moveTo(-s,-s*0.22);cx.lineTo(s*0.25,-s*0.22);cx.lineTo(s*0.25,-s*0.55);cx.lineTo(s,0);cx.lineTo(s*0.25,s*0.55);cx.lineTo(s*0.25,s*0.22);cx.lineTo(-s,s*0.22);cx.closePath();cx.stroke();cx.fill();cx.restore();
+    cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';outlined(t(act&&holding?'gustOn':'gustT'),W/2,ay+s*0.85,Math.max(17,s*0.36));cx.globalAlpha=1;}
+  if(sky.bw>0){var f=0.5+0.5*Math.sin(time*26),wy=Math.max(HUDY()+70,H*0.25);
+    cx.globalAlpha=0.18+0.14*f;cx.fillStyle='#1a1440';cx.fillRect(0,0,W,H);
+    cx.globalAlpha=0.5+0.5*f;cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';cx.font='800 '+Math.round(Math.min(W,520)*0.12)+'px Kanit,sans-serif';
+    var zs=Math.min(W,520)*0.06,zx=W*sky.bx,zy=wy-zs*1.2;cx.fillStyle='#fff3a0';cx.strokeStyle='#121c4a';cx.lineWidth=3;cx.beginPath();cx.moveTo(zx+zs*0.2,zy-zs);cx.lineTo(zx-zs*0.5,zy+zs*0.1);cx.lineTo(zx,zy+zs*0.1);cx.lineTo(zx-zs*0.25,zy+zs);cx.lineTo(zx+zs*0.55,zy-zs*0.15);cx.lineTo(zx+zs*0.05,zy-zs*0.15);cx.closePath();cx.stroke();cx.fill();outlined(t('boltW'),W/2,wy+Math.min(W,520)*0.09,Math.max(18,Math.min(W,520)*0.05));cx.globalAlpha=1;}
+  if(sky.bolt){var bb=sky.bolt,ba=1-bb.t/0.45,tx=L.boat.x+boatU*KX;cx.globalAlpha=ba;cx.strokeStyle='#fffbe0';cx.lineWidth=5;cx.lineJoin='round';cx.beginPath();cx.moveTo(bb.x,0);
+    var n=7;for(var j=1;j<=n;j++){var q=j/n;cx.lineTo(bb.x+(tx-bb.x)*q*0.85+(j<n?(hash(bb.seed+j)-0.5)*W*0.12:0),HY*0.2+(L.boat.y-L.boat.h*0.9-HY*0.2)*q);}cx.stroke();
+    cx.lineWidth=2;cx.strokeStyle='#c9b6ff';cx.stroke();cx.globalAlpha=1;}
+  if(sky.flash>0){cx.globalAlpha=Math.min(0.75,sky.flash*0.75);cx.fillStyle='#ffffff';cx.fillRect(0,0,W,H);cx.globalAlpha=1;}
+}
+
+// ---------- stage 6: live events (device local time; reusable config) ----------
+var EVENTS=[{id:'loy2026',start:[2026,11,14],end:[2026,11,28],tease:7,cur:'lotus',curImg:'ev_lotus',music:'music_loy',banner:'ev_loy',icon:'ev_krathong',
+  craft:[{id:'krathong',img:'ev_krathong',cost:6,pts:6,float:1},{id:'khanom',img:'ev_khanom',cost:3,pts:3},{id:'lantern',img:'ev_lantern',cost:4,pts:4},{id:'malai',img:'ev_malai',cost:4,pts:4}],
+  shop:[{k:'hat',id:'jasmine',cost:60},{k:'hat',id:'chada',cost:120},{k:'boat',id:'krathong',cost:150}]}];
+var evForce=null; // debug only (stripped from production)
+function nowMs(){return Date.now()+(evForce||0);} // evForce = debug offset in ms (test builds only)
+function evT(a){return new Date(a[0],a[1]-1,a[2]).getTime();}
+function liveEv(){var n=nowMs();for(var i=0;i<EVENTS.length;i++){var E=EVENTS[i];if(n>=evT(E.start)&&n<evT(E.end))return E;}return null;}
+function liveTease(){var n=nowMs();for(var i=0;i<EVENTS.length;i++){var E=EVENTS[i],s=evT(E.start);if(n<s&&n>=s-E.tease*864e5)return E;}return null;}
+function cdTxt(ms){var s=Math.max(0,Math.floor(ms/1000)),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),x=s%60;
+  return (d?t('evDay',{d:d}):'')+h+':'+('0'+m).slice(-2)+':'+('0'+x).slice(-2);}
+function evPts(E){return (S.live.pts[E.id]|0);}
+function evInv(id){return S.live.inv[id]|0;}
+function evItem(E,id){return E.craft.filter(function(c){return c.id===id;})[0];}
+function evCost(c){return Math.round(Math.max(30,bestPrice()*incMul()*4)*c.cost/4);}
+function evAddPts(E,n,x,y){S.live.pts[E.id]=evPts(E)+n;if(x!=null)floats.push({x:x,y:y,txt:t('evGot',{n:n}),t:-0.2,big:false});hudDirty=true;evDirty=true;}
+var evDirty=true,evMusic=null,lantern=[],krs=[],krNext=0,festT=20;
+function curMusic(){var E=liveEv();return E&&phase==='port'&&E.music&&SOUNDS.indexOf(E.music)>=0?E.music:PL().music;}
+function evOwned(x){return x.k==='hat'?S.cos.hats.indexOf(x.id)>=0:S.cos.boats.indexOf(x.id)>=0;}
+function evShopItem(x){return x.k==='hat'?hatOf(x.id):skinOf(x.id);}
+function evIsReward(k,id){return EVENTS.some(function(E){return E.shop.some(function(x){return x.k===k&&x.id===id;});});}
+function liveTick(){ // once a second
+  var E=liveEv(),T2=E?null:liveTease(),lb=$('livb'),show=(E||T2)&&!splashOn&&phase==='port';
+  lb.classList.toggle('hidden',!show);
+  if(show){var ms=E?evT(E.end)-nowMs():evT(T2.start)-nowMs(),k=(E||T2).id+(E?'1':'0')+S.lang;
+    if(lb.dataset.k!==k){lb.dataset.k=k;lb.innerHTML='<img src="assets/'+(E||T2).icon+'.webp" alt=""><div><b>'+t('ev_'+(E||T2).id)+'</b><span id="livc"></span></div>';}
+    var c=$('livc');if(c)c.textContent=t(E?'evEnds':'evStarts',{t:cdTxt(ms)});}
+  if(openPanel==='live'){var lc=$('livcd');if(lc&&E)lc.textContent=t('evEnds',{t:cdTxt(evT(E.end)-nowMs())});}
+  if(evMusic!==curMusic()){evMusic=curMusic();startMusic();}
+  if(!splashOn&&!openPanel&&!adOpen&&phase==='port'&&S.tut.done&&!tut.step){
+    if(E&&S.live.seen!==today()+E.id){S.live.seen=today()+E.id;save();preload(evImgs(E),function(){});open('_live');play('festival');say('loy',0);sparkle(W/2,H*0.35,40);return true;}
+    if(T2&&S.live.tease!==T2.id){S.live.tease=T2.id;save();open('_live',{tease:1});play('popup');return true;}}
+  return false;
+}
+function evImgs(E){var l=[E.banner,E.icon,E.curImg];E.craft.forEach(function(c){l.push(c.img);});E.shop.forEach(function(x){l.push(x.k==='hat'?'hat_'+x.id:boatImg(x.id),x.k==='hat'?'hat_'+x.id:boatImg(x.id)+'_r');});return l;}
+function evTrip(dt){ // festival life on the river while the event runs
+  var E=liveEv();if(!E){lantern.length=0;krs.length=0;return;}
+  if(lantern.length<7)lantern.push({x:Math.random(),y:1.1+Math.random()*0.3,s:0.6+Math.random()*0.6,ph:Math.random()*6});
+  lantern.forEach(function(l){l.y-=dt*0.018*l.s;if(l.y<-0.1){l.y=1.1;l.x=Math.random();}});
+  if(phase==='travel'||phase==='dock'){if(dist>=krNext){krs.push({z:dist+DF*0.7,u:(Math.random()*2-1)*RW*0.7,ph:Math.random()*6,npc:1});krNext=dist+5+Math.random()*6;}}
+  krs=krs.filter(function(k){return k.z-dist>-3;});
+  if(phase==='travel'&&trip&&!trip.tut){festT-=dt;if(festT<=0){festT=18+Math.random()*10;spawnFest(E);}}
+  var kb=$('krbtn'),kv=phase==='travel'&&trip&&!trip.tut&&evInv('krathong')>0,kk=kv?evInv('krathong')+S.lang:'';
+  if(kb.dataset.k!==kk){kb.dataset.k=kk;kb.classList.toggle('hidden',!kv);if(kv)kb.innerHTML='<img src="assets/ev_krathong.webp" alt=""><span>'+t('evFloatBtn')+'</span><b>'+evInv('krathong')+'</b>';}
+}
+function spawnFest(E){var have=E.craft.filter(function(c){return !c.float&&evInv(c.id)>0;});if(!have.length)return;
+  var it=have[Math.floor(Math.random()*have.length)],c=spawnAlien();if(!c)return;c.order=null;c.got=null;c.gold=false;c.likes=false;c.evg=it.id;c.pat*=1.6;
+  bubble(c,'loy');play('festival',{vol:0.5});}
+function evSell(a,byStaff){var E=liveEv(),it=E&&evItem(E,a.evg);if(byStaff)return false;
+  if(!it||evInv(it.id)<=0){play('nope');toast(t('evNoKr'));a.shake=1;return false;}
+  S.live.inv[it.id]--;var p=custPos(a),amt=Math.round(bestPrice()*2*incMul());a.state='out';a.t=0;a.happy=true;bookAdd(a);amt+=onServed(a,false,amt);addCoins(amt);
+  if(trip){trip.sold++;trip.earned+=amt;}S.stats.sold++;coinBurst(p.x,p.y-10,7);floats.push({x:p.x,y:p.y-p.w*0.5,txt:'+'+fmt(amt),t:0,big:true});
+  evAddPts(E,it.pts,p.x,p.y-p.w*0.5-30);play('festival',{vol:0.8});play('sell',{vol:0.6});sqEvent('sellTo',a.img);save();hudDirty=true;return true;}
+function floatKr(){var E=liveEv(),it=E&&evItem(E,'krathong');if(!it||evInv('krathong')<=0||phase!=='travel')return;
+  S.live.inv.krathong--;krs.push({z:dist+1.6,u:boatU+(Math.random()<0.5?-1:1)*0.9,ph:0,mine:1,t:0});var bx=L.boat.x+boatU*KX;
+  evAddPts(E,it.pts);floats.push({x:bx,y:L.boat.y-L.boat.h*0.7,txt:t('evFloated',{n:it.pts}),t:0,big:true});sparkle(bx,L.boat.y,26);
+  play('float');say('loyfloat',0);fang.cheer=0.7;save();}
+function drawEvWorld(objs){krs.forEach(function(k){objs.push({z:k.z,kind:'kr',u:k.u,k:k});});}
+function drawKr(o){var q=proj(o.z,o.u);if(q.d<-3||q.d>DF)return;var fog=Math.min(1,(DF-q.d)/12)*Math.min(1,(q.d+3)/1.2),w=KX*q.p*(o.k.mine?1.0:0.75),y=q.y-KX*q.p*(0.12+0.04*Math.sin(time*2+o.k.ph));
+  cx.globalCompositeOperation='lighter';glow('warm',q.x,y-w*0.25,w*0.9,fog*0.7*(0.8+0.2*Math.sin(time*7+o.k.ph)));cx.globalCompositeOperation='source-over';
+  drawImg('ev_krathong',q.x,y,w,.5,.75,Math.sin(time*1.5+o.k.ph)*0.06,fog);}
+function drawLanterns(){if(!lantern.length)return;var s=Math.min(W,600)*0.07;
+  lantern.forEach(function(l){var x=l.x*W+Math.sin(time*0.6+l.ph)*12,y=l.y*HY*1.1;if(y>HY)return;cx.globalCompositeOperation='lighter';glow('warm',x,y,s*l.s*0.9,0.45);cx.globalCompositeOperation='source-over';
+    drawImg('ev_lantern',x,y,s*l.s,.5,.5,Math.sin(time+l.ph)*0.08,0.9);});}
+function evShopRows(E){var h='';E.shop.forEach(function(x){var own=evOwned(x),c=x.cost,nm=x.k==='hat'?'hat_'+x.id:'boat_'+x.id,im=x.k==='hat'?'hat_'+x.id:boatImg(x.id);
+  h+='<div class="row'+(own?' on':'')+'"><img class="ic" src="assets/'+im+'.webp" alt=""><div class="mid"><div class="nm">'+t(nm)+'</div><div class="ds">'+(own?t('evOwned'):t('evOnly'))+'</div></div>'+
+    (own?'<button class="buy max">'+t('evOwned')+'</button>':'<button class="buy lotb'+(evPts(E)<c?' off':'')+'" data-a="evbuy" data-i="'+x.k+':'+x.id+'"><img src="assets/'+E.curImg+'.webp" alt="">'+c+'</button>')+'</div>';});return h;}
+function livePanel(){var E=liveEv();if(!E){return head(t('evTease'))+'<div class="pop-d">'+t('evTeaseD')+'</div>';}
+  var h=head(t('ev_'+E.id))+'<img class="evban" src="assets/'+E.banner+'.webp" alt=""><div class="evday">'+t('evDay_'+E.id)+'</div><div class="ds evwin">'+t('evWin_'+E.id)+' · <b id="livcd">'+t('evEnds',{t:cdTxt(evT(E.end)-nowMs())})+'</b></div>'+
+    '<div class="gembal lotbal"><img src="assets/'+E.curImg+'.webp" alt="" class="ci">'+evPts(E)+' '+t('evPts')+'</div>'+
+    '<div class="sec">'+t('evCraft')+'</div><div class="ds shopd">'+t('evCraftD')+'</div>';
+  E.craft.forEach(function(c){var n=evInv(c.id),cost=evCost(c);
+    h+='<div class="row"><img class="ic" src="assets/'+c.img+'.webp" alt=""><div class="mid"><div class="nm">'+t('ei_'+c.id)+' · '+t('evHave',{n:n})+'</div><div class="ds">'+t(c.float?'eid_krathong':'eid_sell',{n:c.pts})+'</div></div>'+
+      (n>=5?'<button class="buy max">'+t('evFull')+'</button>':buyBtn(cost,'','evcraft',c.id))+'</div>';});
+  h+='<div class="sec">'+t('evShop')+'</div>'+evShopRows(E);return h;}
+function liveAct(a,i){var E=liveEv();
+  if(a==='evcraft'&&E){var c=evItem(E,i),cost=c&&evCost(c);if(!c||evInv(i)>=5)return;if(S.coins<cost){play('nope');return;}S.coins-=cost;S.live.inv[i]=evInv(i)+1;play('build');play('festival',{vol:0.5});
+    toast(t('evMade',{i:t('ei_'+i)}));say('craft',2500);sparkle(W/2,H*0.5,16);}
+  else if(a==='evbuy'&&E){var p=i.split(':'),x=E.shop.filter(function(s){return s.k===p[0]&&s.id===p[1];})[0];if(!x||evOwned(x))return;if(evPts(E)<x.cost){play('nope');toast(t('evNoPts'));return;}
+    S.live.pts[E.id]-=x.cost;if(x.k==='hat'){S.cos.hats.push(x.id);S.cos.hat=x.id;}else{S.cos.boats.push(x.id);S.cos.boat=x.id;preload([boatImg(x.id),boatImg(x.id)+'_r'],function(){});}
+    play('fanfare',{vol:0.7});play('unlock');toast(t('evBuyOk'));sparkle(W/2,H*0.4,40);fang.cheer=0.7;}
+  else if(a==='evgo'){open('live');return true;}
+  else if(a==='evlater'){close();return true;}
+  return false;}
+
+// ---------- stage 6: best-friend story quests ----------
+var STORY=[{id:'shell',al:'alien_blue',pl:1,st:[['sellTo',6],['gift',3],['trip',2]]},{id:'musicbox',al:'alien_marsh',pl:2,st:[['sellTo',6],['combo',10],['trip',2]]},
+  {id:'scarf',al:'alien_snow',pl:3,st:[['sellTo',6],['crate',3],['trip',2]]},{id:'bouquet',al:'alien_frog',pl:4,st:[['sellTo',6],['ff',5],['trip',2]]},
+  {id:'letter',al:'alien_ember',pl:5,st:[['sellTo',6],['pop',6],['trip',2]]},{id:'umbrella',al:'alien_drizzle',pl:6,st:[['gust',3],['safe',3],['sellTo',6]]}];
+function sqOf(id){return STORY.filter(function(q){return q.id===id;})[0];}
+function sqSt(q){return S.sq[q.id];}
+function sqOpenable(q){return frLv(q.al)>=3&&S.unlocked.indexOf(q.pl)>=0;}
+function sqStepTxt(q,i){var k=q.st[i];return t('sqk_'+k[0],{n:k[1],a:t('an_'+q.al),p:t(PLANETS[q.pl].name)});}
+function sqReward(i){return i===0?{c:Math.max(200,Math.round(bestPrice()*incMul()*25))}:i===1?{g:5}:{g:20};}
+function sqRewTxt(r){return r.c?coinsTxt(r.c):gemsTxt(r.g);}
+function sqEvent(k,v){if(!S.sq)return;STORY.forEach(function(q){var s=S.sq[q.id];if(!s||s.done||s.r||s.later)return;var st=q.st[s.s];if(!st||st[0]!==k)return;
+  if(k==='sellTo'&&v!==q.al)return;if(k==='trip'&&S.planet!==q.pl)return;
+  if(k==='combo'){s.p=Math.max(s.p,v|0);}else s.p++;
+  if(s.p>=st[1]){s.p=st[1];s.r=1;play('story',{vol:0.8});toast(t('sqStepDone'));bookNew=true;hudDirty=true;}save();});}
+function sqPending(){if(phase!=='port'||!S.sq)return null; // chain offered, or a finished part waiting to be claimed
+  for(var i=0;i<STORY.length;i++){var q=STORY[i],s=S.sq[q.id];if(!sqOpenable(q))continue;if(!s&&S.sqAsk!==q.id+today())return {q:q,k:'offer'};if(s&&s.r&&!s.done)return {q:q,k:'claim'};}return null;}
+function sqTick(){if(splashOn||openPanel||adOpen||phase!=='port'||!S.tut.done||tut.step)return false;var p=sqPending();if(!p)return false;
+  if(p.k==='offer'){S.sqAsk=p.q.id+today();save();open('_story',{id:p.q.id});play('story');say('story',0);return true;}
+  if(p.k==='claim'&&S.sqClaimed!==p.q.id+S.sq[p.q.id].s){S.sqClaimed=p.q.id+S.sq[p.q.id].s;save();open('_story',{id:p.q.id});play('story');return true;}return false;}
+function storyPanel(){var q=sqOf(panelCtx&&panelCtx.id);if(!q)return '';var s=S.sq[q.id],face='<div class="sqface"><img src="assets/'+q.al+'.webp" alt=""></div>',nm='<div class="sqnm">'+t('an_'+q.al)+'</div>',
+  tt='<div class="pop-t">'+t('sqt_'+q.id)+'</div>',n=q.st.length;
+  if(!s){return face+tt+nm+'<div class="sqsay">'+t('sqo_'+q.id)+'</div><div class="sqstep"><b>'+t('sqStep',{i:1,n:n})+'</b> '+sqStepTxt(q,0)+'</div><div class="pop-d sqrw">'+sqRewTxt(sqReward(0))+'</div>'+
+    '<div class="btns"><button class="b-yes" data-a="sqaccept" data-i="'+q.id+'">'+t('sqAccept')+'</button><button class="b-no" data-a="sqlater" data-i="'+q.id+'">'+t('sqLater')+'</button></div>';}
+  if(s.done)return face+tt+nm+'<div class="sqsay">'+t('sqf_'+q.id)+'</div><img class="sqkeep" src="assets/q_'+q.id+'.webp" alt=""><div class="pop-d">'+t('sqGot',{i:t('qi_'+q.id)})+'</div><div class="btns"><button class="b-yes" data-a="close">'+t('sqGo')+'</button></div>';
+  if(s.r){var last=s.s>=n-1;return face+tt+nm+'<div class="sqsay">'+(last?t('sqf_'+q.id):t('sqm_'+q.id+s.s))+'</div>'+(last?'<img class="sqkeep" src="assets/q_'+q.id+'.webp" alt="">':'')+
+    '<div class="pop-d sqrw">'+sqRewTxt(sqReward(s.s))+(last?' · '+t('qi_'+q.id):'')+'</div><div class="btns"><button class="b-yes" data-a="sqclaim" data-i="'+q.id+'">'+t('sqClaim')+'</button></div>';}
+  return face+tt+nm+'<div class="sqsay">'+t('sqa_'+q.id+s.s)+'</div><div class="sqstep"><b>'+t('sqStep',{i:s.s+1,n:n})+'</b> '+sqStepTxt(q,s.s)+' · '+s.p+'/'+q.st[s.s][1]+'</div>'+
+    '<div class="btns"><button class="b-yes" data-a="'+(s.later?'sqresume':'close')+'" data-i="'+q.id+'">'+t('sqGo')+'</button></div>';}
+function sqLog(){var h='<div class="bpage sqlog"><div class="sec">'+t('sqLog')+'</div><div class="ds">'+t('sqLogD')+'</div>';
+  STORY.forEach(function(q){var s=S.sq[q.id],op=sqOpenable(q),n=q.st.length,stt;
+    if(s&&s.done)stt='<span class="tag dn">'+t('sqDone')+'</span>';
+    else if(s&&s.r)stt='<button class="buy" data-a="sqopen" data-i="'+q.id+'">'+t('sqClaim')+'</button>';
+    else if(s)stt='<button class="buy alt" data-a="sqopen" data-i="'+q.id+'">'+t('sqStep',{i:s.s+1,n:n})+'</button>';
+    else if(op)stt='<button class="buy" data-a="sqopen" data-i="'+q.id+'">'+t('sqTalk')+'</button>';
+    else stt='<span class="tag">♥ '+Math.min(40,frPts(q.al))+'/40</span>';
+    h+='<div class="row sqrow'+(s&&s.done?' on':'')+'"><img class="ic" src="assets/'+(s&&s.done?'q_'+q.id:q.al)+'.webp" alt=""><div class="mid"><div class="nm">'+t('sqt_'+q.id)+'</div><div class="ds">'+
+      (s&&s.done?t('sqGot',{i:t('qi_'+q.id)}):s?sqStepTxt(q,s.s)+' · '+s.p+'/'+q.st[s.s][1]:op?t('sqReady',{a:t('an_'+q.al)}):t('sqLock',{a:t('an_'+q.al)}))+'</div></div>'+stt+'</div>';});
+  return h+'</div>';}
+function sqCan(){return STORY.some(function(q){var s=S.sq[q.id];return (s&&s.r&&!s.done)||(!s&&sqOpenable(q));});}
+function storyAct(a,i){var q=sqOf(i);if(!q)return false;var s=S.sq[q.id];
+  if(a==='sqaccept'){S.sq[q.id]={s:0,p:0,r:0,done:0};play('quest');say('story',2000);renderPanel('_story');return true;}
+  if(a==='sqlater'){close();toast(t('sqLater'));return true;}
+  if(a==='sqopen'){open('_story',{id:q.id});return true;}
+  if(a==='sqresume'){if(s)s.later=0;close();return true;}
+  if(a==='sqclaim'&&s&&s.r&&!s.done){var r=sqReward(s.s);if(r.c){addCoins(r.c);coinBurst(W/2,H*0.5,12);}if(r.g)addGems(r.g);play('sell');play('unlock',{vol:0.6});sparkle(W/2,H*0.4,30);
+    if(s.s>=q.st.length-1){s.done=1;s.r=0;S.stats.story=(S.stats.story|0)+1;play('fanfare',{vol:0.7});say('storydone',0);fang.cheer=0.7;}else{s.s++;s.p=0;s.r=0;say('story',3000);}
+    save();renderPanel('_story');return true;}
+  return false;}
+
+// ---------- stage 6: ad adapter (one backend per build target; mock on the website) ----------
+var Ads=window.SRMAds||{name:'mock',ready:function(){return true;},interReady:function(){return true;},gameplay:function(){}};
+function adMute(on){if(A.ctx)A.master.gain.setTargetAtTime(on?0:(S.mute?0:1),A.ctx.currentTime,0.05);}
+var adResolve=null,interLast=0,interTrips=0;
+function requestRewarded(pl){ // resolves to true (granted) or false
+  if(typeof Ads.requestRewarded==='function'){adOpen={kind:pl,sdk:1};return Promise.resolve().then(function(){return Ads.requestRewarded(pl);}).then(function(r){return r===true||r==='granted';},function(){return false;});}
+  return mockAd(pl,false);}
+function mockAd(kind,inter){return new Promise(function(res){adResolve=res;adOpen={kind:kind,inter:inter,t0:performance.now(),done:false,w:inter?3:AD.watch};$('ad').classList.remove('hidden');renderAd();adTick();});}
+function maybeInter(cb){
+  var ok=!urlNoAds&&S.tut.done&&S.stats.trips>=3&&interTrips>=3&&Date.now()-Math.max(interLast,S.ad.last||0)>=180000&&Ads.interReady&&Ads.interReady();
+  if(!ok){cb();return;}
+  interTrips=0;interLast=Date.now();holding=false;adMute(true);try{Ads.gameplay(false);}catch(e){}
+  var p=typeof Ads.requestInterstitial==='function'?Promise.resolve().then(function(){return Ads.requestInterstitial('trip');}).catch(function(){}):(adOpen=null,mockAd('inter',true));
+  if(typeof Ads.requestInterstitial==='function')adOpen={kind:'inter',sdk:1};
+  p.then(function(){adOpen=null;adMute(false);cb();});}
+
+$('livb').addEventListener('click',function(){audioUnlock();play('tap');if(phase==='port'&&!openPanel){if(liveEv())open('live');else open('_live',{tease:1});}});
+$('krbtn').addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();audioUnlock();floatKr();});
 // ---------- boot ----------
 var resumed=false;
 (function resumeTrip(){ // mid-trip save: put the boat back on the river with the same goods
@@ -2121,6 +2378,7 @@ $('splash').addEventListener('pointerdown',function(){
     if(S.unlocked.indexOf(3)>=0&&!S.ul3Seen&&S.arrived.indexOf(3)<0){S.ul3Seen=true;save();open('_unlock',{n:3});play('fanfare');say('iceopen',0);sparkle(W/2,H*0.4,50);return;}
     if(S.unlocked.indexOf(4)>=0&&!S.ul4Seen&&S.arrived.indexOf(4)<0){S.ul4Seen=true;save();open('_unlock',{n:4});play('fanfare');say('forestopen',0);sparkle(W/2,H*0.4,50);return;}
     if(S.unlocked.indexOf(5)>=0&&!S.ul5Seen&&S.arrived.indexOf(5)<0){S.ul5Seen=true;save();open('_unlock',{n:5});play('fanfare');say('lavaopen',0);sparkle(W/2,H*0.4,50);return;}
+    if(S.unlocked.indexOf(6)>=0&&!S.ul6Seen&&S.arrived.indexOf(6)<0){S.ul6Seen=true;save();open('_unlock',{n:6});play('fanfare');say('cloudopen',0);sparkle(W/2,H*0.4,50);return;}
     var off=checkOffline();if(!off){if(!S.tut.done)tutShow('intro');else say('hello',0);}
     if(mkRate()>0&&S.market.bank>=1)setTimeout(function(){toast(t('mkReady')+' · '+fmt(Math.floor(S.market.bank)));},off?400:1500);},250);
 });

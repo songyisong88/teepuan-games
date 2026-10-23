@@ -1,7 +1,7 @@
 อู่ซ่อมหุ่นยนต์ใต้ทะเล / Deep Sea Robot Repair — Kairon Arcade (ห้องเกม ไครอน)
 
 Code: original, written for Kairon Arcade. No third-party code or libraries.
-Art: every robot, the mechanic, the garage, the floors and the effects are drawn in code (HTML5 canvas) by our own script. No image assets except the Kairon Arcade logo.
+Art: the painted robots, mechanic, garage backgrounds, floor cards, repair panel and parts (art/*.webp) were generated with an AI image tool specifically for this game and cut out / cleaned by our own script. Robot faces, blinking, expressions, motion and all effects are drawn live in code (HTML5 canvas).
 Music & sound effects: original, synthesised procedurally in Python (numpy) by our own script. No samples.
 Voice lines (Thai): generated with VachanaTTS voice "th_f_2" (VIZINTZOR/VachanaTTS on Hugging Face, model license: MIT), then pitch-shifted by our own ffmpeg script. MIT permits commercial use.
 Font: Kanit by Cadson Demak — SIL Open Font License 1.1 (fonts/OFL-Kanit.txt), self-hosted.

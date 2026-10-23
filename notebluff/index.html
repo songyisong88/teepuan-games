@@ -474,11 +474,15 @@ const LV=[
   const tears=D.g(g);[[-14,8],[14,8]].forEach(([dx,dy])=>{for(let i=0;i<3;i++)D.curve(tears,`M${180+dx*1.4} ${170+dy+i*28} q6 10 0 14 q-6 -4 0 -14`,{fill:'w',sw:2.4,single:1})});
   L.tap(b,e=>L.say(['ลูบหัวไม่ช่วย น้ำตายังอยู่','Head pats won\'t do it. The tears are still there.'],'smug'));
   L.rub([130,150,100,120],520,p=>tears.setAttribute('opacity',1-p),()=>{tears.remove();fc.innerHTML='';face(fc,'happy');L.win(['ใช้ยางลบลบน้ำตา... โหดแต่ได้ผล','Erasing tears. Brutal, but it works.'])})}},
-{q:['หาเลข 8 ให้เจอ','Find the number 8'],hint:['มีเลขแปดนอนหลับอยู่ แตะให้มันลุกขึ้น','An 8 is lying down asleep. Tap it to wake it.'],
- build(L){const g=L.ink;[['3',70,90],['6',290,110],['0',90,300],['B',270,300],['9',180,90]].forEach(([s,x,y],k)=>{const c=D.g(g);D.text(c,x,y,s,{size:64});D.hit(c,'rect',{x:x-30,y:y-36,width:60,height:72});L.k(c,'d'+k);
+{q:['หาเลข 8 ให้เจอ','Find the number 8'],hint:['เลข 8 นอนหลับอยู่ทางขวา (ส่วนตรงกลางคือแว่นตา) ลากมันขึ้นไปให้ลุกขึ้นยืน','An 8 is lying asleep on the right (the middle one is glasses). Drag it upward to stand it up.'],
+ build(L){const g=L.ink;[['3',70,90],['6',290,90],['0',70,310],['B',290,320],['9',180,90]].forEach(([s,x,y],k)=>{const c=D.g(g);D.text(c,x,y,s,{size:64});D.hit(c,'rect',{x:x-30,y:y-36,width:60,height:72});L.k(c,'d'+k);
    L.tap(c,e=>L.fail(s==='B'?['B ไม่ใช่ 8 ถึงจะหน้าเหมือนก็เถอะ','B is not 8. Lookalike, though.']:['นั่นไม่ใช่ 8 ทู่ขำ','That\'s not 8. Hilarious.'],e))});
-  const inf=D.g(g);infinity(inf);D.hit(inf,'rect',{x:-40,y:-20,width:80,height:40});setT(inf,180,200);L.k(inf,'inf');
-  L.tap(inf,()=>{L.tween(400,t=>setT(inf,180,200,t*90,1+t*.5),()=>L.win(['อินฟินิตี้ตื่นแล้วกลายเป็น 8!','Infinity woke up and stood up as 8!']))})}},
+  const gl=D.g(g);D.circle(gl,-22,0,19,{sw:3.4});D.circle(gl,22,0,19,{sw:3.4});D.curve(gl,'M-4 -2 Q0 -8 4 -2',{sw:3,single:1});D.line(gl,[[-41,-4],[-58,-12]],{sw:3});D.line(gl,[[41,-4],[58,-12]],{sw:3});
+  D.hit(gl,'rect',{x:-62,y:-26,width:124,height:52});setT(gl,180,205);L.k(gl,'glasses');
+  L.tap(gl,e=>L.fail(pick([['นั่นแว่นตา ไม่ใช่ 8 นอน (มีสะพานจมูกด้วย)','Those are glasses. A sideways 8 doesn\'t have a nose bridge.'],['แว่นของทู่! อย่าจิ้มเลนส์สิ','My glasses! Don\'t poke the lenses.']]),e));
+  const inf=D.g(g);infinity(inf);const zz=L.txt(inf,30,-30,['zZ','zZ'],{size:18});D.hit(inf,'rect',{x:-44,y:-40,width:88,height:66});setT(inf,272,215,0,.8);L.k(inf,'inf');let up=false;
+  L.drag(inf,{box:[230,130,320,300],end(x,y,p,mv){if(up)return;if(mv&&y<170){up=true;zz.remove();sfx.whoosh();L.tween(400,t=>setT(inf,lerp(x,250,t),lerp(y,190,t),t*90,.8+t*.7),()=>L.win(['อินฟินิตี้ตื่นแล้วลุกขึ้นเป็น 8!','Infinity woke up and stood up as 8!']));return}
+    L.say(mv?['ลากขึ้นข้างบนสิ มันต้องลุกขึ้น ไม่ใช่กลิ้ง','Up, not sideways. It needs to stand up, not roll.']:pick([['คร่อก... ขออีกห้านาที (อุ้มขึ้นไปสิ)','Zzz... five more minutes. (Maybe lift me up?)'],['แตะเฉยๆ ไม่ตื่นหรอก มันนอนขี้เซา','Tapping won\'t wake it. It\'s a heavy sleeper.']]),'smug');return 'back'}})}},
 {q:['จักรยานคันนี้ขาดอะไรไป?','What is this bike missing?'],hint:['วาดล้อหลังลงไปเลย ใช้นิ้ววาดวงกลม','Draw the rear wheel. Use your finger.'],
  build(L){const g=L.ink;D.circle(g,262,250,46);D.circle(g,262,250,6,{fill:'n',single:1});D.line(g,[[98,250],[170,250],[232,170],[140,170],[98,250]],{sw:3.4});D.line(g,[[170,250],[130,148],[118,148]],{sw:3.4});
   D.line(g,[[232,170],[262,250]],{sw:3.4});D.line(g,[[232,170],[226,140],[250,134]],{sw:3.4});D.rect(g,110,140,36,10,{fill:'n',single:1});
@@ -661,11 +665,19 @@ const LV=[
  build(L){const g=L.ink;const bk=D.g(g);D.rect(bk,90,110,180,150,{fill:'w'});D.line(bk,[[180,110],[180,260]],{sw:3});L.txt(bk,135,185,['พจนา-','DICTION-'],{size:16});L.txt(bk,225,185,['นุกรม','ARY'],{size:16});D.hit(bk,'rect',{x:86,y:106,width:188,height:158});L.k(bk,'dict');
   L.tap(bk,e=>L.fail(['ทุกหน้าว่าง ทู่ลบหมดแล้ว','Every page is blank. I erased it all.'],e));
   L.hook('lang',()=>L.win(LANG==='th'?['อ๋อ เข้าใจกันแล้ว! เปลี่ยนภาษาก็จบ','Oh, NOW we understand each other!']:['Oh, NOW we understand each other!','อ๋อ เข้าใจกันแล้ว!']))}},
-{q:['เกมบั๊ก! ปิดแล้วเปิดเกมใหม่','The game is bugged! Restart it.'],hint:['ไม่ได้ล้อเล่น โหลดหน้าเกมใหม่จริงๆ (หรือสลับไปแอปอื่นแป๊บนึงแล้วกลับมา)','No joke. Actually reload the game (or switch apps for a moment and come back).'],say:['ทู่ไม่ได้ทำ... มันพังเอง','I didn\'t do it. It broke by itself.'],
+{q:['เกมบั๊ก! ปิดแล้วเปิดเกมใหม่','The game is bugged! Restart it.'],hint:['ทำแบบแอปค้างทั่วไป: กดกากบาท ✕ เล็กๆ มุมขวาบนเพื่อปิด แล้วแตะสมุดเพื่อเปิดใหม่','Like any frozen app: tap the little ✕ in the top-right corner to close it, then tap the notebook to open it again.'],say:['ทู่ไม่ได้ทำ... มันพังเอง','I didn\'t do it. It broke by itself.'],
  build(L,c){const g=L.ink;S.r38=1;save();c.keep38=true;c.clean.push(()=>{});
-  for(let i=0;i<9;i++){const x=40+Math.random()*280,y=40+Math.random()*240;D.rect(g,x,y,30+Math.random()*60,12+Math.random()*20,{fill:i%2?'h':'d',sw:2,single:1}).setAttribute('transform',`skewX(${jit(30)})`)}
+  for(let i=0;i<9;i++){const x=40+Math.random()*240,y=60+Math.random()*200;D.rect(g,x,y,30+Math.random()*60,12+Math.random()*20,{fill:i%2?'h':'d',sw:2,single:1}).setAttribute('transform',`skewX(${jit(30)})`)}
   D.text(g,180,150,'ERR0R ;_;',{size:40,rot:-6});const b=btn(L,g,180,330,220,60,['โหลดเกมใหม่','Reload game'],{fill:'y',size:20});L.k(b,'reload');
-  L.tap(b,()=>{c.keep38=true;location.reload()});
+  let stage=0,tries=0;
+  L.tap(b,()=>{if(stage)return;tries++;const bar=D.g(g);D.rect(bar,80,240,200,20,{fill:'w',r:6});const fill=el('rect',{x:83,y:243,width:4,height:14,rx:4,fill:HL},bar);
+    L.tween(900,t=>fill.setAttribute('width',F(4+t*190)),()=>{bar.remove();
+      L.say(tries<2?['โหลดใหม่ถึง 99% แล้วก็ค้าง... ลองปิดแล้วเปิดใหม่ดูไหม','Reloaded to 99%... then froze. Have you tried turning it off and on again?']:['ปุ่มนี้ก็บั๊ก ปิดเกมเลย มีกากบาทอยู่มุมขวาบนนะ','This button is bugged too. Close the game. There\'s an ✕ up in the corner.'],'smug')})});
+  const x=D.g(g);D.rect(x,-15,-15,30,30,{fill:'w',r:6,sw:2.4});D.line(x,[[-7,-7],[7,7]],{sw:3});D.line(x,[[7,-7],[-7,7]],{sw:3});D.hit(x,'rect',{x:-22,y:-22,width:44,height:44});setT(x,334,26);L.k(x,'close');
+  L.tap(x,()=>{if(stage)return;stage=1;x.remove();const cv=D.g(g);D.rect(cv,-170,-195,340,390,{fill:'d',r:14});D.rect(cv,-110,-40,220,80,{fill:'w',r:10});L.txt(cv,0,-12,['สมุดจอมกวน','NOTEBLUFF'],{size:26});L.txt(cv,0,18,['(ปิดอยู่)','(closed)'],{size:15});
+    D.hit(cv,'rect',{x:-170,y:-195,width:340,height:390});setT(cv,180,200,0,.2);L.k(cv,'reopen');let ready=false;
+    L.tween(350,t=>setT(cv,180,200,0,.2+t*.8),()=>{ready=true;L.say(['ปิดแล้ว... ทีนี้เปิดใหม่สิ','Closed. Now open it again.'],'smug')});
+    L.tap(cv,()=>{if(!ready||stage>1)return;stage=2;L.tween(400,t=>setT(cv,180+t*360,200,t*20,1),()=>{cv.remove();L.win(['ปิดแล้วเปิดใหม่ บั๊กหายเลย ทู่ซ่อมเอง (โกหก)','Off and on again. Bug fixed. I fixed it. (Lie.)'])})})});
   L.hook('back',d=>{if(d>1500)L.win(['กลับมาแล้ว? บั๊กหายแล้ว ทู่ซ่อมเอง (โกหก)','You\'re back? Bug fixed. I fixed it. (Lie.)'])});
   c.clean.unshift(()=>{if(!c.keep38||c.won){S.r38=0;save()}});L.after(10,()=>{c.keep38=false})}},
 {q:['แตะ [[ของสีเหลือง]] ให้ครบ 6 อย่าง','Tap all 6 [[yellow]] things'],hint:['ในรูปมีแค่ 3 อย่าง อีก 3 อยู่นอกรูป: เลขด่าน หลอดไฟคำใบ้ และ... ทู่','Only 3 in the picture. The rest: level badge, hint bulb, and... me.'],

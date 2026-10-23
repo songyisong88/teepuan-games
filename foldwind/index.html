@@ -505,12 +505,12 @@ function ambient(dt){
   for(const p of STK)if(p.z>P.z+6||p.z<P.z-90){respawn(p,15,75,11,8);if(Math.hypot(p.x-P.x,p.y-P.y)<2)p.y+=3}
   for(let i=bursts.length-1;i>=0;i--){const b=bursts[i];b.l-=dt;if(b.l<=0){bursts.splice(i,1);continue}b.x+=b.vx*dt;b.y+=b.vy*dt;b.z+=b.vz*dt;b.vx*=.95;b.vy=b.vy*.95-1.5*dt;b.vz*=.95}
 }
-function autopilot(dt){const tx=Math.sin(gt*.33)*5,ty=13+Math.sin(gt*.47)*2.2;const vx=(tx-P.x)*.8;P.x+=vx*dt;P.vy=(ty-P.y)*.8;P.y+=P.vy*dt;P.spd=state==='shop'?7:11;P.z-=P.spd*dt;
+function autopilot(dt){const tx=Math.sin(gt*.33)*5,ty=(state==='shop'?40:13)+Math.sin(gt*.47)*2.2;const vx=(tx-P.x)*.8;P.x+=vx*dt;P.vy=(ty-P.y)*.8;P.y+=P.vy*dt;P.spd=state==='shop'?7:11;P.z-=P.spd*dt;
   P.bank+=((-vx*.12)-P.bank)*Math.min(1,dt*3);P.pitch+=(P.vy*.05-P.pitch)*Math.min(1,dt*3);P.yaw+=(-vx*.04-P.yaw)*Math.min(1,dt*3)}
 
 /* ---------- camera ---------- */
 function camUpdate(dt){const portrait=H>W;let o,l;
-  if(state==='shop'){const a=gt*.35,R=3.7;o=[Math.sin(a)*R,1.0,Math.cos(a)*R];const sh=portrait?0:1.25;l=[Math.cos(a)*sh,portrait?-1.0:-.1,-Math.sin(a)*sh]}
+  if(state==='shop'){const a=gt*.35,R=clamp(2.2/(.4877*W/H),6,12);o=[Math.sin(a)*R,R*.12,Math.cos(a)*R];l=[0,-R*.27,0]}
   else if(state==='menu'){o=[-P.x*.25,2.2,7.8];l=[-P.x*.1,portrait?-1.2:.6,-14]}
   else{o=[-P.x*.2,portrait?3.4:2.6,portrait?11:8.5];l=[-P.x*.1,.4,-14]}
   const k=Math.min(1,dt*(state==='crash'?1.5:state==='shop'||state==='menu'?2.5:5));
@@ -580,7 +580,7 @@ function render(){resize();
     if(nTri)gl.drawArrays(gl.TRIANGLES,0,nTri);if(nLine)gl.drawArrays(gl.LINES,nTri,nLine)}
   np=0;
   for(const c of chunks.values()){
-    for(const o of c.orbs)if(!o.t){const oy=o.y+Math.sin(gt*2+o.x)*.25;if(o.z-OZ>8)continue;const pu=1+Math.sin(gt*4+o.z)*.12;pt(o.x,oy,o.z,2.6*pu,.55,.42,.2,0);pt(o.x,oy,o.z,.75,1,.97,.85,.95)}
+    for(const o of c.orbs)if(!o.t){const oy=o.y+Math.sin(gt*2+o.x)*.25;const dc=OZ-o.z;if(dc<1.5)continue;const fa=clamp((dc-1.5)/7,0,1),pu=(1+Math.sin(gt*4+o.z)*.12)*fa;pt(o.x,oy,o.z,2.4*pu,.42*fa,.32*fa,.15*fa,0);pt(o.x,oy,o.z,.75,fa,.97*fa,.85*fa,.95*fa)}
     for(const g of c.rings)if(!g.pass)for(let i=0;i<12;i++){const a=i/12*6.283+gt*.4;pt(g.x+Math.cos(a)*g.R,g.y+Math.sin(a)*g.R,g.z,1.3,.3,.25,.12,0)}
     for(const u of c.ups){if(Math.abs(u.z-P.z)>200)continue;const Hh=u.top+6;for(let j=0;j<32;j++){const ph=(j*.618)%1,h=(gt*6+ph*Hh)%Hh,y=-6+h,a=j*2.4+gt*.7,rr=u.r*(.25+.75*((j*.37)%1)),fa=Math.min(1,h/6,(Hh-h)/6);
       pt(u.x+Math.cos(a)*rr,y,u.z+Math.sin(a)*rr,.45,.5*fa,.55*fa,.52*fa,0)}}
@@ -629,7 +629,7 @@ function renderShop(){$('shT').textContent=T('เลือกเครื่อ�
   if(own){a.disabled=S.skin===s.id;a.textContent=S.skin===s.id?T('ใช้อยู่','In use'):T('ใช้ลายนี้','Use this')}
   else{a.disabled=S.orbs<s.p;a.innerHTML=S.orbs<s.p?T('ลูกแสงยังไม่พอ','Not enough orbs'):T('ซื้อ ','Buy ')+fmt(s.p)}
   a.onclick=()=>{if(own){S.skin=s.id;save();sfx.click()}else if(S.orbs>=s.p){S.orbs-=s.p;S.own.push(s.id);S.skin=s.id;save();sfx.buy();burst(P.x,P.y,P.z,24,[1,.92,.7],true,4)}renderShop();renderMenu()}}
-function openShop(){state='shop';previewSkin=S.skin;showScreen('sShop');renderShop()}
+function openShop(){state='shop';P.y=40;cam.ox=0;cam.oy=1;cam.oz=8;previewSkin=S.skin;showScreen('sShop');renderShop()}
 let dblTimer=0;
 function renderOver(){clearTimeout(dblTimer);if(state!=='over')return;let ad='';
   if(!doubled&&!dblNo&&runOrbs>0&&Ads.available()){
@@ -710,7 +710,7 @@ function quality(dt){if(state!=='play'||qLock)return;qAcc+=dt;qN++;if(qAcc>3){co
 function frame(t){requestAnimationFrame(frame);let dt=(t-lastT)/1000;lastT=t;if(!(dt>0))dt=0;if(dt>.1)dt=.1;
   try{if(!adOn)update(dt);render();hud();quality(dt)}catch(e){console.error(e);throw e}}
 window.__fw={get state(){return state},P,S,get dist(){return dist},get runOrbs(){return runOrbs},get chunks(){return chunks},start:startRun,crash:w=>crash(w),Ads,
-  orbAhead(dz){const z=P.z-dz;const c=chunks.get(Math.floor(-z/CL));c.orbs.push({x:P.x,y:P.y,z,t:0})},
+  orbAhead(dz){const z=P.z-dz,t=dz/P.spd;const c=chunks.get(Math.floor(-z/CL));c.orbs.push({x:P.x+P.vx*t,y:P.y+P.vy*t,z,t:0})},
   rockAhead(dz){const z=P.z-dz;const c=chunks.get(Math.floor(-z/CL));c.rocks.push({v:0,x:P.x,y:P.y,z,r:1.8,yaw:0,sp:0})},
   clearAhead(){for(const c of chunks.values()){c.rocks=[];c.birds=[];c.isl=[]}},
   giveOrbs(n){S.orbs+=n;save();renderAll()},adAge(ms){Ads._dbg.age(ms)},qual(q){QUAL=q;qLock=true;resize()},get fps(){return fpsAvg},get draws(){return drawCalls},setLang};

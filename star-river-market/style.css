@@ -212,3 +212,36 @@ body.p2 #side-bg{background-image:url(assets/bg_candy.webp)}
 #warp small{font-size:16px;font-weight:700;color:var(--yel)}
 #warp b{font-size:30px;font-weight:900;color:var(--yel);text-shadow:0 2px 0 #121c4a}
 @keyframes spin{from{transform:rotate(-8deg) scale(.95)}50%{transform:rotate(8deg) scale(1.05)}to{transform:rotate(-8deg) scale(.95)}}
+
+/* ---------- stage 3: ice lanes, home market, pets, meteor weekend ---------- */
+body.p3 #side-bg{background-image:url(assets/bg_ice.webp)}
+#lanes{position:absolute;left:0;right:0;bottom:calc(280px + env(safe-area-inset-bottom));height:0;z-index:6;pointer-events:none}
+#lanes button{position:absolute;bottom:0;width:56px;height:56px;border-radius:50%;pointer-events:auto;font-size:40px;font-weight:900;line-height:48px;color:var(--yel);
+ background:#121c4a99;border:3px solid #ffd24acc;box-shadow:0 0 12px #ffd24a55;touch-action:none}
+#ln-l{left:8px}#ln-r{right:8px}
+#lanes button:active{transform:scale(.92);background:#121c4add}
+.pbtn{position:absolute;bottom:calc(124px + env(safe-area-inset-bottom));width:70px;height:74px;border-radius:20px;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+ background:linear-gradient(#22327a,#121c4a);border:3px solid var(--yel);box-shadow:0 4px 0 #0a1030,0 0 14px #ffd24a55;padding:2px 0 3px}
+.pbtn img{width:50px;height:46px;object-fit:contain}
+.pbtn span{font-size:12px;font-weight:800;color:var(--yel);line-height:1.1;white-space:nowrap}
+#mkbtn{left:10px}#petbtn{right:10px}
+.pbtn .pdot{display:none;position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;background:var(--yel);border:2px solid var(--navy);font-style:normal;font-weight:900;font-size:14px;line-height:18px;color:var(--navy);text-align:center}
+.pbtn .pdot::after{content:'!'}
+.pbtn.can .pdot{display:block}
+.pbtn.can{animation:tvb 1.6s ease-in-out infinite}
+#evb{position:absolute;right:10px;top:calc(100px + env(safe-area-inset-top));z-index:24;display:flex;align-items:center;gap:4px;padding:2px 10px 2px 4px;border-radius:14px;
+ background:#121c4add;border:2px solid var(--yel);box-shadow:0 0 14px #ffd24a77;font-size:12px;font-weight:800;color:var(--yel);cursor:pointer}
+#evb img{width:26px;height:26px;object-fit:contain}
+.mkscene{padding-top:16%;margin:0 auto 4px;width:min(340px,92%)}
+.mkin{position:relative}
+.mkin .mkb{width:100%;display:block;filter:drop-shadow(0 4px 8px #0009)}
+.mkin .mks{position:absolute;transform:translate(-50%,-100%);height:auto;filter:drop-shadow(0 3px 4px #0008);animation:mkpop .5s cubic-bezier(.2,1.5,.4,1)}
+.mkin .mks.ghost{opacity:.85;animation:mkb 1.4s ease-in-out infinite}
+@keyframes mkpop{from{transform:translate(-50%,-100%) scale(.4)}}
+@keyframes mkb{50%{transform:translate(-50%,-104%)}}
+.mkbank{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;margin:4px 0 8px;border-radius:16px;background:#0a1030;border:2px solid var(--yel)}
+.mkb-l{display:flex;flex-direction:column;min-width:0}
+.mkb-l small{font-size:12px;opacity:.8;color:var(--yel)}
+.mkb-l b{font-size:22px;font-weight:900;color:var(--yel)}
+.mkb-l .ci{width:22px;height:22px;vertical-align:-4px;margin-right:3px}
+.prev .pb img.ph.pet{transform-origin:50% 100%}

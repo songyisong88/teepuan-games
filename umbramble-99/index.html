@@ -90,6 +90,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
 #bJump{font-size:17px!important}
 #bRestart{font-size:13px!important;min-width:84px}
 @media (max-height:680px){#pad .btn{min-height:48px}.track{height:40px}.thumb{height:32px}.ticks b{height:36px}}
+@media (max-aspect-ratio:3/4){#hud{padding:5px 8px;padding-top:max(5px,env(safe-area-inset-top));gap:6px}#hud .ico{min-height:40px}#stats{padding:2px 12px;font-size:12px}#ctrl{gap:6px;padding:6px 10px calc(8px + var(--safe-b))}#board{background:#0b0e22}}
 @media (min-aspect-ratio:5/4){#main{flex-direction:row}#ctrl{width:300px;border-top:0;border-left:2px solid var(--line);justify-content:center}#pad{grid-template-columns:1fr 1fr;grid-template-areas:'l r' 'j j' 'x x'}#bL{grid-area:l}#bR{grid-area:r}#bJump{grid-area:j}#bRestart{grid-area:x}#keys{display:block}}
 #keys{display:none;font-size:12px;color:var(--dim);text-align:center;line-height:1.5}
 /* modal */
@@ -687,7 +688,7 @@ function boardPointer(e,first){const cv=$('cv'),r=cv.getBoundingClientRect();con
   G.tgt[best]=Math.max(0,Math.min(1,((x-ax)*vx+(y-ay)*vy)/l2));return true}
 /* ---------- loop ---------- */
 function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-(G.last||now))/1000);G.last=now;G.anim+=dt;
-  if(scr==='game'&&G.st){if(!G.paused&&!Ads.busy()){G.acc+=dt;let n=0;while(G.acc>=DT&&n++<12){G.acc-=DT;tick()}}else G.acc=0;draw();paintSliders();renderStats()}
+  if(scr==='game'&&G.st){if(!G.paused&&!Ads.busy()){G.acc+=dt;let n=0;while(G.acc>=DT&&n++<12){G.acc-=DT;tick()}}else G.acc=0;draw();paintSliders();renderStats();cam(dt)}
   else if(scr==='title')drawTitle()}
 function tick(){const st=G.st;if(st.won){G.winT+=DT;if(G.winT>.7&&!G.done){G.done=true;G.demo&&!G.demo.real?demoEnd():win()}stepFx();return}
   let inp;if(G.demo){const r=G.demo.it.next();inp=r.done?{}:r.value;if(r.done){G.demo.idle=(G.demo.idle||0)+DT;if(G.demo.idle>1.2){demoEnd(false);return}}
@@ -786,7 +787,18 @@ function renderAll(){document.title=T("UMBRAMBLE '99 — เดินบนเ�
   if(scr==='map')renderMap();if(scr==='game'&&G.st){renderHud();renderDemoBar();const tip=$('tip');tip.textContent=LEVELS[G.i].tip[S.lang]}}
 /* ---------- fit ---------- */
 function fit(){const b=$('board'),cv=$('cv');if(!b||!cv)return;const W=b.clientWidth,H=b.clientHeight;if(!W||!H)return;let s=Math.min(W/VW,H/VH);if(s>=2)s=Math.floor(s*2)/2;
-  cv.style.width=Math.floor(VW*s)+'px';cv.style.height=Math.floor(VH*s)+'px';const tc=$('titleBg');if(tc){tc.width=Math.ceil(innerWidth/3);tc.height=Math.ceil(innerHeight/3)}}
+  cv.style.width=Math.floor(VW*s)+'px';cv.style.height=Math.floor(VH*s)+'px';const tc=$('titleBg');if(tc){tc.width=Math.ceil(innerWidth/3);tc.height=Math.ceil(innerHeight/3)}
+  /* portrait phones: the full level is width-bound and tiny, so zoom in (~55% of the level width) and follow the walker */
+  let z=1;if(W<H*.95){z=Math.min(H/VH,W/(VW*.55))/s;if(z<1.15)z=1}CAM.zoom=z;cam(1)}
+/* camera: overview (whole level) at level start, while a lamp slider is held, during hint demos and on clear; otherwise zoomed follow on portrait */
+const CAM={zoom:1,k:1,x:VW/2};
+function cam(dt){const cv=$('cv'),b=$('board');if(!cv||!b)return;const st=G.st;
+  const sliding=[...document.querySelectorAll('#sliders .track')].some(t=>t._drag);
+  const over=CAM.zoom===1||!st||st.won||st.time<1.2||sliding||!!G.demo;const kt=over?1:CAM.zoom,a=Math.min(1,dt*6);
+  CAM.k+=(kt-CAM.k)*a;if(Math.abs(CAM.k-kt)<.002)CAM.k=kt;const tx0=st?st.c.x+4+(st.c.face||1)*14:VW/2;CAM.x+=(tx0-CAM.x)*Math.min(1,dt*5);
+  const W=b.clientWidth,H=b.clientHeight,w=cv.offsetWidth,h=cv.offsetHeight,ox=cv.offsetLeft,oy=cv.offsetTop,k=CAM.k;
+  let tx;if(w*k<=W)tx=(W-w*k)/2-ox;else{tx=W/2-CAM.x/VW*w*k-ox;tx=Math.max(W-w*k-ox,Math.min(-ox,tx))}const ty=(H-h*k)/2-oy;
+  cv.style.transformOrigin='0 0';cv.style.transform=k===1?'':'translate('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px) scale('+k.toFixed(4)+')'}
 addEventListener('resize',fit);
 /* ---------- boot ---------- */
 function boot(){load();document.documentElement.lang=S.lang;const cv=$('cv');cv.width=VW;cv.height=VH;g=cv.getContext('2d');tg=$('titleBg').getContext('2d');

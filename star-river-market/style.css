@@ -245,3 +245,47 @@ body.p3 #side-bg{background-image:url(assets/bg_ice.webp)}
 .mkb-l b{font-size:22px;font-weight:900;color:var(--yel)}
 .mkb-l .ci{width:22px;height:22px;vertical-align:-4px;margin-right:3px}
 .prev .pb img.ph.pet{transform-origin:50% 100%}
+
+/* ---- stage 4: Emerald Forest, boat classes, sticker book, 7-day gifts ---- */
+body.p4 #side-bg{background-image:url(assets/bg_forest.webp)}
+#bookbtn,#calbtn{bottom:calc(206px + env(safe-area-inset-bottom))}
+#bookbtn{left:10px}#calbtn{right:10px}
+#forkui{position:absolute;left:0;right:0;bottom:calc(108px + env(safe-area-inset-bottom));z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+#fk-t{font-size:17px;font-weight:800;color:var(--yel);text-shadow:0 2px 3px #000,0 0 8px #000}
+#forkui .fk-b{display:flex;gap:12px;width:min(360px,92%)}
+#forkui button{flex:1;min-height:58px;border-radius:18px;pointer-events:auto;background:#121c4acc;border:3px solid #ffffff99;color:#fff;font:inherit;font-weight:800;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;padding:4px}
+#forkui button img{width:26px;height:26px;object-fit:contain}
+#forkui button small{font-size:13px;opacity:.85}
+#forkui button.rich{border-color:var(--yel)}
+#forkui button.on{background:var(--yel);color:var(--navy);border-color:#fff}
+#forkui button:active{transform:scale(.95)}
+#forkchip,#ffchip{position:absolute;z-index:5;pointer-events:none;font-size:13px;font-weight:800;color:var(--yel);background:#121c4acc;border:2px solid #34489f;border-radius:14px;padding:4px 10px}
+#forkchip{left:50%;transform:translateX(-50%);top:calc(118px + env(safe-area-inset-top))}
+#ffchip{right:8px;top:calc(150px + env(safe-area-inset-top));display:flex;align-items:center;gap:4px}
+#ffchip img{width:20px;height:24px;object-fit:contain}
+#ffchip span{font-size:12px;opacity:.9}
+.buy.ffb img{width:18px;height:22px;object-fit:contain}
+.prev .pb.t2{width:min(240px,62%)}.prev .pb.t3{width:min(230px,60%)}
+.prev .pb img.ph.cg{transform-origin:50% 85%}
+.bpage{margin-bottom:8px}
+.stk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 6px}
+.stk .st{position:relative;background:#ffffff14;border:2px solid #34489f;border-radius:14px;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.stk .st img{width:78%;height:78%;object-fit:contain}
+.stk .st.miss img{filter:brightness(0) opacity(.35)}
+.stk .st.gold{border-color:var(--yel);background:#ffd24a33}
+.stk .st i{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-style:normal;font-size:11px;font-weight:800;color:var(--navy);background:var(--yel);border-radius:8px;padding:0 6px}
+.row.brw{padding:6px 10px;min-height:0}
+.cal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 10px}
+.cal .cd{position:relative;background:#ffffff14;border:2px solid #34489f;border-radius:14px;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff}
+.cal .cd small{font-size:12px;opacity:.85}
+.cal .cd img{width:34px;height:34px;object-fit:contain}
+.cal .cd b{font-size:13px}
+.cal .cd.d7{grid-column:span 2;border-color:var(--yel)}
+.cal .cd.d7 img{width:44px;height:44px}
+.cal .cd.got{opacity:.55}
+.cal .cd.today{border-color:var(--yel);background:#ffd24a33;animation:tvb 1.6s ease-in-out infinite}
+.cal .cd em{position:absolute;top:2px;right:6px;font-style:normal;font-weight:900;color:var(--yel)}
+.calr{font-size:16px;margin-bottom:10px}
+.calnote{font-size:14px;opacity:.9}
+.calrule{font-size:12px;opacity:.7;text-align:center;margin-top:10px;line-height:1.4}
+.ci{object-fit:contain}

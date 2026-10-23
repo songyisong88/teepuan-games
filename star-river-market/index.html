@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/coin.webp">
 <title>ตลาดน้ำอวกาศ · Star River Market · Kairon Arcade</title>
 <meta name="description" content="ตลาดน้ำอวกาศ เกมเปิดร้านขายของบนแม่น้ำดวงดาว จาก Kairon Arcade">
-<link rel="stylesheet" href="style.css?v=2071a212">
+<link rel="stylesheet" href="style.css?v=5d8b9cc0">
 </head>
 <body>
 <div id="side-bg"></div>
@@ -35,6 +35,7 @@
   <button id="petbtn" class="pbtn"><img src="assets/i_pet.webp" alt=""><span data-t="nPet"></span><i class="pdot"></i></button>
   <button id="bookbtn" class="pbtn"><img src="assets/i_book.webp" alt=""><span data-t="nBook"></span><i class="pdot"></i></button>
   <button id="calbtn" class="pbtn"><img src="assets/i_gift.webp" alt=""><span data-t="nGift"></span><i class="pdot"></i></button>
+  <div id="kingui" class="hidden"><div id="kg-t"></div><div id="kg-b"></div></div>
   <div id="forkui" class="hidden"><div id="fk-t"></div><div class="fk-b"><button id="fk-l" aria-label="left"></button><button id="fk-r" aria-label="right"></button></div></div>
   <div id="forkchip" class="hidden"></div>
   <div id="ffchip" class="hidden"></div>
@@ -66,11 +67,12 @@
       <img src="assets/boat.webp" alt="" class="sp-boat">
       <h1 data-t="title"></h1>
       <p class="sp-sub" data-t="subtitle"></p>
+      <div class="sp-load"><div class="sp-bar"><i id="ldbar"></i></div><small id="ldtxt">…</small></div>
       <div class="sp-tap" data-t="tapStart"></div>
       <div class="sp-brand">Kairon Arcade · ห้องเกม ไครอน</div>
     </div>
   </div>
 </div>
-<script src="game.js?v=2071a212"></script>
+<script src="game.js?v=5d8b9cc0"></script>
 </body>
 </html>

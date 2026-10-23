@@ -294,3 +294,45 @@ body.p4 #side-bg{background-image:url(assets/bg_forest.webp)}
 .stw .frl{font-size:10px;line-height:1.25;font-weight:600;color:#e9ecff;text-align:center;opacity:.9}
 .stw .frl b{display:block;font-size:11px;letter-spacing:1px;min-height:13px}
 .stw .frl.lv2,.stw .frl.lv3{color:var(--yel);opacity:1}
+/* ---------- stage 5: lava planet, kings, legend, settings, loading ---------- */
+body.p5 #side-bg{background-image:url(assets/bg_lava.webp)}
+.chip{position:relative}
+.chip .heat{position:absolute;left:6px;right:6px;bottom:2px;height:5px;border-radius:3px;background:#0a1030cc;overflow:hidden}
+.chip .heat u{display:block;height:100%;width:100%;background:var(--yel);border-radius:3px;transition:width .3s}
+.chip .heat u.cold{background:#9fd8ff}
+#kingui{position:absolute;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom));z-index:7;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+#kg-t{background:#121c4acc;color:#fff;font-weight:800;font-size:14px;padding:4px 12px;border-radius:12px;text-align:center;max-width:92%}
+#kg-b{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:10px;width:min(380px,94%)}
+#kg-b button{pointer-events:auto;min-width:0;width:100%;box-sizing:border-box;min-height:64px;border-radius:18px;background:#121c4add;border:3px solid #ffffff99;color:#fff;font:inherit;font-weight:800;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px}
+#kg-b button img{width:34px;height:34px;object-fit:contain}
+#kg-b button.want{border-color:var(--yel);background:#2a2a6add;box-shadow:0 0 14px #ffd24a88;animation:tvb 1s ease-in-out infinite}
+#kg-b button.dn{opacity:.45}
+#kg-b button.kad{border-color:var(--yel)}
+#kg-b button:active{transform:scale(.95)}
+.crownbar{display:flex;align-items:center;justify-content:center;gap:8px;margin:2px 0 10px;font-weight:800;font-size:16px}
+.crownbar img{width:30px;height:30px;object-fit:contain}.crownbar span{opacity:.8;font-size:14px}
+.kgl{display:flex;align-items:center;gap:6px;font-size:13px;opacity:.9;margin:2px 0 4px}
+.kgl img{width:26px;height:26px;object-fit:contain}.kgl img.cr{width:18px;height:18px}
+.planet.legend .p{filter:drop-shadow(0 0 8px #ffd24a99)}
+.lgcols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;text-align:left}
+.lgc{background:#0e1640aa;border:2px solid #34489f;border-radius:14px;padding:8px 10px}
+.lgc.keep{border-color:var(--yel)}
+.lgc .sec{margin:0 0 4px;font-size:15px}
+.lgc ul{margin:0;padding-left:18px;font-size:13px;line-height:1.35}
+.btns.eq{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btns.eq button{width:100%;margin:0}
+.b-yes.alt{background:#fff;color:var(--navy)}
+a.b-yes.lnk{display:inline-block;text-decoration:none;text-align:center}
+.vrow{display:flex;align-items:center;gap:10px;padding:10px 14px;margin:6px 0;border-radius:14px;background:#0e1640aa;font-weight:700}
+.vrow span{flex:0 0 34%;text-align:left}.vrow b{width:34px;text-align:right}
+.vrow input{flex:1;accent-color:#ffd24a;height:28px}
+.sp-load{margin:18px auto 0;width:min(260px,70%)}
+.sp-bar{height:10px;border-radius:6px;background:#0a1030;border:2px solid #34489f;overflow:hidden}
+.sp-bar i{display:block;height:100%;width:0;background:var(--yel);transition:width .2s}
+.sp-load small{display:block;margin-top:6px;font-size:14px;opacity:.85}
+#splash .sp-tap{display:none}
+#splash.ready .sp-tap{display:inline-block}
+#splash.ready .sp-load{display:none}
+
+/* stage 5: the fork choice sits above the boat so it never covers the staff canoes */
+#forkui{bottom:auto;top:calc(38% - 40px)}

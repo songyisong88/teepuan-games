@@ -174,9 +174,51 @@ var T={
 function t(k,v){var s=(T[S.lang]||T.th)[k];if(s==null)s=T.th[k]||k;if(v)for(var x in v)s=s.split('{'+x+'}').join(v[x]);return s;}
 // living characters: friendship levels + personalities
 Object.assign(T.th,{fr0:'คนแปลกหน้า',fr1:'คนรู้จัก',fr2:'ขาประจำ',fr3:'เพื่อนซี้',frUp:'สนิทกันขึ้นแล้ว: {l}!',frGift:'ของขวัญ! +{n}',gemW:'เพชร',frD:'ขายให้บ่อยๆ แล้วจะสนิทกันขึ้น ขาประจำจะทักทาย ให้ทิปเพิ่ม และบางทีก็มีของขวัญ',
-  p_curious:'ขี้สงสัย',p_lonely:'ขี้เหงา',p_impatient:'ใจร้อน',p_sweet:'ติดหวาน',p_shy:'ขี้อาย',p_showoff:'ขี้อวด',p_dreamy:'ช่างฝัน'});
+  p_curious:'ขี้สงสัย',p_lonely:'ขี้เหงา',p_impatient:'ใจร้อน',p_sweet:'ติดหวาน',p_shy:'ขี้อาย',p_showoff:'ขี้อวด',p_dreamy:'ช่างฝัน',p_jolly:'ใจดี',p_wise:'สุขุม',p_fiery:'ใจร้อนแต่น่ารัก'});
 Object.assign(T.en,{fr0:'Stranger',fr1:'Acquaintance',fr2:'Regular',fr3:'Best friend',frUp:'Friendship up: {l}!',frGift:'Gift! +{n}',gemW:'gems',frD:'Serve them often to become friends. Regulars greet you, tip extra and sometimes bring gifts.',
-  p_curious:'Curious',p_lonely:'Lonely',p_impatient:'Impatient',p_sweet:'Sweet tooth',p_shy:'Shy',p_showoff:'Show-off',p_dreamy:'Dreamy'});
+  p_curious:'Curious',p_lonely:'Lonely',p_impatient:'Impatient',p_sweet:'Sweet tooth',p_shy:'Shy',p_showoff:'Show-off',p_dreamy:'Dreamy',p_jolly:'Jolly',p_wise:'Wise',p_fiery:'Fiery'});
+Object.assign(T.th,{planet5:'ดาวภูเขาไฟลาวา',planet5d:'ของร้อนขายไวได้ราคาเต็ม แตะฟองลาวาก่อนเรือชน',
+  lavasoup:'ซุปลาวา',potato:'มันเผาดวงดาว',lavacake:'เค้กลาวา',meteorbun:'ซาลาเปาอุกกาบาต',
+  mapNote2:'อยากเริ่มใหม่ให้รวยกว่าเดิม? ใช้ “เริ่มตำนานใหม่” ด้านล่าง',
+  ul5T:'ดาวภูเขาไฟลาวาเปิดแล้ว!',ul5D:'ของที่นั่นร้อนๆ อร่อยๆ ยิ่งขายไว ยิ่งได้ราคาเต็ม ระวังฟองลาวาในแม่น้ำ แตะให้แตกก่อนเรือชนนะ',ul5Go:'ไปดาวลาวา',
+  ar5T:'ยินดีต้อนรับสู่ดาวภูเขาไฟลาวา!',ar5D:'ของร้อนมีแถบความร้อน ค่อยๆ เย็นลงระหว่างทาง ขายตอนยังร้อนได้ราคาเต็ม ถึงท่าแล้วเตาลาวาอุ่นให้ใหม่ แตะฟองลาวาให้แตกได้เหรียญ',
+  edge5T:'ครบเส้นทางดาวลาวาแล้ว!',edge5D:'สุดยอด! ค้าขายครบทั้ง 5 ดาวแล้ว อยากเริ่มตำนานใหม่ไหม? ได้ดาวตำนานเพิ่มรายได้ถาวร ส่วนชุด สัตว์เลี้ยง สติกเกอร์ และมงกุฎเก็บไว้ครบ',edgeLegend:'ดูเริ่มตำนานใหม่',
+  stoveT:'เตาลาวาอุ่นของให้แล้ว!',popT:'ป๊อป!',hotT:'ร้อนจัง!',heat:'ความร้อน',
+  h15:'ดาวลาวา: ของร้อนเย็นลงระหว่างทาง ขายไวได้ราคาเต็ม แตะฟองลาวาให้แตก',h16:'พระราชามาเที่ยวสุดท้ายของเส้นทาง ส่งของครบทันเวลาได้มงกุฎ',h17:'เริ่มตำนานใหม่: เริ่มเส้นทางใหม่ ได้ดาวตำนานเพิ่มรายได้ถาวร',
+  king1:'ราชาดาวบ้านเกิด',king2:'ราชาลูกกวาด',king3:'ราชาหิมะ',king4:'ราชาเห็ดป่า',king5:'ราชามังกรลาวา',
+  kingSoon:'เที่ยวนี้พระราชาจะมา! เก็บของไว้ในตะกร้าหลวงแล้ว',kingT:'ออเดอร์หลวง',kingTap:'แตะพระราชา หรือปุ่มของที่พระราชาชี้',
+  kingWin:'ได้มงกุฎแล้ว!',kingWinD:'{k}พอใจมาก! มอบมงกุฎและรางวัลใหญ่ให้',kingWin2D:'{k}พอใจมาก! ได้รางวัลใหญ่อีกแล้ว',kingFail:'หมดเวลาแล้ว ไม่เป็นไรนะ',kingFailD:'{k}จะกลับมาอีกในเที่ยวหน้า ของที่ส่งไปแล้วได้เงินครบ',
+  kingOk:'เยี่ยมเลย!',kingRetry:'ไว้ลองใหม่',kingAdT:'ขอเวลาเพิ่ม 10 วินาที',kingAdD:'ดูโฆษณาสั้นๆ แล้วได้เวลาส่งของให้พระราชาเพิ่ม 10 วินาที',kingAdBtn:'+10 วิ',
+  crowns:'มงกุฎพระราชา',crownN:'มงกุฎ {n}/5',kingDue:'มาเที่ยวนี้',kingNext:'มาอีก {n} เที่ยว',kingRoute:'มาเที่ยวสุดท้าย',kingWrong:'ไม่ใช่อันนี้',
+  legend:'เริ่มตำนานใหม่',legendD:'เริ่มเส้นทางใหม่ตั้งแต่ดาวบ้านเกิด แลกเป็นดาวตำนาน เพิ่มรายได้ถาวรทุกดาว',legendNeed:'เปิดเมื่อไปถึงดาวลาวา หรือเลเวล 40',
+  legendStars:'ดาวตำนาน',legendGet:'จะได้ดาวตำนาน +{n}',legendHave:'ดาวตำนาน {n} ดวง · รายได้ +{p}%',legendResets:'เริ่มใหม่',legendKeeps:'เก็บไว้ครบ',
+  lr1:'เหรียญ และเลเวล',lr2:'อัปเกรดเรือ สินค้า และลูกจ้าง',lr3:'ร้านในตลาดบ้าน',lr4:'เส้นทางและดาว (เริ่มที่ดาวบ้านเกิด)',lr5:'เรือหางยาว (ซื้อด้วยเหรียญ)',
+  lk1:'ดาวม่วง และพลังถาวรจากร้านดาว',lk2:'ชุดน้องฟาง สีเรือ และสัตว์เลี้ยง',lk3:'สมุดสติกเกอร์ ความสนิท และมงกุฎ',lk4:'ความสำเร็จ ของขวัญ 7 วัน หิ่งห้อย',lk5:'แพตลาดน้ำ (ซื้อด้วยดาวม่วง)',
+  legendGo:'เริ่มตำนานใหม่!',legendNo:'ยังก่อน',legendDone:'ตำนานบทที่ {n} เริ่มแล้ว!',legendPerk:'พลังพิเศษของดาวตำนาน',
+  pk3:'3 ดาว: เริ่มพร้อมน้องพาย 1 คน',pk10:'10 ดาว: เรือเร็วขึ้น (ความเร็ว เลเวล 3)',pk20:'20 ดาว: เริ่มด้วย 25K เหรียญ',legendLv:'ตำนานบทที่ {n}',
+  vMusic:'เพลง',vSfx:'เสียงเอฟเฟกต์',vVoice:'เสียงพากย์',credits:'เครดิต',creditsD:'เกมนี้สร้างโดย Kairon Arcade ภาพ เพลง และเสียงเอฟเฟกต์เป็นของเราเอง เสียงพากย์ภาษาไทยจาก VachanaTTS (MIT) ฟอนต์ Kanit (OFL)',creditsFile:'อ่านเครดิตฉบับเต็ม',
+  loading:'กำลังโหลด… {n}%',a_planet5:'ไปถึงดาวภูเขาไฟลาวา',a_crown1:'ได้มงกุฎพระราชา 1 อัน',a_crown5:'ได้มงกุฎครบ 5 ดาว',a_legend1:'เริ่มตำนานใหม่ครั้งแรก'});
+Object.assign(T.en,{planet5:'Lava Volcano Planet',planet5d:'Sell hot goods fast for full price; pop lava bubbles',
+  lavasoup:'Lava Soup',potato:'Star Roast Potato',lavacake:'Lava Cake',meteorbun:'Meteor Bun',
+  mapNote2:'Want to start over even richer? Use “New Legend” below.',
+  ul5T:'Lava Volcano Planet is open!',ul5D:'Everything there is piping hot. Sell fast for full price, and tap the lava bubbles in the river before the boat bumps them.',ul5Go:'Go to Lava Planet',
+  ar5T:'Welcome to Lava Volcano Planet!',ar5D:'Hot goods have a heat bar that cools during the trip. Sell while hot for full price; the lava stove at each dock warms them up again. Pop lava bubbles for coins.',
+  edge5T:'Lava route complete!',edge5D:'Amazing! You have traded on all 5 planets. Start a New Legend? Legend Stars raise your income for good, and you keep outfits, pets, stickers and crowns.',edgeLegend:'See New Legend',
+  stoveT:'The lava stove warmed your goods!',popT:'Pop!',hotT:'Hot hot!',heat:'Heat',
+  h15:'Lava Planet: hot goods cool on the way. Sell fast for full price and pop the lava bubbles.',h16:'A king visits on the last trip of each route. Deliver the whole order in time for a crown.',h17:'New Legend: start the routes again and earn Legend Stars for permanent income.',
+  king1:'Home Star King',king2:'Candy King',king3:'Snow King',king4:'Mushroom King',king5:'Lava Dragon King',
+  kingSoon:'A king visits this trip! The royal basket is packed.',kingT:'Royal order',kingTap:'Tap the king, or the good the king points at',
+  kingWin:'Crown won!',kingWinD:'The {k} is delighted and gives you a crown and a big reward!',kingWin2D:'The {k} is delighted! Another big reward.',kingFail:'Time is up, no worries',kingFailD:'The {k} will come back next trip. You were paid for everything delivered.',
+  kingOk:'Great!',kingRetry:'Try again later',kingAdT:'10 more seconds',kingAdD:'Watch a short ad to get 10 more seconds for the royal order.',kingAdBtn:'+10 s',
+  crowns:'Royal crowns',crownN:'Crowns {n}/5',kingDue:'visits this trip',kingNext:'visits in {n} trips',kingRoute:'visits on the last trip',kingWrong:'Not that one',
+  legend:'New Legend',legendD:'Start the routes again from Home Star and earn Legend Stars: permanent income on every planet.',legendNeed:'Opens at Lava Planet or level 40',
+  legendStars:'Legend Stars',legendGet:'You will earn +{n} Legend Stars',legendHave:'{n} Legend Stars · income +{p}%',legendResets:'Starts over',legendKeeps:'You keep',
+  lr1:'Coins and level',lr2:'Boat, goods and staff upgrades',lr3:'Home market stalls',lr4:'Routes and planets (back to Home Star)',lr5:'Long-tail boat (bought with coins)',
+  lk1:'Star gems and permanent gem-shop boosts',lk2:'Fang outfits, boat colours and pets',lk3:'Sticker book, friendships and crowns',lk4:'Achievements, 7-day gifts, fireflies',lk5:'Floating-market raft (bought with gems)',
+  legendGo:'Start New Legend!',legendNo:'Not yet',legendDone:'Legend chapter {n} begins!',legendPerk:'Legend perks',
+  pk3:'3 stars: start with one paddler hired',pk10:'10 stars: faster boat (speed level 3)',pk20:'20 stars: start with 25K coins',legendLv:'Legend chapter {n}',
+  vMusic:'Music',vSfx:'Sound effects',vVoice:'Voice',credits:'Credits',creditsD:'Made by Kairon Arcade. Art, music and sound effects are our own. Thai voice by VachanaTTS (MIT). Font: Kanit (OFL).',creditsFile:'Read the full credits',
+  loading:'Loading… {n}%',a_planet5:'Reach Lava Volcano Planet',a_crown1:'Win a royal crown',a_crown5:'Win all 5 crowns',a_legend1:'Start your first New Legend'});
 
 // ---------- config ----------
 var GOODS=[
@@ -191,11 +233,14 @@ GOODS.push({id:'snowcone',base:320,unlock:0,img:'g_snowcone',pl:3},{id:'cocoa',b
   {id:'aurora',base:4800,unlock:1200000,img:'g_aurora',pl:3},{id:'pearl',base:19000,unlock:8000000,img:'g_pearl',pl:3});
 GOODS.push({id:'berry',base:1500,unlock:0,img:'g_berry',pl:4},{id:'honey',base:6000,unlock:600000,img:'g_honey',pl:4},
   {id:'glowshroom',base:24000,unlock:5000000,img:'g_glowshroom',pl:4},{id:'emerald',base:95000,unlock:30000000,img:'g_emerald',pl:4});
+GOODS.push({id:'lavasoup',base:8000,unlock:0,img:'g_lavasoup',pl:5,hot:1},{id:'potato',base:32000,unlock:3000000,img:'g_potato',pl:5,hot:1},
+  {id:'lavacake',base:130000,unlock:25000000,img:'g_lavacake',pl:5,hot:1},{id:'meteorbun',base:520000,unlock:180000000,img:'g_meteorbun',pl:5,hot:1});
 GOODS.forEach(function(g){if(!g.pl)g.pl=1;});
 var ALIENS1=[{img:'alien_blue',likes:['fruit','crystal']},{img:'alien_green',likes:['jelly']},{img:'alien_pink',likes:['candy']}];
 var ALIENS2=[{img:'alien_gummy',likes:['cotton','donut']},{img:'alien_marsh',likes:['lolli']},{img:'alien_choco',likes:['syrup']}];
 var ALIENS3=[{img:'alien_snow',likes:['snowcone','pearl']},{img:'alien_icejel',likes:['aurora']},{img:'alien_peng',likes:['cocoa']}];
 var ALIENS4=[{img:'alien_shroom',likes:['berry','honey']},{img:'alien_leaf',likes:['glowshroom']},{img:'alien_frog',likes:['emerald']}];
+var ALIENS5=[{img:'alien_magma',likes:['lavasoup','meteorbun']},{img:'alien_ember',likes:['potato']},{img:'alien_pebble',likes:['lavacake']}];
 // planets: own look, customers, goods, route length and income multiplier
 var PLANETS={
  1:{n:1,name:'planet1',desc:'planet1d',icon:'i_map',aliens:ALIENS1,vip:'alien_pink',trips:8,len:360,mul:1,music:'music',
@@ -205,12 +250,17 @@ var PLANETS={
  3:{n:3,name:'planet3',desc:'planet3d',icon:'i_ice',aliens:ALIENS3,vip:'alien_yeti',trips:14,len:460,mul:1.6,music:'music_ice',lanes:true,
     bg:'bg_ice',isl:'iislet',stall:'stall_ice',river:['rgba(225,250,255,0.82)','rgba(130,215,245,0.86)','rgba(60,130,205,0.92)'],shine:'#e8fbff',bank:'#ffffff',flow:['#ffffff','#bff4ff','#d9ccff'],glow:'cyan',rip:'#f2fdff'},
  4:{n:4,name:'planet4',desc:'planet4d',icon:'i_forest',aliens:ALIENS4,vip:'alien_owl',trips:16,len:480,mul:2,music:'music_forest',fork:true,
-    bg:'bg_forest',isl:'fislet',stall:'stall_forest',river:['rgba(210,255,225,0.8)','rgba(90,200,150,0.86)','rgba(30,110,100,0.92)'],shine:'#e6ffe9',bank:'#f4fff0',flow:['#ffffff','#c9ffb8','#fff3a6'],glow:'green',rip:'#effff2'}
+    bg:'bg_forest',isl:'fislet',stall:'stall_forest',river:['rgba(210,255,225,0.8)','rgba(90,200,150,0.86)','rgba(30,110,100,0.92)'],shine:'#e6ffe9',bank:'#f4fff0',flow:['#ffffff','#c9ffb8','#fff3a6'],glow:'green',rip:'#effff2'},
+ 5:{n:5,name:'planet5',desc:'planet5d',icon:'i_lava',aliens:ALIENS5,vip:'alien_sala',trips:18,len:500,mul:2.6,music:'music_lava',lava:true,
+    bg:'bg_lava',isl:'lislet',stall:'stall_lava',river:['rgba(255,236,200,0.84)','rgba(255,160,96,0.88)','rgba(178,70,96,0.92)'],shine:'#fff0d6',bank:'#fff6ea',flow:['#ffffff','#ffe2a0','#ffc4d6'],glow:'warm',rip:'#fff4e6'}
 };
+// stage 5: one king per planet (big royal order at the end of the route, then every few trips)
+var KINGS={1:{img:'king1',pers:'jolly'},2:{img:'king2',pers:'sweet'},3:{img:'king3',pers:'dreamy'},4:{img:'king4',pers:'wise'},5:{img:'king5',pers:'fiery'}};
+var KING_EVERY=6,KING_GEMS=15;
 // stage 4: boat classes (each has its own empty-deck art; cargo is drawn from what is really on board)
 // hx/hy/s/ar: hat anchor transform from the original boat art; pets: per-pet anchors; slots: cargo spots; lan: lantern glow
 var TIERS=[
- {id:1,img:'boat_t1',ar:437/593,sz:1.0,capM:1,hx:.58,hy:.025,s:1.0,lan:[.14,.7],cw:.15,slots:[[.3,.62],[.42,.6],[.2,.58]],pets:null,ps:1},
+ {id:1,img:'boat_t1',ar:437/593,sz:1.0,capM:1,hx:.58,hy:.025,s:1.0,lan:[.14,.7],cw:.15,slots:[[.3,.62],[.42,.6],[.2,.58]],pets:{bird:[.08,.6]},ps:1},
  {id:2,img:'boat_t2',ar:386/594,sz:1.1,capM:1.35,cost:250000,cur:'coin',hx:.28,hy:.09,s:.85,lan:[.47,.5],cw:.12,slots:[[.48,.7],[.6,.7],[.72,.66],[.83,.6]],
    pets:{cat:[.84,.52],octo:[.62,.66],bird:[.93,.12],bunny:[.84,.52]},ps:.85},
  {id:3,img:'boat_t3',ar:504/568,sz:1.05,capM:1.8,cost:120,cur:'gem',hx:.655,hy:.255,s:.80,lan:[.08,.42],cw:.13,slots:[[.18,.78],[.3,.8],[.42,.82],[.55,.84],[.3,.66]],
@@ -221,7 +271,8 @@ function hatPos(ht,T){return {x:T.hx+(ht.x-.585)*T.s,y:T.hy+(ht.y-.02)*.7375*T.s
 function petPos(pet,T){var a=T.pets&&T.pets[pet.id];return a?{x:a[0],y:a[1],w:pet.w*T.ps}:{x:pet.x,y:pet.y,w:pet.w};}
 // sticker book: every kind of alien on every planet (golden twins are rare)
 var BOOK=[{pl:1,al:['alien_blue','alien_green','alien_pink']},{pl:2,al:['alien_gummy','alien_marsh','alien_choco']},
-  {pl:3,al:['alien_snow','alien_icejel','alien_peng','alien_yeti']},{pl:4,al:['alien_shroom','alien_leaf','alien_frog','alien_owl']}];
+  {pl:3,al:['alien_snow','alien_icejel','alien_peng','alien_yeti']},{pl:4,al:['alien_shroom','alien_leaf','alien_frog','alien_owl']},
+  {pl:5,al:['alien_magma','alien_ember','alien_pebble','alien_sala']}];
 // 7-day gifts (device local date); day 7 = Forest Bunny pet
 var LOGIN=[{k:'coin',n:30},{k:'gem',n:3},{k:'coin',n:80},{k:'ff',n:5},{k:'gem',n:6},{k:'coin',n:200},{k:'pet',n:'bunny'}];
 var FF_ITEMS=[{id:'jar',cost:6,ic:'i_jar'},{id:'lure',cost:8,ic:'i_lure'}];
@@ -231,7 +282,8 @@ var ALIENS=ALIENS1;
 var BOOSTS=[{id:'inc',ic:'gem',cost:[10,20,35,50,75]},{id:'cap',ic:'i_boat',cost:[8,15,25,40,60]},{id:'pat',ic:'i_goods',cost:[6,12,20,32,50]},{id:'rush',ic:'stall',cost:[8,15,25,40,60]}];
 var HATS=[{id:'none',cost:0},{id:'bow',cost:15,x:.71,y:.15,w:.17,r:.3},{id:'star',cost:20,x:.59,y:.085,w:.27,r:0},{id:'wizard',cost:25,x:.585,y:.17,w:.27,r:0},{id:'crown',cost:30,x:.59,y:.10,w:.21,r:0},{id:'leaf',ff:12,cost:0,x:.585,y:.11,w:.25,r:0}];
 var SKINS=[{id:'classic',cost:0,img:'boat'},{id:'pink',cost:20,img:'boat_pink'},{id:'mint',cost:20,img:'boat_mint'},{id:'night',cost:35,img:'boat_night'},{id:'forest',ff:20,cost:0,img:'boat_forest'}];
-function incMul(){return (1+0.1*(S.shop.inc||0))*PL().mul*(trip&&trip.jar?1.25:1);}
+function incMul(){return (1+0.1*(S.shop.inc||0))*PL().mul*(trip&&trip.jar?1.25:1)*legendMul();}
+function legendMul(){return 1+0.1*((S.legend&&S.legend.stars)|0);}
 // daily quests + achievements
 var QUESTS=[{k:'sell',ns:[30,50,80]},{k:'combo',ns:[10,15]},{k:'trips',ns:[3,4]},{k:'gifts',ns:[3,5]},{k:'tips',ns:[5,10]},{k:'likes',ns:[10,20]},{k:'dock',ns:[20,40]}];
 var ACH=[{id:'sold100',f:function(){return S.stats.sold;},n:100,g:5},{id:'trips10',f:function(){return S.stats.trips;},n:10,g:5},
@@ -241,7 +293,9 @@ var ACH=[{id:'sold100',f:function(){return S.stats.sold;},n:100,g:5},{id:'trips1
  {id:'sold1000',f:function(){return S.stats.sold;},n:1000,g:10},{id:'trips50',f:function(){return S.stats.trips;},n:50,g:15},
  {id:'earn',f:function(){return S.stats.earned;},n:100000,g:10},{id:'sold10000',f:function(){return S.stats.sold;},n:10000,g:20},
  {id:'planet3',f:function(){return S.unlocked.indexOf(3)>=0?1:0;},n:1,g:20},{id:'orders',f:function(){return S.stats.orders|0;},n:10,g:10},
- {id:'planet4',f:function(){return S.unlocked.indexOf(4)>=0?1:0;},n:1,g:25},{id:'book10',f:function(){return Object.keys(S.book.s).length;},n:10,g:15}];
+ {id:'planet4',f:function(){return S.unlocked.indexOf(4)>=0?1:0;},n:1,g:25},{id:'book10',f:function(){return Object.keys(S.book.s).length;},n:10,g:15},
+ {id:'planet5',f:function(){return S.unlocked.indexOf(5)>=0?1:0;},n:1,g:30},{id:'crown1',f:function(){return crownCount();},n:1,g:15},
+ {id:'crown5',f:function(){return crownCount();},n:5,g:40},{id:'legend1',f:function(){return (S.legend&&S.legend.n)|0;},n:1,g:30}];
 var ARRIVE_GEMS=25;
 // home-port market stalls (build in order; each earns coins per second, also while away)
 var STALLS=[{id:'coffee',img:'mk_coffee',cost:1500,rate:0.4,x:.21,y:.45,w:.24},{id:'souv',img:'mk_souv',cost:9000,rate:2,x:.79,y:.45,w:.24},
@@ -256,7 +310,7 @@ var STAFF=[{id:'s1',hire:600,name:'staff1'},{id:'s2',hire:6000,name:'staff2'}];
 var UPS=[{id:'cap',ic:'i_boat',cost:80,g:1.5},{id:'spd',ic:'i_map',cost:120,g:1.6},{id:'pat',ic:'i_goods',cost:100,g:1.55}];
 var AD={cap:10,cooldown:90,watch:5};
 var OFFLINE_CAP=3*3600, DOCK_TIME=10;
-var SAVE_KEY='kairon.starriver.save', SAVE_VERSION=6;
+var SAVE_KEY='kairon.starriver.save', SAVE_VERSION=7;
 
 function goodPrice(g,lv){var m=1;if(lv>=10)m*=2;if(lv>=25)m*=2;if(lv>=50)m*=2;return Math.round(g.base*(1+0.25*(lv-1))*m);}
 function goodUpCost(g,lv){return Math.round(g.base*12*Math.pow(1.25,lv-1));}
@@ -271,14 +325,15 @@ function xpNeed(n){return Math.round(120*Math.pow(1.8,n-1));}
 
 // ---------- state + save/migrate ----------
 function fresh(){return {v:SAVE_VERSION,coins:0,gems:0,lvl:1,xp:0,planet:1,unlocked:[1],arrived:[1],up:{cap:1,spd:1,pat:1},
-  goods:{fruit:1,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0},staff:[0,0],
-  load:{fruit:30,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0},
-  routes:{'1':{trips:0,done:false},'2':{trips:0,done:false},'3':{trips:0,done:false},'4':{trips:0,done:false}},dist:0,cur:null,ulSeen:false,ul3Seen:false,ul4Seen:false,tut:{done:false},
+  goods:{fruit:1,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0,lavasoup:0,potato:0,lavacake:0,meteorbun:0},staff:[0,0],
+  load:{fruit:30,candy:0,jelly:0,crystal:0,cotton:0,lolli:0,syrup:0,donut:0,snowcone:0,cocoa:0,aurora:0,pearl:0,berry:0,honey:0,glowshroom:0,emerald:0,lavasoup:0,potato:0,lavacake:0,meteorbun:0},
+  routes:{'1':{trips:0,done:false},'2':{trips:0,done:false},'3':{trips:0,done:false},'4':{trips:0,done:false},'5':{trips:0,done:false}},dist:0,cur:null,ulSeen:false,ul3Seen:false,ul4Seen:false,ul5Seen:false,tut:{done:false},
   tier:1,ff:0,items:{jar:0,lure:0},book:{s:{},g:{},pc:{},gc:{}},login:{last:'',streak:0,total:0,pop:''},
   market:{st:{coffee:0,souv:0,repair:0,smooth:0,lantern:0},bank:0,last:Date.now()},pets:{own:[],on:''},ev:{seen:''},friend:{p:{},g:0},
   shop:{inc:0,cap:0,pat:0,rush:0},cos:{hats:[],boats:['classic'],hat:'none',boat:'classic'},
   quests:{day:'',list:[],prog:{},rerolled:false},ach:{},
   ad:{day:'',count:0,last:0},stats:{sold:0,earned:0,trips:0,bestCombo:0,quests:0,orders:0},
+  vol:{m:1,s:1,v:1},king:{},legend:{stars:0,n:0,base:0},
   lang:'th',mute:false,lastSeen:Date.now(),created:Date.now()};}
 // Every stage adds a step here. Old saves are upgraded, never wiped.
 function migrate(d){
@@ -312,17 +367,25 @@ function migrate(d){
   if(d.v===5){ // stage 4 -> living characters: friendship with each alien type starts fresh
     d.friend={p:{},g:0};d.v=6;
   }
+  if(d.v===6){ // living characters -> stage 5: Lava Volcano Planet opens for anyone who already finished the Emerald route; kings/legend/volume start fresh
+    var r4=d.routes&&d.routes['4'];
+    if(r4&&(r4.done||(r4.trips|0)>=16)){r4.done=true;if(!Array.isArray(d.unlocked))d.unlocked=[1];if(d.unlocked.indexOf(5)<0)d.unlocked.push(5);d.ul5Seen=false;}
+    d.king={};d.legend={stars:0,n:0,base:0};d.vol={m:1,s:1,v:1};d.v=7;
+  }
   var f=fresh();
   for(var k in f){if(d[k]===undefined||(d[k]===null&&k!=='cur'))d[k]=f[k];}
-  ['up','goods','load','routes','tut','shop','cos','quests','ach','ad','stats','market','pets','ev','items','book','login','friend'].forEach(function(o){if(typeof d[o]!=='object')d[o]=f[o];for(var j in f[o])if(d[o][j]===undefined)d[o][j]=f[o][j];});
+  ['up','goods','load','routes','tut','shop','cos','quests','ach','ad','stats','market','pets','ev','items','book','login','friend','vol','king','legend'].forEach(function(o){if(typeof d[o]!=='object')d[o]=f[o];for(var j in f[o])if(d[o][j]===undefined)d[o][j]=f[o][j];});
   while(d.staff.length<STAFF.length)d.staff.push(0);
   if(!(d.goods.fruit>0))d.goods.fruit=1;
   if(!Array.isArray(d.unlocked)||!d.unlocked.length)d.unlocked=[1];
   if(!Array.isArray(d.arrived))d.arrived=[1];
   if(d.unlocked.indexOf(d.planet)<0)d.planet=1;
   if(d.unlocked.indexOf(2)>=0&&!(d.goods.cotton>0))d.goods.cotton=1;
-  ['1','2','3','4'].forEach(function(n){if(typeof d.routes[n]!=='object'||!d.routes[n])d.routes[n]={trips:0,done:false};});
-  [3,4].forEach(function(n){if(d.unlocked.indexOf(n)>=0)starterGoods(d,n);}); // every newer planet starts with two goods, so mixed orders work on arrival
+  ['1','2','3','4','5'].forEach(function(n){if(typeof d.routes[n]!=='object'||!d.routes[n])d.routes[n]={trips:0,done:false};});
+  [3,4,5].forEach(function(n){if(d.unlocked.indexOf(n)>=0)starterGoods(d,n);});
+  ['m','s','v'].forEach(function(k){var x=+d.vol[k];d.vol[k]=isFinite(x)?Math.max(0,Math.min(1,x)):1;});
+  for(var kk in d.king){var K=d.king[kk];if(typeof K!=='object'||!K)delete d.king[kk];else{K.c=Math.max(0,K.c|0);K.at=Math.max(0,K.at|0);}}
+  d.legend.stars=Math.max(0,d.legend.stars|0);d.legend.n=Math.max(0,d.legend.n|0);d.legend.base=Math.max(0,+d.legend.base||0); // every newer planet starts with two goods, so mixed orders work on arrival
   ['s','g','pc','gc'].forEach(function(k){if(typeof d.book[k]!=='object'||!d.book[k])d.book[k]={};});
   d.tier=Math.max(1,Math.min(3,d.tier|0||1));d.ff=Math.max(0,d.ff|0);d.items.jar=Math.max(0,d.items.jar|0);d.items.lure=Math.max(0,d.items.lure|0);
   d.login.streak=Math.max(0,Math.min(7,d.login.streak|0));if(typeof d.login.last!=='string')d.login.last='';
@@ -338,7 +401,7 @@ function starterGoods(d,n){GOODS.filter(function(g){return g.pl===n;}).slice(0,2
 function load(){try{var r=localStorage.getItem(SAVE_KEY);return migrate(r?JSON.parse(r):null);}catch(e){return fresh();}}
 function save(){S.lastSeen=Date.now();S.dist=dist;
   // mid-trip save: a reload resumes the trip with the goods still on board
-  S.cur=(trip&&(phase==='travel'||phase==='dock'))?{pl:S.planet,z0:trip.z0,docks:trip.docks,end:trip.end,di:trip.di,sold:trip.sold,tips:trip.tips,best:trip.best,earned:trip.earned,stock:stock,dist:dist,jar:trip.jar|0,lure:trip.lure|0}:null;
+  S.cur=(trip&&(phase==='travel'||phase==='dock'||phase==='king'))?{pl:S.planet,z0:trip.z0,docks:trip.docks,end:trip.end,di:trip.di,sold:trip.sold,tips:trip.tips,best:trip.best,earned:trip.earned,stock:stock,dist:dist,jar:trip.jar|0,lure:trip.lure|0,heat:trip.heat||null,king:trip.king||null}:null;
   try{localStorage.setItem(SAVE_KEY,JSON.stringify(S));}catch(e){}}
 var S=load(),bootSeen=S.lastSeen; // remember last visit before any boot-time save
 var urlNoAds=/[?&]noads=1/.test(location.search);
@@ -355,21 +418,23 @@ var SOUNDS=['tap','coin','sell','upgrade','ufo','unlock','nope','popup','music',
  'music_ice','steer','bump','grab','build','pet','meteor','order','v_iceopen','v_ice','v_steer','v_bump','v_grab','v_build','v_market','v_pet','v_order','v_meteor',
  'music_forest','fork','firefly','sticker','page','login','boatup','golden','night',
  'r_hop','r_wave','r_pout','r_startle','r_heart','r_bubble','r_bye','r_sing','v_yawn','v_tired','v_sing','v_excited','v_friend','v_regular','v_present','v_oops','v_sorry','v_yay2',
- 'v_forestopen','v_forest','v_fork','v_risky','v_safe','v_night','v_firefly','v_boatup','v_sticker','v_golden','v_page','v_login','v_day7','v_swap'];
+ 'v_forestopen','v_forest','v_fork','v_risky','v_safe','v_night','v_firefly','v_boatup','v_sticker','v_golden','v_page','v_login','v_day7','v_swap',
+ 'music_lava','lpop','sizzle','stove','kingfan','crown','legend','v_lava','v_lavaopen','v_hot','v_cool','v_pop','v_splash','v_king','v_kingwin','v_kingfail','v_kingsoon','v_legend'];
 function audioInit(){
   if(A.ctx)return;
   var C=window.AudioContext||window.webkitAudioContext;if(!C)return;
   A.ctx=new C();A.master=A.ctx.createGain();A.master.connect(A.ctx.destination);
-  A.music=A.ctx.createGain();A.music.gain.value=0.28;A.music.connect(A.master);
-  A.sfx=A.ctx.createGain();A.sfx.gain.value=0.8;A.sfx.connect(A.master);
-  A.voice=A.ctx.createGain();A.voice.gain.value=1.0;A.voice.connect(A.master);
+  A.music=A.ctx.createGain();A.music.gain.value=0.28*S.vol.m;A.music.connect(A.master);
+  A.sfx=A.ctx.createGain();A.sfx.gain.value=0.8*S.vol.s;A.sfx.connect(A.master);
+  A.voice=A.ctx.createGain();A.voice.gain.value=1.0*S.vol.v;A.voice.connect(A.master);
   A.master.gain.value=S.mute?0:1;
-  SOUNDS.forEach(function(n){
-    fetch('audio/'+n+'.mp3').then(function(r){return r.arrayBuffer();}).then(function(ab){
-      return new Promise(function(res,rej){A.ctx.decodeAudioData(ab,res,rej);});
-    }).then(function(b){A.buf[n]=b;if(n===PL().music)startMusic();if(n==='paddle')startPaddle();}).catch(function(){});
-  });
+  SOUNDS.forEach(function(n){if(/^music/.test(n)&&n!==PL().music)return;if(S.tut.done&&/^v_t_/.test(n))return;loadSnd(n);});
 }
+var SNDP={};
+function loadSnd(n){if(SNDP[n])return SNDP[n];if(!A.ctx||SOUNDS.indexOf(n)<0)return Promise.resolve(null);
+  return SNDP[n]=fetch('audio/'+n+'.mp3').then(function(r){return r.arrayBuffer();}).then(function(ab){
+      return new Promise(function(res,rej){A.ctx.decodeAudioData(ab,res,rej);});
+    }).then(function(b){A.buf[n]=b;if(n===PL().music)startMusic();if(n==='paddle')startPaddle();return b;}).catch(function(){SNDP[n]=null;return null;});}
 function audioUnlock(){
   audioInit();if(!A.ctx)return;
   if(A.ctx.state!=='running'){A.ctx.resume();}
@@ -377,7 +442,7 @@ function audioUnlock(){
   startMusic();startPaddle();
 }
 function startMusic(){ // each planet has its own loop (Candy Planet: brighter music-box variation)
-  var m=PL().music;
+  var m=PL().music;if(A.ctx&&!A.buf[m]){loadSnd(m);return;}
   if(!A.ctx||!A.buf[m]||A.ctx.state!=='running')return;
   if(A.musicSrc){if(A.musicName===m)return;var old=A.musicSrc,og=A.musicG;og.gain.setTargetAtTime(0,A.ctx.currentTime,0.25);setTimeout(function(){try{old.stop();}catch(e){}},1500);}
   var g=A.ctx.createGain();g.gain.value=0;g.connect(A.music);g.gain.setTargetAtTime(1,A.ctx.currentTime,0.3);
@@ -394,7 +459,8 @@ function paddleMix(v,fast){
   A.paddle.playbackRate.setTargetAtTime(fast?1.3:1,A.ctx.currentTime,0.2);
 }
 function play(n,o){
-  o=o||{};if(!A.ctx||!A.buf[n]||A.ctx.state!=='running')return;
+  o=o||{};if(A.ctx&&!A.buf[n]&&/^v_t_/.test(n)){var t0=performance.now();loadSnd(n).then(function(b){if(b&&performance.now()-t0<2500)play(n,o);});return;}
+  if(!A.ctx||!A.buf[n]||A.ctx.state!=='running')return;
   var s=A.ctx.createBufferSource();s.buffer=A.buf[n];
   if(o.rate)s.playbackRate.value=o.rate;
   var g=A.ctx.createGain();g.gain.value=o.vol==null?1:o.vol;s.connect(g);g.connect(n.charAt(0)==='v'&&n.charAt(1)==='_'?A.voice:A.sfx);s.start(0);
@@ -411,7 +477,9 @@ document.addEventListener('visibilitychange',function(){
 });
 
 // ---------- images ----------
-var IMG={},IMGS=['bg_space','staff','alien_blue','alien_green','alien_pink','stall','g_fruit','g_candy','g_jelly','g_crystal','coin','gem','islet0','islet1','islet2','islet3','i_map',
+var _IMG={},ASSETS={};["alien_blue","alien_blue_nf","alien_choco","alien_choco_nf","alien_ember","alien_ember_nf","alien_frog","alien_frog_nf","alien_green","alien_green_nf","alien_gummy","alien_gummy_nf","alien_icejel","alien_icejel_nf","alien_leaf","alien_leaf_nf","alien_magma","alien_magma_nf","alien_marsh","alien_marsh_nf","alien_owl","alien_owl_nf","alien_pebble","alien_pebble_nf","alien_peng","alien_peng_nf","alien_pink","alien_pink_nf","alien_sala","alien_sala_nf","alien_shroom","alien_shroom_nf","alien_snow","alien_snow_nf","alien_yeti","alien_yeti_nf","bg_candy","bg_forest","bg_ice","bg_lava","bg_space","boat","boat_mint","boat_night","boat_pink","boat_t1","boat_t1_forest","boat_t1_forest_r","boat_t1_mint","boat_t1_mint_r","boat_t1_night","boat_t1_night_r","boat_t1_pink","boat_t1_pink_r","boat_t1_r","boat_t2","boat_t2_forest","boat_t2_forest_r","boat_t2_mint","boat_t2_mint_r","boat_t2_night","boat_t2_night_r","boat_t2_pink","boat_t2_pink_r","boat_t2_r","boat_t3","boat_t3_forest","boat_t3_forest_r","boat_t3_mint","boat_t3_mint_r","boat_t3_night","boat_t3_night_r","boat_t3_pink","boat_t3_pink_r","boat_t3_r","cislet0","cislet1","cislet2","cislet3","coin","fang","firefly","fislet0","fislet1","fislet2","fislet3","g_aurora","g_berry","g_candy","g_cocoa","g_cotton","g_crystal","g_donut","g_emerald","g_fruit","g_glowshroom","g_honey","g_jelly","g_lavacake","g_lavasoup","g_lolli","g_meteorbun","g_pearl","g_potato","g_snowcone","g_syrup","gem","hand","hat_bow","hat_crown","hat_leaf","hat_star","hat_wizard","i_boat","i_boatup","i_book","i_crown","i_forest","i_gift","i_goods","i_ice","i_jar","i_lava","i_legend","i_lure","i_map","i_market","i_meteor","i_pet","i_planet2","i_planet3","i_quest","i_shop","i_staff","iislet0","iislet1","iislet2","iislet3","islet0","islet1","islet2","islet3","king1","king1_nf","king2","king2_nf","king3","king3_nf","king4","king4_nf","king5","king5_nf","lislet0","lislet1","lislet2","lislet3","lock","market_base","mk_coffee","mk_lantern","mk_repair","mk_sign","mk_smooth","mk_souv","ob_crate","ob_ice","ob_log","ob_meteor","ob_thorn","pet_bird","pet_bird_nf","pet_bunny","pet_bunny_nf","pet_cat","pet_cat_nf","pet_octo","pet_octo_nf","sign_fork","staff","stall","stall_candy","stall_forest","stall_ice","stall_lava","tv"].forEach(function(n){ASSETS[n]=1;});
+var IMG=new Proxy(_IMG,{get:function(o,k){if(typeof k==='string'&&!(k in o)&&ASSETS[k]){var i=new Image();i.decoding='async';i.src='assets/'+k+'.webp';o[k]=i;}return o[k];}});
+var IMGS=['bg_space','staff','alien_blue','alien_green','alien_pink','stall','g_fruit','g_candy','g_jelly','g_crystal','coin','gem','islet0','islet1','islet2','islet3','i_map',
  'bg_candy','stall_candy','cislet0','cislet1','cislet2','cislet3','alien_gummy','alien_marsh','alien_choco','g_cotton','g_lolli','g_syrup','g_donut',
  'hat_bow','hat_star','hat_wizard','hat_crown','i_planet2',
  'bg_ice','stall_ice','iislet0','iislet1','iislet2','iislet3','alien_snow','alien_icejel','alien_peng','alien_yeti','g_snowcone','g_cocoa','g_aurora','g_pearl',
@@ -419,7 +487,13 @@ var IMG={},IMGS=['bg_space','staff','alien_blue','alien_green','alien_pink','sta
  'bg_forest','stall_forest','fislet0','fislet1','fislet2','fislet3','alien_shroom','alien_leaf','alien_frog','alien_owl','g_berry','g_honey','g_glowshroom','g_emerald',
  'ob_log','ob_thorn','firefly','sign_fork','pet_bunny','hat_leaf'];
 [1,2,3].forEach(function(n){['','_pink','_mint','_night','_forest'].forEach(function(k){IMGS.push('boat_t'+n+k);});});
-IMGS.forEach(function(n){var i=new Image();i.src='assets/'+n+'.webp';IMG[n]=i;});
+function planetSet(n){var P=PLANETS[n],l=[P.bg,P.stall,P.icon,P.vip,P.vip+'_nf'];for(var i=0;i<4;i++)l.push(P.isl+i);
+  P.aliens.forEach(function(a){l.push(a.img,a.img+'_nf');});GOODS.forEach(function(g){if(g.pl===n)l.push(g.img);});
+  if(n===3)l.push('ob_ice','ob_meteor','ob_crate');if(n===4)l.push('ob_log','ob_thorn','firefly','sign_fork');return l;}
+function coreSet(){var b=boatImg(S.cos.boat),l=['staff','coin','gem','i_map','market_base',b,b+'_r',tierOf().img,tierOf().img+'_r'];
+  if(S.pets.on)l.push('pet_'+S.pets.on,'pet_'+S.pets.on+'_nf');if(S.cos.hat&&S.cos.hat!=='none')l.push('hat_'+S.cos.hat);return l;}
+function preload(list,cb){var n=0,tot=0,seen={};list.forEach(function(k){if(!ASSETS[k]||seen[k])return;seen[k]=1;tot++;var im=IMG[k];
+  if(ok(im)){n++;return;}var f=function(){n++;cb(n,tot);};im.addEventListener('load',f,{once:true});im.addEventListener('error',f,{once:true});});cb(n,tot);}
 function ok(im){return !!im&&(im.tagName==='CANVAS'?im.width>0:(im.complete&&im.naturalWidth>0));}
 function iw(im){return im.naturalWidth||im.width;}function ih(im){return im.naturalHeight||im.height;}
 // pre-rendered glow sprites (cheap on mobile)
@@ -427,7 +501,7 @@ function makeGlow(r,g,b){var c=document.createElement('canvas');c.width=c.height
   gr.addColorStop(0,'rgba('+r+','+g+','+b+',1)');gr.addColorStop(0.35,'rgba('+r+','+g+','+b+',.45)');gr.addColorStop(1,'rgba('+r+','+g+','+b+',0)');x.fillStyle=gr;x.fillRect(0,0,64,64);return c;}
 var GLOW={warm:makeGlow(255,190,100),cyan:makeGlow(120,230,255),lav:makeGlow(190,160,255),gold:makeGlow(255,215,90),white:makeGlow(255,255,255),green:makeGlow(150,255,170)};
 // ---------- living characters: faces, rigs, simulated brain (all on-device: no network, no API, works offline) ----------
-var FACES={"alien_blue":{"e":[[0.441,0.328,0.045,0.064],[0.673,0.299,0.04,0.062]],"m":[0.57,0.384,0.09],"sk":"#9ad1ed","ar":0.78},"alien_green":{"e":[[0.349,0.353,0.033,0.039],[0.481,0.345,0.037,0.041],[0.62,0.39,0.037,0.041]],"m":[0.459,0.448,0.107],"sk":"#e4ded2","ar":0.9367},"alien_pink":{"e":[[0.345,0.292,0.028,0.037],[0.555,0.32,0.032,0.037]],"m":[0.435,0.354,0.073],"sk":"#dfa2e6","ar":1.03},"alien_gummy":{"e":[[0.431,0.373,0.047,0.058],[0.665,0.347,0.042,0.056]],"m":[0.56,0.419,0.09],"sk":"#fa7e1f","ar":0.89},"alien_marsh":{"e":[[0.439,0.465,0.045,0.052],[0.672,0.444,0.038,0.046]],"m":[0.569,0.512,0.087],"sk":"#dabae1","ar":0.9867},"alien_choco":{"e":[[0.441,0.449,0.047,0.057],[0.67,0.427,0.042,0.053]],"m":[0.567,0.492,0.093],"sk":"#955c43","ar":0.94},"alien_snow":{"e":[[0.417,0.408,0.043,0.05],[0.661,0.39,0.04,0.05]],"m":[0.547,0.452,0.087],"sk":"#f3edf0","ar":0.9633},"alien_icejel":{"e":[[0.416,0.412,0.043,0.05],[0.649,0.395,0.038,0.048]],"m":[0.541,0.454,0.09],"sk":"#c6ecf7","ar":1.0},"alien_peng":{"e":[[0.416,0.331,0.04,0.051],[0.641,0.316,0.037,0.051]],"m":[0.537,0.383,0.077],"sk":"#f5eae5","ar":0.9164},"alien_yeti":{"e":[[0.438,0.376,0.04,0.047],[0.649,0.363,0.037,0.046]],"m":[0.551,0.419,0.077],"sk":"#e5cae6","ar":0.99},"alien_shroom":{"e":[[0.407,0.44,0.04,0.046],[0.639,0.422,0.038,0.046]],"m":[0.532,0.478,0.083],"sk":"#f8e5d2","ar":1.0167},"alien_leaf":{"e":[[0.435,0.421,0.049,0.051],[0.677,0.404,0.042,0.049]],"m":[0.567,0.468,0.097],"sk":"#c6cd74","ar":1.057},"alien_frog":{"e":[[0.338,0.171,0.054,0.064],[0.684,0.145,0.05,0.062]],"m":[0.531,0.297,0.194],"sk":"#a7c8a6","ar":0.8829},"alien_owl":{"e":[[0.412,0.366,0.047,0.053],[0.646,0.353,0.042,0.05]],"m":[0.536,0.422,0.067],"sk":"#f8e7da","ar":1.0134},"pet_cat":{"e":[[0.381,0.581,0.085,0.066],[0.806,0.564,0.075,0.066]],"m":[0.605,0.638,0.155],"sk":"#d9b8e9","ar":1.435},"pet_octo":{"e":[[0.368,0.418,0.062,0.069],[0.689,0.403,0.058,0.069]],"m":[0.538,0.48,0.115],"sk":"#fb9ea8","ar":1.015},"pet_bird":{"e":[[0.645,0.462,0.04,0.069],[0.844,0.439,0.038,0.069]],"m":[0.751,0.503,0.065],"sk":"#fabe4f","ar":0.6935},"pet_bunny":{"e":[[0.447,0.569,0.065,0.054],[0.793,0.555,0.058,0.052]],"m":[0.62,0.649,0.06],"sk":"#fbece5","ar":1.3618}};
+var FACES={"alien_blue":{"e":[[0.441,0.328,0.045,0.064],[0.673,0.299,0.04,0.062]],"m":[0.57,0.384,0.09],"sk":"#9ad1ed","ar":0.78},"alien_green":{"e":[[0.349,0.353,0.033,0.039],[0.481,0.345,0.037,0.041],[0.62,0.39,0.037,0.041]],"m":[0.459,0.448,0.107],"sk":"#e4ded2","ar":0.9367},"alien_pink":{"e":[[0.345,0.292,0.028,0.037],[0.555,0.32,0.032,0.037]],"m":[0.435,0.354,0.073],"sk":"#dfa2e6","ar":1.03},"alien_gummy":{"e":[[0.431,0.373,0.047,0.058],[0.665,0.347,0.042,0.056]],"m":[0.56,0.419,0.09],"sk":"#fa7e1f","ar":0.89},"alien_marsh":{"e":[[0.439,0.465,0.045,0.052],[0.672,0.444,0.038,0.046]],"m":[0.569,0.512,0.087],"sk":"#dabae1","ar":0.9867},"alien_choco":{"e":[[0.441,0.449,0.047,0.057],[0.67,0.427,0.042,0.053]],"m":[0.567,0.492,0.093],"sk":"#955c43","ar":0.94},"alien_snow":{"e":[[0.417,0.408,0.043,0.05],[0.661,0.39,0.04,0.05]],"m":[0.547,0.452,0.087],"sk":"#f3edf0","ar":0.9633},"alien_icejel":{"e":[[0.416,0.412,0.043,0.05],[0.649,0.395,0.038,0.048]],"m":[0.541,0.454,0.09],"sk":"#c6ecf7","ar":1.0},"alien_peng":{"e":[[0.416,0.331,0.04,0.051],[0.641,0.316,0.037,0.051]],"m":[0.537,0.383,0.077],"sk":"#f5eae5","ar":0.9164},"alien_yeti":{"e":[[0.438,0.376,0.04,0.047],[0.649,0.363,0.037,0.046]],"m":[0.551,0.419,0.077],"sk":"#e5cae6","ar":0.99},"alien_shroom":{"e":[[0.407,0.44,0.04,0.046],[0.639,0.422,0.038,0.046]],"m":[0.532,0.478,0.083],"sk":"#f8e5d2","ar":1.0167},"alien_leaf":{"e":[[0.435,0.421,0.049,0.051],[0.677,0.404,0.042,0.049]],"m":[0.567,0.468,0.097],"sk":"#c6cd74","ar":1.057},"alien_frog":{"e":[[0.338,0.171,0.054,0.064],[0.684,0.145,0.05,0.062]],"m":[0.531,0.297,0.194],"sk":"#a7c8a6","ar":0.8829},"alien_owl":{"e":[[0.412,0.366,0.047,0.053],[0.646,0.353,0.042,0.05]],"m":[0.536,0.422,0.067],"sk":"#f8e7da","ar":1.0134},"pet_cat":{"e":[[0.381,0.581,0.085,0.066],[0.806,0.564,0.075,0.066]],"m":[0.605,0.638,0.155],"sk":"#d9b8e9","ar":1.435},"pet_octo":{"e":[[0.368,0.418,0.062,0.069],[0.689,0.403,0.058,0.069]],"m":[0.538,0.48,0.115],"sk":"#fb9ea8","ar":1.015},"pet_bird":{"e":[[0.645,0.462,0.04,0.069],[0.844,0.439,0.038,0.069]],"m":[0.751,0.503,0.065],"sk":"#fabe4f","ar":0.6935},"pet_bunny":{"e":[[0.447,0.569,0.065,0.054],[0.793,0.555,0.058,0.052]],"m":[0.62,0.649,0.06],"sk":"#fbece5","ar":1.3618},"alien_pebble":{"e":[[0.385,0.394,0.062,0.056],[0.61,0.395,0.066,0.062]],"m":[0.495,0.484,0.101],"sk":"#7e6348","ar":0.9363},"alien_sala":{"e":[[0.252,0.212,0.058,0.066],[0.462,0.222,0.06,0.068]],"m":[0.3,0.335,0.12],"sk":"#e3988c","ar":0.9599},"king1":{"e":[[0.371,0.321,0.032,0.033],[0.555,0.331,0.037,0.035]],"m":[0.454,0.379,0.088],"sk":"#7ab3cf","ar":1.059},"king2":{"e":[[0.367,0.326,0.032,0.033],[0.544,0.335,0.036,0.034]],"m":[0.446,0.386,0.081],"sk":"#d18a9c","ar":1.0634},"king3":{"e":[[0.371,0.287,0.029,0.031],[0.536,0.294,0.035,0.032]],"m":[0.45,0.388,0.1],"sk":"#bac5c9","ar":1.0447},"king4":{"e":[[0.357,0.345,0.03,0.034],[0.537,0.349,0.046,0.044]],"m":[0.437,0.397,0.079],"sk":"#a0b668","ar":1.0648},"king5":{"e":[[0.343,0.314,0.027,0.029],[0.542,0.326,0.036,0.032]],"m":[0.44,0.417,0.134],"sk":"#d3703f","ar":1.1336},"alien_magma":{"e":[[0.391,0.403,0.059,0.06],[0.641,0.401,0.055,0.064]],"m":[0.516,0.483,0.107],"sk":"#e9570d","ar":0.9732},"alien_ember":{"e":[[0.331,0.447,0.05,0.05],[0.563,0.464,0.062,0.056]],"m":[0.433,0.53,0.097],"sk":"#edb22a","ar":1.1174}};
 var FANG={"1":{"e":[[0.6203,0.2903,0.0126,0.0206],[0.6963,0.2588,0.0093,0.0183]],"m":[0.6683,0.3012,0.027],"sk":"#e4b084","piv":[0.742,0.4005],"foot":[0.6071,0.6087],"body":[[0.4418,0.0915],[0.5059,0.0114],[0.7083,0.0],[0.7723,0.0915],[0.7673,0.2517],[0.7926,0.4577],[0.7589,0.5995],[0.5059,0.6133],[0.4351,0.5034]],"pad":[[0.7083,0.3616],[0.8516,0.7368]],"padw":0.0169,"blade":[[0.8381,0.7277],[0.8735,0.6865],[0.9241,0.7437],[0.9747,0.8513],[0.9983,0.9565],[0.9781,0.9931],[0.9376,0.9794],[0.8938,0.9108],[0.86,0.8284],[0.8398,0.778]],"hand":[0.7454,0.3936,0.0337,0.0595]},"2":{"e":[[0.3138,0.3649,0.0101,0.0181],[0.3746,0.3371,0.0067,0.0168]],"m":[0.3523,0.3753,0.0219],"sk":"#e4b185","piv":[0.4125,0.4534],"foot":[0.2946,0.7202],"body":[[0.1599,0.2202],[0.2189,0.1036],[0.404,0.1036],[0.4411,0.2073],[0.4411,0.5181],[0.4209,0.7124],[0.2357,0.7254],[0.1431,0.5181]],"pad":[[0.4209,0.4275],[0.0875,0.9534]],"padw":0.0118,"blade":null,"hand":[0.4158,0.4456,0.0337,0.0622]},"3":{"e":[[0.6859,0.4204,0.0114,0.0139],[0.7499,0.4012,0.0079,0.0129]],"m":[0.7265,0.4291,0.0229],"sk":"#e2b288","piv":[0.7746,0.496],"foot":[0.669,0.6845],"body":[[0.5018,0.2976],[0.581,0.2183],[0.7394,0.2143],[0.8187,0.2976],[0.8134,0.496],[0.7923,0.6746],[0.5458,0.6845],[0.5194,0.496]],"pad":[[0.7482,0.4722],[0.8803,0.7579]],"padw":0.0176,"blade":[[0.8627,0.7381],[0.8944,0.7242],[0.9296,0.7698],[0.9718,0.8532],[0.9859,0.9087],[0.9595,0.9286],[0.919,0.9028],[0.8891,0.8433],[0.8662,0.7837]],"hand":[0.7835,0.496,0.0387,0.0476]}};
 // viewer-right arm cut [x0,y0,x1,y1,pivotX,pivotY] (normalized). Pink has no arms: it waves with its whole body.
 var ARMS={alien_blue:[.79,.03,1,.42,.8,.4],alien_green:[.8,.24,1,.52,.81,.5],alien_gummy:[.84,.2,1,.55,.85,.52],alien_marsh:[.82,.27,1,.52,.83,.5],
@@ -435,13 +509,14 @@ var ARMS={alien_blue:[.79,.03,1,.42,.8,.4],alien_green:[.8,.24,1,.52,.81,.5],ali
   alien_yeti:[.84,.18,1,.48,.84,.46],alien_shroom:[.83,.35,.99,.57,.84,.55],alien_leaf:[.78,.28,.97,.52,.79,.5],alien_frog:[.8,.1,1,.45,.8,.43],alien_owl:[.84,.2,1,.56,.85,.54]};
 var PETR={cat:{tail:[0,.62,.23,.94,.22,.8]},bunny:{ears:[[.06,0,.5,.33,.33,.31],[.5,0,.97,.33,.68,.31]]}};
 ['alien_blue','alien_green','alien_pink','alien_gummy','alien_marsh','alien_choco','alien_snow','alien_icejel','alien_peng','alien_yeti','alien_shroom','alien_leaf','alien_frog','alien_owl','pet_cat','pet_octo','pet_bird','pet_bunny']
-  .forEach(function(n){var i=new Image();i.src='assets/'+n+'_nf.webp';IMG[n+'_nf']=i;});
-[1,2,3].forEach(function(n){['','_pink','_mint','_night','_forest'].forEach(function(k){var nm='boat_t'+n+k+'_r',i=new Image();i.src='assets/'+nm+'.webp';IMG[nm]=i;});});
+  .forEach(function(n){}); // (rig images now load on demand through the lazy IMG proxy)
 // personalities per alien type: patience, tips, envy, chattiness; favourite goods come from each alien's likes
 var PERS={curious:{pat:1,tip:1,envy:.25,chat:.6},lonely:{pat:1.15,tip:1.05,envy:.15,chat:.65,fr:1},impatient:{pat:.8,tip:1.3,envy:.7,chat:.5,th:[.3,.6]},
-  sweet:{pat:1,tip:1.1,envy:.35,chat:.55,fav:1.5},shy:{pat:1.2,tip:1.1,envy:.1,chat:.3,jumpy:1},showoff:{pat:.95,tip:1.4,envy:.5,chat:.6},dreamy:{pat:1.3,tip:1,envy:.1,chat:.45,th:[.6,.85]}};
+  sweet:{pat:1,tip:1.1,envy:.35,chat:.55,fav:1.5},shy:{pat:1.2,tip:1.1,envy:.1,chat:.3,jumpy:1},showoff:{pat:.95,tip:1.4,envy:.5,chat:.6},dreamy:{pat:1.3,tip:1,envy:.1,chat:.45,th:[.6,.85]},
+  jolly:{pat:1.1,tip:1.2,envy:.1,chat:.7},wise:{pat:1.2,tip:1,envy:.1,chat:.5},fiery:{pat:.9,tip:1.3,envy:.4,chat:.7,th:[.35,.65]}};
 var PTYPE={alien_blue:'curious',alien_green:'lonely',alien_pink:'shy',alien_gummy:'sweet',alien_marsh:'dreamy',alien_choco:'showoff',alien_snow:'dreamy',alien_icejel:'curious',
-  alien_peng:'impatient',alien_yeti:'showoff',alien_shroom:'shy',alien_leaf:'lonely',alien_frog:'impatient',alien_owl:'dreamy'};
+  alien_peng:'impatient',alien_yeti:'showoff',alien_shroom:'shy',alien_leaf:'lonely',alien_frog:'impatient',alien_owl:'dreamy',
+  alien_magma:'sweet',alien_ember:'impatient',alien_pebble:'shy',alien_sala:'showoff',king1:'jolly',king2:'sweet',king3:'dreamy',king4:'wise',king5:'fiery'};
 function persOf(img){return PERS[PTYPE[img]||'curious'];}
 // thought bubble pool [TH, EN]; {good} {planet} {pet} {boat} {time} are filled at draw time so the TH/EN toggle redraws them
 var POOL={
@@ -473,7 +548,15 @@ var POOL={
  ftired:[['เหนื่อยนิดนึง...','A bit tired...'],['พักแป๊บนะ','Quick rest...']],
  fexcited:[['ดาวใหม่! ว้าว!','New planet! Wow!'],['ตื่นเต้นจังเลย!','So exciting!']],
  fyawn:[['ฮ้าว~ ง่วงจัง','Yawn~ sleepy'],['ไปพายเรือกันไหม?','Shall we paddle?']],
- fsorry:[['ขอโทษนะ รอนานเลย','Sorry for the wait']]};
+ fsorry:[['ขอโทษนะ รอนานเลย','Sorry for the wait']],
+ hot:[['ร้อนๆ ถึงจะอร่อย!','Hot is tasty!'],['ขอ{good}ร้อนๆ นะ','A piping hot {good}!'],['ว้าว ควันฉุยเลย','Wow, it is steaming!']],
+ k1:[['ฮ่าๆ วันนี้ข้าเลี้ยงทั้งเมือง!','Ho ho! A feast for the whole town!'],['เร็วเข้า เจ้าคนพายเรือ!','Quick now, little paddler!']],
+ k2:[['หวานๆ เยอะๆ นะจ๊ะ!','Lots of sweets, darling!'],['คทาข้าทำจากลูกอมนะ','My sceptre is candy!']],
+ k3:[['ข้าชอบของเย็นๆ แต่ใจอุ่นนะ','Cool treats, warm heart'],['ฮ้าว... เร็วหน่อยนะ','Yawn... be quick now']],
+ k4:[['ป่าทั้งป่ารอของจากเจ้า','The whole forest awaits'],['ใจเย็นๆ แต่อย่าช้านะ','Calm, but do not dawdle']],
+ k5:[['ข้าคือมังกรน้อยผู้ยิ่งใหญ่!','I am the great little dragon!'],['ร้อนๆ เท่านั้นนะ!','Only piping hot ones!']],
+ kwin:[['ยอดเยี่ยม! รับมงกุฎไปเลย','Splendid! Take this crown'],['ข้าพอใจมาก!','We are most pleased!']],
+ kfail:[['ไม่เป็นไร ไว้มาใหม่นะ','No matter, come again'],['คราวหน้าเอาใหม่นะ','Next time, then']]};
 var TIMEW={th:['เช้า','บ่าย','เย็น','ดึก'],en:['morning','afternoon','evening','night']};
 var BUBS=[],bubGap=0,bubLast={},sfxT={},WRAP={};
 var fang={blink:0,nb:2,pad:0,cheer:0,talk:0,yawn:0,idle:0,emo:'',emoT:0,sing:0,sales:[],tripT:0,tired:0,saidTired:false,yawnGap:20,singGap:0,head:null};
@@ -500,7 +583,7 @@ function wrapTxt(s,mw){var key=s+'|'+mw;if(WRAP[key])return WRAP[key];var parts=
 function drawBubbles(dt){bubGap=Math.max(0,bubGap-dt);
   for(var i=BUBS.length-1;i>=0;i--){var b=BUBS[i];b.t+=dt;if(b.t>b.life)BUBS.splice(i,1);}
   BUBS.forEach(function(b){var ax,ay,dir,al=Math.min(1,b.t/0.15,(b.life-b.t)/0.3),sc=0.7+0.3*ease(Math.min(1,b.t/0.18));
-    if(b.a){var a=b.a,live=aliens.indexOf(a)>=0||dockC.indexOf(a)>=0;if(live){var p=custPos(a);b.px=p.x;b.py=p.y-p.w*0.55;b.pw=p.w;al*=Math.min(1,p.al*1.5);}if(b.px==null)return;ax=b.px;ay=b.py;dir=ax<W/2?1:-1;}
+    if(b.a){var a=b.a,live=aliens.indexOf(a)>=0||dockC.indexOf(a)>=0||a===kingC;if(live){var p=custPos(a);b.px=p.x;b.py=p.y-p.w*0.55;b.pw=p.w;al*=Math.min(1,p.al*1.5);}if(b.px==null)return;ax=b.px;ay=b.py;dir=ax<W/2?1:-1;}
     else{if(!fang.head)return;ax=fang.head.x;ay=fang.head.y;dir=ax<W*0.6?1:-1;}
     var fs=Math.round(Math.max(12,Math.min(15,W*0.034)));cx.font='600 '+fs+'px Kanit,sans-serif';
     var lines=wrapTxt(bubText(b),Math.min(170,W*0.4)),tw=0;lines.forEach(function(l){tw=Math.max(tw,cx.measureText(l).width);});
@@ -683,6 +766,108 @@ function newFlow(z){return {z:z,u:(Math.random()*2-1)*RW*0.92,r:Math.random()*1.
 
 function iceOn(){return !!PL().lanes;}
 function forkOn(){return !!PL().fork;}
+// ---------- stage 5: Lava Volcano Planet (hot goods + lava bubbles), kings, New Legend ----------
+function lavaOn(){return !!PL().lava;}
+var lbs=[],lbNext=0,kingC=null,kingAdUsed=false;
+function gById(id){for(var i=0;i<GOODS.length;i++)if(GOODS[i].id===id)return GOODS[i];return null;}
+function heatOf(id){return (trip&&trip.heat&&trip.heat[id]!=null)?trip.heat[id]:1;}
+function heatMul(id){var g=gById(id);if(!g||!g.hot)return 1;return 0.6+0.4*Math.min(1,heatOf(id)/0.5);} // hot = full price; cold still sells (gentle)
+function crownCount(){var n=0;for(var k in S.king)if(S.king[k]&&S.king[k].c>0)n++;return n;}
+function kingOf(n){return S.king[n]||{c:0,at:0};}
+function kingLeft(n){var K=kingOf(n),rt=S.routes[n]||{trips:0};return K.c?Math.max(0,KING_EVERY-(rt.trips+1-K.at)):Math.max(0,PLANETS[n].trips-(rt.trips+1));}
+function kingDue(n){return kingLeft(n)<=0;}
+function reserveKing(){ // pack the royal basket from the loaded cargo (kept apart from normal sales)
+  var ids=PG().filter(function(g){return stock[g.id]>0;}).sort(function(a,b){return stock[b.id]-stock[a.id];}).slice(0,3).map(function(g){return g.id;});if(!ids.length)return;
+  var tot=stockTotal(),N=Math.max(3,Math.min(6+2*S.planet,Math.floor(tot*0.4))),q={},i=0,guard=0;
+  while(N>0&&guard++<400){var id=ids[i%ids.length];i++;if(stock[id]>0){stock[id]--;q[id]=(q[id]||0)+1;N--;}else if(ids.every(function(x){return stock[x]<=0;}))break;}
+  trip.king={q:ids.filter(function(id){return q[id];}).map(function(id){return {id:id,n:q[id],got:0};})};
+  void IMG['king'+S.planet];void IMG['king'+S.planet+'_nf'];
+  setTimeout(function(){toast(t('kingSoon'));say('kingsoon',0);},1800);
+}
+function kingTotal(k){var n=0;k.q.forEach(function(x){n+=x.n;});return n;}
+function kingPick(){var r=kingC.q.filter(function(x){return x.got<x.n;});if(!r.length)return;var cur=kingC.good&&kingC.good.id,c=r.filter(function(x){return x.id!==cur;});
+  var p=(c.length&&Math.random()<0.7?c:r)[Math.floor(Math.random()*(c.length&&Math.random()<0.7?c:r).length)]||r[0];kingC.good=gById(p.id);}
+function startKing(){
+  var n=S.planet,N=kingTotal(trip.king);kingAdUsed=false;
+  kingC={img:KINGS[n].img,king:1,n:n,state:'in',t:0,pat:6+1.6*N,q:trip.king.q,ph:0,born:time,pers:PERS[KINGS[n].pers],mz:0,blink:0,nb:2,emo:'',emoT:0,hop:0,st:0,pout:0,wv:0};
+  kingPick();phase='king';spd=0;holding=false;
+  play('kingfan');setTimeout(function(){say('king',0);},500);setTimeout(function(){if(kingC)bubble(kingC,'k'+n,true);},1300);sparkle(W/2,H*0.4,40);hudDirty=true;
+}
+function kingPos(a){var w=Math.min(W*0.5,260),x=W/2,y=H*0.42+Math.sin(time*1.6)*4,al=1,sc=1;
+  if(a.state==='in'){var k=ease(Math.min(1,a.t/0.8));sc=0.3+0.7*k;al=k;y+=(1-k)*-H*0.1;}
+  if(a.state==='out'){var k2=ease(Math.min(1,a.t/1.2));y-=k2*H*0.25;al=1-k2;}
+  if(a.state==='pass'){var k3=Math.min(1,a.t/1);y+=k3*H*0.15;al=1-k3;}
+  return {x:x,y:y,w:w*sc,al:al};}
+function kingGive(id){
+  if(!kingC||kingC.state!=='wait')return;var it=null;kingC.q.forEach(function(x){if(x.id===id&&x.got<x.n)it=x;});
+  var p=kingPos(kingC);
+  if(!it||!kingC.good||id!==kingC.good.id){play('nope');kingC.t=Math.min(kingC.pat-0.5,kingC.t+1);kingC.pout=0.8;emote(kingC,'impatient',0.8);floats.push({x:p.x,y:p.y-p.w*0.5,txt:t('kingWrong'),t:0});return;}
+  it.got++;play('sell',{rate:1+0.04*it.got});kingC.hop=1;emote(kingC,'happy',0.6);sparkle(p.x,p.y-p.w*0.3,10);coinBurst(p.x,p.y-p.w*0.2,2);
+  if(kingC.q.every(function(x){return x.got>=x.n;})){kingWin();return;}
+  kingPick();hudDirty=true;
+}
+function kingWin(){
+  var n=kingC.n,N=kingTotal(kingC),K=S.king[n]||(S.king[n]={c:0,at:0}),first=!K.c;K.c++;K.at=RT().trips+1;
+  var amt=Math.round(Math.max(1,bestPrice())*(25+4*N)*incMul());addCoins(amt);trip.earned+=amt;var g=addGems(first?KING_GEMS:5);
+  trip.king.done=1;kingC.state='out';kingC.t=0;kingC.love=true;play('crown');play('fanfare',{vol:0.6});say('kingwin',0);bubble(kingC,'kwin',true);
+  sparkle(W/2,H*0.35,70);coinBurst(W/2,H*0.4,16);fangExcited(false);save();
+  setTimeout(function(){open('_king',{win:1,n:n,c:amt,g:g,first:first});},1100);hudDirty=true;
+}
+function kingFail(){
+  var n=kingC.n,paid=0;kingC.q.forEach(function(x){paid+=goodPrice(gById(x.id),S.goods[x.id])*x.got*heatMul(x.id);});paid=Math.round(paid*incMul());
+  if(paid>0){addCoins(paid);trip.earned+=paid;}trip.king.done=1;kingC.state='pass';kingC.t=0;emote(kingC,'sad',1.2);
+  play('nope',{vol:0.6});say('kingfail',0);bubble(kingC,'kfail',true);save();
+  setTimeout(function(){open('_king',{win:0,n:n,c:paid});},1000);hudDirty=true;
+}
+function drawKing(){
+  var a=kingC,p=kingPos(a);if(p.al<=0)return;
+  cx.globalCompositeOperation='lighter';glow('gold',p.x,p.y,p.w*0.9,0.55*p.al);cx.globalCompositeOperation='source-over';cx.globalAlpha=1;
+  drawAlien(a,p,a.shake?Math.sin(a.shake*30)*6*a.shake:0);
+  if(a.state!=='wait')return;
+  var n=a.q.length,ir=Math.max(17,Math.min(26,W*0.055)),gap=ir*2.5,bw=n*gap+ir*0.6,bh=ir*3.1,bx=W/2,by=Math.max(HUDY()+bh/2+14,p.y-p.w*0.62-bh/2);
+  cx.save();cx.translate(bx,by);
+  cx.globalCompositeOperation='lighter';glow('gold',0,0,bw*0.8,0.4);cx.globalCompositeOperation='source-over';cx.globalAlpha=1;
+  cx.fillStyle='#fffaf0';rrect(-bw/2,-bh/2,bw,bh,bh*0.3);cx.fill();cx.beginPath();cx.moveTo(-9,bh/2-1);cx.lineTo(0,bh/2+12);cx.lineTo(9,bh/2-1);cx.fill();
+  cx.lineWidth=3.5;cx.strokeStyle='#ffd24a';rrect(-bw/2,-bh/2,bw,bh,bh*0.3);cx.stroke();
+  var left=Math.max(0,1-a.t/a.pat);cx.fillStyle='#121c4a';rrect(-bw/2+10,bh/2-10,bw-20,6,3);cx.fill();cx.fillStyle='#ffd24a';rrect(-bw/2+10,bh/2-10,Math.max(6,(bw-20)*left),6,3);cx.fill();
+  cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';
+  a.q.forEach(function(x,i){var g=gById(x.id),X=-bw/2+ir*0.3+gap*(i+0.5),done=x.got>=x.n,want=a.good&&a.good.id===x.id&&!done,Y=-ir*0.35+(want?Math.sin(time*6)*2.5:0);
+    if(want){cx.fillStyle='rgba(255,210,74,.35)';cx.beginPath();cx.arc(X,Y,ir*1.15,0,6.283);cx.fill();cx.strokeStyle='#ffd24a';cx.lineWidth=3;cx.beginPath();cx.arc(X,Y,ir*1.15,0,6.283);cx.stroke();}
+    drawImg(g.img,X,Y,ir*1.9,.5,.5,0,done?0.35:1);
+    outlined(x.got+'/'+x.n,X,ir*0.95,Math.round(ir*0.62));
+    if(done){cx.fillStyle='#ffd24a';cx.beginPath();cx.arc(X+ir*0.55,Y+ir*0.3,ir*0.42,0,6.283);cx.fill();cx.strokeStyle='#121c4a';cx.lineWidth=3;cx.lineCap='round';
+      cx.beginPath();cx.moveTo(X+ir*0.37,Y+ir*0.31);cx.lineTo(X+ir*0.51,Y+ir*0.45);cx.lineTo(X+ir*0.75,Y+ir*0.13);cx.stroke();}});
+  outlined(t('kingT')+' · '+Math.ceil(a.pat-a.t),0,-bh/2-11,16);
+  cx.restore();
+}
+function popLB(b,q,r){b.done=1;b.t=0;b.pop=1;play('lpop',{rate:0.95+Math.random()*0.15});sparkle(q.x,q.y-r*0.6,16);
+  var amt=Math.round(Math.max(1,bestPrice())*incMul()*0.4);addCoins(amt);if(trip)trip.earned+=amt;floats.push({x:q.x,y:q.y-r*1.4,txt:'+'+fmt(amt),t:0});say('pop',6000);}
+function lavaHit(b){b.done=1;b.t=0;spd*=0.55;bumpT=1;boatSquash=1;var bx=L.boat.x+boatU*KX,big=null;
+  for(var k in stock){var g=gById(k);if(g&&g.hot&&stock[k]>0&&(!big||stock[k]>stock[big]))big=k;}
+  if(big){stock[big]--;if(stockTotal()<=0)onEmpty();}
+  floats.push({x:bx,y:L.boat.y-L.boat.h*0.55,txt:t('hotT')+(big?' -1':''),t:0,big:true});
+  play('sizzle');brainBump(b);if(Math.random()<0.7)say('splash',5000);sparkle(bx,L.boat.y-L.boat.h*0.2,14);hudDirty=true;}
+function spawnLB(){var z=dist+DF*0.6;if(z>stopZ()-8||z<trip.z0+14)return;var n=Math.random()<0.3?2:1;
+  for(var i=0;i<n;i++)lbs.push({z:z+i*3,u:(Math.random()*2-1)*RW*0.7,ph:Math.random()*6,t:0,done:0});}
+function legendAvail(){return S.unlocked.indexOf(5)>=0||S.lvl>=40;}
+function routesDone(){var n=0;for(var k in S.routes)if(S.routes[k]&&S.routes[k].done)n++;return n;}
+function legendGain(){return Math.max(1,Math.floor(Math.cbrt(Math.max(0,S.stats.earned-S.legend.base)/1e6))+2*routesDone());}
+function doLegend(){
+  if(phase!=='port'||!legendAvail())return;var g=legendGain(),L5=S.legend;L5.stars+=g;L5.n++;L5.base=S.stats.earned;
+  S.coins=L5.stars>=20?25000:0;S.lvl=1;S.xp=0;S.up={cap:1,spd:L5.stars>=10?3:1,pat:1};
+  GOODS.forEach(function(x){S.goods[x.id]=0;S.load[x.id]=0;});S.goods.fruit=1;
+  S.staff=STAFF.map(function(){return 0;});if(L5.stars>=3)S.staff[0]=1;
+  STALLS.forEach(function(x){S.market.st[x.id]=0;});S.market.bank=0;S.market.last=Date.now();
+  for(var k in S.routes)S.routes[k]={trips:0,done:false};S.unlocked=[1];S.planet=1;S.cur=null;S.ulSeen=S.ul3Seen=S.ul4Seen=S.ul5Seen=false;
+  if(S.tier===2)S.tier=1; // coin boat starts over; the gem raft stays
+  for(var kk in S.king)S.king[kk].at=0;
+  trip=null;phase='port';aliens=[null,null,null,null];dockC=[null,null,null,null,null];gifts=[];obs=[];lbs=[];fork=null;ffs=[];lane=0;boatU=0;for(var s2 in stock)stock[s2]=0;
+  piers=[{z:dist+1.4,side:-1,kind:'home'}];fixLoad();autoFill();
+  close();applyPlanet();save();updatePhaseUi();hudDirty=true;updateHud();
+  play('legend');play('fanfare',{vol:0.5});setTimeout(function(){say('legend',0);},400);sparkle(W/2,H*0.4,90);fangExcited(false);
+  setTimeout(function(){toast(t('legendDone',{n:L5.n}));},300);
+}
+function setVol(){if(!A.ctx)return;A.music.gain.value=0.28*S.vol.m;A.sfx.gain.value=0.8*S.vol.s;A.voice.gain.value=1.0*S.vol.v;}
 function forkChoosing(){return !!(fork&&phase==='travel'&&dist<fork.z0-1.5);}
 function laneOn(){return phase==='travel'&&(iceOn()||forkChoosing());}
 function forkMul(){if(!fork||!fork.ch||dist<fork.z0-1.5||dist>fork.z1+1)return 1;return fork.ch===fork.rich?1.8:0.85;}
@@ -710,7 +895,9 @@ function setOff(){
   for(var k in stock)stock[k]=S.load[k]||0;
   var z0=dist,len=PL().len,n=(S.routes['1'].trips>=3||S.planet>1)?3:2,docks=[];
   for(var i=1;i<=n;i++)docks.push(z0+len*(i/(n+1))+(hash(z0+i)*16-8));
-  trip={z0:z0,docks:docks,end:z0+len,di:0,sold:0,tips:0,best:0,earned:0,tut:!S.tut.done};
+  trip={z0:z0,docks:docks,end:z0+len,di:0,sold:0,tips:0,best:0,earned:0,tut:!S.tut.done,heat:{}};
+  PG().forEach(function(g){if(g.hot&&stock[g.id]>0)trip.heat[g.id]=1;});if(Object.keys(trip.heat).length)setTimeout(function(){say('hot',0);},2600);lbs=[];lbNext=dist+14;kingC=null;
+  if(!trip.tut&&stockTotal()>=5&&kingDue(S.planet))reserveKing();
   piers=piers.filter(function(p){return p.z>dist-4;});
   docks.forEach(function(z,j){piers.push({z:z,side:j%2?1:-1,kind:'dock'});});
   piers.push({z:trip.end,side:1,kind:'end'});
@@ -760,7 +947,7 @@ function spawnDockCust(){
 function goldP(){return 0.03*(trip&&trip.lure?3:1)*(onRich()?2:1);}
 function bestPrice(){var best=0;unlockedGoods().forEach(function(g){best=Math.max(best,goodPrice(g,S.goods[g.id]));});return best;}
 function vipPay(){return Math.round(bestPrice()*12*incMul());}
-function custPos(a){
+function custPos(a){if(a.king)return kingPos(a);
   var s=a.dock?L.dslots[a.slot]:L.slots[a.slot],bob=Math.sin(time*2+a.ph)*5,x=s.x,y=s.y+bob,w=s.w*(a.vip?1.2:1),sc=1,al=1;
   if(a.dock){
     if(a.state==='in'){var k0=ease(Math.min(1,a.t/0.25));sc=0.3+0.7*k0;al=k0;}
@@ -777,7 +964,7 @@ function ease(k){return 1-Math.pow(1-k,3);}
 function allCust(){return aliens.concat(dockC).filter(function(a){return a;});}
 function orderNext(a){for(var i=0;i<a.order.length;i++)if(!a.got[i]&&stock[a.order[i].id]>0)return i;return -1;}
 function oldestCust(byStaff){var b=null;allCust().forEach(function(a){if(a.state==='wait'&&(a.vip?!byStaff:a.order?(!byStaff&&orderNext(a)>=0):stock[a.good.id]>0)&&(!b||a.born<b.born))b=a;});return b;}
-function orderVal(a,onlyGot){var s=0;a.order.forEach(function(g,i){if(!onlyGot||a.got[i])s+=goodPrice(g,S.goods[g.id]);});return s*incMul();}
+function orderVal(a,onlyGot){var s=0;a.order.forEach(function(g,i){if(!onlyGot||a.got[i])s+=goodPrice(g,S.goods[g.id])*heatMul(g.id);});return s*incMul();}
 function deliverOrder(a){
   var p=custPos(a),idx=orderNext(a);
   if(idx<0){play('nope');var miss=a.order.filter(function(g,i){return !a.got[i];})[0];toast(t('noStock',{g:t(miss.id)}));a.shake=1;return false;}
@@ -801,7 +988,7 @@ function sellTo(a,byStaff){
   else{
     if(stock[a.good.id]<=0){if(!byStaff){play('nope');toast(t('noStock',{g:t(a.good.id)}));a.shake=1;}return false;}
     stock[a.good.id]--;
-    amt=Math.round(goodPrice(a.good,S.goods[a.good.id])*incMul()*forkMul()*(a.gold?3:1));if(a.likes)amt=Math.round(amt*1.25);
+    amt=Math.round(goodPrice(a.good,S.goods[a.good.id])*incMul()*forkMul()*(a.gold?3:1)*heatMul(a.good.id));if(a.likes)amt=Math.round(amt*1.25);
     if(!a.dock&&!byStaff&&a.t<a.pat*(petOn('octo')?0.55:0.4)){tip=Math.max(1,Math.round(amt*0.5*(petOn('octo')?1.5:1)));}
     if(a.dock&&!byStaff){combo++;comboT=1.6;comboPop=1;var mult=1+0.1*Math.min(combo,20);amt=Math.round(amt*mult);
       if(trip)trip.best=Math.max(trip.best,combo);qMax('combo',combo);
@@ -851,6 +1038,9 @@ cv.addEventListener('pointerdown',function(e){
   var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
   sw={x:x,y:y};
   for(var fi=0;fi<ffs.length;fi++){var ff=ffs[fi],fp=ffPos(ff);if(!ff.got&&Math.hypot(x-fp.x,y-fp.y)<38){catchFF(ff,fp);return;}}
+  if(phase==='king'&&kingC&&kingC.state==='wait'){var kp=kingPos(kingC);if(Math.abs(x-kp.x)<kp.w*0.45&&y>kp.y-kp.w*0.6&&y<kp.y+kp.w*0.45){kingGive(kingC.good&&kingC.good.id);return;}}
+  if(phase==='travel'){for(var li=0;li<lbs.length;li++){var lb=lbs[li];if(lb.done)continue;var lq=proj(lb.z,lb.u),lr=KX*lq.p*0.42;
+    if(lq.d>0.4&&lq.d<40&&Math.hypot(x-lq.x,y-(lq.y-lr*0.55))<Math.max(30,lr*1.4)){popLB(lb,lq,lr);return;}}}
   if(phase==='travel'){for(var oi=0;oi<obs.length;oi++){var ob=obs[oi];if(ob.done||!ob.fork)continue;var oq=proj(ob.z,ob.u),orr=Math.max(28,KX*oq.p*0.8);
     if(oq.d>0.4&&oq.d<40&&Math.abs(x-oq.x)<orr&&Math.abs(y-(oq.y-KX*oq.p*0.3))<orr){clearOb(ob,oq);return;}}}
   var list=allCust().sort(function(a,b){return (b.vip?1:0)-(a.vip?1:0);});
@@ -982,6 +1172,9 @@ function update(dt){
     if(petOn('cat'))gifts.forEach(function(g){if(!g.taken&&g.z-dist<1.6&&g.z-dist>-0.5){var q=proj(g.z,g.u);sparkle(L.boat.x+boatU*KX+L.boat.w*0.36,L.boat.y-L.boat.h*0.2,10);takeGift(g,q);}});
     if(iceOn()&&!trip.tut&&dist>=obNext){spawnObs();obNext=dist+10+Math.random()*7;}
     if(forkOn()&&!trip.tut&&!fork&&dist>=forkNext)newFork();
+    if(lavaOn()&&!trip.tut&&dist>=lbNext){spawnLB();lbNext=dist+8+Math.random()*7;}
+    if(trip.heat){var cold=false;for(var hk in trip.heat){trip.heat[hk]=Math.max(0,trip.heat[hk]-dt/22);if(trip.heat[hk]<0.5&&stock[hk]>0)cold=true;}
+      if(cold&&!trip.coolSaid){trip.coolSaid=1;say('cool',0);}}
     if(fork){if(!fork.ch&&dist>fork.z0-1.5)pickFork(-fork.rich,true); // no choice made: take the safe branch
       if(dist>fork.z1+1.5){fork=null;lane=0;forkNext=dist+55+Math.random()*25;hudDirty=true;}}
   }
@@ -996,6 +1189,11 @@ function update(dt){
   obs.forEach(function(o){if(phase==='travel')o.z-=dt*0.5;if(o.done){o.t+=dt;if(o.push)o.u+=o.push*dt*5;return;}
     var d=o.z-dist;if(phase==='travel'&&d<0.35&&d>-0.6&&Math.abs(o.u-boatU)<0.72){o.done=true;o.t=0;if(o.k==='crate')grabCrate(o);else{o.push=o.u>=boatU?1:-1;bump(o);}}});
   obs=obs.filter(function(o){return o.z-dist>-4&&!(o.done&&o.k==='crate'&&o.t>0.4);});
+  lbs.forEach(function(b){b.t+=dt;if(b.done)return;var d=b.z-dist;if(phase==='travel'&&d<0.35&&d>-0.6&&Math.abs(b.u-boatU)<0.8)lavaHit(b);});
+  lbs=lbs.filter(function(b){return b.z-dist>-4&&!(b.done&&b.t>0.6);});
+  if(phase==='king'&&kingC){kingC.t+=(kingC.state==='wait'&&(adOpen||openPanel))?0:dt;brainCust(kingC,dt);
+    if(kingC.state==='in'&&kingC.t>0.8){kingC.state='wait';kingC.t=0;}
+    else if(kingC.state==='wait'&&kingC.t>=kingC.pat)kingFail();}
   // dock rush
   if(phase==='dock'){
     dockT-=dt;spawnT-=dt;
@@ -1028,13 +1226,17 @@ function arriveStop(){
   aliens.forEach(function(a){if(a&&a.state!=='out'){if(a.vip)sellTo(a,true);else{if(a.order&&a.state==='wait')orderPartial(a);a.state='pass';a.t=0;}}});
   if(trip.di<trip.docks.length){ // dock rush
     trip.di++;phase='dock';dockT=dockTime();spawnT=0.5;combo=0;comboT=0;
+    if(trip.heat&&Object.keys(trip.heat).length){for(var hk in trip.heat)trip.heat[hk]=1;trip.coolSaid=0;setTimeout(function(){play('stove',{vol:0.8});toast(t('stoveT'));},700);}
     play('dock');say('dock',0);banner={txt:'docking',t:0};
     if(trip.tut&&!tut.dockShown){tut.dockShown=true;tutShow('dock');}
-  }else{ // destination
-    phase='arrive';RT().trips++;S.stats.trips++;qAdd('trips');S.stats.bestCombo=Math.max(S.stats.bestCombo,trip.best);
-    play('dock');play('fanfare',{vol:0.7});say('arrive',0);sparkle(W/2,H*0.45,40);save();
-    var sc={sold:trip.sold,tips:trip.tips,best:trip.best,earned:trip.earned};setTimeout(function(){open('_summary',sc);},900);
-  }
+  }else if(trip.king&&!trip.king.done){startKing(); // the king waits at the end of the route
+  }else arriveDest(true);
+  updatePhaseUi();
+}
+function arriveDest(dock){ // destination
+    kingC=null;phase='arrive';RT().trips++;S.stats.trips++;qAdd('trips');S.stats.bestCombo=Math.max(S.stats.bestCombo,trip.best);
+    if(dock){play('dock');play('fanfare',{vol:0.7});say('arrive',0);sparkle(W/2,H*0.45,40);}save();
+    var sc={sold:trip.sold,tips:trip.tips,best:trip.best,earned:trip.earned};setTimeout(function(){open('_summary',sc);},dock?900:200);
   updatePhaseUi();
 }
 function leaveDock(){
@@ -1044,7 +1246,7 @@ function leaveDock(){
   updatePhaseUi();
 }
 function finishTrip(x2){
-  phase='port';trip=null;for(var k in stock)stock[k]=0;lane=0;obs=[];fork=null;ffs=[];
+  phase='port';trip=null;for(var k in stock)stock[k]=0;lane=0;obs=[];fork=null;ffs=[];lbs=[];kingC=null;
   aliens=[null,null,null,null];dockC=[null,null,null,null,null];
   piers.forEach(function(p){if(p.kind==='end')p.kind='home';});
   updatePhaseUi();save();
@@ -1059,6 +1261,9 @@ function finishTrip(x2){
     if(S.planet===3){ // Emerald Forest opens after the Glow Ice route
       if(S.unlocked.indexOf(4)<0)S.unlocked.push(4);starterGoods(S,4);S.ul4Seen=true;save();
       setTimeout(function(){open('_unlock',{n:4});play('fanfare');say('forestopen',0);sparkle(W/2,H*0.4,60);},300);return;}
+    if(S.planet===4){ // Lava Volcano Planet opens after the Emerald route
+      if(S.unlocked.indexOf(5)<0)S.unlocked.push(5);starterGoods(S,5);S.ul5Seen=true;save();
+      setTimeout(function(){open('_unlock',{n:5});play('fanfare');say('lavaopen',0);sparkle(W/2,H*0.4,60);},300);return;}
     save();setTimeout(function(){open('_edge');play('fanfare');say('arrive',0);sparkle(W/2,H*0.4,60);},300);return;}
   if(!S.tut.done&&tut.step==='wait_port')setTimeout(function(){tutShow('up');},400);
   else if(!S.tut.done&&!tut.step)setTimeout(function(){if(!openPanel&&phase==='port')tutShow('intro');},400);
@@ -1099,6 +1304,7 @@ function draw(dt){
   piers.forEach(function(p){objs.push({z:p.z,kind:'pier',u:p.side*(RW+1.0),p:p});});
   gifts.forEach(function(g){if(!g.taken)objs.push({z:g.z,kind:'gift',u:g.u,g:g});});
   obs.forEach(function(o){if(!(o.done&&o.k==='crate'))objs.push({z:o.z,kind:'ob',u:o.u,o:o});});
+  lbs.forEach(function(b){objs.push({z:b.z,kind:'lb',u:b.u,b:b});});
   if(fork){objs.push({z:fork.z0-3,kind:'fsign',u:0});
     for(var fz=fork.z0+2;fz<fork.z1;fz+=5.5)objs.push({z:fz,kind:'fdiv',u:0,n:Math.floor(hash(fz)*4)});
     for(var cz=fork.z0-10;cz<fork.z1;cz+=4)objs.push({z:cz,kind:'fcoin',u:fork.rich*LANE});}
@@ -1114,12 +1320,18 @@ function draw(dt){
     cx.globalAlpha=1;}
   if(nightS>0.01)drawNight();
   // customers (screen space)
+  if(lavaOn()&&trip&&trip.heat&&(phase==='travel'||phase==='dock'))drawSteam();
   dockC.forEach(drawCust);aliens.forEach(drawCust);
+  if(kingC)drawKing();
   drawFF();
   drawBubbles(dt);
   drawFx(dt);
   drawOverlayText();
 }
+function drawSteam(){var h=0,n=0;for(var k in trip.heat){if(stock[k]>0){h+=trip.heat[k];n++;}}if(!n)return;h/=n;if(h<0.08)return;
+  var bx=L.boat.x+boatU*KX,by=L.boat.y-L.boat.h*0.3;cx.fillStyle='#ffffff';
+  for(var i=0;i<4;i++){var k=(time*0.55+i*0.25)%1,x=bx+(i-1.5)*L.boat.w*0.09+Math.sin(time*2+i)*6,y=by-k*L.boat.h*0.7;cx.globalAlpha=0.32*h*(1-k);cx.beginPath();cx.arc(x,y,6+k*12,0,6.283);cx.fill();}
+  cx.globalAlpha=1;}
 function drawRiver(){
   var N=44,L1=[],R1=[],d,p,z;
   for(var i=0;i<=N;i++){var tt=i/N;d=DF-(DF+3.2)*Math.pow(tt,0.55);z=dist+d;p=pOf(d);var cxp=W/2+(rc(z)-camX)*KX*p,y=HY+(BY-HY)*p,hw=RW*KX*p;
@@ -1158,6 +1370,13 @@ function drawObj(o){
   else if(o.kind==='ob'){var ob=o.o,cr=ob.k==='crate',w4=KX*q.p*(cr?1.0:1.2),y4=q.y-KX*q.p*(0.22+0.07*Math.sin(time*2.2+ob.ph)),fa=fog*(ob.done?Math.max(0,1-ob.t/0.7):1);
     cx.globalCompositeOperation='lighter';glow(cr?'gold':ob.k==='meteor'?'warm':ob.fork?'green':'cyan',q.x,y4-w4*0.25,w4*(cr?1.1:0.9),fa*(cr?0.75:0.5));cx.globalCompositeOperation='source-over';
     drawImg('ob_'+ob.k,q.x,y4,w4,.5,.72,Math.sin(time*1.4+ob.ph)*(cr?0.12:0.06)+(ob.done&&ob.push?ob.push*ob.t*2:0),fa);}
+  else if(o.kind==='lb'){var lb=o.b,r6=KX*q.p*0.42*(1+0.07*Math.sin(time*5+lb.ph)),y6=q.y-r6*0.55,a6=fog*(lb.done?Math.max(0,1-lb.t/0.5):1),g6=lb.done?1+lb.t*2.2:1;
+    if(r6<1.5)return;cx.globalCompositeOperation='lighter';glow('warm',q.x,y6,r6*2.4,a6*0.7);cx.globalCompositeOperation='source-over';cx.globalAlpha=a6;
+    if(lb.done&&lb.pop){cx.strokeStyle='#ffe2a0';cx.lineWidth=Math.max(1.5,r6*0.18);cx.beginPath();cx.arc(q.x,y6,r6*g6,0,6.283);cx.stroke();}
+    else{cx.fillStyle='#ff9a52';cx.beginPath();cx.ellipse(q.x,y6,r6*g6,r6*0.92*g6,0,0,6.283);cx.fill();cx.fillStyle='#ffc77a';cx.beginPath();cx.ellipse(q.x,y6+r6*0.15,r6*0.72,r6*0.55,0,0,6.283);cx.fill();
+      cx.fillStyle='#fff6e0';cx.beginPath();cx.ellipse(q.x-r6*0.38,y6-r6*0.36,r6*0.22,r6*0.15,-0.6,0,6.283);cx.fill();cx.beginPath();cx.arc(q.x+r6*0.3,y6-r6*0.5,r6*0.08,0,6.283);cx.fill();
+      var mb=(time*0.8+lb.ph)%1;cx.globalAlpha=a6*(1-mb);cx.fillStyle='#ffd9a0';cx.beginPath();cx.arc(q.x+r6*0.6,y6-r6*(0.9+mb*1.2),r6*0.16,0,6.283);cx.fill();}
+    cx.globalAlpha=1;}
   else if(o.kind==='market'){var w5=KX*q.p*4.6,h5=w5*609/720,y5=q.y-KX*q.p*0.1,top=y5-h5*0.8;
     cx.globalCompositeOperation='lighter';glow('warm',q.x,top+h5*0.45,w5*0.7,fog*0.45);cx.globalCompositeOperation='source-over';
     drawImg('market_base',q.x,y5,w5,.5,.8,0,fog);
@@ -1239,8 +1458,8 @@ function drawAlien(a,p,sh){var r=alienRig(a.img,a.gold);
     [-1,1].forEach(function(s){cx.beginPath();cx.arc(s*w*(0.42+pk*0.12),y0+h*0.12-pk*h*0.12,w*(0.035+pk*0.03),0,6.283);cx.fill();});}
   cx.restore();
   var lv=frLv(a.img);
-  if(lv>=2&&a.state!=='pass'&&a.state!=='out'){var hx=p.x+sh-w*0.42,hy=p.y-jy-h*0.48+Math.sin(time*3+a.ph)*2,pu=1+0.12*Math.sin(time*6);cx.globalAlpha=Math.max(0,p.al);
-    for(var i=0;i<(lv>=3?2:1);i++){var xx=hx-i*w*0.16,yy=hy+i*w*0.1,s=Math.max(8,w*0.1)*pu*(i?0.75:1);cx.fillStyle='#121c4a';heart(xx,yy,s*1.3);cx.fillStyle='#ffd24a';heart(xx,yy,s);}cx.globalAlpha=1;}
+  if(lv>=2&&a.state!=='pass'&&a.state!=='out'){var hx=p.x+sh-w*0.44,hy=p.y-jy+h*0.14+Math.sin(time*3+a.ph)*2,pu=1+0.12*Math.sin(time*6);cx.globalAlpha=Math.max(0,p.al);
+    for(var i=0;i<(lv>=3?2:1);i++){var xx=hx-i*w*0.15,yy=hy-i*w*0.12,s=Math.max(8,w*0.1)*pu*(i?0.75:1);cx.fillStyle='#121c4a';heart(xx,yy,s*1.3);cx.fillStyle='#ffd24a';heart(xx,yy,s);}cx.globalAlpha=1;}
   cx.globalAlpha=1;
 }
 function drawCust(a){
@@ -1362,17 +1581,17 @@ function updateHud(){
   $('xpfill').style.width=Math.min(100,S.xp/xpNeed(S.lvl)*100)+'%';
   var can=canBuy();document.querySelectorAll('.nb').forEach(function(b){b.classList.toggle('can',!!can[b.dataset.p]);});
   $('jtxt').textContent=t(PL().name)+' · '+t('route',{a:Math.min(RT().trips,PL().trips),b:PL().trips});
-  var j1=$('j1'),j2=$('j2'),i1='assets/'+PL().icon+'.webp',i2=S.planet===1?'assets/i_planet2.webp':S.planet===2?'assets/i_ice.webp':S.planet===3?'assets/i_forest.webp':'assets/i_planet3.webp';
+  var j1=$('j1'),j2=$('j2'),i1='assets/'+PL().icon+'.webp',i2=S.planet===1?'assets/i_planet2.webp':S.planet===2?'assets/i_ice.webp':S.planet===3?'assets/i_forest.webp':S.planet===4?'assets/i_lava.webp':'assets/i_legend.webp';
   if(j1.getAttribute('src')!==i1)j1.setAttribute('src',i1);if(j2.getAttribute('src')!==i2)j2.setAttribute('src',i2);
-  j2.classList.toggle('lockd',S.planet<4?S.unlocked.indexOf(S.planet+1)<0:true);
+  j2.classList.toggle('lockd',S.planet<5?S.unlocked.indexOf(S.planet+1)<0:!legendAvail());
   $('mkbtn').classList.toggle('can',!!can.market);$('petbtn').classList.toggle('can',!!can.pets);$('bookbtn').classList.toggle('can',!!can.book||bookNew);$('calbtn').classList.toggle('can',!!can.cal);
   $('evb').classList.toggle('hidden',!isWk());
   renderChips();
-  if(openPanel&&openPanel!=='map'&&openPanel.charAt(0)!=='_')renderPanel(openPanel,true);
+  if(openPanel&&openPanel!=='map'&&openPanel!=='settings'&&openPanel!=='credits'&&openPanel.charAt(0)!=='_')renderPanel(openPanel,true);
 }
 function renderChips(){
   var h='';PG().forEach(function(g){if(!S.goods[g.id])return;var n=phase==='port'?(S.load[g.id]||0):stock[g.id];if(phase!=='port'&&!(S.load[g.id]>0)&&!n)return;
-    h+='<div class="chip'+(n?'':' zero')+'"><img src="assets/'+g.img+'.webp" alt=""><b>'+n+'</b></div>';});
+    h+='<div class="chip'+(n?'':' zero')+'"><img src="assets/'+g.img+'.webp" alt=""><b>'+n+'</b>'+(g.hot&&phase!=='port'?'<i class="heat"><u data-g="'+g.id+'"></u></i>':'')+'</div>';});
   $('chips').innerHTML=h;
 }
 var lastJ=-1,lastTp=-1;
@@ -1394,11 +1613,17 @@ function tickTripUi(){
   var chk=(fork&&fork.ch&&!fc&&phase==='travel'&&dist<fork.z1+1)?(fork.ch===fork.rich?'fkRichC':'fkSafeC'):'';var ch=$('forkchip');
   if(ch.dataset.k!==chk+S.lang){ch.dataset.k=chk+S.lang;ch.classList.toggle('hidden',!chk);if(chk)ch.textContent=t(chk);}
   var ffv=forkOn()&&phase!=='port',fe=$('ffchip');fe.classList.toggle('hidden',!ffv);if(ffv){var fv=String(S.ff)+(nightS>0.5?' · '+t('night'):'');if(fe.dataset.v!==fv+S.lang){fe.dataset.v=fv+S.lang;fe.innerHTML='<img src="assets/firefly.webp" alt=""><b>'+S.ff+'</b>'+(nightS>0.5?'<span>'+t('night')+'</span>':'');}}
+  if(trip&&trip.heat){document.querySelectorAll('#chips .heat u').forEach(function(u){var v=heatOf(u.dataset.g),w=(v*100).toFixed(0)+'%';if(u.style.width!==w){u.style.width=w;u.classList.toggle('cold',v<0.5);}});}
+  var ku=$('kingui'),kv=phase==='king'&&kingC&&kingC.state==='wait';ku.classList.toggle('hidden',!kv);
+  if(kv){var kk=kingC.q.map(function(x){return x.id+x.got;}).join()+(kingC.good&&kingC.good.id)+S.lang+(!kingAdUsed&&adAvailable()?1:0);if(ku.dataset.k!==kk){ku.dataset.k=kk;
+    $('kg-t').textContent=t('king'+kingC.n)+' · '+t('kingTap');
+    $('kg-b').innerHTML=kingC.q.map(function(x){var g=gById(x.id),dn=x.got>=x.n;return '<button data-kg="'+x.id+'" class="'+(dn?'dn':'')+(kingC.good&&kingC.good.id===x.id&&!dn?' want':'')+'"'+(dn?' disabled':'')+'><img src="assets/'+g.img+'.webp" alt=""><b>'+x.got+'/'+x.n+'</b></button>';}).join('')+
+      (!kingAdUsed&&adAvailable()?'<button data-kg="ad" class="kad"><img src="assets/tv.webp" alt=""><b>'+t('kingAdBtn')+'</b></button>':'');}}
   if(tut.step)placeHand();
 }
 function updatePhaseUi(){
   var port=phase==='port';
-  $('bar').classList.toggle('hidden',!port);$('cta').classList.toggle('hidden',!port);$('stock').classList.toggle('hidden',port);
+  $('bar').classList.toggle('hidden',!port);$('cta').classList.toggle('hidden',!port);$('stock').classList.toggle('hidden',port||phase==='king');
   $('mkbtn').classList.toggle('hidden',!port);$('petbtn').classList.toggle('hidden',!port);$('bookbtn').classList.toggle('hidden',!port);$('calbtn').classList.toggle('hidden',!port);
   $('cta-sub').textContent=t('tripN',{n:RT().trips+1});
   if(trip){var h='';trip.docks.forEach(function(z){h+='<i class="mk" style="left:'+((z-trip.z0)/(trip.end-trip.z0)*100).toFixed(1)+'%"></i>';});$('tripmk').innerHTML=h;}
@@ -1425,7 +1650,7 @@ function open(p,ctx){openPanel=p;panelCtx=ctx||null;var m=$('modal');m.classList
   if(p==='load'&&tut.step==='load'){tutShow('go');var gb=$('go');if(gb&&gb.scrollIntoView)gb.scrollIntoView({block:'nearest'});}if(p==='boat'&&tut.step==='up')tutShow('up2');}
 function close(){var was=openPanel;openPanel=null;panelCtx=null;$('modal').classList.add('hidden');
   if(was==='boat'&&tut.step==='up2')tutShow('done');if(was==='load'&&tut.step==='go')tutShow('load');}
-var STICKY={_welcome:1,_summary:1,_edge:1,_unlock:1,_arrive:1,_meteor:1};
+var STICKY={_welcome:1,_summary:1,_edge:1,_unlock:1,_arrive:1,_meteor:1,_king:1,_legend:1};
 $('modal').addEventListener('pointerdown',function(e){if(e.target.id==='modal'&&openPanel&&!STICKY[openPanel])close();});
 function head(title){return '<div class="sh-h"><h2>'+title+'</h2><button class="x" data-a="close">×</button></div>';}
 function buyBtn(cost,label,act,arg,maxed){
@@ -1472,11 +1697,14 @@ function renderPanel(p,soft){
       (lv?buyBtn(goodUpCost(g,lv),'','good',g.id,lv>=GOOD_MAX):buyBtn(g.unlock,t('unlock'),'good',g.id))+'</div>';});
   }else if(p==='map'){
     h=head(t('map'));
-    [1,2,3,4].forEach(function(n){var P=PLANETS[n],un=S.unlocked.indexOf(n)>=0,rt=S.routes[n];
+    h+='<div class="crownbar"><img src="assets/i_crown.webp" alt=""><b>'+t('crownN',{n:crownCount()})+'</b>'+(S.legend.n?'<span>'+t('legendLv',{n:S.legend.n+1})+'</span>':'')+'</div>';
+    [1,2,3,4,5].forEach(function(n){var P=PLANETS[n],un=S.unlocked.indexOf(n)>=0,rt=S.routes[n],K=kingOf(n),kl=kingLeft(n);
       h+='<div class="planet'+(un?'':' lock')+(S.planet===n?' here':'')+'"><div class="pl"><img class="p" src="assets/'+P.icon+'.webp" alt="">'+(un?'':'<img class="lk" src="assets/lock.webp" alt="">')+'</div><div class="pm"><div class="nm" style="font-weight:800;font-size:18px">'+t(P.name)+'</div><div class="ds" style="font-size:14px;opacity:.8">'+t(P.desc)+'</div>'+
         '<div class="ds" style="font-size:14px">'+(un?t('route',{a:Math.min(rt.trips,P.trips),b:P.trips})+(P.mul>1?' · '+t('incomeX',{n:P.mul}):''):t('route',{a:Math.min(S.routes[n-1].trips,PLANETS[n-1].trips),b:PLANETS[n-1].trips}))+'</div>'+
+        (un?'<div class="ds kgl"><img src="assets/'+KINGS[n].img+'.webp" alt="">'+t('king'+n)+(K.c?' <img class="cr" src="assets/i_crown.webp" alt="">':'')+' · '+(kl<=0?t('kingDue'):t('kingNext',{n:kl}))+'</div>':'')+
         (S.planet===n?'<span class="tag">'+t('here')+'</span>':un?'<button class="buy trv" data-a="travel" data-i="'+n+'">'+t('travel')+'</button>':'<span class="tag">'+t('soon')+'</span>')+'</div></div>';});
-    h+='<div class="planet lock"><div class="pl"><img class="p" src="assets/i_planet3.webp" alt=""><img class="lk" src="assets/lock.webp" alt=""></div><div><div class="nm" style="font-weight:800;font-size:18px">'+t('planet5')+'</div><span class="tag">'+t('soon')+'</span></div></div>'+
+    var la=legendAvail();h+='<div class="planet legend'+(la?'':' lock')+'"><div class="pl"><img class="p" src="assets/i_legend.webp" alt=""></div><div class="pm"><div class="nm" style="font-weight:800;font-size:18px">'+t('legend')+'</div><div class="ds" style="font-size:14px;opacity:.85">'+t('legendHave',{n:S.legend.stars,p:S.legend.stars*10})+'</div>'+
+      (la?'<button class="buy trv" data-a="legendask">'+t('legend')+'</button>':'<span class="tag">'+t('legendNeed')+'</span>')+'</div></div>'+
       '<div class="ds" style="font-size:13px;opacity:.75;text-align:center;margin-top:4px">'+t('mapNote2')+'</div><div class="ds" style="font-size:12px;opacity:.6;text-align:center;margin-top:10px">Kairon Arcade</div>';
   }else if(p==='load'){
     fixLoad();var c=cap(),n=loadTotal();
@@ -1490,12 +1718,30 @@ function renderPanel(p,soft){
   }else if(p==='settings'){
     h=head(t('settings'))+
       '<button class="srow" data-a="mute"><span>'+t('sound')+'</span><b>'+(S.mute?t('off'):t('on'))+'</b></button>'+
+      [['m','vMusic'],['s','vSfx'],['v','vVoice']].map(function(r){return '<label class="vrow"><span>'+t(r[1])+'</span><input type="range" min="0" max="100" step="5" data-v="'+r[0]+'" value="'+Math.round(S.vol[r[0]]*100)+'"><b>'+Math.round(S.vol[r[0]]*100)+'</b></label>';}).join('')+
       '<button class="srow" data-a="lang"><span>'+t('language')+'</span><b>'+(S.lang==='th'?'ไทย':'English')+'</b></button>'+
       '<button class="srow" data-a="howto"><span>'+t('howto')+'</span><b>›</b></button>'+
+      '<button class="srow" data-a="credits"><span>'+t('credits')+'</span><b>›</b></button>'+
       '<div class="ds" style="font-size:12px;opacity:.6;text-align:center;margin-top:10px">Kairon Arcade · ห้องเกม ไครอน</div>';
+  }else if(p==='credits'){
+    h=head(t('credits'))+'<img class="pop-ic" src="assets/fang.webp" alt="" style="width:110px;height:84px"><div class="pop-d" style="font-size:15px">'+t('creditsD')+'</div>'+
+      '<div class="btns"><a class="b-yes lnk" href="CREDITS.txt" target="_blank" rel="noopener">'+t('creditsFile')+'</a></div>';
+  }else if(p==='_king'){
+    var kc=panelCtx,kn=t('king'+kc.n);
+    h='<img class="pop-ic big" src="assets/'+KINGS[kc.n].img+'.webp" alt=""><div class="pop-t">'+t(kc.win?'kingWin':'kingFail')+'</div><div class="pop-d">'+t(kc.win?(kc.first?'kingWinD':'kingWin2D'):'kingFailD',{k:kn})+'</div>'+
+      (kc.win?'<div class="pop-big">'+(kc.first?'<img src="assets/i_crown.webp" alt="" style="width:44px;vertical-align:middle"> ':'')+coinsTxt(kc.c)+' &nbsp;'+gemsTxt(kc.g)+'</div>':(kc.c>0?'<div class="pop-big">'+coinsTxt(kc.c)+'</div>':''))+
+      '<div class="btns"><button class="b-yes" data-a="kingok">'+t(kc.win?'kingOk':'kingRetry')+'</button></div>';
+  }else if(p==='_legend'){
+    var lg=legendGain();
+    h='<img class="pop-ic big" src="assets/i_legend.webp" alt=""><div class="pop-t">'+t('legend')+'</div><div class="pop-d">'+t('legendD')+'</div>'+
+      '<div class="pop-big">'+t('legendGet',{n:lg})+'</div><div class="pop-d" style="font-size:14px">'+t('legendHave',{n:S.legend.stars+lg,p:(S.legend.stars+lg)*10})+'</div>'+
+      '<div class="lgcols"><div class="lgc"><div class="sec">'+t('legendResets')+'</div><ul>'+[1,2,3,4,5].map(function(i){return '<li>'+t('lr'+i)+'</li>';}).join('')+'</ul></div>'+
+      '<div class="lgc keep"><div class="sec">'+t('legendKeeps')+'</div><ul>'+[1,2,3,4,5].map(function(i){return '<li>'+t('lk'+i)+'</li>';}).join('')+'</ul></div></div>'+
+      '<div class="pop-d" style="font-size:13px">'+t('legendPerk')+': '+t('pk3')+' · '+t('pk10')+' · '+t('pk20')+'</div>'+
+      '<div class="btns eq"><button class="b-yes" data-a="legendgo">'+t('legendGo')+'</button><button class="b-yes alt" data-a="legendno">'+t('legendNo')+'</button></div>';
   }else if(p==='howto'){
     h=head(t('howto'));
-    [['i_goods','h1'],['hand','h2'],['alien_blue','h3'],['stall','h4'],['i_boat','h5'],['ob_ice','h6'],['i_market','h7'],['pet_cat','h8'],['alien_snow','h9'],['sign_fork','h10'],['firefly','h11'],['i_book','h12'],['i_boatup','h13'],['i_gift','h14']].forEach(function(r,i){
+    [['i_goods','h1'],['hand','h2'],['alien_blue','h3'],['stall','h4'],['i_boat','h5'],['ob_ice','h6'],['i_market','h7'],['pet_cat','h8'],['alien_snow','h9'],['sign_fork','h10'],['firefly','h11'],['i_book','h12'],['i_boatup','h13'],['i_gift','h14'],['i_lava','h15'],['i_crown','h16'],['i_legend','h17']].forEach(function(r,i){
       h+='<div class="row"><img class="ic" src="assets/'+r[0]+'.webp" alt=""><div class="mid"><div class="nm">'+(i+1)+'</div><div class="ds" style="font-size:15px;opacity:.9">'+t(r[1])+'</div></div></div>';});
     h+='<div class="btns"><button class="b-yes" data-a="replay">'+t('replayTut')+'</button></div>';
   }else if(p==='_adoffer'){
@@ -1512,18 +1758,20 @@ function renderPanel(p,soft){
       (can&&c2.earned>0?'<div class="pop-d" style="font-size:14px;margin-bottom:10px">'+t('sumAd',{n:fmt(c2.earned)})+'</div><div class="btns"><button class="b-yes" data-a="adwatch" data-i="trip2x">'+t('sumX2')+'</button><button class="b-no" data-a="sumok">'+t('sumOk')+'</button></div>'
         :'<div class="btns"><button class="b-yes" data-a="sumok">'+t('sumOk')+'</button></div>');
   }else if(p==='_edge'){ // end of the newest route: the next planet is coming soon
+    if(S.planet===5){h='<img class="pop-ic big" src="assets/i_legend.webp" alt=""><div class="pop-t">'+t('edge5T')+'</div><div class="pop-d">'+t('edge5D')+'</div>'+
+      '<div class="btns eq"><button class="b-yes" data-a="legendask">'+t('edgeLegend')+'</button><button class="b-yes alt" data-a="edgeok">'+t('edgeOk')+'</button></div>';sh.innerHTML=h;return;}
     var e4=S.planet===4;
     h='<img class="pop-ic" src="assets/'+(e4?'i_forest':'i_ice')+'.webp" alt="" style="width:120px;height:110px"><div class="pop-t">'+t(e4?'edge4T':'edge3T')+'</div><div class="pop-d">'+t(e4?'edge4D':'edge3D')+'</div>'+
       '<div class="planet lock" style="margin-bottom:14px"><div class="pl"><img class="p" src="assets/i_planet3.webp" alt=""><img class="lk" src="assets/lock.webp" alt=""></div><div><div class="nm" style="font-weight:800;font-size:18px">'+t(e4?'planet5':'planet4')+'</div><span class="tag">'+t('soon')+'</span></div></div>'+
       '<div class="btns"><button class="b-yes" data-a="edgeok">'+t('edgeOk')+'</button></div>';
   }else if(p==='_unlock'){
-    var un=(panelCtx&&panelCtx.n)||2,un3=un===3,un4=un===4,UA=un4?ALIENS4.concat([{img:'alien_owl'}]):un3?ALIENS3.concat([{img:'alien_yeti'}]):ALIENS2;
-    h='<img class="pop-ic big" src="assets/'+(un4?'i_forest':un3?'i_ice':'i_planet2')+'.webp" alt=""><div class="pop-t">'+t(un4?'ul4T':un3?'ul3T':'ulT')+'</div><div class="pop-d">'+t(un4?'ul4D':un3?'ul3D':'ulD')+'</div>'+
+    var un=(panelCtx&&panelCtx.n)||2,un3=un===3,un4=un===4,un5=un===5,UA=un5?ALIENS5.concat([{img:'alien_sala'}]):un4?ALIENS4.concat([{img:'alien_owl'}]):un3?ALIENS3.concat([{img:'alien_yeti'}]):ALIENS2;
+    h='<img class="pop-ic big" src="assets/'+(un5?'i_lava':un4?'i_forest':un3?'i_ice':'i_planet2')+'.webp" alt=""><div class="pop-t">'+t(un5?'ul5T':un4?'ul4T':un3?'ul3T':'ulT')+'</div><div class="pop-d">'+t(un5?'ul5D':un4?'ul4D':un3?'ul3D':'ulD')+'</div>'+
       '<div class="newrow">'+UA.map(function(a){return '<img src="assets/'+a.img+'.webp" alt="">';}).join('')+'</div>'+
-      '<div class="btns"><button class="b-yes" data-a="ulgo">'+t(un4?'ul4Go':un3?'ul3Go':'ulGo')+'</button><button class="b-no" data-a="ulstay">'+t('ulStay')+'</button></div>';
+      '<div class="btns"><button class="b-yes" data-a="ulgo">'+t(un5?'ul5Go':un4?'ul4Go':un3?'ul3Go':'ulGo')+'</button><button class="b-no" data-a="ulstay">'+t('ulStay')+'</button></div>';
   }else if(p==='_arrive'){
     var an=(panelCtx&&panelCtx.n)||2;
-    h='<img class="pop-ic big" src="assets/'+PLANETS[an].icon+'.webp" alt=""><div class="pop-t">'+t(an===4?'ar4T':an===3?'ar3T':'arT')+'</div><div class="pop-d">'+t(an===4?'ar4D':an===3?'ar3D':'arD')+'</div>'+
+    h='<img class="pop-ic big" src="assets/'+PLANETS[an].icon+'.webp" alt=""><div class="pop-t">'+t(an===5?'ar5T':an===4?'ar4T':an===3?'ar3T':'arT')+'</div><div class="pop-d">'+t(an===5?'ar5D':an===4?'ar4D':an===3?'ar3D':'arD')+'</div>'+
       '<div class="newrow">'+PLANETS[an].aliens.map(function(a){return '<img src="assets/'+a.img+'.webp" alt="">';}).join('')+'</div>'+
       '<div class="newrow sm">'+PG().map(function(g){return '<img src="assets/'+g.img+'.webp" alt="">';}).join('')+'</div>'+
       '<div class="pop-d" style="font-size:15px">'+t('arGift')+'</div><div class="pop-big">'+gemsTxt((panelCtx&&panelCtx.g)||ARRIVE_GEMS)+'</div>'+
@@ -1583,6 +1831,8 @@ function renderPanel(p,soft){
           (o?'<small class="frl lv'+lv+'"><b>'+'♥♥♥'.slice(0,lv)+'</b>'+t('fr'+lv)+'<br>'+t('p_'+(PTYPE[a]||'curious'))+'</small>':'<small class="frl">?</small>')+'</div>';}).join('')+'</div>'+
         '<div class="row brw"><div class="mid"><div class="ds">'+coinsTxt(rw.c)+' &nbsp;'+gemsTxt(rw.g)+'</div></div>'+(S.book.pc[i]?'<button class="buy max">'+t('pageDone')+'</button>':full?'<button class="buy" data-a="pgclaim" data-i="'+i+'">'+t('pageClaim')+'</button>':'<span class="arew">'+pg.al.filter(function(a){return S.book.s[a];}).length+' / '+pg.al.length+'</span>')+'</div>'+
         '<div class="row brw"><div class="mid"><div class="ds">'+t('goldPage')+' · '+gemsTxt(30)+'</div></div>'+(S.book.gc[i]?'<button class="buy max">'+t('pageDone')+'</button>':gfull?'<button class="buy" data-a="pggold" data-i="'+i+'">'+t('pageClaim')+'</button>':'<span class="arew">'+pg.al.filter(function(a){return S.book.g[a];}).length+' / '+pg.al.length+'</span>')+'</div></div>';});
+    h+='<div class="bpage"><div class="sec">'+t('crowns')+' · '+crownCount()+'/5</div><div class="stk">'+[1,2,3,4,5].map(function(n){var K=kingOf(n);
+      return '<div class="stw"><div class="st'+(K.c?' gold':' miss')+'"><img src="assets/'+KINGS[n].img+'.webp" alt="">'+(K.c?'<i><img src="assets/i_crown.webp" alt="" style="width:18px;height:18px;vertical-align:middle"> x'+K.c+'</i>':'')+'</div><small class="frl">'+t('king'+n)+'</small></div>';}).join('')+'</div></div>';
   }else if(p==='cal'){
     var nx=loginNext(),cd=nx?nx.day:0,done=nx?cd-1:S.login.streak,adC=nx&&cd<7&&adAvailable();
     h=head(t('login'))+'<div class="ds shopd">'+t('loginD')+'</div><div class="cal">';
@@ -1626,6 +1876,11 @@ $('sheet').addEventListener('click',function(e){
   else if(a==='mute'){setMute(!S.mute);if(!S.mute)play('tap');}
   else if(a==='lang'){S.lang=S.lang==='th'?'en':'th';play('tap',{vol:0.6});applyLang();save();return;}
   else if(a==='howto'){play('tap',{vol:0.6});open('howto');return;}
+  else if(a==='credits'){play('tap',{vol:0.6});open('credits');return;}
+  else if(a==='kingok'){play('coin');close();arriveDest(false);return;}
+  else if(a==='legendask'){play('tap');if(phase!=='port'||!legendAvail()){toast(t('legendNeed'));return;}close();open('_legend');return;}
+  else if(a==='legendgo'){doLegend();return;}
+  else if(a==='legendno'){play('tap',{vol:0.6});close();return;}
   else if(a==='replay'){S.tut.done=false;save();close();if(phase==='port')tutShow('intro');else toast(t('tutLater'));return;}
   else if(a==='adwatch'){adReturnCtx={panel:openPanel,ctx:panelCtx};close();startAd(i);return;}
   else if(a==='wbclaim'){addCoins(panelCtx.amt);welcomeAmt=0;coinBurst(W/2,H*0.5,10);play('sell');close();save();afterWelcome();return;}
@@ -1705,7 +1960,7 @@ function renderAd(){
    (adOpen.done?'<div class="adt">'+t('adDone')+'</div><div class="btns" style="width:80%"><button class="b-yes" data-a="adclaim">'+t('claim')+'</button></div>'
      :'<div class="adc" id="adc">'+left+'</div><div class="adl">'+t('adWait')+'</div>');
 }
-function reopen(kind){var r=adReturnCtx;adReturnCtx=null;if(r&&(r.panel==='_welcome'||r.panel==='_summary'))open(r.panel,r.ctx);else if(kind==='q2x'||kind==='qreroll')open('quests');else if(kind==='mk2x')open('market');else if(kind==='login2x')open('cal');}
+function reopen(kind){if(kind==='king10')return;var r=adReturnCtx;adReturnCtx=null;if(r&&(r.panel==='_welcome'||r.panel==='_summary'))open(r.panel,r.ctx);else if(kind==='q2x'||kind==='qreroll')open('quests');else if(kind==='mk2x')open('market');else if(kind==='login2x')open('cal');}
 $('ad').addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b||!adOpen)return;
   var k=adOpen.kind,good=b.dataset.a==='adclaim'&&adOpen.done;
   if(b.dataset.a==='adclose'&&adOpen.done)good=true; // finished: closing still grants
@@ -1721,11 +1976,17 @@ $('ad').addEventListener('click',function(e){var b=e.target.closest('[data-a]');
   else if(k==='q2x'&&r&&r.ctx){qClaim(r.ctx.qi,2);open('quests');}
   else if(k==='qreroll'&&r&&r.ctx){qReroll(r.ctx.qi);open('quests');}
   else if(k==='mk2x'){mkTick();var mb=Math.floor(S.market.bank);S.market.bank-=mb;addCoins(mb*2);coinBurst(W/2,H*0.5,14);play('sell');say('x2',0);open('market');}
+  else if(k==='king10'&&kingC&&kingC.state==='wait'){kingC.pat+=10;kingAdUsed=true;play('upgrade');toast('+10');}
   else if(k==='login2x'){if(loginNext())claimLogin(2);say('x2',1500);open('cal');}
   else if(k==='welcome'&&welcomeAmt){addCoins(welcomeAmt*2);coinBurst(W/2,H*0.5,14);play('sell');say('x2',0);welcomeAmt=0;afterWelcome();}
   save();hudDirty=true;
 });
 var welcomeAmt=0;
+$('kingui').addEventListener('click',function(e){var b=e.target.closest('[data-kg]');if(!b||!kingC)return;audioUnlock();
+  if(b.dataset.kg==='ad'){if(!kingAdUsed&&adAvailable())startAd('king10');return;}kingGive(b.dataset.kg);});
+document.addEventListener('input',function(e){var el=e.target;if(!el||!el.dataset||!el.dataset.v)return;var v=Math.max(0,Math.min(100,+el.value||0))/100;S.vol[el.dataset.v]=v;
+  var b=el.parentNode.querySelector('b');if(b)b.textContent=Math.round(v*100);setVol();});
+document.addEventListener('change',function(e){var el=e.target;if(el&&el.dataset&&el.dataset.v){save();if(el.dataset.v==='v')say('hello',0);else play(el.dataset.v==='m'?'coin':'tap');}});
 
 // ---------- daily quests (reset at local midnight) + achievements ----------
 function rng(seed){var x=0;for(var i=0;i<seed.length;i++)x=(x*31+seed.charCodeAt(i))>>>0;return function(){x=(x*1664525+1013904223)>>>0;return x/4294967296;};}
@@ -1764,7 +2025,7 @@ function qTick(){ // once a second: midnight reset, new achievements, live count
 setInterval(qTick,1000);
 
 // ---------- planets: warp between Home Star and Candy Planet ----------
-function applyPlanet(){document.body.classList.toggle('p2',S.planet===2);document.body.classList.toggle('p3',S.planet===3);document.body.classList.toggle('p4',S.planet===4);ALIENS=PL().aliens;startMusic();hudDirty=true;}
+function applyPlanet(){document.body.classList.toggle('p2',S.planet===2);document.body.classList.toggle('p3',S.planet===3);document.body.classList.toggle('p4',S.planet===4);document.body.classList.toggle('p5',S.planet===5);ALIENS=PL().aliens;startMusic();hudDirty=true;}
 function warpTo(n){
   if(S.unlocked.indexOf(n)<0||phase!=='port')return;
   var w=$('warp');$('warp-t').textContent=t('warpTo');$('warp-n').textContent=t(PLANETS[n].name);$('warp-i').src='assets/'+PLANETS[n].icon+'.webp';
@@ -1774,10 +2035,10 @@ function warpTo(n){
     piers=[{z:dist+1.4,side:-1,kind:'home'}];fork=null;ffs=[];
     if(n>2&&S.arrived.indexOf(n)<0){starterGoods(S,n);GOODS.forEach(function(g){S.load[g.id]=0;});} // first visit: pack this planet's two starter goods so mixed orders work right away
     fixLoad();if(loadTotal()<=0)autoFill();applyPlanet();save();updatePhaseUi();updateHud();
-  },700);
+  },700);preload(planetSet(n),function(){});
   setTimeout(function(){w.classList.remove('on');setTimeout(function(){w.classList.add('hidden');},450);
-    if(n>1&&S.arrived.indexOf(n)<0){S.arrived.push(n);var ag=addGems(ARRIVE_GEMS);save();open('_arrive',{n:n,g:ag});play('fanfare');say(n===3?'ice':n===4?'forest':'planet',0);sparkle(W/2,H*0.4,70);fangExcited(true);}
-    else{say(n===1?'home':n===3?'ice':n===4?'forest':'planet',0);fangExcited(false);}
+    if(n>1&&S.arrived.indexOf(n)<0){S.arrived.push(n);var ag=addGems(ARRIVE_GEMS);save();open('_arrive',{n:n,g:ag});play('fanfare');say(n===3?'ice':n===4?'forest':n===5?'lava':'planet',0);sparkle(W/2,H*0.4,70);fangExcited(true);}
+    else{say(n===1?'home':n===3?'ice':n===4?'forest':n===5?'lava':'planet',0);fangExcited(false);}
     hudDirty=true;},1600);
 }
 
@@ -1836,22 +2097,30 @@ function placeHand(){
 var resumed=false;
 (function resumeTrip(){ // mid-trip save: put the boat back on the river with the same goods
   var c=S.cur;if(!c||c.pl!==S.planet||!c.docks||!(c.end>c.dist))return;
-  trip={z0:c.z0,docks:c.docks,end:c.end,di:c.di|0,sold:c.sold|0,tips:c.tips|0,best:c.best|0,earned:c.earned|0,tut:false,jar:c.jar|0,lure:c.lure|0};forkNext=c.dist+20;
+  trip={z0:c.z0,docks:c.docks,end:c.end,di:c.di|0,sold:c.sold|0,tips:c.tips|0,best:c.best|0,earned:c.earned|0,tut:false,jar:c.jar|0,lure:c.lure|0,heat:c.heat||{},king:c.king||null};forkNext=c.dist+20;
   for(var k in stock)stock[k]=Math.max(0,(c.stock&&c.stock[k])|0);dist=c.dist;
   piers=[];trip.docks.forEach(function(z,j){if(j>=trip.di)piers.push({z:z,side:j%2?1:-1,kind:'dock'});});piers.push({z:trip.end,side:1,kind:'end'});
+  if(trip.king&&trip.king.done)trip.king=null;if(dist>=trip.end-0.05)dist=trip.end-0.3;lbs=[];lbNext=dist+10;
   phase='travel';spawnT=1.5;giftT=4;vipWin=0;vipNext=20+Math.random()*10;emptyNoted=stockTotal()<=0;resumed=true;
 })();
 qEnsure();mkTick();applyPlanet();
 resize();applyLang();drawMuteIcon();updatePhaseUi();updateHud();
 requestAnimationFrame(frame);
+var ldReady=false;
+(function(){var sp=$('splash'),bar=$('ldbar'),tx=$('ldtxt'),done=function(){if(ldReady)return;ldReady=true;sp.classList.add('ready');};
+  preload(coreSet().concat(planetSet(S.planet)),function(n,tot){var p=tot?Math.round(n/tot*100):100;bar.style.width=p+'%';tx.textContent=t('loading',{n:p});if(n>=tot)done();});
+  setTimeout(done,10000);
+  window.addEventListener('load',function(){setTimeout(function(){var idle=window.requestIdleCallback||function(f){setTimeout(f,1200);};
+    idle(function(){S.unlocked.forEach(function(n){if(n!==S.planet)preload(planetSet(n),function(){});});});},2500);});})();
 $('splash').addEventListener('pointerdown',function(){
-  if(!splashOn)return;splashOn=false;audioUnlock();
+  if(!splashOn||!ldReady)return;splashOn=false;audioUnlock();
   $('splash').classList.add('out');setTimeout(function(){$('splash').style.display='none';},500);
   setTimeout(function(){layout();startMusic();
     if(resumed){toast(t('resume'));say('setoff',0);return;}
     if(S.unlocked.indexOf(2)>=0&&!S.ulSeen&&S.arrived.indexOf(2)<0){S.ulSeen=true;save();open('_unlock');play('fanfare');sparkle(W/2,H*0.4,50);return;}
     if(S.unlocked.indexOf(3)>=0&&!S.ul3Seen&&S.arrived.indexOf(3)<0){S.ul3Seen=true;save();open('_unlock',{n:3});play('fanfare');say('iceopen',0);sparkle(W/2,H*0.4,50);return;}
     if(S.unlocked.indexOf(4)>=0&&!S.ul4Seen&&S.arrived.indexOf(4)<0){S.ul4Seen=true;save();open('_unlock',{n:4});play('fanfare');say('forestopen',0);sparkle(W/2,H*0.4,50);return;}
+    if(S.unlocked.indexOf(5)>=0&&!S.ul5Seen&&S.arrived.indexOf(5)<0){S.ul5Seen=true;save();open('_unlock',{n:5});play('fanfare');say('lavaopen',0);sparkle(W/2,H*0.4,50);return;}
     var off=checkOffline();if(!off){if(!S.tut.done)tutShow('intro');else say('hello',0);}
     if(mkRate()>0&&S.market.bank>=1)setTimeout(function(){toast(t('mkReady')+' · '+fmt(Math.floor(S.market.bank)));},off?400:1500);},250);
 });

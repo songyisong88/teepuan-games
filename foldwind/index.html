@@ -38,6 +38,7 @@ html,body{height:100%;overflow:hidden;background:#f4b9ae;font-family:"Kanit",sys
 .btn.y{background:#ffd23f}
 .btn.big{font-size:23px;padding:18px 22px}
 .btn.gh{background:rgba(255,255,255,.8)}
+.btn.ad{background:#fff;box-shadow:inset 0 0 0 2px #1f2a5c,0 6px 18px rgba(80,50,110,.18)}
 .btn[disabled]{opacity:.55;cursor:default}
 .stat{align-self:center;background:rgba(255,255,255,.8);border-radius:999px;padding:7px 16px;font-weight:600;font-size:16px;display:flex;align-items:center;gap:8px;color:#1f2a5c}
 .orb{display:inline-block;width:18px;height:18px;border-radius:50%;flex:none;background:radial-gradient(circle at 40% 35%,#fffbe8 0,#ffe08a 45%,#ffb950 100%);box-shadow:0 0 10px rgba(255,200,90,.8)}
@@ -377,7 +378,7 @@ const SKINS=[
  {id:'sky',th:'ฟ้าใส',en:'Clear Sky',p:500,c:'#c8e6ff',a:'#86c2f2',t:'#dff1ff'},
  {id:'lav',th:'ลาเวนเดอร์',en:'Lavender',p:800,c:'#e0d2fc',a:'#b39cef',t:'#ece2ff'},
  {id:'gold',th:'ตะวันทอง',en:'Sunset Gold',p:1200,c:'#ffe48f',a:'#ffb46a',t:'#fff0b8'},
- {id:'navy',th:'กรมท่า ไครอน',en:'Kairon Navy',p:2000,c:'#2a3874',a:'#ffd23f',t:'#ffe58a'},
+ {id:'navy',th:'กรมท่าอาร์เคด',en:'Arcade Navy',p:2000,c:'#2a3874',a:'#ffd23f',t:'#ffe58a'},
 ];
 function makeGlider(sk){const g=GB(),c=hex(sk.c),a=hex(sk.a);
   const N=[0,.02,-1.5],C=[0,0,.85],L=[-1.3,.17,.85],R=[1.3,.17,.85],ML=[-.42,.05,.85],MR=[.42,.05,.85],K=[0,-.34,.85];
@@ -634,7 +635,7 @@ function openShop(){state='shop';P.y=40;cam.ox=0;cam.oy=1;cam.oz=8;previewSkin=S
 let dblTimer=0;
 function renderOver(){clearTimeout(dblTimer);if(state!=='over')return;let ad='';
   if(!doubled&&!dblNo&&runOrbs>0&&Ads.available()){
-    if(capOk('double'))ad=`<div class="rw">${ORB}<span>${T(`รางวัล: รับลูกแสงเพิ่มอีก ${runOrbs} ลูก (×2 ของรอบนี้)`,`Reward: +${runOrbs} more orbs (×2 this run)`)}</span></div><div class="pair"><button class="btn y" id="oW">${T('ดูโฆษณา','Watch ad')}</button><button class="btn" id="oN">${T('ไม่เป็นไร','No thanks')}</button></div>`;
+    if(capOk('double'))ad=`<div class="rw">${ORB}<span>${T(`รางวัล: รับลูกแสงเพิ่มอีก ${runOrbs} ลูก (×2 ของรอบนี้)`,`Reward: +${runOrbs} more orbs (×2 this run)`)}</span></div><div class="pair"><button class="btn ad" id="oW">${T('ดูโฆษณา','Watch ad')}</button><button class="btn" id="oN">${T('ไม่เป็นไร','No thanks')}</button></div>`;
     else if(capLeft('double')>0){const w=Math.ceil(capWait('double'));ad=`<p class="sub" style="margin-top:12px">${T(`รางวัล ×2 พร้อมอีกใน ${w} วินาที`,`×2 reward ready in ${w}s`)}</p>`;dblTimer=setTimeout(renderOver,1000)}
     else ad=`<p class="sub" style="margin-top:12px">${T('รางวัล ×2 ของวันนี้ครบแล้ว','×2 reward used up for today')}</p>`}
   $('ovCard').innerHTML=`<h2>${T('ร่อนลงแล้ว','Flight over')}</h2><p class="sub">${WHY[crashWhy]?WHY[crashWhy]():''}</p>
@@ -710,11 +711,6 @@ let lastT=performance.now(),qAcc=0,qN=0,fpsAvg=60;
 function quality(dt){if(state!=='play'||qLock)return;qAcc+=dt;qN++;if(qAcc>3){const avg=qAcc/qN;fpsAvg=1/avg;qAcc=0;qN=0;if(avg>.021&&QUAL>.75){QUAL=Math.max(.75,Math.min(QUAL,DPR)-.25);resize()}}}
 function frame(t){requestAnimationFrame(frame);let dt=(t-lastT)/1000;lastT=t;if(!(dt>0))dt=0;if(dt>.1)dt=.1;
   try{if(!adOn)update(dt);render();hud();quality(dt)}catch(e){console.error(e);throw e}}
-window.__fw={get state(){return state},P,S,get dist(){return dist},get runOrbs(){return runOrbs},get chunks(){return chunks},start:startRun,crash:w=>crash(w),Ads,
-  orbAhead(dz){const z=P.z-dz,t=dz/P.spd;const c=chunks.get(Math.floor(-z/CL));c.orbs.push({x:P.x+P.vx*t,y:P.y+P.vy*t,z,t:0})},
-  rockAhead(dz){const z=P.z-dz;const c=chunks.get(Math.floor(-z/CL));c.rocks.push({v:0,x:P.x,y:P.y,z,r:1.8,yaw:0,sp:0})},
-  clearAhead(){for(const c of chunks.values()){c.rocks=[];c.birds=[];c.isl=[]}},
-  giveOrbs(n){S.orbs+=n;save();renderAll()},adAge(ms){Ads._dbg.age(ms)},qual(q){QUAL=q;qLock=true;resize()},get fps(){return fpsAvg},get draws(){return drawCalls},setLang};
 function boot(){try{if(!gl)throw new Error('no webgl');initGL();buildAssets()}catch(e){console.error(e);const n=$('nogl');n.style.display='flex';n.textContent=T('อุปกรณ์นี้ยังไม่รองรับภาพ 3 มิติ (WebGL) ลองเปิดด้วย Chrome หรือ Safari รุ่นใหม่','This device does not support 3D graphics (WebGL). Try a recent Chrome or Safari.');return}
   if(S.tilt&&TILT_OK&&!(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'))startTilt();
   document.documentElement.lang=LANG;resetWorld(7);resetP(13);showScreen('sMenu');renderAll();resize();requestAnimationFrame(frame)}

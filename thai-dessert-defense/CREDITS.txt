@@ -1,0 +1,8 @@
+ศึกพิทักษ์อาณาจักรขนมไทย / Thai Dessert Kingdom Defense — Kairon Arcade (ห้องเกม ไครอน)
+
+Code: original, written for Kairon Arcade. No third-party code or libraries.
+Art: the painted heroes, ants, crows, ant queen, maps, pads, icons and sweets (art/*.webp) were generated with an AI image tool specifically for this game and cut out / cleaned by our own script. Character faces, blinking, expressions, motion and all effects are drawn live in code (HTML5 canvas).
+Music & sound effects: original, synthesised procedurally in Python (numpy) by our own script. No samples.
+Voice lines (Thai): generated with VachanaTTS voice "th_f_2" (VIZINTZOR/VachanaTTS on Hugging Face, model license: MIT), then pitch-shifted by our own ffmpeg script. MIT permits commercial use.
+Font: Kanit by Cadson Demak — SIL Open Font License 1.1 (fonts/OFL-Kanit.txt), self-hosted.
+Ads: this build contains only a placeholder (mock) ad screen for testing. No real ad network or IDs.

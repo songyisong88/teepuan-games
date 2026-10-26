@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<script data-kz src="../no-zoom.js"></script>
+<meta name="theme-color" content="#162a66">
+<link rel="icon" href="logo.png">
+<title>ทหารของเล่นพิทักษ์ห้องหนู · Toy Soldiers of the Playroom · Kairon Arcade</title>
+<meta name="description" content="ทหารของเล่นพิทักษ์ห้องหนู เกมลากนิ้วพาทีมทหารไม้ลุยห้องนอน จาก Kairon Arcade">
+<link rel="stylesheet" href="style.css?v=733e19dd">
+</head>
+<body>
+<div id="game">
+  <canvas id="scene"></canvas>
+  <div id="hud" class="hidden">
+    <div class="pill lvpill">ด่าน <b id="lvn">1</b></div>
+    <div class="pill coinpill"><img src="art/i_coin.webp" alt=""><b id="coins">0</b></div>
+    <button class="round sndb" id="btn-snd" aria-label="sound"></button>
+    <button class="round" id="btn-pause" aria-label="pause"><svg viewBox="0 0 24 24"><rect x="6" y="5" width="4.5" height="14" rx="1.6"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.6"/></svg></button>
+    <div id="prog"><div id="progfill"></div><img id="progboss" alt="" src="art/boss1.webp"></div>
+  </div>
+  <div id="bossbox" class="hidden"><div id="bossname"></div><div class="bar"><i id="bossfill"></i></div></div>
+  <div id="banner" class="hidden"><b id="banner-t"></b></div>
+  <div id="toast"></div>
+  <div id="screen" class="hidden"></div>
+  <div id="modal" class="hidden"><div id="sheet"></div></div>
+  <div id="ad" class="hidden"></div>
+  <div id="splash">
+    <div class="sp-top"><div class="t1" data-t="title"></div><div class="t2" data-t="title2"></div><div class="tsub" data-t="sub"></div></div>
+    <div class="sp-bot">
+      <div class="loadbox"><span data-t="loading"></span><div class="lb"><i id="loadp"></i></div></div>
+      <button class="btn yellow big hidden" id="btn-start" data-t="tapStart"></button>
+      <div class="brand"><img src="logo.png" alt="">Kairon Arcade · ห้องเกม ไครอน</div>
+    </div>
+  </div>
+</div>
+<script>/* ad backend: mock (website build) - no SDK, no network, no ad IDs; the game shows its own clearly-labelled test ad */
+window.DDAds={name:'mock',ready:function(){return true;}};</script>
+<script src="game.js?v=733e19dd"></script>
+</body>
+</html>

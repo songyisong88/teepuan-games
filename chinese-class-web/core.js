@@ -25,8 +25,15 @@ function llama(pose,size,{acc=false,cls='',style=''}={}){let a='';if(acc){for(co
 let zhVoice=null;
 function pickVoice(){try{const vs=speechSynthesis.getVoices();zhVoice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null}catch(e){}}
 try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
-function speak(t,btn){vib(8);if(btn){btn.classList.remove('playing');void btn.offsetWidth;btn.classList.add('playing')}
- try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=.8;if(zhVoice)u.voice=zhVoice;speechSynthesis.speak(u)}catch(e){}}
+/* เสียง: mp3 จริง (สร้างจากเสียงสังเคราะห์) ถ้าไม่มีไฟล์/เล่นไม่ได้ ค่อยถอยไปใช้เสียงอ่านของเบราว์เซอร์ */
+let curAudio=null,seqTok=0;
+const audioUrl=(t,role)=>{const h=window.AUDIO_INDEX&&AUDIO_INDEX[(role==='f'?'f|':'')+t];return h?'audio/'+h+'.mp3':null};
+function stopAudio(){seqTok++;try{curAudio&&curAudio.pause()}catch(e){}curAudio=null;try{speechSynthesis.cancel()}catch(e){}}
+function playOne(t,role,done){const tts=()=>{try{const u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=.8;if(role==='f')u.pitch=1.25;if(zhVoice)u.voice=zhVoice;u.onend=u.onerror=()=>done&&done();speechSynthesis.speak(u)}catch(e){done&&done()}};
+ const url=audioUrl(t,role);if(!url){tts();return}let fell=false;const fb=()=>{if(!fell){fell=true;tts()}};
+ try{const a=new Audio(url);curAudio=a;a.onended=()=>done&&done();a.onerror=fb;const p=a.play();if(p&&p.catch)p.catch(fb)}catch(e){fb()}}
+function speak(t,btn,role,done){vib(8);if(btn){btn.classList.remove('playing');void btn.offsetWidth;btn.classList.add('playing')}stopAudio();try{bumpCnt('audio',1)}catch(e){}playOne(t,role||(btn&&btn.dataset&&btn.dataset.r)||'',done)}
+function speakSeq(items){stopAudio();const tok=seqTok;let i=0;const step=()=>{if(tok!==seqTok||i>=items.length)return;const it=items[i++];playOne(it.t,it.r,()=>setTimeout(step,250))};step()}
 
 /* ---------- toast / xp / confetti ---------- */
 let toastT;
@@ -41,8 +48,8 @@ function confetti(n=90){const cv=$('#fx'),f=$('#frame');cv.width=f.clientWidth;c
 function bumpChips(){['cs','cc'].forEach(id=>{$$('#'+id).forEach(e=>{e.textContent=id==='cs'?curStreak():S.coins;e.parentElement.classList.remove('bump');void e.offsetWidth;e.parentElement.classList.add('bump')})})}
 
 /* ---------- ให้รางวัล ---------- */
-function addXp(n,el){if(n<=0)return false;S.xp+=n;S.xpDay[today()]=dayXp()+n;const first=touchStreak();save();if(el)floatXp('+'+n+' XP',el);if(first){setTimeout(()=>{toast('🔥 สตรีควันที่ '+S.streak+' แล้ว!');vib([20,40,20])},400)}return first}
-function addCoins(n){S.coins+=n;S.coinsEarned+=Math.max(0,n);save();bumpChips()}
+function addXp(n,el,pre){if(n<=0)return false;if(!pre)n=evX(n);S.xp+=n;S.xpDay[today()]=dayXp()+n;const first=touchStreak();save();if(el)floatXp('+'+n+' XP',el);if(first){setTimeout(()=>{toast('🔥 สตรีควันที่ '+S.streak+' แล้ว!');vib([20,40,20])},400)}try{buddyTick()}catch(e){}return first}
+function addCoins(n,pre){if(n>0&&!pre)n=evC(n);S.coins+=n;S.coinsEarned+=Math.max(0,n);save();bumpChips()}
 
 /* ---------- นำทาง ---------- */
 let stack=[],curTab='home',tabScroll={};
@@ -98,7 +105,7 @@ function welcome(){const w=document.createElement('div');w.className='welcome';c
 
 /* ---------- ตัวจัดการคลิก ---------- */
 function go(what,el){switch(what){
- case 'streak':return openSheet(`<div class="center" style="padding:0 24px"><div style="width:150px;height:150px;margin:0 auto">${M('streak')}</div><div class="h2 mt8">สตรีค ${curStreak()} วัน 🔥</div><p style="color:var(--sub2);margin:6px 0 16px;font-size:15px">ได้ XP หรือเหรียญจากบทเรียนหรือเกมอย่างน้อย 1 ครั้งต่อวัน สตรีคก็ไม่ขาด</p><button class="pill sm press" data-act="closesheet">เข้าใจแล้ว</button></div>`);
+ case 'streak':return streakSheet();
  case 'shop':return push('shop');
  case 'review':return push('review');
  case 'plans':return push('plans');
@@ -110,8 +117,9 @@ function go(what,el){switch(what){
  case 'challenge':return pickFriend();
  case 'group':return push('group',{i:+el.dataset.i||0});
  case 'lineentry':return location.href='line.html';
- case 'lesson':return lessonSheet(+el.dataset.id);
+ case 'unit':return unitSheet(el.dataset.id);
  case 'play':return playGame(el.dataset.g);
+ default:if(window.GOX&&GOX[what])return GOX[what](el);console.warn('go?',what)
 }}
 function playGame(g){if(gameWords().length<4){toast('เรียนบทที่ 1 ให้จบก่อนเพื่อปลดล็อกเกม');return}if(g==='duel')return pickFriend();push('game_'+g)}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-act]');if(!t||!$('#frame').contains(t))return;
@@ -120,14 +128,14 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-
   case 'back':vib(6);pop();break;
   case 'closesheet':closeSheet();break;
   case 'tab':if(t.dataset.tab!==curTab||stack.length>1){vib(6);mountRoot(t.dataset.tab,true)}else{const sc=$('.scroller',stack[0].el);sc.scrollTo({top:0})}break;
-  case 'welcome':S.seenWelcome=true;if(t.dataset.v==='line'&&!S.from){S.from='line'}save();vib(10);{const w=$('.welcome');anim(w,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-30px)'}],{duration:400});setTimeout(()=>w.remove(),400)}break;
-  case 'audio':speak(t.dataset.t,t);break;
+  case 'welcome':S.seenWelcome=true;if(t.dataset.v==='line'&&!S.from){S.from='line'}save();vib(10);{const w=$('.welcome');anim(w,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-30px)'}],{duration:400});setTimeout(()=>{w.remove();if(!S.seenOnboard)push('onboard')},400)}break;
+  case 'audio':speak(t.dataset.t,t,t.dataset.r);break;
  }});
 
 /* ---------- เริ่มระบบ ---------- */
 function boot(){
  $('#tabbar').innerHTML=TABS.map(([k,l])=>`<button class="tab" data-act="tab" data-tab="${k}">${svg(IC[k],25)}<span>${l}</span></button>`).join('');
  $('#tabbar svg').closest('.tab');$$('#tabbar svg').forEach(s=>{s.setAttribute('width',25);s.style.fill='none'});
- mountRoot('home',false);if(!S.seenWelcome||new URLSearchParams(location.search).get('from')==='line'&&!S.from)welcome();
+ mountRoot('home',false);try{dailyCheck()}catch(e){console.error(e)}if(!S.seenWelcome||new URLSearchParams(location.search).get('from')==='line'&&!S.from)welcome();
 }
 window.addEventListener('error',e=>console.error('ERR',e.message));

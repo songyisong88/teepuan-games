@@ -48,8 +48,3 @@ SC.game_boss=()=>({noRefresh:true,nav:gnav('บอสหมึกยักษ์
   hud();show();this.stop=()=>{alive=false;clearInterval(mates)}},unmount(){this.stop&&this.stop()}});
 
 /* ----- สตรีคขาด ----- */
-function checkStreakLost(){if(S.streak>=2&&S.lastDay<today()-1&&S.lostShown!==today()&&!$('.sheet')){S.lostShown=today();save();const lost=S.streak,can=S.coins>=50||S.invited>=3;
- openSheet(`<div class="center" style="padding:0 24px"><div style="width:170px;height:170px;margin:0 auto">${M('streaklost')}</div><div class="h2 mt8">สตรีค ${lost} วันขาดแล้ว</div><p style="color:var(--sub2);margin:6px 0 18px;font-size:15px">ไม่เป็นไรนะ ${MASCOT_NAME}เข้าใจ เริ่มใหม่วันนี้ก็ได้ หรือใช้เหรียญกู้สตรีคกลับมา</p>
-  <button class="pill sm press" id="rs" ${can?'':'disabled'}><b>กู้สตรีค ${lost} วัน</b><small>${S.invited>=3?'ใช้ตั๋วกันสตรีค 🎟️':'50 เหรียญ (จำลอง)'}</small></button><button class="pill sm ghost press mt12" id="nw">เริ่มสตรีคใหม่</button><p class="cap mt12"><span class="demo">ตัวอย่างทดลอง</span></p></div>`,
-  {onMount:sh=>{$('#rs',sh).onclick=()=>{if(S.invited>=3)S.invited-=3;else S.coins-=50;S.lastDay=today()-1;save();closeSheet();bumpChips&&bumpChips();toast('🔥 กู้สตรีคกลับมาแล้ว');refresh()};$('#nw',sh).onclick=()=>{S.streak=0;save();closeSheet();refresh()}}})}}
-document.addEventListener('DOMContentLoaded',()=>setTimeout(checkStreakLost,1000));

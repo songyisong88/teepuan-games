@@ -21,7 +21,7 @@ SC.games=()=>{const gw=gameWords(),lock=gw.length<4,b=S.gameBest;
   ${ROW('#EAF1FB','🏆','ลีกประจำสัปดาห์','ดูอันดับของคุณ',undefined,'data-go="rank"')}
  </div><p class="cap center" style="padding:16px 30px 0">คำในเกมมาจากบทที่เรียนจบแล้วเท่านั้น · ข้อที่พลาดจะไปอยู่ในรายการทบทวน</p>${DEMO}`}};
 const gnav=t=>`<header class="nav"><div class="nav-l"><button class="back" data-sa="gquit">${BACKI}<span>ออก</span></button></div><div class="nav-t" style="opacity:1;transform:none">${t}</div><div class="nav-r"></div></header>`;
-function gameEnd(el,g,score,{xp,coins,sub,mascot,stats,title}){addXp(xp);addCoins(coins);if(score>(S.gameBest[g]||0))S.gameBest[g]=score;save();
+function gameEnd(el,g,score,{xp,coins,sub,mascot,stats,title}){xp=evX(xp);coins=evC(coins);addXp(xp,null,1);addCoins(coins,1);bumpCnt('game',1);if(score>(S.gameBest[g]||0))S.gameBest[g]=score;save();
  replace('result',{title:title||({catch:'จับคำ',mem:'จับคู่ความจำ',speed:'รอบเร็ว',speak:'ฝึกพูด',listen:'ฝึกฟัง',boss:'บอสหมึกยักษ์'}[g]||'ผลลัพธ์'),mascot,sub,xp,coins,stats,retry:g,share:{kind:'score',text:sub}})}
 function gameQuit(el){el.addEventListener('click',e=>{if(e.target.closest('[data-sa=gquit]'))pop()})}
 
@@ -76,7 +76,7 @@ SC.duel=({f})=>({noRefresh:true,nav:gnav('ดวลกับ '+f.n),body:'<div c
   stage.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock||!alive)return;lock=true;const q=qs[i],k=+o.dataset.i,ok=k===q.ans;$$('.opt',stage).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===k)x.classList.add('bad')});
    if(ok){me++;vib(10)}else{addMistake(q.w);vib([25,30,25])}$('#ys',el).textContent=me;i++;$('#yp',el).style.width=i/5*100+'%';
    setTimeout(()=>{if(i>=5)fin();else show()},650)};
-  function fin(){alive=false;clearInterval(ft);const futureF=fr+Math.round((5-fd)*p);const win=me>futureF||(me===futureF&&fd<5);if(win)S.duelWins++;const xp=win?20:8,coins=win?25:5;addXp(xp);addCoins(coins);save();
+  function fin(){alive=false;clearInterval(ft);const futureF=fr+Math.round((5-fd)*p);const win=me>futureF||(me===futureF&&fd<5);if(win)S.duelWins++;let xp=evX(win?20:8),coins=evC(win?25:5);if(win&&evOn('duelday'))coins+=30;addXp(xp,null,1);addCoins(coins,1);bumpCnt('game',1);bumpCnt('social',1);save();
    replace('result',{title:win?'คุณชนะ!':'แพ้นิดเดียว',mascot:win?'celebrate':'wrong',sub:`คุณ ${me} - ${futureF} ${f.n}`,xp,coins,stats:[['คุณ',me+'/5'],[f.n,futureF+'/5']],retry:null,share:{kind:win?'win':'lose',text:`ฉัน ${me}-${futureF} ${f.n}`,f}})}
   stage.innerHTML=`<div class="center pop" style="padding-top:6px"><div style="width:210px;height:210px;margin:0 auto">${M('duel')}</div><div class="large" style="padding:0">คุณ VS ${f.n}</div><p class="cap mt8">เตรียมตัว! 5 ข้อ ตอบให้เร็วและถูก</p></div>`;setTimeout(()=>{if(alive)show()},1400);this.stop=()=>{alive=false;clearInterval(ft)}},unmount(){this.stop&&this.stop()}});
 

@@ -16,7 +16,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .top{background:#fff;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 10px;display:flex;align-items:center;gap:10px;border-bottom:.5px solid #ddd}
 .top .av{width:38px;height:38px;border-radius:50%;background:#FAF7F2;overflow:hidden;padding:2px}.top img{width:100%;height:100%;object-fit:contain}
 .top b{font-size:16px;display:block}.top small{color:#06A94D;font-size:12px}
-.demo{margin-left:auto;font-size:11px;font-weight:600;color:#8A6B4A;background:#F3E7D6;border-radius:8px;padding:3px 9px}
+.q.on{display:block}.demo{white-space:nowrap;cursor:pointer;border:0;font-family:inherit;margin-left:auto;font-size:11px;font-weight:600;color:#8A6B4A;background:#F3E7D6;border-radius:8px;padding:3px 9px}
 .chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
 .m{display:flex;gap:8px;align-items:flex-end}.m .b{background:#fff;border-radius:18px;padding:10px 14px;font-size:15px;max-width:76%}
 .m .av{width:32px;height:32px;border-radius:50%;background:#FAF7F2;overflow:hidden;flex:none;padding:2px}.m .av img{width:100%;height:100%;object-fit:contain}
@@ -33,29 +33,59 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ld.on{display:flex}.ld img{width:200px;animation:fl 1.6s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-8px)}}
 .sp{width:34px;height:34px;border:3px solid #EBE3D9;border-top-color:#C8102E;border-radius:50%;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
 .url{font-size:12px;color:#6F655F;background:#fff;border-radius:10px;padding:5px 12px;font-family:ui-monospace,monospace}
+
+.m.me{justify-content:flex-end}.m.me .b{background:#06C755;color:#fff;border-radius:18px 18px 4px 18px}
+.m .b{border-radius:18px 18px 18px 4px}
+.flex{background:#fff;border-radius:18px;overflow:hidden;width:72%;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.flex .hd{background:var(--tint,#FCEFEF);padding:12px 14px 0;display:flex;align-items:flex-end;justify-content:space-between}
+.flex .hd img{width:92px;height:92px;object-fit:contain}.flex .hd b{font-size:16px;line-height:1.3;flex:1;padding-bottom:12px}
+.flex .bd{padding:10px 14px;font-size:13.5px;color:#6F655F;line-height:1.5}
+.flex .bt{margin:0 12px 12px;display:block;width:calc(100% - 24px);background:#06C755;color:#fff;border-radius:10px;padding:10px;font-weight:700;font-size:14px;text-align:center}
+.q{display:none;position:absolute;right:12px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:3;background:#fff;border-radius:14px;padding:8px 12px;box-shadow:0 4px 14px rgba(0,0,0,.15);font-size:11.5px;width:190px}
+.q .bar{height:6px;border-radius:3px;background:#EEE6DB;margin:5px 0 4px;overflow:hidden}.q .bar i{display:block;height:100%;background:#06C755;border-radius:3px;transition:width .4s}
+.q button{margin-top:6px;width:100%;background:#F8F3EC;border-radius:8px;padding:6px;font-size:11.5px;font-weight:600}
+.q small{color:#8A7F76;display:block;line-height:1.35}
+.t span{display:block;font-size:10px;font-weight:500;color:#9A9089;margin-top:2px}.t.main span{color:#fff;opacity:.8}
 </style>
 </head>
 <body>
 <div id="f">
- <div class="top"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div><b>บัญชี LINE OA (ชื่อยังไม่กำหนด)</b><small>หน้าจำลอง · ชื่อจริงยังไม่ได้เลือก</small></div><span class="demo">ตัวอย่างทดลอง</span></div>
- <div class="chat">
+ <div class="top"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div><b>LINE OA (ชื่อยังไม่กำหนด)</b><small>หน้าจำลอง · ชื่อจริงยังไม่ได้เลือก</small></div><button class="demo" id="qtg">โควต้า 0/300 ▾</button></div>
+ <div class="chat" id="chat">
   <div class="note">วันนี้ 08:30</div>
   <div class="m"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div class="b"><span data-mn></span>มาแล้ว! 👋 วันนี้ยังไม่ได้เรียนจีนเลย กดเมนูด้านล่างเพื่อเริ่มได้เลย</div></div>
-  <div class="m"><div class="av"><img src="assets/mascot/streak.png" alt=""></div><div class="b">🔥 สตรีคของคุณกำลังรออยู่ เรียนแค่ 5 นาทีก็นับเป็นหนึ่งวัน</div></div>
-  <div class="note" style="background:rgba(0,0,0,.18)">นี่คือหน้าตัวอย่างของแชต LINE OA ที่เป็น “ประตูทางเข้า” — ห้องเรียนจริงอยู่บนเว็บ</div>
+  <div class="note" style="background:rgba(0,0,0,.18)">หน้าจำลองแชต LINE OA — ลองแตะริชเมนู บอทจะตอบกลับเหมือนจริง (ข้อความตอบกลับไม่นับโควต้า ส่วนข้อความที่บอทส่งหาเองจะนับ)</div>
  </div>
+ <div class="q" id="q"><b>โควต้าข้อความ (จำลอง)</b><div class="bar"><i id="qb" style="width:0"></i></div><span id="qt">ใช้ไป 0/300 ข้อความเดือนนี้</span><small>แพ็กเกจฟรีของ LINE OA ในไทย = 300 push ต่อเดือน (นับต่อผู้รับ)</small><button id="qpush">ลองให้บอทส่งเตือนหาเอง (นับโควต้า)</button></div>
  <div class="rich"><h6>ริชเมนู (ตัวอย่าง)</h6><div class="grid">
-  <button class="t main" data-to="index.html?from=line"><i>📖</i>เรียนวันนี้</button>
-  <button class="t" data-to="index.html?from=line"><i>🎮</i>เล่นเกม</button>
-  <button class="t" data-to="index.html?from=line"><i>🏆</i>อันดับ</button>
-  <button class="t" data-to="index.html?from=line"><i>⚔️</i>ท้าเพื่อน</button>
-  <button class="t" data-to="index.html?from=line"><i>💌</i>ชวนเพื่อน</button>
-  <button class="t" data-to="index.html?from=line"><i>⭐</i>แผนและราคา</button></div>
-  <p class="hint">แตะเมนูใดก็ได้ จะเปิดเว็บห้องเรียน (เหมือนเปิดจาก LINE)</p></div>
+  <button class="t main" data-uri="index.html?from=line"><i>📖</i>เรียนวันนี้<span>เปิดเว็บ (LIFF)</span></button>
+  <button class="t" data-msg="streak"><i>🔥</i>สตรีคของฉัน<span>ตอบกลับ · ฟรี</span></button>
+  <button class="t" data-msg="word"><i>💡</i>คำวันนี้<span>ตอบกลับ · ฟรี</span></button>
+  <button class="t" data-msg="duel"><i>⚔️</i>ท้าเพื่อน<span>การ์ด Flex</span></button>
+  <button class="t" data-msg="tutor"><i>🤖</i>ถามพี่ลามา<span>แชตกับติวเตอร์</span></button>
+  <button class="t" data-uri="index.html?from=line"><i>🏆</i>อันดับห้อง<span>เปิดเว็บ (LIFF)</span></button></div>
+  <p class="hint">เมนูแบบ “ข้อความ” ตอบฟรีไม่จำกัด · เมนูแบบ “ลิงก์” เปิดเว็บห้องเรียน</p></div>
  <div class="ld" id="ld"><img src="assets/mascot/read.png" alt=""><div class="sp"></div><b>กำลังเปิดห้องเรียนจาก LINE…</b><span class="url">liff.line.me/…-lama-demo</span><span style="font-size:12px;color:#9A9089">จำลอง · ไม่ได้เชื่อมต่อ LINE จริง</span></div>
 </div>
 <script>
-document.querySelectorAll('[data-to]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}document.getElementById('ld').classList.add('on');setTimeout(()=>location.href=b.dataset.to,1100)});
+const $=s=>document.querySelector(s),chat=$('#chat');let sent=+(localStorage.getItem('lama-line-quota')||0);
+const KEY='lama-cn-web-demo-v2';let S={};try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
+const streak=S.streak||0,xp=S.xp||0;
+const mn=()=>window.MASCOT_NAME||'พี่ลามา';
+function quota(){$('#qtg').textContent='โควต้า '+sent+'/300 ▾';$('#qb').style.width=Math.min(100,sent/3)+'%';$('#qt').textContent='ใช้ไป '+sent+'/300 ข้อความเดือนนี้';$('#qb').style.background=sent>=270?'#C8102E':'#06C755'}
+const bot=(h,img='wave')=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/'+img+'.png" alt=""></div><div class="b">'+h+'</div></div>');chat.scrollTop=9e4};
+const me=t=>{chat.insertAdjacentHTML('beforeend','<div class="m me"><div class="b">'+t+'</div></div>');chat.scrollTop=9e4};
+const flex=(o)=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div class="flex" style="--tint:'+o.tint+'"><div class="hd"><b>'+o.t+'</b><img src="assets/mascot/'+o.img+'.png" alt=""></div><div class="bd">'+o.d+'</div><button class="bt" data-uri="'+o.uri+'">'+o.cta+'</button></div></div>');chat.scrollTop=9e4;bindU()};
+const WORDS=[['谢谢','xièxie','ขอบคุณ'],['你好','nǐ hǎo','สวัสดี'],['朋友','péngyou','เพื่อน'],['再见','zàijiàn','แล้วพบกันใหม่']];
+const R={streak:()=>{me('สตรีคของฉัน');setTimeout(()=>bot(streak?'🔥 สตรีคของคุณ <b>'+streak+' วัน</b> · XP รวม '+xp+'<br><small>(อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริง จะอ่านจากบัญชีของคุณ)</small>':'ยังไม่มีสตรีค เริ่มวันนี้ได้เลย! เรียนแค่ 3 นาทีก็นับหนึ่งวัน','streak'),500)},
+ word:()=>{me('คำวันนี้');const w=WORDS[new Date().getDate()%4];setTimeout(()=>bot('💡 คำวันนี้: <b style="font-size:22px">'+w[0]+'</b><br>'+w[1]+' = '+w[2]+'<br><small>ฟังเสียงและฝึกใช้ต่อในเว็บ</small>','teach'),500)},
+ duel:()=>{me('ท้าเพื่อน');setTimeout(()=>flex({tint:'#FDF3E6',t:'ท้าดวลศัพท์จีนกับฉัน!',img:'duel',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในเดโมนี้ยังไม่ได้เชื่อมต่อ)',cta:'รับคำท้า',uri:'index.html?from=line'}),500)},
+ tutor:()=>{me('ถามพี่ลามา');setTimeout(()=>bot('สวัสดี! พิมพ์คำศัพท์หรือคำถามภาษาจีนมาได้เลย 💬<br><small>ในเว็บจริงติวเตอร์ตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) — ถ้าต่อ AI จริงจะตอบได้ทุกเรื่อง</small>','listening'),500);setTimeout(()=>flex({tint:'#E7F8EE',t:'คุยกับติวเตอร์ต่อในเว็บ',img:'teach',d:'ซ้อมสนทนา ขอคำศัพท์ แก้ประโยค',cta:'เปิดติวเตอร์',uri:'index.html?from=line'}),1100)}};
+function bindU(){document.querySelectorAll('[data-uri]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}$('#ld').classList.add('on');setTimeout(()=>location.href=b.dataset.uri,1100)})}
+bindU();document.querySelectorAll('[data-msg]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}R[b.dataset.msg]()});
+$('#qtg').onclick=()=>$('#q').classList.toggle('on');
+$('#qpush').onclick=()=>{sent=Math.min(300,sent+1);localStorage.setItem('lama-line-quota',sent);quota();bot('⏰ เตือน: สตรีคกำลังจะขาด! แตะเมนูเรียนต่อได้เลย <small style="display:block;color:#C8102E">ข้อความนี้เป็น push — นับโควต้า (+1)</small>','sleepy')};
+quota();
 </script>
 <script src="config.js"></script><script>document.querySelectorAll("[data-mn]").forEach(e=>e.textContent=MASCOT_NAME)</script>
 </body>

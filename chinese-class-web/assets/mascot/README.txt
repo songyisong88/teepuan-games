@@ -1,3 +1,5 @@
-มาสคอตลามะหมึก (M7) — เปลี่ยนรูปได้โดยแทนที่ไฟล์ชื่อเดียวกัน (PNG 512 พื้นหลังโปร่งใส ตัวยืนชิดล่าง (ใช้ไฟล์ PIXEL final/ink-set จัดเท้าชิดเส้นล่าง)
-wave correct wrong celebrate chest locked empty notfound streak teach bow read write teacher student brush story tea lantern plum travel
-(รูปชั่วคราวจากชุด ink-set p01–p20 รอ PIXEL ทำท่าเพิ่ม: correct/wrong/celebrate/chest/locked/empty/404/streak)
+มาสคอตลามะหมึก (M7) — PNG 512 พื้นหลังโปร่งใส ตัวยืนชิดล่าง
+39 ท่า มาจากชุด PIXEL final/ink-set (p01–p20, q01–q08, r01–r10, s01–s08 — s02 และ s08 ไม่ได้ใช้เป็นเพื่อนร่วมห้อง)
+เปลี่ยนรูปได้โดยแทนที่ไฟล์ชื่อเดียวกัน (ชื่อไฟล์ = ชื่อท่าที่เรียกใน M('ชื่อท่า'))
+ท่า: ดูรายชื่อไฟล์ในโฟลเดอร์นี้ · รูปเพื่อนร่วมห้อง: ../friends/
+ชื่อตัวละครและชื่อแอปเป็นชื่อชั่วคราว แก้ได้ที่ config.js ที่เดียว

@@ -5,38 +5,43 @@ let rankTab=0;
 function leagueRows(){const me=['คุณ',weekXp()];const all=[...LEAGUE,me].sort((a,b)=>b[1]-a[1]);let o='';
  all.forEach((p,i)=>{if(i===0)o+=`<div class="zone">▲ 5 อันดับแรกเลื่อนขึ้นลีกถัดไป</div>`;if(i===all.length-3)o+=`<div class="zone d">▼ 3 อันดับสุดท้ายตกลีก</div>`;
   const isMe=p===me;o+=`<div class="lrow ${isMe?'me':''}"><span class="rk">${i+1}</span>${isMe?`<span class="av" style="background:var(--red)">ฉ</span>`:avatar(p[0],AVC[(p[0].charCodeAt(0))%6])}<span style="flex:1;font-weight:${isMe?700:500}">${p[0]}${isMe?' (คุณ)':''}</span><span class="val" style="font-weight:600;color:var(--ink)">${p[1]} XP</span></div>`});return o}
+
+const CLASSWAR=[['ห้องจีนมือใหม่ 🐑',0],['ห้องสายซีรีส์ 📺',610],['ชมรมจีนเที่ยวไทย ✈️',560],['ทีมติว HSK 1',520],['ห้องสายธุรกิจ 💼',470]];
+function classRows(){const d=(today()+3)%7+1;const mine=CLASSWAR[0];
+ const rows=CLASSWAR.map((c,i)=>i===0?{n:c[0],xp:430+d*95+weekXp(),me:1}:{n:c[0],xp:c[1]-60+d*(88+i*9)});rows.sort((a,b)=>b.xp-a.xp);return rows}
+function classBody(){const rows=classRows(),pos=rows.findIndex(r=>r.me)+1,me=rows[pos-1],ahead=rows[pos-2];
+ const gap=ahead?ahead.xp-me.xp:0;
+ return `<div class="card pad2 mt16" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1"><div class="cap">สงครามห้องเรียน · สัปดาห์นี้</div><b style="font-size:18px">ห้องเราอยู่อันดับ ${pos} จาก ${rows.length}</b><div class="cap mt8">${ahead?`ตามห้อง “${ahead.n}” อยู่ ${gap} XP — XP ที่คุณหาได้ช่วยห้องเราขึ้นไปด้วย`:'นำอยู่! ช่วยกันรักษาอันดับไว้'}</div></div><div style="width:92px;height:92px;flex:none">${M(pos===1?'trophy':'duel')}</div></div>
+ <div class="group">${rows.map((r,i)=>`<div class="lrow ${r.me?'me':''}"><span class="rk">${i+1}</span><span class="av" style="background:${r.me?'var(--red)':AVC[i%6]}">${r.n[0]}</span><span style="flex:1;font-weight:${r.me?700:500}">${r.n}${r.me?' (ห้องเรา)':''}</span><span class="val" style="font-weight:600;color:var(--ink)">${r.xp} XP</span></div>`).join('')}</div>
+ <div class="pad mt16"><button class="pill sm linebtn row1 press" data-sa="cwshare">ส่งคำท้า “ห้องต่อห้อง” ลงกลุ่ม LINE</button></div>
+ <p class="cap center" style="padding:12px 30px 0">ห้องอื่นและคะแนนเป็นข้อมูลสมมติ · ของจริงต้องมีระบบหลังบ้านรวมคะแนนจากทุกกลุ่ม LINE ที่เชิญบอทเข้าไป</p>`}
 function rankBody(t){
+ if(t===3)return classBody();
  if(t===0)return `<div class="card pad2 mt16" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1"><div class="cap">ลีกบรอนซ์ · เหลืออีก 3 วัน</div><b style="font-size:18px">XP ของคุณสัปดาห์นี้ ${weekXp()}</b><div class="cap mt8">ได้ XP จากบทเรียนและเกมเพื่อไต่อันดับ</div></div><div style="width:96px;height:96px;flex:none">${M('trophy')}</div></div><div class="group">${leagueRows()}</div><p class="cap center" style="padding:12px 30px 0">คู่แข่งในลีกเป็นข้อมูลสมมติ (ตัวอย่างทดลอง)</p>`;
  if(t===1)return `<div class="card pad2 mt16" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="cap">รหัสชวนของฉัน</div><b style="font-size:22px;letter-spacing:1px">${S.inviteCode}</b></div><div style="width:70px;height:70px">${M('bow')}</div></div>
    <div class="prog mt12"><i style="width:${Math.min(1,S.invited/3)*100}%"></i></div><div class="cap mt8">เพื่อนเข้าห้องแล้ว ${S.invited}/3 คน · ครบ 3 คนได้ตั๋วกันสตรีค 🎟️</div>
    <button class="pill sm linebtn row1 press mt12" data-go="invite">ชวนเพื่อนทาง LINE (จำลอง)</button><button class="cap press mt12" style="width:100%;color:var(--sub2)" data-sa="simjoin">จำลองเพื่อนกดลิงก์เข้ามา</button></div>
    <div class="group">${FRIENDS.map((f,i)=>`<div class="row"><span class="av" style="background:${f.c}">${f.n.replace('พี่','').replace('น้อง','')[0]}</span><span class="tx"><b>${f.n}</b><small>🔥 ${f.s} วัน</small></span><button class="chip press" style="height:30px;font-size:13px" data-sa="duelf" data-i="${i}">ท้า ⚔️</button></div>`).join('')}</div>`;
  return `<div class="group mt16">${GROUPS.map((g,i)=>ROW('#fff','💬',g.n,g.cnt+' คน · ห้องเรียนในไลน์ (จำลอง)',undefined,`data-go="group" data-i="${i}"`).replace('class="ic" style="background:#fff"','class="ic" style="background:#E7F8EE"')).join('')}</div><p class="cap center" style="padding:12px 30px 0">บอทจะอยู่ในกลุ่ม LINE ของห้องเรียน พิมพ์ /quiz เพื่อเริ่มควิซสด — ลองดูหน้าจำลองได้เลย</p>`}
-SC.rank=()=>({title:'อันดับ',body:`<div class="large">อันดับ</div><div class="seg" id="sg"><div class="th" style="width:calc(33.33% - 2px);transform:translateX(${rankTab*100}%)"></div>${['ลีกสัปดาห์','เพื่อน','กลุ่ม'].map((l,i)=>`<button class="${rankTab===i?'on':''}" data-t="${i}">${l}</button>`).join('')}</div><div id="rb" class="fade-in">${rankBody(rankTab)}</div>${DEMO}`,
+SC.rank=()=>({title:'อันดับ',body:`<div class="large">อันดับ</div><div class="seg" id="sg"><div class="th" style="width:calc(25% - 1.5px);transform:translateX(${rankTab*100}%)"></div>${['ลีก','เพื่อน','กลุ่ม','ห้องต่อห้อง'].map((l,i)=>`<button class="${rankTab===i?'on':''}" data-t="${i}">${l}</button>`).join('')}</div><div id="rb" class="fade-in">${rankBody(rankTab)}</div>${DEMO}`,
  mount(el){const sg=$('#sg',el);$$('button',sg).forEach(b=>b.onclick=()=>{rankTab=+b.dataset.t;vib(6);$$('button',sg).forEach(x=>x.classList.toggle('on',x===b));$('.th',sg).style.transform=`translateX(${rankTab*100}%)`;const rb=$('#rb',el);rb.innerHTML=rankBody(rankTab);rb.classList.remove('fade-in');void rb.offsetWidth;rb.classList.add('fade-in')});
-  el.onclick=e=>{const t=e.target.closest('[data-sa]');if(!t)return;if(t.dataset.sa==='simjoin'){S.invited++;save();toast('🎟️ เพื่อนเข้าห้องแล้ว +1');$('#rb',el).innerHTML=rankBody(1)}else if(t.dataset.sa==='duelf'){if(gameWords().length<4){toast('เรียนบทที่ 1 ให้จบก่อน แล้วค่อยท้าเพื่อนได้');return}push('duel',{f:FRIENDS[+t.dataset.i]})}}}});
+  el.onclick=e=>{const t=e.target.closest('[data-sa]');if(!t)return;if(t.dataset.sa==='simjoin'){S.invited++;save();toast('🎟️ เพื่อนเข้าห้องแล้ว +1');$('#rb',el).innerHTML=rankBody(1)}else if(t.dataset.sa==='cwshare'){const r=classRows(),pos=r.findIndex(x=>x.me)+1;shareSheet('result',{kind:'classwar',text:`ห้องเราอันดับ ${pos} ในสงครามห้องเรียน! มาช่วยกันเรียนแซงห้องอื่น`,sub:'ใครเรียนได้ XP มากที่สุดทั้งห้อง ชนะสัปดาห์นี้',stats:[[pos+'','อันดับห้อง'],[r[pos-1].xp+'','XP รวม']]})}else if(t.dataset.sa==='duelf'){if(gameWords().length<4){toast('เรียนบทที่ 1 ให้จบก่อน แล้วค่อยท้าเพื่อนได้');return}push('duel',{f:FRIENDS[+t.dataset.i]})}}}});
 
 /* ----- เลือกส่งผ่าน LINE (จำลอง) ----- */
-function shareSheet(kind,data={}){const cards={
- invite:{t:'ชวนมาเรียนจีนด้วยกัน!',s:`ใช้รหัส ${S.inviteCode} ได้ตั๋วกันสตรีคทั้งคู่`,m:'wave',cta:'เข้าร่วม'},
- challenge:{t:'ท้าดวลศัพท์จีนกับฉัน!',s:`ฉันสตรีค ${curStreak()} วันแล้ว ลองชนะฉันดูสิ`,m:'teach',cta:'รับคำท้า'},
- result:{t:data.kind==='lose'?'แพ้นิดเดียว ขอล้างตา!':data.kind==='win'?'ฉันชนะดวลศัพท์จีน!':'ผลเกมศัพท์จีนของฉัน',s:data.text||'',m:data.kind==='lose'?'wrong':'celebrate',cta:'ลองเล่น'}}[kind];
- const rows=[...FRIENDS.map(f=>({n:f.n,c:f.c,sub:'เพื่อน'})),...GROUPS.map(g=>({n:g.n,c:g.c,sub:g.cnt+' คน · กลุ่ม'}))];
- openSheet(`<div style="padding:0 20px 0"><div class="h2" style="text-align:center">ส่งไปที่ LINE</div><p class="cap center">หน้าจำลอง ไม่ได้ส่งถึงใครจริง</p></div>
- <div class="sharecard mt8"><div class="sc-top"><div style="flex:1;padding-bottom:14px"><small>${BRAND_NAME}</small><b>${cards.t}</b><small>${cards.s}</small></div><div style="width:100px;height:112px;flex:none">${M(cards.m)}</div></div><div class="sc-bot"><span>${cards.cta}</span><div>line.me/…/lama-demo</div></div></div>
- <div class="search mt12">🔍 <span>ค้นหาเพื่อนหรือกลุ่ม</span></div>
- <div class="group" style="margin-top:4px">${rows.map((r,i)=>`<button class="pickrow" data-p="${i}">${avatar(r.n,r.c)}<span style="flex:1"><b style="font-weight:600">${r.n}</b><br><small class="cap">${r.sub}</small></span><span class="ck">${CHECK}</span></button>`).join('')}</div>
- <div style="padding:16px 20px 0"><button class="pill row1 linebtn press" id="snd" disabled>ส่ง</button></div>`,
- {onMount:sh=>{const sel=new Set();const b=$('#snd',sh);$$('[data-p]',sh).forEach(r=>r.onclick=()=>{const i=+r.dataset.p;sel.has(i)?sel.delete(i):sel.add(i);r.classList.toggle('on');vib(6);b.disabled=!sel.size;b.textContent=sel.size?`ส่ง (${sel.size})`:'ส่ง'});
-  b.onclick=()=>{const n=sel.size;closeSheet();vib([15,30,15]);toast(`✓ ส่งแล้ว ${n} ห้อง (จำลอง)`);if(kind==='invite'){S.invited+=n;save();setTimeout(()=>toast('🎟️ มีเพื่อนกดลิงก์เข้ามาแล้ว! (จำลอง)'),2600)}}}})}
-
 /* ----- ห้องเรียนกลุ่ม (จำลอง) ----- */
 SC.group=({i})=>{const g=GROUPS[i];return {title:g.n,noRefresh:true,body:`<div style="display:flex;align-items:center;justify-content:space-between;padding-right:20px"><div class="large" style="font-size:28px">${g.n}</div><div style="width:84px;height:72px">${M('buddy')}</div></div><p class="cap" style="padding:2px 20px 12px">${g.cnt} คน · หน้าจำลองกลุ่ม LINE ที่มีบอทครู</p>
- <button class="card pad2 press" data-go="play" data-g="boss" style="display:flex;gap:12px;align-items:center;width:calc(100% - 40px);margin:0 20px 14px;text-align:left"><span style="width:76px;height:70px;flex:none">${M('boss')}</span><span style="flex:1"><b style="font-size:16px">บอสหมึกยักษ์มาแล้ว!</b><small style="display:block;color:var(--sub2);font-size:13px;margin:2px 0 6px">ทั้งห้องช่วยกันตี HP ${S.boss.hp>0?S.boss.hp:0}/${S.boss.max}</small><span class="prog" style="display:block"><i style="width:${Math.max(0,S.boss.hp)/S.boss.max*100}%;background:#7B4BC4"></i></span></span></button>
- <div class="gchat" id="gc"><div class="gm"><span class="av" style="background:#5B86C4">พ</span><div><div class="nm">พี่ต้น</div><div class="b">วันนี้เรียน 你好 แล้ว ใครทวนบ้าง 😄</div></div></div>
+ <button class="card pad2 press" data-go="play" data-g="boss" style="display:flex;gap:12px;align-items:center;width:calc(100% - 40px);margin:0 20px 14px;text-align:left"><span style="width:76px;height:70px;flex:none">${M('boss')}</span><span style="flex:1"><b style="font-size:16px">บอสหมึกยักษ์มาแล้ว!</b><small style="display:block;color:var(--sub2);font-size:13px;margin:2px 0 6px">บอสประจำสัปดาห์ · ทั้งห้องช่วยกันตี HP ${S.boss.hp>0?S.boss.hp:0}/${S.boss.max}</small><span class="prog" style="display:block"><i style="width:${Math.max(0,S.boss.hp)/S.boss.max*100}%;background:#7B4BC4"></i></span></span></button>
+ <div id="gday" style="margin:0 20px 14px"></div><div class="gchat" id="gc"><div class="gm"><span class="av" style="background:#5B86C4">พ</span><div><div class="nm">พี่ต้น</div><div class="b">วันนี้เรียน 你好 แล้ว ใครทวนบ้าง 😄</div></div></div>
  <div class="gm"><span class="av" style="background:#fff;padding:3px">${M('wave')}</span><div><div class="nm">${MASCOT_NAME} (บอทครู)</div><div class="b">พิมพ์ <b>/quiz</b> เพื่อเริ่มควิซสดของห้อง 3 ข้อ</div></div></div></div>
  <div class="pad mt12"><button class="pill sm row1 press" id="qz">พิมพ์ /quiz ในกลุ่ม</button></div><div id="gq" class="mt16"></div>${DEMO}`,
  mount(el){const gc=$('#gc',el),gq=$('#gq',el);const msg=(me,n,h,c='#5B86C4')=>{gc.insertAdjacentHTML('beforeend',`<div class="gm ${me?'me':''}">${me?'':`<span class="av" style="background:${c}">${n[0]}</span>`}<div>${me?'':`<div class="nm">${n}</div>`}<div class="b">${h}</div></div></div>`);gc.scrollTo({top:9e4,behavior:'smooth'})};
+  
+  function gday(){const pool2=gameWords().length>=4?gameWords():ALLW,done=S.gqDay===today();const goalNow=2400+today()%5*40,have=Math.round(goalNow*.62)+dayXp()*3,pct=Math.min(1,have/goalNow);
+   $('#gday',el).innerHTML=`<button class="card pad2 press" data-sa="gq" style="display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin-bottom:10px"><span style="width:56px;height:56px;flex:none">${M(done?'correct':'think')}</span><span style="flex:1"><b>ควิซประจำวันของห้อง</b><small style="display:block;color:var(--sub2);font-size:13px;margin-top:2px">${done?'ตอบแล้ววันนี้ ✓ พรุ่งนี้มีข้อใหม่':'บอทปักหมุดไว้ในกลุ่ม · ตอบข้อเดียว +10 XP'}</small></span><span class="chip" style="height:28px;padding:0 12px;font-size:12.5px">${done?'ดูผล':'ตอบเลย'}</span></button>
+   <div class="card pad2"><div style="display:flex;justify-content:space-between;font-size:14px"><b>เป้าหมายห้องวันนี้</b><span class="cap" style="font-weight:600">${have}/${goalNow} XP</span></div><div class="prog mt8"><i style="width:${pct*100}%;background:#06C755"></i></div><div class="cap mt8">${pct>=1?'ทั้งห้องทำสำเร็จ! 🎉':`ทุก XP ที่คุณเรียนช่วยห้อง · เหลืออีก ${goalNow-have} XP`}</div></div>`}
+  gday();$('#gday',el).onclick=e=>{if(!e.target.closest('[data-sa=gq]'))return;const pool2=gameWords().length>=4?gameWords():ALLW;const w=pool2[(today()*7)%pool2.length],q=makeQ(w,'zh2th',pool2);let answered=S.gqDay===today();
+   openSheet(`<div style="padding:0 20px"><div class="cap">ควิซประจำวัน · ${g.n}</div><div class="h2">${answered?'ห้องเราตอบถูก 78% วันนี้':'ตอบข้อเดียวให้ห้อง'}</div><div id="gqq">${qHtml(q)}</div><p class="cap center mt12">สัดส่วนของห้องเป็นตัวเลขจำลอง</p></div>`,{onMount:sh=>{$('#gqq',sh).onclick=ev=>{const o=ev.target.closest('.opt');if(!o||answered)return;answered=true;const ok=+o.dataset.i===q.ans;$$('.opt',sh).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===+o.dataset.i)x.classList.add('bad')});
+     S.gqDay=today();save();if(ok){addXp(10);vib(10);confetti(40)}else{addMistake(q.w);vib([25,30,25])}addCoins(5);toast(ok?'ถูกต้อง! +10 XP +5 เหรียญ':'ไม่เป็นไร ได้เหรียญร่วมสนุก +5');$('.h2',sh).textContent=ok?'เยี่ยม! ห้องเราตอบถูก 78%':'ห้องเราตอบถูก 78% — ลองใหม่พรุ่งนี้';setTimeout(gday,300)}}})};
   const pool=gameWords().length>=4?gameWords():ALLW;let busy=false;
   $('#qz',el).onclick=()=>{if(busy)return;busy=true;$('#qz',el).disabled=true;vib(8);msg(true,'',' /quiz');setTimeout(()=>msg(false,MASCOT_NAME+' (บอทครู)','เริ่มควิซสด! ตอบเร็วและถูกได้คะแนนมากกว่า 🏁','#C8102E'),500);setTimeout(startQ,1200)};
   function startQ(){const qs=shuffle(pool).slice(0,3).map((w,k)=>makeQ(w,['zh2th','th2zh','zh2th'][k],pool));const mates=FRIENDS.slice(0,4).map(f=>({n:f.n,c:f.c,s:0}));const you={n:'คุณ',c:'#C8102E',s:0};let k=0,lock=false;
@@ -67,12 +72,20 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#FDECEC','⭐','แผนและราคา','ตัวอย่างทดลอง · ไม่มีการชำระเงิน',`<span class="val">${PLANS.find(p=>p.id===S.plan).n}</span>${CHEV}`,'data-go="plans"')}
   ${ROW('#FDF3E6','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,undefined,'data-go="shop"')}
   ${ROW('#FBEFEA','📝','ทบทวนข้อผิด',Object.keys(S.mistakes).length+' คำ',undefined,'data-go="review"')}</div>
+ <div class="sec">เครื่องมือการเรียน</div><div class="group">
+  ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}
+  ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}
+  ${ROW('#E7F8EE','🤖','ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย',undefined,'data-go="tutor"')}
+  ${ROW('#FDF3E6','🍵','เรียนพร้อมกัน','ห้องอ่านหนังสือจับเวลา',undefined,'data-go="study"')}
+  ${ROW('#EAF1FB','📊','สรุปสัปดาห์ของฉัน','การ์ดสรุปไว้แชร์ใน LINE',undefined,'data-go="recap"')}
+  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placed?'เคยทดสอบแล้ว':'10 ข้อ ใช้เวลา 2 นาที',undefined,'data-go="placement"')}</div>
  <div class="sec">ตั้งค่า</div><div class="group">
   <div class="row"><span class="ic" style="background:#E7F8EE">🔔</span><span class="tx"><b>เตือนให้เรียนทุกวัน</b><small>ผ่าน LINE OA (จำลอง)</small></span><button class="sw ${S.remind?'on':''}" data-sa="remind" aria-label="เตือน"></button></div>
   <button class="row press" data-sa="goal"><span class="ic" style="background:#EAF1FB">🎯</span><span class="tx"><b>เป้าหมายต่อวัน</b><small>แตะเพื่อเปลี่ยน</small></span><span class="val">${S.goal} XP</span>${CHEV}</button></div>
  <div class="sec">LINE (ตัวอย่าง)</div><div class="group">
   ${ROW('#E7F8EE','💚','หน้าทางเข้าจาก LINE OA','ดูว่าลิงก์จากริชเมนูเปิดเว็บนี้อย่างไร',undefined,'data-go="lineentry"')}
-  ${ROW('#F2ECFA','💌','ชวนเพื่อนทาง LINE','',undefined,'data-go="invite"')}</div>
+  ${ROW('#F2ECFA','💌','ชวนเพื่อนทาง LINE','',undefined,'data-go="invite"')}
+  ${ROW('#FDF3E6','🔍','อะไรจริง อะไรจำลอง?','สิ่งที่ทำงานจริง / สิ่งที่จำลอง / สิ่งที่ทำได้จริงบน LINE',undefined,'data-go="realnote"')}</div>
  <div class="sec">เครื่องมือเดโม</div><div class="group">
   <button class="row noic press" data-sa="skip"><span class="tx"><b>ข้ามไปวันพรุ่งนี้</b><small>ทดสอบสตรีค/เป้าหมาย (วันที่จำลอง +${S.shift})</small></span></button>
   <button class="row noic press" data-sa="lost"><span class="tx"><b>จำลองสตรีคขาด</b><small>ดูหน้าจอตอนสตรีคหลุด</small></span></button>
@@ -83,8 +96,8 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   if(a==='remind'){S.remind=!S.remind;save();t.classList.toggle('on',S.remind)}
   else if(a==='goal'){S.goal=S.goal>=30?10:S.goal+10;save();refresh()}
   else if(a==='skip'){S.shift++;save();toast('ข้ามไปวันถัดไป (จำลอง)');refresh();setTimeout(checkStreakLost,700)}
-  else if(a==='lost'){S.streak=7;S.lastDay=today()-3;S.lostShown=-99;save();checkStreakLost()}
-  else if(a==='all'){LESSONS.forEach(l=>{if(!isDone(l.id))S.done.push(l.id)});save();toast('จบทุกบทแล้ว เกมปลดล็อกครบ');refresh()}
+  else if(a==='lost'){S.streak=7;S.lastDay=today()-4;S.lostShown=-99;S.freezes=0;save();checkStreakLost()}
+  else if(a==='all'){UNITS.forEach(u=>{if(!unitDone(u.id)){S.parts.push(u.id);S.stars[u.id]=S.stars[u.id]||2}});save();toast('จบทุกบทแล้ว เกมปลดล็อกครบ');refresh()}
   else if(a==='coins'){addCoins(100);toast('+100 เหรียญ');refresh()}
   else if(a==='reset'){localStorage.removeItem(KEY);location.href=location.pathname}}}}};
 document.addEventListener('DOMContentLoaded',boot);

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<script data-kz src="../no-zoom.js"></script>
+<meta name="theme-color" content="#1c4fa0">
+<link rel="icon" href="logo.png">
+<title>Brick Arena · ศึกอิฐอารีนา · Kairon Arcade</title>
+<meta name="description" content="Brick Arena เกมต่อสู้อัตโนมัติ ทีม 5 ฮีโร่ก้อนอิฐ แตะไม้ตายให้ทันเวลา จาก Kairon Arcade">
+<link rel="stylesheet" href="style.css?v=fbcbd33c">
+</head>
+<body>
+<div id="game">
+  <canvas id="scene"></canvas>
+  <div id="top" class="hidden">
+    <div class="plv"><b id="t-plv">1</b><i><u id="t-xp"></u></i></div>
+    <div class="plate"><img src="art/i_coin.webp" alt=""><b id="t-coin">0</b></div>
+    <div class="plate"><img src="art/i_gem.webp" alt=""><b id="t-gem">0</b></div>
+    <button class="plate en" data-act="enmodal"><img src="art/i_energy.webp" alt=""><b id="t-en">0/0</b><small id="t-ent"></small></button>
+  </div>
+  <div id="screen"></div>
+  <div id="nav" class="hidden">
+    <button data-act="nav" data-a="heroes"><span>🧱</span>ฮีโร่</button>
+    <button data-act="nav" data-a="map"><span>🗺️</span>ผจญภัย</button>
+    <button data-act="nav" data-a="hub" class="on"><span>🏠</span>หน้าหลัก</button>
+    <button data-act="nav" data-a="surv"><span>🛡️</span>ลุยรอด</button>
+    <button data-act="nav" data-a="gacha"><span>🎁</span>กาชา</button>
+  </div>
+  <div id="hud" class="hidden">
+    <div class="hudtop">
+      <button class="round" id="btn-pause" data-act="pause" aria-label="pause">❚❚</button>
+      <div class="plate wv">รอบ <b id="h-wave">1/1</b></div>
+      <div class="plate tm"><b id="h-time">0:00</b></div>
+      <button class="pill" id="btn-spd" data-act="spd">x1</button>
+      <button class="pill" id="btn-auto" data-act="auto">ออโต้</button>
+    </div>
+    <div id="bossbox" class="hidden"><div id="boss-n"></div><div class="bar"><i id="boss-f"></i><i id="boss-s"></i><b class="seg s1"></b><b class="seg s2"></b></div></div>
+    <div id="combo"></div>
+    <div id="hint-ult" class="hidden">👆 แตะรูปฮีโร่ที่วงเต็ม เพื่อปล่อยไม้ตาย!</div>
+    <div id="ports"></div>
+  </div>
+  <div id="banner" class="hidden"><b id="banner-t"></b><small id="banner-s"></small></div>
+  <div id="cutin" class="hidden"><div class="cband"></div><img id="cut-img" alt=""><div class="ctx"><small id="cut-hero"></small><b id="cut-name"></b></div></div>
+  <div id="toast"></div>
+  <div id="modal" class="hidden"><div id="sheet"></div></div>
+  <div id="ad" class="hidden"></div>
+  <div id="splash">
+    <div class="sp-top"><div class="t1" data-t="title"></div><div class="t2" data-t="title2"></div><div class="tsub" data-t="sub"></div></div>
+    <div class="sp-bot">
+      <div class="loadbox"><span data-t="loading"></span><div class="lb"><i id="loadp"></i></div></div>
+      <button class="btn yellow big hidden" id="btn-start" data-t="tapStart"></button>
+      <div class="brand"><img src="logo.png" alt="">Kairon Arcade · ห้องเกม ไครอน</div>
+    </div>
+  </div>
+</div>
+<script>/* ad backend: mock (website build) - no SDK, no network, no ad IDs; the game shows its own clearly-labelled test ad */
+window.DDAds={name:'mock',ready:function(){return true;}};</script>
+<script src="game.js?v=fbcbd33c"></script>
+</body>
+</html>

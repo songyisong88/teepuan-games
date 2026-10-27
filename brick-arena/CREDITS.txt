@@ -1,0 +1,9 @@
+Brick Arena (ศึกอิฐอารีนา) — Kairon Arcade (ห้องเกม ไครอน)
+
+Code: original, written for Kairon Arcade. No third-party code or libraries.
+Art: all characters, enemies, bosses, icons and backdrops (art/*.webp) were generated with an AI image tool specifically for this game and cut out / cleaned by our own script. Animation, expressions and effects are drawn live in code (HTML5 canvas). All characters, names and text are original.
+Music & sound effects: original, synthesised procedurally in Python (numpy) by our own script. No samples.
+Voice lines (Thai): generated with VachanaTTS voice "th_f_2" (VIZINTZOR/VachanaTTS on Hugging Face, model license: MIT), then pitch-shifted by our own ffmpeg script.
+Font: Kanit by Cadson Demak — SIL Open Font License 1.1 (fonts/OFL-Kanit.txt), self-hosted.
+Ads: placeholder (mock) ad screen only. No real ad network. No payments. No tracking; progress is saved only in this browser (localStorage).
+This is an original game and is not affiliated with any other game or company.

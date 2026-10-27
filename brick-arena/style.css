@@ -269,3 +269,8 @@ body:not(.menu) #screen{display:none}
 #cutin.rv img{left:auto;right:4%}
 .dgrow .bt{display:flex;gap:.5rem}.dgrow .bt .btn{min-width:6.4rem}
 .msr{display:flex;justify-content:center;gap:1.4rem;margin:.6rem 0;align-items:center}.msr span{display:flex;flex-direction:column;align-items:center;font-size:1.1rem;opacity:.65}.msr span.clr{opacity:1}.msr .ic{width:3.4rem;height:3.4rem}
+
+#tip{position:absolute;bottom:8.6rem;z-index:19;max-width:30rem;width:max-content;background:#fff8d6;color:#4a2a00;border:.2rem solid #ffb020;border-radius:1.2rem;padding:.6rem 1rem;font-size:1.35rem;font-weight:700;text-align:center;pointer-events:none;box-shadow:0 .3rem 0 #a8630d;animation:tipb 1s infinite}
+#tip i{position:absolute;bottom:-1.6rem;font-style:normal;color:#ffb020;font-size:1.8rem;text-shadow:0 .2rem 0 #a8630d}
+#nav button.tipn span{animation:pulse .9s infinite}
+@keyframes tipb{50%{transform:translateY(-.4rem)}}

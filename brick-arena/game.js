@@ -835,7 +835,7 @@ function navDots(){var b=document.querySelector('#nav [data-a=modes]');if(b)b.cl
 function topUpdate(){navDots();tickEnergy();var mx=maxEnergy();$('t-plv').textContent=SAVE.plv;$('t-xp').style.width=(SAVE.pexp/needPExp(SAVE.plv)*100)+'%';$('t-coin').textContent=fmt(SAVE.coins);$('t-gem').textContent=fmt(SAVE.gems);$('t-en').textContent=SAVE.energy+'/'+mx;var n=nextEnergyIn();$('t-ent').textContent=n>0?mmss(n):'เต็ม';}
 function showMenuChrome(on){if(on){var bn=$('banner');if(bn)bn.classList.add('hidden');}document.body.classList.toggle('menu',on);$('top').classList.toggle('hidden',!on);$('nav').classList.toggle('hidden',!on);$('hud').classList.toggle('hidden',on);}
 var MODEPG={arena:1,dung:1,surv:1,raid:1,shop:1,friend:1,quest:1,login:1,mail:1};function navOf(n){return n==='hero'?'heroes':MODEPG[n]?'modes':n;}
-function go(name,arg){cur=name;curArg=arg;closeModal();hubOn=name==='hub';showMenuChrome(true);if(SCR[name])SCR[name](arg);document.querySelectorAll('#nav button').forEach(function(b){b.classList.toggle('on',b.dataset.a===navOf(name));});topUpdate();var sc=$('screen');sc.scrollTop=0;}
+function go(name,arg){cur=name;curArg=arg;closeModal();hubOn=name==='hub';showMenuChrome(true);if(SCR[name])SCR[name](arg);document.querySelectorAll('#nav button').forEach(function(b){b.classList.toggle('on',b.dataset.a===navOf(name));});topUpdate();var sc=$('screen');sc.scrollTop=0;if(typeof tipUpdate==='function')tipUpdate();}
 function refresh(){if(SCR[cur])SCR[cur](curArg);topUpdate();}
 var SCR={},hubOn=true;
 /* ---------- hub ---------- */
@@ -876,7 +876,7 @@ ACT.fight=function(el){var p=el.dataset.a.split('_'),z=+p[0],s=+p[1],h=!!+p[2],s
  if(h&&heroicLeft(z,s)<=0){toast('สิทธิ์ฮีโร่ริกวันนี้หมดแล้ว');return;}
  if(!spendEnergy(sd.cost)){energyModal();return;}if(h){SAVE.daily.heroic[z+'_'+s]=(SAVE.daily.heroic[z+'_'+s]||0)+1;}save();topUpdate();
  beginBattle({stg:sd,mode:'camp',auto:au,team:fixTeam(),onEnd:function(r){campEnd(sd,r);}});};
-function beginBattle(opt){closeModal();if(opt.assist===undefined&&/^(camp|dung|raid)$/.test(opt.mode)&&SAVE.assist)opt.assist=assistSpec();SAVE.stats.battles++;audioInit();showMenuChrome(false);hubOn=false;$('screen').innerHTML='';$('screen').className='';
+function beginBattle(opt){closeModal();(function(){var t=$('tip');if(t)t.classList.add('hidden');})();if(opt.assist===undefined&&/^(camp|dung|raid)$/.test(opt.mode)&&SAVE.assist)opt.assist=assistSpec();SAVE.stats.battles++;audioInit();showMenuChrome(false);hubOn=false;$('screen').innerHTML='';$('screen').className='';
  opt.eMul=opt.eMul||1;startBattle(opt);hudBuild();$('cutin').className='hidden';cur='battle';music(trk(B.stg.boss),0);say(B.stg.boss?'boss':'start');}
 function campEnd(sd,r){SAVE.stats.battles;var rec=stageRec(sd.z,sd.s,sd.heroic),first=rec.st===0,old=rec.st,rew={};
  if(r.win){SAVE.stats.wins++;qadd('camp',1);rec.st=Math.max(rec.st,r.n);rec.cl++;rew=campReward(sd,first,old,r.n,true,false);rew.stars=r.n;}
@@ -1168,7 +1168,7 @@ SCR.friend=function(){if(!unl('friend')){lockScreen('เพื่อนช่ว
 ACT.fsel=function(el){SAVE.assist=+el.dataset.a;save();sfx('buff',.6);SCR.friend();};
 /* ---------- arena ---------- */
 function arenaOpps(){var A=SAVE.ar,R=seedRnd(A.seed*7919+dnum()*31+SAVE.plv),o=[],p=SAVE.plv;
- for(var i=0;i<5;i++){var lv=clamp(Math.round(p*(.72+.1*i)),1,70),ids=[],pool=[];for(var h=1;h<=NHERO;h++)pool.push(h);
+ for(var i=0;i<5;i++){var lv=clamp(Math.round(p*(.72+.09*i)),1,70),ids=[],pool=[];for(var h=1;h<=NHERO;h++)pool.push(h);
   while(ids.length<5){var k=Math.floor(R()*pool.length);ids.push(pool.splice(k,1)[0]);}
   if(!ids.some(function(x){return HEROES[x].line===0;}))ids[0]=[1,11,10,18][Math.floor(R()*4)];
   var tm=ids.map(function(id){return {id:id,h:rivalHero(id,lv,i)};}),pw=0;tm.forEach(function(t){pw+=heroPower(t.id,null,t.h);});
@@ -1300,6 +1300,22 @@ ACT.shopbuy=function(el){var S=SHOPS[shopTab],it=S.it.filter(function(x){return 
 /* ---------- hooks on existing actions ---------- */
 ['pot','starup','skup','equip','equipall','fuse'].forEach(function(k){var f=ACT[k];if(!f)return;ACT[k]=function(el){var a=JSON.stringify(SAVE.heroes);var r=f(el);if(JSON.stringify(SAVE.heroes)!==a)qadd('up',1);return r;};});
 var _pull=ACT.pull;ACT.pull=function(el){var a=SAVE.stats.pulls;var r=_pull(el);if(SAVE.stats.pulls>a)qadd('pull',1);return r;};
+/* ===== first-time hints in simple Thai ===== */
+var TIPS=[
+ {id:'t0',on:function(){return SAVE.stats.wins<1;},nav:'map',txt:'เริ่มเลย! แตะ "ผจญภัย" แล้วเลือกด่าน 1-1',txt2:'แตะด่านที่กะพริบ แล้วกด "ต่อสู้" ได้เลย',done:function(){return false;}},
+ {id:'t1',on:function(){return SAVE.stats.wins>=1;},nav:'heroes',txt:'ชนะแล้ว! แตะ "ฮีโร่" เพื่ออัปเลเวลให้ทีมเก่งขึ้น',done:function(n){return n==='heroes';}},
+ {id:'t2',on:function(){return SAVE.stats.wins>=3;},nav:'gacha',txt:'ใช้เพชรสุ่มฮีโร่ใหม่ได้ที่ "กาชา"',done:function(n){return n==='gacha';}},
+ {id:'t3',on:function(){return SAVE.plv>=10;},nav:'modes',txt:'เปิดโหมดใหม่แล้ว! ลองดู "โหมด" มีรางวัลทุกวัน',done:function(n){return n==='modes';}}];
+function tipUpdate(){var el=$('tip');if(!el)return;SAVE.tut.d=SAVE.tut.d||{};if(SAVE.stats.wins>=10){SAVE.tut.d.t0=SAVE.tut.d.t1=SAVE.tut.d.t2=1;}
+ var show=null;if(cur!=='battle'&&!/notips/.test(location.search)){
+  for(var i=0;i<TIPS.length;i++){var t=TIPS[i];if(SAVE.tut.d[t.id])continue;if(!t.on())continue;if(t.done(cur)){SAVE.tut.d[t.id]=1;save();continue;}show=t;break;}}
+ document.querySelectorAll('#nav button.tipn').forEach(function(b){b.classList.remove('tipn');});
+ if(!show){el.classList.add('hidden');return;}
+ var btn=document.querySelector('#nav button[data-a="'+show.nav+'"]');if(!btn){el.classList.add('hidden');return;}
+ if(cur===show.nav&&!show.txt2){el.classList.add('hidden');return;}
+ btn.classList.add('tipn');$('tip-t').textContent=(cur===show.nav&&show.txt2)?show.txt2:show.txt;
+ el.classList.remove('hidden');var nb=$('nav');var w=el.offsetWidth||260,c=btn.offsetLeft+btn.offsetWidth/2,gw=nb.offsetWidth||390;
+ var left=clamp(c-w/2,8,gw-w-8);el.style.left=left+'px';$('tip-a').style.left=(c-left-8)+'px';}
 /* ---------- main ---------- */
 function startGame(){mailInit();modesDaily();showMenuChrome(true);go('hub');loginPopup();}
 function frame(ts){requestAnimationFrame(frame);var dt=Math.min(.1,(ts-(frame.l||ts))/1000);frame.l=ts;TT+=dt;

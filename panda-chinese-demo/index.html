@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<script data-kz src="../no-zoom.js"></script>
+<meta name="theme-color" content="#fff4de">
+<title>ห้องเรียนภาษาจีน — ตัวอย่างทดลอง</title>
+<link rel="icon" href="assets/mascot.png"><meta name="description" content="ตัวอย่างทดลองห้องเรียนภาษาจีนใน LINE OA (ยังไม่ใช่ระบบจริง)">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <button class="icon-btn" id="btnBack" aria-label="ย้อนกลับ">‹</button>
+    <img class="avatar" src="assets/mascot.png" alt="">
+    <div class="oa">
+      <div class="oa-name">ห้องเรียนภาษาจีน <span class="verified">✔</span></div>
+      <div class="oa-sub">บัญชีทางการ (ตัวอย่าง)</div>
+    </div>
+    <div class="hud" id="hud" title="XP และวันเรียนต่อเนื่อง"><span id="hudStars">⚡ 0</span><span id="hudStreak">🔥 0</span></div>
+    <button class="icon-btn" id="btnMenu" aria-label="เมนู">≡</button>
+  </header>
+  <div id="demoNote">ตัวอย่างทดลอง ยังไม่ใช่ระบบจริง</div>
+
+  <main id="chat" aria-live="polite"></main>
+
+  <section id="richmenu" class="open">
+    <button class="tile t-lesson" data-act="lesson"><span class="ti">📖</span><span class="tt">บทเรียนวันนี้</span></button>
+    <button class="tile t-quiz" data-act="challenge"><span class="ti">⚔️</span><span class="tt">ท้าเพื่อน</span></button>
+    <button class="tile t-prog" data-act="rank"><span class="ti">🏆</span><span class="tt">อันดับ</span></button>
+    <button class="tile t-tutor" data-act="tutor"><span class="ti">🤖</span><span class="tt">ถามครู AI</span></button>
+    <button class="tile t-speak" data-act="speak"><span class="ti">🎤</span><span class="tt">ฝึกพูด</span></button>
+    <button class="tile t-vip" data-act="me"><span class="ti">😀</span><span class="tt">ฉัน</span></button>
+  </section>
+
+  <footer id="inputbar">
+    <button class="icon-btn kb" id="btnToggle" aria-label="เปิด/ปิดเมนู">⌨</button>
+    <input id="msg" type="text" placeholder="พิมพ์ถามครู AI…" enterkeyhint="send" autocomplete="off">
+    <button class="icon-btn" id="btnSend" aria-label="ส่ง">🎤</button>
+  </footer>
+
+  <!-- LIFF-style sheets -->
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-head"><button class="icon-btn" id="sheetClose" aria-label="ปิด">✕</button><div id="sheetTitle"></div><div style="width:40px"></div></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+  <div id="menuPop" class="pop" hidden></div>
+  <div id="toast" hidden></div>
+  <div id="celebrate" hidden></div>
+  <canvas id="fx"></canvas>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

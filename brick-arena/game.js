@@ -1209,7 +1209,7 @@ function dgOpen(id){var d=DG.filter(function(x){return x.id===id;})[0];return d&
 function dgFeat(){var b=dnum()*3;return [b%NHERO+1,(b+7)%NHERO+1,(b+13)%NHERO+1];}
 function dgStage(id,L){var dl=DG_L[L-1],R=seedRnd(dnum()*5+L*11+id.length*3),waves=[];
  for(var w=0;w<3;w++){var arr=[],cnt=w===2?5:4;for(var i=0;i<cnt;i++)arr.push({j:Math.floor(R()*4)});if(w===2)arr[0].elite=1;waves.push(arr);}
- return {z:dl.z,s:L,n:L,heroic:false,boss:false,waves:waves,lvl:dl.lvl,cost:0,tl:999,tier:1,name:'ดันเจี้ยน',mult:1,coins:0,hxp:0,feat:0,bg:'dg'};}
+ return {z:dl.z,s:L,n:L,heroic:false,boss:false,waves:waves,lvl:dl.lvl,cost:0,tl:999,tier:1,name:'ดันเจี้ยน',mult:[1.2,1.3,1.35,1.4,1.4][L-1],coins:0,hxp:0,feat:0,bg:'dg'};}
 function dgReward(id,L){var r={pexp:8+L*4};
  if(id==='cav')r.coins=[3000,6000,10000,15000,22000][L-1];
  else if(id==='doj'){var t=[1,2,2,3,4][L-1],n=[2,3,3,4,4][L-1];r.gear={};for(var i=0;i<n;i++)addTo(r.gear,'g'+ri(0,5)+'_'+(rnd()<.3&&t>1?t-1:t),1);r.coins=800*L;}

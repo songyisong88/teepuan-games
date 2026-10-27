@@ -3,7 +3,7 @@
 var META={"h1": {"idle": [226, 253, 0.448], "blink": [224, 251, 0.455], "atk": [241, 253, 0.422]}, "h2": {"idle": [170, 301, 0.372], "blink": [160, 300, 0.394], "atk": [260, 293, 0.796]}, "h3": {"idle": [224, 257, 0.493], "blink": [218, 258, 0.498], "atk": [253, 255, 0.452]}, "h4": {"idle": [203, 287, 0.565], "blink": [196, 286, 0.554], "atk": [232, 286, 0.37]}, "h5": {"idle": [167, 265, 0.504], "blink": [162, 265, 0.503], "atk": [209, 265, 0.347]}, "h6": {"idle": [206, 287, 0.533], "blink": [204, 286, 0.536], "atk": [289, 295, 0.38]}, "h7": {"idle": [217, 243, 0.524], "blink": [211, 238, 0.52], "atk": [254, 236, 0.433]}, "h8": {"idle": [194, 286, 0.61], "blink": [190, 287, 0.594], "atk": [185, 343, 0.497]}, "h9": {"idle": [206, 299, 0.499], "blink": [203, 299, 0.5], "atk": [251, 304, 0.483]}, "h10": {"idle": [241, 272, 0.504], "blink": [232, 269, 0.505], "atk": [257, 278, 0.479]}, "e1_1": [270, 300, 0.533], "e1_2": [244, 300, 0.627], "e1_3": [265, 300, 0.504], "e1_4": [300, 248, 0.458], "e2_1": [280, 300, 0.459], "e2_2": [292, 300, 0.495], "e2_3": [194, 300, 0.507], "e2_4": [203, 300, 0.499], "e3_1": [227, 300, 0.601], "e3_2": [220, 300, 0.636], "e3_3": [273, 300, 0.48], "e3_4": [213, 300, 0.559], "e4_1": [300, 259, 0.528], "e4_2": [300, 254, 0.5], "e4_3": [300, 232, 0.474], "e4_4": [258, 269, 0.543], "e5_1": [262, 300, 0.504], "e5_2": [240, 300, 0.579], "e5_3": [256, 300, 0.436], "e5_4": [209, 300, 0.562], "b1": [560, 448, 0.582], "b2": [560, 466, 0.576], "b3": [446, 560, 0.429], "b4": [560, 416, 0.51], "b5": [560, 370, 0.593], "i_coin": [153, 160], "i_gem": [160, 155], "i_energy": [104, 160], "i_star": [160, 158], "i_soul": [116, 160], "i_exp": [105, 160], "i_ticket": [160, 119], "i_chest1": [160, 147], "i_chest2": [160, 144], "g_helm": [128, 160], "g_armor": [160, 146], "g_boots": [160, 138], "g_sword": [145, 160], "g_ring": [140, 160], "g_amulet": [121, 160], "i_scroll": [160, 120], "s_slash": [128, 126], "s_arrow": [128, 127], "s_bomb": [128, 127], "s_bolt": [128, 127], "s_heal": [128, 128], "s_shield": [128, 128], "s_stun": [128, 128], "s_summon": [128, 127], "s_buff": [128, 128], "s_ice": [127, 128], "s_punch": [127, 128], "s_heart": [127, 128], "h11": {"idle": [247, 275, 0.468], "blink": [241, 268, 0.46], "atk": [248, 314, 0.41]}, "h12": {"idle": [251, 319, 0.456], "blink": [239, 314, 0.469], "atk": [269, 316, 0.512]}, "h13": {"idle": [238, 254, 0.343], "blink": [221, 253, 0.359], "atk": [283, 253, 0.263]}, "h14": {"idle": [240, 199, 0.509], "blink": [230, 202, 0.514], "atk": [265, 208, 0.498]}, "h15": {"idle": [235, 322, 0.513], "blink": [229, 316, 0.522], "atk": [254, 310, 0.447]}, "h16": {"idle": [186, 355, 0.38], "blink": [184, 353, 0.382], "atk": [259, 338, 0.418]}, "h17": {"idle": [253, 265, 0.505], "blink": [240, 262, 0.502], "atk": [258, 242, 0.471]}, "h18": {"idle": [216, 266, 0.484], "blink": [203, 264, 0.463], "atk": [282, 264, 0.331]}, "h19": {"idle": [229, 250, 0.485], "blink": [221, 247, 0.489], "atk": [280, 260, 0.385]}, "h20": {"idle": [251, 283, 0.495], "blink": [241, 282, 0.498], "atk": [262, 284, 0.509]}, "e6_1": [215, 300, 0.566], "e6_2": [259, 300, 0.626], "e6_3": [250, 300, 0.504], "e6_4": [244, 257, 0.356], "e7_1": [223, 300, 0.504], "e7_2": [201, 300, 0.574], "e7_3": [249, 300, 0.506], "e7_4": [264, 300, 0.612], "e8_1": [247, 300, 0.606], "e8_2": [215, 300, 0.581], "e8_3": [259, 300, 0.522], "e8_4": [292, 249, 0.455], "e9_1": [242, 300, 0.622], "e9_2": [288, 212, 0.414], "e9_3": [235, 300, 0.502], "e9_4": [266, 256, 0.439], "e10_1": [218, 300, 0.608], "e10_2": [253, 300, 0.757], "e10_3": [300, 294, 0.554], "e10_4": [242, 300, 0.496], "e11_1": [237, 300, 0.634], "e11_2": [295, 237, 0.219], "e11_3": [255, 300, 0.496], "e11_4": [244, 264, 0.305], "b6": [560, 405, 0.586], "b7": [560, 488, 0.627], "b8": [560, 447, 0.507], "b9": [560, 536, 0.521], "b10": [560, 489, 0.528], "b11": [560, 441, 0.515], "i_scale": [139, 160], "i_medal": [155, 160], "i_raidcoin": [154, 160], "i_mail": [160, 135], "i_cal": [146, 160], "i_crown": [160, 137], "i_crystal": [124, 160], "i_key": [112, 160], "i_frag": [117, 160], "i_wagon": [160, 159], "i_cup": [145, 160], "i_friend": [158, 160], "i_rscroll": [160, 129], "i_bag": [149, 160], "i_potion": [105, 160], "i_gold": [160, 122], "s_fire": [128, 126], "s_poison": [128, 127], "s_web": [128, 127], "s_wind": [128, 127], "s_light": [128, 127], "s_dark": [128, 127], "s_katana": [128, 128], "s_bell": [128, 127], "s_leaf": [127, 128], "s_star": [128, 128], "s_gun": [127, 128], "s_wave": [128, 127], "b12": [515, 560, 0.498]};
 var NHERO=20,NZONE=11;var VER=1,SKEY='kairon_brickarena_save';
 var FW=390,LH=844;
-var SOUNDS=['btn','back','hit','hit2','crit','slash','arrow','magic','boom','bomb','zap','freeze','heal','shield','buff','stun','summon','crumble','death','ultready','cutin','coin','gem','chest','pop','rare','levelup','star','equip','fuse','upgrade','nope','tick','warn','roar','bossdie','wave','fight','win','lose','ad','mus_hub','mus_battle','mus_battle2','mus_boss','mus_boss2',
+var SOUNDS=['btn','back','hit','hit2','crit','slash','arrow','magic','boom','bomb','zap','freeze','heal','shield','buff','stun','summon','crumble','death','ultready','cutin','coin','gem','chest','pop','rare','levelup','star','equip','fuse','upgrade','nope','tick','warn','roar','bossdie','wave','fight','win','lose','ad','mus_hub','mus_battle','mus_battle2','mus_boss','mus_boss2','mus_arena','mus_arena2','mus_battle3','mus_battle32','mus_boss3','mus_boss32','mus_menu','fire','wind','web','poison','bolt','leaf','dark','light','punch','bell','gun','combo','splash',
  'v_hello','v_start','v_u1','v_u2','v_u3','v_u4','v_u5','v_u6','v_u7','v_u8','v_u9','v_u10','v_ready','v_win','v_lose','v_boss','v_boss2','v_wave','v_combo','v_crit','v_down','v_star3','v_levelup','v_fuse','v_awaken','v_gacha','v_rare','v_hero','v_energy','v_tap1','v_tap2','v_tap3','v_sweep','v_surv','v_u11','v_u12','v_u13','v_u14','v_u15','v_u16','v_u17','v_u18','v_u19','v_u20','v_arena','v_raid','v_dungeon','v_login','v_quest','v_claim','v_rank','v_last','v_nm'];
 var LAZY={};(function(){for(var h=1;h<=20;h++)for(var k=1;k<=3;k++)LAZY['v_t'+h+'_'+k]=1;})();
 var $=function(i){return document.getElementById(i);};
@@ -45,6 +45,8 @@ function music(name,layer2,force){MUS.want=name;MUS.wantB=layer2?1:0;if(!AC)retu
  var a=mk(base,0),b2=BUF['mus_'+name+'2']?mk(BUF['mus_'+name+'2'],0):null;
  a[1].gain.setTargetAtTime(MUS.vol,AC.currentTime+.05,.3);
  MUS.name=name;MUS.a=a[0];MUS.ga=a[1];MUS.b=b2?b2[0]:null;MUS.gb=b2?b2[1]:null;MUS.curB=-1;}
+function trk(boss){var s=(B&&B.stg)||{};if(s.bg==='ar')return 'arena';var z=s.z||1;if(boss)return z>=9?'boss3':'boss';return z>=7?'battle3':'battle';}
+var FXSND={fire:'fire',fireball:'fire',wind:'wind',web:'web',poison:'poison',bolt:'bolt',leaf:'leaf',dark:'dark',light:'light',punch:'punch',bell:'bell',gun:'gun',ice:'freeze',wave:'splash'};
 function musicLayer(on){MUS.wantB=on?1:0;if(MUS.gb&&MUS.curB!==MUS.wantB){MUS.curB=MUS.wantB;MUS.gb.gain.setTargetAtTime(MUS.wantB?MUS.vol*.9:0,AC.currentTime,.5);}}
 function sfx(n,vol,rate,gap){if(!AC||!BUF[n]||SAVE.mute)return;var now=AC.currentTime;if(lastPlay[n]&&now-lastPlay[n]<(gap==null?.04:gap))return;lastPlay[n]=now;var s=AC.createBufferSource();s.buffer=BUF[n];if(rate)s.playbackRate.value=rate;var g=AC.createGain();g.gain.value=vol==null?.8:vol;s.connect(g);g.connect(master);s.start();}
 function lazySnd(n){if(!AC||BUF[n]||LAZY[n]===2)return;LAZY[n]=2;fetch('audio/'+n+'.mp3').then(function(r){return r.arrayBuffer();}).then(function(b){return new Promise(function(ok,no){AC.decodeAudioData(b,ok,no);});}).then(function(d){BUF[n]=d;}).catch(function(){});}
@@ -463,7 +465,7 @@ function nextWave(){B.wave++;var w=B.stg.waves[B.wave];B.us=B.us.filter(function
  w.forEach(function(sp){var u=mkEnemy(B.stg,sp,B.stg.z);B.us.push(u);if(u.boss)B.boss=u;});layoutSide('e');B.us.forEach(function(u){if(u.side==='e'){u.x=u.hx;}});
  B.state='intro';B.sT=0;B.msg.push(1);
  var isB=!!B.us.filter(function(u){return u.boss&&u.alive;}).length;
- if(isB){bannerShow('ระวัง! บอสมาแล้ว','',true);sfx('warn',.9);say('boss');music('boss',1);B.bossSeg=true;}
+ if(isB){bannerShow('ระวัง! บอสมาแล้ว','',true);sfx('warn',.9);say('boss');music(trk(1),1);B.bossSeg=true;}
  else{bannerShow('รอบที่ '+(B.wave+1)+' / '+B.nw,'',false);sfx('wave',.8);if(B.wave>0)say('wave');}}
 /* ---------- stats ---------- */
 function gs(u,stat){var s=u[stat],p=0;for(var i=0;i<u.buffs.length;i++)if(u.buffs[i].stat===stat)p+=u.buffs[i].pct;return stat==='crit'?u.crit+p:s*Math.max(.2,1+p);}
@@ -559,7 +561,7 @@ function skillReady(u,i){var sk=u.d.sk[i];if(!u.unl[i]||stunned(u)||u.st.sil>0||
 function castSkill(u,i,ult){var sk=u.d.sk[i],lv=u.sk[i],mul=skMul(lv),en=enemiesOf(u);if(!en.length&&sk.k==='dmg')return;
  u.casting=.5;u.at=.5;u.atT0=.5;u.glow=.5;B.st.ults+=ult?1:0;
  var hits=sk.h||1,iv=sk.iv||0,ty=sk.k==='dmg'?(sk.tgt==='all'||true?u.dt:u.dt):u.dt;
- sfx(sk.sf||'magic',ult?.9:.6,1,.1);
+ sfx(sk.sf||'magic',ult?.9:.6,1,.1);if(FXSND[sk.fx])sfx(FXSND[sk.fx],ult?.75:.5,rr(.95,1.05),.08);
  if(sk.k==='dmg'){var base=sk.c*mul;
   var fixed=(sk.tgt==='all'||sk.tgt==='row'||sk.tgt==='splash'||sk.tgt==='one'||sk.tgt==='weak'||sk.tgt==='front'||sk.tgt==='back')?skillTargets(u,sk):null;
   for(var h=0;h<hits;h++)(function(h){at(.18+h*iv,function(){if(!u.alive&&!ult&&false)return;var ts=fixed?fixed.filter(function(t){return t.alive;}):(function(){var e=enemiesOf(u);return e.length?[pick(e)]:[];})();
@@ -615,7 +617,7 @@ function bossPhase(u,p){u.cast=null;B.mk=B.mk.filter(function(m){return m.u!==u;
  at(1.3,function(){u.roar=0;});}
 /* ---------- battle step ---------- */
 function stepUnit(u,dt){
- if(u.hurt>0)u.hurt-=dt;if(u.at>0)u.at-=dt;if(u.casting>0)u.casting-=dt;if(u.glow>0)u.glow-=dt;if(u.inv>0)u.inv-=dt;if(u.emT>0)u.emT-=dt;
+ if(u.hurt>0)u.hurt-=dt;if(u.at>0)u.at-=dt;if(u.casting>0)u.casting-=dt;if(u.glow>0)u.glow-=dt;if(u.inv>0)u.inv-=dt;if(u.emT>0)u.emT-=dt;else if(u.alive&&B.state==='fight'&&!u.boss){u.emI=(u.emI==null?rr(3,9):u.emI)-dt;if(u.emI<=0){u.emI=rr(7,14);var fr=u.hp/u.mhp;if(u.side==='a'){u.em=fr<.35?'sweat':(rnd()<.5?'note':'heart');u.emT=1.6;}else if(fr<.3&&rnd()<.6){u.em='sweat';u.emT=1.4;}}}
  u.kx*=Math.pow(.0005,dt);u.blink-=dt;if(u.blink<-.13)u.blink=rr(2.2,5);
  if(u.drop>0)u.drop-=dt;
  if(!u.alive){if(u.dead>0&&u.side==='e')u.dead-=dt*1.6;return;}
@@ -763,7 +765,7 @@ function drawUnit(u){var sp=uSprite(u),im=sp.im;if(!im||!im.width)return;var k=u
  if(u.burn.length){var bk=u.burn[0].kd;txt(bk==='poison'?'☠':bk==='bleed'?'🩸':'🔥',x+18,by-4,13,bk==='poison'?'#9aff5a':'#fff');}
  if(u.st.blind>0)txt('👁',x-18,by-20,12,'#fff');
  if(u.emT>0&&u.em){var ee=u.em,ey=by-14-Math.sin(TT*6)*2;cx.save();cx.translate(x+(u.boss?0:18),ey);var sc2=Math.min(1,(u.emT>1?1:u.emT));cx.scale(sc2,sc2);cx.fillStyle='#fff';cx.strokeStyle='#222';cx.lineWidth=2;rrect(-11,-11,22,22,7);cx.fill();cx.stroke();
-  if(ee==='!')txt('!',0,1,16,'#ff3a2a');else if(ee==='x')txt('…',0,0,16,'#444');else if(ee==='star')txt('★',0,1,15,'#ffb020');else if(ee==='heart')txt('♥',0,1,15,'#ff5a8a');cx.restore();}
+  if(ee==='!')txt('!',0,1,16,'#ff3a2a');else if(ee==='x')txt('…',0,0,16,'#444');else if(ee==='star')txt('★',0,1,15,'#ffb020');else if(ee==='heart')txt('♥',0,1,15,'#ff5a8a');else if(ee==='note')txt('♪',0,1,16,'#2fa84a');else if(ee==='sweat')txt('💧',0,1,14,'#2a8ad8');cx.restore();}
 }
 function drawBattle(){begin();var ox=0,oy=0;if(B.shake>0){ox=rr(-B.shake,B.shake);oy=rr(-B.shake,B.shake);}cx.save();cx.translate(ox,oy);
  coverBg(IM['bg'+(B.stg.bg||B.stg.z)],B.boss&&B.boss.alive?.18:.04);
@@ -875,7 +877,7 @@ ACT.fight=function(el){var p=el.dataset.a.split('_'),z=+p[0],s=+p[1],h=!!+p[2],s
  if(!spendEnergy(sd.cost)){energyModal();return;}if(h){SAVE.daily.heroic[z+'_'+s]=(SAVE.daily.heroic[z+'_'+s]||0)+1;}save();topUpdate();
  beginBattle({stg:sd,mode:'camp',auto:au,team:fixTeam(),onEnd:function(r){campEnd(sd,r);}});};
 function beginBattle(opt){closeModal();if(opt.assist===undefined&&/^(camp|dung|raid)$/.test(opt.mode)&&SAVE.assist)opt.assist=assistSpec();SAVE.stats.battles++;audioInit();showMenuChrome(false);hubOn=false;$('screen').innerHTML='';$('screen').className='';
- opt.eMul=opt.eMul||1;startBattle(opt);hudBuild();$('cutin').className='hidden';cur='battle';music(B.stg.boss?'boss':'battle',0);say(B.stg.boss?'boss':'start');}
+ opt.eMul=opt.eMul||1;startBattle(opt);hudBuild();$('cutin').className='hidden';cur='battle';music(trk(B.stg.boss),0);say(B.stg.boss?'boss':'start');}
 function campEnd(sd,r){SAVE.stats.battles;var rec=stageRec(sd.z,sd.s,sd.heroic),first=rec.st===0,old=rec.st,rew={};
  if(r.win){SAVE.stats.wins++;qadd('camp',1);rec.st=Math.max(rec.st,r.n);rec.cl++;rew=campReward(sd,first,old,r.n,true,false);rew.stars=r.n;}
  save();showResult(sd,r,rew);}
@@ -1142,7 +1144,7 @@ function raidLeft(){return unl('raid')?3-SAVE.raid.used:0;}
 function modeDots(){return {arena:arenaFree()||arClaimable(),dung:dgLeft()>0,raid:raidLeft()>0||raidClaimable(),quest:qClaimable()>0,login:loginReady(),mail:mailDot(),surv:unl('surv')&&SAVE.daily.surv<1};}
 function anyModeDot(){var d=modeDots();return d.arena||d.dung||d.raid||d.surv;}
 /* ---------- modes hub ---------- */
-SCR.modes=function(){music('hub',0);var d=modeDots(),cards=[
+SCR.modes=function(){music('menu',0);var d=modeDots(),cards=[
  ['arena','ประลอง','medal','ต่อสู้กับทีมผู้เล่นจำลอง',unl('arena'),'arena',d.arena],
  ['dung','ดันเจี้ยนรายวัน','gold','เหรียญ ของ ยา ม้วนตื่นรู้',unl('dung'),'dung',d.dung],
  ['surv','ลุยรอด','cup','15 ด่านติด · ฝันร้าย',unl('surv'),'surv',d.surv],
@@ -1177,7 +1179,7 @@ function arBoard(){var R=seedRnd(dnum()*17+3),L=[];for(var i=0;i<30;i++){L.push(
  L.push({nm:'คุณ',pts:SAVE.ar.pts,me:1});L.sort(function(a,b){return b.pts-a.pts;});return L;}
 function arRank(){var L=arBoard();for(var i=0;i<L.length;i++)if(L[i].me)return i+1;return 31;}
 function arClaimable(){return unl('arena')&&SAVE.ar.rd!==dayKey();}
-SCR.arena=function(){if(!unl('arena')){lockScreen('ประลอง','arena');return;}music('hub',0);
+SCR.arena=function(){if(!unl('arena')){lockScreen('ประลอง','arena');return;}music('menu',0);
  var A=SAVE.ar,opps=arenaOpps(),li=leagueOf(A.pts),lg=LEAGUES[li],left=5-A.used,tp=teamPower();
  var t=fixTeam().map(function(id){return '<img src="art/p'+id+'.webp" alt="">';}).join('');
  setScreen(pgHead('ประลอง','เหรียญสนาม '+I('medal','s')+' '+(SAVE.cur.medal||0))+
@@ -1214,7 +1216,7 @@ function dgReward(id,L){var r={pexp:8+L*4};
  else if(id==='exp'){r.potS=[4,6,8,10,12][L-1];r.potL=[0,0,1,2,3][L-1];r.coins=500*L;}
  else{r.af={};dgFeat().forEach(function(h){if(hx(h).own)addTo(r.af,h,ri(1,1+Math.floor(L/2)));else addTo(r.frag=r.frag||{},h,ri(2,3+L));});}
  return r;}
-SCR.dung=function(){if(!unl('dung')){lockScreen('ดันเจี้ยนรายวัน','dung');return;}music('hub',0);var ft=dgFeat();
+SCR.dung=function(){if(!unl('dung')){lockScreen('ดันเจี้ยนรายวัน','dung');return;}music('menu',0);var ft=dgFeat();
  setScreen(pgHead('ดันเจี้ยนรายวัน','วัน'+WD[wday()])+'<div class="sub">เข้าได้ดันเจี้ยนละ '+DG_MAX+' ครั้ง/วัน · ผ่านแล้วกวาดล้างได้ · ไม่ใช้พลังงาน</div><div class="dgl">'+DG.map(function(d){var op=dgOpen(d.id),u=SAVE.dg.used[d.id]||0,days=d.days.length>=7?'ทุกวัน':d.days.map(function(x){return WD[x].slice(0,2);}).join(' ');
   return '<button class="dgc'+(op?'':' lock')+'" data-act="'+(op?'dgopen':'mlock2')+'" data-a="'+d.id+'">'+I(d.ic,'l')+'<div><b>'+d.n+'</b><small>'+d.d+'</small><small class="dd">'+(op?'วันนี้เปิด · เหลือ '+(DG_MAX-u)+'/'+DG_MAX:'เปิดวัน: '+days)+'</small></div></button>';}).join('')+'</div>'+
   '<div class="feat">ม้วนตื่นรู้วันนี้ (บ่อพยากรณ์): '+ft.map(function(h){return '<img src="art/p'+h+'.webp" alt="" title="'+esc(HEROES[h].n)+'">';}).join('')+'</div>','pg');};
@@ -1244,7 +1246,7 @@ function raidBoard(wkOnly){var R=SAVE.raid,f=raidProg(),L=raidMembers().map(func
 function raidRankOf(){var L=raidBoard();for(var i=0;i<L.length;i++)if(L[i].me)return i+1;return L.length;}
 function raidTotal(){var s=SAVE.raid.dmg;raidBoard().forEach(function(x){if(!x.me)s+=x.dmg;});return s;}
 function raidClaimable(){return unl('raid')&&SAVE.raid.dmg>0&&SAVE.raid.rd!==dayKey();}
-SCR.raid=function(){if(!unl('raid')){lockScreen('บอสสมาคม','raid');return;}music('hub',0);var R=SAVE.raid,tot=raidTotal(),H=R.H,left=Math.max(0,RAID_MAX-R.used),rk=raidRankOf(),L=raidBoard(),pc=clamp(1-tot/H,0,1);
+SCR.raid=function(){if(!unl('raid')){lockScreen('บอสสมาคม','raid');return;}music('menu',0);var R=SAVE.raid,tot=raidTotal(),H=R.H,left=Math.max(0,RAID_MAX-R.used),rk=raidRankOf(),L=raidBoard(),pc=clamp(1-tot/H,0,1);
  var rows=[],top=L.slice(0,5);L.forEach(function(x,i){if(i<5||x.me)rows.push('<div class="lbrow'+(x.me?' me':'')+'"><b>'+(i+1)+'</b><span>'+esc(x.nm)+'</span><em>'+fmtN(x.dmg)+'</em></div>');});
  var dleft=Math.max(0,7-(dnum()-(R.wk*7-3)));
  setScreen(pgHead('บอสสมาคม','เหลือ '+dleft+' วัน')+'<div class="rboss"><img src="art/b12.webp" alt=""><div class="rbn">'+esc(BOSSES[12].n)+'</div><div class="rbar"><u style="width:'+(pc*100)+'%"></u></div><small>'+(R.dead||tot>=H?'บอสถูกล้มแล้ว! ตีต่อเพื่อติดอันดับ':'HP บอสที่เหลือ '+Math.round(pc*100)+'% (รวมสมาชิกสมาคมจำลอง 14 คน)')+'</small></div>'+

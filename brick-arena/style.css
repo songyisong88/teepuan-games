@@ -84,11 +84,11 @@ body:not(.menu) #screen{display:none}
 .seg button{flex:1;background:none;padding:.7rem;border-radius:1.6rem;font-weight:800;font-size:1.4rem;color:#b8c8f0}
 .seg button.on{background:linear-gradient(#ffe27a,#ffab1c);color:#5a2b00}.seg button.lock{opacity:.6}
 .zn{font-size:1.7rem;font-weight:800;text-shadow:0 .15rem 0 #000;margin:.3rem 0}
-.ztabs{display:flex;gap:.6rem}
-.ztab{width:4.2rem;height:4.2rem;border-radius:1.2rem;background:rgba(0,10,40,.6);font-weight:800;font-size:1.8rem;border:.15rem solid rgba(255,255,255,.25)}
+.ztabs{display:flex;gap:.25rem;overflow-x:auto;padding-bottom:.2rem}
+.ztab{flex:0 0 3.1rem;width:3.1rem;height:3.6rem;border-radius:1rem;background:rgba(0,10,40,.6);font-weight:800;font-size:1.5rem;border:.15rem solid rgba(255,255,255,.25)}
 .ztab.on{background:linear-gradient(#ffe27a,#ffab1c);color:#5a2b00}.ztab.lock{opacity:.5}
-.nodes{position:relative;height:66rem;margin-top:1rem;z-index:2}
-.nodes .path{position:absolute;left:0;top:0;width:100%;height:64rem}
+.nodes{position:relative;height:56rem;margin-top:1rem;z-index:2}
+.nodes .path{position:absolute;left:0;top:0;width:100%;height:56rem}
 .path polyline{fill:none;stroke:rgba(255,255,255,.55);stroke-width:7;stroke-dasharray:3 14;stroke-linecap:round}
 .node{position:absolute;width:7.2rem;height:7.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:2rem;background:linear-gradient(#3b6ad0,#1d3f8a);border:.3rem solid #0a1a42;box-shadow:0 .4rem 0 #0a1a42;font-size:2.4rem;font-weight:800;gap:.1rem}
 .node b,.node em{font-style:normal;font-size:2.6rem;line-height:1}

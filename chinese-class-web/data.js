@@ -51,7 +51,22 @@ const doneUnitCount=()=>S.parts.length;
 /* คำที่ถือว่า “รู้แล้ว” = คำจากรอบที่เรียนจบ + คำจากระดับต่ำกว่าที่ผู้เรียนบอกว่ารู้แล้ว (S.assume) */
 const uniqW=ws=>{const m=new Set();return ws.filter(w=>!m.has(w.zh)&&m.add(w.zh))};
 const gameWords=()=>uniqW([...UNITS.filter(u=>unitDone(u.id)||u.lv<=S.assume).flatMap(u=>u.words)]);
-const gw4=()=>{const g=gameWords();return g.length>=4?g:uniqW([...g,...(lvLessons(curLv())[0]||LESSONS[0]).words])};
+/* ===== ระดับที่เลือก/ผลทดสอบ ขับเคลื่อนทุกหน้า =====
+   lvDriven = ผู้ใช้เลือกระดับเองหรือรับผลทดสอบ (ระดับ>1 หรือบอกว่ารู้ระดับก่อนหน้า) แม้ยังไม่เรียนบทไหนจบ
+   lvWindow = บทของระดับปัจจุบันตั้งแต่ต้นจนถึงบทถัดไปที่ยังไม่จบ +2 บท (คำที่ "พอดีระดับ" ตอนนี้)
+   gw4()    = คลังคำสำหรับเกม/ทบทวน/ติวเตอร์/ท้าเพื่อน: คำในหน้าต่างระดับ + คำที่เรียนจบ + คำระดับ n-1 ที่ถือว่ารู้ (สุ่มคงที่รายวัน ไม่เกินจำนวนคำระดับ n) */
+const lvDriven=()=>!!(S.lvPicked||S.placed)&&(curLv()>1||(S.assume||0)>0);
+const lvWindow=()=>{const n=curLv(),ls=lvLessons(n);if(!ls.length)return [];const nu=nextUnit(n);const k=nu?Math.max(0,ls.findIndex(l=>l.id===nu.lesson)):ls.length;return ls.slice(0,Math.min(ls.length,k+3))};
+const lvAllWords=(n=curLv())=>uniqW(lvLessons(n).flatMap(l=>l.words));
+const seedHash=s=>{let h=5381;s=String(s);for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h};
+const seedPick=(arr,n,salt)=>arr.map(w=>[seedHash(w.zh+'|'+(salt||today())),w]).sort((a,b)=>a[0]-b[0]).slice(0,n).map(x=>x[1]);
+const doneWords=()=>uniqW(UNITS.filter(u=>unitDone(u.id)).flatMap(u=>u.words));
+function lvPoolW(){const n=curLv(),win=uniqW(lvWindow().flatMap(l=>l.words)),done=doneWords(),near=gameWords().filter(w=>w.lv>=n-1&&!win.some(x=>x.zh===w.zh));
+ return uniqW([...win,...done,...seedPick(near,Math.max(8,win.length))])}
+const gw4=()=>{const g=gameWords();if(lvDriven()){const p=lvPoolW();if(p.length>=4)return p}return g.length>=4?g:uniqW([...g,...(lvLessons(curLv())[0]||LESSONS[0]).words])};
+const gamesOpen=()=>gameWords().length>=4||(lvDriven()&&gw4().length>=4);
+/* บทที่ใช้กับติวเตอร์/ฉากสนทนา/ประโยคตัวอย่าง: บทที่จบแล้ว + บทในหน้าต่างระดับ */
+const lvLessonPool=()=>{const done=LESSONS.filter(l=>isDone(l.id));if(!lvDriven())return done.length?done:[LESSONS[0]];const n=curLv();const m=new Map();[...lvWindow(),...done.filter(l=>l.lv>=n-1)].forEach(l=>m.set(l.id,l));return [...m.values()]};
 const learnedCount=()=>gameWords().length;
 const lvBadge=()=>`<span class="chip lvchip press" data-go="levels" aria-label="ระดับของฉัน">ระดับ ${curLv()}</span>`;
 function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;srsGrade(w,false,1);save()}
@@ -61,13 +76,16 @@ const mistakeWords=()=>Object.keys(S.mistakes).map(wordBy).filter(Boolean);
 const SRS_INT=[0,1,2,4,8,16];
 function srsGrade(w,ok,quiet){if(!w||!w.zh)return;if(!S.srs)S.srs={};const r=S.srs[w.zh]||{b:0,d:0};if(ok&&r.b>0&&r.d>today())return;r.b=ok?Math.min(5,r.b+1):0;r.d=today()+SRS_INT[r.b];S.srs[w.zh]=r;if(!quiet)save()}
 const srsDue=()=>Object.keys(S.srs||{}).filter(z=>S.srs[z].d<=today()).map(wordBy).filter(Boolean);
-const reviewWords=()=>uniqW([...mistakeWords(),...srsDue()]);
+const reviewReal=()=>uniqW([...mistakeWords(),...srsDue()]);
+/* ผู้ใช้ที่เลือกระดับแล้วแต่ยังไม่มีคำค้าง: เติมคำแนะนำของระดับ (สุ่มคงที่รายวัน) ให้ทบทวนได้ทันที */
+const reviewSeed=()=>{if(!lvDriven())return [];const r=reviewReal();if(r.length>=6)return [];const have=new Set(r.map(w=>w.zh));const n=curLv();const pool=gw4().filter(w=>!have.has(w.zh)&&w.lv>=n);return seedPick(pool.length>=6-r.length?pool:gw4().filter(w=>!have.has(w.zh)),6-r.length,'rv'+today())};
+const reviewWords=()=>uniqW([...reviewReal(),...reviewSeed()]);
 const srsBox=w=>(S.srs&&S.srs[w.zh]?S.srs[w.zh].b:0);
 const cmUnlocked=c=>c.by==='duel'?S.duelWins>0:isDone(+c.by.split(':')[1]);
 
 /* ข้อมูลจำลอง */
 const FRIENDS=[{n:'พี่ต้น',c:'#A25F3A',s:12},{n:'น้องมะลิ',c:'#4B7D61',s:5},{n:'แพรว',c:'#4C72A7',s:21},{n:'โอ๊ต',c:'#8D62AB',s:3},{n:'ฟ้า',c:'#B25567',s:8}];
-const GROUPS=[{n:'ห้องจีนมือใหม่ 🐑',cnt:12,c:'#C8102E'},{n:'ทีมติว HSK 1',cnt:8,c:'#27211E'}];
+const GROUPS=[{n:'ห้องจีนมือใหม่ 🐑',cnt:12,c:'#C8102E'},{n:'ทีมติวระดับ 1',cnt:8,c:'#27211E'}];
 const LEAGUE=[['ฟ้าใส',212],['พี่ต้น',186],['แพรว',171],['โอ๊ต',150],['มะลิ',139],['เจ๋ง',121],['น้ำหวาน',108],['ภูมิ',96],['ปอนด์',88],['แพท',75],['ใบเตย',62],['กาย',51],['นุ่น',44],['เกม',30],['บีม',22]];
 const SHOP=[
  {id:'flower',e:'🌸',n:'ดอกไม้ทัดหู',p:0,slot:'hat'},

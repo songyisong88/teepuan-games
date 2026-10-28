@@ -19,6 +19,11 @@ gm={}
 for l in open(SO+'graphics.txt',encoding='utf8'):
     j=json.loads(l)
     if j['character'] in by: gm[j['character']]=len(j['strokes'])
+# report5 M4: พินอินที่ MMAH ให้ต่างจากที่ถูกต้อง → แก้ในชั้นของเรา
+PYFIX={'绩':'jì','迹':'jì'}
+for _c,_p in PYFIX.items():
+    if _c in dic: dic[_c]['pinyin']=[_p]
+    if _c in by: by[_c]['d']['py']=[_p]
 # ---- ตารางที่ร่างไว้ ----
 def parse(f):
     rows=[]
@@ -60,7 +65,7 @@ def toph(t): return t
 def norm(p): 
     p=unicodedata.normalize('NFD',p);return ''.join(ch for ch in p if not unicodedata.combining(ch) or False)
 def tonestrip(p):
-    p=unicodedata.normalize('NFD',p.lower()); p=''.join(ch for ch in p if not 0x300<=ord(ch)<=0x304); return unicodedata.normalize('NFC',p).replace('ü','v')
+    p=unicodedata.normalize('NFD',p.lower()); p=''.join(ch for ch in p if ord(ch) not in (0x300,0x301,0x304,0x30C)); return unicodedata.normalize('NFC',p).replace('ü','v')
 def pyof(c):
     if c in by and by[c]['d'].get('py'): return by[c]['d']['py'][0]
     j=dic.get(c)
@@ -152,6 +157,13 @@ for k,v in CH.items():
             if q: RP[p]=q
 js.append('/* ส่วนประกอบ -> พินอิน (ใช้ในเกมประกอบร่าง) */')
 js.append('const RAD_PY='+json.dumps(RP,ensure_ascii=False,separators=(',',':'))+';')
+# ทุกคู่ส่วนประกอบสองชิ้นที่ประกอบเป็นตัวอักษรจริง (MMAH ทั้งหมด ~9.5 พันตัว ไม่สนใจเครื่องหมายโครงสร้าง) ไว้กรองตัวเลือกลวงของเกมประกอบร่าง
+PR=set()
+for ch,j in dic.items():
+    m=re.match(r'^[⿰⿱⿲⿳⿸⿺⿵⿷⿶⿹⿴⿻](.)(.)$',j.get('decomposition',''))
+    if m and '？' not in m.groups() and not (0x2FF0<=ord(m.group(1))<=0x2FFB) and not (0x2FF0<=ord(m.group(2))<=0x2FFB): PR.add(m.group(1)+m.group(2))
+js.append('/* คู่ส่วนประกอบที่ประกอบเป็นตัวอักษรจริง (ลองทั้งสองลำดับ) — ใช้กรองตัวเลือกลวง */')
+js.append("const RAD_PAIRS='"+' '.join(sorted(PR))+"';")
 open(OUT,'w',encoding='utf8').write('\n'.join(js)+'\n')
 print('wrote',OUT,os.path.getsize(OUT))
 ex=collections.Counter(r.get('m',-1) for r in CH.values() if r['t']=='p')

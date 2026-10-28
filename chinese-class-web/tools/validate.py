@@ -209,6 +209,11 @@ if re.search(r'HSK',open(os.path.join(RD,'rad.js'),encoding='utf8').read()): E('
 try:
     out=subprocess.check_output(['node','-e',"const vm=require('vm'),fs=require('fs');const c={};vm.createContext(c);vm.runInContext(fs.readFileSync(process.argv[1],'utf8')+';this.o={RAD,RAD_MEM,RAD_CH,RAD_Z}',c);console.log(JSON.stringify(c.o))",os.path.join(RD,'rad.js')])
     RJ=json.loads(out)
+    _rt=open(os.path.join(RD,'rad.js'),encoding='utf8').read()
+    mp=re.search(r"RAD_PAIRS\s*=\s*'([^']*)'",_rt)
+    if not mp or len(mp.group(1).split(" "))<8000: E('rad','RAD_PAIRS missing or too small (drag-build distractors depend on it)')
+    # tonestrip regression guard: the build must strip U+030C (caron) like the other tone marks
+    if "0x30C" not in open(os.path.join(APP,'tools','rad-build','build_rad.py'),encoding='utf8').read(): E('rad','build_rad.py tonestrip does not handle U+030C')
     R=RJ['RAD'];ids=[r['id'] for r in R]
     if len(R)!=60 or sum(1 for r in R if not r['bonus'])!=48: E('rad',f'expected 48 core + 12 bonus, got {len(R)}')
     if len(set(ids))!=len(ids): E('rad','duplicate radical ids')

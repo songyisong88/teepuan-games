@@ -1,7 +1,7 @@
 /* เกม: จับคำ จับคู่ความจำ 60 วิ ดวลเพื่อน หีบ/วงล้อ ร้านค้า ผลลัพธ์ */
 const pickOne=a=>a[Math.random()*a.length|0];
 const pickN=(a,n)=>{let r=[];while(r.length<n)r=r.concat(shuffle(a));return r.slice(0,n)};
-SC.games=()=>{const gw=gameWords(),lock=gw.length<4,b=S.gameBest;
+SC.games=()=>{const gw=gw4(),lock=!gamesOpen(),b=S.gameBest;
  const G=(g,bg,em,t,sub)=>`<button class="card gcard press ${lock?'lockd':''}" data-go="play" data-g="${g}"><span class="gi" style="background:${bg}">${em}</span><span style="flex:1"><b>${t}</b><small>${sub}</small></span>${lock?LOCK.replace('<svg','<svg width="20" height="20" style="color:#B9B0A6"'):CHEV}</button>`;
  return {title:'เกม',body:`<div class="large">เกม</div>
  ${lock?`<div class="card pad2 mt12 fade-in" style="display:flex;gap:12px;align-items:center;margin-bottom:16px"><div style="width:96px;height:96px;flex:none">${M('locked')}</div><div><b style="font-size:17px">เกมยังล็อกอยู่</b><p style="font-size:14px;color:var(--sub2);margin:4px 0 10px">เรียนบทที่ 1 ให้จบ เพื่อปลดล็อกคำศัพท์สำหรับเล่นเกม</p><button class="pill sm press" style="width:auto;padding:0 22px;height:44px;font-size:15px" data-go="path">ไปเรียนเลย</button></div></div>`
@@ -32,7 +32,7 @@ SC.game_catch=()=>({noRefresh:true,nav:gnav('จับคำ'),body:'',extra:`<d
   function end(){alive=false;cancelAnimationFrame(raf);const xp=Math.min(30,2+Math.round(score*1.1)),coins=score;gameEnd(el,'catch',score,{xp,coins,mascot:score>=8?'celebrate':'wrong',sub:`จับถูก ${score} คำ`,stats:[['จับถูก',score+'/'+MAXR],['หัวใจที่เหลือ',lives]]})}
   function lose(w){lives--;addMistake(w);vib([30,40,30]);hud();if(lives<=0)setTimeout(end,500);else setTimeout(nr,650)}
   function nr(){if(!alive)return;if(score>=MAXR){end();return}ar.innerHTML='';lock=false;round++;tw=pickOne(words);const ds=shuffle(words.filter(w=>w.zh!==tw.zh)).slice(0,2);
-   $('#tg',el).innerHTML=`แตะคำที่แปลว่า “${tw.th}”`;dur=Math.max(3200,6500-round*260);t0=performance.now();const xs=shuffle([20,50,80]);
+   $('#tg',el).innerHTML=`แตะคำที่แปลว่า “${tw.th}”`;dur=Math.max(3200-(curLv()-1)*150,6500-(curLv()-1)*350-round*260);t0=performance.now();const xs=shuffle([20,50,80]);
    bubs=shuffle([tw,...ds]).map((w,i)=>{const d=document.createElement('div');d.className='bub zh';d.style.left=xs[i]+'%';d.style.top='0';d.textContent=w.zh;if(w.zh.length>2)d.style.fontSize='24px';d.style.transform='translateY(-70px)';d.onclick=()=>tap(d,w);ar.appendChild(d);return {d,w,dead:false}});
    cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
   function tap(d,w){if(lock||!alive)return;if(w.zh===tw.zh){lock=true;score++;d.classList.add('good');vib(14);floatXp('+3 XP',d);hud();bubs.forEach(b=>{if(b.d!==d)b.d.style.opacity='.25'});setTimeout(nr,450)}else{d.classList.add('bad');d.style.pointerEvents='none';lock=true;lose(tw)}}
@@ -65,7 +65,7 @@ SC.game_speed=()=>({noRefresh:true,nav:gnav('รอบเร็ว 60 วิน�
   stage.innerHTML=`<div class="center fade-in"><div style="width:190px;height:190px;margin:0 auto" class="float">${M('timer')}</div><div class="large" style="padding:4px 0 0">รอบเร็ว 60 วินาที</div><p class="cap mt8" style="padding:0 30px">ตอบให้ได้มากที่สุดใน 1 นาที ถูกติดกันได้คอมโบ</p><div class="pad mt20"><button class="pill press" id="go"><b>เริ่มจับเวลา</b></button></div></div>`;$('#go',el).onclick=()=>{startT();q()};this.stop=()=>{alive=false;clearInterval(tick)}},unmount(){this.stop&&this.stop()}});
 
 /* ----- ดวลเพื่อน (จำลอง) ----- */
-function pickFriend(){if(gameWords().length<4){toast('เรียนบทที่ 1 ให้จบก่อน แล้วค่อยท้าเพื่อนได้');return}
+function pickFriend(){if(!gamesOpen()){toast('เรียนบทที่ 1 ให้จบก่อน แล้วค่อยท้าเพื่อนได้');return}
  openSheet(`<div style="padding:0 20px;display:flex;align-items:center;gap:8px"><div style="flex:1"><div class="h2">ท้าเพื่อนคนไหนดี?</div><p class="cap">ดวลศัพท์ 5 ข้อ จากคำที่คุณเรียนแล้ว</p></div><div style="width:92px;height:92px;flex:none">${M('duel')}</div></div><div class="group mt12">${FRIENDS.map((f,i)=>`<button class="row press" data-fi="${i}"><span class="av" style="background:${f.c}">${f.n.replace('พี่','').replace('น้อง','')[0]}</span><span class="tx"><b>${f.n}</b><small>🔥 ${f.s} วัน</small></span><span class="chip" style="height:28px;font-size:13px">ท้าเลย</span></button>`).join('')}</div>
  <div style="padding:14px 20px 0"><button class="pill sm ghost press" id="sl">เลือกผ่าน LINE (จำลอง)</button></div>`,{onMount:sh=>{$$('[data-fi]',sh).forEach(b=>b.onclick=()=>{closeSheet();setTimeout(()=>push('duel',{f:FRIENDS[+b.dataset.fi]}),150)});$('#sl',sh).onclick=()=>{closeSheet();setTimeout(()=>shareSheet('challenge'),300)}}})}
 SC.duel=(p)=>{const f=(p&&p.f)||FRIENDS[0];return ({noRefresh:true,nav:gnav('ดวลกับ '+f.n),body:'<div class="stage" id="stage" style="padding-top:calc(var(--st) + 128px)"></div>',

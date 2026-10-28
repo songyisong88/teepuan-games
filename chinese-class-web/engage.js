@@ -5,7 +5,9 @@ const cntOf=k=>S.cnt.day===today()?(S.cnt[k]||0):0;
 
 /* ----- ภารกิจประจำวัน (หมุนเวียนวันละ 3 ข้อ) ----- */
 const MIS=[{id:'unit',t:'เรียนจบ 1 รอบ',k:'unit',n:1,em:'📖'},{id:'q',t:'ตอบถูก 10 ข้อ',k:'qok',n:10,em:'✅'},{id:'game',t:'เล่นเกม 1 ครั้ง',k:'game',n:1,em:'🎮'},{id:'ear',t:'ฟังเสียงจีน 12 ครั้ง',k:'audio',n:12,em:'🎧'},{id:'q2',t:'ตอบถูก 20 ข้อ',k:'qok',n:20,em:'🎯'},{id:'soc',t:'ท้าเพื่อนหรือส่งกำลังใจ 1 ครั้ง',k:'social',n:1,em:'💚'},{id:'tut',t:'ถามติวเตอร์ 1 คำถาม',k:'tutor',n:1,em:'💬'}];
-const todayMis=()=>{const t=today();return [0,2,4].map(o=>MIS[(t+o)%7])};
+/* เป้าภารกิจปรับตามระดับ: ระดับสูงขึ้น ต้องตอบ/ฟังมากขึ้น (+15% ต่อระดับ) */
+const misScale=m=>{if(m.k!=='qok'&&m.k!=='audio')return m;const n=Math.round(m.n*(1+.15*(curLv()-1)));return Object.assign({},m,{n,t:m.t.replace(/\d+/,n)})};
+const todayMis=()=>{const t=today();return [0,2,4].map(o=>misScale(MIS[(t+o)%7]))};
 function misState(){if(S.mis.day!==today())S.mis={day:today(),got:[]};return S.mis}
 function missionsHtml(){const ms=misState(),list=todayMis(),all=list.every(m=>ms.got.includes(m.id));const nGot=ms.got.length;
  return `<div class="sec" style="display:flex;justify-content:space-between;align-items:center">ภารกิจวันนี้<span class="cap" style="font-weight:600">${nGot}/3 ${all?'· รับโบนัสแล้ว ✓':'· ครบสามได้ +25 🪙'}</span></div><div class="group">${list.map(m=>{const c=Math.min(m.n,cntOf(m.k)),done=c>=m.n,got=ms.got.includes(m.id);
@@ -90,8 +92,8 @@ SC.buddy=()=>{const b=S.buddy;
 /* ----- หน้าหลัก ----- */
 SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goal),C=2*Math.PI*90,t=today(),hr=new Date().getHours();
  const wk=Array.from({length:7},(_,k)=>{const d=t-6+k;return `<div>${['อา','จ','อ','พ','พฤ','ศ','ส'][(d+4)%7]}<i class="${dayXp(d)>0?'on':''} ${d===t?'today':''}">${dayXp(d)>0?'✓':''}</i></div>`}).join('');
- const gw=gameWords().length,cdone=S.chestDay===t;const pose=xp>=goal?'celebrate':!S.parts.length?'wave':hr>=22||hr<5?'sleepy':curStreak()>=3?'jump':'wave';
- const hello=!S.parts.length?'เริ่มด้วยบทแรก ใช้เวลาแค่ 3 นาที':xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งที่สุด!':curStreak()>=3?`สตรีค ${curStreak()} วันแล้ว อย่าให้ขาดนะ!`:`${MASCOT_NAME}พาเรียนวันนี้`;
+ const gw=gamesOpen()?gw4().length:0,cdone=S.chestDay===t;const pose=xp>=goal?'celebrate':!S.parts.length?'wave':hr>=22||hr<5?'sleepy':curStreak()>=3?'jump':'wave';
+ const hello=!S.parts.length?(lvDriven()?`เริ่มที่ระดับ ${curLv()} · บทแรกของระดับนี้รออยู่`:'เริ่มด้วยบทแรก ใช้เวลาแค่ 3 นาที'):xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งที่สุด!':curStreak()>=3?`สตรีค ${curStreak()} วันแล้ว อย่าให้ขาดนะ!`:`${MASCOT_NAME}พาเรียนวันนี้`;
  return {title:BRAND_NAME,body:`${S.from==='line'?'<div class="banner fade-in" style="margin-top:2px">✓ เปิดจาก LINE OA (จำลอง) · เข้าสู่ระบบให้แล้ว</div>':''}
  <div class="hero"><div><div class="cap">${dateTxt()}</div><div class="large" style="padding:2px 0 0">สวัสดี, ${S.name}</div><div class="cap" style="margin-top:2px;max-width:200px">${hello}</div></div>${llama(pose,112,{acc:true,cls:'float',style:'margin-bottom:-4px'})}</div>
  <div class="pad mt12">${typeof stkHomeSearch==='function'?stkHomeSearch():''}</div>

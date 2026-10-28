@@ -2,7 +2,7 @@
 const AVC=['#B0623A','#477F60','#4672AE','#7F52A0','#BC4B64','#27211E'];
 const avatar=(n,c)=>`<span class="av" style="background:${c}">${n.replace('พี่','').replace('น้อง','')[0]}</span>`;
 let rankTab=0;
-const CLASSWAR=[['ห้องจีนมือใหม่ 🐑',0],['ห้องสายซีรีส์ 📺',610],['ชมรมจีนเที่ยวไทย ✈️',560],['ทีมติว HSK 1',520],['ห้องสายธุรกิจ 💼',470]];
+const CLASSWAR=[['ห้องจีนมือใหม่ 🐑',0],['ห้องสายซีรีส์ 📺',610],['ชมรมจีนเที่ยวไทย ✈️',560],['ทีมติวระดับ 1',520],['ห้องสายธุรกิจ 💼',470]];
 function classRows(){const d=(today()+3)%7+1;const mine=CLASSWAR[0];
  const rows=CLASSWAR.map((c,i)=>i===0?{n:c[0],xp:430+d*95+weekXp(),me:1}:{n:c[0],xp:c[1]-60+d*(88+i*9)});rows.sort((a,b)=>b.xp-a.xp);return rows}
 function classBody(){const rows=classRows(),pos=rows.findIndex(r=>r.me)+1,me=rows[pos-1],ahead=rows[pos-2];
@@ -66,7 +66,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
  <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>คำที่เรียน</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
  <div class="sec">ระดับการเรียน</div><div class="group">
   ${ROW(levelBy(curLv()).bg,levelBy(curLv()).em,'ระดับของฉัน: '+levelBy(curLv()).name,levelBy(curLv()).th+(lvInfo(curLv()).complete?'':' · กำลังเพิ่มเนื้อหา'),'<span class="val">เปลี่ยน</span>'+CHEV,'data-go="levels"')}
-  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?'ผลล่าสุด ≈ HSK '+S.placeRes.est+' · ทำใหม่ได้':'12–20 ข้อ ไม่บังคับ',undefined,'data-go="placement"')}</div>
+  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?'ผลล่าสุด ≈ ระดับ '+S.placeRes.est+' · ทำใหม่ได้':'12–20 ข้อ ไม่บังคับ',undefined,'data-go="placement"')}</div>
  <div class="sec">บัญชีและแผน</div><div class="group">
   ${ROW('#FDECEC','⭐','แผนและราคา','ตัวอย่างทดลอง · ไม่มีการชำระเงิน',`<span class="val">${PLANS.find(p=>p.id===S.plan).n}</span>${CHEV}`,'data-go="plans"')}
   ${ROW('#FDF3E6','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,undefined,'data-go="shop"')}
@@ -104,5 +104,5 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   else if(a==='lost'){S.streak=7;S.lastDay=today()-4;S.lostShown=-99;S.freezes=0;save();checkStreakLost()}
   else if(a==='all'){UNITS.forEach(u=>{if(!unitDone(u.id)){S.parts.push(u.id);S.stars[u.id]=S.stars[u.id]||2}});save();toast('จบทุกบทแล้ว เกมปลดล็อกครบ');refresh()}
   else if(a==='coins'){addCoins(100);toast('+100 เหรียญ');refresh()}
-  else if(a==='reset'){if(!confirm('ล้างข้อมูลทั้งหมดในเครื่องนี้ (ความคืบหน้า เหรียญ สตรีค และข้อมูลหน้าจำลอง LINE)? ย้อนกลับไม่ได้'))return;Object.keys(localStorage).filter(k=>k.indexOf('lama-')===0).forEach(k=>localStorage.removeItem(k));location.href=location.pathname}}}}};
+  else if(a==='reset'){if(!confirm('ล้างข้อมูลทั้งหมดในเครื่องนี้ (ความคืบหน้า เหรียญ สตรีค ข้อมูลฝึกเขียน/ตัวอักษร ข้อมูลหน้าจำลอง LINE รวมถึงไฟล์ออฟไลน์ที่เก็บไว้และ Service Worker)? ย้อนกลับไม่ได้'))return;Object.keys(localStorage).filter(k=>k.indexOf('lama-')===0).forEach(k=>localStorage.removeItem(k));const fin=()=>{location.href=location.pathname};Promise.all([window.caches&&caches.keys?caches.keys().then(ks=>Promise.all(ks.filter(k=>k.indexOf('lama-')===0).map(k=>caches.delete(k)))):0,navigator.serviceWorker&&navigator.serviceWorker.getRegistrations?navigator.serviceWorker.getRegistrations().then(rs=>Promise.all(rs.map(r=>r.unregister()))):0].map(p=>Promise.resolve(p).catch(()=>0))).then(fin,fin)}}}}};
 document.addEventListener('DOMContentLoaded',boot);

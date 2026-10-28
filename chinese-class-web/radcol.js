@@ -26,6 +26,7 @@ function radPracHtml(){const k=radS();const pool=radLvPool();const auto=!(k.lv&&
  ${G('#FDF3E6','🧩','ประกอบร่าง','ลากชิ้นส่วนมาวางให้ครบตัวอักษร · '+(done?`จากตัวข้างที่เรียนแล้ว ${done} ตัว`:'เริ่มจากเขต 1'),'radplay','data-g="build"')}
  ${G('#EAF1FB','🔎','นักสืบตัวข้าง','ใช้เบาะแสความหมาย + เสียง เดาคำแปลของตัวที่ไม่เคยเห็น','radplay','data-g="det"')}
  ${G('#FDECEC','⚡','ท้า 60 วินาที','ตัวนี้อยู่ครอบครัวไหน? ตอบให้ได้มากที่สุด'+(dbl?` · สถิติ ${dbl}`:''),'radplay','data-g="blitz"')}
+ <p class="rd-draft">ชื่อไทย ตัวช่วยจำ และข้อความในเกมเป็นร่าง รอครูตรวจ</p>
  <p class="cap" style="padding:12px 24px 0;line-height:1.5">เหรียญจากเกมตัวข้างได้วันละไม่เกิน ${RAD_CAP} เหรียญ (วันนี้เหลือ ${radCoinLeft()}) · ไม่มีการสุ่มกาชา</p>
  <div class="stat mt12" style="margin:16px 20px 0"><div><b>${k.built}</b><small>รอบประกอบร่าง</small></div><div><b>${k.det.ok}/${k.det.n}</b><small>นักสืบถูก/ทั้งหมด</small></div><div><b>${Object.keys(k.known).length}</b><small>ตัวอักษรที่ตอบถูก</small></div></div>`}
 Object.assign(window.GOX,{

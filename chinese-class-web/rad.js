@@ -14,8 +14,10 @@ function radG(c){if(!_radG){_radG={};for(const w of ALLW){for(const ch of stkHan
   const better=!cur||(single&&!cur.single)||(single===cur.single&&(w.zh.length<cur.w.length||(w.zh.length===cur.w.length&&w.lv<cur.lv)));
   if(better)_radG[ch]={w:w.zh,th:w.th,py:w.py,single,lv:w.lv,lesson:w.lesson,e:w}}}}return _radG[c]||null}
 function radPy(c){const g=radG(c);if(g){if(g.single)return g.py;const cs=stkHan(g.w);const sy=(g.py||'').split(/[ |]+/).filter(Boolean);if(sy.length===cs.length){const i=cs.indexOf(c);if(i>=0)return sy[i]}}const r=RAD_CH[c];return r?r[7]:(RAD_PY[c]||'')}
-function radGl(c){const g=radG(c);if(!g)return '';return g.th}
-function radGlNote(c){const g=radG(c);return g&&!g.single?`ในคำ ${g.w}`:''}
+/* ความหมายระดับตัวอักษร (report5 M5) — ตัวที่ไม่มีคำเดี่ยวในบทเรียน เดิมใช้ความหมายของทั้งคำ (ร่าง รอครูตรวจ) */
+const RAD_GL1={'超':'ข้าม · เกิน','打':'ตี · ทำ','感':'รู้สึก','酒':'เหล้า · สุรา','车':'รถ','国':'ประเทศ','米':'ข้าว · เมตร'};
+function radGl(c){const g=radG(c);if(RAD_GL1[c]&&!(g&&g.single))return RAD_GL1[c];if(!g)return '';return g.th}
+function radGlNote(c){const g=radG(c);return g&&!g.single?(RAD_GL1[c]?`เจอในคำ ${g.w}`:`ความหมายของคำ ${g.w}`):''}
 const radLvOf=c=>{const g=radG(c);return g?g.lv:0};
 const radTone=p=>toneOf(p||'')
 function radLessonNo(c){const g=radG(c);return g?g.lesson:null}
@@ -126,7 +128,7 @@ function radCharSheet(c,rid){const info=RAD_CH[c];const g=radG(c);const py=radPy
  const mt={2:['ok','อ่านเหมือนตัวเต็มเป๊ะ'],1:['mid','พยางค์ตรง วรรณยุกต์ต่าง'],0:['lo','เสียงไม่ตรง'],'-1':['','ไม่ทราบ']};
  const ws=ALLW.filter(w=>w.zh.includes(c)).slice(0,4);
  openSheet(`<div class="rd-sheet"><div class="rd-sbig">${radGlyph(c,ss)}</div><div class="rd-spy">${py?pyHtml(py):''}</div><div class="rd-sth">${radEsc(radGl(c))}${radGlNote(c)?` <small>${radGlNote(c)}</small>`:''}</div>
- ${info?`<div class="rd-split"><b>แยกส่วน</b><div class="rd-sp">${[...info[0]].map(x=>/[⿰-⿻]/.test(x)?`<i class="op">${x}</i>`:`<span class="${r&&r.f.includes(x)?'o':ph&&x===ph.c?'b':''}"><span class="zh">${x}</span><small>${RAD_PY[x]?pyHtml(RAD_PY[x]):''}</small></span>`).join('')}</div>
+ ${info?`<div class="rd-split"><b>แยกส่วน</b><div class="rd-sp">${(()=>{const raw=[...info[0]],bad=raw.includes('？'),xs=bad?raw.filter(x=>x!=='？'&&!/[⿰-⿻]/.test(x)):raw;return (xs.length?xs:[]).map(x=>/[⿰-⿻]/.test(x)?`<i class="op">${x}</i>`:`<span class="${r&&r.f.includes(x)?'o':ph&&x===ph.c?'b':''}"><span class="zh">${x}</span><small>${RAD_PY[x]?pyHtml(RAD_PY[x]):''}</small></span>`).join('')+(bad?`<span class="rd-unk">${xs.length?'ส่วนที่เหลือ':'ส่วนนี้'}แยกต่อไม่ได้ในข้อมูลของเรา</span>`:'')})()}</div>
  ${ty?`<p>${ty}${ph?` · ส่วนเสียง <b class="zh">${ph.c}</b> ${ph.py?pyHtml(ph.py):''} <span class="rd-mt ${mt[ph.m][0]}">${mt[ph.m][1]}</span>`:''}</p>`:''}</div>`:''}
  ${ws.length?`<div class="rd-split"><b>เจอในบทเรียน</b><div class="rd-words sm">${ws.map(w=>`<button class="rd-wd press" data-go="unit" data-id="${w.lesson}a"><span class="zh">${zhHtml(w.zh,w.py)}</span><span class="t">${radEsc(w.th)}</span><span class="l">บทที่ ${w.lesson} ›</span></button>`).join('')}</div></div>`:''}
  <div style="padding:12px 20px 4px;display:flex;gap:10px"><button class="pill sm ghost press" style="flex:1" id="rcs">${SPK.replace('<svg','<svg width="18" height="18"')} ฟัง</button><button class="pill sm press" style="flex:1" id="rco">ดูลำดับขีด</button></div></div>`,{onMount:sh=>{radColorize(sh);$('#rcs',sh).onclick=e=>speak(g?g.w:c,e.currentTarget);$('#rco',sh).onclick=()=>stkOpen(c)}})}
@@ -135,7 +137,7 @@ SC.radcredits=()=>({title:'ที่มาของข้อมูล',backLabel
  <div class="card pad2 mt12" style="padding:16px 18px;line-height:1.6;font-size:15px"><b>การแยกส่วนประกอบตัวอักษร</b><br>Make Me a Hanzi (Shaunak Kishore และผู้ร่วมพัฒนา) สัญญา LGPL-3 — ตารางโครงสร้างตัวอักษร ส่วนความหมาย/ส่วนเสียง และลำดับขีด เรานำมาผ่านชั้นแก้ไขของเรา (<code>tools/rad-build/fixes.json</code>) ก่อนใช้ ไม่ได้ใช้ตรง ๆ ทั้งหมด</div>
  <div class="card pad2 mt12" style="padding:16px 18px;line-height:1.6;font-size:15px"><b>สีส้มบนตัวอักษร</b><br>มาจากข้อมูลลำดับขีดของ hanzi-writer-data (Arphic Public License) จับคู่กับการแยกส่วนของ Make Me a Hanzi</div>
  <div class="card pad2 mt12" style="padding:16px 18px;line-height:1.6;font-size:15px"><b>ที่เรายังไม่แน่ใจ</b><br>ชื่อไทย ตัวช่วยจำ ชื่อการ์ดและชุดลามะทั้งหมดเป็น${RAD_DRAFT} · ตัวช่วยจำคือเรื่องเล่าให้จำง่าย ไม่ใช่ที่มาทางประวัติศาสตร์ · ส่วนบอกเสียงเดาได้เฉพาะบางครอบครัว (ในแอป ${radPhStat().ex}% อ่านตรงเป๊ะ · ${radPhStat().sy}% ตรงพยางค์ถ้าไม่นับวรรณยุกต์ จากตัวที่มีส่วนเสียง ${radPhStat().n} ตัว)</div>
- <p class="cap" style="padding:12px 24px 0;line-height:1.5">เอกสารสัญญาและประกาศฉบับเต็มอยู่ในโฟลเดอร์ data/rad ของโค้ดบนเว็บนี้ · ดูเพิ่มที่ <a href="terms.html" style="color:var(--red)">เงื่อนไขการใช้งาน</a></p><div style="height:40px"></div>`});
+ <p class="cap" style="padding:12px 24px 0;line-height:1.5">เอกสารสัญญาและประกาศฉบับเต็มอยู่ในโฟลเดอร์ data/rad ของโค้ดบนเว็บนี้ (<a href="data/rad/LGPL-3.0.txt" target="_blank" rel="noopener">LGPL-3.0</a> · <a href="data/rad/NOTICE.md" target="_blank" rel="noopener">NOTICE</a> · <a href="data/rad/MMAH-COPYING.txt" target="_blank" rel="noopener">MMAH-COPYING</a>) · ดูเพิ่มที่ <a href="terms.html" style="color:var(--red)">เงื่อนไขการใช้งาน</a></p><div style="height:40px"></div>`});
 function radPhStat(){if(radPhStat.c)return radPhStat.c;let n=0,ex=0,sy=0;for(const k in RAD_CH){const v=RAD_CH[k];if(v[1]==='p'&&v[3]&&v[5]>=0){n++;if(v[5]===2){ex++;sy++}else if(v[5]===1)sy++}}return radPhStat.c={n,ex:Math.round(ex/n*100),sy:Math.round(sy/n*100)}}
 /* ฟอนต์สำรองของตัวข้างรูปย่อ (CJK Radicals Supplement): ถ้าเครื่องไม่มีฟอนต์จะเห็นเป็นกล่องว่าง — ตรวจครั้งเดียว แล้วสลับเป็นรูปเต็มที่หน้าตาใกล้เคียงเฉพาะที่หายไป */
 (function radGlyphFallback(){const MAP={'⺮':'竹','⺾':'艹','⺿':'艹','⻌':'辶','⻍':'辶','⻊':'足','⻗':'雨','⺗':'心','⺼':'月','⻏':'阝','⻖':'阝','⺈':'刀','⺊':'卜','⺌':'小','⺤':'爪','⺧':'牛','⺹':'耂','⺭':'礻','⻂':'衤','⺢':'水','⺕':'彐','⻁':'虍','⺘':'扌','⺡':'氵','⺨':'犭','⺖':'忄','⺫':'目','⺪':'攵','⺝':'月','⻎':'辶','⻢':'马','⻔':'门','⻥':'鱼','⻦':'鸟'};

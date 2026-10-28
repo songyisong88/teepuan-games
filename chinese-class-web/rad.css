@@ -150,3 +150,19 @@ button.cap.press,.spkl{min-height:44px;min-width:44px}
 .stk-sf .x{min-width:0;min-height:0;box-sizing:content-box;width:26px;height:26px;border:9px solid transparent;margin:-9px -5px -9px -9px;background-clip:padding-box}
 .stk-cancel{min-height:44px}
 .stk-sf{min-width:0}.stk-sf input{width:0}.stk-cancel{flex:none}
+/* ขั้นเลือกระดับตอนแนะนำตัว */
+.ob .obbig{min-height:76px;padding:14px 18px;text-align:left;display:block;width:100%}
+.ob .obbig b{display:block;font-size:18px}.ob .obbig small{display:block;margin-top:3px;font-size:13px;opacity:.9;line-height:1.35}
+.ob .obbig.alt{background:#fff;color:var(--ink,#2B2118);box-shadow:inset 0 0 0 2px rgba(0,0,0,.12)}
+.ob .obbig.alt small{opacity:.7}
+.rd-unk{font-size:13px;color:#8A7B6B;align-self:center;line-height:1.4;padding:0 4px}
+.rd-draft{font-size:12px;color:#8A7B6B;text-align:center;margin:6px 0 0;line-height:1.4}
+/* ---- report5 M9: พื้นที่กด ≥44px (รูปที่เห็นคงเดิมด้วยขอบโปร่งใส) ---- */
+.rd-x{width:44px;height:44px;border:5px solid transparent;background-clip:padding-box;flex:none}
+.rd-done{min-height:44px;min-width:44px}
+.rd-ghostb{min-height:44px}
+.rd-spk.sm{width:44px;height:44px;border:6px solid transparent;background-clip:padding-box}
+.rd-wchip{width:44px;height:44px}
+.rd-lnk,.cap a,.rd-sheet a,.card a{display:inline-block;padding:12px 4px;margin:-12px -4px}
+.rd-lnk{min-height:44px;box-sizing:border-box}
+.rd-lnk{margin:0 -4px}

@@ -121,7 +121,7 @@ function go(what,el){switch(what){
  case 'play':return playGame(el.dataset.g);
  default:if(window.GOX&&GOX[what])return GOX[what](el);console.warn('go?',what)
 }}
-function playGame(g){if(gameWords().length<4){toast('เรียนบทที่ 1 ให้จบก่อนเพื่อปลดล็อกเกม');return}if(g==='duel')return pickFriend();push('game_'+g)}
+function playGame(g){if(!gamesOpen()){toast('เรียนบทที่ 1 ให้จบก่อนเพื่อปลดล็อกเกม');return}if(g==='duel')return pickFriend();push('game_'+g)}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-act]');if(!t||!$('#frame').contains(t))return;
  if(t.dataset.go){vib(6);go(t.dataset.go,t);return}
  const a=t.dataset.act;switch(a){

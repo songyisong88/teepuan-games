@@ -6,7 +6,9 @@ const dvCard=()=>S.dvNote?`<div class="card pad2 mt12" style="margin:12px 16px 0
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#dvok');if(b){S.dvNote=0;save();const c=b.closest('.card');if(c)c.remove()}});
 const lvCover=n=>{const m=LVMETA[n]||{};return m.official?`ครอบคลุมรายการ HSK 2.0 แล้ว ${m.covered}/${m.official} คำ`:`เป้า ≈ ${(levelBy(n)||{}).target||0} คำ`};
 const lvTag=n=>{const i=lvInfo(n);return `<span class="lvtag ${i.complete?'full':'wip'}">${i.complete?'ครบตามเป้าคำ':'กำลังเพิ่มเนื้อหา'}</span>`};
-function setLevel(n,assume){S.level=n;S.assume=Math.max(0,Math.min(n-1,assume===undefined?S.assume:assume));S.lvPicked=true;S.placed=S.placed||0;save()}
+function setLevel(n,assume,stay){S.level=n;S.assume=Math.max(0,Math.min(n-1,assume===undefined?S.assume:assume));S.lvPicked=true;S.placed=S.placed||0;save();
+ /* ระหว่างแนะนำตัวครั้งแรก: เลือกระดับจากการทดสอบ/หน้าเลือกระดับแล้วกลับไปทำขั้นต่อไป (ความสนใจ/เป้าหมาย/เตือน) */
+ if(window.__obRun&&!stay&&!S.seenOnboard){window.__obK=1;setTimeout(()=>{if(!S.seenOnboard)push('onboard')},700)}}
 function levelEndCta(){const n=curLv(),i=lvInfo(n),L=levelBy(n);
  if(i.empty)return `<button class="pill press" data-go="levels"><b>${L.name} กำลังเพิ่มเนื้อหา</b><small>ยังไม่มีบทเรียน · เลือกระดับอื่นหรือเล่นเกมก่อน</small></button>`;
  if(n<LV_MAX)return `<button class="pill press" data-go="levels"><b>จบบทที่มีใน ${L.name} แล้ว!</b><small>${i.complete?`ไปต่อที่ ${levelBy(n+1).name}`:'ตอนต่อไปกำลังเพิ่มเนื้อหา · ลองระดับถัดไปหรือเล่นเกมทบทวน'}</small></button>`;

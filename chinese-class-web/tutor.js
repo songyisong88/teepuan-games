@@ -96,7 +96,7 @@ SC.tutor=()=>({title:'ติวเตอร์จำลอง',noRefresh:true,un
   async function ask(t){if(busy)return;busy=true;bub(true,t.replace(/</g,'&lt;'));S.tutorN++;bumpCnt('tutor',1);save();vib(6);chips.innerHTML='';typing();
    const r=await TUTOR_ADAPTER(t,{});await new Promise(o=>setTimeout(o,650));$('#ty',tc)&&$('#ty',tc).remove();bub(false,r.html);if(r.say)setTimeout(()=>speak(r.say),400);
    if(r.act==='rp'){rpStart()}else{if(r.act==='tones')bub(false,`<button class="pill sm press" data-go="tones">เปิดหน้าวรรณยุกต์ + ฝึกฟัง</button>`);setChips(r.chips||base)}busy=false}
-  function rpStart(){const ls=LESSONS.filter(l=>isDone(l.id));const L=ls.length?ls[Math.random()*ls.length|0]:LESSONS[0];rp={L,k:0};bub(false,`ฉากจากบทที่ ${L.id} · ${L.th} — ฉันเป็นครู คุณเป็นนักเรียน`);setTimeout(rpNext,500)}
+  function rpStart(){const ls=lvLessonPool().filter(l=>l.dlg&&l.dlg.length);const L=ls.length?ls[Math.random()*ls.length|0]:LESSONS[0];rp={L,k:0};bub(false,`ฉากจากบทที่ ${L.id} · ${L.th} — ฉันเป็นครู คุณเป็นนักเรียน`);setTimeout(rpNext,500)}
   function rpNext(){const {L,k}=rp;if(k>=L.dlg.length){const xp=10;addXp(xp);bub(false,`เก่งมาก! จบฉากแล้ว +${xp} XP 🎉`);rp=null;setChips(base);return}
    const d=L.dlg[k];if(d[0]==='t'){bub(false,`<span class="zh" style="font-size:19px">${zhHtml(d[1],d[2])}</span> ${spkBtn(d[1],'t','')}<br><span class="cap">${d[3]}</span>`);setTimeout(()=>speak(d[1],null,'t'),300);rp.k++;setTimeout(rpNext,900)}
    else{const wrong=shuffle(LESSONS.flatMap(l=>l.dlg.filter(x=>x[0]==='f'&&x[1]!==d[1]))).slice(0,2);const opts=shuffle([d,...wrong]);rp.ans=d;bub(false,'คุณจะตอบว่าอะไรดี? 👇');chips.innerHTML=opts.map(o=>`<button class="tchip rpo press" data-rp="${o[1]}"><span class="zh">${o[1]}</span><small>${o[3]}</small></button>`).join('')}}
@@ -219,5 +219,5 @@ PRON.push(
  [/一|เปลี่ยนเสียง|bu4|不.{0,2}เสียง/,'เสียงเปลี่ยนของ 一 และ 不: 不 bù + เสียง 4 → bú (不是 bú shì) · 一 yī + เสียง 4 → yí (一个 yí gè) · 一 + เสียง 1/2/3 → yì (一天 yì tiān)'],
  [/er\b|เออร์|ลิ้นม้วนท้าย|儿化/i,'er และเสียงลงท้าย 儿 (r): ม้วนลิ้นท้ายคำเบา ๆ เช่น 一点儿 (yìdiǎnr) · 儿化 พบบ่อยในสำเนียงปักกิ่ง ในมาตรฐานไม่ต้องออกก็เข้าใจได้']);
 /* ขอประโยคตัวอย่างจากบทที่เรียนไปแล้ว */
-window.tutorSentence=function(){const pool=LESSONS.filter(l=>isDone(l.id)||l===LESSONS[0]),L=pool[Math.random()*pool.length|0],s=L.sents[Math.random()*L.sents.length|0],zh=s[0].replace(/\//g,''),py=s[1].replace(/\//g,' ');
+window.tutorSentence=function(){const pool0=lvLessonPool().filter(l=>l.sents&&l.sents.length),pool=pool0.length?pool0:[LESSONS[0]],L=pool[Math.random()*pool.length|0],s=L.sents[Math.random()*L.sents.length|0],zh=s[0].replace(/\//g,''),py=s[1].replace(/\//g,' ');
  return {html:`ประโยคตัวอย่างจากบท “${L.th}”<br><b>${tzh(zh,py)}</b> ${spkBtn(zh)}<br><span style="color:var(--sub2)">${s[2]}</span>`,say:zh}};

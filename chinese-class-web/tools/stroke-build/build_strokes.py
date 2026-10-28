@@ -96,7 +96,10 @@ for ch in cov:
             if t not in TI: ids=None;break
             ids.append(TI[t])
             if a: stats['ambig']+=1;amb_list.append((ch,i+1,n,t))
-        if ids:o['n']=ids
+        if ids:
+            # report5 M3: ชื่อขีด/ทิศสลับกับรูปทรงในข้อมูลต้นทาง → ซ่อนชื่อ (-1 = แสดง "ขีดที่ N")
+            for si in {'滚':[6,7],'漫':[10,11],'盖':[5,6],'篝':[13,14,15],'馒':[10,11]}.get(ch,[]): ids[si-1]=-1
+            o['n']=ids
         else:stats['noname']+=1
     else:
         stats['noname']+=1

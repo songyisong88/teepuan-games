@@ -204,3 +204,8 @@ function compQs(){const C=LB.comp.c;let mx=Math.max(curLv(),S.assume||0);const m
   const sameC=shuffle(C.filter(y=>y.c!==c.c)).slice(0,3);const cand=shuffle([x,...sameC.map(y=>y.ex[0])]);return lbOptQ(`<div class="cap" style="font-size:14px">ส่วนประกอบ <b>${c.c}</b> (${c.m}) พบในตัวอักษรไหน?</div><div class="zh" style="font-size:84px;line-height:1.15;margin-top:6px">${c.c}</div><div class="cap">เลือกตัวที่มีส่วนประกอบนี้</div>`,cand.map(o=>`<span class="zh" style="font-size:30px">${o.ch}</span> <span class="cap" style="margin-left:8px">${o.m}</span>`),cand.indexOf(x),`<div class="ans"><span class="zh" style="font-size:20px">${x.ch}</span> (${x.m}) อยู่ในคำ ${x.w[0]} · มี <b>${c.c}</b> = ${c.m}</div>`)})}
 SC.game_comp=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},
  mount(el){const qs=compQs();session(el,qs,res=>{const xp=Math.min(26,res.correct*3),coins=res.correct;gameEnd(el,'comp',res.correct,{xp,coins,title:'ควิซส่วนประกอบเสร็จแล้ว',mascot:res.correct>=6?'celebrate':'cheer',sub:`ตอบถูก ${res.correct}/${res.total}`,stats:[['ตอบถูก',res.correct+'/'+res.total]]})},{review:true})}});
+
+/* กันหน้าที่ถูกเปิดโดยไม่มีพารามิเตอร์ที่ถูกต้อง (เช่น ลิงก์เก่า/สถานะค้าง) — กลับไปหน้าฮับแทนที่จะพัง */
+['reader','rdquiz','shrun','mockrun','mockres'].forEach(n=>{const f=SC[n];SC[n]=p=>{p=p||{};
+ const ok=n==='reader'||n==='rdquiz'?LB.stories.some(x=>x.id===p.id):n==='shrun'?!!lessonBy(p.l):n==='mockrun'?LB.mock.some(q=>q.lv===+p.lv):Array.isArray(p.qs);
+ return ok?f(p):SC.labs()}});

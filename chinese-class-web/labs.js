@@ -11,8 +11,8 @@ function lbPlay(t,rate,done){stopAudio();const url=audioUrl(t,'');
  const fb=()=>{try{const u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=rate<1?.55:.85;if(zhVoice)u.voice=zhVoice;u.onend=u.onerror=()=>done&&done(2);speechSynthesis.speak(u)}catch(e){done&&done(2)}};
  if(!url){fb();return}
  try{const a=new Audio(url);a.playbackRate=rate;a.preservesPitch=true;a.webkitPreservesPitch=true;curAudio=a;let dur=0;a.onloadedmetadata=()=>{dur=(a.duration||2)/rate};a.onended=()=>done&&done(dur||2);a.onerror=fb;const p=a.play();if(p&&p.catch)p.catch(fb)}catch(e){fb()}}
-function lbEnd(g,{xp,coins,sub,mascot,stats,title,retry,back}){xp=evX(xp);coins=evC(coins);addXp(xp,null,1);addCoins(coins,1);bumpCnt('game',1);bumpCnt('lab',1);save();
- replace('result',{title,mascot,sub,xp,coins,stats,retry:retry||null,back,share:null})}
+function lbEnd(g,{xp,coins,sub,mascot,stats,title,retry,back,shareText}){xp=evX(xp);coins=evC(coins);addXp(xp,null,1);addCoins(coins,1);bumpCnt('game',1);bumpCnt('lab',1);save();
+ replace('result',{title,mascot,sub,xp,coins,stats,retry:retry||null,back,share:{kind:'lab',text:shareText||title,sub:sub||'',mascot:mascot||'celebrate'}})}
 const lbNote=(t)=>`<p class="cap" style="padding:10px 24px 0;line-height:1.55">${t}</p>`;
 const lbOptQ=(top,opts,ans,reveal)=>({k:'q',q:{w:null,type:'lab',custom:true,top,optsHtml:opts,ans,reveal}});
 
@@ -72,7 +72,7 @@ SC.rdquiz=({id})=>{const st=LB.stories.find(x=>x.id===id);
  return {nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},
  mount(el){const qs=st.q.map(q=>{const idx=shuffle(q.o.map((_,i)=>i));const opts=idx.map(i=>q.o[i]);return lbOptQ(`<div class="cap" style="font-size:14px">${st.e} <span class="zh">${st.zh}</span> · คำถามเกี่ยวกับเรื่อง</div><div style="font-size:26px;font-weight:700;margin:14px 8px 0;line-height:1.35">${q.q}</div>`,opts.map(o=>`<span>${o}</span>`),idx.indexOf(q.a),`<div class="ans">เฉลย: <b>${q.o[q.a]}</b></div>`)});
   session(el,qs,res=>{const L=lab(),prev=L.read[id],first=!prev;L.read[id]={best:Math.max(res.correct,prev?prev.best:0),n:(prev?prev.n:0)+1,day:today()};
-   const xp=(first?8:3)+res.correct*3,coins=(first?4:1)+res.correct*2;lbEnd('read',{xp,coins,title:'อ่านจบแล้ว!',mascot:res.correct>=2?'celebrate':'cheer',sub:`${st.zh} · ตอบถูก ${res.correct}/${res.total}`,stats:[['เรื่องที่อ่าน',st.th],['ตอบถูก',res.correct+'/'+res.total],['ระดับ',levelBy(st.lv).th]],back:'x'})},{review:true})}}};
+   const xp=(first?8:3)+res.correct*3,coins=(first?4:1)+res.correct*2;lbEnd('read',{xp,coins,title:'อ่านจบแล้ว!',shareText:`ฉันอ่านนิทานจีน “${st.th}” จบแล้ว`,mascot:res.correct>=2?'celebrate':'cheer',sub:`${st.zh} · ตอบถูก ${res.correct}/${res.total}`,stats:[['เรื่องที่อ่าน',st.th],['ตอบถูก',res.correct+'/'+res.total],['ระดับ',levelBy(st.lv).th]],back:'x'})},{review:true})}}};
 
 /* ================= 2) เทียบคำใกล้เคียง ================= */
 function lbPairOpen(p,known){return known.has(p.a[0])&&known.has(p.b[0])}
@@ -122,7 +122,7 @@ SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const 
    lbPlay(s.full,rate,dur=>{ring.classList.remove('listen');msg.textContent='ถึงตาคุณ!';ring.style.setProperty('--d',Math.max(1.6,dur*1.5+.8)+'s');ring.classList.remove('go');void ring.offsetWidth;ring.classList.add('go');cd=setTimeout(()=>{ring.classList.remove('go');msg.textContent='พูดตามแล้วกด +1'},(Math.max(1.6,dur*1.5+.8))*1000)})}
   function finish(){const day=today(),L=lab().shadow;const prev=L[Ls.id];L[Ls.id]={n:(prev?prev.n:0)+1,day,good};const again=prev&&prev.day===day;
    const cap=Math.min(allReps,sents.length*GOAL);let coins=Math.round(cap*.8),xp=Math.round(cap*1.2);if(again){coins=Math.round(coins/2);xp=Math.round(xp/2)}
-   lbEnd('shadow',{xp,coins,title:'พูดตามจบแล้ว!',mascot:good>=sents.length/2?'celebrate':'cheer',sub:`บทที่ ${Ls.id} · ${sents.length} ประโยค`,stats:[['รอบที่พูดตามทั้งหมด',allReps],['ประเมินตัวเองว่า “ชัดแล้ว”',good+'/'+sents.length],['หมายเหตุ','คะแนนมาจากการประเมินตัวเอง']],back:'x'})}
+   lbEnd('shadow',{xp,coins,title:'พูดตามจบแล้ว!',shareText:`ฉันฝึกพูดตามบทที่ ${Ls.id} จบแล้ว`,mascot:good>=sents.length/2?'celebrate':'cheer',sub:`บทที่ ${Ls.id} · ${sents.length} ประโยค`,stats:[['รอบที่พูดตามทั้งหมด',allReps],['ประเมินตัวเองว่า “ชัดแล้ว”',good+'/'+sents.length],['หมายเหตุ','คะแนนมาจากการประเมินตัวเอง']],back:'x'})}
   el.addEventListener('click',e=>{const t=e.target.closest('button');if(!t||!stage.contains(t))return;
    if(t.dataset.v){view=+t.dataset.v;paint();return}
    if(t.dataset.p){play(t.dataset.p==='slow'?.65:1);return}
@@ -180,8 +180,8 @@ SC.mockres=({lv,qs,correct,used,xp,coins})=>{const b=mockBand(lv,correct),tot=qs
  <p class="cap center" style="padding:10px 28px 0;line-height:1.55">คะแนนจาก 10 ข้อที่เขียนเอง ใช้ดูจุดอ่อนเท่านั้น ไม่ใช่ผลสอบจริงและไม่ใช่การรับรองระดับ</p>
  <div class="sec">เฉลยรายข้อ</div><div class="group">${qs.map((q,k)=>{const ok=q.pick>=0&&q.opts[q.pick].ok;const stem=q.k==='mean'?`<span class="zh">${q.zh}</span> ${pyPlain(q.py)}`:q.k==='fill'?`<span class="zh">${q.t.join('').replace(/＿+/,'＿＿')}</span>`:q.k==='listen'?`<span class="zh">${q.z}</span>`:`<span class="zh">${q.t.join('').slice(0,22)}…</span> · ${q.q}`;
   return `<div class="row noic mkr" style="min-height:64px;padding:10px 16px"><span class="mkmk ${ok?'ok':'bad'}" aria-label="${ok?'ถูก':'ผิด'}">${ok?'✓':'✗'}</span><span class="tx"><b style="font-weight:500;font-size:15px">${k+1}. ${stem}</b><small>${ok?'ตอบ: ':'เฉลย: '}<b>${ansTxt(q)}</b>${!ok&&q.pick>=0?` · คุณตอบ: ${q.opts[q.pick].o}`:q.pick<0?' · ไม่ได้ตอบ':''}${q.k==='fill'?'<br>'+q.th:''}${q.k==='listen'?'<br><button class="spkl cap press" style="display:inline-flex" data-act="audio" data-t="'+lbEsc(q.z)+'"><span class="spi">'+SPK+'</span>ฟัง</button>':''}</small></span></div>`}).join('')}</div>
- <div style="height:130px"></div>`,extra:`<div class="dock"><button class="pill press" data-go="mockagain" data-lv="${lv}"><b>ทำอีกครั้ง</b></button><button class="pill sm ghost press mt12" data-sa="rback">กลับ</button></div>`,
- mount(el){if(correct>=7)confetti(60);el.addEventListener('click',e=>{if(e.target.closest('[data-sa=rback]'))pop()})}}};
+ <div style="height:130px"></div>`,extra:`<div class="dock"><button class="pill press" data-go="mockagain" data-lv="${lv}"><b>ทำอีกครั้ง</b></button><button class="pill sm ghost press mt12" data-sa="mshare">แชร์ผลไป LINE</button><button class="pill sm ghost press mt12" data-sa="rback">กลับ</button></div>`,
+ mount(el){if(correct>=7)confetti(60);el.addEventListener('click',e=>{if(e.target.closest('[data-sa=rback]'))pop();else if(e.target.closest('[data-sa=mshare]'))shareSheet('result',{kind:'lab',text:`ฉันลองข้อสอบจำลองระดับ ${lv} ได้ ${correct}/${tot}`,sub:b.t,mascot:b.m})})}}};
 
 /* ================= 5) ส่วนประกอบตัวอักษร ================= */
 SC.comps=()=>{const C=LB.comp.c,F=LB.comp.s,L=lab().comp;

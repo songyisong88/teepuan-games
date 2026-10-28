@@ -25,6 +25,7 @@ function cardSpec(kind,d){d=d||{};const base={
  challenge:{badge:'คำท้า',title:'ท้าดวลศัพท์จีนกับฉัน!',sub:`ฉันสตรีค ${curStreak()} วันแล้ว ลองชนะฉันดูสิ`,mascot:'duel',tint:'#FDF3E6',stats:[[curStreak()+'','วันสตรีค'],[gameWords().length+'','คำที่เรียน']],cta:'LINE',ctaTxt:'รับคำท้า'},
  win:{badge:'ผลดวล',title:'ฉันชนะดวลศัพท์จีน!',sub:d.text||'',mascot:'celebrate',tint:'#E7F8EE',accent:'#2E8B57',cta:'LINE'},
  lose:{badge:'ผลดวล',title:'แพ้นิดเดียว ขอล้างตา!',sub:d.text||'',mascot:'wrong',tint:'#FDF3E6',cta:'LINE'},
+ lab:{badge:'ห้องฝึกพิเศษ',title:d.text||'ฝึกจีนกับลามา',sub:d.sub||'',mascot:d.mascot||'celebrate',tint:'#E7F8EE',accent:'#2E8B57',cta:'LINE'},
  score:{badge:'ผลเกม',title:'ผลเกมศัพท์จีนของฉัน',sub:d.text||'',mascot:'trophy',tint:'#FCEFEF',cta:'LINE'},
  unit:{badge:'จบบทเรียน',title:d.text||'เรียนจบแล้ว!',sub:'วันนี้เรียนจีนไปอีกนิด สนุกกว่าที่คิด',mascot:'levelup',tint:'#EAF1FB',stats:[['⭐'.repeat(d.stars||1),'ดาวที่ได้'],[curStreak()+'','วันสตรีค']],cta:'LINE'},
  nudge:{badge:'ส่งกำลังใจ',title:`${d.to||'เพื่อน'} วันนี้เรียนหรือยัง?`,sub:d.msg||`สตรีคคู่ของเรา ${buddyStreak()} วันแล้ว อย่าให้ขาดนะ!`,mascot:'cheer',tint:'#F2ECFA',accent:'#7A4FB0',cta:'LINE'},

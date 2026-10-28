@@ -164,6 +164,39 @@ for L in LS:
     unl=f.get('unlisted',0)+f.get('chars-above',0)
     hl_=(f.get('in',0)+f.get('below',0)+f.get('chars-ok',0))/n
     if hl_<0.80: W(f'L{L["id"]}',f'in-level word % {hl_*100:.0f} < 80 (above={above}, unknown/derived-above={unl})')
+# ---- เขียนทีละขีด: ข้อมูลลำดับขีด (data/stroke) ----
+import glob
+SD=os.path.join(APP,'data','stroke')
+for f in ('ARPHICPL.TXT','MMAH-COPYING.txt','NOTICE.md','index.js'):
+    if not os.path.exists(os.path.join(SD,f)): E('stroke','missing '+f)
+for f in ('hanzi-writer.min.js','LICENSE-hanzi-writer.txt','LICENSE-cnchar-order.txt'):
+    if not os.path.exists(os.path.join(APP,'vendor',f)): E('stroke','missing vendor/'+f)
+HANX=re.compile(r'[\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U0002a6df]')
+have=set();badj=0
+for f in glob.glob(os.path.join(SD,'*.json')):
+    try:
+        j=json.load(open(f,encoding='utf8'))
+        n=len(j['strokes'])
+        if not(n==len(j['medians'])>0) or j.get('lic')!='APL-modified': E('stroke','bad json '+os.path.basename(f));badj+=1
+        have.add(chr(int(os.path.basename(f)[:-5],16)))
+    except Exception as ex: E('stroke','unreadable '+os.path.basename(f)+' '+str(ex))
+ix=open(os.path.join(SD,'index.js'),encoding='utf8').read()
+m=re.search(r'STK_COV\s*=\s*"([^"]*)"',ix)
+if not m or set(m.group(1))!=have: E('stroke','STK_COV does not match data/stroke/*.json')
+need=set()
+for L in LS:
+    for w in L['words']:
+        for k in ('zh','ex'): need|=set(HANX.findall(w.get(k,'') or ''))
+miss=sorted(need-have)
+if miss: E('stroke','lesson characters without stroke data: '+''.join(miss))
+srcmiss=set()
+for f in glob.glob(os.path.join(APP,'*.js'))+glob.glob(os.path.join(APP,'data','*.js')):
+    if os.path.basename(f) in ('stroke.js',): continue
+    srcmiss|=set(HANX.findall(open(f,encoding='utf8').read()))-have
+srcmiss-=need
+if srcmiss: W('stroke','characters elsewhere in app source without stroke data (will show "ยังไม่มีข้อมูล"): '+''.join(sorted(srcmiss))[:80])
+print(f'stroke data: {len(have)} chars, lesson chars needed {len(need)}, missing {len(miss)}')
+
 tot_e=sum(len(v) for v in errs.values());tot_w=sum(len(v) for v in warns.values())
 print(f'lessons checked: {len(LS)}  words: {sum(len(L["words"]) for L in LS)}  ERRORS: {tot_e}  WARNINGS: {tot_w}')
 for k in sorted(errs,key=lambda x:(x=='global',int(x[1:]) if x[1:].isdigit() else 0)):

@@ -60,7 +60,7 @@ SC.reader=({id})=>{const st=LB.stories.find(x=>x.id===id);const known=lbKnown(),
   el.addEventListener('click',e=>{const t=e.target.closest('[data-tk]');if(t){const k=t.dataset.tk,d=st.d[k],a=all.get(k);speak(k,t);
     openSheet(`<div class="center" style="padding:0 24px 8px"><div class="zh" style="font-size:64px;line-height:1.2">${k}</div><div style="font-size:24px;margin-top:2px">${pyHtml(d[0])}</div><div style="font-size:20px;font-weight:600;margin-top:8px">${d[1]}</div>
     ${a?`<div class="cap mt8">${known.has(k)?'✓ เรียนแล้ว':'คำนี้อยู่ในบทที่ '+a.lesson+' (ยังไม่ได้เรียน)'}</div>`:`<div class="cap mt8">ชื่อคน/คำช่วยพื้นฐาน</div>`}
-    <button class="pill sm press mt16" data-act="audio" data-t="${lbEsc(k)}">ฟังอีกครั้ง</button></div>`);return}
+    <button class="pill sm press mt16" data-act="audio" data-t="${lbEsc(k)}">ฟังอีกครั้ง</button>${stkBtn(k)}</div>`);return}
    const r=e.target.closest('[data-rt]');if(!r)return;const w=r.dataset.rt;
    if(w==='py'){py=!py;book.classList.toggle('nopy',!py);r.classList.toggle('on',py);r.setAttribute('aria-pressed',py)}
    else if(w==='th'){th=!th;$$('.lbth',book).forEach(x=>x.hidden=!th);r.classList.toggle('on',th);r.setAttribute('aria-pressed',th)}

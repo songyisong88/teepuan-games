@@ -1,5 +1,5 @@
 /* ห้องพินอิน — หน้าที่ดันเข้ามา (ไม่ใช่แท็บ) */
-.pr-draft{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#8A5A12;background:var(--warnsoft);border:.5px solid #F0D9B5;border-radius:10px;padding:2px 8px;line-height:1.5}
+.pr-draft{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#8A5A12;background:var(--warnsoft);border:.5px solid #F0D9B5;border-radius:10px;padding:2px 8px;line-height:1.5}
 .pr-honest{margin:12px 20px 0;padding:10px 12px;border-radius:14px;background:#F3F0EC;color:var(--sub2);font-size:12.5px;line-height:1.5}
 .pr-honest b{color:var(--ink)}
 .pr-head{margin:6px 20px 0;display:flex;gap:12px;align-items:center;background:#fff;border-radius:20px;padding:12px 14px;border:.5px solid rgba(60,40,30,.06);box-shadow:0 6px 20px rgba(60,40,30,.05)}
@@ -9,7 +9,7 @@
 .pr-zbar{display:flex;gap:4px;margin:14px 20px 0}
 .pr-zbar i{flex:1;height:6px;border-radius:3px;background:#E6DDD2}
 .pr-zbar i.ok{background:var(--ok)}.pr-zbar i.cur{background:var(--red)}
-.pr-zl{display:flex;margin:6px 20px 0;font-size:11px;color:var(--sub);text-align:center}
+.pr-zl{display:flex;margin:6px 20px 0;font-size:12px;color:var(--sub);text-align:center}
 .pr-zl span{line-height:1.25}
 .pr-path{position:relative;margin:10px 0 0;padding:0 20px 150px}
 .pr-path::before{content:"";position:absolute;left:50%;top:10px;bottom:150px;border-left:3px dotted #D8CCBF;transform:translateX(-50%)}
@@ -22,10 +22,10 @@
 .pr-nd.cur .n{width:70px;height:70px;font-size:30px;background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 5px 0 #8E0B21,0 10px 22px rgba(200,16,46,.28)}
 .pr-nd .t{max-width:128px;font-size:13px;line-height:1.3}
 .pr-nd .t b{display:block;font-size:14px;color:var(--ink)}
-.pr-nd .t small{display:block;color:var(--sub);font-size:11.5px}
-.pr-rec{display:inline-block;background:var(--red);color:#fff;font-size:10.5px;font-weight:700;border-radius:9px;padding:1px 7px;margin-bottom:2px}
+.pr-nd .t small{display:block;color:var(--sub);font-size:12px}
+.pr-rec{display:inline-block;background:var(--red);color:#fff;font-size:12px;font-weight:700;border-radius:9px;padding:1px 7px;margin-bottom:2px}
 .pr-zone{display:flex;justify-content:center;margin:2px 0}
-.pr-zone span{background:#EFE8DE;color:var(--sub2);font-size:11.5px;font-weight:600;border-radius:12px;padding:3px 12px;position:relative;z-index:1}
+.pr-zone span{background:#EFE8DE;color:var(--sub2);font-size:12px;font-weight:600;border-radius:12px;padding:3px 12px;position:relative;z-index:1}
 .pr-card{background:#fff;border-radius:20px;padding:14px;margin:12px 20px 0;border:.5px solid rgba(60,40,30,.06);box-shadow:0 1px 2px rgba(60,40,30,.04),0 6px 20px rgba(60,40,30,.05)}
 .pr-card h3{margin:0 0 6px;font-size:16px}
 .pr-card p{margin:6px 0 0;font-size:14px;line-height:1.55;color:var(--sub2)}
@@ -73,7 +73,7 @@
 .pr-fb.ok{background:var(--oksoft);color:#1F6B41}.pr-fb.no{background:var(--redsoft);color:#8E2A20}
 .pr-fb b{font-size:16px}
 .pr-slots{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 20px 0}
-.pr-slot{width:84px;height:92px;border-radius:18px;border:2px dashed #D8CCBF;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;color:var(--sub);font-size:11.5px;font-family:inherit}
+.pr-slot{width:84px;height:92px;border-radius:18px;border:2px dashed #D8CCBF;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;color:var(--sub);font-size:12px;font-family:inherit}
 .pr-slot .v{font-size:36px;font-weight:700;line-height:1;color:var(--ink)}
 .pr-slot.f{border-style:solid}
 .pr-slot.f.i{border-color:#F0C8BE;background:#FFF4F1}.pr-slot.f.i .v{color:#A3281A}
@@ -88,10 +88,10 @@
 .pr-stats{display:flex;gap:10px;margin:16px 0 0}
 .pr-stats div{flex:1;background:#fff;border-radius:16px;padding:10px 6px;border:.5px solid rgba(60,40,30,.06)}
 .pr-stats b{display:block;font-size:22px}
-.pr-stats small{color:var(--sub);font-size:11.5px}
+.pr-stats small{color:var(--sub);font-size:12px}
 .pr-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .pr-chip{background:#fff;border-radius:14px;padding:8px 4px;border:.5px solid rgba(60,40,30,.08);font-family:inherit;color:inherit;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.pr-chip .z{font-size:22px;line-height:1.2}.pr-chip small{font-size:11.5px;color:var(--sub)}
+.pr-chip .z{font-size:22px;line-height:1.2}.pr-chip small{font-size:12px;color:var(--sub)}
 .pr-hc{margin:14px 20px 0;border-radius:24px;padding:14px;background:linear-gradient(180deg,#fff,#FFF8F4);border:.5px solid #F1D5CB;box-shadow:0 8px 24px rgba(200,16,46,.08)}
 .pr-hc .top{display:flex;gap:12px;align-items:center}
 .pr-hc .pm{width:76px;height:76px;flex:none}
@@ -110,7 +110,7 @@
 .pr-pic{margin:10px 0 0;display:flex;align-items:center;gap:10px;background:#FFF8F4;border-radius:16px;padding:6px 10px}
 .pr-pic .pr-img{height:112px;width:auto;flex:none}
 .pr-pic figcaption{font-size:13.5px;font-weight:600;line-height:1.35}
-.pr-pic figcaption small{display:block;font-size:11.5px;font-weight:400;color:var(--sub);margin-top:2px}
+.pr-pic figcaption small{display:block;font-size:12px;font-weight:400;color:var(--sub);margin-top:2px}
 .pr-tcard .tpic{height:84px;width:auto;align-self:center;margin:-2px 0 2px}
 .pr-let .tpic5{height:96px;width:auto;flex:none}
 .pr-let .mini{height:84px;width:auto;flex:none}
@@ -118,7 +118,7 @@
 .pr-hc .pm .pr-img,.pr-head .pm .pr-img{width:100%;height:100%}
 /* เฟส 2 */
 .pr-big2{font-size:44px;font-weight:700;margin:8px 0 2px;letter-spacing:.04em}
-.pr-src{font-size:11.5px;color:var(--sub);margin-top:6px;line-height:1.4}
+.pr-src{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.4}
 .pr-wk{color:#A3281A;font-weight:600}
 .pr-chkc .pr-let img.pr-img.mini{width:56px;height:56px}
 .pr-rd .pr-chip{gap:2px;padding-top:6px}
@@ -126,6 +126,6 @@
 .pr-rd .art img{width:44px;height:44px;object-fit:contain}
 .pr-opt small{display:block}
 .pr-wtag{display:inline-flex;align-items:center;gap:6px;margin:8px auto 0;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;border:0;font-family:inherit;min-height:32px}
-.pr-wtag small{font-weight:400;opacity:.75;font-size:11.5px}
+.pr-wtag small{font-weight:400;opacity:.75;font-size:12px}
 .pr-wtag.ok{background:var(--oksoft);color:#1F6B41}.pr-wtag.go{background:#EFE8DE;color:var(--sub2)}
 .pr-opt:nth-child(odd):last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 5px)}

@@ -70,11 +70,11 @@ function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,
 
 /* ----- การ์ดคำ / เรื่องเล่า / บทสนทนา ----- */
 function cardHtml(w,n,t){const pc=picCard(w);const thH=`<div style="font-size:27px;font-weight:600;margin-top:8px;padding:0 20px">${w.th}</div>`;
- return `<div class="center"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div>${pc?pc.top:art('word',w.zh,'','wart')}<div class="bigzh zh" style="font-size:${pc?(w.zh.length>3?60:w.zh.length>2?72:w.zh.length>1?92:100):(w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130)}px">${w.zh}</div>
- <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div>${window.prWordTag?prWordTag(w):''}${pc&&pc.hide?`<button class="pic-th press" data-sa="thai" data-th="${w.th.replace(/"/g,'&quot;')}"><span>👁️</span> แตะดูคำไทย <small>ลองเดาจากรูปก่อน</small></button>`:thH}
- <button class="audio press" aria-label="ฟังเสียง" data-act="audio" data-t="${w.zh}" style="margin-top:14px">${SPK}</button>
+ return `<div class="center wc"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div>${pc?pc.top:art('word',w.zh,'','wart')}<div class="bigzh zh" style="font-size:${pc?(w.zh.length>3?60:w.zh.length>2?72:w.zh.length>1?92:100):(w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130)}px">${w.zh}</div>
+ <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div>${window.prWordTag?prWordTag(w):''}${pc&&pc.hide?`<button class="pic-th press" data-sa="thai" data-th="${w.th.replace(/"/g,'&quot;')}"><span aria-hidden="true">👁️</span> แตะดูคำไทย <small>ลองเดาจากรูปก่อน</small></button>`:thH}
+ <button class="audio lg press" aria-label="ฟังเสียง ${w.zh}" data-act="audio" data-t="${w.zh}">${SPK}<span>ฟังเสียง</span></button>
  <div class="hint"><span class="hb">อ่านแบบไทย</span><b>${w.h}</b><span class="cap">(ใกล้เคียง · ฟังเสียงจริงอีกที)</span></div>${stkBtn(w.zh)}</div>
- <div class="mnemo"><span class="mi">💡</span><span><b>ตัวช่วยจำ:</b> ${w.mn}</span></div>
+ <div class="mnemo"><span class="mi">💡</span><span><b>ตัวช่วยจำ:</b> ${String(w.mn||"").replace(/^ตัวช่วยจำ:\s*/,"")}</span></div>
  <div class="card exc" style="margin-top:16px"><div style="position:absolute;right:6px;top:-70px;width:78px;height:78px">${M('teach')}</div>
  <div class="zh" style="font-size:22px;line-height:1.35">${zhHtml(w.ex,w.exPy)}</div><div style="font-size:13.5px;margin-top:3px;font-weight:500">${pyHtml(w.exPy)}</div><div style="font-size:15.5px;margin-top:5px;color:var(--sub2)">${w.exTh}</div>
  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">${spkBtn(w.ex,'','ฟังประโยค')}<button class="cap press" data-sa="rep" data-z="${w.zh}">แจ้งข้อผิด</button></div></div>`}
@@ -137,7 +137,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   if(t.classList.contains('opt')){answer(t);return}
   if(t.classList.contains('mcell')){matTap(t);return}
   if(t.classList.contains('chipw')){if(locked||cur.q.type!=='ord')return;const ix=+t.dataset.ox;vib(6);if(ordState.includes(ix))ordState=ordState.filter(x=>x!==ix);else ordState.push(ix);ordRefresh();return}
-  const a=t.dataset.sa;if(a==='next'){vib(8);next()}else if(a==='flip'){if(!t.classList.contains('on')){t.classList.add('on');speak(t.dataset.z);vib(6)}else speak(t.dataset.z)}else if(a==='thai'){t.outerHTML=`<div class="pic-thr">${t.dataset.th}</div>`}else if(a==='rep')reportSheet(t.dataset.z);else if(a==='quit')quitSheet();
+  const a=t.dataset.sa;if(a==='next'){vib(8);next()}else if(a==='flip'){if(!t.classList.contains('on')){t.classList.add('on');speak(t.dataset.z);vib(6)}else speak(t.dataset.z)}else if(a==='thai'){const c=t.closest('.center')||el,b=c.querySelector('.pic-th'),pc=c.querySelector('.pic-card.tap'),th=t.dataset.th;if(pc){pc.classList.add('on');pc.removeAttribute('data-sa');pc.setAttribute('aria-label','รูปของคำนี้');pc.tabIndex=-1}vib(6);const d=document.createElement('div');d.className='pic-thr';d.setAttribute('role','status');d.textContent=th;if(b)b.replaceWith(d);else if(!c.querySelector('.pic-thr')){const bz=c.querySelector('.audio.lg');if(bz)bz.before(d)}}else if(a==='rep')reportSheet(t.dataset.z);else if(a==='quit')quitSheet();
   else if(a==='dlgall'){const L=cur.L;speakSeq(L.dlg.map(d=>({t:d[1],r:d[0]})))}
   else if(a==='ordcheck'){const q=cur.q;const ok=ordState.every((ix,k)=>ix===k);$$('.chipw',$('#oa',stage)).forEach(b=>b.classList.add(ok?'okc':'badc'));resolve(ok,q,t)}});
  show()}

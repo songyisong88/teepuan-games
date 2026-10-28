@@ -34,9 +34,9 @@ function picQ(w,type,pool){const o=picDist(w,pool,3,type==='aud2pic');if(o.lengt
 function picMat(ws){const seen=new Set(),ps=shuffle(ws.filter(picHas)).filter(w=>!seen.has(w.th)&&seen.add(w.th)).reduce((acc,w)=>acc.length<4&&!acc.some(x=>picSim(x.zh,w.zh))?[...acc,w]:acc,[]);
  return {w:ps[0],type:'mat',pics:true,ps,right:shuffle(ps.map((_,i)=>i)),reveal:()=>`<div class="ans">${ps.map(w=>`<div class="pic-rv1">${art('word',w.zh,'','pic-mini sm')}<span class="zh" style="font-size:19px">${w.zh}</span> <span style="font-size:13px">${pyHtml(w.py)}</span> = ${w.th}</div>`).join('')}</div>`}}
 function picQHtml(q){const w=q.w;
- if(q.type==='pic2zh')return `<div class="center"><div class="cap" style="font-size:14px">ภาพนี้คือคำจีนคำไหน</div><div class="pic-card">${art('word',w.zh,'','pic-big')}${picKin(w)}</div></div>
+ if(q.type==='pic2zh')return `<div class="center"><div class="cap" style="font-size:14px">ภาพนี้คือคำจีนคำไหน</div><div class="pic-card">${art('word',w.zh,'','pic-big','รูปโจทย์ (ให้เดาคำ)')}${picKin(w)}</div></div>
   <div class="group opts mt20" style="margin-top:18px">${q.opts.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span class="zh" style="font-size:26px">${o.zh}</span><span class="pyr">${pyPlain(o.py)}</span></button>`).join('')}</div>`;
- if(q.type==='pic2py')return `<div class="center"><div class="cap" style="font-size:14px">ภาพนี้อ่านว่าอย่างไร (พินอิน)</div><div class="pic-card">${art('word',w.zh,'','pic-big')}${picKin(w)}</div></div>
+ if(q.type==='pic2py')return `<div class="center"><div class="cap" style="font-size:14px">ภาพนี้อ่านว่าอย่างไร (พินอิน)</div><div class="pic-card">${art('word',w.zh,'','pic-big','รูปโจทย์ (ให้เดาคำ)')}${picKin(w)}</div></div>
   <div class="group opts mt20" style="margin-top:18px">${q.opts.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span style="font-size:23px;font-weight:500">${pyPlain(o.py)}</span></button>`).join('')}</div>`;
  return `<div class="center"><div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกรูปที่ตรงกัน</div><button class="audio press" aria-label="ฟังเสียง" style="width:84px;height:84px;margin-top:10px" data-act="audio" data-t="${w.zh}" data-auto>${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง · ไม่มีตัวอักษรให้เดา</div></div>
   <div class="pgrid">${q.opts.map((o,i)=>`<button class="opt ptile press" data-i="${i}" aria-label="รูปที่ ${LET[i]}"><span class="k">${LET[i]}</span>${art('word',o.zh,'','pic-t')}${picKin(o)}</button>`).join('')}</div>`}
@@ -59,7 +59,8 @@ function pflipHtml(ws){return `<div class="center"><div class="cap" style="font-
  <p class="cap center" style="margin:12px 20px 0">ทวนเฉย ๆ ไม่มีคะแนน · คำไหนนึกไม่ออก ไม่ต้องกังวล จะเจอในข้อฝึกต่อไป</p>`}
 /* การ์ดคำใหม่แบบมีรูป / อีโมจิชั่วคราว — คืน {top, th} หรือ null */
 function picCard(w){
- if(picHas(w))return {top:`<div class="pic-card hero">${art('word',w.zh,'','pic-big')}${picKin(w)}</div>`,hide:!PIC_KIN.has(w.zh)};
+ if(picHas(w)){const hide=!PIC_KIN.has(w.zh),im=art('word',w.zh,'','pic-big','รูปของคำว่า '+picLab(w));
+  return {top:hide?`<button class="pic-card hero tap press" data-sa="thai" data-th="${w.th.replace(/"/g,'&quot;')}" aria-label="แตะรูปเพื่อดูคำไทย">${im}<span class="pic-tapchip" aria-hidden="true">แตะรูป · ดูคำไทย</span></button>`:`<div class="pic-card hero">${im}${picKin(w)}</div>`,hide};}
  const e=picEmo(w);if(e)return {top:`<div class="pic-card emo"><span class="pe">${e}</span><span class="pic-badge">อีโมจิชั่วคราว</span></div>`,hide:false};
  return null}
 const picCount=L=>L.words.filter(picHas).length;

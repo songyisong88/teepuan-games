@@ -8,7 +8,7 @@
 .plab{max-width:92%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;margin-top:8px;padding:4px 14px;border-radius:999px;background:#FFF1D6;color:#7A4A00;font-weight:700;font-size:16px}
 .pic-card.emo{min-height:150px;justify-content:center}
 .pic-card.emo .pe{font-size:104px;line-height:1.1}
-.pic-badge{margin-top:6px;font-size:11.5px;font-weight:600;color:#8A6A2A;background:#FFF4D6;border:1px dashed #E2C57F;border-radius:999px;padding:2px 10px}
+.pic-badge{margin-top:6px;font-size:12px;font-weight:600;color:#8A6A2A;background:#FFF4D6;border:1px dashed #E2C57F;border-radius:999px;padding:2px 10px}
 .pic-th{display:inline-flex;align-items:center;gap:8px;margin:12px auto 0;padding:11px 20px;border-radius:999px;background:#fff;border:1.5px dashed #D9B9A6;font-size:16px;font-weight:600;color:#8A3B2B}
 .pic-th small{font-weight:400;font-size:12px;color:#9A8F86}
 .pic-thr{font-size:27px;font-weight:600;margin-top:10px;padding:0 20px;animation:fadein .3s both}
@@ -22,14 +22,14 @@
 .opt.ptile.ok{border-color:var(--ok);background:var(--oksoft)}.opt.ptile.bad{border-color:var(--warn);background:var(--warnsoft)}
 .mcell.pmc{min-height:96px;padding:6px;position:relative}
 .pic-m{display:block;width:84px;height:84px;border-radius:14px;overflow:hidden}
-.pmat .mcell.pmc .plab{position:absolute;bottom:4px;font-size:11.5px;padding:1px 8px;margin:0}
+.pmat .mcell.pmc .plab{position:absolute;bottom:4px;font-size:12px;padding:1px 8px;margin:0}
 .pmat #mr .mcell{min-height:96px}
 .pic-rev{display:flex;align-items:center;gap:12px;text-align:left}
 .pic-rev .tx{flex:1;min-width:0}.pic-rev .pk{margin-top:6px;font-size:13.5px;color:var(--warn)}
 .pic-mini{display:block;width:64px;height:64px;border-radius:14px;overflow:hidden;flex:none}
 .pic-mini.sm{width:36px;height:36px;border-radius:9px;display:inline-block;vertical-align:middle;margin-right:8px}
 .pic-rv1{display:flex;align-items:center;margin:4px 0;font-size:14px}
-.pic-chip{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#E9F6EC;color:#1F7A3A;font-size:11.5px;font-weight:600;letter-spacing:0;vertical-align:1px}
+.pic-chip{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#E9F6EC;color:#1F7A3A;font-size:12px;font-weight:600;letter-spacing:0;vertical-align:1px}
 @media(min-width:700px){.pgrid{max-width:420px;margin-left:auto;margin-right:auto}}
 
 .pflips{margin-top:14px}
@@ -37,9 +37,29 @@
 .pflip .pf-f{display:flex;flex-direction:column;align-items:center;width:100%;height:100%;position:relative}
 .pflip .pf-f .pic-t{display:block;width:100%;flex:1;min-height:0;border-radius:16px;overflow:hidden}
 .pflip .plab{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);margin:0;font-size:12.5px;padding:2px 10px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.pflip .pf-h{font-size:11.5px;color:#8A6A2A;font-weight:600;padding-top:3px}
+.pflip .pf-h{font-size:12px;color:#8A6A2A;font-weight:600;padding-top:3px}
 .pflip .pf-b{display:none;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:4px}
 .pflip.on{background:var(--oksoft);border-color:var(--ok)}
 .pflip.on .pf-f{display:none}.pflip.on .pf-b{display:flex}
 .pf-py{font-size:17px;font-weight:600}.pf-th{font-size:13.5px;color:var(--sub2);line-height:1.25;max-width:100%}
 .pf-sp{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--sub);margin-top:2px}.pf-sp svg{width:14px;height:14px}
+
+/* เฟส I: การ์ดคำใหม่แบบมีรูป — เคลื่อนไหวนุ่ม ๆ · ปุ่มลำโพงชัด · แตะรูปดูคำไทย */
+@keyframes wcPop{0%{opacity:0;transform:translateY(14px) scale(.94)}100%{opacity:1;transform:none}}
+@keyframes wcUp{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+.wc .pic-card.hero{animation:wcPop .5s cubic-bezier(.2,.9,.25,1) both}
+.wc>.bigzh{animation:wcUp .4s cubic-bezier(.2,.9,.25,1) .1s both}
+.wc>.bigzh+div{animation:wcUp .4s cubic-bezier(.2,.9,.25,1) .16s both}
+.wc>.pic-th,.wc>.audio.lg{animation:wcUp .4s cubic-bezier(.2,.9,.25,1) .24s both}
+button.pic-card.tap{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button.pic-card.tap .pic-big{transition:transform .25s cubic-bezier(.2,.9,.25,1),box-shadow .25s}
+button.pic-card.tap:active .pic-big{transform:scale(.965)}
+.pic-tapchip{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:inline-flex;align-items:center;min-height:32px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.94);color:#8A3B2B;font-size:14px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.16);white-space:nowrap;transition:opacity .3s,transform .3s}
+button.pic-card.tap.on .pic-tapchip{opacity:0;transform:translateX(-50%) translateY(8px);pointer-events:none}
+button.pic-card.tap.on .pic-big{box-shadow:0 0 0 2px #E2C57F,0 6px 18px rgba(120,80,40,.14)}
+.pic-thr{animation:wcUp .38s cubic-bezier(.2,.9,.25,1) both}
+.audio.lg{width:auto;min-width:168px;height:56px;border-radius:28px;margin:16px auto 0;padding:0 24px;gap:10px;background:var(--red);color:#fff;border:0;font-size:17px;font-weight:700;box-shadow:0 6px 18px rgba(200,16,46,.28)}
+.audio.lg svg{width:26px;height:26px}.audio.lg span{line-height:1}
+.pic-th{min-height:48px}.pic-th small{color:#6F655D;font-size:13px}
+.pic-badge{font-size:12.5px;color:#6B5116}.pflip .pf-h{font-size:12.5px;color:#6B5116}
+@media(prefers-reduced-motion:reduce){.wc .pic-card.hero,.wc>*,.pic-thr,button.pic-card.tap .pic-big,.pic-tapchip{animation:none!important;transition:none!important}}

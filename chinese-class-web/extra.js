@@ -14,7 +14,7 @@ SC.game_speak=()=>({noRefresh:true,nav:gnav('ฝึกพูด'),body:'<div cla
    setTimeout(()=>{if(!alive)return;m.classList.remove('rec');sc=70+Math.floor(Math.random()*29);sum+=sc;const st=sc>=92?3:sc>=82?2:1;
     $('#mh',el).textContent='';$('#sres',el).innerHTML=`<div class="pop"><div style="font-size:30px;letter-spacing:4px">${[1,2,3].map(n=>`<span style="filter:${n<=st?'none':'grayscale(1) opacity(.3)'}">⭐</span>`).join('')}</div><div style="font-size:22px;font-weight:700;color:${st>2?'var(--ok)':'var(--ink)'}">${sc}/100</div><div class="cap">${st>2?'สำเนียงดีมาก!':st>1?'ดีแล้ว ลองอีกนิดจะเป๊ะ':'ใกล้แล้ว ฟังอีกครั้งแล้วลองใหม่'} · คะแนนจำลอง</div></div><div class="pad mt16"><button class="pill sm press" id="nx"><b>${i>=4?'ดูผล':'คำต่อไป'}</b></button><button class="pill sm ghost press mt12" id="rt">ลองพูดอีกครั้ง</button></div>`;
     vib(14);$('#nx',el).onclick=()=>{i++;if(i>=5)fin();else show()};$('#rt',el).onclick=()=>{sum-=sc;show()}},1900)}
-  function fin(){alive=false;const avg=Math.round(sum/5);gameEnd(el,'speak',avg,{xp:15+Math.round(avg/10),coins:5+Math.round(avg/20),mascot:avg>=85?'celebrate':'speaking',sub:`คะแนนพูดเฉลี่ย ${avg}/100 (จำลอง)`,stats:[['คำที่ฝึก','5'],['คะแนนเฉลี่ย',avg+'/100']]})}
+  function fin(){alive=false;const avg=Math.round(sum/5);gameEnd(el,'speak',avg,{xp:6+Math.round(avg/16),coins:5+Math.round(avg/20),mascot:avg>=85?'celebrate':'speaking',sub:`คะแนนพูดเฉลี่ย ${avg}/100 (จำลอง)`,stats:[['คำที่ฝึก','5'],['คะแนนเฉลี่ย',avg+'/100']]})}
   show();this.stop=()=>{alive=false}},unmount(){this.stop&&this.stop()}});
 
 /* ----- ฝึกฟัง ----- */
@@ -24,7 +24,7 @@ SC.game_listen=()=>({noRefresh:true,nav:gnav('ฝึกฟัง'),body:'<div cl
   stage.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock||!alive)return;lock=true;const q=qs[i],k=+o.dataset.i,good=k===q.ans;$$('.opt',stage).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===k)x.classList.add('bad')});
    if(good){ok++;vib(10);floatXp('+3 XP',o)}else{addMistake(q.w);vib([25,30,25])}
    setTimeout(()=>{i++;if(i>=6)fin();else if(alive)show()},good?650:1000)};
-  function fin(){alive=false;gameEnd(el,'listen',ok,{xp:ok*3+4,coins:ok,mascot:ok>=5?'celebrate':'listening',sub:`ฟังถูก ${ok} จาก 6 ข้อ`,stats:[['ฟังถูก',ok+'/6']]})}
+  function fin(){alive=false;gameEnd(el,'listen',ok,{xp:ok*2+3,coins:ok,mascot:ok>=5?'celebrate':'listening',sub:`ฟังถูก ${ok} จาก 6 ข้อ`,stats:[['ฟังถูก',ok+'/6']]})}
   show();this.stop=()=>{alive=false}},unmount(){this.stop&&this.stop()}});
 
 /* ----- บอสหมึกยักษ์ (จำลอง: เพื่อนในห้องช่วยตี) ----- */
@@ -44,7 +44,7 @@ SC.game_boss=()=>({noRefresh:true,nav:gnav('บอสหมึกยักษ์
    if(good){combo++;const d=15+(combo>=3?10:0);mine+=d;hp-=d;vib(14);floatXp('−'+d+' HP',o);hit();$('#feed',el).textContent=combo>=3?`คอมโบ x${combo}! ตีแรงขึ้น`:'ตีโดน!'}else{combo=0;addMistake(q.w);hp=Math.min(B.max,hp+5);vib([25,30,25]);$('#feed',el).textContent='พลาด! บอสฟื้น +5'}
    hud();setTimeout(()=>{if(hp<=0)return;i++;if(i>=qs.length)fin();else if(alive)show()},good?650:950)};
   function fin(){if(!alive)return;alive=false;clearInterval(mates);const win=hp<=0;B.hp=Math.max(0,hp);if(win){B.day=today();S.bossWins++}save();
-   gameEnd(el,'boss',mine,{title:win?'ห้องเราชนะบอส!':'ตีบอสไปได้เยอะเลย',xp:(win?30:10)+Math.round(mine/5),coins:(win?40:10)+Math.round(mine/10),mascot:win?'celebrate':'streak',sub:win?`ตีบอสไป ${mine} แต้ม · บอสพ่ายแล้ว`:`ตีไป ${mine} แต้ม · บอสเหลือ HP ${Math.max(0,hp)}`,stats:[['แต้มของคุณ',mine],['HP บอสที่เหลือ',Math.max(0,hp)+'/'+B.max]]})}
+   gameEnd(el,'boss',mine,{title:win?'ห้องเราชนะบอส!':'ตีบอสไปได้เยอะเลย',xp:(win?20:8)+Math.round(mine/20),coins:(win?40:10)+Math.round(mine/10),mascot:win?'celebrate':'streak',sub:win?`ตีบอสไป ${mine} แต้ม · บอสพ่ายแล้ว`:`ตีไป ${mine} แต้ม · บอสเหลือ HP ${Math.max(0,hp)}`,stats:[['แต้มของคุณ',mine],['HP บอสที่เหลือ',Math.max(0,hp)+'/'+B.max]]})}
   hud();show();this.stop=()=>{alive=false;clearInterval(mates)}},unmount(){this.stop&&this.stop()}});
 
 /* ----- สตรีคขาด ----- */

@@ -34,7 +34,7 @@ SC.tones=()=>({title:'วรรณยุกต์',body:`<div class="center" sty
  <div class="dock"><button class="pill press" data-go="tonedrill"><b>ฝึกฟังวรรณยุกต์</b><small>8 ข้อ จากคำที่เรียนแล้ว</small></button></div>`});
 SC.tonedrill=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},
  mount(el){const pool=gw4();const qs=[];shuffle(pool).forEach(w=>{if(qs.length<8){const q=toneQ(w);if(q)qs.push({k:'q',q})}});
-  session(el,qs,res=>{const xp=res.correct*5;addXp(xp);addCoins(res.correct);replace('result',{title:'ฝึกวรรณยุกต์เสร็จ',mascot:res.correct>=6?'celebrate':'cheer',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct,stats:[['ตอบถูก',res.correct+'/'+res.total]],back:'x'})},{review:true})}});
+  session(el,qs,res=>{const xp=res.correct*2;addXp(xp);addCoins(res.correct);replace('result',{title:'ฝึกวรรณยุกต์เสร็จ',mascot:res.correct>=6?'celebrate':'cheer',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct,stats:[['ตอบถูก',res.correct+'/'+res.total]],back:'x'})},{review:true})}});
 
 /* ----- ห้องเรียนของฉัน (เพื่อนที่สะสมได้) ----- */
 SC.classroom=()=>{const n=CLASSMATES.filter(cmUnlocked).length;

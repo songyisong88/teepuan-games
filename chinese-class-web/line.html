@@ -12,84 +12,219 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}body{background:#EDE6DC;font-family:'IBM Plex Sans Thai','Inter',system-ui,sans-serif;color:#27211E;overflow:hidden}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button,input{font:inherit;color:inherit;background:none;border:0}button{cursor:pointer}
 #f{position:relative;margin:0 auto;height:100dvh;max-width:430px;background:#8CABD9;overflow:hidden;display:flex;flex-direction:column}
 @media(min-width:600px){body{display:flex;align-items:center;justify-content:center}#f{height:min(880px,calc(100dvh - 32px));width:430px;border-radius:44px;box-shadow:0 0 0 10px #27211E,0 30px 80px rgba(60,40,30,.35)}}
-.top{background:#fff;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 10px;display:flex;align-items:center;gap:10px;border-bottom:.5px solid #ddd}
-.top .av{width:38px;height:38px;border-radius:50%;background:#FAF7F2;overflow:hidden;padding:2px}.top img{width:100%;height:100%;object-fit:contain}
-.top b{font-size:16px;display:block}.top small{color:#06A94D;font-size:12px}
-.q.on{display:block}.demo{white-space:nowrap;cursor:pointer;border:0;font-family:inherit;margin-left:auto;font-size:11px;font-weight:600;color:#8A6B4A;background:#F3E7D6;border-radius:8px;padding:3px 9px}
-.chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-.m{display:flex;gap:8px;align-items:flex-end}.m .b{background:#fff;border-radius:18px;padding:10px 14px;font-size:15px;max-width:76%}
+.top{background:#fff;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px 8px;display:flex;align-items:center;gap:10px}
+.top .av{width:38px;height:38px;border-radius:50%;background:#FAF7F2;overflow:hidden;padding:2px;flex:none}.top img{width:100%;height:100%;object-fit:contain}
+.top .nm{min-width:0;flex:1}.top b{font-size:15.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top small{color:#6B625B;font-size:11.5px;display:block}
+.demo{white-space:nowrap;font-size:11px;font-weight:600;color:#8A6B4A;background:#F3E7D6;border-radius:8px;padding:5px 9px}
+.tabs{background:#fff;display:flex;border-bottom:.5px solid #ddd;padding:0 8px}
+.tabs button{flex:1;padding:9px 4px 10px;font-size:13px;font-weight:600;color:#8A7F76;border-bottom:2.5px solid transparent}
+.tabs button.on{color:#06A94D;border-color:#06C755}
+.view{flex:1;min-height:0;display:none;flex-direction:column}.view.on{display:flex}
+.chat{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.m{display:flex;gap:8px;align-items:flex-end}.m .b{background:#fff;border-radius:18px 18px 18px 4px;padding:10px 14px;font-size:14.5px;max-width:78%;line-height:1.5;word-break:break-word}
 .m .av{width:32px;height:32px;border-radius:50%;background:#FAF7F2;overflow:hidden;flex:none;padding:2px}.m .av img{width:100%;height:100%;object-fit:contain}
-.note{align-self:center;font-size:12px;color:#fff;background:rgba(0,0,0,.25);padding:3px 12px;border-radius:12px}
-.rich{background:#fff;border-top:.5px solid #ddd;padding:12px 12px calc(env(safe-area-inset-bottom,0px) + 14px);position:relative}
-.rich h6{font-size:11px;color:#6B625B;text-align:center;margin-bottom:8px;font-weight:500;letter-spacing:.3px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.t{background:#FAF7F2;border-radius:16px;padding:14px 4px 12px;text-align:center;font-size:13.5px;font-weight:600;border:.5px solid rgba(60,40,30,.08);position:relative;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-.t:active{transform:scale(.95)}.t i{display:block;font-style:normal;font-size:28px;margin-bottom:4px}
+.m.me{justify-content:flex-end}.m.me .b{background:#06C755;color:#fff;border-radius:18px 18px 4px 18px}
+.nmx{font-size:11px;color:#fff;opacity:.9;margin:0 0 -6px 42px}
+.note{align-self:center;font-size:12px;color:#fff;background:rgba(0,0,0,.25);padding:3px 12px;border-radius:12px;text-align:center;max-width:92%}
+.cost{display:block;font-size:11px;margin-top:5px;color:#6F655F}.cost.p{color:#C8102E}
+.flex{background:#fff;border-radius:18px;overflow:hidden;width:76%;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.flex .hd{background:var(--tint,#FCEFEF);padding:12px 14px 0;display:flex;align-items:flex-end;justify-content:space-between}
+.flex .hd img{width:84px;height:84px;object-fit:contain}.flex .hd b{font-size:16px;line-height:1.3;flex:1;padding-bottom:12px}
+.flex .bd{padding:10px 14px;font-size:13.5px;color:#4B433D;line-height:1.55}
+.flex .bt{margin:0 12px 10px;display:block;width:calc(100% - 24px);background:#06C755;color:#fff;border-radius:10px;padding:10px;font-weight:700;font-size:14px;text-align:center}
+.flex .bt.g{background:#F3EEE6;color:#27211E;margin-top:-4px}
+.zh{font-size:34px;font-weight:600;line-height:1.1}.py{color:#C8102E;font-weight:600}
+.bar2{height:8px;border-radius:4px;background:#EEE6DB;overflow:hidden;margin:3px 0 6px}.bar2 i{display:block;height:100%;background:#06C755}
+.lb{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}.lb.me{font-weight:700;color:#06A94D}
+.qr{display:flex;gap:7px;flex-wrap:wrap;padding:2px 4px 4px 42px}.qr button{background:#fff;border:1px solid #06C755;color:#06A94D;border-radius:18px;padding:6px 13px;font-size:13px;font-weight:600}
+.qr button:active{background:#E7F8EE}
+.inp{background:#fff;border-top:.5px solid #ddd;padding:7px 10px;display:flex;gap:8px;align-items:center}
+.inp input{flex:1;background:#F3EEE6;border-radius:18px;padding:9px 14px;font-size:14.5px;outline:none;min-width:0}.inp input:focus{box-shadow:0 0 0 2px #06C755 inset}
+.inp button{color:#06A94D;font-weight:700;font-size:14px;padding:6px 6px}
+.rich{background:#fff;padding:8px 12px calc(env(safe-area-inset-bottom,0px) + 12px);position:relative}
+.rich .rt{display:flex;gap:6px;margin-bottom:8px}.rich .rt button{flex:1;font-size:12px;font-weight:600;padding:6px;border-radius:10px;background:#F3EEE6;color:#6B625B}.rich .rt button.on{background:#27211E;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.t{background:#FAF7F2;border-radius:14px;padding:7px 2px 7px;text-align:center;font-size:13px;font-weight:600;border:.5px solid rgba(60,40,30,.08);position:relative;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.t:active{transform:scale(.95)}.t i{display:block;font-style:normal;font-size:20px;margin-bottom:0}
 .t.main{background:#C8102E;color:#fff;box-shadow:0 8px 20px rgba(200,16,46,.25)}
-.t.main::after{content:'ตัวอย่างลิงก์ที่เปิดเว็บ';position:absolute;left:50%;top:-11px;transform:translateX(-50%);background:#27211E;color:#fff;font-size:10px;padding:2px 8px;border-radius:8px;white-space:nowrap;font-weight:500}
-.hint{font-size:12px;color:#6B625B;text-align:center;margin-top:10px}
+.t span{display:block;font-size:10px;font-weight:500;color:#6B625B;margin-top:1px}.t.main span{color:#fff;opacity:.85}
+.hint{font-size:11.5px;color:#6B625B;text-align:center;margin-top:8px;line-height:1.5}.hint a{color:#06A44B;font-weight:600}
 .ld{position:absolute;inset:0;background:#FAF7F2;z-index:9;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:30px}
 .ld.on{display:flex}.ld img{width:200px;animation:fl 1.6s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-8px)}}
 .sp{width:34px;height:34px;border:3px solid #EBE3D9;border-top-color:#C8102E;border-radius:50%;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
 .url{font-size:12px;color:#6F655F;background:#fff;border-radius:10px;padding:5px 12px;font-family:ui-monospace,monospace}
-
-.m.me{justify-content:flex-end}.m.me .b{background:#06C755;color:#fff;border-radius:18px 18px 4px 18px}
-.m .b{border-radius:18px 18px 18px 4px}
-.flex{background:#fff;border-radius:18px;overflow:hidden;width:72%;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.flex .hd{background:var(--tint,#FCEFEF);padding:12px 14px 0;display:flex;align-items:flex-end;justify-content:space-between}
-.flex .hd img{width:92px;height:92px;object-fit:contain}.flex .hd b{font-size:16px;line-height:1.3;flex:1;padding-bottom:12px}
-.flex .bd{padding:10px 14px;font-size:13.5px;color:#6F655F;line-height:1.5}
-.flex .bt{margin:0 12px 12px;display:block;width:calc(100% - 24px);background:#06C755;color:#fff;border-radius:10px;padding:10px;font-weight:700;font-size:14px;text-align:center}
-.q{display:none;position:absolute;right:12px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:3;background:#fff;border-radius:14px;padding:8px 12px;box-shadow:0 4px 14px rgba(0,0,0,.15);font-size:11.5px;width:190px}
-.q .bar{height:6px;border-radius:3px;background:#EEE6DB;margin:5px 0 4px;overflow:hidden}.q .bar i{display:block;height:100%;background:#06C755;border-radius:3px;transition:width .4s}
-.q button{margin-top:6px;width:100%;background:#F8F3EC;border-radius:8px;padding:6px;font-size:11.5px;font-weight:600}
-.q small{color:#8A7F76;display:block;line-height:1.35}
-.t span{display:block;font-size:10px;font-weight:500;color:#6B625B;margin-top:2px}.t.main span{color:#fff;opacity:.8}
+.panel{flex:1;overflow-y:auto;background:#F7F2EA;padding:14px 14px 24px}
+.panel h3{font-size:17px;margin:2px 0 4px}.panel p.c{font-size:12.5px;color:#6B625B;line-height:1.55;margin-bottom:10px}
+.card{background:#fff;border-radius:16px;padding:13px 14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(60,40,30,.06)}
+.card h4{font-size:14px;margin-bottom:6px}.row{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:3px 0}.row b{font-weight:700}
+.sl{width:100%;accent-color:#06C755;margin:2px 0 6px}.lab{font-size:12.5px;display:flex;justify-content:space-between}
+.seg{display:flex;flex-direction:column;gap:6px;margin:6px 0}.seg button{text-align:left;background:#F3EEE6;border-radius:12px;padding:9px 12px;font-size:13px;line-height:1.4;border:1.5px solid transparent}.seg button.on{border-color:#06C755;background:#E7F8EE}
+.seg small{display:block;color:#6B625B;font-size:11.5px}
+.big{font-size:26px;font-weight:700}.ok{color:#06A94D}.bad{color:#C8102E}
+.pill{display:inline-block;background:#27211E;color:#fff;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600}.pill.g{background:#06C755}
+.tick{font-size:11.5px;color:#6B625B;margin-top:4px}
+.sim{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0}.sim div{background:#F3EEE6;border-radius:10px;text-align:center;padding:6px 0;font-size:11px}.sim b{display:block;font-size:14px}.sim .on{background:#E7F8EE}.sim .off{background:#FDECEC}
 </style>
 </head>
 <body>
 <div id="f">
- <div class="top"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div><b id="oaname">LINE OA</b><small>หน้าจำลองแชต · เว็บนี้ยังไม่ได้เชื่อมกับ OA จริง</small></div><button class="demo" id="qtg">โควต้า 0/300 ▾</button></div>
- <div class="chat" id="chat">
-  <div class="note">วันนี้ 08:30</div>
-  <div class="m"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="b"><span data-mn></span>มาแล้ว! 👋 วันนี้ยังไม่ได้เรียนจีนเลย กดเมนูด้านล่างเพื่อเริ่มได้เลย</div></div>
-  <div class="note" style="background:rgba(0,0,0,.18)">หน้าจำลองแชต LINE OA — ลองแตะริชเมนู บอทจะตอบกลับเหมือนจริง (ข้อความตอบกลับไม่นับโควต้า ส่วนข้อความที่บอทส่งหาเองจะนับ)</div>
+ <div class="top"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="nm"><b id="oaname">LINE OA</b><small>หน้าจำลอง LINE OA · ยังไม่ได้เชื่อมกับ OA จริง</small></div><button class="demo" id="qtg" aria-label="โควต้าข้อความ">โควต้า 0/300</button></div>
+ <div class="tabs" role="tablist"><button class="on" data-v="chat" role="tab">แชตส่วนตัว</button><button data-v="grp" role="tab">กลุ่มห้องเรียน</button><button data-v="plan" role="tab">โควต้าและค่าใช้จ่าย</button></div>
+
+ <div class="view on" id="v-chat">
+  <div class="chat" id="chat" aria-live="polite"></div>
+  <div class="inp"><input id="txt" type="text" placeholder="พิมพ์ เช่น สตรีค · คำวันนี้ · 你好 · ขอบคุณ" enterkeyhint="send" aria-label="ข้อความถึง OA" autocomplete="off"><button id="send">ส่ง</button></div>
+  <div class="rich"><div class="rt" role="tablist"><button class="on" data-rm="0">เรียน</button><button data-rm="1">เพื่อนและห้อง</button><button id="rmx" style="flex:none;width:44px" aria-label="ซ่อนหรือแสดงเมนู" aria-expanded="true">▾</button></div><div class="grid" id="rm"></div>
+   <p class="hint"><a id="addf" href="#" target="_blank" rel="noopener">เพิ่มเพื่อนใน LINE</a> · <a href="privacy.html" target="_blank" rel="noopener" style="color:inherit">ความเป็นส่วนตัว</a> · <a href="terms.html" target="_blank" rel="noopener" style="color:inherit">ข้อกำหนด</a> (ร่างตัวอย่าง)</p></div>
  </div>
- <div class="q" id="q"><b>โควต้าข้อความ (จำลอง)</b><div class="bar"><i id="qb" style="width:0"></i></div><span id="qt">ใช้ไป 0/300 ข้อความเดือนนี้</span><small>แพ็กเกจฟรีของ LINE OA ในไทย = 300 push ต่อเดือน (นับต่อผู้รับ)</small><button id="qpush">ลองให้บอทส่งเตือนหาเอง (นับโควต้า)</button></div>
- <div class="rich"><h6>ริชเมนู (ตัวอย่าง)</h6><div class="grid">
-  <button class="t main" data-uri="index.html?from=line"><i>📖</i>เรียนวันนี้<span>เปิดเว็บ (LIFF)</span></button>
-  <button class="t" data-msg="streak"><i>🔥</i>สตรีคของฉัน<span>ตอบกลับ · ฟรี</span></button>
-  <button class="t" data-msg="word"><i>💡</i>คำวันนี้<span>ตอบกลับ · ฟรี</span></button>
-  <button class="t" data-msg="duel"><i>⚔️</i>ท้าเพื่อน<span>การ์ด Flex</span></button>
-  <button class="t" data-msg="tutor"><i>🤖</i>ถามพี่ลามา<span>แชตกับติวเตอร์</span></button>
-  <button class="t" data-uri="index.html?from=line"><i>🏆</i>อันดับห้อง<span>เปิดเว็บ (LIFF)</span></button></div>
-  <p class="hint">เมนูแบบ “ข้อความ” ตอบฟรีไม่จำกัด · เมนูแบบ “ลิงก์” เปิดเว็บห้องเรียน</p>
-  <p class="hint"><a id="addf" href="#" target="_blank" rel="noopener" style="color:#06A44B;font-weight:600">เพิ่มเพื่อนใน LINE</a> · <a href="privacy.html" target="_blank" rel="noopener" style="color:inherit">ความเป็นส่วนตัว</a> · <a href="terms.html" target="_blank" rel="noopener" style="color:inherit">ข้อกำหนด</a> (ร่างตัวอย่าง)</p></div>
+
+ <div class="view" id="v-grp">
+  <div class="chat" id="gchat" aria-live="polite"></div>
+  <div class="rich" style="padding-top:10px"><div class="grid" id="gcmd"></div><p class="hint">คำสั่งในกลุ่มที่บอทตอบด้วย reply token = ฟรี · ถ้าบอทส่งหาทั้งกลุ่มเองจะนับเป็น “จำนวนสมาชิก” ข้อความ</p></div>
+ </div>
+
+ <div class="view" id="v-plan"><div class="panel" id="plan"></div></div>
+
  <div class="ld" id="ld"><img src="assets/mascot/read.webp" alt=""><div class="sp"></div><b>กำลังเปิดห้องเรียนจาก LINE…</b><span class="url">liff.line.me/… (ตัวอย่าง ยังไม่มีจริง)</span><span style="font-size:12px;color:#6B625B">จำลอง · ไม่ได้เชื่อมต่อ LINE จริง</span></div>
 </div>
+<script src="config.js"></script>
 <script>
-const $=s=>document.querySelector(s),chat=$('#chat');let sent=+(localStorage.getItem('lama-line-quota')||0);
-const KEY='lama-cn-web-demo-v2';let S={};try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
-const streak=S.streak||0,xp=S.xp||0;
-const mn=()=>window.MASCOT_NAME||'พี่ลามา';
-function quota(){$('#qtg').textContent='โควต้า '+sent+'/300 ▾';$('#qb').style.width=Math.min(100,sent/3)+'%';$('#qt').textContent='ใช้ไป '+sent+'/300 ข้อความเดือนนี้';$('#qb').style.background=sent>=270?'#C8102E':'#06C755'}
-const bot=(h,img='wave')=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/'+img+'.webp" alt=""></div><div class="b">'+h+'</div></div>');chat.scrollTop=9e4};
-const me=t=>{chat.insertAdjacentHTML('beforeend','<div class="m me"><div class="b">'+t+'</div></div>');chat.scrollTop=9e4};
-const flex=(o)=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="flex" style="--tint:'+o.tint+'"><div class="hd"><b>'+o.t+'</b><img src="assets/mascot/'+o.img+'.webp" alt=""></div><div class="bd">'+o.d+'</div><button class="bt" data-uri="'+o.uri+'">'+o.cta+'</button></div></div>');chat.scrollTop=9e4;bindU()};
-const WORDS=[['谢谢','xièxie','ขอบคุณ'],['你好','nǐ hǎo','สวัสดี'],['朋友','péngyou','เพื่อน'],['再见','zàijiàn','แล้วพบกันใหม่']];
-const R={streak:()=>{me('สตรีคของฉัน');setTimeout(()=>bot(streak?'🔥 สตรีคของคุณ <b>'+streak+' วัน</b> · XP รวม '+xp+'<br><small>(อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริง จะอ่านจากบัญชีของคุณ)</small>':'ยังไม่มีสตรีค เริ่มวันนี้ได้เลย! เรียนแค่ 3 นาทีก็นับหนึ่งวัน','streak'),500)},
- word:()=>{me('คำวันนี้');const w=WORDS[new Date().getDate()%4];setTimeout(()=>bot('💡 คำวันนี้: <b style="font-size:22px">'+w[0]+'</b><br>'+w[1]+' = '+w[2]+'<br><small>ฟังเสียงและฝึกใช้ต่อในเว็บ</small>','teach'),500)},
- duel:()=>{me('ท้าเพื่อน');setTimeout(()=>flex({tint:'#FDF3E6',t:'ท้าดวลศัพท์จีนกับฉัน!',img:'duel',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในเดโมนี้ยังไม่ได้เชื่อมต่อ)',cta:'รับคำท้า',uri:'index.html?from=line'}),500)},
- tutor:()=>{me('ถามพี่ลามา');setTimeout(()=>bot('สวัสดี! พิมพ์คำศัพท์หรือคำถามภาษาจีนมาได้เลย 💬<br><small>ในเว็บจริงติวเตอร์ตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) — ถ้าเชื่อมระบบตอบอัตโนมัติจริงจะตอบได้กว้างขึ้น</small>','listening'),500);setTimeout(()=>flex({tint:'#E7F8EE',t:'คุยกับติวเตอร์ต่อในเว็บ',img:'teach',d:'ซ้อมสนทนา ขอคำศัพท์ แก้ประโยค',cta:'เปิดติวเตอร์',uri:'index.html?from=line'}),1100)}};
-function bindU(){document.querySelectorAll('[data-uri]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}$('#ld').classList.add('on');setTimeout(()=>location.href=b.dataset.uri,1100)})}
-bindU();document.querySelectorAll('[data-msg]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}R[b.dataset.msg]()});
-$('#qtg').onclick=()=>$('#q').classList.toggle('on');
-$('#qpush').onclick=()=>{sent=Math.min(300,sent+1);localStorage.setItem('lama-line-quota',sent);quota();bot('⏰ เตือน: สตรีคกำลังจะขาด! แตะเมนูเรียนต่อได้เลย <small style="display:block;color:#C8102E">ข้อความนี้เป็น push — นับโควต้า (+1)</small>','sleepy')};
-quota();
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='lama-cn-web-demo-v2',LK='lama-line-v2';let A={};try{A=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){}
+let L={opt:null,sent:0,greeted:0,gq:0};try{L=Object.assign(L,JSON.parse(localStorage.getItem(LK)||'{}'))}catch(e){}
+if(!L.sent){const o=+localStorage.getItem('lama-line-quota')||0;if(o)L.sent=o}
+const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}};
+const FREE=300,streak=A.streak||0,xp=A.xp||0,badges=Object.keys(A.badges||{}).length;
+const TIERS=['บรอนซ์','เงิน','ทอง','แซฟไฟร์','รูบี้','เพชร'],tier=TIERS[Math.min(5,(A.lg&&A.lg.tier)||0)];
+const nowT=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+const BR=BRAND_NAME,MN=MASCOT_NAME;
+$('#oaname').textContent=BR+' ('+OA_ID+')';$('#addf').href=OA_URL;
+
+/* ---------- โควต้า ---------- */
+function quota(){$('#qtg').textContent='โควต้า '+L.sent+'/'+FREE;$('#qtg').style.color=L.sent>=270?'#C8102E':'';renderPlan()}
+function chargePush(n=1){if(L.sent+n>FREE)return false;L.sent+=n;saveL();quota();return true}
+
+/* ---------- แชต ---------- */
+function mk(box){return{
+ bot(h,img='wave',cost,who){box.insertAdjacentHTML('beforeend',`${who?`<div class="nmx">${esc(who)}</div>`:''}<div class="m"><div class="av"><img src="assets/mascot/${img}.webp" alt=""></div><div class="b">${h}${cost===undefined?'':cost?`<span class="cost p">push · นับโควต้า (${cost})</span>`:'<span class="cost">ตอบกลับ (reply) · ไม่นับโควต้า</span>'}</div></div>`);box.scrollTop=9e5},
+ me(t){box.insertAdjacentHTML('beforeend',`<div class="m me"><div class="b">${esc(t)}</div></div>`);box.scrollTop=9e5},
+ note(t){box.insertAdjacentHTML('beforeend',`<div class="note">${t}</div>`);box.scrollTop=9e5},
+ flex(o){box.insertAdjacentHTML('beforeend',`<div class="m"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="flex" style="--tint:${o.tint||'#FCEFEF'}"><div class="hd"><b>${o.t}</b><img src="assets/mascot/${o.img||'wave'}.webp" alt=""></div><div class="bd">${o.d}</div>${(o.btn||[]).map(b=>b.uri?`<button class="bt ${b.g?'g':''}" data-uri="${b.uri}">${b.t}</button>`:`<button class="bt ${b.g?'g':''}" data-cmd="${b.cmd}">${b.t}</button>`).join('')}<div style="padding:0 14px 8px;font-size:10.5px;color:#8A7F76">${o.cost===undefined?'ตอบกลับ (reply) · ไม่นับโควต้า':'push · นับโควต้า'}</div></div></div>`);box.scrollTop=9e5;bind()},
+ qr(items){const id='qr'+Math.random().toString(36).slice(2,6);box.insertAdjacentHTML('beforeend',`<div class="qr" id="${id}">${items.map(i=>`<button data-qc="${i[1]}">${i[0]}</button>`).join('')}</div>`);box.scrollTop=9e5;$$('#'+id+' button').forEach(b=>b.onclick=()=>{$('#'+id)&&$('#'+id).remove();run(b.dataset.qc,b.textContent)})}}}
+const C=mk($('#chat')),G=mk($('#gchat'));
+const go=u=>{try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}$('#ld').classList.add('on');setTimeout(()=>location.href=u,1000)};
+function bind(){$$('[data-uri]').forEach(b=>b.onclick=()=>go(b.dataset.uri));$$('[data-cmd]').forEach(b=>b.onclick=()=>run(b.dataset.cmd,b.dataset.label||b.textContent))}
+
+/* ---------- คลังคำ (โหลดเมื่อต้องใช้ — ใช้ข้อมูลชุดเดียวกับเว็บ) ---------- */
+let DB=null;
+function loadDB(){if(DB)return DB;DB=new Promise(res=>{let i=0;const f=['data/common.js','data/hsk1.js','data/hsk2.js'];const nx=()=>{if(i>=f.length)return res(typeof LESSONS!=='undefined'?LESSONS:[]);const s=document.createElement('script');s.src=f[i++];s.onload=nx;s.onerror=nx;document.head.appendChild(s)};nx()}).then(ls=>{const a=[];ls.forEach(l=>(l.words||[]).forEach(w=>a.push(Object.assign({lv:l.lv,lid:l.id},w))));return a});return DB}
+const plain=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[|\s]/g,'');
+async function find(q){const db=await loadDB();q=q.trim();if(!q)return null;const pq=plain(q);
+ let r=db.find(w=>w.zh===q)||db.find(w=>w.th===q)||db.find(w=>plain(w.py)===pq);
+ if(!r&&/[\u4e00-\u9fff]/.test(q))r=db.find(w=>w.zh.includes(q)||q.includes(w.zh)&&w.zh.length>1);
+ if(!r&&q.length>=2)r=db.find(w=>w.th.includes(q));return r}
+function wordCard(w,cost){return{tint:'#FCEFEF',t:'ค้นเจอคำนี้',img:'teach',d:`<div class="zh">${w.zh}</div><div class="py">${String(w.py).replace(/\|/g,'')}</div><div style="font-weight:600;margin:2px 0 6px">${esc(w.th)}</div><div style="font-size:12.5px;color:#6B625B">${w.ex?esc(w.ex)+'<br>'+esc(String(w.exPy||'').replace(/\|/g,''))+'<br>'+esc(w.exTh||''):''}</div>`,btn:[{t:'ฝึกคำนี้ในเว็บ',uri:'index.html?from=line'}]}}
+const WOTD=[['谢谢','xièxie','ขอบคุณ','谢谢你！','ขอบคุณนะ'],['你好','nǐ hǎo','สวัสดี','你好，我叫小林。','สวัสดี ฉันชื่อเสี่ยวหลิน'],['朋友','péngyou','เพื่อน','他是我的朋友。','เขาเป็นเพื่อนของฉัน'],['再见','zàijiàn','แล้วพบกันใหม่','明天见，再见！','พรุ่งนี้เจอกัน บ๊ายบาย']];
+const wotd=()=>WOTD[Math.floor(Date.now()/864e5)%WOTD.length];
+
+/* ---------- คำสั่งและการตอบกลับ ---------- */
+const CMDS={
+ streak(){C.flex({tint:'#FDECEC',img:'streak',t:streak?`สตรีค ${streak} วัน`:'ยังไม่มีสตรีค',d:streak?`XP รวม ${xp} · เหรียญตรา ${badges} เหรียญ · ลีก${tier}<br><small>อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริงจะอ่านจากบัญชีของคุณ</small>`:'เรียนวันนี้แค่ 3 นาทีก็นับเป็นวันแรก',btn:[{t:'เรียนวันนี้ต่อเลย',uri:'index.html?from=line'}]})},
+ word(){const w=wotd();C.flex({tint:'#FCEFEF',img:'teach',t:'คำวันนี้',d:`<div class="zh">${w[0]}</div><div class="py">${w[1]}</div><div style="font-weight:600;margin:2px 0 6px">${w[2]}</div><div style="font-size:12.5px;color:#6B625B">${w[3]}<br>${w[4]}</div>`,btn:[{t:'ฟังเสียง/ฝึกในเว็บ',uri:'index.html?from=line'}]})},
+ review(){C.bot('🔁 ทบทวนตามรอบ: ในเว็บจะรวมคำที่ถึงรอบทบทวนให้ในที่เดียว<br><small>ถ้าเปิดเตือนไว้ บอทจะส่งเตือน “เฉพาะวันที่สตรีคใกล้ขาด” เพื่อประหยัดโควต้า</small>','read');C.flex({tint:'#FBEFEA',img:'read',t:'ทบทวนตามรอบ',d:'แตะเพื่อเปิดชุดทบทวนวันนี้',btn:[{t:'เปิดชุดทบทวน',uri:'index.html?from=line'}]})},
+ league(){const you=Math.max(10,Math.round(xp%300));const rows=[['ฟ้า',you+60],['คุณ',you],['แพรว',Math.max(0,you-35)],['โอ๊ต',Math.max(0,you-70)]].sort((a,b)=>b[1]-a[1]);C.flex({tint:'#EAF1FB',img:'trophy',t:`ลีก${tier} · สัปดาห์นี้`,d:`${rows.map((r,i)=>`<div class="lb ${r[0]==='คุณ'?'me':''}"><span>${i+1}. ${r[0]}</span><span>${r[1]} XP</span></div>`).join('')}<small style="color:#8A7F76">คู่แข่งเป็นข้อมูลจำลอง · 5 อันดับแรกเลื่อนลีกทุกวันจันทร์</small>`,btn:[{t:'ดูอันดับเต็มในเว็บ',uri:'index.html?from=line'}]})},
+ badge(){C.flex({tint:'#FDF3E6',img:'trophy',t:`เหรียญตรา ${badges}/31`,d:'ปลดล็อกจากสิ่งที่ทำจริง เช่น สตรีค คำศัพท์ ชนะดวล ชวนเพื่อน',btn:[{t:'ดูเหรียญทั้งหมด',uri:'index.html?from=line'}]})},
+ duel(){C.flex({tint:'#FDF3E6',img:'duel',t:'ท้าดวลศัพท์จีนกับฉัน!',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในหน้าจำลองนี้ยังไม่ได้เชื่อมต่อ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]})},
+ invite(){C.flex({tint:'#FCEFEF',img:'wave',t:'ชวนเพื่อนเข้าห้องเรียน',d:'เพื่อนใช้รหัสของคุณ → ได้เหรียญทั้งคู่ · ส่งต่อได้ผ่านปุ่มแชร์ของ LINE',btn:[{t:'เปิดการ์ดชวนเพื่อน',uri:'index.html?from=line'}]})},
+ tutor(){C.bot('สวัสดี! พิมพ์คำจีนหรือคำไทยมาได้เลย เช่น <b>你好</b> หรือ <b>ขอบคุณ</b> แล้วบอทจะค้นให้จากคลังคำของห้องเรียน 💬<br><small>ติวเตอร์ในเว็บตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) ไม่ได้ใช้ AI จริง</small>','listening')},
+ help(){C.bot('คำสั่งที่ใช้ได้ (ตอบกลับฟรีทั้งหมด):<br>• <b>สตรีค</b> · <b>คำวันนี้</b> · <b>ทบทวน</b><br>• <b>ลีก</b> · <b>เหรียญ</b> · <b>ชวนเพื่อน</b><br>• <b>เปิดเตือน</b> / <b>ปิดเตือน</b><br>• พิมพ์คำจีน (เช่น 谢谢) หรือคำไทย (เช่น เพื่อน) เพื่อค้นคำ','teach')},
+ optin(){L.opt=true;saveL();C.bot('เปิดเตือนแล้ว ✅ จะเตือน “ไม่เกินวันละครั้ง และเฉพาะวันที่สตรีคใกล้ขาด” ปิดได้ทุกเมื่อโดยพิมพ์ <b>ปิดเตือน</b>','cheer');renderPlan()},
+ optout(){L.opt=false;saveL();C.bot('ปิดเตือนแล้ว 👌 ยังกดเมนูเรียนต่อได้เสมอ และพิมพ์ <b>เปิดเตือน</b> เมื่อไหร่ก็ได้','sleepy');renderPlan()},
+ push(){if(L.opt===false){C.bot('คุณปิดเตือนไว้ — บอทจะไม่ส่ง push หาคุณ (นี่คือเหตุผลที่ต้องมี opt-in)','sleepy');return}
+  if(!chargePush(1)){C.bot('⛔ โควต้าเดือนนี้เต็ม 300/300 — LINE จะปฏิเสธการส่ง (API ตอบ 429) บอทจะเงียบจนกว่าจะรีเซ็ตต้นเดือน แต่การตอบกลับยังใช้ได้ฟรี','shock');return}
+  C.bot('⏰ สตรีค '+(streak||1)+' วันกำลังจะขาด! แตะเมนูเรียนต่อ 3 นาทีก็พอ','sleepy',1)}
+};
+const ALIAS=[[/^(สตรีค|streak|ไฟ)$/i,'streak'],[/^(คำวันนี้|คำศัพท์วันนี้|word)$/i,'word'],[/^(ทบทวน|review)$/i,'review'],[/^(ลีก|อันดับ|league)$/i,'league'],[/^(เหรียญ|เหรียญตรา|badge)$/i,'badge'],[/^(ท้า|ท้าเพื่อน|duel)$/i,'duel'],[/^(ชวน|ชวนเพื่อน|invite)$/i,'invite'],[/^(ติวเตอร์|ถามพี่ลามา|tutor)$/i,'tutor'],[/^(ช่วย|ช่วยด้วย|help|\?|เมนู)$/i,'help'],[/^(เปิดเตือน|รับเตือน)$/i,'optin'],[/^(ปิดเตือน|หยุดเตือน|stop)$/i,'optout']];
+async function run(raw,shown){const t=(raw||'').trim();if(!t)return;
+ if(CMDS[t]){C.me(shown||t);setTimeout(CMDS[t],380);return}
+ C.me(shown||t);const al=ALIAS.find(a=>a[0].test(t));if(al){setTimeout(CMDS[al[1]],380);return}
+ const w=await find(t);setTimeout(()=>{if(w)C.flex(wordCard(w));else C.bot('ยังหาคำนี้ไม่เจอในคลังคำที่โหลดไว้ (ระดับ 1–2) 🙏<br>ลองพิมพ์ <b>ช่วย</b> เพื่อดูคำสั่ง หรือเปิดติวเตอร์ในเว็บ','think')},420)}
+function send(){const v=$('#txt').value;$('#txt').value='';run(v)}
+$('#send').onclick=send;$('#txt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();send()}});
+
+/* ---------- ริชเมนู 2 หน้า ---------- */
+const RM=[[['main','📖','เรียนวันนี้','เปิดเว็บ (LIFF)','index.html?from=line'],['cmd','🔥','สตรีคของฉัน','ตอบกลับ · ฟรี','streak'],['cmd','💡','คำวันนี้','ตอบกลับ · ฟรี','word'],['cmd','🔁','ทบทวน','ตอบกลับ · ฟรี','review'],['cmd','🤖','ถามพี่ลามา','ค้นคำ · ฟรี','tutor'],['cmd','❓','ช่วยด้วย','คำสั่งทั้งหมด','help']],
+ [['uri','🏆','ลีกสัปดาห์นี้','เปิดเว็บ','index.html?from=line'],['cmd','📊','อันดับของฉัน','ตอบกลับ · ฟรี','league'],['cmd','⚔️','ท้าเพื่อน','การ์ด Flex','duel'],['cmd','🎟️','ชวนเพื่อน','การ์ด Flex','invite'],['cmd','🏅','เหรียญตรา','ตอบกลับ · ฟรี','badge'],['uri','🎒','ห้องเรียนของฉัน','เปิดเว็บ','index.html?from=line']]];
+function drawRM(i){$('#rm').innerHTML=RM[i].map(r=>`<button class="t ${r[0]==='main'?'main':''}" ${r[0]==='cmd'?`data-cmd="${r[4]}" data-label="${r[2]}"`:`data-uri="${r[4]}"`}><i>${r[1]}</i>${r[2]}<span>${r[3]}</span></button>`).join('');bind()}
+$$('[data-rm]').forEach(b=>b.onclick=()=>{$$('[data-rm]').forEach(x=>x.classList.toggle('on',x===b));drawRM(+b.dataset.rm);try{navigator.vibrate&&navigator.vibrate(6)}catch(e){}});drawRM(0);$('#rmx').onclick=()=>{const o=$('#rm').style.display==='none';$('#rm').style.display=o?'':'none';$('#rmx').textContent=o?'▾':'▴';$('#rmx').setAttribute('aria-expanded',o)};
+
+/* ---------- แท็บ ---------- */
+$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v));if(b.dataset.v==='grp')grpInit();if(b.dataset.v==='plan')renderPlan()});
+$('#qtg').onclick=()=>$('.tabs [data-v=plan]').click();
+
+/* ---------- กลุ่มห้องเรียน ---------- */
+const MEM=[['พี่ต้น','#C9774A',.8],['น้องมะลิ','#5E9B7A',.55],['แพรว','#5B86C4',.7]];let gi=0,gscore={};
+function grpInit(){if(gi)return;gi=1;G.note('กลุ่ม “ห้องเรียนมินท์” · สมาชิก 4 คน (จำลอง) · บอทเข้ากลุ่มแล้ว');
+ G.bot('สวัสดีทุกคน! พิมพ์คำสั่งหรือกดปุ่มด้านล่าง: <b>/ควิซ</b> · <b>/อันดับ</b> · <b>/คำวันนี้</b> · <b>/ท้า</b>','wave',undefined,BR)}
+const GC=[['🎯','ควิซกลุ่ม','ตอบถูกได้แต้ม','quiz'],['🏆','อันดับห้อง','ฟรี','rank'],['💡','คำวันนี้','ฟรี','word'],['⚔️','ท้าทั้งห้อง','การ์ด Flex','duel'],['📣','ประกาศผล','push ทั้งกลุ่ม','announce'],['🔔','ปิดเสียงบอท','คำสั่งดูแลกลุ่ม','mute']];
+$('#gcmd').innerHTML=GC.map(c=>`<button class="t" data-g="${c[3]}"><i>${c[0]}</i>${c[1]}<span>${c[2]}</span></button>`).join('');
+$$('[data-g]').forEach(b=>b.onclick=()=>gcmd(b.dataset.g));
+let gmute=false;
+async function gcmd(k){grpInit();const ME='คุณ';
+ if(gmute&&k!=='mute'){G.note('บอทถูกปิดเสียง — พิมพ์ “เปิดเสียงบอท” (ปุ่มเดิม) เพื่อให้ตอบอีกครั้ง');return}
+ if(k==='mute'){gmute=!gmute;G.me(gmute?'/ปิดเสียงบอท':'/เปิดเสียงบอท');G.bot(gmute?'โอเค เงียบแล้ว 🤫':'กลับมาแล้ว!','wave',undefined,BR);return}
+ if(k==='word'){G.me('/คำวันนี้');const w=wotd();setTimeout(()=>G.flex({tint:'#FCEFEF',img:'teach',t:'คำวันนี้ของห้อง',d:`<div class="zh">${w[0]}</div><div class="py">${w[1]}</div><b>${w[2]}</b><br><small>ใครแต่งประโยคได้ก่อน ได้แต้ม!</small>`,btn:[{t:'ฝึกในเว็บ',uri:'index.html?from=line'}]}),350);return}
+ if(k==='duel'){G.me('/ท้า');setTimeout(()=>G.flex({tint:'#FDF3E6',img:'duel',t:`${ME}ท้าทั้งห้องดวลศัพท์!`,d:'ใครกดรับคำท้าก่อน เริ่มดวลได้เลย (เกมจริงอยู่ในเว็บ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]}),350);return}
+ if(k==='announce'){G.me('/ประกาศผล');const n=4;if(!chargePush(n)){G.bot('⛔ โควต้าไม่พอสำหรับ push ทั้งกลุ่ม ('+n+' ข้อความ) — จึงไม่ประกาศเอง แต่ใครพิมพ์ /อันดับ จะได้คำตอบฟรี','shock',undefined,BR);return}
+  G.bot('📣 สรุปประจำวัน: ห้องนี้เรียนรวมกัน 3/4 คนแล้ววันนี้!','cheer',n,BR);return}
+ if(k==='rank'){G.me('/อันดับ');setTimeout(()=>{const r=[['พี่ต้น',180],['คุณ',Math.max(40,xp%260)],['แพรว',90],['น้องมะลิ',60]].sort((a,b)=>b[1]-a[1]);G.flex({tint:'#EAF1FB',img:'trophy',t:'อันดับห้อง “ห้องเรียนมินท์”',d:r.map((x,i)=>`<div class="lb ${x[0]==='คุณ'?'me':''}"><span>${i+1}. ${x[0]}</span><span>${x[1]} XP</span></div>`).join('')+'<small style="color:#8A7F76">ตัวเลขจำลอง</small>',btn:[{t:'ดูในเว็บ',uri:'index.html?from=line'}]})},350);return}
+ if(k==='quiz'){G.me('/ควิซ');const db=await loadDB();const pool=db.filter(w=>w.lv===1&&w.th&&w.th.length<14);if(pool.length<4){G.bot('โหลดคลังคำไม่สำเร็จ ลองใหม่อีกครั้ง','shock',undefined,BR);return}const q=pool[Math.floor(Math.random()*pool.length)];
+  const opts=[q];let guard=0;while(opts.length<4&&pool.length>=4&&guard++<200){const o=pool[Math.floor(Math.random()*pool.length)];if(!opts.includes(o)&&o.th!==q.th)opts.push(o)}opts.sort(()=>Math.random()-.5);
+  setTimeout(()=>{G.bot(`🎯 ควิซกลุ่ม: <span class="zh" style="font-size:28px">${q.zh}</span> <span class="py">${String(q.py).replace(/\|/g,'')}</span> แปลว่าอะไร?`,'think',undefined,BR);
+   const id='gq'+Date.now();$('#gchat').insertAdjacentHTML('beforeend',`<div class="qr" id="${id}">${opts.map(o=>`<button data-a="${o===q?1:0}">${esc(o.th)}</button>`).join('')}</div>`);$('#gchat').scrollTop=9e5;
+   $$('#'+id+' button').forEach(b=>b.onclick=()=>{const ok=b.dataset.a==='1';$('#'+id).remove();G.me(b.textContent);
+    const res=MEM.map(m=>[m[0],Math.random()<m[2]]);gscore[ME]=(gscore[ME]||0)+(ok?1:0);res.forEach(r=>gscore[r[0]]=(gscore[r[0]]||0)+(r[1]?1:0));
+    setTimeout(()=>{G.bot(`${ok?'✅ ถูกต้อง!':'❌ ยังไม่ใช่'} เฉลย: <b>${esc(q.th)}</b><br><small>${res.map(r=>r[0]+(r[1]?' ✓':' ✗')).join(' · ')}</small>`,ok?'celebrate':'wrong',undefined,BR);
+     const sc=Object.entries(gscore).sort((a,b)=>b[1]-a[1]);G.bot('แต้มสะสมในกลุ่ม: '+sc.map(s=>s.join(' ')).join(' · ')+'<br><small>ผู้ตอบคนอื่นเป็นบอทจำลอง · ในของจริงบอทต้องอ่านข้อความกลุ่มผ่าน webhook</small>','wave',0,BR)},500)})},420)}}
+
+/* ---------- แผนโควต้า / ค่าใช้จ่าย ---------- */
+let P=Object.assign({fr:500,opt:40,risk:25,pol:2},(()=>{try{return JSON.parse(localStorage.getItem('lama-line-plan')||'{}')}catch(e){return{}}})());
+function cost(n){if(n<=FREE)return{plan:'ฟรี',baht:0};const b=1280+Math.max(0,n-15000)*.10,p=1780+Math.max(0,n-35000)*.06;return b<=p?{plan:'เบสิก',baht:b}:{plan:'โปร',baht:p}}
+function monthMsgs(){const d=30;if(P.pol===1)return P.fr*d;if(P.pol===2)return Math.round(P.fr*P.opt/100*P.risk/100*d);return 0}
+function renderPlan(){const el=$('#plan');if(!el)return;const n=monthMsgs(),c=cost(n),fits=n<=FREE;
+ el.innerHTML=`<h3>โควต้าข้อความและค่าใช้จ่าย</h3><p class="c">จำลองว่าถ้าเปิด OA จริง ข้อความแบบไหนเสียโควต้า และจะเสียเท่าไร ตัวเลขแพ็กเกจจาก LINE for Business ไทย (ตรวจ ต.ค. 2026 · ไม่รวม VAT 7% · LINE ปรับได้ — ตรวจหน้าแพ็กเกจก่อนใช้จริง)</p>
+ <div class="card"><h4>การใช้งานของคุณในหน้าจำลองนี้</h4><div class="lab"><span>push ที่นับแล้ว</span><b>${L.sent}/${FREE}</b></div><div class="bar2"><i style="width:${Math.min(100,L.sent/3)}%;background:${L.sent>=270?'#C8102E':'#06C755'}"></i></div>
+  <div class="row"><span>เตือนรายวัน (opt-in)</span><b>${L.opt===true?'เปิด':L.opt===false?'ปิด':'ยังไม่เลือก'}</b></div>
+  <button class="pill g" id="ptest">ลองให้บอทส่งเตือนหาเอง (+1)</button> <button class="pill" id="preset" style="background:#8A7F76">รีเซ็ตตัวนับ</button>
+  <p class="tick">ข้อความที่ผู้ใช้พิมพ์มาหาบอทแล้วบอทตอบ (reply) ไม่นับโควต้า · push/broadcast/multicast นับต่อผู้รับ 1 คน = 1 ข้อความ</p></div>
+ <div class="card"><h4>เครื่องคำนวณต่อเดือน (จำลอง)</h4>
+  <div class="lab"><span>จำนวนเพื่อนที่เพิ่ม OA</span><b>${P.fr.toLocaleString('th-TH')}</b></div><input class="sl" type="range" id="s1" min="50" max="20000" step="50" value="${P.fr}" aria-label="จำนวนเพื่อน">
+  <div class="lab"><span>ยอมรับเตือน (opt-in)</span><b>${P.opt}%</b></div><input class="sl" type="range" id="s2" min="5" max="100" step="5" value="${P.opt}" aria-label="เปอร์เซ็นต์ที่ยอมรับเตือน">
+  <div class="lab"><span>วันที่สตรีคใกล้ขาด (ของคนที่ยอมรับ)</span><b>${P.risk}%</b></div><input class="sl" type="range" id="s3" min="5" max="100" step="5" value="${P.risk}" aria-label="เปอร์เซ็นต์วันที่เสี่ยงขาด">
+  <div class="seg" id="pol"><button data-p="1" class="${P.pol===1?'on':''}"><b>ก. ส่งเตือนทุกคนทุกวัน</b><small>ง่ายแต่แพง และคนมักบล็อก</small></button><button data-p="2" class="${P.pol===2?'on':''}"><b>ข. เตือนเฉพาะคนที่เลือกรับ + สตรีคใกล้ขาด</b><small>วิธีที่แอปนี้ออกแบบไว้</small></button><button data-p="3" class="${P.pol===3?'on':''}"><b>ค. ไม่ push เลย ให้ผู้ใช้กดเมนูเอง</b><small>reply ฟรี ใช้ริชเมนู + คำสั่ง</small></button></div>
+  <div class="row"><span>ข้อความที่ต้อง push / เดือน</span><b class="${fits?'ok':'bad'}">${n.toLocaleString('th-TH')}</b></div>
+  <div class="row"><span>แพ็กเกจที่ถูกที่สุดที่พอ</span><b>${c.plan}</b></div>
+  <div class="row"><span>ค่าใช้จ่ายประมาณ</span><b class="big ${c.baht?'bad':'ok'}">฿${Math.round(c.baht).toLocaleString('th-TH')}</b></div>
+  <p class="tick">${fits?'พออยู่ในแพ็กเกจฟรี (300) ✅':'เกินแพ็กเกจฟรี 300 — ต้องอัปเกรด หรือลดจำนวน push'}</p></div>
+ <div class="card"><h4>แพ็กเกจ LINE OA ไทย (อ้างอิง)</h4><div class="row"><span>ฟรี</span><b>฿0 · 300 ข้อความ</b></div><div class="row"><span>เบสิก</span><b>฿1,280 · 15,000 · เกิน ฿0.10</b></div><div class="row"><span>โปร</span><b>฿1,780 · 35,000 · เกิน ฿0.06</b></div></div>
+ <div class="card"><h4>ผลต่อการออกแบบแอปนี้</h4><p class="tick" style="font-size:12.5px;line-height:1.6;color:#4B433D">• ใช้ “ตอบกลับ” (ฟรี) เป็นหลัก: ริชเมนู คำสั่งพิมพ์ ปุ่ม Quick Reply<br>• push เฉพาะคนที่กดรับเตือน ไม่เกินวันละครั้ง และเฉพาะวันที่สตรีคใกล้ขาด<br>• เตือนในกลุ่มห้องเรียน: ให้ผู้ใช้เรียก /อันดับ เอง แทนที่บอทประกาศทั้งกลุ่มเอง (push กลุ่มนับตามจำนวนสมาชิก)<br>• ถ้าโควต้าเต็ม (API ตอบ 429) บอทหยุด push แต่ริชเมนูและการตอบกลับยังทำงานตามปกติ</p></div>`;
+ const sv=()=>{try{localStorage.setItem('lama-line-plan',JSON.stringify(P))}catch(e){}renderPlan()};
+ $('#s1').oninput=e=>{P.fr=+e.target.value;sv()};$('#s2').oninput=e=>{P.opt=+e.target.value;sv()};$('#s3').oninput=e=>{P.risk=+e.target.value;sv()};
+ $$('#pol button').forEach(b=>b.onclick=()=>{P.pol=+b.dataset.p;sv()});
+ $('#ptest').onclick=()=>{$('.tabs [data-v=chat]').click();CMDS.push()};$('#preset').onclick=()=>{L.sent=0;saveL();quota()}}
+
+/* ---------- เริ่มต้น: ข้อความต้อนรับ (greeting) ---------- */
+C.note('วันนี้ '+nowT()+' · หน้าจำลองแชต LINE OA — ลองแตะริชเมนู หรือพิมพ์คำสั่ง บอทตอบเหมือนจริง');
+C.bot(`<b>${esc(MN)}</b>มาแล้ว! 👋 ยินดีต้อนรับสู่ ${esc(BR)}<br>เรียนจีนวันละนิด ไม่เบื่อ เล่นกับเพื่อนใน LINE ได้ด้วย<br><span class="cost">ข้อความต้อนรับ (greeting) · ไม่นับโควต้า</span>`,'wave');
+setTimeout(()=>{if(L.opt===null){C.bot('อยากให้เตือนเมื่อสตรีคใกล้ขาดไหม? <small>(ไม่เกินวันละครั้ง ปิดได้ตลอด)</small>','cheer',undefined);C.qr([['รับเตือน','optin'],['ไม่ต้อง','optout'],['เริ่มเรียนเลย','go']])}},700);
+CMDS.go=()=>go('index.html?from=line');
+quota();bind();
+})();
 </script>
-<script src="config.js"></script><script>document.querySelectorAll("[data-mn]").forEach(e=>e.textContent=MASCOT_NAME);document.getElementById("oaname").textContent=BRAND_NAME+" ("+OA_ID+")";document.getElementById("addf").href=OA_URL</script>
 </body>
 </html>

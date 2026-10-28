@@ -2,10 +2,6 @@
 const AVC=['#C9774A','#5E9B7A','#5B86C4','#9568B5','#D1647A','#27211E'];
 const avatar=(n,c)=>`<span class="av" style="background:${c}">${n.replace('พี่','').replace('น้อง','')[0]}</span>`;
 let rankTab=0;
-function leagueRows(){const me=['คุณ',weekXp()];const all=[...LEAGUE,me].sort((a,b)=>b[1]-a[1]);let o='';
- all.forEach((p,i)=>{if(i===0)o+=`<div class="zone">▲ 5 อันดับแรกเลื่อนขึ้นลีกถัดไป</div>`;if(i===all.length-3)o+=`<div class="zone d">▼ 3 อันดับสุดท้ายตกลีก</div>`;
-  const isMe=p===me;o+=`<div class="lrow ${isMe?'me':''}"><span class="rk">${i+1}</span>${isMe?`<span class="av" style="background:var(--red)">ฉ</span>`:avatar(p[0],AVC[(p[0].charCodeAt(0))%6])}<span style="flex:1;font-weight:${isMe?700:500}">${p[0]}${isMe?' (คุณ)':''}</span><span class="val" style="font-weight:600;color:var(--ink)">${p[1]} XP</span></div>`});return o}
-
 const CLASSWAR=[['ห้องจีนมือใหม่ 🐑',0],['ห้องสายซีรีส์ 📺',610],['ชมรมจีนเที่ยวไทย ✈️',560],['ทีมติว HSK 1',520],['ห้องสายธุรกิจ 💼',470]];
 function classRows(){const d=(today()+3)%7+1;const mine=CLASSWAR[0];
  const rows=CLASSWAR.map((c,i)=>i===0?{n:c[0],xp:430+d*95+weekXp(),me:1}:{n:c[0],xp:c[1]-60+d*(88+i*9)});rows.sort((a,b)=>b.xp-a.xp);return rows}
@@ -17,7 +13,7 @@ function classBody(){const rows=classRows(),pos=rows.findIndex(r=>r.me)+1,me=row
  <p class="cap center" style="padding:12px 30px 0">ห้องอื่นและคะแนนเป็นข้อมูลสมมติ · ของจริงต้องมีระบบหลังบ้านรวมคะแนนจากทุกกลุ่ม LINE ที่เชิญบอทเข้าไป</p>`}
 function rankBody(t){
  if(t===3)return classBody();
- if(t===0)return `<div class="card pad2 mt16" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1"><div class="cap">ลีกบรอนซ์ · เหลืออีก 3 วัน</div><b style="font-size:18px">XP ของคุณสัปดาห์นี้ ${weekXp()}</b><div class="cap mt8">ได้ XP จากบทเรียนและเกมเพื่อไต่อันดับ</div></div><div style="width:96px;height:96px;flex:none">${M('trophy')}</div></div><div class="group">${leagueRows()}</div><p class="cap center" style="padding:12px 30px 0">คู่แข่งในลีกเป็นข้อมูลสมมติ (ตัวอย่างทดลอง)</p>`;
+ if(t===0)return leagueHead()+`<div class="group">${leagueRows()}</div><p class="cap center" style="padding:12px 30px 0">คู่แข่งในลีกเป็นข้อมูลสมมติ (ตัวอย่างทดลอง) · รอบใหม่ทุกวันจันทร์ · 5 อันดับแรกขึ้นลีก 3 อันดับท้ายตกลีก</p>`;
  if(t===1)return `<div class="card pad2 mt16" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="cap">รหัสชวนของฉัน</div><b style="font-size:22px;letter-spacing:1px">${S.inviteCode}</b></div><div style="width:70px;height:70px">${M('bow')}</div></div>
    <div class="prog mt12"><i style="width:${Math.min(1,S.invited/3)*100}%"></i></div><div class="cap mt8">เพื่อนเข้าห้องแล้ว ${S.invited}/3 คน · ครบ 3 คนได้ตั๋วกันสตรีค 🎟️</div>
    <button class="pill sm linebtn row1 press mt12" data-go="invite">ชวนเพื่อนทาง LINE (จำลอง)</button><button class="cap press mt12" style="width:100%;color:var(--sub2)" data-sa="simjoin">จำลองเพื่อนกดลิงก์เข้ามา</button></div>
@@ -41,7 +37,7 @@ SC.group=({i})=>{const g=GROUPS[i];return {title:g.n,noRefresh:true,body:`<div s
    <div class="card pad2"><div style="display:flex;justify-content:space-between;font-size:14px"><b>เป้าหมายห้องวันนี้</b><span class="cap" style="font-weight:600">${have}/${goalNow} XP</span></div><div class="prog mt8"><i style="width:${pct*100}%;background:#06C755"></i></div><div class="cap mt8">${pct>=1?'ทั้งห้องทำสำเร็จ! 🎉':`ทุก XP ที่คุณเรียนช่วยห้อง · เหลืออีก ${goalNow-have} XP`}</div></div>`}
   gday();$('#gday',el).onclick=e=>{if(!e.target.closest('[data-sa=gq]'))return;const pool2=gw4();const w=pool2[(today()*7)%pool2.length],q=makeQ(w,'zh2th',pool2);let answered=S.gqDay===today();
    openSheet(`<div style="padding:0 20px"><div class="cap">ควิซประจำวัน · ${g.n}</div><div class="h2">${answered?'ห้องเราตอบถูก 78% วันนี้':'ตอบข้อเดียวให้ห้อง'}</div><div id="gqq">${qHtml(q)}</div><p class="cap center mt12">สัดส่วนของห้องเป็นตัวเลขจำลอง</p></div>`,{onMount:sh=>{$('#gqq',sh).onclick=ev=>{const o=ev.target.closest('.opt');if(!o||answered)return;answered=true;const ok=+o.dataset.i===q.ans;$$('.opt',sh).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===+o.dataset.i)x.classList.add('bad')});
-     S.gqDay=today();save();if(ok){addXp(10);vib(10);confetti(40)}else{addMistake(q.w);vib([25,30,25])}addCoins(5);toast(ok?'ถูกต้อง! +10 XP +5 เหรียญ':'ไม่เป็นไร ได้เหรียญร่วมสนุก +5');$('.h2',sh).textContent=ok?'เยี่ยม! ห้องเราตอบถูก 78%':'ห้องเราตอบถูก 78% — ลองใหม่พรุ่งนี้';setTimeout(gday,300)}}})};
+     S.gqDay=today();save();if(ok){addXp(5);vib(10);confetti(40)}else{addMistake(q.w);vib([25,30,25])}addCoins(5);toast(ok?'ถูกต้อง! +10 XP +5 เหรียญ':'ไม่เป็นไร ได้เหรียญร่วมสนุก +5');$('.h2',sh).textContent=ok?'เยี่ยม! ห้องเราตอบถูก 78%':'ห้องเราตอบถูก 78% — ลองใหม่พรุ่งนี้';setTimeout(gday,300)}}})};
   const pool=gw4();let busy=false;
   $('#qz',el).onclick=()=>{if(busy)return;busy=true;$('#qz',el).disabled=true;vib(8);msg(true,'',' /quiz');setTimeout(()=>msg(false,MASCOT_NAME+' (บอทครู)','เริ่มควิซสด! ตอบเร็วและถูกได้คะแนนมากกว่า 🏁','#C8102E'),500);setTimeout(startQ,1200)};
   function startQ(){const qs=shuffle(pool).slice(0,3).map((w,k)=>makeQ(w,['zh2th','th2zh','zh2th'][k],pool));const mates=FRIENDS.slice(0,4).map(f=>({n:f.n,c:f.c,s:0}));const you={n:'คุณ',c:'#C8102E',s:0};let k=0,lock=false;
@@ -50,7 +46,7 @@ SC.group=({i})=>{const g=GROUPS[i];return {title:g.n,noRefresh:true,body:`<div s
    gq.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock)return;lock=true;const q=qs[k],ok=+o.dataset.i===q.ans;$$('.opt',gq).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===+o.dataset.i)x.classList.add('bad')});
     if(ok){you.s+=10;vib(10)}else{addMistake(q.w);vib([25,30,25])}mates.forEach(m=>{if(Math.random()<.65)m.s+=10});$('#lv',gq).innerHTML=rk();
     setTimeout(()=>{k++;if(k<3)show();else done()},900)};
-   function done(){const sorted=[...mates,you].sort((a,b)=>b.s-a.s),pos=sorted.indexOf(you)+1;addXp(15);addCoins(10);msg(false,MASCOT_NAME+' (บอทครู)',`จบควิซ! คุณได้อันดับ ${pos} · +15 XP +10 เหรียญ 🎉`,'#C8102E');gq.innerHTML=`<div class="center"><div style="width:140px;height:140px;margin:0 auto" class="pop">${M(pos<=2?'celebrate':'correct')}</div><div class="h2">คุณได้อันดับ ${pos}</div></div><div class="group mt12" style="margin-top:12px">${[...mates,you].sort((a,b)=>b.s-a.s).map((p,x)=>`<div class="lrow ${p===you?'me':''}" style="height:46px"><span class="rk">${x+1}</span><b style="flex:1;font-weight:500">${p.n}</b><span class="val">${p.s}</span></div>`).join('')}</div><div class="pad mt16"><button class="pill sm linebtn row1 press" id="sh2">แชร์อันดับไป LINE</button></div>`;$('#sh2',gq).onclick=()=>shareSheet('result',{kind:'score',text:`ควิซกลุ่ม ${g.n} ได้อันดับ ${pos}`});confetti(60);busy=false;$('#qz',el).disabled=false;$('#qz',el).textContent='เล่นควิซกลุ่มอีกรอบ'}
+   function done(){const sorted=[...mates,you].sort((a,b)=>b.s-a.s),pos=sorted.indexOf(you)+1;addXp(8);addCoins(10);msg(false,MASCOT_NAME+' (บอทครู)',`จบควิซ! คุณได้อันดับ ${pos} · +15 XP +10 เหรียญ 🎉`,'#C8102E');gq.innerHTML=`<div class="center"><div style="width:140px;height:140px;margin:0 auto" class="pop">${M(pos<=2?'celebrate':'correct')}</div><div class="h2">คุณได้อันดับ ${pos}</div></div><div class="group mt12" style="margin-top:12px">${[...mates,you].sort((a,b)=>b.s-a.s).map((p,x)=>`<div class="lrow ${p===you?'me':''}" style="height:46px"><span class="rk">${x+1}</span><b style="flex:1;font-weight:500">${p.n}</b><span class="val">${p.s}</span></div>`).join('')}</div><div class="pad mt16"><button class="pill sm linebtn row1 press" id="sh2">แชร์อันดับไป LINE</button></div>`;$('#sh2',gq).onclick=()=>shareSheet('result',{kind:'score',text:`ควิซกลุ่ม ${g.n} ได้อันดับ ${pos}`});confetti(60);busy=false;$('#qz',el).disabled=false;$('#qz',el).textContent='เล่นควิซกลุ่มอีกรอบ'}
    show()}}}};
 
 /* ----- แผนและราคา ----- */
@@ -66,7 +62,7 @@ SC.plans=()=>({title:'แผนและราคา',body:`<div class="large">�
 SC.me=()=>{const lv=level(),pr=(S.xp%100);
  return {title:'ฉัน',body:`<div class="large">ฉัน</div>
  <div class="card pad2 mt12 fade-in" style="display:flex;gap:14px;align-items:center"><div style="width:96px;height:96px;border-radius:50%;background:var(--redsoft);overflow:hidden;flex:none;display:flex;align-items:flex-end;justify-content:center">${llama('wave',92,{acc:true,style:'margin-top:8px'})}</div>
-  <div style="flex:1;min-width:0"><b style="font-size:20px">${S.name}</b><div class="cap">เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
+  <div style="flex:1;min-width:0"><b style="font-size:20px">${S.name}</b><div class="cap">${titleNow()} · เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
  <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>คำที่เรียน</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
  <div class="sec">ระดับการเรียน</div><div class="group">
   ${ROW(levelBy(curLv()).bg,levelBy(curLv()).em,'ระดับของฉัน: '+levelBy(curLv()).name,levelBy(curLv()).th+(lvInfo(curLv()).complete?'':' · กำลังเพิ่มเนื้อหา'),'<span class="val">เปลี่ยน</span>'+CHEV,'data-go="levels"')}
@@ -76,6 +72,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#FDF3E6','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,undefined,'data-go="shop"')}
   ${ROW('#FBEFEA','📝','ทบทวนตามรอบ',reviewWords().length+' คำถึงรอบ',undefined,'data-go="review"')}</div>
  <div class="sec">เครื่องมือการเรียน</div><div class="group">
+  ${ROW('#FDF3E6','🏅','เหรียญตราและฉายา',badgeN()+'/'+BADGES.length+' เหรียญ · '+titleNow(),undefined,'data-go="badges"')}
   ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}
   ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}
   ${ROW('#E7F8EE','🤖','ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย',undefined,'data-go="tutor"')}

@@ -29,7 +29,7 @@ function gameQuit(el){el.addEventListener('click',e=>{if(e.target.closest('[data
 SC.game_catch=()=>({noRefresh:true,nav:gnav('จับคำ'),body:'',extra:`<div class="hud"><div class="lives" id="lv"></div><div class="score" id="sc"></div></div><div class="target" id="tg"></div><div class="arena" id="ar"></div>`,
  mount(el){gameQuit(el);const words=gw4(),ar=$('#ar',el);let lives=3,score=0,round=0,raf=0,alive=true,tw=null,t0=0,dur=6000,bubs=[],lock=false;const MAXR=12;
   const hud=()=>{$('#lv',el).textContent='❤️'.repeat(lives)+'🤍'.repeat(3-lives);$('#sc',el).textContent='คะแนน '+score+' / '+MAXR};
-  function end(){alive=false;cancelAnimationFrame(raf);const xp=score*3,coins=score;gameEnd(el,'catch',score,{xp,coins,mascot:score>=8?'celebrate':'wrong',sub:`จับถูก ${score} คำ`,stats:[['จับถูก',score+'/'+MAXR],['หัวใจที่เหลือ',lives]]})}
+  function end(){alive=false;cancelAnimationFrame(raf);const xp=Math.min(30,2+Math.round(score*1.1)),coins=score;gameEnd(el,'catch',score,{xp,coins,mascot:score>=8?'celebrate':'wrong',sub:`จับถูก ${score} คำ`,stats:[['จับถูก',score+'/'+MAXR],['หัวใจที่เหลือ',lives]]})}
   function lose(w){lives--;addMistake(w);vib([30,40,30]);hud();if(lives<=0)setTimeout(end,500);else setTimeout(nr,650)}
   function nr(){if(!alive)return;if(score>=MAXR){end();return}ar.innerHTML='';lock=false;round++;tw=pickOne(words);const ds=shuffle(words.filter(w=>w.zh!==tw.zh)).slice(0,2);
    $('#tg',el).innerHTML=`แตะคำที่แปลว่า “${tw.th}”`;dur=Math.max(3200,6500-round*260);t0=performance.now();const xs=shuffle([20,50,80]);
@@ -61,7 +61,7 @@ SC.game_speed=()=>({noRefresh:true,nav:gnav('รอบเร็ว 60 วิน�
   stage.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock||!alive)return;lock=true;const qq=stage._q,k=+o.dataset.i,ok=k===qq.ans;$$('.opt',stage).forEach((x,j)=>{if(j===qq.ans)x.classList.add('ok');else if(j===k)x.classList.add('bad')});
    if(ok){score++;combo++;best=Math.max(best,combo);vib(10);floatXp(combo>2?'คอมโบ x'+combo:'+1',o)}else{combo=0;addMistake(qq.w);vib([25,30,25])}
    $('#sc',el).textContent=score+' คะแนน';setTimeout(()=>{if(alive)q()},ok?280:650)};
-  function end(){if(!alive)return;alive=false;clearInterval(tick);const xp=score*3,coins=score;gameEnd(el,'speed',score,{xp,coins,mascot:score>=10?'celebrate':'correct',sub:`ตอบถูก ${score} ข้อใน 60 วินาที`,stats:[['ตอบถูก',score],['คอมโบสูงสุด',best]]})}
+  function end(){if(!alive)return;alive=false;clearInterval(tick);const xp=Math.min(30,2+Math.round(score*1.1)),coins=score;gameEnd(el,'speed',score,{xp,coins,mascot:score>=10?'celebrate':'correct',sub:`ตอบถูก ${score} ข้อใน 60 วินาที`,stats:[['ตอบถูก',score],['คอมโบสูงสุด',best]]})}
   stage.innerHTML=`<div class="center fade-in"><div style="width:190px;height:190px;margin:0 auto" class="float">${M('timer')}</div><div class="large" style="padding:4px 0 0">รอบเร็ว 60 วินาที</div><p class="cap mt8" style="padding:0 30px">ตอบให้ได้มากที่สุดใน 1 นาที ถูกติดกันได้คอมโบ</p><div class="pad mt20"><button class="pill press" id="go"><b>เริ่มจับเวลา</b></button></div></div>`;$('#go',el).onclick=()=>{startT();q()};this.stop=()=>{alive=false;clearInterval(tick)}},unmount(){this.stop&&this.stop()}});
 
 /* ----- ดวลเพื่อน (จำลอง) ----- */

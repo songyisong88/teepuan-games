@@ -1,6 +1,6 @@
 /* ระบบดึงให้กลับมาเรียน: ภารกิจ · กิจกรรมประจำวัน · ตั๋วกันสตรีค · บัดดี้สตรีค · ของขวัญกลับมา · หน้าหลัก */
 /* ----- ตัวนับรายวัน ----- */
-function bumpCnt(k,n=1){if(S.cnt.day!==today())S.cnt={day:today()};S.cnt[k]=(S.cnt[k]||0)+n;if(k!=='audio'||S.cnt[k]%5===0)save()}
+function bumpCnt(k,n=1){if(!S.life)S.life={};S.life[k]=(S.life[k]||0)+n;if(S.cnt.day!==today())S.cnt={day:today()};S.cnt[k]=(S.cnt[k]||0)+n;if(k!=='audio'||S.cnt[k]%5===0)save()}
 const cntOf=k=>S.cnt.day===today()?(S.cnt[k]||0):0;
 
 /* ----- ภารกิจประจำวัน (หมุนเวียนวันละ 3 ข้อ) ----- */
@@ -44,7 +44,7 @@ function streakSheet(){const b=S.buddy;
   <div class="card" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-align:left"><span style="font-size:30px">🧊</span><span style="flex:1"><b style="font-size:16px">ตั๋วกันสตรีค × ${S.freezes}</b><br><small class="cap">ลืมเรียนได้สูงสุด 2 วัน ระบบใช้ตั๋วให้อัตโนมัติ</small></span><button class="chip coin press" id="fb">🪙40</button></div>
   ${b?`<div class="card mt8" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-align:left"><span style="font-size:30px">🤝</span><span style="flex:1"><b style="font-size:16px">สตรีคบัดดี้ ${buddyStreak()} วัน</b><br><small class="cap">กับ${b.n} · ต้องเรียนทั้งคู่ถึงจะนับ</small></span></div>`:`<button class="card mt8 press" data-go="buddy" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-align:left;width:100%"><span style="font-size:30px">🤝</span><span style="flex:1"><b style="font-size:16px">ชวนเพื่อนเป็นบัดดี้สตรีค</b><br><small class="cap">เรียนด้วยกันทุกวัน ไม่อยากทำให้เพื่อนขาด</small></span></button>`}
   <button class="pill sm press mt16" data-act="closesheet">เข้าใจแล้ว</button></div>`,{onMount:sh=>{$('#fb',sh).onclick=freezeBuy}})}
-function dailyCheck(){const t=today();
+function dailyCheck(){const t=today();try{leagueRoll()}catch(er){console.error(er)}
  if(S.streak>=1&&S.lastDay>-90&&S.lastDay<t-1){const m=t-1-S.lastDay;
   if(m<=2&&S.freezes>=m&&S.freezeUsed!==t){S.freezes-=m;S.lastDay=t-1;S.freezeUsed=t;save();
    return setTimeout(()=>openSheet(`<div class="center" style="padding:0 24px"><div style="width:150px;height:150px;margin:0 auto">${M('tea')}</div><div class="h2 mt8">ตั๋วกันสตรีคช่วยไว้ 🧊</div><p style="color:var(--sub2);margin:6px 0 16px;font-size:15px">วันที่ผ่านมาไม่ได้เรียน แต่ใช้ตั๋ว ${m} ใบ สตรีค ${S.streak} วันจึงยังอยู่ เหลือตั๋ว ${S.freezes} ใบ — วันนี้เรียนสักนิดนะ</p><button class="pill sm press" data-act="closesheet">ได้เลย!</button></div>`),700)}

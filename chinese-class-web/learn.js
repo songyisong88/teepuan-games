@@ -138,7 +138,7 @@ SC.lesson=({uid})=>{const u=unitBy(uid);
  return {nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},
  mount(el){session(el,unitSteps(u),res=>finishUnit(u,res))}}};
 function finishUnit(u,res){const first=!unitDone(u.id);const ratio=res.correct/Math.max(1,res.total);const stars=ratio>=.9?3:ratio>=.65?2:1;const L=lessonBy(u.lesson);
- let xp=res.correct*10+10,coins=5+res.correct*2;if(!first){xp=Math.round(xp/2);coins=Math.round(coins/2)}
+ let xp=6+Math.round(res.correct*1.4)+(ratio>=.9?4:0),coins=5+res.correct*2;if(!first){xp=Math.round(xp/2);coins=Math.round(coins/2)}
  const wasLessonDone=isDone(L.id);if(first)S.parts.push(u.id);S.stars[u.id]=Math.max(S.stars[u.id]||0,stars);
  const wasFirstToday=S.lastDay!==today();xp=evX(xp);coins=evC(coins);addCoins(coins,true);addXp(xp,null,true);save();bumpCnt('unit',1);
  const newCm=!wasLessonDone&&isDone(L.id)?CLASSMATES.find(c=>c.by==='lesson:'+L.id):null;if(newCm&&!S.seenCm.includes(newCm.id)){S.seenCm.push(newCm.id);save()}

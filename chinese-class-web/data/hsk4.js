@@ -1,4 +1,4 @@
-LVMETA[4]={standard:'HSK 2.0',original:true,official:598,covered:598}; /* รายการคำ/ประโยคเขียนเอง จัดระดับเทียบรายการคำ HSK 2.0 จาก drkameleon/complete-hsk-vocabulary (ไม่ได้ตรวจกับ PDF ทางการ) · ดูตัวเลข in-level ใน ROADMAP */
+LVMETA[4]={standard:'HSK 2.0',original:true,official:598,covered:343}; /* รายการคำ/ประโยคเขียนเอง จัดระดับเทียบรายการคำ HSK 2.0 จาก drkameleon/complete-hsk-vocabulary (ไม่ได้ตรวจกับ PDF ทางการ) · ดูตัวเลข in-level ใน ROADMAP */
 /* HSK 4 · 16 ตอน · 21 บท · สร้างจาก tools (re-level 2026-10-28) */
 CHAPTERS.push(
 {lv:4,id:213,th:'สวนสัตว์และท้องฟ้า',zh:'动物园',sub:'สัตว์ ดินฟ้าอากาศ ธรรมชาติ',emoji:'🐼',bg:'#EAF4EE'},

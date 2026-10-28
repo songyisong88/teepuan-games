@@ -17,7 +17,7 @@ const LOCK=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 const CHEV=`<svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6"/></svg>`;
 const BACKI=`<svg viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L3 11l8 9"/></svg>`;
 const chips=()=>`${lvBadge()}<span class="chip press" data-go="streak">${'<span style="display:flex">'+FLAME.replace('<svg','<svg width="16" height="16"')+'</span>'}<span id="cs">${curStreak()}</span></span><span class="chip coin press" data-go="shop"><span style="display:flex">${COIN.replace('<svg','<svg width="16" height="16"')}</span><span id="cc">${S.coins}</span></span>`;
-const M=(n,cls='')=>`<img class="mas ${cls}" src="assets/mascot/${n}.png" alt="" draggable="false" onerror="this.onerror=null;this.src='assets/mascot/wave.png'">`;
+const M=(n,cls='')=>`<img class="mas ${cls}" loading="lazy" decoding="async" src="assets/mascot/${n}.webp" alt="" draggable="false" onerror="this.onerror=null;this.src='assets/mascot/wave.webp'">`;
 function llama(pose,size,{acc=false,cls='',style=''}={}){let a='';if(acc){for(const slot of ['hat','face']){const id=S.eq[slot];const it=SHOP.find(s=>s.id===id);if(it){const p=ACC[slot];a+=`<span class="acc" style="left:${p.left};top:${p.top};font-size:${Math.round(size*p.size)}px">${it.e}</span>`}}}
  return `<div class="llama ${cls}" style="width:${size}px;height:${size}px;${style}">${M(pose)}${a}</div>`}
 
@@ -100,7 +100,7 @@ function welcome(){const w=document.createElement('div');w.className='welcome';c
  <p style="color:var(--sub2);margin:10px 0 22px;font-size:15px">เรียน เล่นเกม ท้าเพื่อน ในที่เดียว${fromLine?'<br><b style="color:#0B7A3B">✓ เปิดจาก LINE OA (จำลอง) — เข้าสู่ระบบให้แล้ว</b>':''}</p>
  <button class="pill row1 linebtn press" data-act="welcome" data-v="line">${fromLine?'เริ่มเรียนเลย':'เข้าสู่ระบบด้วย LINE (จำลอง)'}</button>
  <button class="pill ghost row1 press mt12" style="height:52px" data-act="welcome" data-v="guest">ลองใช้ก่อน ไม่ต้องล็อกอิน</button>
- <p class="cap mt12">นี่คือต้นแบบ ไม่มีบัญชีจริงและไม่มีการชำระเงิน</p>`;
+ <p class="cap mt12">นี่คือต้นแบบ ไม่มีบัญชีจริงและไม่มีการชำระเงิน<br><a href="privacy.html" target="_blank" rel="noopener" style="text-decoration:underline">ความเป็นส่วนตัว</a> · <a href="terms.html" target="_blank" rel="noopener" style="text-decoration:underline">ข้อกำหนด</a> (ร่างตัวอย่าง)</p>`;
  $('#frame').appendChild(w)}
 
 /* ---------- ตัวจัดการคลิก ---------- */

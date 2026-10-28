@@ -1,8 +1,8 @@
 /* ระดับ HSK 1–5 · เลือกระดับ · ทดสอบวัดระดับแบบปรับระดับ · แผนที่ต่อระดับ
    สถานะที่เก็บ: S.level (ระดับที่เรียนอยู่) · S.assume (ระดับต่ำกว่าที่ถือว่ารู้แล้ว) · S.placeRes (ผลทดสอบล่าสุด)
    การสลับระดับ "ไม่ลบ" ความคืบหน้า: S.parts / S.stars เก็บรวมทุกระดับ */
-const LVSTAT=n=>{const i=lvInfo(n);return i.empty?'กำลังเพิ่มเนื้อหา · ยังไม่มีบทเรียน':i.complete?`เนื้อหาครบ · ${i.lessons} บท · ${i.words} คำ`:`กำลังเพิ่มเนื้อหา · มีแล้ว ${i.lessons} บท · ${i.words}/${i.target} คำ`};
-const lvTag=n=>{const i=lvInfo(n);return `<span class="lvtag ${i.complete?'full':'wip'}">${i.complete?'เนื้อหาครบ':'กำลังเพิ่มเนื้อหา'}</span>`};
+const LVSTAT=n=>{const i=lvInfo(n);return i.empty?'กำลังเพิ่มเนื้อหา · ยังไม่มีบทเรียน':i.complete?`ครบตามเป้า ${i.target} คำ · ${i.lessons} บท · ${i.words} คำ`:`กำลังเพิ่มเนื้อหา · มีแล้ว ${i.lessons} บท · ${i.words}/${i.target} คำ`};
+const lvTag=n=>{const i=lvInfo(n);return `<span class="lvtag ${i.complete?'full':'wip'}">${i.complete?'ครบตามเป้าคำ':'กำลังเพิ่มเนื้อหา'}</span>`};
 function setLevel(n,assume){S.level=n;S.assume=Math.max(0,Math.min(n-1,assume===undefined?S.assume:assume));S.lvPicked=true;S.placed=S.placed||0;save()}
 function levelEndCta(){const n=curLv(),i=lvInfo(n),L=levelBy(n);
  if(i.empty)return `<button class="pill press" data-go="levels"><b>${L.name} กำลังเพิ่มเนื้อหา</b><small>ยังไม่มีบทเรียน · เลือกระดับอื่นหรือเล่นเกมก่อน</small></button>`;
@@ -60,7 +60,7 @@ function plBuild(q){let top,all;
  if(q.sk==='tone'){all=[{t:q.py,ok:true},...q.wr.map(t=>({t,ok:false}))]}
  else if(q.sk==='fill'){all=[{t:q.ans,ok:true},...q.wr.map(t=>({t,ok:false}))]}
  else all=[{t:q.th,ok:true},...q.wr.map(t=>({t,ok:false}))];
- const o=shuffle(all),spk=(t)=>`<button class="audio press" style="width:92px;height:92px;margin-top:14px" data-act="audio" data-t="${t}" data-auto>${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div>`;
+ const o=shuffle(all),spk=(t)=>`<button class="audio press" aria-label="ฟังเสียง" style="width:92px;height:92px;margin-top:14px" data-act="audio" data-t="${t}" data-auto>${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div>`;
  if(q.sk==='vocab')top=`<div class="cap" style="font-size:14px">คำนี้แปลว่าอะไร</div><div class="bigzh zh" style="font-size:${q.zh.length>2?64:88}px">${q.zh}</div><div style="font-size:26px;font-weight:500;margin-top:2px">${pyHtml(q.py)}</div>`;
  else if(q.sk==='listen')top=`<div class="cap" style="font-size:14px">ฟังเสียงแล้วเลือกความหมาย</div>${spk(q.say)}`;
  else if(q.sk==='read')top=`<div class="cap" style="font-size:14px">อ่านประโยคแล้วเลือกความหมาย</div><div class="zh" style="font-size:${q.zh.length>14?25:30}px;line-height:1.45;margin:14px 22px 2px;font-weight:600">${q.zh}</div>${q.lv===1?`<div style="font-size:15px;color:var(--sub2)">${pyHtml(q.py)}</div>`:''}`;

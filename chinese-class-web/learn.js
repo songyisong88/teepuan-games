@@ -20,7 +20,7 @@ function qHtml(q){const w=q.w;let top='',fmt;
  if(q.top){return `<div class="center">${q.top}</div><div class="group opts mt20" style="margin-top:22px">${q.optsHtml.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span>${o}</span></button>`).join('')}</div>`}
  if(q.type==='zh2th'){top=`<div class="cap" style="font-size:14px">คำนี้แปลว่าอะไร</div><div class="bigzh zh" style="font-size:${w.zh.length>2?64:88}px">${w.zh}</div><div style="font-size:26px;font-weight:500;margin-top:2px">${pyHtml(w.py)}</div>`;fmt=o=>o.th}
  else if(q.type==='th2zh'){top=`<div class="cap" style="font-size:14px">คำจีนของคำว่า</div><div style="font-size:38px;font-weight:700;margin:12px 0 4px">${w.th}</div><div class="cap">เลือกคำที่ถูกต้อง</div>`;fmt=o=>`<span class="zh" style="font-size:26px">${o.zh}</span> <span class="cap" style="margin-left:6px">${pyPlain(o.py)}</span>`}
- else{top=`<div class="cap" style="font-size:14px">ฟังเสียงแล้วเลือกความหมาย</div><button class="audio press" style="width:92px;height:92px;margin-top:14px" data-act="audio" data-t="${w.zh}" data-auto>${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div>`;fmt=o=>o.th}
+ else{top=`<div class="cap" style="font-size:14px">ฟังเสียงแล้วเลือกความหมาย</div><button class="audio press" aria-label="ฟังเสียง" style="width:92px;height:92px;margin-top:14px" data-act="audio" data-t="${w.zh}" data-auto>${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div>`;fmt=o=>o.th}
  return `<div class="center">${top}</div><div class="group opts mt20" style="margin-top:22px">${q.opts.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span>${fmt(o)}</span></button>`).join('')}</div>`}
 const spkBtn=(t,r,lab='ฟัง')=>`<button class="cap press spkl" data-act="audio" data-t="${t}" ${r?`data-r="${r}"`:''}><span class="spi">${SPK}</span>${lab}</button>`;
 const sentReveal=(zh,py,th)=>`<div class="ans"><div class="zh" style="font-size:21px;line-height:1.35">${zhHtml(zh,py)}</div><div style="font-size:13px;margin-top:2px">${pyHtml(py)}</div><div style="color:var(--sub2);margin-top:3px">${th}</div>${spkBtn(zh,'','ฟังประโยค')}</div>`;
@@ -33,7 +33,7 @@ function toneQ(w){if(w.py.split(' ').length>3)return null;const parts=w.py.split
  /* ต่อพินอินให้ครบ (ตัดตัวคั่น |) */
  variants.forEach(v=>{const np=parts.slice();np[pos]=retone(base,v.t);v.txt=np.join('').replace(/\|/g,'')});
  const opts=shuffle(variants);const tg=TONE_GUIDE[orig-1];
- return {w,type:'tone',custom:true,top:`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอินที่ถูก</div><button class="audio press" style="width:92px;height:92px;margin-top:14px" data-act="audio" data-t="${w.zh}" data-auto>${SPK}</button><div class="cap mt12">ตั้งใจฟังเสียงสูง–ต่ำของพยางค์ที่ต่างกัน</div>`,
+ return {w,type:'tone',custom:true,top:`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอินที่ถูก</div><button class="audio press" aria-label="ฟังเสียง" style="width:92px;height:92px;margin-top:14px" data-act="audio" data-t="${w.zh}" data-auto>${SPK}</button><div class="cap mt12">ตั้งใจฟังเสียงสูง–ต่ำของพยางค์ที่ต่างกัน</div>`,
   optsHtml:opts.map(o=>`<span style="font-size:24px;letter-spacing:.3px">${o.txt}</span>`),ans:opts.findIndex(o=>o.t===orig),
   reveal:`<div class="ans"><b style="font-size:17px">${pyHtml(w.py)}</b> · <span class="zh">${w.zh}</span> = ${w.th}<div style="margin-top:6px;font-size:14px;color:var(--sub2)"><b class="${tg.c}">${tg.name}</b> — ${tg.thai}</div></div>`}}
 function fillQ(L,k,learnedMax){const s=parseSent(L.sents[k]);const cands=s.zh.map((t,i)=>i).filter(i=>strip(s.zh[i]).length>=1);let big=cands.filter(i=>strip(s.zh[i]).length>=2);const bi=(big.length?big:cands)[Math.random()*(big.length||cands.length)|0];
@@ -64,7 +64,7 @@ function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,
 /* ----- การ์ดคำ / เรื่องเล่า / บทสนทนา ----- */
 function cardHtml(w,n,t){return `<div class="center"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div><div class="bigzh zh" style="font-size:${w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130}px">${w.zh}</div>
  <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div><div style="font-size:27px;font-weight:600;margin-top:8px;padding:0 20px">${w.th}</div>
- <button class="audio press" data-act="audio" data-t="${w.zh}" style="margin-top:14px">${SPK}</button>
+ <button class="audio press" aria-label="ฟังเสียง" data-act="audio" data-t="${w.zh}" style="margin-top:14px">${SPK}</button>
  <div class="hint"><span class="hb">อ่านแบบไทย</span><b>${w.h}</b><span class="cap">(ใกล้เคียง · ฟังเสียงจริงอีกที)</span></div></div>
  <div class="mnemo"><span class="mi">💡</span><span><b>ตัวช่วยจำ:</b> ${w.mn}</span></div>
  <div class="card exc" style="margin-top:16px"><div style="position:absolute;right:6px;top:-70px;width:78px;height:78px">${M('teach')}</div>
@@ -76,7 +76,7 @@ function storyHtml(L,u){const ch=CHAPTERS.find(c=>c.id===L.chapter);const cm=CLA
  <div class="card pad2 mt16" style="font-size:16px;line-height:1.55">${L.story}</div>
  ${cm?`<div class="card mt12" style="padding:12px 16px;display:flex;align-items:center;gap:12px"><span class="sil">${cmImg(cm,false)}</span><span style="flex:1;font-size:14px;color:var(--sub2)">จบบทนี้แล้วจะได้เจอเพื่อนใหม่ <b style="color:var(--ink)">${isDone(L.id)||cmUnlocked(cm)?cm.n:'???'}</b></span></div>`:''}
  <p class="cap center mt12">รอบนี้ ${u.words.length} คำ · ประมาณ 3 นาที</p>`}
-const cmImg=(cm,on=true)=>`<img src="assets/friends/${cm.img}.png" alt="" draggable="false" class="${on?'':'silh'}">`;
+const cmImg=(cm,on=true)=>`<img src="assets/friends/${cm.img}.webp" alt="" draggable="false" class="${on?'':'silh'}">`;
 function dlgHtml(L){const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);
  return `<div class="center"><div class="cap">บทสนทนาสั้น ๆ · แตะฟองเพื่อฟัง</div></div><div class="dlgwrap">${L.dlg.map(d=>`<div class="dl ${d[0]}"><span class="dav">${d[0]==='t'?M('teacher'):cm?cmImg(cm):M('student')}</span><button class="dbub press" data-act="audio" data-t="${d[1]}" data-r="${d[0]}"><span class="zh dz">${zhHtml(d[1],d[2])}</span><span class="dp">${pyHtml(d[2])}</span><span class="dt">${d[3]}</span></button></div>`).join('')}</div>
  <div class="center mt12"><button class="pill sm ghost press" style="width:auto;display:inline-flex;padding:0 22px;flex-direction:row;gap:8px" data-sa="dlgall"><span style="width:18px;display:flex">${SPK}</span>ฟังทั้งบทสนทนา</button></div>`}
@@ -165,7 +165,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finish
 
 /* ----- ทบทวน ----- */
 SC.review=()=>{const ws=mistakeWords();return {title:'ทบทวนข้อผิด',body:`<div class="large">ทบทวนข้อผิด</div>`+(ws.length?`
- <p class="cap" style="padding:4px 20px 14px">มี ${ws.length} คำที่ควรทบทวน · ตอบถูกแล้วจะหายไปจากรายการ</p><div class="group">${ws.map(w=>`<div class="row noic" style="min-height:68px"><span class="tx"><b><span class="zh" style="font-size:22px">${w.zh}</span> <span style="font-size:14px;font-weight:500">${pyHtml(w.py)}</span></b><small>${w.th} · พลาด ${S.mistakes[w.zh]} ครั้ง</small></span><button class="audio press" style="width:42px;height:42px;margin:0" data-act="audio" data-t="${w.zh}"><span style="width:20px;display:flex">${SPK}</span></button></div>`).join('')}</div>
+ <p class="cap" style="padding:4px 20px 14px">มี ${ws.length} คำที่ควรทบทวน · ตอบถูกแล้วจะหายไปจากรายการ</p><div class="group">${ws.map(w=>`<div class="row noic" style="min-height:68px"><span class="tx"><b><span class="zh" style="font-size:22px">${w.zh}</span> <span style="font-size:14px;font-weight:500">${pyHtml(w.py)}</span></b><small>${w.th} · พลาด ${S.mistakes[w.zh]} ครั้ง</small></span><button class="audio press" aria-label="ฟังเสียง" style="width:42px;height:42px;margin:0" data-act="audio" data-t="${w.zh}"><span style="width:20px;display:flex">${SPK}</span></button></div>`).join('')}</div>
  <div class="dock"><button class="pill press" data-act="reviewgo"><b>ฝึกทบทวน</b><small>${Math.min(6,ws.length)} ข้อ</small></button></div>`:
  `<div class="empty" style="padding-top:50px"><div style="width:200px;height:200px">${M('empty')}</div><b>ยังไม่มีข้อที่ต้องทบทวน</b><span>เยี่ยมมาก! เมื่อตอบพลาดในบทเรียนหรือเกม คำนั้นจะมาอยู่ที่นี่</span></div>`)}};
 document.addEventListener('click',e=>{if(e.target.closest('[data-act=reviewgo]'))push('rsession')});

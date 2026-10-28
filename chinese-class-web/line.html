@@ -2,9 +2,11 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<script data-kz src="../no-zoom.js"></script>
-<title>ทางเข้าจาก LINE OA — เหล่าซือลามา</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--brand:start--><title>ทางเข้าจาก LINE OA — เหล่าซือลามา</title>
+<meta name="description" content="หน้าจำลองการเข้าห้องเรียนจาก LINE OA ของ เหล่าซือลามา (ตัวอย่างทดลอง ยังไม่ได้เชื่อมกับ LINE จริง)"><link rel="canonical" href="https://songyisong88.github.io/teepuan-games/chinese-class-web/line.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="เหล่าซือลามา"><meta property="og:locale" content="th_TH"><meta property="og:title" content="ทางเข้าจาก LINE OA — เหล่าซือลามา"><meta property="og:description" content="หน้าจำลองการเข้าห้องเรียนจาก LINE OA ของ เหล่าซือลามา (ตัวอย่างทดลอง ยังไม่ได้เชื่อมกับ LINE จริง)"><meta property="og:url" content="https://songyisong88.github.io/teepuan-games/chinese-class-web/line.html"><meta property="og:image" content="https://songyisong88.github.io/teepuan-games/chinese-class-web/assets/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="เหล่าซือลามา — ลามะอาจารย์สอนภาษาจีน">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="ทางเข้าจาก LINE OA — เหล่าซือลามา"><meta name="twitter:description" content="หน้าจำลองการเข้าห้องเรียนจาก LINE OA ของ เหล่าซือลามา (ตัวอย่างทดลอง ยังไม่ได้เชื่อมกับ LINE จริง)"><meta name="twitter:image" content="https://songyisong88.github.io/teepuan-games/chinese-class-web/assets/og.jpg"><!--brand:end-->
 <link rel="icon" type="image/png" href="assets/icons/favicon-64.png"><link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -22,13 +24,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .m .av{width:32px;height:32px;border-radius:50%;background:#FAF7F2;overflow:hidden;flex:none;padding:2px}.m .av img{width:100%;height:100%;object-fit:contain}
 .note{align-self:center;font-size:12px;color:#fff;background:rgba(0,0,0,.25);padding:3px 12px;border-radius:12px}
 .rich{background:#fff;border-top:.5px solid #ddd;padding:12px 12px calc(env(safe-area-inset-bottom,0px) + 14px);position:relative}
-.rich h6{font-size:11px;color:#9A9089;text-align:center;margin-bottom:8px;font-weight:500;letter-spacing:.3px}
+.rich h6{font-size:11px;color:#6B625B;text-align:center;margin-bottom:8px;font-weight:500;letter-spacing:.3px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .t{background:#FAF7F2;border-radius:16px;padding:14px 4px 12px;text-align:center;font-size:13.5px;font-weight:600;border:.5px solid rgba(60,40,30,.08);position:relative;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
 .t:active{transform:scale(.95)}.t i{display:block;font-style:normal;font-size:28px;margin-bottom:4px}
 .t.main{background:#C8102E;color:#fff;box-shadow:0 8px 20px rgba(200,16,46,.25)}
 .t.main::after{content:'ตัวอย่างลิงก์ที่เปิดเว็บ';position:absolute;left:50%;top:-11px;transform:translateX(-50%);background:#27211E;color:#fff;font-size:10px;padding:2px 8px;border-radius:8px;white-space:nowrap;font-weight:500}
-.hint{font-size:12px;color:#9A9089;text-align:center;margin-top:10px}
+.hint{font-size:12px;color:#6B625B;text-align:center;margin-top:10px}
 .ld{position:absolute;inset:0;background:#FAF7F2;z-index:9;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:30px}
 .ld.on{display:flex}.ld img{width:200px;animation:fl 1.6s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-8px)}}
 .sp{width:34px;height:34px;border:3px solid #EBE3D9;border-top-color:#C8102E;border-radius:50%;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
@@ -45,15 +47,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .q .bar{height:6px;border-radius:3px;background:#EEE6DB;margin:5px 0 4px;overflow:hidden}.q .bar i{display:block;height:100%;background:#06C755;border-radius:3px;transition:width .4s}
 .q button{margin-top:6px;width:100%;background:#F8F3EC;border-radius:8px;padding:6px;font-size:11.5px;font-weight:600}
 .q small{color:#8A7F76;display:block;line-height:1.35}
-.t span{display:block;font-size:10px;font-weight:500;color:#9A9089;margin-top:2px}.t.main span{color:#fff;opacity:.8}
+.t span{display:block;font-size:10px;font-weight:500;color:#6B625B;margin-top:2px}.t.main span{color:#fff;opacity:.8}
 </style>
 </head>
 <body>
 <div id="f">
- <div class="top"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div><b>LINE OA (ชื่อยังไม่กำหนด)</b><small>หน้าจำลอง · ชื่อจริงยังไม่ได้เลือก</small></div><button class="demo" id="qtg">โควต้า 0/300 ▾</button></div>
+ <div class="top"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div><b id="oaname">LINE OA</b><small>หน้าจำลองแชต · เว็บนี้ยังไม่ได้เชื่อมกับ OA จริง</small></div><button class="demo" id="qtg">โควต้า 0/300 ▾</button></div>
  <div class="chat" id="chat">
   <div class="note">วันนี้ 08:30</div>
-  <div class="m"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div class="b"><span data-mn></span>มาแล้ว! 👋 วันนี้ยังไม่ได้เรียนจีนเลย กดเมนูด้านล่างเพื่อเริ่มได้เลย</div></div>
+  <div class="m"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="b"><span data-mn></span>มาแล้ว! 👋 วันนี้ยังไม่ได้เรียนจีนเลย กดเมนูด้านล่างเพื่อเริ่มได้เลย</div></div>
   <div class="note" style="background:rgba(0,0,0,.18)">หน้าจำลองแชต LINE OA — ลองแตะริชเมนู บอทจะตอบกลับเหมือนจริง (ข้อความตอบกลับไม่นับโควต้า ส่วนข้อความที่บอทส่งหาเองจะนับ)</div>
  </div>
  <div class="q" id="q"><b>โควต้าข้อความ (จำลอง)</b><div class="bar"><i id="qb" style="width:0"></i></div><span id="qt">ใช้ไป 0/300 ข้อความเดือนนี้</span><small>แพ็กเกจฟรีของ LINE OA ในไทย = 300 push ต่อเดือน (นับต่อผู้รับ)</small><button id="qpush">ลองให้บอทส่งเตือนหาเอง (นับโควต้า)</button></div>
@@ -64,8 +66,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <button class="t" data-msg="duel"><i>⚔️</i>ท้าเพื่อน<span>การ์ด Flex</span></button>
   <button class="t" data-msg="tutor"><i>🤖</i>ถามพี่ลามา<span>แชตกับติวเตอร์</span></button>
   <button class="t" data-uri="index.html?from=line"><i>🏆</i>อันดับห้อง<span>เปิดเว็บ (LIFF)</span></button></div>
-  <p class="hint">เมนูแบบ “ข้อความ” ตอบฟรีไม่จำกัด · เมนูแบบ “ลิงก์” เปิดเว็บห้องเรียน</p></div>
- <div class="ld" id="ld"><img src="assets/mascot/read.png" alt=""><div class="sp"></div><b>กำลังเปิดห้องเรียนจาก LINE…</b><span class="url">liff.line.me/…-lama-demo</span><span style="font-size:12px;color:#9A9089">จำลอง · ไม่ได้เชื่อมต่อ LINE จริง</span></div>
+  <p class="hint">เมนูแบบ “ข้อความ” ตอบฟรีไม่จำกัด · เมนูแบบ “ลิงก์” เปิดเว็บห้องเรียน</p>
+  <p class="hint"><a id="addf" href="#" target="_blank" rel="noopener" style="color:#06A44B;font-weight:600">เพิ่มเพื่อนใน LINE</a> · <a href="privacy.html" target="_blank" rel="noopener" style="color:inherit">ความเป็นส่วนตัว</a> · <a href="terms.html" target="_blank" rel="noopener" style="color:inherit">ข้อกำหนด</a> (ร่างตัวอย่าง)</p></div>
+ <div class="ld" id="ld"><img src="assets/mascot/read.webp" alt=""><div class="sp"></div><b>กำลังเปิดห้องเรียนจาก LINE…</b><span class="url">liff.line.me/… (ตัวอย่าง ยังไม่มีจริง)</span><span style="font-size:12px;color:#6B625B">จำลอง · ไม่ได้เชื่อมต่อ LINE จริง</span></div>
 </div>
 <script>
 const $=s=>document.querySelector(s),chat=$('#chat');let sent=+(localStorage.getItem('lama-line-quota')||0);
@@ -73,20 +76,20 @@ const KEY='lama-cn-web-demo-v2';let S={};try{S=JSON.parse(localStorage.getItem(K
 const streak=S.streak||0,xp=S.xp||0;
 const mn=()=>window.MASCOT_NAME||'พี่ลามา';
 function quota(){$('#qtg').textContent='โควต้า '+sent+'/300 ▾';$('#qb').style.width=Math.min(100,sent/3)+'%';$('#qt').textContent='ใช้ไป '+sent+'/300 ข้อความเดือนนี้';$('#qb').style.background=sent>=270?'#C8102E':'#06C755'}
-const bot=(h,img='wave')=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/'+img+'.png" alt=""></div><div class="b">'+h+'</div></div>');chat.scrollTop=9e4};
+const bot=(h,img='wave')=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/'+img+'.webp" alt=""></div><div class="b">'+h+'</div></div>');chat.scrollTop=9e4};
 const me=t=>{chat.insertAdjacentHTML('beforeend','<div class="m me"><div class="b">'+t+'</div></div>');chat.scrollTop=9e4};
-const flex=(o)=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/wave.png" alt=""></div><div class="flex" style="--tint:'+o.tint+'"><div class="hd"><b>'+o.t+'</b><img src="assets/mascot/'+o.img+'.png" alt=""></div><div class="bd">'+o.d+'</div><button class="bt" data-uri="'+o.uri+'">'+o.cta+'</button></div></div>');chat.scrollTop=9e4;bindU()};
+const flex=(o)=>{chat.insertAdjacentHTML('beforeend','<div class="m"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="flex" style="--tint:'+o.tint+'"><div class="hd"><b>'+o.t+'</b><img src="assets/mascot/'+o.img+'.webp" alt=""></div><div class="bd">'+o.d+'</div><button class="bt" data-uri="'+o.uri+'">'+o.cta+'</button></div></div>');chat.scrollTop=9e4;bindU()};
 const WORDS=[['谢谢','xièxie','ขอบคุณ'],['你好','nǐ hǎo','สวัสดี'],['朋友','péngyou','เพื่อน'],['再见','zàijiàn','แล้วพบกันใหม่']];
 const R={streak:()=>{me('สตรีคของฉัน');setTimeout(()=>bot(streak?'🔥 สตรีคของคุณ <b>'+streak+' วัน</b> · XP รวม '+xp+'<br><small>(อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริง จะอ่านจากบัญชีของคุณ)</small>':'ยังไม่มีสตรีค เริ่มวันนี้ได้เลย! เรียนแค่ 3 นาทีก็นับหนึ่งวัน','streak'),500)},
  word:()=>{me('คำวันนี้');const w=WORDS[new Date().getDate()%4];setTimeout(()=>bot('💡 คำวันนี้: <b style="font-size:22px">'+w[0]+'</b><br>'+w[1]+' = '+w[2]+'<br><small>ฟังเสียงและฝึกใช้ต่อในเว็บ</small>','teach'),500)},
  duel:()=>{me('ท้าเพื่อน');setTimeout(()=>flex({tint:'#FDF3E6',t:'ท้าดวลศัพท์จีนกับฉัน!',img:'duel',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในเดโมนี้ยังไม่ได้เชื่อมต่อ)',cta:'รับคำท้า',uri:'index.html?from=line'}),500)},
- tutor:()=>{me('ถามพี่ลามา');setTimeout(()=>bot('สวัสดี! พิมพ์คำศัพท์หรือคำถามภาษาจีนมาได้เลย 💬<br><small>ในเว็บจริงติวเตอร์ตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) — ถ้าต่อ AI จริงจะตอบได้ทุกเรื่อง</small>','listening'),500);setTimeout(()=>flex({tint:'#E7F8EE',t:'คุยกับติวเตอร์ต่อในเว็บ',img:'teach',d:'ซ้อมสนทนา ขอคำศัพท์ แก้ประโยค',cta:'เปิดติวเตอร์',uri:'index.html?from=line'}),1100)}};
+ tutor:()=>{me('ถามพี่ลามา');setTimeout(()=>bot('สวัสดี! พิมพ์คำศัพท์หรือคำถามภาษาจีนมาได้เลย 💬<br><small>ในเว็บจริงติวเตอร์ตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) — ถ้าเชื่อมระบบตอบอัตโนมัติจริงจะตอบได้กว้างขึ้น</small>','listening'),500);setTimeout(()=>flex({tint:'#E7F8EE',t:'คุยกับติวเตอร์ต่อในเว็บ',img:'teach',d:'ซ้อมสนทนา ขอคำศัพท์ แก้ประโยค',cta:'เปิดติวเตอร์',uri:'index.html?from=line'}),1100)}};
 function bindU(){document.querySelectorAll('[data-uri]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}$('#ld').classList.add('on');setTimeout(()=>location.href=b.dataset.uri,1100)})}
 bindU();document.querySelectorAll('[data-msg]').forEach(b=>b.onclick=()=>{try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}R[b.dataset.msg]()});
 $('#qtg').onclick=()=>$('#q').classList.toggle('on');
 $('#qpush').onclick=()=>{sent=Math.min(300,sent+1);localStorage.setItem('lama-line-quota',sent);quota();bot('⏰ เตือน: สตรีคกำลังจะขาด! แตะเมนูเรียนต่อได้เลย <small style="display:block;color:#C8102E">ข้อความนี้เป็น push — นับโควต้า (+1)</small>','sleepy')};
 quota();
 </script>
-<script src="config.js"></script><script>document.querySelectorAll("[data-mn]").forEach(e=>e.textContent=MASCOT_NAME)</script>
+<script src="config.js"></script><script>document.querySelectorAll("[data-mn]").forEach(e=>e.textContent=MASCOT_NAME);document.getElementById("oaname").textContent=BRAND_NAME+" ("+OA_ID+")";document.getElementById("addf").href=OA_URL</script>
 </body>
 </html>

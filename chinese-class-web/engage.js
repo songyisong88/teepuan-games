@@ -35,7 +35,7 @@ function eventOpen(){const e=evToday();S.evDay=today();save();
   ${can?`<button class="pill sm press" id="ev">${e.id==='visit'?'รับของฝาก':e.id==='plum'?'เก็บดอกบ๊วย':'เปิดกล่อง'}</button>`:`<button class="pill sm press" data-act="closesheet">เริ่มเรียนเลย</button>`}<p class="cap mt12">กิจกรรมเปลี่ยนทุกวัน — กลับมาดูพรุ่งนี้ว่าจะเป็นอะไร</p></div>`,
   {onMount:sh=>{const b=$('#ev',sh);if(b)b.onclick=()=>{let c=e.id==='visit'?25:e.id==='plum'?15:20+(Math.random()*41|0);if(e.id==='plum')S.freezes=Math.min(2,S.freezes+1);S.evGot=today();addCoins(c,true);save();vib([20,30,20]);confetti(60);
     const cm=CLASSMATES.filter(cmUnlocked);const from=cm.length?cm[Math.random()*cm.length|0]:null;
-    $('.center',sh).innerHTML=`<div class="pop" style="width:150px;height:150px;margin:0 auto">${from&&e.id==='visit'?`<img src="assets/friends/${from.img}.png" style="width:100%;height:100%;object-fit:contain" alt="">`:M('celebrate')}</div><div class="h2 mt8">+${c} เหรียญ 🪙${e.id==='plum'?' + 🧊 1':''}</div><p style="color:var(--sub2);font-size:15px;margin:6px 0 16px">${e.id==='visit'?(from?`${from.n}ฝากเหรียญมาให้ “สู้ ๆ นะ!”`:'เพื่อนในห้องฝากเหรียญมาให้'):'โชคดีจังเลย!'}</p><button class="pill sm press" data-act="closesheet">ขอบคุณ!</button>`;refresh()}}});refresh()}
+    $('.center',sh).innerHTML=`<div class="pop" style="width:150px;height:150px;margin:0 auto">${from&&e.id==='visit'?`<img src="assets/friends/${from.img}.webp" style="width:100%;height:100%;object-fit:contain" alt="">`:M('celebrate')}</div><div class="h2 mt8">+${c} เหรียญ 🪙${e.id==='plum'?' + 🧊 1':''}</div><p style="color:var(--sub2);font-size:15px;margin:6px 0 16px">${e.id==='visit'?(from?`${from.n}ฝากเหรียญมาให้ “สู้ ๆ นะ!”`:'เพื่อนในห้องฝากเหรียญมาให้'):'โชคดีจังเลย!'}</p><button class="pill sm press" data-act="closesheet">ขอบคุณ!</button>`;refresh()}}});refresh()}
 
 /* ----- สตรีค: ตั๋วกันสตรีค · ขาด · กลับมา ----- */
 function freezeBuy(){if(S.freezes>=2){toast('ถือตั๋วกันสตรีคได้สูงสุด 2 ใบ');return}if(S.coins<40){toast('เหรียญไม่พอ (ต้องใช้ 40)');return}S.coins-=40;S.freezes++;save();bumpChips();vib([15,30]);toast('🧊 ได้ตั๋วกันสตรีคเพิ่ม 1 ใบ');streakSheet()}
@@ -105,7 +105,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
  <div class="sec">บัดดี้</div><div class="pad">${buddyCard()}</div>
  <div class="sec">วันนี้ทำอะไรดี</div>
  <div class="group">
-  ${ROW('#E7F8EE',M('teach'),'ถามพี่ลามา (ติวเตอร์ AI จำลอง)','อธิบายคำ · ซ้อมคุย · แก้ประโยค',undefined,'data-go="tutor"')}
+  ${ROW('#E7F8EE',M('teach'),'ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย · แก้ประโยค',undefined,'data-go="tutor"')}
   ${ROW('#EAF1FB','🎮','เกมคำศัพท์',gw?gw+' คำพร้อมเล่น':'เรียนรอบแรกให้จบเพื่อปลดล็อก',undefined,'data-go="games"')}
   ${ROW('#FDF3E6','🎁','หีบประจำวัน',cdone?'รับแล้ววันนี้ กลับมาใหม่พรุ่งนี้':'พร้อมเปิด! รับเหรียญฟรี',cdone?CHEV:'<span class="chip" style="height:26px;padding:0 10px;font-size:12px">เปิด</span>','data-go="chest"')}
   ${ROW('#FBEFEA','📝','ทบทวนข้อผิด',Object.keys(S.mistakes).length+' คำ',undefined,'data-go="review"')}

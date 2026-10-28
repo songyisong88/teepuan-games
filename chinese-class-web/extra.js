@@ -7,7 +7,7 @@ SC.game_speak=()=>({noRefresh:true,nav:gnav('ฝึกพูด'),body:'<div cla
   function show(){busy=false;sc=0;const w=ws[i];$('#skn',el).textContent=i+1;$('#skp',el).style.width=i/5*100+'%';
    stage.innerHTML=`<div class="center fade-in"><div style="width:120px;height:120px;margin:0 auto -6px">${M('speaking')}</div><div class="cap">พูดตาม${MASCOT_NAME}</div>
     <div class="bigzh zh" style="font-size:${w.zh.length>2?64:88}px">${w.zh}</div><div style="font-size:26px;font-weight:500">${pyHtml(w.py)}</div><div style="font-size:19px;font-weight:600;margin-top:6px">${w.th}</div>
-    <button class="audio press" data-act="audio" data-t="${w.zh}" style="margin-top:12px">${SPK}</button><div class="cap mt8">แตะลำโพงเพื่อฟังก่อน</div>
+    <button class="audio press" aria-label="ฟังเสียง" data-act="audio" data-t="${w.zh}" style="margin-top:12px">${SPK}</button><div class="cap mt8">แตะลำโพงเพื่อฟังก่อน</div>
     <button class="mic press" id="mic" aria-label="พูด">🎤</button><div class="cap" id="mh">แตะไมค์แล้วพูดตามได้เลย</div><div id="sres" class="mt12"></div></div>`;
    $('#mic',el).onclick=rec}
   function rec(){if(busy||!alive)return;busy=true;vib(12);const m=$('#mic',el);m.classList.add('rec');$('#mh',el).innerHTML='<span class="wv"><i></i><i></i><i></i><i></i><i></i></span> กำลังฟัง…';

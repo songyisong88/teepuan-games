@@ -10,7 +10,7 @@ async function renderCard(sp){try{await Promise.all([document.fonts.load('700 40
  c.fillStyle='#fff';rr(c,0,0,W,H,56);c.fill();c.save();rr(c,0,0,W,H,56);c.clip();
  const g=c.createLinearGradient(0,0,0,470);g.addColorStop(0,sp.tint||'#FCEFEF');g.addColorStop(1,'#fff');c.fillStyle=g;c.fillRect(0,0,W,470);
  c.fillStyle=sp.accent||'#C8102E';rr(c,48,48,Math.max(150,c.measureText(sp.badge||'').width),56,28);c.font=`600 28px ${F}`;const bw=c.measureText(sp.badge||BRAND_NAME).width+48;c.beginPath();rr(c,48,48,bw,56,28);c.fill();c.fillStyle='#fff';c.textBaseline='middle';c.fillText(sp.badge||BRAND_NAME,72,77);
- const im=await loadImg(sp.friend?`assets/friends/${sp.friend}.png`:`assets/mascot/${sp.mascot||'wave'}.png`);let iw=0,ih=0;if(im){const s=400,r=im.width/im.height;iw=s;ih=s/r;if(ih>s){ih=s;iw=s*r}}
+ const im=await loadImg(sp.friend?`assets/friends/${sp.friend}.webp`:`assets/mascot/${sp.mascot||'wave'}.webp`);let iw=0,ih=0;if(im){const s=400,r=im.width/im.height;iw=s;ih=s/r;if(ih>s){ih=s;iw=s*r}}
  const tw=im?Math.max(330,W-56-iw-50):780;c.textBaseline='alphabetic';c.fillStyle='#27211E';c.font=`700 56px ${F}`;const th=wrapTxt(c,sp.title,56,200,tw,72,3);c.fillStyle='#6E6259';c.font=`500 30px ${F}`;wrapTxt(c,sp.sub||'',56,200+th+14,tw,42,3);
  if(im)c.drawImage(im,W-iw-30,490-ih,iw,ih);
  let y=500;if(hasS){const n=sp.stats.length,cw=(W-96-(n-1)*20)/n;sp.stats.forEach((s,i)=>{const x=48+i*(cw+20);c.fillStyle='#F8F3EC';rr(c,x,y,cw,150,28);c.fill();c.fillStyle=sp.accent||'#C8102E';c.font=`700 56px ${F}`;c.textAlign='center';c.fillText(s[0],x+cw/2,y+78);c.fillStyle='#8A7F76';c.font=`500 26px ${F}`;c.fillText(s[1],x+cw/2,y+120);c.textAlign='left'});y+=190}

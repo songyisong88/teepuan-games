@@ -87,7 +87,11 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
  <div class="sec">LINE (ตัวอย่าง)</div><div class="group">
   ${ROW('#E7F8EE','💚','หน้าทางเข้าจาก LINE OA','ดูว่าลิงก์จากริชเมนูเปิดเว็บนี้อย่างไร',undefined,'data-go="lineentry"')}
   ${ROW('#F2ECFA','💌','ชวนเพื่อนทาง LINE','',undefined,'data-go="invite"')}
-  ${ROW('#FDF3E6','🔍','อะไรจริง อะไรจำลอง?','สิ่งที่ทำงานจริง / สิ่งที่จำลอง / สิ่งที่ทำได้จริงบน LINE',undefined,'data-go="realnote"')}</div>
+  ${ROW('#FDF3E6','🔍','อะไรจริง อะไรจำลอง?','สิ่งที่ทำงานจริง / สิ่งที่จำลอง / สิ่งที่ทำได้จริงบน LINE',undefined,'data-go="realnote"')}
+  <a class="row press" href="${OA_URL}" target="_blank" rel="noopener"><span class="ic" style="background:#E7F8EE">➕</span><span class="tx"><b>เพิ่มเพื่อนใน LINE</b><small>${BRAND_NAME} (${OA_ID}) · เปิดแอป LINE</small></span>${CHEV}</a></div>
+ <div class="sec">ข้อมูลและความเป็นส่วนตัว</div><div class="group">
+  <a class="row press" href="privacy.html" target="_blank" rel="noopener"><span class="ic" style="background:#EAF1FB">🔒</span><span class="tx"><b>นโยบายความเป็นส่วนตัว</b><small>ร่างตัวอย่าง · เก็บข้อมูลในเครื่องนี้เท่านั้น</small></span>${CHEV}</a>
+  <a class="row press" href="terms.html" target="_blank" rel="noopener"><span class="ic" style="background:#F2ECFA">📄</span><span class="tx"><b>ข้อกำหนดการใช้งาน</b><small>ร่างตัวอย่าง ยังไม่ผ่านการตรวจโดยผู้เชี่ยวชาญกฎหมาย</small></span>${CHEV}</a></div>
  <div class="sec">เครื่องมือเดโม</div><div class="group">
   <button class="row noic press" data-sa="skip"><span class="tx"><b>ข้ามไปวันพรุ่งนี้</b><small>ทดสอบสตรีค/เป้าหมาย (วันที่จำลอง +${S.shift})</small></span></button>
   <button class="row noic press" data-sa="lost"><span class="tx"><b>จำลองสตรีคขาด</b><small>ดูหน้าจอตอนสตรีคหลุด</small></span></button>

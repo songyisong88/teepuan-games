@@ -62,7 +62,7 @@ SC.plans=()=>({title:'แผนและราคา',body:`<div class="large">�
 SC.me=()=>{const lv=level(),pr=(S.xp%100);
  return {title:'ฉัน',body:`<div class="large">ฉัน</div>
  <div class="card pad2 mt12 fade-in" style="display:flex;gap:14px;align-items:center"><div style="width:96px;height:96px;border-radius:50%;background:var(--redsoft);overflow:hidden;flex:none;display:flex;align-items:flex-end;justify-content:center">${llama('wave',92,{acc:true,style:'margin-top:8px'})}</div>
-  <div style="flex:1;min-width:0"><b style="font-size:20px">${S.name}</b><div class="cap">${titleNow()} · เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
+  <div style="flex:1;min-width:0"><b style="font-size:20px">${dn()||'ผู้เรียน'}</b><div class="cap">${titleNow()} · เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
  <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>คำที่เรียน</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
  <div class="sec">ระดับการเรียน</div><div class="group">
   ${ROW(levelBy(curLv()).bg,levelBy(curLv()).em,'ระดับของฉัน: '+levelBy(curLv()).name,levelBy(curLv()).th+(lvInfo(curLv()).complete?'':' · กำลังเพิ่มเนื้อหา'),'<span class="val">เปลี่ยน</span>'+CHEV,'data-go="levels"')}

@@ -13,7 +13,8 @@ function zhHtml(zh,py){const sy=py.split(/[| ]/).filter(Boolean);let i=0,o='';fo
 
 /* สถานะ */
 const KEY='lama-cn-web-demo-v2';
-const defState=()=>({stk:{rec:[],fav:[],done:{},mode:'guide',days:0,last:-99,n:0},name:'มินท์',xp:0,coins:20,streak:0,lastDay:-99,xpDay:{},shift:0,goal:20,parts:[],stars:{},mistakes:{},srs:{},coinsEarned:0,
+const dn=()=>{const n=(typeof S!=='undefined'&&S&&S.name||'').trim();return n&&n!=='มินท์'?n:''};/* ชื่อผู้เรียน: ว่างได้ (ค่าเดิม 'มินท์' ถือว่ายังไม่ได้ตั้ง) */
+const defState=()=>({stk:{rec:[],fav:[],done:{},mode:'guide',days:0,last:-99,n:0},name:'',xp:0,coins:20,streak:0,lastDay:-99,xpDay:{},shift:0,goal:20,parts:[],stars:{},mistakes:{},srs:{},coinsEarned:0,
  chestDay:-99,spinDay:-99,own:['flower'],eq:{hat:null,face:null},invited:0,inviteCode:'LAMA-'+Math.random().toString(36).slice(2,6).toUpperCase(),
  remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,level:1,assume:0,lvPicked:false,placeRes:null,placeHist:[],gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
  freezes:1,buddy:null,cnt:{day:-99},mis:{day:-99,got:[]},evDay:-99,evId:'',evGot:-99,comebackDay:-99,freezeUsed:-99,inviteGot:[],

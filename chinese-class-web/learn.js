@@ -62,7 +62,7 @@ function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,
  return steps}
 
 /* ----- การ์ดคำ / เรื่องเล่า / บทสนทนา ----- */
-function cardHtml(w,n,t){return `<div class="center"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div><div class="bigzh zh" style="font-size:${w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130}px">${w.zh}</div>
+function cardHtml(w,n,t){return `<div class="center"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div>${art('word',w.zh,'','wart')}<div class="bigzh zh" style="font-size:${w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130}px">${w.zh}</div>
  <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div><div style="font-size:27px;font-weight:600;margin-top:8px;padding:0 20px">${w.th}</div>
  <button class="audio press" aria-label="ฟังเสียง" data-act="audio" data-t="${w.zh}" style="margin-top:14px">${SPK}</button>
  <div class="hint"><span class="hb">อ่านแบบไทย</span><b>${w.h}</b><span class="cap">(ใกล้เคียง · ฟังเสียงจริงอีกที)</span></div>${stkBtn(w.zh)}</div>

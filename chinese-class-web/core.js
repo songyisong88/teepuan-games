@@ -18,6 +18,8 @@ const CHEV=`<svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6"/></svg>`
 const BACKI=`<svg viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L3 11l8 9"/></svg>`;
 const chips=()=>`${lvBadge()}<span class="chip press" data-go="streak">${'<span style="display:flex">'+FLAME.replace('<svg','<svg width="16" height="16"')+'</span>'}<span id="cs">${curStreak()}</span></span><span class="chip coin press" data-go="shop"><span style="display:flex">${COIN.replace('<svg','<svg width="16" height="16"')}</span><span id="cc">${S.coins}</span></span>`;
 const M=(n,cls='')=>`<img class="mas ${cls}" loading="lazy" decoding="async" src="assets/mascot/${n}.webp" alt="" draggable="false" onerror="this.onerror=null;this.src='assets/mascot/wave.webp'">`;
+/* ช่องภาพประกอบ: ใช้รูปเมื่อมีทะเบียนใน assets/art/index.js ไม่งั้นถอยไปอีโมจิ (หรือไม่แสดง) */
+function art(kind,id,emoji,cls){const k=kind+'/'+id,on=window.ART_IDX&&window.ART_IDX[k];if(!on)return emoji?`<span class="art ${cls||''}">${emoji}</span>`:'';return `<span class="art has ${cls||''}"><img src="assets/art/${kind}/${encodeURIComponent(id)}.webp" alt="" loading="lazy" decoding="async" draggable="false" onerror="this.parentNode.classList.remove('has');this.outerHTML='${emoji||''}'"></span>`}
 function llama(pose,size,{acc=false,cls='',style=''}={}){let a='';if(acc){for(const slot of ['hat','face']){const id=S.eq[slot];const it=SHOP.find(s=>s.id===id);if(it){const p=ACC[slot];a+=`<span class="acc" style="left:${p.left};top:${p.top};font-size:${Math.round(size*p.size)}px">${it.e}</span>`}}}
  return `<div class="llama ${cls}" style="width:${size}px;height:${size}px;${style}">${M(pose)}${a}</div>`}
 

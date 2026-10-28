@@ -49,7 +49,7 @@ function radColHtml(){const k=radS();const have=RAD.filter(r=>k.cards[r.id]);con
  const fresh=has&&k.cards[sel].t===today()&&sel===(radSel||sel)&&!radSel;
  return `${head}${tabs}<div class="rd-feat">${radCardHtml(sel,{big:1,fresh})}</div>
  ${has?`<div class="rd-acts"><button class="pill row1 linebtn press" data-go="radcshare" data-id="${sel}"><span style="display:inline-flex;margin-right:6px">${svg('<path d="M21 11.5C21 7.4 16.97 4 12 4S3 7.4 3 11.5c0 3.6 3.2 6.6 7.5 7.4.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1.1 1 .6 1.2-.5 6.4-3.8 8.7-6.5 1.6-1.7 2.1-3.4 2.1-3.8z"/>',19)}</span>แชร์การ์ดไป LINE</button><button class="pill row1 press" data-go="radcchal">ท้าเพื่อน 60 วิ</button></div>
-  <div class="rd-line"><span class="lg">LINE</span><div class="bb"><b>${radEsc(S.name)}</b> ส่งการ์ด “${r.card}”<br><small>ตัวข้าง ${r.id} ${r.th} · ฉันจำได้ ${radKnown(sel).n}/${radKnown(sel).t} ตัว มาเล่นด้วยกัน!</small></div></div>`
+  <div class="rd-line"><span class="lg">LINE</span><div class="bb"><b>${radEsc(dn()||'ฉัน')}</b> ส่งการ์ด “${r.card}”<br><small>ตัวข้าง ${r.id} ${r.th} · ฉันจำได้ ${radKnown(sel).n}/${radKnown(sel).t} ตัว มาเล่นด้วยกัน!</small></div></div>`
  :`<div class="rd-acts"><button class="pill row1 press" data-go="radgo" data-id="${sel}">ไปเรียน ${r.id} เพื่อรับการ์ด</button></div>`}
  <div class="rd-sech" style="margin-top:20px"><b>ทั้งหมดในหมู่บ้านลามะ</b><small>แตะเพื่อเลือก</small></div>
  <div class="rd-strip" role="list">${RAD.map(x=>`<button class="rd-ct ${k.cards[x.id]?'have':''} ${x.id===sel?'sel':''}" data-go="radsel" data-id="${x.id}" role="listitem" aria-label="${x.th} ${k.cards[x.id]?'ได้แล้ว':'ยังไม่ได้'}">${radCardHtml(x.id,{mini:1})}${x.bonus?'<em>โบนัส</em>':''}</button>`).join('')}</div>

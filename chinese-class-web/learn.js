@@ -14,7 +14,7 @@ function tokPool(maxLesson){const m=new Map();LESSONS.filter(l=>l.id<=maxLesson&
 
 /* ----- ชนิดคำถาม ----- */
 const LET='ABCD';
-function makeQ(w,type,pool){const p=pool.length>=4?pool:ALLW;const others=shuffle(p.filter(x=>x.zh!==w.zh)).slice(0,3);const opts=shuffle([w,...others]);
+function makeQ(w,type,pool){const p=pool.length>=4?pool:ALLW;const others=shuffle(p.filter(x=>x.zh!==w.zh&&x.th!==w.th)).slice(0,3);const opts=shuffle([w,...others]);
  return {w,type,opts,ans:opts.findIndex(o=>o.zh===w.zh)}}
 function qHtml(q){const w=q.w;let top='',fmt;
  if(q.top){return `<div class="center">${q.top}</div><div class="group opts mt20" style="margin-top:22px">${q.optsHtml.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span>${o}</span></button>`).join('')}</div>`}
@@ -47,7 +47,7 @@ function replyQ(L){const r=L.rq||null;if(!r)return null;const p=L.dlg[r.p],c=L.d
   optsHtml:all.map(o=>`<span class="zh" style="font-size:22px">${o.zh}</span><br><span class="cap">${pyPlain(o.py)}</span>`),ans:all.findIndex(o=>o.ok),reveal:sentReveal(c[1],c[2],c[3])}}
 function ordQ(L,k){const s=parseSent(L.sents[k]);if(s.zh.length<2)return null;let sh=shuffle(s.zh.map((t,i)=>i));let tries=0;while(sh.every((v,i)=>v===i)&&tries++<9)sh=shuffle(sh);
  return {w:null,type:'ord',s,sh,reveal:sentReveal(s.full,s.pyAll,s.th)}}
-function matQ(ws){const ps=shuffle(ws).slice(0,4);return {w:ps[0],type:'mat',ps,right:shuffle(ps.map((_,i)=>i)),reveal:`<div class="ans">${ps.map(w=>`<div><span class="zh" style="font-size:18px">${w.zh}</span> <span style="font-size:13px">${pyHtml(w.py)}</span> = ${w.th}</div>`).join('')}</div>`}}
+function matQ(ws){const seen=new Set(),ps=shuffle(ws).filter(w=>!seen.has(w.th)&&seen.add(w.th)).slice(0,4);return {w:ps[0],type:'mat',ps,right:shuffle(ps.map((_,i)=>i)),reveal:`<div class="ans">${ps.map(w=>`<div><span class="zh" style="font-size:18px">${w.zh}</span> <span style="font-size:13px">${pyHtml(w.py)}</span> = ${w.th}</div>`).join('')}</div>`}}
 
 /* ----- สร้างขั้นตอนของแต่ละรอบ ----- */
 function learnedPool(u){const L=lessonBy(u.lesson);return uniqW([...L.words,...lvLessons(L.lv).filter(l=>l.id<=L.id).flatMap(l=>l.words),...gameWords().filter(w=>w.lv===L.lv)])}

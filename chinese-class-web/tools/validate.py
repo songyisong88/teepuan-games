@@ -143,6 +143,12 @@ for s,ids in seen_dlg.items():
     if len(ids)>1: W('global',f'identical dialog line in lessons {ids}: {s}')
 for w,ids in allwords.items():
     if len(ids)>1: E('global',f'word taught in several lessons {ids}: {w}')
+# same Thai gloss on two words -> an exercise (zh2th options / match pairs) could have two correct answers
+gl=collections.defaultdict(list)
+for L in LS:
+    for w in L['words']: gl[w['th'].strip()].append((L['id'],w['zh']))
+for g,v in gl.items():
+    if len(v)>1: E('global',f'same Thai gloss "{g}" on several words {v}: an exercise could have two correct answers')
 reuse=[(k,v) for k,v in wrong_use.items() if v>=5]
 for k,v in sorted(reuse,key=lambda x:-x[1]): W('global',f'wrong-reply "{k}" reused in {v} lessons (learner can answer by elimination)')
 # example starts: templated openers

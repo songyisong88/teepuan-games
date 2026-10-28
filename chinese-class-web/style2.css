@@ -151,3 +151,17 @@ a.row{color:inherit;text-decoration:none}
 .bdg b{font-size:12.5px;font-weight:600;line-height:1.25;margin-top:4px}
 .bdg small{font-size:11.5px;color:var(--sub2)}
 .bdg.on{background:#FFFBF2;border-color:rgba(217,162,27,.35)}
+
+/* ทีมชนทีม / วิ่งผลัด */
+.tqrow{display:flex;gap:14px;justify-content:center;margin:10px 0 4px}.tqp{display:flex;flex-direction:column;align-items:center;gap:4px}.tqp small{font-size:12px;color:var(--sub2)}
+.tqvs{text-align:center;font-weight:800;color:var(--red);margin:10px 0;letter-spacing:.1em}
+.tqscore{display:flex;align-items:center;gap:12px}.tqscore .a,.tqscore .b{display:flex;flex-direction:column;align-items:center;min-width:56px}.tqscore b{font-size:26px}.tqscore small{font-size:12px;color:var(--sub2)}
+.tqscore .bar{flex:1;height:10px;border-radius:5px;background:#5B86C4;overflow:hidden}.tqscore .bar i{display:block;height:100%;background:var(--red);transition:width .4s}
+.tqfeed{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}.tqf{display:flex;align-items:center;gap:6px;background:#fff;border-radius:14px;padding:6px 10px;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.tqtrack{display:flex;align-items:center;gap:6px}.tqtrack i{flex:1;height:10px;border-radius:5px;background:#EADFD2}.tqtrack i.done{background:var(--ok)}.tqtrack i.cur{background:var(--red);animation:blk .8s infinite alternate}.tqtrack .fin{font-size:20px}
+@keyframes blk{from{opacity:.5}to{opacity:1}}
+
+.wkst{display:flex;gap:6px;margin-top:12px;justify-content:space-between}.wkst i{flex:1;height:34px;border-radius:12px;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;color:var(--sub2);font-weight:600}.wkst i.on{color:#fff;font-size:17px}
+.wkst.big i{height:44px;background:#F1E9DD}
+.wkms{display:flex;gap:8px;margin-top:10px}.wkm{flex:1;border:0;border-radius:14px;background:#F6F0E6;padding:10px 4px;font-family:inherit;display:flex;flex-direction:column;gap:2px;color:var(--sub2)}.wkm b{font-size:15px;color:var(--ink)}.wkm small{font-size:12px}.wkm.can{background:var(--red);color:#fff;animation:blk .8s infinite alternate}.wkm.can b{color:#fff}.wkm.got{background:#E7F8EE;color:var(--ok)}
+.wks{font-size:28px;background:#fff;border-radius:14px;padding:6px 10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}

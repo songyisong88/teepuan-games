@@ -197,6 +197,39 @@ srcmiss-=need
 if srcmiss: W('stroke','characters elsewhere in app source without stroke data (will show "ยังไม่มีข้อมูล"): '+''.join(sorted(srcmiss))[:80])
 print(f'stroke data: {len(have)} chars, lesson chars needed {len(need)}, missing {len(miss)}')
 
+# ---- เรียนตัวอักษร (data/rad) ----
+import subprocess
+RD=os.path.join(APP,'data','rad')
+for f in ('rad.js','NOTICE.md','MMAH-COPYING.txt'):
+    if not os.path.exists(os.path.join(RD,f)): E('rad','missing data/rad/'+f)
+for f in ('rad.js','radgame.js','radcol.js','rad.css'):
+    if not os.path.exists(os.path.join(APP,f)): E('rad','missing '+f)
+    elif re.search(r'HSK',open(os.path.join(APP,f),encoding='utf8').read()): E('rad','"HSK" in brand text of '+f)
+if re.search(r'HSK',open(os.path.join(RD,'rad.js'),encoding='utf8').read()): E('rad','"HSK" in data/rad/rad.js')
+try:
+    out=subprocess.check_output(['node','-e',"const vm=require('vm'),fs=require('fs');const c={};vm.createContext(c);vm.runInContext(fs.readFileSync(process.argv[1],'utf8')+';this.o={RAD,RAD_MEM,RAD_CH,RAD_Z}',c);console.log(JSON.stringify(c.o))",os.path.join(RD,'rad.js')])
+    RJ=json.loads(out)
+    R=RJ['RAD'];ids=[r['id'] for r in R]
+    if len(R)!=60 or sum(1 for r in R if not r['bonus'])!=48: E('rad',f'expected 48 core + 12 bonus, got {len(R)}')
+    if len(set(ids))!=len(ids): E('rad','duplicate radical ids')
+    lessonch=set()
+    for L in LS:
+        for w in L['words']: lessonch|=set(HANX.findall(w.get('zh','') or ''))
+    for r in R:
+        for k in ('th','mn','mean','py','card'):
+            if not r.get(k): E('rad',f'{r["id"]} missing {k}')
+        mem=set(RJ['RAD_MEM'].get(r['id'],{}).get('s',[]))|set(RJ['RAD_MEM'].get(r['id'],{}).get('w',[]))
+        if not r['ex'] or any(x not in mem for x in r['ex']): E('rad',f'{r["id"]} example not in members')
+        if len(mem)<3: W('rad',f'{r["id"]} has only {len(mem)} member chars')
+        if r['z'] not in range(len(RJ['RAD_Z'])): E('rad',f'{r["id"]} bad zone')
+    bad=[c for c,v in RJ['RAD_CH'].items() if any(i not in ids for i in v[0] if len(i)==1 and i in '亻讠') ]
+    miss=[c for c in RJ['RAD_CH'] if c not in lessonch]
+    if miss: W('rad',f'{len(miss)} RAD_CH chars not in lesson text')
+    print(f'radicals: {len(R)} (zones {len(RJ["RAD_Z"])}), decomposed chars {len(RJ["RAD_CH"])}')
+    rj=open(os.path.join(APP,'rad.js'),encoding='utf8').read()+open(os.path.join(APP,'radcol.js'),encoding='utf8').read()
+    if 'ร่าง รอครูตรวจ' not in rj: E('rad','draft label "ร่าง รอครูตรวจ" missing in UI')
+except Exception as ex: E('rad','cannot load data/rad/rad.js: '+str(ex))
+
 tot_e=sum(len(v) for v in errs.values());tot_w=sum(len(v) for v in warns.values())
 print(f'lessons checked: {len(LS)}  words: {sum(len(L["words"]) for L in LS)}  ERRORS: {tot_e}  WARNINGS: {tot_w}')
 for k in sorted(errs,key=lambda x:(x=='global',int(x[1:]) if x[1:].isdigit() else 0)):

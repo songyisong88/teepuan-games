@@ -72,6 +72,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#FDF3E6','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,undefined,'data-go="shop"')}
   ${ROW('#FBEFEA','📝','ทบทวนตามรอบ',reviewWords().length+' คำถึงรอบ',undefined,'data-go="review"')}</div>
  <div class="sec">เครื่องมือการเรียน</div><div class="group">
+  ${ROW('#EAF1FB','🏆','อันดับและลีก','ลีกประจำสัปดาห์ · เพื่อน · กลุ่ม',undefined,'data-go="rank"')}
   ${ROW('#FDF3E6','🏅','เหรียญตราและฉายา',badgeN()+'/'+BADGES.length+' เหรียญ · '+titleNow(),undefined,'data-go="badges"')}
   ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}
   ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}

@@ -17,7 +17,7 @@ async function renderCard(sp,theme){const TH=CARD_THEMES[theme]||CARD_THEMES.sof
  const tw=im?Math.max(330,W-56-iw-50):780;c.textBaseline='alphabetic';c.fillStyle=TH.t;c.font=`700 56px ${F}`;const th=wrapTxt(c,sp.title,56,200,tw,72,3);c.fillStyle=TH.s;c.font=`500 30px ${F}`;wrapTxt(c,sp.sub||'',56,200+th+14,tw,42,3);
  if(im)c.drawImage(im,W-iw-30,490-ih,iw,ih);
  let y=500;if(hasS){const n=sp.stats.length,cw=(W-96-(n-1)*20)/n;sp.stats.forEach((s,i)=>{const x=48+i*(cw+20);c.fillStyle=TH.sb;rr(c,x,y,cw,150,28);c.fill();c.fillStyle=TH.ac||sp.accent||'#C8102E';c.font=`700 56px ${F}`;c.textAlign='center';c.fillText(s[0],x+cw/2,y+78);c.fillStyle=TH.sl;c.font=`500 26px ${F}`;c.fillText(s[1],x+cw/2,y+120);c.textAlign='left'});y+=190}
- if(sp.glyph){await stkDrawCard(c,sp.glyph,48,y,W-96,300,TH,F);y+=330}
+ if(sp.glyph){await(sp.glyph.rad?radDrawCard:stkDrawCard)(c,sp.glyph,48,y,W-96,300,TH,F);y+=330}
  c.fillStyle='#06C755';rr(c,48,y+10,W-96,110,55);c.fill();c.fillStyle='#fff';c.font=`700 38px ${F}`;c.textAlign='center';c.textBaseline='middle';c.fillText(sp.ctaLabel||'เปิดดู',W/2,y+66);
  c.textAlign='left';c.fillStyle=TH.f;c.font=`500 24px ${F}`;c.textBaseline='alphabetic';c.fillText(BRAND_NAME+' · ตัวอย่างทดลอง',56,H-44);c.textAlign='right';c.fillText(LINK().replace(/^https?:\/\//,'').slice(0,34)+'…',W-56,H-44);c.restore();
  c.strokeStyle=TH.line;c.lineWidth=2;rr(c,1,1,W-2,H-2,56);c.stroke();return cv}
@@ -34,6 +34,9 @@ function cardSpec(kind,d){d=d||{};const base={
  recap:d.recap,
  badge:{badge:'เหรียญตรา',title:d.b?d.b.em+' '+d.b.n:'เหรียญตราใหม่',sub:d.b?d.b.d:'',mascot:'trophy',tint:'#FDF3E6',stats:[[badgeN()+'/'+BADGES.length,'เหรียญที่ได้'],[titleNow(),'ฉายา']],cta:'LINE',ctaTxt:'ลองเล่นด้วยกัน'},
  strokes:{badge:'เขียนทีละขีด',title:d.text||'ฉันเขียนตัวจีนตามลำดับขีดได้แล้ว',sub:d.sub||'',mascot:'celebrate',tint:'#FCEFEF',stats:d.stats,glyph:d.glyph,cta:'LINE',ctaTxt:'ลองเขียนด้วยกัน'},
+ radres:{badge:'เรียนตัวอักษร',title:d.text||'ฉันเล่นเกมตัวข้างมา',sub:d.sub||'',mascot:'celebrate',tint:'#FDF3E6',accent:'#D9822B',stats:d.stats,cta:'LINE',ctaTxt:'ลองเล่น'},
+ radcard:{badge:'การ์ดตัวข้าง',title:d.id&&RADI[d.id]?'ฉันได้การ์ด “'+RADI[d.id].card+'”':'การ์ดตัวข้าง',sub:d.id&&RADI[d.id]?'มาสะสมการ์ดตัวข้างกับลามะด้วยกัน (ชุดจำลอง)':'',mascot:d.id&&RADI[d.id]?RADI[d.id].pose:'wave',tint:'#FDF3E6',accent:'#D9822B',glyph:d.id?{rad:true,id:d.id}:null,cta:'LINE',ctaTxt:'สะสมด้วยกัน'},
+ radchal:{badge:'คำท้า 60 วินาที',title:d.score?`ท้าตอบตัวข้าง! ฉันได้ ${d.score} ข้อ`:'ท้าตอบตัวข้างใน 60 วินาที',sub:d.sub||'ชนะฉันให้ได้ใน 60 วินาที',mascot:'duel',tint:'#EAF1FB',accent:'#3A64A8',stats:[[d.score||0,'คะแนนของฉัน'],['60','วินาที']],cta:'LINE',ctaTxt:'รับคำท้า'},
  classwar:{badge:'ห้องต่อห้อง',title:d.text||'มาแข่งห้องเรียนกัน!',sub:d.sub||'',mascot:'duel',tint:'#FDF3E6',stats:d.stats,cta:'LINE',ctaTxt:'เข้าห้อง'},
  cm:{badge:'เพื่อนใหม่ในห้อง',title:`ฉันได้เจอ${d.cm?d.cm.n:'เพื่อนใหม่'}แล้ว!`,sub:d.cm?`“${d.cm.line}”`:'',friend:d.cm&&d.cm.img,tint:'#E7F8EE',accent:d.cm&&d.cm.c,cta:'LINE'},
  placement:{badge:'ทดสอบวัดระดับ',title:d.text||'ผลทดสอบของฉัน',sub:d.sub||'',mascot:d.mascot||'student',tint:'#EAF1FB',stats:d.stats,cta:'LINE'}}[kind]||{badge:BRAND_NAME,title:d.text||'เรียนจีนด้วยกัน',mascot:'wave',cta:'LINE'};

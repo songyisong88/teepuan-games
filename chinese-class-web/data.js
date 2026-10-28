@@ -17,9 +17,11 @@ const defState=()=>({name:'มินท์',xp:0,coins:20,streak:0,lastDay:-99,x
  chestDay:-99,spinDay:-99,own:['flower'],eq:{hat:null,face:null},invited:0,inviteCode:'LAMA-'+Math.random().toString(36).slice(2,6).toUpperCase(),
  remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,level:1,assume:0,lvPicked:false,placeRes:null,placeHist:[],gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
  freezes:1,buddy:null,cnt:{day:-99},mis:{day:-99,got:[]},evDay:-99,evId:'',evGot:-99,comebackDay:-99,freezeUsed:-99,inviteGot:[],
- seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{},lg:{tier:0,wk:-1},life:{},badges:{},bestStreak:0});
+ seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{},lg:{tier:0,wk:-1},life:{},badges:{},bestStreak:0,dv:2,dvNote:0});
 let S;
-try{S=Object.assign(defState(),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){S=defState()}
+let _raw={};try{_raw=JSON.parse(localStorage.getItem(KEY)||'{}')||{};S=Object.assign(defState(),_raw)}catch(e){S=defState()}
+/* ย้ายข้อมูลเมื่อจัดระดับบทเรียนใหม่ตาม HSK 2.0 (dv=2): id บท/รอบเดิมไม่เปลี่ยน ความคืบหน้าอยู่ครบ — แค่แจ้งผู้เรียนเดิมครั้งเดียว และถือผลทดสอบเก่าว่าเก่าแล้ว */
+if((_raw.dv||0)<2){S.dvNote=Object.keys(_raw).length&&(_raw.parts||[]).length?1:0;S.dv=2;if(S.placeRes&&typeof S.placeRes==='object')S.placeRes.stale=1;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const today=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/864e5)+S.shift;
 const dayXp=(d=today())=>S.xpDay[d]||0;
@@ -36,13 +38,15 @@ const isDone=lid=>unitDone(lid+'a')&&unitDone(lid+'b');
 const curLv=()=>LEVELS.some(l=>l.id===S.level)?S.level:1;
 const lvUnits=n=>UNITS.filter(u=>u.lv===n);
 const lvLessons=n=>LESSONS.filter(l=>l.lv===n);
+/* บทของระดับเดียวกันที่อยู่ก่อนหรือเท่ากับบทนี้ ตามลำดับในระดับ (ไม่ใช่ตามเลข id — บทถูกจัดระดับใหม่แล้ว) */
+const lvUpTo=id=>{const l=LESSONS.find(x=>x.id===id),a=lvLessons(l?l.lv:1),k=a.findIndex(x=>x.id===id);return a.slice(0,k+1)};
 const lvWords=n=>lvLessons(n).reduce((a,l)=>a+l.words.length,0);
 /* สถานะของระดับ: มีกี่บท กี่คำ เทียบเป้าหมาย HSK ทำไปกี่รอบ */
 function lvInfo(n){const L=levelBy(n),us=lvUnits(n),w=lvWords(n),dn=us.filter(u=>unitDone(u.id)).length;
  return {L,lessons:lvLessons(n).length,words:w,target:L.target,units:us.length,done:dn,pct:us.length?dn/us.length:0,complete:w>=L.target,empty:!us.length}}
 const nextUnit=(n=curLv())=>lvUnits(n).find(u=>!unitDone(u.id))||null;
 const nextLesson=()=>{const u=nextUnit();return u?lessonBy(u.lesson):null};
-const unitOpen=id=>{const u=unitBy(id),us=lvUnits(u.lv),k=us.findIndex(x=>x.id===id);return k<=0||unitDone(us[k-1].id)};
+const unitOpen=id=>{const u=unitBy(id),us=lvUnits(u.lv),k=us.findIndex(x=>x.id===id);return k<=0||unitDone(us[k-1].id)||us.slice(k).some(x=>unitDone(x.id))};
 const doneUnitCount=()=>S.parts.length;
 /* คำที่ถือว่า “รู้แล้ว” = คำจากรอบที่เรียนจบ + คำจากระดับต่ำกว่าที่ผู้เรียนบอกว่ารู้แล้ว (S.assume) */
 const uniqW=ws=>{const m=new Set();return ws.filter(w=>!m.has(w.zh)&&m.add(w.zh))};

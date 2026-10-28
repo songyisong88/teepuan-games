@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Automated validator for the lesson data (data/hsk1-5.js).
-Usage:  node tools/dump.cjs   (writes /tmp/cn-lessons.json)  then  python3 tools/validate.py [--hsk DIR] [--json out.json]
-Needs: pypinyin, opencc-python-reimplemented.  Optional: HSK 2.0 word lists (old1..old6.json from complete-hsk-vocabulary).
+Usage:  node tools/dump.cjs   (writes /tmp/cn-lessons.json)  then  python3 tools/validate.py [--json out.json]
+Needs: pypinyin, opencc-python-reimplemented.  Word lists: tools/hsk20-words.json (HSK 2.0, from complete-hsk-vocabulary).
 Exit code 1 when any ERROR is found.  WARN items are style / difficulty notes for a native-speaker review.
 """
 import json,re,sys,os,unicodedata,collections,hashlib
@@ -11,7 +11,6 @@ APP=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 args=sys.argv[1:]
 def opt(n,d=None): return args[args.index(n)+1] if n in args else d
 DATA=json.load(open(opt('--data','/tmp/cn-lessons.json')))
-HSKDIR=opt('--hsk','/workspace/hsk')
 AUDIO=os.path.join(APP,'audio');IDX=os.path.join(APP,'audio-index.js')
 t2s=OpenCC('t2s')
 LS=DATA['LESSONS'];CH={c['id']:c for c in DATA['CHAPTERS']}
@@ -52,10 +51,9 @@ def haveaudio(key):
     h=idx.get(key); return bool(h) and os.path.exists(os.path.join(AUDIO,h+'.mp3'))
 # ---- HSK 2.0 lists
 HL={}
+_L=json.load(open(os.path.join(APP,'tools','hsk20-words.json')))   # HSK 2.0 word lists (words only; source in ROADMAP)
 for n in range(1,7):
-    p=os.path.join(HSKDIR,f'old{n}.json')
-    if os.path.exists(p):
-        for e in json.load(open(p)): HL.setdefault(e['simplified'],n)
+    for w in _L.get(str(n),[]): HL.setdefault(w,n)
 CHL={}
 for w,n in HL.items():
     for c in w: CHL[c]=min(CHL.get(c,9),n)
@@ -164,7 +162,8 @@ for L in LS:
     inl=f.get('in',0)+f.get('below',0)
     above=f.get('above',0)+f.get('above6',0)
     unl=f.get('unlisted',0)+f.get('chars-above',0)
-    if above+unl>=0.5*n: W(f'L{L["id"]}',f'difficulty: only {inl+f.get("chars-ok",0)}/{n} words at or below HSK{L["lv"]} (above={above}, not in HSK2.0 lists/unknown={unl})')
+    hl_=(f.get('in',0)+f.get('below',0)+f.get('chars-ok',0))/n
+    if hl_<0.80: W(f'L{L["id"]}',f'in-level word % {hl_*100:.0f} < 80 (above={above}, unknown/derived-above={unl})')
 tot_e=sum(len(v) for v in errs.values());tot_w=sum(len(v) for v in warns.values())
 print(f'lessons checked: {len(LS)}  words: {sum(len(L["words"]) for L in LS)}  ERRORS: {tot_e}  WARNINGS: {tot_w}')
 for k in sorted(errs,key=lambda x:(x=='global',int(x[1:]) if x[1:].isdigit() else 0)):
@@ -177,9 +176,18 @@ byl=collections.defaultdict(collections.Counter)
 for L in LS:
     for k,v in lesson_fit[L['id']].items():
         if k not in('lv','n'): byl[L['lv']][k]+=v
-print('\nDifficulty fit per app level (words by HSK 2.0 list membership):')
+print('\nIn-level word % per lesson (headline = listed at <= lesson level, or all characters at <= level; strict = listed in HSK 2.0 list at <= level; exact = listed at exactly this level):')
+for L in LS:
+    f=lesson_fit[L['id']];n=f['n']
+    h=(f.get('in',0)+f.get('below',0)+f.get('chars-ok',0))/n;st=(f.get('in',0)+f.get('below',0))/n;ex=f.get('in',0)/n
+    L_pct=(round(h*100),round(st*100),round(ex*100))
+    lesson_fit[L['id']]['pct']=L_pct
+    if '--lessons' in args: print(f' L{L["id"]:>3} HSK{L["lv"]} headline {L_pct[0]:>3}%  strict {L_pct[1]:>3}%  exact {L_pct[2]:>3}%')
+print('\nIn-level word % per level (words by HSK 2.0 list membership):')
 for lv in sorted(byl):
-    c=byl[lv];n=sum(c.values())
-    print(f' HSK{lv}: n={n} in-level={c["in"]} below={c["below"]} above={c["above"]+c["above6"]} (HSK6={c["above6"]}) chars-ok(compound/themed)={c["chars-ok"]} chars-above={c["chars-above"]} unlisted={c["unlisted"]}')
+    c=byl[lv];n=sum(c.values());nl=sum(1 for L in LS if L['lv']==lv)
+    h=c['in']+c['below']+c['chars-ok'];st=c['in']+c['below']
+    low=sum(1 for L in LS if L['lv']==lv and lesson_fit[L['id']]['pct'][0]<80)
+    print(f' HSK{lv}: lessons={nl} words={n} headline={h/n*100:.1f}% strict={st/n*100:.1f}% exact={c["in"]/n*100:.1f}%  above={c["above"]+c["above6"]} chars-above={c["chars-above"]} unlisted={c["unlisted"]}  lessons<80%: {low}')
 if opt('--json'): json.dump({'errors':errs,'warnings':warns,'fit':lesson_fit,'byLevel':{k:dict(v) for k,v in byl.items()}},open(opt('--json'),'w'),ensure_ascii=False,indent=1)
 sys.exit(1 if tot_e else 0)

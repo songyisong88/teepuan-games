@@ -10,7 +10,7 @@ const parseSent=s=>({zh:s[0].split('/'),py:s[1].split('/'),th:s[2],full:s[0].rep
 const TM={a:'āáǎà',e:'ēéěè',i:'īíǐì',o:'ōóǒò',u:'ūúǔù',ü:'ǖǘǚǜ'};const BASEOF={};Object.keys(TM).forEach(k=>[...TM[k]].forEach((c,j)=>BASEOF[c]=[k,j+1]));
 const retone=(syl,t)=>{let o='';for(const c of syl){const b=BASEOF[c];o+=b?TM[b[0]][t-1]:c}return o};
 const SENT_CACHE={};
-function tokPool(maxLesson){const m=new Map();LESSONS.filter(l=>l.id<=maxLesson&&l.lv===lessonBy(maxLesson).lv).forEach(l=>l.sents.forEach(s=>{const z=s[0].split('/'),p=s[1].split('/');z.forEach((t,k)=>{const a=strip(t);if(a&&!m.has(a))m.set(a,pyPlain(strip(p[k]||'')))})}));return [...m].map(([zh,py])=>({zh,py}))}
+function tokPool(maxLesson){const m=new Map();lvUpTo(maxLesson).forEach(l=>l.sents.forEach(s=>{const z=s[0].split('/'),p=s[1].split('/');z.forEach((t,k)=>{const a=strip(t);if(a&&!m.has(a))m.set(a,pyPlain(strip(p[k]||'')))})}));return [...m].map(([zh,py])=>({zh,py}))}
 
 /* ----- ชนิดคำถาม ----- */
 const LET='ABCD';
@@ -50,7 +50,7 @@ function ordQ(L,k){const s=parseSent(L.sents[k]);if(s.zh.length<2)return null;le
 function matQ(ws){const seen=new Set(),ps=shuffle(ws).filter(w=>!seen.has(w.th)&&seen.add(w.th)).slice(0,4);return {w:ps[0],type:'mat',ps,right:shuffle(ps.map((_,i)=>i)),reveal:`<div class="ans">${ps.map(w=>`<div><span class="zh" style="font-size:18px">${w.zh}</span> <span style="font-size:13px">${pyHtml(w.py)}</span> = ${w.th}</div>`).join('')}</div>`}}
 
 /* ----- สร้างขั้นตอนของแต่ละรอบ ----- */
-function learnedPool(u){const L=lessonBy(u.lesson);return uniqW([...L.words,...lvLessons(L.lv).filter(l=>l.id<=L.id).flatMap(l=>l.words),...gameWords().filter(w=>w.lv===L.lv)])}
+function learnedPool(u){const L=lessonBy(u.lesson);return uniqW([...L.words,...lvUpTo(L.id).flatMap(l=>l.words),...gameWords().filter(w=>w.lv===L.lv)])}
 function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,steps=[];const Q=q=>q&&steps.push({k:'q',q});
  if(u.part===0)steps.push({k:'story',L,u});
  [ws.slice(0,4),ws.slice(4)].forEach((h,hi)=>{h.forEach(w=>steps.push({k:'c',w}));const sh=shuffle(h);

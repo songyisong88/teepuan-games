@@ -59,3 +59,11 @@
 .hm-st .pc{flex:none;width:44px;height:44px;display:grid;place-items:center;font-size:24px;background:#fff;border-radius:12px;overflow:hidden}
 .hm-st .pc .art{width:44px;height:44px}.hm-st .pc img{width:100%;height:100%;object-fit:cover}
 .hm-st .tx{flex:1;min-width:0}.hm-st .tx b{display:block;font-size:14.5px}.hm-st .tx small{display:block;font-size:12.5px;color:#7A6A52;line-height:1.35}
+
+/* เฟส H: รูปแทนอีโมจิ (เมื่อมีรูปของคำนั้น) */
+.hm-mr .me .art.has,.mis .mem .art.has{display:block;width:100%;height:100%;border-radius:inherit;overflow:hidden}.hm-mr .me .art.has img,.mis .mem .art.has img{object-fit:cover}
+.hm-tile .ti .art.has{width:52px;height:52px}.hm-tile .ti .art.has img{width:52px;height:52px;object-fit:cover}
+.rv-pic{flex:none;display:block;width:48px;height:48px;border-radius:12px;overflow:hidden;margin:0 12px 0 16px}.rv-pic img{width:100%;height:100%;object-fit:cover;display:block}
+.rv-pic+.tx{padding-left:0}
+.stk-daily .g.wp{position:relative;overflow:hidden;padding:0}.stk-daily .g.wp .art{display:block;width:100%;height:100%}.stk-daily .g.wp img{width:100%;height:100%;object-fit:cover;display:block}
+.stk-daily .g.wp i{position:absolute;right:3px;bottom:3px;font-style:normal;font-size:24px;line-height:1;background:rgba(255,255,255,.92);border-radius:9px;padding:3px 6px;color:#2A2220}

@@ -4,14 +4,15 @@ function bumpCnt(k,n=1){if(!S.life)S.life={};S.life[k]=(S.life[k]||0)+n;if(S.cnt
 const cntOf=k=>S.cnt.day===today()?(S.cnt[k]||0):0;
 
 /* ----- ภารกิจประจำวัน (หมุนเวียนวันละ 3 ข้อ) ----- */
-const MIS=[{id:'unit',t:'เรียนจบ 1 รอบ',k:'unit',n:1,em:'📖'},{id:'q',t:'ตอบถูก 10 ข้อ',k:'qok',n:10,em:'✅'},{id:'game',t:'เล่นเกม 1 ครั้ง',k:'game',n:1,em:'🎮'},{id:'ear',t:'ฟังเสียงจีน 12 ครั้ง',k:'audio',n:12,em:'🎧'},{id:'q2',t:'ตอบถูก 20 ข้อ',k:'qok',n:20,em:'🎯'},{id:'soc',t:'ท้าเพื่อนหรือส่งกำลังใจ 1 ครั้ง',k:'social',n:1,em:'💚'},{id:'tut',t:'ถามติวเตอร์ 1 คำถาม',k:'tutor',n:1,em:'💬'},{id:'pic',t:'ตอบถูกข้อดูรูป 5 ข้อ',k:'pic',n:5,em:'🖼️'}];
+const MIS=[{id:'unit',t:'เรียนจบ 1 รอบ',k:'unit',n:1,pw:'课本',em:'📖'},{id:'q',t:'ตอบถูก 10 ข้อ',k:'qok',n:10,em:'✅'},{id:'game',t:'เล่นเกม 1 ครั้ง',k:'game',n:1,pw:'游戏',em:'🎮'},{id:'ear',t:'ฟังเสียงจีน 12 ครั้ง',k:'audio',n:12,pw:'耳机',em:'🎧'},{id:'q2',t:'ตอบถูก 20 ข้อ',k:'qok',n:20,em:'🎯'},{id:'soc',t:'ท้าเพื่อนหรือส่งกำลังใจ 1 ครั้ง',k:'social',n:1,pw:'朋友',em:'💚'},{id:'tut',t:'ถามติวเตอร์ 1 คำถาม',k:'tutor',n:1,pw:'老师',em:'💬'},{id:'pic',t:'ตอบถูกข้อดูรูป 5 ข้อ',k:'pic',n:5,em:'🖼️'}];
 /* เป้าภารกิจปรับตามระดับ: ระดับสูงขึ้น ต้องตอบ/ฟังมากขึ้น (+15% ต่อระดับ) */
 const misScale=m=>{if(m.k!=='qok'&&m.k!=='audio')return m;const n=Math.round(m.n*(1+.15*(curLv()-1)));return Object.assign({},m,{n,t:m.t.replace(/\d+/,n)})};
+const misIc=m=>m.pw&&typeof picHas==='function'&&picHas({zh:m.pw})?art('word',m.pw,m.em,'mis-pic'):m.em;
 const todayMis=()=>{const t=today();return [0,2,4].map(o=>misScale(MIS[(t+o)%MIS.length]))};
 function misState(){if(S.mis.day!==today())S.mis={day:today(),got:[]};return S.mis}
 function missionsHtml(){const ms=misState(),list=todayMis(),all=list.every(m=>ms.got.includes(m.id));const nGot=ms.got.length;
  return `<div class="sec" style="display:flex;justify-content:space-between;align-items:center">ภารกิจวันนี้<span class="cap" style="font-weight:600">${nGot}/3 ${all?'· รับโบนัสแล้ว ✓':'· ครบสามได้ +25 🪙'}</span></div><div class="group">${list.map(m=>{const c=Math.min(m.n,cntOf(m.k)),done=c>=m.n,got=ms.got.includes(m.id);
-  return `<div class="row noic mis" style="min-height:64px"><span class="mem">${m.em}</span><span class="tx"><b style="font-weight:500">${m.t}</b><div class="prog" style="height:5px;margin-top:7px"><i style="width:${c/m.n*100}%"></i></div></span>${got?'<span class="val" style="color:var(--ok);font-weight:600">✓ รับแล้ว</span>':done?`<button class="chip coin press" style="margin-left:10px" data-go="mclaim" data-id="${m.id}">รับ 🪙10</button>`:`<span class="val" style="margin-left:10px">${c}/${m.n}</span>`}</div>`}).join('')}</div>`}
+  return `<div class="row noic mis" style="min-height:64px"><span class="mem">${misIc(m)}</span><span class="tx"><b style="font-weight:500">${m.t}</b><div class="prog" style="height:5px;margin-top:7px"><i style="width:${c/m.n*100}%"></i></div></span>${got?'<span class="val" style="color:var(--ok);font-weight:600">✓ รับแล้ว</span>':done?`<button class="chip coin press" style="margin-left:10px" data-go="mclaim" data-id="${m.id}">รับ 🪙10</button>`:`<span class="val" style="margin-left:10px">${c}/${m.n}</span>`}</div>`}).join('')}</div>`}
 function missionClaim(id){const ms=misState();if(ms.got.includes(id))return;ms.got.push(id);addCoins(10,true);vib([15,30]);let bonus=todayMis().every(m=>ms.got.includes(m.id));if(bonus){addCoins(25,true);confetti(80);toast('🎉 ครบทั้ง 3 ภารกิจ! โบนัส +25 เหรียญ')}else toast('+10 เหรียญ');save();refresh()}
 
 /* ----- กิจกรรมประจำวัน (สุ่มตามวัน เปิดแล้วจึงมีผล) ----- */

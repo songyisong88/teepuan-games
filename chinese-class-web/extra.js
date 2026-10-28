@@ -3,7 +3,7 @@ const PAGEH=(id,max,label)=>`<div class="hud" style="top:calc(var(--st) + 56px)"
 
 /* ----- ฝึกพูด (จำลอง: ไม่ได้ฟังเสียงจริง) ----- */
 SC.game_speak=()=>({noRefresh:true,nav:gnav('ฝึกพูด'),body:'<div class="stage" id="stage" style="padding-top:calc(var(--st) + 100px)"></div>',extra:PAGEH('sk',5,'คำที่'),
- mount(el){gameQuit(el);const ws=pickN(gameWords(),5),stage=$('#stage',el);let i=0,sum=0,busy=false,alive=true,sc=0;
+ mount(el){gameQuit(el);const ws=pickN(gw4(),5),stage=$('#stage',el);let i=0,sum=0,busy=false,alive=true,sc=0;
   function show(){busy=false;sc=0;const w=ws[i];$('#skn',el).textContent=i+1;$('#skp',el).style.width=i/5*100+'%';
    stage.innerHTML=`<div class="center fade-in"><div style="width:120px;height:120px;margin:0 auto -6px">${M('speaking')}</div><div class="cap">พูดตาม${MASCOT_NAME}</div>
     <div class="bigzh zh" style="font-size:${w.zh.length>2?64:88}px">${w.zh}</div><div style="font-size:26px;font-weight:500">${pyHtml(w.py)}</div><div style="font-size:19px;font-weight:600;margin-top:6px">${w.th}</div>
@@ -19,7 +19,7 @@ SC.game_speak=()=>({noRefresh:true,nav:gnav('ฝึกพูด'),body:'<div cla
 
 /* ----- ฝึกฟัง ----- */
 SC.game_listen=()=>({noRefresh:true,nav:gnav('ฝึกฟัง'),body:'<div class="stage" id="stage" style="padding-top:calc(var(--st) + 100px)"></div>',extra:PAGEH('ls',6,'ข้อ'),
- mount(el){gameQuit(el);const words=gameWords(),qs=pickN(words,6).map(w=>makeQ(w,'audio',words)),stage=$('#stage',el);let i=0,ok=0,lock=false,alive=true;
+ mount(el){gameQuit(el);const words=gw4(),qs=pickN(words,6).map(w=>makeQ(w,'audio',words)),stage=$('#stage',el);let i=0,ok=0,lock=false,alive=true;
   function show(){lock=false;$('#lsn',el).textContent=i+1;$('#lsp',el).style.width=i/6*100+'%';stage.innerHTML=`<div style="width:120px;height:120px;margin:0 auto -14px">${M('listening')}</div>`+qHtml(qs[i]);stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');const a=$('[data-auto]',stage);if(a)setTimeout(()=>alive&&speak(qs[i].w.zh,a),350)}
   stage.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock||!alive)return;lock=true;const q=qs[i],k=+o.dataset.i,good=k===q.ans;$$('.opt',stage).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===k)x.classList.add('bad')});
    if(good){ok++;vib(10);floatXp('+3 XP',o)}else{addMistake(q.w);vib([25,30,25])}
@@ -32,7 +32,7 @@ SC.game_boss=()=>({noRefresh:true,nav:gnav('บอสหมึกยักษ์
  extra:`<div class="hud" style="top:calc(var(--st) + 52px);flex-direction:column;align-items:stretch;gap:5px"><div style="display:flex;justify-content:space-between"><span class="cap">บอสหมึกยักษ์ · ห้องช่วยกันตี</span><b id="bhp" style="font-size:14px"></b></div><div class="prog"><i id="bbar" style="background:#7B4BC4;width:100%"></i></div></div>`,
  mount(el){gameQuit(el);const B=S.boss;if(B.hp<=0&&B.day!==today())B.hp=B.max=260;const stage=$('#stage',el);
   if(B.hp<=0){$('#bhp',el).textContent='0/'+B.max;$('#bbar',el).style.width='0';stage.innerHTML=`<div class="center fade-in"><div style="width:200px;height:170px;margin:0 auto;filter:grayscale(.6)">${M('boss')}</div><div class="large" style="padding:4px 0">บอสพ่ายแล้ว!</div><p class="cap" style="padding:0 30px">ห้องของเราชนะแล้ววันนี้ พรุ่งนี้บอสตัวใหม่จะมา</p><div class="pad mt20"><button class="pill press" data-sa="gquit"><b>กลับ</b></button></div></div>`;this.stop=()=>{};return}
-  const words=gameWords(),qs=pickN(words,8).map((w,i)=>makeQ(w,['zh2th','th2zh'][i%2],words));let hp=B.hp,i=0,mine=0,combo=0,lock=false,alive=true;
+  const words=gw4(),qs=pickN(words,8).map((w,i)=>makeQ(w,['zh2th','th2zh'][i%2],words));let hp=B.hp,i=0,mine=0,combo=0,lock=false,alive=true;
   const NAMES=['พี่ต้น','น้องฝน','พี่เจน','น้องบอส'];
   const hud=()=>{$('#bhp',el).textContent=Math.max(0,hp)+'/'+B.max;$('#bbar',el).style.width=Math.max(0,hp)/B.max*100+'%'};
   const hit=(n)=>{const b=$('#bimg',el);if(!b)return;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake')};

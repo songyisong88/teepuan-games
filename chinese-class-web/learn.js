@@ -10,7 +10,7 @@ const parseSent=s=>({zh:s[0].split('/'),py:s[1].split('/'),th:s[2],full:s[0].rep
 const TM={a:'āáǎà',e:'ēéěè',i:'īíǐì',o:'ōóǒò',u:'ūúǔù',ü:'ǖǘǚǜ'};const BASEOF={};Object.keys(TM).forEach(k=>[...TM[k]].forEach((c,j)=>BASEOF[c]=[k,j+1]));
 const retone=(syl,t)=>{let o='';for(const c of syl){const b=BASEOF[c];o+=b?TM[b[0]][t-1]:c}return o};
 const SENT_CACHE={};
-function tokPool(maxLesson){const m=new Map();LESSONS.filter(l=>l.id<=maxLesson).forEach(l=>l.sents.forEach(s=>{const z=s[0].split('/'),p=s[1].split('/');z.forEach((t,k)=>{const a=strip(t);if(a&&!m.has(a))m.set(a,pyPlain(strip(p[k]||'')))})}));return [...m].map(([zh,py])=>({zh,py}))}
+function tokPool(maxLesson){const m=new Map();LESSONS.filter(l=>l.id<=maxLesson&&l.lv===lessonBy(maxLesson).lv).forEach(l=>l.sents.forEach(s=>{const z=s[0].split('/'),p=s[1].split('/');z.forEach((t,k)=>{const a=strip(t);if(a&&!m.has(a))m.set(a,pyPlain(strip(p[k]||'')))})}));return [...m].map(([zh,py])=>({zh,py}))}
 
 /* ----- ชนิดคำถาม ----- */
 const LET='ABCD';
@@ -50,7 +50,7 @@ function ordQ(L,k){const s=parseSent(L.sents[k]);if(s.zh.length<2)return null;le
 function matQ(ws){const ps=shuffle(ws).slice(0,4);return {w:ps[0],type:'mat',ps,right:shuffle(ps.map((_,i)=>i)),reveal:`<div class="ans">${ps.map(w=>`<div><span class="zh" style="font-size:18px">${w.zh}</span> <span style="font-size:13px">${pyHtml(w.py)}</span> = ${w.th}</div>`).join('')}</div>`}}
 
 /* ----- สร้างขั้นตอนของแต่ละรอบ ----- */
-function learnedPool(u){const L=lessonBy(u.lesson);const ws=[...gameWords(),...L.words];return ws.filter((w,i)=>ws.findIndex(x=>x.zh===w.zh)===i)}
+function learnedPool(u){const L=lessonBy(u.lesson);return uniqW([...L.words,...lvLessons(L.lv).filter(l=>l.id<=L.id).flatMap(l=>l.words),...gameWords().filter(w=>w.lv===L.lv)])}
 function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,steps=[];const Q=q=>q&&steps.push({k:'q',q});
  if(u.part===0)steps.push({k:'story',L,u});
  [ws.slice(0,4),ws.slice(4)].forEach((h,hi)=>{h.forEach(w=>steps.push({k:'c',w}));const sh=shuffle(h);
@@ -66,7 +66,7 @@ function cardHtml(w,n,t){return `<div class="center"><div class="cap" style="let
  <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div><div style="font-size:27px;font-weight:600;margin-top:8px;padding:0 20px">${w.th}</div>
  <button class="audio press" data-act="audio" data-t="${w.zh}" style="margin-top:14px">${SPK}</button>
  <div class="hint"><span class="hb">อ่านแบบไทย</span><b>${w.h}</b><span class="cap">(ใกล้เคียง · ฟังเสียงจริงอีกที)</span></div></div>
- <div class="mnemo"><span class="mi">💡</span><span>${w.mn}</span></div>
+ <div class="mnemo"><span class="mi">💡</span><span><b>ตัวช่วยจำ:</b> ${w.mn}</span></div>
  <div class="card exc" style="margin-top:16px"><div style="position:absolute;right:6px;top:-70px;width:78px;height:78px">${M('teach')}</div>
  <div class="zh" style="font-size:22px;line-height:1.35">${zhHtml(w.ex,w.exPy)}</div><div style="font-size:13.5px;margin-top:3px;font-weight:500">${pyHtml(w.exPy)}</div><div style="font-size:15.5px;margin-top:5px;color:var(--sub2)">${w.exTh}</div>
  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">${spkBtn(w.ex,'','ฟังประโยค')}<button class="cap press" data-sa="rep" data-z="${w.zh}">แจ้งข้อผิด</button></div></div>`}
@@ -87,6 +87,7 @@ const sessExtra='<div class="dock" id="dock"></div><div class="fb" id="fb"></div
 function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,run=0,locked=false,wrong=[],log=[],retries=0;
  const stage=$('#stage',el),dock=$('#dock',el),fb=$('#fb',el),pg=$('#pg',el),pc=$('#pc',el),nCards=steps.filter(s=>s.k==='c').length;let cardN=0,qTotal=steps.filter(s=>s.k==='q').length,cur=null;
  const mas=pose=>{const m=$('#qm',stage);if(m)m.innerHTML=M(pose)};
+ window.__cnCur=()=>({s:cur,left:steps.length-i,locked,ord:ordState});
  function show(){fb.classList.remove('show');locked=false;const s=steps[i];cur=s;pg.style.width=(i/steps.length*100)+'%';pc.textContent=(i+1)+' / '+steps.length;dock.innerHTML='';
   if(s.k==='c'){cardN++;stage.innerHTML=cardHtml(s.w,cardN,nCards);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป</button>`;setTimeout(()=>speak(s.w.zh),400)}
   else if(s.k==='story'){stage.innerHTML=storyHtml(s.L,s.u);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ลุยเลย!</button>`}
@@ -139,7 +140,7 @@ SC.lesson=({uid})=>{const u=unitBy(uid);
 function finishUnit(u,res){const first=!unitDone(u.id);const ratio=res.correct/Math.max(1,res.total);const stars=ratio>=.9?3:ratio>=.65?2:1;const L=lessonBy(u.lesson);
  let xp=res.correct*10+10,coins=5+res.correct*2;if(!first){xp=Math.round(xp/2);coins=Math.round(coins/2)}
  const wasLessonDone=isDone(L.id);if(first)S.parts.push(u.id);S.stars[u.id]=Math.max(S.stars[u.id]||0,stars);
- const wasFirstToday=S.lastDay!==today();const before=coins;addCoins(coins);const xpGot=addXp(xp)||xp;save();bumpCnt('unit',1);
+ const wasFirstToday=S.lastDay!==today();xp=evX(xp);coins=evC(coins);addCoins(coins,true);addXp(xp,null,true);save();bumpCnt('unit',1);
  const newCm=!wasLessonDone&&isDone(L.id)?CLASSMATES.find(c=>c.by==='lesson:'+L.id):null;if(newCm&&!S.seenCm.includes(newCm.id)){S.seenCm.push(newCm.id);save()}
  const nu=nextUnit();buddyTick();
  replace('complete',{u,L,res,xp,coins,stars,first,newWords:first?u.words.length:0,streakNew:wasFirstToday,newCm,nu,evMul:eventXpNote()})}
@@ -170,23 +171,13 @@ SC.review=()=>{const ws=mistakeWords();return {title:'ทบทวนข้อ�
 document.addEventListener('click',e=>{if(e.target.closest('[data-act=reviewgo]'))push('rsession')});
 SC.rsession=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},mount(el){
  const ws=shuffle(mistakeWords()).slice(0,6);if(!ws.length){pop();return}const types=['zh2th','th2zh','audio'];
- session(el,ws.map((w,i)=>({k:'q',q:makeQ(w,types[i%3],ALLW)})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ยังต้องทบทวน',mistakeWords().length]],back:'review'})},{review:true})}});
+ session(el,ws.map((w,i)=>({k:'q',q:makeQ(w,types[i%3],gw4())})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ยังต้องทบทวน',mistakeWords().length]],back:'review'})},{review:true})}});
 
 /* ----- แผนที่การเดินทาง ----- */
 function nodeHtml(u,cur){const done=unitDone(u.id),open=unitOpen(u.id),isCur=cur&&cur.id===u.id;
  return `<button class="jn press" data-go="unit" data-id="${u.id}"><div class="nd ${done?'done':isCur?'cur':open?'':'lock'}">${done?CHECK:open?(u.part+1):LOCK}</div>${isCur?`<div class="jllama">${M('wave')}</div>`:''}<small>${done?'⭐'.repeat(S.stars[u.id]||1):'รอบ '+(u.part+1)}</small></button>`}
 function cmNode(L){const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);if(!cm)return '';const on=cmUnlocked(cm);return `<button class="jn press" data-go="cm" data-id="${cm.id}"><div class="nd cmn ${on?'on':''}" style="${on?`border-color:${cm.c}`:''}">${cmImg(cm,on)}</div><small>${on?cm.n:'เพื่อนใหม่ ?'}</small></button>`}
-SC.path=()=>{const cur=nextUnit();const dn=doneUnitCount();const chs=CHAPTERS.map(ch=>{const ls=LESSONS.filter(l=>l.chapter===ch.id);const total=ls.length*2,dn2=ls.reduce((a,l)=>a+(unitDone(l.id+'a')?1:0)+(unitDone(l.id+'b')?1:0),0);
-  return `<div class="chap fade-in" style="background:${ch.bg}"><div><div class="cap">ตอนที่ ${ch.id}</div><b>${ch.th}</b> <span class="zh">${ch.zh}</span><div class="cap" style="margin-top:2px">${ch.sub}</div><div class="prog mt8" style="background:rgba(0,0,0,.08)"><i style="width:${dn2/total*100}%"></i></div></div><span class="chem">${ch.emoji}</span></div>`+
-  ls.map(L=>{const us=UNITS.filter(u=>u.lesson===L.id);const dnL=us.filter(u=>unitDone(u.id)).length;return `<div class="lcard card"><div class="lhead"><span class="le">${L.emoji}</span><div style="flex:1"><div class="cap">บทที่ ${L.id}</div><b>${L.th}</b> <span class="zh" style="color:var(--sub2)">${L.zh}</span></div><span class="cap" style="font-weight:600">${dnL}/2</span></div>
-   <div class="jrow"><div class="jline"></div>${us.map(u=>nodeHtml(u,cur)).join('')}${cmNode(L)}</div></div>`}).join('')}).join('');
- const tigr=CLASSMATES.find(c=>c.by==='duel');
- return {title:'บทเรียน',body:`<div class="large">แผนที่ผจญภัย</div><p class="cap" style="padding:2px 20px 0">${MASCOT_NAME}กำลังเดินทางไปกับเพื่อน ๆ — ทุกบทจะได้เพื่อนใหม่</p>
- <div class="group mt16">${ROW('#FDF3E6','📝','ทบทวนข้อผิด',Object.keys(S.mistakes).length?Object.keys(S.mistakes).length+' คำรอทบทวน':'ยังไม่มี','', 'data-go="review"')}
- ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placed?'เคยทดสอบแล้ว · ทำใหม่ได้':'ไม่แน่ใจว่าควรเริ่มตรงไหน? ลอง 10 ข้อ',undefined,'data-go="placement"')}
- ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}</div>
- <div class="mapw">${chs}</div>
- <div class="group" style="opacity:.6;margin-top:6px">${ROW('#EFE8DE',M('brush'),'ตอนที่ 3 · ครอบครัวและเมือง','เร็ว ๆ นี้ (ตัวอย่างทดลอง)',LOCK.replace('<svg','<svg width="18" height="18" style="color:#B9B0A6"'))}</div>${DEMO}`}};
+/* SC.path อยู่ใน levels.js (แผนที่ต่อระดับ HSK) */
 function unitSheet(id){const u=unitBy(id),L=lessonBy(u.lesson),done=unitDone(id),open=unitOpen(id);
  openSheet(`<div style="padding:0 20px"><div class="cap">บทที่ ${L.id} · รอบ ${u.part+1}/2</div><div style="font-size:24px;font-weight:700">${L.th} <span class="zh" style="font-weight:400">${L.zh}</span></div>
  <div class="group mt12" style="margin:14px 0 0">${u.words.map(w=>`<div class="row noic" style="min-height:52px"><span class="tx"><b style="font-weight:500"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;<span style="font-size:13px">${pyHtml(w.py)}</span></b></span><span class="val">${open?w.th:'?'}</span></div>`).join('')}</div>

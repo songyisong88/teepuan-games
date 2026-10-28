@@ -20,7 +20,7 @@ function tutorReplySim(m,ctx){m=(m||'').trim();const k=sh(m);
  if(/สวัสดี|หวัดดี|hello|hi\b/i.test(m)){const w=wordBy('你好');return {html:`สวัสดีครับ! ภาษาจีนทักทายว่า <b>${tzh('你好','nǐ hǎo')}</b> ${spkBtn('你好')} ลองพูดตามดูนะ`,say:'你好'}}
  if(/ขอบคุณ/.test(m)){const w=wordBy('谢谢');if(w)return {html:tutorWordHtml(w)}}
  if(/ลา|บาย|ไปก่อน/.test(m)&&/จีน|พูด/.test(m)){const w=wordBy('再见');if(w)return {html:tutorWordHtml(w)}}
- if(/สุ่ม|คำศัพท์|ทวน|ขอคำ/.test(m)){const pool=gameWords().length?gameWords():ALLW;const w=pool[Math.random()*pool.length|0];return {html:`คำสุ่มวันนี้!<br>${tutorWordHtml(w)}`}}
+ if(/สุ่ม|คำศัพท์|ทวน|ขอคำ/.test(m)){const pool=gw4();const w=pool[Math.random()*pool.length|0];return {html:`คำสุ่มวันนี้!<br>${tutorWordHtml(w)}`}}
  const zhs=[...m].filter(c=>/[\u4e00-\u9fff]/.test(c)).join('');
  if(zhs){const ws=ALLW.filter(w=>zhs.includes(w.zh)||w.zh===zhs).sort((a,b)=>b.zh.length-a.zh.length);
   if(ws.length){return {html:(ws.length>1&&ws[0].zh!==zhs?`ในประโยคนี้มีคำที่เราเรียนไปแล้ว ${ws.length} คำ:<br>`:'')+ws.slice(0,2).map(tutorWordHtml).join('<hr style="border:0;border-top:.5px solid rgba(0,0,0,.1);margin:8px 0">')}}
@@ -35,10 +35,10 @@ SC.tutor=()=>({title:'ติวเตอร์ AI',noRefresh:true,unmount(){stop
  <div class="tchips" id="tchips"></div>
  <form class="tform" id="tf" autocomplete="off"><input id="ti" type="text" placeholder="พิมพ์คำจีน คำไทย หรือประโยคที่อยากตรวจ…" enterkeyhint="send" aria-label="ข้อความถึงติวเตอร์"><button class="tsend press" aria-label="ส่ง">↑</button></form>`,
  mount(el){const tc=$('#tc',el),chips=$('#tchips',el),ti=$('#ti',el);let rp=null,busy=false;
-  const bub=(me,h)=>{tc.insertAdjacentHTML('beforeend',`<div class="tm ${me?'me':'bot'} fade-in">${me?'':`<span class="tav2">${M('teacher')}</span>`}<div class="tb">${h}</div></div>`);setTimeout(()=>{tc.scrollTop=tc.scrollHeight},30)};
+  const bub=(me,h)=>{tc.insertAdjacentHTML('beforeend',`<div class="tm ${me?'me':'bot'} fade-in">${me?'':`<span class="tav2">${M('teacher')}</span>`}<div class="tb">${h}</div></div>`);setTimeout(()=>{const sc=tc.closest('.scroller');if(sc)sc.scrollTop=sc.scrollHeight},30)};
   const setChips=a=>{chips.innerHTML=a.map(c=>`<button class="tchip press" data-q="${c}">${c}</button>`).join('')};
   const base=['ขอคำศัพท์สุ่ม','ลองสนทนา','แก้ประโยคให้หน่อย','วรรณยุกต์ยากจัง'];
-  const typing=()=>{tc.insertAdjacentHTML('beforeend','<div class="tm bot" id="ty"><span class="tav2">'+M('think')+'</span><div class="tb"><span class="dots"><i></i><i></i><i></i></span></div></div>');tc.scrollTop=tc.scrollHeight};
+  const typing=()=>{tc.insertAdjacentHTML('beforeend','<div class="tm bot" id="ty"><span class="tav2">'+M('think')+'</span><div class="tb"><span class="dots"><i></i><i></i><i></i></span></div></div>');const sc=tc.closest('.scroller');if(sc)sc.scrollTop=sc.scrollHeight};
   async function ask(t){if(busy)return;busy=true;bub(true,t.replace(/</g,'&lt;'));S.tutorN++;bumpCnt('tutor',1);save();vib(6);chips.innerHTML='';typing();
    const r=await TUTOR_ADAPTER(t,{});await new Promise(o=>setTimeout(o,650));$('#ty',tc)&&$('#ty',tc).remove();bub(false,r.html);if(r.say)setTimeout(()=>speak(r.say),400);
    if(r.act==='rp'){rpStart()}else{if(r.act==='tones')bub(false,`<button class="pill sm press" data-go="tones">เปิดหน้าวรรณยุกต์ + ฝึกฟัง</button>`);setChips(r.chips||base)}busy=false}

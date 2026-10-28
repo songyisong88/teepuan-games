@@ -1,6 +1,6 @@
 /* ข้อมูลบทเรียน + สถานะ (localStorage) — ตัวอย่างทดลอง */
-/* เนื้อหา LESSONS / CHAPTERS / CLASSMATES / TONE_GUIDE อยู่ใน content.js */
-LESSONS.forEach(l=>l.words.forEach(w=>w.lesson=l.id));
+/* เนื้อหา LESSONS / CHAPTERS / LEVELS / CLASSMATES / TONE_GUIDE อยู่ใน data/common.js และ data/hskN.js */
+LESSONS.forEach(l=>{l.lv=(CHAPTERS.find(c=>c.id===l.chapter)||{lv:1}).lv;l.words.forEach(w=>{w.lesson=l.id;w.lv=l.lv})});
 const ALLW=LESSONS.flatMap(l=>l.words);
 const wordBy=zh=>ALLW.find(w=>w.zh===zh);
 
@@ -15,7 +15,7 @@ function zhHtml(zh,py){const sy=py.split(/[| ]/).filter(Boolean);let i=0,o='';fo
 const KEY='lama-cn-web-demo-v2';
 const defState=()=>({name:'มินท์',xp:0,coins:20,streak:0,lastDay:-99,xpDay:{},shift:0,goal:20,parts:[],stars:{},mistakes:{},coinsEarned:0,
  chestDay:-99,spinDay:-99,own:['flower'],eq:{hat:null,face:null},invited:0,inviteCode:'LAMA-'+Math.random().toString(36).slice(2,6).toUpperCase(),
- remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
+ remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,level:1,assume:0,lvPicked:false,placeRes:null,placeHist:[],gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
  freezes:1,buddy:null,cnt:{day:-99},mis:{day:-99,got:[]},evDay:-99,evId:'',evGot:-99,comebackDay:-99,freezeUsed:-99,inviteGot:[],
  seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{}});
 let S;
@@ -27,18 +27,29 @@ const curStreak=()=>S.lastDay>=today()-1?S.streak:0;
 const weekXp=()=>{let t=today(),s=0;for(let i=0;i<7;i++)s+=dayXp(t-i);return s};
 const level=()=>Math.floor(S.xp/100)+1;
 function touchStreak(){const t=today();if(S.lastDay===t)return false;S.streak=S.lastDay===t-1?S.streak+1:1;S.lastDay=t;return true}
-/* หน่วยเรียน: 1 บท = 2 รอบ (a = คำ 1–8, b = คำ 9–16 + บทสนทนา) */
-const UNITS=LESSONS.flatMap(L=>[{id:L.id+'a',lesson:L.id,part:0,words:L.words.slice(0,8)},{id:L.id+'b',lesson:L.id,part:1,words:L.words.slice(8)}]);
+/* หน่วยเรียน: 1 บท = 2 รอบ (a = คำ 1–8, b = คำ 9–16 + บทสนทนา) · ลำดับเรียนนับแยกตามระดับ HSK */
+const UNITS=LESSONS.flatMap(L=>[{id:L.id+'a',lesson:L.id,lv:L.lv,part:0,words:L.words.slice(0,8)},{id:L.id+'b',lesson:L.id,lv:L.lv,part:1,words:L.words.slice(8)}]);
 const unitBy=id=>UNITS.find(u=>u.id===id);
 const lessonBy=id=>LESSONS.find(l=>l.id===id);
 const unitDone=id=>S.parts.includes(id);
 const isDone=lid=>unitDone(lid+'a')&&unitDone(lid+'b');
-const nextUnit=()=>UNITS.find(u=>!unitDone(u.id))||null;
+const curLv=()=>LEVELS.some(l=>l.id===S.level)?S.level:1;
+const lvUnits=n=>UNITS.filter(u=>u.lv===n);
+const lvLessons=n=>LESSONS.filter(l=>l.lv===n);
+const lvWords=n=>lvLessons(n).reduce((a,l)=>a+l.words.length,0);
+/* สถานะของระดับ: มีกี่บท กี่คำ เทียบเป้าหมาย HSK ทำไปกี่รอบ */
+function lvInfo(n){const L=levelBy(n),us=lvUnits(n),w=lvWords(n),dn=us.filter(u=>unitDone(u.id)).length;
+ return {L,lessons:lvLessons(n).length,words:w,target:L.target,units:us.length,done:dn,pct:us.length?dn/us.length:0,complete:w>=L.target,empty:!us.length}}
+const nextUnit=(n=curLv())=>lvUnits(n).find(u=>!unitDone(u.id))||null;
 const nextLesson=()=>{const u=nextUnit();return u?lessonBy(u.lesson):null};
-const unitOpen=id=>{const k=UNITS.findIndex(u=>u.id===id);return k<=0||unitDone(UNITS[k-1].id)};
+const unitOpen=id=>{const u=unitBy(id),us=lvUnits(u.lv),k=us.findIndex(x=>x.id===id);return k<=0||unitDone(us[k-1].id)};
 const doneUnitCount=()=>S.parts.length;
-const gameWords=()=>UNITS.filter(u=>unitDone(u.id)).flatMap(u=>u.words);
+/* คำที่ถือว่า “รู้แล้ว” = คำจากรอบที่เรียนจบ + คำจากระดับต่ำกว่าที่ผู้เรียนบอกว่ารู้แล้ว (S.assume) */
+const uniqW=ws=>{const m=new Set();return ws.filter(w=>!m.has(w.zh)&&m.add(w.zh))};
+const gameWords=()=>uniqW([...UNITS.filter(u=>unitDone(u.id)||u.lv<=S.assume).flatMap(u=>u.words)]);
+const gw4=()=>{const g=gameWords();return g.length>=4?g:uniqW([...g,...(lvLessons(curLv())[0]||LESSONS[0]).words])};
 const learnedCount=()=>gameWords().length;
+const lvBadge=()=>`<span class="chip lvchip press" data-go="levels" aria-label="ระดับของฉัน">${levelBy(curLv()).name}</span>`;
 function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;save()}
 function fixMistake(w){if(w&&S.mistakes[w.zh]){S.mistakes[w.zh]--;if(S.mistakes[w.zh]<=0)delete S.mistakes[w.zh];save()}}
 const mistakeWords=()=>Object.keys(S.mistakes).map(wordBy).filter(Boolean);

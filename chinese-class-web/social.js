@@ -36,13 +36,13 @@ SC.group=({i})=>{const g=GROUPS[i];return {title:g.n,noRefresh:true,body:`<div s
  <div class="pad mt12"><button class="pill sm row1 press" id="qz">พิมพ์ /quiz ในกลุ่ม</button></div><div id="gq" class="mt16"></div>${DEMO}`,
  mount(el){const gc=$('#gc',el),gq=$('#gq',el);const msg=(me,n,h,c='#5B86C4')=>{gc.insertAdjacentHTML('beforeend',`<div class="gm ${me?'me':''}">${me?'':`<span class="av" style="background:${c}">${n[0]}</span>`}<div>${me?'':`<div class="nm">${n}</div>`}<div class="b">${h}</div></div></div>`);gc.scrollTo({top:9e4,behavior:'smooth'})};
   
-  function gday(){const pool2=gameWords().length>=4?gameWords():ALLW,done=S.gqDay===today();const goalNow=2400+today()%5*40,have=Math.round(goalNow*.62)+dayXp()*3,pct=Math.min(1,have/goalNow);
+  function gday(){const pool2=gw4(),done=S.gqDay===today();const goalNow=2400+today()%5*40,have=Math.round(goalNow*.62)+dayXp()*3,pct=Math.min(1,have/goalNow);
    $('#gday',el).innerHTML=`<button class="card pad2 press" data-sa="gq" style="display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin-bottom:10px"><span style="width:56px;height:56px;flex:none">${M(done?'correct':'think')}</span><span style="flex:1"><b>ควิซประจำวันของห้อง</b><small style="display:block;color:var(--sub2);font-size:13px;margin-top:2px">${done?'ตอบแล้ววันนี้ ✓ พรุ่งนี้มีข้อใหม่':'บอทปักหมุดไว้ในกลุ่ม · ตอบข้อเดียว +10 XP'}</small></span><span class="chip" style="height:28px;padding:0 12px;font-size:12.5px">${done?'ดูผล':'ตอบเลย'}</span></button>
    <div class="card pad2"><div style="display:flex;justify-content:space-between;font-size:14px"><b>เป้าหมายห้องวันนี้</b><span class="cap" style="font-weight:600">${have}/${goalNow} XP</span></div><div class="prog mt8"><i style="width:${pct*100}%;background:#06C755"></i></div><div class="cap mt8">${pct>=1?'ทั้งห้องทำสำเร็จ! 🎉':`ทุก XP ที่คุณเรียนช่วยห้อง · เหลืออีก ${goalNow-have} XP`}</div></div>`}
-  gday();$('#gday',el).onclick=e=>{if(!e.target.closest('[data-sa=gq]'))return;const pool2=gameWords().length>=4?gameWords():ALLW;const w=pool2[(today()*7)%pool2.length],q=makeQ(w,'zh2th',pool2);let answered=S.gqDay===today();
+  gday();$('#gday',el).onclick=e=>{if(!e.target.closest('[data-sa=gq]'))return;const pool2=gw4();const w=pool2[(today()*7)%pool2.length],q=makeQ(w,'zh2th',pool2);let answered=S.gqDay===today();
    openSheet(`<div style="padding:0 20px"><div class="cap">ควิซประจำวัน · ${g.n}</div><div class="h2">${answered?'ห้องเราตอบถูก 78% วันนี้':'ตอบข้อเดียวให้ห้อง'}</div><div id="gqq">${qHtml(q)}</div><p class="cap center mt12">สัดส่วนของห้องเป็นตัวเลขจำลอง</p></div>`,{onMount:sh=>{$('#gqq',sh).onclick=ev=>{const o=ev.target.closest('.opt');if(!o||answered)return;answered=true;const ok=+o.dataset.i===q.ans;$$('.opt',sh).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===+o.dataset.i)x.classList.add('bad')});
      S.gqDay=today();save();if(ok){addXp(10);vib(10);confetti(40)}else{addMistake(q.w);vib([25,30,25])}addCoins(5);toast(ok?'ถูกต้อง! +10 XP +5 เหรียญ':'ไม่เป็นไร ได้เหรียญร่วมสนุก +5');$('.h2',sh).textContent=ok?'เยี่ยม! ห้องเราตอบถูก 78%':'ห้องเราตอบถูก 78% — ลองใหม่พรุ่งนี้';setTimeout(gday,300)}}})};
-  const pool=gameWords().length>=4?gameWords():ALLW;let busy=false;
+  const pool=gw4();let busy=false;
   $('#qz',el).onclick=()=>{if(busy)return;busy=true;$('#qz',el).disabled=true;vib(8);msg(true,'',' /quiz');setTimeout(()=>msg(false,MASCOT_NAME+' (บอทครู)','เริ่มควิซสด! ตอบเร็วและถูกได้คะแนนมากกว่า 🏁','#C8102E'),500);setTimeout(startQ,1200)};
   function startQ(){const qs=shuffle(pool).slice(0,3).map((w,k)=>makeQ(w,['zh2th','th2zh','zh2th'][k],pool));const mates=FRIENDS.slice(0,4).map(f=>({n:f.n,c:f.c,s:0}));const you={n:'คุณ',c:'#C8102E',s:0};let k=0,lock=false;
    const rk=()=>[...mates,you].sort((a,b)=>b.s-a.s).map((p,x)=>`<div class="lrow ${p===you?'me':''}" style="height:46px"><span class="rk">${x+1}</span><b style="flex:1;font-weight:${p===you?700:500}">${p.n}</b><span class="val" style="font-weight:600;color:var(--ink)">${p.s}</span></div>`).join('');
@@ -68,6 +68,9 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
  <div class="card pad2 mt12 fade-in" style="display:flex;gap:14px;align-items:center"><div style="width:96px;height:96px;border-radius:50%;background:var(--redsoft);overflow:hidden;flex:none;display:flex;align-items:flex-end;justify-content:center">${llama('wave',92,{acc:true,style:'margin-top:8px'})}</div>
   <div style="flex:1;min-width:0"><b style="font-size:20px">${S.name}</b><div class="cap">เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
  <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>คำที่เรียน</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
+ <div class="sec">ระดับการเรียน</div><div class="group">
+  ${ROW(levelBy(curLv()).bg,levelBy(curLv()).em,'ระดับของฉัน: '+levelBy(curLv()).name,levelBy(curLv()).th+(lvInfo(curLv()).complete?'':' · กำลังเพิ่มเนื้อหา'),'<span class="val">เปลี่ยน</span>'+CHEV,'data-go="levels"')}
+  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?'ผลล่าสุด ≈ HSK '+S.placeRes.est+' · ทำใหม่ได้':'12–20 ข้อ ไม่บังคับ',undefined,'data-go="placement"')}</div>
  <div class="sec">บัญชีและแผน</div><div class="group">
   ${ROW('#FDECEC','⭐','แผนและราคา','ตัวอย่างทดลอง · ไม่มีการชำระเงิน',`<span class="val">${PLANS.find(p=>p.id===S.plan).n}</span>${CHEV}`,'data-go="plans"')}
   ${ROW('#FDF3E6','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,undefined,'data-go="shop"')}
@@ -77,8 +80,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}
   ${ROW('#E7F8EE','🤖','ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย',undefined,'data-go="tutor"')}
   ${ROW('#FDF3E6','🍵','เรียนพร้อมกัน','ห้องอ่านหนังสือจับเวลา',undefined,'data-go="study"')}
-  ${ROW('#EAF1FB','📊','สรุปสัปดาห์ของฉัน','การ์ดสรุปไว้แชร์ใน LINE',undefined,'data-go="recap"')}
-  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placed?'เคยทดสอบแล้ว':'10 ข้อ ใช้เวลา 2 นาที',undefined,'data-go="placement"')}</div>
+  ${ROW('#EAF1FB','📊','สรุปสัปดาห์ของฉัน','การ์ดสรุปไว้แชร์ใน LINE',undefined,'data-go="recap"')}</div>
  <div class="sec">ตั้งค่า</div><div class="group">
   <div class="row"><span class="ic" style="background:#E7F8EE">🔔</span><span class="tx"><b>เตือนให้เรียนทุกวัน</b><small>ผ่าน LINE OA (จำลอง)</small></span><button class="sw ${S.remind?'on':''}" data-sa="remind" aria-label="เตือน"></button></div>
   <button class="row press" data-sa="goal"><span class="ic" style="background:#EAF1FB">🎯</span><span class="tx"><b>เป้าหมายต่อวัน</b><small>แตะเพื่อเปลี่ยน</small></span><span class="val">${S.goal} XP</span>${CHEV}</button></div>

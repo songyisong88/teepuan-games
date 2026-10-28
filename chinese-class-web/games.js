@@ -27,7 +27,7 @@ function gameQuit(el){el.addEventListener('click',e=>{if(e.target.closest('[data
 
 /* ----- จับคำ ----- */
 SC.game_catch=()=>({noRefresh:true,nav:gnav('จับคำ'),body:'',extra:`<div class="hud"><div class="lives" id="lv"></div><div class="score" id="sc"></div></div><div class="target" id="tg"></div><div class="arena" id="ar"></div>`,
- mount(el){gameQuit(el);const words=gameWords(),ar=$('#ar',el);let lives=3,score=0,round=0,raf=0,alive=true,tw=null,t0=0,dur=6000,bubs=[],lock=false;const MAXR=12;
+ mount(el){gameQuit(el);const words=gw4(),ar=$('#ar',el);let lives=3,score=0,round=0,raf=0,alive=true,tw=null,t0=0,dur=6000,bubs=[],lock=false;const MAXR=12;
   const hud=()=>{$('#lv',el).textContent='❤️'.repeat(lives)+'🤍'.repeat(3-lives);$('#sc',el).textContent='คะแนน '+score+' / '+MAXR};
   function end(){alive=false;cancelAnimationFrame(raf);const xp=score*3,coins=score;gameEnd(el,'catch',score,{xp,coins,mascot:score>=8?'celebrate':'wrong',sub:`จับถูก ${score} คำ`,stats:[['จับถูก',score+'/'+MAXR],['หัวใจที่เหลือ',lives]]})}
   function lose(w){lives--;addMistake(w);vib([30,40,30]);hud();if(lives<=0)setTimeout(end,500);else setTimeout(nr,650)}
@@ -42,7 +42,7 @@ SC.game_catch=()=>({noRefresh:true,nav:gnav('จับคำ'),body:'',extra:`<d
 
 /* ----- จับคู่ความจำ ----- */
 SC.game_mem=()=>({noRefresh:true,nav:gnav('จับคู่ความจำ'),body:'<div class="stage" style="padding-top:calc(var(--st) + 100px)"><div class="mem" id="mm"></div><p class="cap center mt16" id="mi"></p></div>',extra:`<div class="hud"><div class="score" id="mv"></div><div class="cap">จับคู่ตัวจีนกับคำไทย</div></div>`,
- mount(el){gameQuit(el);const ws=shuffle(gameWords()).slice(0,gameWords().length>=6?6:4),cols=ws.length===6?3:4,cards=shuffle(ws.flatMap(w=>[{w,t:'zh'},{w,t:'th'}]));let open=[],moves=0,matched=0,lock=false,missed=new Set(),timers=[];
+ mount(el){gameQuit(el);const ws=shuffle(gw4()).slice(0,gw4().length>=6?6:4),cols=ws.length===6?3:4,cards=shuffle(ws.flatMap(w=>[{w,t:'zh'},{w,t:'th'}]));let open=[],moves=0,matched=0,lock=false,missed=new Set(),timers=[];
   const mm=$('#mm',el);mm.style.gridTemplateColumns=`repeat(${cols},1fr)`;
   mm.innerHTML=cards.map((c,i)=>`<button class="mc" data-i="${i}"><div class="f">?</div><div class="b ${c.t==='zh'?'z zh':''}" style="${c.t==='th'&&cols===4?'font-size:12.5px':''}${c.t==='zh'&&cols===4?';font-size:26px':''}">${c.t==='zh'?c.w.zh:c.w.th}</div></button>`).join('');
   const hud=()=>$('#mv',el).textContent='เดิน '+moves+' ครั้ง · คู่ '+matched+'/'+ws.length;hud();
@@ -55,7 +55,7 @@ SC.game_mem=()=>({noRefresh:true,nav:gnav('จับคู่ความจำ'
 
 /* ----- รอบเร็ว 60 วินาที ----- */
 SC.game_speed=()=>({noRefresh:true,nav:gnav('รอบเร็ว 60 วินาที'),body:'<div class="stage" id="stage" style="padding-top:calc(var(--st) + 140px)"></div>',extra:`<div class="hud"><div class="timer" id="tm">60</div><div class="score" id="sc">0 คะแนน</div></div><div class="tbar prog"><i id="tp" style="width:100%;transition:width 1s linear"></i></div>`,
- mount(el){gameQuit(el);const words=gameWords();let left=60,score=0,combo=0,best=0,lock=false,alive=true;const stage=$('#stage',el);
+ mount(el){gameQuit(el);const words=gw4();let left=60,score=0,combo=0,best=0,lock=false,alive=true;const stage=$('#stage',el);
   let tick=null;const startT=()=>{tick=setInterval(()=>{left--;$('#tm',el).textContent=left;$('#tp',el).style.width=left/60*100+'%';if(left<=0)end()},1000)};
   function q(){lock=false;const w=pickOne(words),qq=makeQ(w,pickOne(['zh2th','th2zh']),words);stage.innerHTML=qHtml(qq);stage._q=qq;stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in')}
   stage.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock||!alive)return;lock=true;const qq=stage._q,k=+o.dataset.i,ok=k===qq.ans;$$('.opt',stage).forEach((x,j)=>{if(j===qq.ans)x.classList.add('ok');else if(j===k)x.classList.add('bad')});
@@ -68,9 +68,9 @@ SC.game_speed=()=>({noRefresh:true,nav:gnav('รอบเร็ว 60 วิน�
 function pickFriend(){if(gameWords().length<4){toast('เรียนบทที่ 1 ให้จบก่อน แล้วค่อยท้าเพื่อนได้');return}
  openSheet(`<div style="padding:0 20px;display:flex;align-items:center;gap:8px"><div style="flex:1"><div class="h2">ท้าเพื่อนคนไหนดี?</div><p class="cap">ดวลศัพท์ 5 ข้อ จากคำที่คุณเรียนแล้ว</p></div><div style="width:92px;height:92px;flex:none">${M('duel')}</div></div><div class="group mt12">${FRIENDS.map((f,i)=>`<button class="row press" data-fi="${i}"><span class="av" style="background:${f.c}">${f.n.replace('พี่','').replace('น้อง','')[0]}</span><span class="tx"><b>${f.n}</b><small>🔥 ${f.s} วัน</small></span><span class="chip" style="height:28px;font-size:13px">ท้าเลย</span></button>`).join('')}</div>
  <div style="padding:14px 20px 0"><button class="pill sm ghost press" id="sl">เลือกผ่าน LINE (จำลอง)</button></div>`,{onMount:sh=>{$$('[data-fi]',sh).forEach(b=>b.onclick=()=>{closeSheet();setTimeout(()=>push('duel',{f:FRIENDS[+b.dataset.fi]}),150)});$('#sl',sh).onclick=()=>{closeSheet();setTimeout(()=>shareSheet('challenge'),300)}}})}
-SC.duel=({f})=>({noRefresh:true,nav:gnav('ดวลกับ '+f.n),body:'<div class="stage" id="stage" style="padding-top:calc(var(--st) + 128px)"></div>',
+SC.duel=(p)=>{const f=(p&&p.f)||FRIENDS[0];return ({noRefresh:true,nav:gnav('ดวลกับ '+f.n),body:'<div class="stage" id="stage" style="padding-top:calc(var(--st) + 128px)"></div>',
  extra:`<div class="hud" style="top:calc(var(--st) + 56px)"><div style="flex:1"><div class="cap">คุณ <b id="ys">0</b>/5</div><div class="prog"><i id="yp" style="width:0"></i></div></div><div style="width:18px;text-align:center">⚔️</div><div style="flex:1"><div class="cap">${f.n} <b id="fs">0</b>/5</div><div class="prog"><i id="fp" style="width:0;background:${f.c}"></i></div></div></div>`,
- mount(el){gameQuit(el);const words=gameWords(),qs=pickN(words,5).map((w,i)=>makeQ(w,['zh2th','th2zh','zh2th','th2zh','zh2th'][i],words));let i=0,me=0,fr=0,fd=0,lock=false,alive=true,over=false;const stage=$('#stage',el);const p=.55+Math.min(f.s,20)/100;
+ mount(el){gameQuit(el);const words=gw4(),qs=pickN(words,5).map((w,i)=>makeQ(w,['zh2th','th2zh','zh2th','th2zh','zh2th'][i],words));let i=0,me=0,fr=0,fd=0,lock=false,alive=true,over=false;const stage=$('#stage',el);const p=.55+Math.min(f.s,20)/100;
   const ft=setInterval(()=>{if(fd>=5||!alive){clearInterval(ft);return}fd++;if(Math.random()<p)fr++;$('#fp',el).style.width=fd/5*100+'%';$('#fs',el).textContent=fr},2600);
   function show(){lock=false;stage.innerHTML=qHtml(qs[i]);stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in')}
   stage.onclick=e=>{const o=e.target.closest('.opt');if(!o||lock||!alive)return;lock=true;const q=qs[i],k=+o.dataset.i,ok=k===q.ans;$$('.opt',stage).forEach((x,j)=>{if(j===q.ans)x.classList.add('ok');else if(j===k)x.classList.add('bad')});
@@ -78,7 +78,7 @@ SC.duel=({f})=>({noRefresh:true,nav:gnav('ดวลกับ '+f.n),body:'<div c
    setTimeout(()=>{if(i>=5)fin();else show()},650)};
   function fin(){alive=false;clearInterval(ft);const futureF=fr+Math.round((5-fd)*p);const win=me>futureF||(me===futureF&&fd<5);if(win)S.duelWins++;let xp=evX(win?20:8),coins=evC(win?25:5);if(win&&evOn('duelday'))coins+=30;addXp(xp,null,1);addCoins(coins,1);bumpCnt('game',1);bumpCnt('social',1);save();
    replace('result',{title:win?'คุณชนะ!':'แพ้นิดเดียว',mascot:win?'celebrate':'wrong',sub:`คุณ ${me} - ${futureF} ${f.n}`,xp,coins,stats:[['คุณ',me+'/5'],[f.n,futureF+'/5']],retry:null,share:{kind:win?'win':'lose',text:`ฉัน ${me}-${futureF} ${f.n}`,f}})}
-  stage.innerHTML=`<div class="center pop" style="padding-top:6px"><div style="width:210px;height:210px;margin:0 auto">${M('duel')}</div><div class="large" style="padding:0">คุณ VS ${f.n}</div><p class="cap mt8">เตรียมตัว! 5 ข้อ ตอบให้เร็วและถูก</p></div>`;setTimeout(()=>{if(alive)show()},1400);this.stop=()=>{alive=false;clearInterval(ft)}},unmount(){this.stop&&this.stop()}});
+  stage.innerHTML=`<div class="center pop" style="padding-top:6px"><div style="width:210px;height:210px;margin:0 auto">${M('duel')}</div><div class="large" style="padding:0">คุณ VS ${f.n}</div><p class="cap mt8">เตรียมตัว! 5 ข้อ ตอบให้เร็วและถูก</p></div>`;setTimeout(()=>{if(alive)show()},1400);this.stop=()=>{alive=false;clearInterval(ft)}},unmount(){this.stop&&this.stop()}})};
 
 /* ----- ผลลัพธ์ (ใช้ร่วม) ----- */
 SC.result=p=>({nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="center" style="padding:calc(var(--st) + 30px) 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M(p.mascot||'celebrate')}</div>

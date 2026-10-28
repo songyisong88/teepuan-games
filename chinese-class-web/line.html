@@ -19,6 +19,7 @@ button,input{font:inherit;color:inherit;background:none;border:0}button{cursor:p
 .top .av{width:38px;height:38px;border-radius:50%;background:#FAF7F2;overflow:hidden;padding:2px;flex:none}.top img{width:100%;height:100%;object-fit:contain}
 .top .nm{min-width:0;flex:1}.top b{font-size:15.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top small{color:#6B625B;font-size:11.5px;display:block}
 .demo{white-space:nowrap;font-size:11px;font-weight:600;color:#8A6B4A;background:#F3E7D6;border-radius:8px;padding:5px 9px}
+#qtg{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .tabs{background:#fff;display:flex;border-bottom:.5px solid #ddd;padding:0 8px}
 .tabs button{flex:1;padding:9px 4px 10px;font-size:13px;font-weight:600;color:#8A7F76;border-bottom:2.5px solid transparent}
 .tabs button.on{color:#06A94D;border-color:#06C755}
@@ -71,17 +72,34 @@ button,input{font:inherit;color:inherit;background:none;border:0}button{cursor:p
 .tabs button{padding:12px 4px 13px}.inp input{padding:11px 14px}.inp button{padding:12px 14px}
 .demo,.rich .rt button{position:relative}.demo::before,.rich .rt button::before{content:"";position:absolute;inset:-8px -2px}
 .hint a,.flex a{padding:13px 3px}
+
+/* --- ห้องอ่านด้วยกัน + คลาสผ่านริชเมนู (จำลอง) --- */
+.study{flex:1;overflow-y:auto;background:#F7F2EA;padding:14px 14px 24px}
+.study h3{font-size:17px;margin:2px 0 4px}.study p.c{font-size:12.5px;color:#6B625B;line-height:1.55;margin-bottom:10px}
+.ring{position:relative;width:200px;height:200px;margin:6px auto 4px;border-radius:50%;background:conic-gradient(#06C755 var(--p,0%),#E6DED3 0);display:flex;align-items:center;justify-content:center}
+.ring::before{content:"";position:absolute;inset:12px;background:#fff;border-radius:50%}
+.ring div{position:relative;text-align:center}.ring b{display:block;font-size:42px;font-variant-numeric:tabular-nums;letter-spacing:1px}.ring small{font-size:12px;color:#6B625B}
+.sbtn{display:flex;gap:8px;justify-content:center;margin:10px 0 4px;flex-wrap:wrap}
+.sbtn button{min-height:44px;padding:0 20px;border-radius:999px;background:#27211E;color:#fff;font-weight:700;font-size:14px}.sbtn button.g{background:#06C755}.sbtn button.o{background:#F3EEE6;color:#27211E}
+.fr{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:.5px solid #eee;font-size:13.5px}.fr:first-of-type{border-top:0}
+.fr .dot{width:36px;height:36px;border-radius:50%;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.fr .nm2{flex:1;min-width:0}.fr .nm2 small{display:block;color:#6B625B;font-size:11.5px}
+.fr .tag{font-size:10.5px;font-weight:700;color:#8A6B4A;background:#F3E7D6;border-radius:6px;padding:2px 6px}
+.st{font-size:12px;font-weight:600;color:#06A94D;white-space:nowrap}.st.rest{color:#B07A12}.st.done{color:#6B625B}
+.sg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.sg button{min-height:44px;padding:0 14px;border-radius:22px;background:#fff;border:1.5px solid #06C755;color:#06A94D;font-weight:600;font-size:13px}
+.slog{font-size:12.5px;color:#4B433D;line-height:1.7;max-height:130px;overflow-y:auto}
+.tabs button{padding-left:2px;padding-right:2px}
 </style>
 </head>
 <body>
 <div id="f">
  <div class="top"><div class="av"><img src="assets/mascot/wave.webp" alt=""></div><div class="nm"><b id="oaname">LINE OA</b><small>หน้าจำลอง LINE OA · ยังไม่ได้เชื่อมกับ OA จริง</small></div><button class="demo" id="qtg" aria-label="โควต้าข้อความ">โควต้า 0/300</button></div>
- <div class="tabs" role="tablist"><button class="on" data-v="chat" role="tab">แชตส่วนตัว</button><button data-v="grp" role="tab">กลุ่มห้องเรียน</button><button data-v="plan" role="tab">โควต้าและค่าใช้จ่าย</button></div>
+ <div class="tabs" role="tablist"><button class="on" data-v="chat" role="tab">แชตส่วนตัว</button><button data-v="grp" role="tab">กลุ่ม</button><button data-v="study" role="tab">อ่านด้วยกัน</button><button data-v="plan" role="tab">โควต้า</button></div>
 
  <div class="view on" id="v-chat">
   <div class="chat" id="chat" aria-live="polite"></div>
   <div class="inp"><input id="txt" type="text" placeholder="พิมพ์ เช่น สตรีค · คำวันนี้ · 你好 · ขอบคุณ" enterkeyhint="send" aria-label="ข้อความถึง OA" autocomplete="off"><button id="send">ส่ง</button></div>
-  <div class="rich"><div class="rt" role="tablist"><button class="on" data-rm="0">เรียน</button><button data-rm="1">เพื่อนและห้อง</button><button id="rmx" style="flex:none;width:44px" aria-label="ซ่อนหรือแสดงเมนู" aria-expanded="true">▾</button></div><div class="grid" id="rm"></div>
+  <div class="rich"><div class="rt" role="tablist"><button class="on" data-rm="0">เรียน</button><button data-rm="1">เพื่อนและห้อง</button><button data-rm="2">คลาส</button><button id="rmx" style="flex:none;width:44px" aria-label="ซ่อนหรือแสดงเมนู" aria-expanded="true">▾</button></div><div class="grid" id="rm"></div>
    <p class="hint"><a id="addf" href="#" target="_blank" rel="noopener">เพิ่มเพื่อนใน LINE</a> · <a href="privacy.html" target="_blank" rel="noopener" style="color:inherit">ความเป็นส่วนตัว</a> · <a href="terms.html" target="_blank" rel="noopener" style="color:inherit">ข้อกำหนด</a> (ร่างตัวอย่าง)</p></div>
  </div>
 
@@ -89,6 +107,8 @@ button,input{font:inherit;color:inherit;background:none;border:0}button{cursor:p
   <div class="chat" id="gchat" aria-live="polite"></div>
   <div class="rich" style="padding-top:10px"><div class="grid" id="gcmd"></div><p class="hint">คำสั่งในกลุ่มที่บอทตอบด้วย reply token = ฟรี · ถ้าบอทส่งหาทั้งกลุ่มเองจะนับเป็น “จำนวนสมาชิก” ข้อความ</p></div>
  </div>
+
+ <div class="view" id="v-study"><div class="study" id="study"></div></div>
 
  <div class="view" id="v-plan"><div class="panel" id="plan"></div></div>
 
@@ -126,7 +146,7 @@ function bind(){$$('[data-uri]').forEach(b=>b.onclick=()=>go(b.dataset.uri));$$(
 
 /* ---------- คลังคำ (โหลดเมื่อต้องใช้ — ใช้ข้อมูลชุดเดียวกับเว็บ) ---------- */
 let DB=null;
-function loadDB(){if(DB)return DB;DB=new Promise(res=>{let i=0;const f=['data/common.js','data/hsk1.js','data/hsk2.js'];const nx=()=>{if(i>=f.length)return res(typeof LESSONS!=='undefined'?LESSONS:[]);const s=document.createElement('script');s.src=f[i++];s.onload=nx;s.onerror=nx;document.head.appendChild(s)};nx()}).then(ls=>{const a=[];ls.forEach(l=>(l.words||[]).forEach(w=>a.push(Object.assign({lv:l.lv,lid:l.id},w))));return a});return DB}
+function loadDB(){if(DB)return DB;DB=new Promise(res=>{let i=0;const f=['data/common.js','data/hsk1.js','data/hsk2.js'];const nx=()=>{if(i>=f.length)return res(typeof LESSONS!=='undefined'?LESSONS:[]);const s=document.createElement('script');s.src=f[i++];s.onload=nx;s.onerror=nx;document.head.appendChild(s)};nx()}).then(ls=>{const a=[];ls.forEach(l=>{const ch=(typeof CHAPTERS!=='undefined'?CHAPTERS:[]).find(c=>c.id===l.chapter);(l.words||[]).forEach(w=>a.push(Object.assign({lv:l.lv||(ch&&ch.lv)||1,lid:l.id},w)))});return a});return DB}
 const plain=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[|\s]/g,'');
 async function find(q){const db=await loadDB();q=q.trim();if(!q)return null;const pq=plain(q);
  let r=db.find(w=>w.zh===q)||db.find(w=>w.th===q)||db.find(w=>plain(w.py)===pq);
@@ -138,6 +158,8 @@ const wotd=()=>WOTD[Math.floor(Date.now()/864e5)%WOTD.length];
 
 /* ---------- คำสั่งและการตอบกลับ ---------- */
 const CMDS={
+ class(){classStart()},
+ quiz3(){quizStart()},
  streak(){C.flex({tint:'#FDECEC',img:'streak',t:streak?`สตรีค ${streak} วัน`:'ยังไม่มีสตรีค',d:streak?`XP รวม ${xp} · เหรียญตรา ${badges} เหรียญ · ลีก${tier}<br><small>อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริงจะอ่านจากบัญชีของคุณ</small>`:'เรียนวันนี้แค่ 3 นาทีก็นับเป็นวันแรก',btn:[{t:'เรียนวันนี้ต่อเลย',uri:'index.html?from=line'}]})},
  word(){const w=wotd();C.flex({tint:'#FCEFEF',img:'teach',t:'คำวันนี้',d:`<div class="zh">${w[0]}</div><div class="py">${w[1]}</div><div style="font-weight:600;margin:2px 0 6px">${w[2]}</div><div style="font-size:12.5px;color:#6B625B">${w[3]}<br>${w[4]}</div>`,btn:[{t:'ฟังเสียง/ฝึกในเว็บ',uri:'index.html?from=line'}]})},
  review(){C.bot('🔁 ทบทวนตามรอบ: ในเว็บจะรวมคำที่ถึงรอบทบทวนให้ในที่เดียว<br><small>ถ้าเปิดเตือนไว้ บอทจะส่งเตือน “เฉพาะวันที่สตรีคใกล้ขาด” เพื่อประหยัดโควต้า</small>','read');C.flex({tint:'#FBEFEA',img:'read',t:'ทบทวนตามรอบ',d:'แตะเพื่อเปิดชุดทบทวนวันนี้',btn:[{t:'เปิดชุดทบทวน',uri:'index.html?from=line'}]})},
@@ -146,14 +168,14 @@ const CMDS={
  duel(){C.flex({tint:'#FDF3E6',img:'duel',t:'ท้าดวลศัพท์จีนกับฉัน!',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในหน้าจำลองนี้ยังไม่ได้เชื่อมต่อ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]})},
  invite(){C.flex({tint:'#FCEFEF',img:'wave',t:'ชวนเพื่อนเข้าห้องเรียน',d:'เพื่อนใช้รหัสของคุณ → ได้เหรียญทั้งคู่ · ส่งต่อได้ผ่านปุ่มแชร์ของ LINE',btn:[{t:'เปิดการ์ดชวนเพื่อน',uri:'index.html?from=line'}]})},
  tutor(){C.bot('สวัสดี! พิมพ์คำจีนหรือคำไทยมาได้เลย เช่น <b>你好</b> หรือ <b>ขอบคุณ</b> แล้วบอทจะค้นให้จากคลังคำของห้องเรียน 💬<br><small>ติวเตอร์ในเว็บตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) ไม่ได้ใช้ AI จริง</small>','listening')},
- help(){C.bot('คำสั่งที่ใช้ได้ (ตอบกลับฟรีทั้งหมด):<br>• <b>สตรีค</b> · <b>คำวันนี้</b> · <b>ทบทวน</b><br>• <b>ลีก</b> · <b>เหรียญ</b> · <b>ชวนเพื่อน</b><br>• <b>เปิดเตือน</b> / <b>ปิดเตือน</b><br>• พิมพ์คำจีน (เช่น 谢谢) หรือคำไทย (เช่น เพื่อน) เพื่อค้นคำ','teach')},
+ help(){C.bot('คำสั่งที่ใช้ได้ (ตอบกลับฟรีทั้งหมด):<br>• <b>สตรีค</b> · <b>คำวันนี้</b> · <b>ทบทวน</b><br>• <b>คลาส</b> (3 คำ) · <b>ควิซ</b> (3 ข้อ)<br>• <b>ลีก</b> · <b>เหรียญ</b> · <b>ชวนเพื่อน</b><br>• <b>เปิดเตือน</b> / <b>ปิดเตือน</b><br>• พิมพ์คำจีน (เช่น 谢谢) หรือคำไทย (เช่น เพื่อน) เพื่อค้นคำ','teach')},
  optin(){L.opt=true;saveL();C.bot('เปิดเตือนแล้ว ✅ จะเตือน “ไม่เกินวันละครั้ง และเฉพาะวันที่สตรีคใกล้ขาด” ปิดได้ทุกเมื่อโดยพิมพ์ <b>ปิดเตือน</b>','cheer');renderPlan()},
  optout(){L.opt=false;saveL();C.bot('ปิดเตือนแล้ว 👌 ยังกดเมนูเรียนต่อได้เสมอ และพิมพ์ <b>เปิดเตือน</b> เมื่อไหร่ก็ได้','sleepy');renderPlan()},
  push(){if(L.opt===false){C.bot('คุณปิดเตือนไว้ — บอทจะไม่ส่ง push หาคุณ (นี่คือเหตุผลที่ต้องมี opt-in)','sleepy');return}
   if(!chargePush(1)){C.bot('⛔ โควต้าเดือนนี้เต็ม 300/300 — LINE จะปฏิเสธการส่ง (API ตอบ 429) บอทจะเงียบจนกว่าจะรีเซ็ตต้นเดือน แต่การตอบกลับยังใช้ได้ฟรี','shock');return}
   C.bot('⏰ สตรีค '+(streak||1)+' วันกำลังจะขาด! แตะเมนูเรียนต่อ 3 นาทีก็พอ','sleepy',1)}
 };
-const ALIAS=[[/^(สตรีค|streak|ไฟ)$/i,'streak'],[/^(คำวันนี้|คำศัพท์วันนี้|word)$/i,'word'],[/^(ทบทวน|review)$/i,'review'],[/^(ลีก|อันดับ|league)$/i,'league'],[/^(เหรียญ|เหรียญตรา|badge)$/i,'badge'],[/^(ท้า|ท้าเพื่อน|duel)$/i,'duel'],[/^(ชวน|ชวนเพื่อน|invite)$/i,'invite'],[/^(ติวเตอร์|ถามพี่ลามา|tutor)$/i,'tutor'],[/^(ช่วย|ช่วยด้วย|help|\?|เมนู)$/i,'help'],[/^(เปิดเตือน|รับเตือน)$/i,'optin'],[/^(ปิดเตือน|หยุดเตือน|stop)$/i,'optout']];
+const ALIAS=[[/^(สตรีค|streak|ไฟ)$/i,'streak'],[/^(คำวันนี้|คำศัพท์วันนี้|word)$/i,'word'],[/^(ทบทวน|review)$/i,'review'],[/^(ลีก|อันดับ|league)$/i,'league'],[/^(เหรียญ|เหรียญตรา|badge)$/i,'badge'],[/^(ท้า|ท้าเพื่อน|duel)$/i,'duel'],[/^(ชวน|ชวนเพื่อน|invite)$/i,'invite'],[/^(คลาส|คลาสวันนี้|เรียน|class)$/i,'class'],[/^(ควิซ|ควิซ 3 ข้อ|quiz)$/i,'quiz3'],[/^(ติวเตอร์|ถามพี่ลามา|tutor)$/i,'tutor'],[/^(ช่วย|ช่วยด้วย|help|\?|เมนู)$/i,'help'],[/^(เปิดเตือน|รับเตือน)$/i,'optin'],[/^(ปิดเตือน|หยุดเตือน|stop)$/i,'optout']];
 async function run(raw,shown){const t=(raw||'').trim();if(!t)return;
  if(CMDS[t]){C.me(shown||t);setTimeout(CMDS[t],380);return}
  C.me(shown||t);const al=ALIAS.find(a=>a[0].test(t));if(al){setTimeout(CMDS[al[1]],380);return}
@@ -163,12 +185,13 @@ $('#send').onclick=send;$('#txt').addEventListener('keydown',e=>{if(e.key==='Ent
 
 /* ---------- ริชเมนู 2 หน้า ---------- */
 const RM=[[['main','📖','เรียนวันนี้','เปิดเว็บ (LIFF)','index.html?from=line'],['cmd','🔥','สตรีคของฉัน','ตอบกลับ · ฟรี','streak'],['cmd','💡','คำวันนี้','ตอบกลับ · ฟรี','word'],['cmd','🔁','ทบทวน','ตอบกลับ · ฟรี','review'],['cmd','🤖','ถามพี่ลามา','ค้นคำ · ฟรี','tutor'],['cmd','❓','ช่วยด้วย','คำสั่งทั้งหมด','help']],
- [['uri','🏆','ลีกสัปดาห์นี้','เปิดเว็บ','index.html?from=line'],['cmd','📊','อันดับของฉัน','ตอบกลับ · ฟรี','league'],['cmd','⚔️','ท้าเพื่อน','การ์ด Flex','duel'],['cmd','🎟️','ชวนเพื่อน','การ์ด Flex','invite'],['cmd','🏅','เหรียญตรา','ตอบกลับ · ฟรี','badge'],['uri','🎒','ห้องเรียนของฉัน','เปิดเว็บ','index.html?from=line']]];
-function drawRM(i){$('#rm').innerHTML=RM[i].map(r=>`<button class="t ${r[0]==='main'?'main':''}" ${r[0]==='cmd'?`data-cmd="${r[4]}" data-label="${r[2]}"`:`data-uri="${r[4]}"`}><i>${r[1]}</i>${r[2]}<span>${r[3]}</span></button>`).join('');bind()}
+ [['uri','🏆','ลีกสัปดาห์นี้','เปิดเว็บ','index.html?from=line'],['cmd','📊','อันดับของฉัน','ตอบกลับ · ฟรี','league'],['cmd','⚔️','ท้าเพื่อน','การ์ด Flex','duel'],['cmd','🎟️','ชวนเพื่อน','การ์ด Flex','invite'],['cmd','🏅','เหรียญตรา','ตอบกลับ · ฟรี','badge'],['uri','🎒','ห้องเรียนของฉัน','เปิดเว็บ','index.html?from=line']],
+ [['main','🎓','คลาสวันนี้','3 คำ · ตอบกลับฟรี','class'],['cmd','📝','ควิซ 3 ข้อ','ตอบกลับ · ฟรี','quiz3'],['cmd','💡','คำวันนี้','ตอบกลับ · ฟรี','word'],['cmd','🔁','ทบทวน','ตอบกลับ · ฟรี','review'],['uri','📚','นิทานลามา','เปิดเว็บ','index.html?from=line'],['cmd','❓','ช่วยด้วย','คำสั่งทั้งหมด','help']]];
+function drawRM(i){$('#rm').innerHTML=RM[i].map(r=>`<button class="t ${r[0]==='main'?'main':''}" ${r[0]==='cmd'||(r[0]==='main'&&r[4]==='class')?`data-cmd="${r[4]}" data-label="${r[2]}"`:`data-uri="${r[4]}"`}><i>${r[1]}</i>${r[2]}<span>${r[3]}</span></button>`).join('');bind()}
 $$('[data-rm]').forEach(b=>b.onclick=()=>{$$('[data-rm]').forEach(x=>x.classList.toggle('on',x===b));drawRM(+b.dataset.rm);try{navigator.vibrate&&navigator.vibrate(6)}catch(e){}});drawRM(0);$('#rmx').onclick=()=>{const o=$('#rm').style.display==='none';$('#rm').style.display=o?'':'none';$('#rmx').textContent=o?'▾':'▴';$('#rmx').setAttribute('aria-expanded',o)};
 
 /* ---------- แท็บ ---------- */
-$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v));if(b.dataset.v==='grp')grpInit();if(b.dataset.v==='plan')renderPlan()});
+$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v));if(b.dataset.v==='grp')grpInit();if(b.dataset.v==='study')stDraw();if(b.dataset.v==='plan')renderPlan()});
 $('#qtg').onclick=()=>$('.tabs [data-v=plan]').click();
 
 /* ---------- กลุ่มห้องเรียน ---------- */
@@ -195,6 +218,57 @@ async function gcmd(k){grpInit();const ME='คุณ';
     const res=MEM.map(m=>[m[0],Math.random()<m[2]]);gscore[ME]=(gscore[ME]||0)+(ok?1:0);res.forEach(r=>gscore[r[0]]=(gscore[r[0]]||0)+(r[1]?1:0));
     setTimeout(()=>{G.bot(`${ok?'✅ ถูกต้อง!':'❌ ยังไม่ใช่'} เฉลย: <b>${esc(q.th)}</b><br><small>${res.map(r=>r[0]+(r[1]?' ✓':' ✗')).join(' · ')}</small>`,ok?'celebrate':'wrong',undefined,BR);
      const sc=Object.entries(gscore).sort((a,b)=>b[1]-a[1]);G.bot('แต้มสะสมในกลุ่ม: '+sc.map(s=>s.join(' ')).join(' · ')+'<br><small>ผู้ตอบคนอื่นเป็นบอทจำลอง · ในของจริงบอทต้องอ่านข้อความกลุ่มผ่าน webhook</small>','wave',0,BR)},500)})},420)}}
+
+
+/* ---------- คลาสแบบ “ดึง” (pull) ผ่านริชเมนู — จำลอง ---------- */
+let CL=null,clNote=false;
+async function classPick(){if(CL)return CL;const db=await loadDB();const pool=db.filter(w=>w.lv===1&&w.th&&w.th.length<16&&w.zh.length<=3&&!/^[A-Za-z]/.test(w.zh));const seed=Math.floor(Date.now()/864e5);const out=[];let i=0;while(out.length<3&&pool.length>=3&&i<400){const w=pool[(seed*7+i*37)%pool.length];i++;if(!out.includes(w)&&!out.some(x=>x.th===w.th))out.push(w)}CL={words:out,pool};return CL}
+function pullNote(){if(clNote)return;clNote=true;C.note('จำลอง · ในของจริงปุ่มริชเมนูส่ง postback ไปที่ webhook (ต้องมีเซิร์ฟเวอร์ ซึ่งตอนนี้ยังไม่มี) แล้วบอทตอบด้วย reply API = ไม่นับโควต้า')}
+async function classStart(){pullNote();const c=await classPick();if(c.words.length<3){C.bot('โหลดคลังคำไม่สำเร็จ ลองใหม่อีกครั้ง','shock');return}
+ setTimeout(()=>{C.bot('🎓 <b>คลาสวันนี้ — 3 คำ ใช้เวลา ~3 นาที</b><br>อ่านครบแล้วกด “ควิซ 3 ข้อ” <span class="cost">ตอบกลับ 1 ครั้งส่งได้สูงสุด 5 ข้อความ (reply token 1 ใบ) · ไม่นับโควต้า</span>','teach',0);
+  c.words.forEach((w,i)=>setTimeout(()=>C.flex({tint:['#FCEFEF','#EAF1FB','#FDF3E6'][i],img:'teach',t:`คำที่ ${i+1} จาก 3`,d:`<div class="zh">${w.zh}</div><div class="py">${String(w.py).replace(/\|/g,'')}</div><div style="font-weight:600;margin:2px 0 6px">${esc(w.th)}</div><div style="font-size:12.5px;color:#6B625B">${w.ex?esc(w.ex)+'<br>'+esc(String(w.exPy||'').replace(/\|/g,''))+'<br>'+esc(w.exTh||''):''}</div>`,btn:[{t:'ฟังเสียงในเว็บ',uri:'index.html?from=line'}]}),160*(i+1)));
+  setTimeout(()=>C.qr([['ควิซ 3 ข้อ','quiz3'],['คำวันนี้','word']]),700)},380)}
+async function quizStart(){pullNote();const c=await classPick();if(c.words.length<3){C.bot('โหลดคลังคำไม่สำเร็จ ลองใหม่อีกครั้ง','shock');return}
+ let n=0,ok=0;const order=c.words.slice().sort(()=>Math.random()-.5);
+ const ask=()=>{const q=order[n];const opts=[q];let g=0;while(opts.length<3&&g++<300){const o=c.pool[Math.floor(Math.random()*c.pool.length)];if(!opts.includes(o)&&o.th!==q.th)opts.push(o)}opts.sort(()=>Math.random()-.5);
+  C.bot(`📝 ข้อ ${n+1}/3 · <span class="zh" style="font-size:30px">${q.zh}</span> <span class="py">${String(q.py).replace(/\|/g,'')}</span> แปลว่าอะไร?`,'think',0);
+  const id='q3'+Date.now()+n;$('#chat').insertAdjacentHTML('beforeend',`<div class="qr" id="${id}">${opts.map(o=>`<button data-a="${o===q?1:0}">${esc(o.th)}</button>`).join('')}</div>`);$('#chat').scrollTop=9e5;
+  $$('#'+id+' button').forEach(b=>b.onclick=()=>{const good=b.dataset.a==='1';$('#'+id).remove();C.me(b.textContent);if(good)ok++;n++;
+   setTimeout(()=>{C.bot(good?'✅ ถูกต้อง!':`❌ ยังไม่ใช่ — เฉลย <b>${esc(q.th)}</b>`,good?'celebrate':'wrong',0);
+    if(n<3)setTimeout(ask,450);else setTimeout(()=>{C.flex({tint:ok===3?'#E7F8EE':'#FDF3E6',img:ok===3?'celebrate':'cheer',t:`ควิซจบแล้ว ${ok}/3`,d:ok===3?'เต็ม! พรุ่งนี้มี 3 คำใหม่ ใช้ “คลาสวันนี้” ได้อีกครั้ง':'พิมพ์ “คลาส” เพื่อดูคำอีกรอบ แล้วลองใหม่ได้เลย<br><small>คะแนนนี้อยู่ในหน้าจำลองเท่านั้น — เหรียญและ XP ของจริงได้ในเว็บ</small>',btn:[{t:'ฝึกต่อในเว็บ',uri:'index.html?from=line'}]})},600)},350)})};
+ ask()}
+
+/* ---------- ห้องอ่านด้วยกัน (25 นาที) — จำลองทั้งหมด ---------- */
+const FR=[['พี่ต้น','#C9774A',0],['น้องมะลิ','#5E9B7A',40],['แพรว','#5B86C4',150]];
+const ST={sec:1500,run:false,fast:false,goal:'',tm:0,elapsed:0,log:[],done:false};
+if(!L.study)L.study={mins:0,n:0};
+const fm=x=>String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0');
+function frState(i){const e=ST.elapsed,j=FR[i][2];if(e<j)return['ยังไม่เข้า','rest'];if(e>=1500)return['อ่านครบ','done'];const b=600+i*180;if(e>=b&&e<b+60)return['พักสั้น ๆ ☕','rest'];return['กำลังอ่าน','']}
+function frMin(i){const e=Math.min(ST.elapsed,1500),j=FR[i][2];let m=Math.max(0,e-j);const b=600+i*180;if(e>b)m-=Math.min(60,e-b);return Math.floor(Math.max(0,m)/60)}
+function logAdd(t){ST.log.unshift(fm(ST.elapsed)+' '+t);ST.log=ST.log.slice(0,12)}
+function stDraw(){const el=$('#study');if(!el)return;const pr=(1-ST.sec/1500)*100;const mine=Math.floor(ST.elapsed/60);
+ el.innerHTML=`<h3>ห้องอ่านด้วยกัน (จำลอง)</h3><p class="c">อ่านพร้อมกัน 25 นาทีแล้วพัก (แบบโพโมโดโร) · <b>เพื่อนในห้องเป็นตัวจำลอง ไม่ใช่คนจริง</b> · ในของจริงต้องมีเซิร์ฟเวอร์ซิงก์เวลาและสถานะของทุกคน ซึ่งยังไม่มี</p>
+ <div class="card" style="text-align:center"><div class="ring" style="--p:${pr}%" role="timer" aria-label="เวลาที่เหลือ"><div><b>${fm(ST.sec)}</b><small>${ST.done?'ครบ 25 นาทีแล้ว 🎉':ST.run?'กำลังอ่าน…':ST.elapsed?'หยุดชั่วคราว':'พร้อมเริ่ม'}</small></div></div>
+  <input id="sgoal" type="text" placeholder="วันนี้จะอ่านอะไร? เช่น บทที่ 3" value="${esc(ST.goal)}" maxlength="40" aria-label="เป้าหมายการอ่านวันนี้" style="width:100%;background:#F3EEE6;border-radius:14px;padding:11px 14px;font-size:14px;outline:none;margin-top:6px">
+  <div class="sbtn"><button class="g" id="sgo">${ST.done?'เริ่มรอบใหม่':ST.run?'หยุดพัก':ST.elapsed?'อ่านต่อ':'เริ่มอ่าน'}</button><button class="o" id="srs">รีเซ็ต</button><button class="o" id="sfs" aria-pressed="${ST.fast}">${ST.fast?'⏩ เร่ง 60× เปิดอยู่':'⏩ เร่งดูตัวอย่าง 60×'}</button></div>
+  <p class="tick">ปุ่ม “เร่ง” ใช้ดูตัวอย่างรอบ 25 นาทีให้จบใน ~25 วินาที (เฉพาะหน้าจำลอง)</p></div>
+ <div class="card"><h4>ในห้อง (${1+FR.length} คน · จำลอง 3 คน)</h4>
+  <div class="fr"><span class="dot" style="background:#C8102E">คุณ</span><span class="nm2"><b>คุณ</b><small>อ่านแล้ว ${mine} นาทีในรอบนี้</small></span><span class="st ${ST.run?'':'done'}">${ST.run?'กำลังอ่าน':ST.done?'อ่านครบ':'หยุด'}</span></div>
+  ${FR.map((f,i)=>{const s=frState(i);return `<div class="fr"><span class="dot" style="background:${f[1]}">${f[0].slice(-1)}</span><span class="nm2"><b>${f[0]}</b> <span class="tag">จำลอง</span><small>อ่านแล้ว ${ST.run||ST.elapsed?frMin(i):0} นาที</small></span><span class="st ${s[1]}">${ST.run||ST.elapsed?s[0]:'รอเริ่ม'}</span></div>`}).join('')}</div>
+ <div class="card"><h4>ส่งกำลังใจ (ตอบกลับฟรี)</h4><div class="sg"><button data-ch="👏 สู้ ๆ!">👏 สู้ ๆ</button><button data-ch="🔥 ไฟลุก!">🔥 ไฟลุก</button><button data-ch="☕ พักแป๊บ">☕ พักแป๊บ</button></div>
+  <div class="slog" aria-live="polite">${ST.log.length?ST.log.map(esc).join('<br>'):'ยังไม่มีความเคลื่อนไหว — กด “เริ่มอ่าน”'}</div></div>
+ <div class="card"><h4>รวมในหน้าจำลองนี้</h4><div class="row"><span>รอบที่อ่านครบ</span><b>${L.study.n}</b></div><div class="row"><span>นาทีที่อ่านรวม</span><b>${L.study.mins}</b></div><p class="tick">ตัวเลขนี้อยู่ในเบราว์เซอร์นี้เท่านั้น ไม่ได้ให้เหรียญ/XP — การเรียนจริงนับในเว็บแอป</p></div>`;
+ const g=$('#sgoal');g.oninput=()=>{ST.goal=g.value};
+ $('#sgo').onclick=()=>{if(ST.done){stReset();ST.run=true;stRun();return}ST.run=!ST.run;if(ST.run){if(!ST.elapsed)logAdd('คุณเริ่มอ่าน'+(ST.goal?' · '+ST.goal:''));else logAdd('คุณอ่านต่อ');stRun()}else{logAdd('คุณหยุดพัก');clearInterval(ST.tm)}stDraw()};
+ $('#srs').onclick=()=>{stReset();stDraw()};$('#sfs').onclick=()=>{ST.fast=!ST.fast;if(ST.run)stRun();stDraw()};
+ $$('[data-ch]').forEach(b=>b.onclick=()=>{logAdd('คุณ: '+b.dataset.ch);if(ST.run||ST.elapsed){const f=FR[Math.floor(Math.random()*FR.length)];if(frState(FR.indexOf(f))[1]!=='rest'&&ST.elapsed>=f[2])logAdd(f[0]+' (จำลอง): ขอบคุณ '+b.dataset.ch.slice(0,2))}try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}stDraw()})}
+function stReset(){clearInterval(ST.tm);ST.sec=1500;ST.run=false;ST.elapsed=0;ST.log=[];ST.done=false}
+function stRun(){clearInterval(ST.tm);const step=ST.fast?60:1;ST.tm=setInterval(()=>{if(!ST.run)return;const prev=ST.elapsed;ST.elapsed=Math.min(1500,ST.elapsed+step);ST.sec=1500-ST.elapsed;
+  FR.forEach((f,i)=>{if(prev<f[2]&&ST.elapsed>=f[2])logAdd(f[0]+' (จำลอง) เข้าห้องมาแล้ว')});
+  FR.forEach((f,i)=>{const b=600+i*180;if(prev<b&&ST.elapsed>=b&&ST.elapsed<1500)logAdd(f[0]+' (จำลอง) พักสั้น ๆ')});
+  if(ST.elapsed>=1500){ST.run=false;ST.done=true;clearInterval(ST.tm);L.study.n++;L.study.mins+=25;saveL();logAdd('ครบ 25 นาที! พักได้ 5 นาที');
+   G.note('ห้องอ่านด้วยกัน (จำลอง): รอบ 25 นาทีจบแล้ว · เพื่อนจำลองอ่านครบเหมือนกัน')}
+  const sec=$('#v-study');if(sec&&sec.classList.contains('on')&&!(document.activeElement&&document.activeElement.id==='sgoal'))stDraw();else if(ST.elapsed>=1500)stDraw()},1000)}
 
 /* ---------- แผนโควต้า / ค่าใช้จ่าย ---------- */
 let P=Object.assign({fr:500,opt:40,risk:25,pol:2},(()=>{try{return JSON.parse(localStorage.getItem('lama-line-plan')||'{}')}catch(e){return{}}})());

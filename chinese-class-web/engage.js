@@ -113,6 +113,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
   ${ROW('#FDECEC',M('speaking'),'ฝึกพูด','พูดตาม'+MASCOT_NAME+' (คะแนนจำลอง)',undefined,'data-go="play" data-g="speak"')}
   ${ROW('#EAF1FB',M('listening'),'ฝึกฟัง','ฟังแล้วเลือกความหมาย',undefined,'data-go="play" data-g="listen"')}
   ${ROW('#F2ECFA',M('write'),'ฝึกวรรณยุกต์ (สำหรับคนไทย)','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}
+  ${ROW('#FDF3E6','🧪','ห้องฝึกพิเศษ','นิทานอ่านเอง · เทียบคำ · พูดตาม · ข้อสอบจำลอง · ส่วนประกอบ',undefined,'data-go="labs"')}
  </div>
  <div class="sec">เรียนกับเพื่อนใน LINE</div>
  <div class="group">

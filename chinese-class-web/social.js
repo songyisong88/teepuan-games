@@ -75,6 +75,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#FDF3E6','🏅','เหรียญตราและฉายา',badgeN()+'/'+BADGES.length+' เหรียญ · '+titleNow(),undefined,'data-go="badges"')}
   ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}
   ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}
+  ${ROW('#FDF3E6','🧪','ห้องฝึกพิเศษ','นิทาน · เทียบคำ · พูดตาม · ข้อสอบจำลอง',undefined,'data-go="labs"')}
   ${ROW('#E7F8EE','🤖','ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย',undefined,'data-go="tutor"')}
   ${ROW('#FDF3E6','🍵','เรียนพร้อมกัน','ห้องอ่านหนังสือจับเวลา',undefined,'data-go="study"')}
   ${ROW('#EAF1FB','📊','สรุปสัปดาห์ของฉัน','การ์ดสรุปไว้แชร์ใน LINE',undefined,'data-go="recap"')}</div>

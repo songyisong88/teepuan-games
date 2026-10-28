@@ -97,7 +97,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
    else if(q.type==='mat'){stage.innerHTML=tag+m+matHtml(q);matSel=null;matDone=0;matErr=0}
    else{stage.innerHTML=tag+m+qHtml(q);const a=$('[data-auto]',stage);if(a)setTimeout(()=>speak(q.w.zh,a),350)}}
   stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');$('.scroller',el).scrollTop=0}
- function next(){i++;if(i>=steps.length){pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log}),250)}else show()}
+ let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log}),250)}else show()}
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
   if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
   if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:'ประโยค');
@@ -181,4 +181,4 @@ function cmNode(L){const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);if(!cm)ret
 function unitSheet(id){const u=unitBy(id),L=lessonBy(u.lesson),done=unitDone(id),open=unitOpen(id);
  openSheet(`<div style="padding:0 20px"><div class="cap">บทที่ ${L.id} · รอบ ${u.part+1}/2</div><div style="font-size:24px;font-weight:700">${L.th} <span class="zh" style="font-weight:400">${L.zh}</span></div>
  <div class="group mt12" style="margin:14px 0 0">${u.words.map(w=>`<div class="row noic" style="min-height:52px"><span class="tx"><b style="font-weight:500"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;<span style="font-size:13px">${pyHtml(w.py)}</span></b></span><span class="val">${open?w.th:'?'}</span></div>`).join('')}</div>
- ${open?`<button class="pill row1 press mt16" id="ls">${done?'เรียนทบทวนอีกครั้ง':'เริ่มเรียน'}</button>`:`<div class="banner mt16" style="background:#F2ECE4;color:var(--sub2);text-align:center">เรียนรอบก่อนหน้าให้จบก่อน เพื่อปลดล็อกรอบนี้</div>`}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}
+ ${open?`<button class="pill row1 press mt16" id="ls">${done?'เรียนทบทวนอีกครั้ง':'เริ่มเรียน'}</button>${done&&typeof SC.shrun==='function'?`<button class="pill sm ghost press mt12" data-go="shrun" data-l="${L.id}">🎧 ฝึกพูดตาม (ชาโดว์อิ้ง) บทนี้</button>`:''}`:`<div class="banner mt16" style="background:#F2ECE4;color:var(--sub2);text-align:center">เรียนรอบก่อนหน้าให้จบก่อน เพื่อปลดล็อกรอบนี้</div>`}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}

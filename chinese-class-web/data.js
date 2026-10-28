@@ -13,7 +13,7 @@ function zhHtml(zh,py){const sy=py.split(/[| ]/).filter(Boolean);let i=0,o='';fo
 
 /* สถานะ */
 const KEY='lama-cn-web-demo-v2';
-const defState=()=>({name:'มินท์',xp:0,coins:20,streak:0,lastDay:-99,xpDay:{},shift:0,goal:20,parts:[],stars:{},mistakes:{},coinsEarned:0,
+const defState=()=>({name:'มินท์',xp:0,coins:20,streak:0,lastDay:-99,xpDay:{},shift:0,goal:20,parts:[],stars:{},mistakes:{},srs:{},coinsEarned:0,
  chestDay:-99,spinDay:-99,own:['flower'],eq:{hat:null,face:null},invited:0,inviteCode:'LAMA-'+Math.random().toString(36).slice(2,6).toUpperCase(),
  remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,level:1,assume:0,lvPicked:false,placeRes:null,placeHist:[],gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
  freezes:1,buddy:null,cnt:{day:-99},mis:{day:-99,got:[]},evDay:-99,evId:'',evGot:-99,comebackDay:-99,freezeUsed:-99,inviteGot:[],
@@ -50,9 +50,15 @@ const gameWords=()=>uniqW([...UNITS.filter(u=>unitDone(u.id)||u.lv<=S.assume).fl
 const gw4=()=>{const g=gameWords();return g.length>=4?g:uniqW([...g,...(lvLessons(curLv())[0]||LESSONS[0]).words])};
 const learnedCount=()=>gameWords().length;
 const lvBadge=()=>`<span class="chip lvchip press" data-go="levels" aria-label="ระดับของฉัน">${levelBy(curLv()).name}</span>`;
-function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;save()}
+function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;srsGrade(w,false,1);save()}
 function fixMistake(w){if(w&&S.mistakes[w.zh]){S.mistakes[w.zh]--;if(S.mistakes[w.zh]<=0)delete S.mistakes[w.zh];save()}}
 const mistakeWords=()=>Object.keys(S.mistakes).map(wordBy).filter(Boolean);
+/* ทบทวนแบบเว้นช่วง (Leitner 5 กล่อง): ตอบถูก → กล่องสูงขึ้น ทบทวนห่างขึ้น 1→2→4→8→16 วัน · ตอบผิด → กลับกล่อง 0 ทบทวนวันนี้ */
+const SRS_INT=[0,1,2,4,8,16];
+function srsGrade(w,ok,quiet){if(!w||!w.zh)return;if(!S.srs)S.srs={};const r=S.srs[w.zh]||{b:0,d:0};if(ok&&r.b>0&&r.d>today())return;r.b=ok?Math.min(5,r.b+1):0;r.d=today()+SRS_INT[r.b];S.srs[w.zh]=r;if(!quiet)save()}
+const srsDue=()=>Object.keys(S.srs||{}).filter(z=>S.srs[z].d<=today()).map(wordBy).filter(Boolean);
+const reviewWords=()=>uniqW([...mistakeWords(),...srsDue()]);
+const srsBox=w=>(S.srs&&S.srs[w.zh]?S.srs[w.zh].b:0);
 const cmUnlocked=c=>c.by==='duel'?S.duelWins>0:isDone(+c.by.split(':')[1]);
 
 /* ข้อมูลจำลอง */

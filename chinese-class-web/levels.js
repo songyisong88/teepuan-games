@@ -41,7 +41,7 @@ SC.path=()=>{const n=curLv(),L=levelBy(n),i=lvInfo(n),cur=nextUnit();
  return {title:'บทเรียน',body:`<div class="large">แผนที่ผจญภัย</div><div class="lvsw" role="tablist" aria-label="ระดับ HSK">${sw}</div>
  <div class="lvcard fade-in" style="background:${L.bg}"><div style="display:flex;gap:12px;align-items:center"><span class="lvem" style="background:#fff">${L.em}</span><div style="flex:1;min-width:0"><b style="font-size:19px">${L.name} · ${L.th}</b><div class="cap" style="margin-top:2px">${i.empty?'ยังไม่มีบทเรียน':`${i.lessons} บท · ${i.words} คำ`} · เป้า HSK ≈ ${i.target} คำ</div></div>${lvTag(n)}</div>${lvBar(n)}<div class="cap mt8" style="line-height:1.45">เน้น: ${L.focus}${S.assume&&n>1?`<br>ถือว่ารู้ HSK 1${S.assume>1?'–'+S.assume:''} แล้ว (ใช้คำเหล่านั้นในเกม)`:''}</div></div>
  <p class="cap" style="padding:8px 24px 0;line-height:1.5">ℹ️ ${STD_NOTE}</p>
- <div class="group mt16">${ROW('#FDF3E6','📝','ทบทวนข้อผิด',Object.keys(S.mistakes).length?Object.keys(S.mistakes).length+' คำรอทบทวน':'ยังไม่มี','', 'data-go="review"')}
+ <div class="group mt16">${ROW('#FDF3E6','📝','ทบทวนตามรอบ',reviewWords().length?reviewWords().length+' คำถึงรอบทบทวน':'วันนี้ยังไม่มีคำค้าง','', 'data-go="review"')}
  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?`ผลล่าสุด ≈ ${S.placeRes.est?'HSK '+S.placeRes.est:'ก่อน HSK 1'} · ทำใหม่ได้`:'ไม่แน่ใจว่าควรเริ่มตรงไหน? ลอง 12–20 ข้อ',undefined,'data-go="placement"')}
  ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}</div>
  <div class="mapw">${chs}</div>${tail}${DEMO}`}};

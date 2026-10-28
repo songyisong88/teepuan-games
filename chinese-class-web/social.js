@@ -74,7 +74,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
  <div class="sec">บัญชีและแผน</div><div class="group">
   ${ROW('#FDECEC','⭐','แผนและราคา','ตัวอย่างทดลอง · ไม่มีการชำระเงิน',`<span class="val">${PLANS.find(p=>p.id===S.plan).n}</span>${CHEV}`,'data-go="plans"')}
   ${ROW('#FDF3E6','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,undefined,'data-go="shop"')}
-  ${ROW('#FBEFEA','📝','ทบทวนข้อผิด',Object.keys(S.mistakes).length+' คำ',undefined,'data-go="review"')}</div>
+  ${ROW('#FBEFEA','📝','ทบทวนตามรอบ',reviewWords().length+' คำถึงรอบ',undefined,'data-go="review"')}</div>
  <div class="sec">เครื่องมือการเรียน</div><div class="group">
   ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}
   ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}

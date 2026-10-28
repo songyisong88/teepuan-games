@@ -108,7 +108,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
   ${ROW('#E7F8EE',M('teach'),'ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย · แก้ประโยค',undefined,'data-go="tutor"')}
   ${ROW('#EAF1FB','🎮','เกมคำศัพท์',gw?gw+' คำพร้อมเล่น':'เรียนรอบแรกให้จบเพื่อปลดล็อก',undefined,'data-go="games"')}
   ${ROW('#FDF3E6','🎁','หีบประจำวัน',cdone?'รับแล้ววันนี้ กลับมาใหม่พรุ่งนี้':'พร้อมเปิด! รับเหรียญฟรี',cdone?CHEV:'<span class="chip" style="height:26px;padding:0 10px;font-size:12px">เปิด</span>','data-go="chest"')}
-  ${ROW('#FBEFEA','📝','ทบทวนข้อผิด',Object.keys(S.mistakes).length+' คำ',undefined,'data-go="review"')}
+  ${ROW('#FBEFEA','📝','ทบทวนตามรอบ',reviewWords().length+' คำถึงรอบ',undefined,'data-go="review"')}
   ${ROW('#FDECEC',M('speaking'),'ฝึกพูด','พูดตาม'+MASCOT_NAME+' (คะแนนจำลอง)',undefined,'data-go="play" data-g="speak"')}
   ${ROW('#EAF1FB',M('listening'),'ฝึกฟัง','ฟังแล้วเลือกความหมาย',undefined,'data-go="play" data-g="listen"')}
   ${ROW('#F2ECFA',M('write'),'ฝึกวรรณยุกต์ (สำหรับคนไทย)','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}

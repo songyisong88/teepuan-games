@@ -99,7 +99,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');$('.scroller',el).scrollTop=0}
  function next(){i++;if(i>=steps.length){pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log}),250)}else show()}
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
-  if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1)}}
+  if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
   if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:'ประโยค');
    if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}}
   mas(ok?(run>=3?'thumbs':'correct'):'wrong');
@@ -164,14 +164,14 @@ SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
 
 /* ----- ทบทวน ----- */
-SC.review=()=>{const ws=mistakeWords();return {title:'ทบทวนข้อผิด',body:`<div class="large">ทบทวนข้อผิด</div>`+(ws.length?`
- <p class="cap" style="padding:4px 20px 14px">มี ${ws.length} คำที่ควรทบทวน · ตอบถูกแล้วจะหายไปจากรายการ</p><div class="group">${ws.map(w=>`<div class="row noic" style="min-height:68px"><span class="tx"><b><span class="zh" style="font-size:22px">${w.zh}</span> <span style="font-size:14px;font-weight:500">${pyHtml(w.py)}</span></b><small>${w.th} · พลาด ${S.mistakes[w.zh]} ครั้ง</small></span><button class="audio press" aria-label="ฟังเสียง" style="width:42px;height:42px;margin:0" data-act="audio" data-t="${w.zh}"><span style="width:20px;display:flex">${SPK}</span></button></div>`).join('')}</div>
+SC.review=()=>{const ws=reviewWords();return {title:'ทบทวนตามรอบ',body:`<div class="large">ทบทวนตามรอบ</div>`+(ws.length?`
+ <p class="cap" style="padding:4px 20px 14px">มี ${ws.length} คำถึงรอบทบทวน · ตอบถูกแล้วจะถูกเลื่อนไปทวนอีกครั้งห่างขึ้น (1→2→4→8→16 วัน) · ตอบพลาดจะกลับมาทวนวันนี้</p><div class="group">${ws.map(w=>`<div class="row noic" style="min-height:68px"><span class="tx"><b><span class="zh" style="font-size:22px">${w.zh}</span> <span style="font-size:14px;font-weight:500">${pyHtml(w.py)}</span></b><small>${w.th} · ${S.mistakes[w.zh]?'พลาด '+S.mistakes[w.zh]+' ครั้ง':'ทวนรอบ '+srsBox(w)+'/5'}</small></span><button class="audio press" aria-label="ฟังเสียง" style="width:42px;height:42px;margin:0" data-act="audio" data-t="${w.zh}"><span style="width:20px;display:flex">${SPK}</span></button></div>`).join('')}</div>
  <div class="dock"><button class="pill press" data-act="reviewgo"><b>ฝึกทบทวน</b><small>${Math.min(6,ws.length)} ข้อ</small></button></div>`:
- `<div class="empty" style="padding-top:50px"><div style="width:200px;height:200px">${M('empty')}</div><b>ยังไม่มีข้อที่ต้องทบทวน</b><span>เยี่ยมมาก! เมื่อตอบพลาดในบทเรียนหรือเกม คำนั้นจะมาอยู่ที่นี่</span></div>`)}};
+ `<div class="empty" style="padding-top:50px"><div style="width:200px;height:200px">${M('empty')}</div><b>วันนี้ยังไม่มีคำที่ถึงรอบทบทวน</b><span>เยี่ยมมาก! คำที่เรียนแล้วจะกลับมาทวนตามรอบ (พรุ่งนี้ 2 วัน 4 วัน…) และคำที่พลาดจะมาอยู่ที่นี่</span></div>`)}};
 document.addEventListener('click',e=>{if(e.target.closest('[data-act=reviewgo]'))push('rsession')});
 SC.rsession=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},mount(el){
- const ws=shuffle(mistakeWords()).slice(0,6);if(!ws.length){pop();return}const types=['zh2th','th2zh','audio'];
- session(el,ws.map((w,i)=>({k:'q',q:makeQ(w,types[i%3],gw4())})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ยังต้องทบทวน',mistakeWords().length]],back:'review'})},{review:true})}});
+ const ws=shuffle(reviewWords()).slice(0,6);if(!ws.length){pop();return}const types=['zh2th','th2zh','audio'];
+ session(el,ws.map((w,i)=>({k:'q',q:makeQ(w,types[i%3],gw4())})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ถึงรอบทบทวน',reviewWords().length]],back:'review'})},{review:true})}});
 
 /* ----- แผนที่การเดินทาง ----- */
 function nodeHtml(u,cur){const done=unitDone(u.id),open=unitOpen(u.id),isCur=cur&&cur.id===u.id;

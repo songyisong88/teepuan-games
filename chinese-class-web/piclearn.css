@@ -31,3 +31,15 @@
 .pic-rv1{display:flex;align-items:center;margin:4px 0;font-size:14px}
 .pic-chip{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#E9F6EC;color:#1F7A3A;font-size:11.5px;font-weight:600;letter-spacing:0;vertical-align:1px}
 @media(min-width:700px){.pgrid{max-width:420px;margin-left:auto;margin-right:auto}}
+
+.pflips{margin-top:14px}
+.pflip{position:relative;aspect-ratio:1/1;border:2px solid #EADFCF;border-radius:22px;background:#FFF8EC;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font:inherit;color:inherit;min-height:120px;overflow:hidden}
+.pflip .pf-f{display:flex;flex-direction:column;align-items:center;width:100%;height:100%;position:relative}
+.pflip .pf-f .pic-t{display:block;width:100%;flex:1;min-height:0;border-radius:16px;overflow:hidden}
+.pflip .plab{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);margin:0;font-size:12.5px;padding:2px 10px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.pflip .pf-h{font-size:11.5px;color:#8A6A2A;font-weight:600;padding-top:3px}
+.pflip .pf-b{display:none;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:4px}
+.pflip.on{background:var(--oksoft);border-color:var(--ok)}
+.pflip.on .pf-f{display:none}.pflip.on .pf-b{display:flex}
+.pf-py{font-size:17px;font-weight:600}.pf-th{font-size:13.5px;color:var(--sub2);line-height:1.25;max-width:100%}
+.pf-sp{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--sub);margin-top:2px}.pf-sp svg{width:14px;height:14px}

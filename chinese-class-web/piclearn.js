@@ -9,7 +9,7 @@ const picSim=(a,b)=>PIC_SIM.some(g=>g.includes(a)&&g.includes(b));
 /* อีโมจิชั่วคราว สำหรับคำจับต้องได้ที่ยังไม่มีรูป */
 const PIC_EMO={'肉':'🥩','羊肉':'🍖','手机':'📱','照片':'🖼️','火车站':'🚉','机场':'✈️','地铁':'🚇','票':'🎫','地图':'🗺️','银行':'🏦','公园':'🌳','超市':'🛒','厨房':'🍳','冰箱':'🧊','裤子':'👖','包':'👜','盘子':'🍽️','面包':'🍞','照相机':'📷','啤酒':'🍺','可乐':'🥤','果汁':'🧃','菜单':'📋','碗':'🥣','脚':'🦶','牙':'🦷','嘴':'👄','腿':'🦵','鼻子':'👃','头发':'💇','脸':'🙂','头':'🗣️','雪':'❄️','草':'🌱','黑板':'🧑‍🏫','教室':'🏫','图书馆':'📚','护士':'🧑‍⚕️','药店':'💊','洗手间':'🚻','字典':'📖','课本':'📕','公司':'🏢','办公室':'🖥️','冬天':'⛄','夏天':'☀️','春天':'🌸','秋天':'🍂','红':'🟥','白':'⬜','黑':'⬛','蓝':'🟦','黄':'🟨','绿':'🟩','游戏':'🎮','音乐':'🎵','时间':'⏰','生日':'🎂','下雨':'🌧️','天气':'⛅'};
 const picEmo=w=>!picHas(w)&&PIC_EMO[w.zh]||'';
-const picT=w=>(window.PIC_TYPE&&PIC_TYPE[w.zh])||'n';
+const picT=w=>(window.PIC_TYPE&&PIC_TYPE[w.zh])||'x'; /* x = ไม่มีรูป/ไม่ทราบหมวด → ไม่ใช้เป็นตัวหลอกหมวดเดียวกัน */
 const picLab=w=>w.th.split(/ \/ | \(/)[0];
 const picKin=w=>PIC_KIN.has(w.zh)?`<span class="plab">${picLab(w)}</span>`:'';
 let _picAll=null;const picAll=()=>_picAll||(_picAll=LESSONS.flatMap(L=>L.words.filter(picHas)));
@@ -30,8 +30,27 @@ function picMat(ws){const seen=new Set(),ps=shuffle(ws.filter(picHas)).filter(w=
 function picQHtml(q){const w=q.w;
  if(q.type==='pic2zh')return `<div class="center"><div class="cap" style="font-size:14px">ภาพนี้คือคำจีนคำไหน</div><div class="pic-card">${art('word',w.zh,'','pic-big')}${picKin(w)}</div></div>
   <div class="group opts mt20" style="margin-top:18px">${q.opts.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span class="zh" style="font-size:26px">${o.zh}</span><span class="pyr">${pyPlain(o.py)}</span></button>`).join('')}</div>`;
+ if(q.type==='pic2py')return `<div class="center"><div class="cap" style="font-size:14px">ภาพนี้อ่านว่าอย่างไร (พินอิน)</div><div class="pic-card">${art('word',w.zh,'','pic-big')}${picKin(w)}</div></div>
+  <div class="group opts mt20" style="margin-top:18px">${q.opts.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span style="font-size:23px;font-weight:500">${pyPlain(o.py)}</span></button>`).join('')}</div>`;
  return `<div class="center"><div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกรูปที่ตรงกัน</div><button class="audio press" aria-label="ฟังเสียง" style="width:84px;height:84px;margin-top:10px" data-act="audio" data-t="${w.zh}" data-auto>${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง · ไม่มีตัวอักษรให้เดา</div></div>
   <div class="pgrid">${q.opts.map((o,i)=>`<button class="opt ptile press" data-i="${i}" aria-label="รูปที่ ${LET[i]}"><span class="k">${LET[i]}</span>${art('word',o.zh,'','pic-t')}${picKin(o)}</button>`).join('')}</div>`}
+
+/* ดูรูป → เลือกพินอิน (ขั้นสอนเสริม): ตัวหลอกเป็นคำหมวดเดียวกัน พินอินต้องไม่ซ้ำกัน */
+function picPyQ(w,pool){const key=x=>pyPlain(x.py),seen=new Set([key(w)]);
+ let o=picDist(w,pool,40,true).filter(x=>!seen.has(key(x))&&seen.add(key(x))).slice(0,3);if(o.length<3)return null;
+ const opts=shuffle([w,...o]);
+ return {w,type:'pic2py',pic:true,opts,ans:opts.findIndex(x=>x.zh===w.zh),
+  reveal:(ok,qq)=>{const pk=!ok&&qq&&qq.picked!=null?qq.opts[qq.picked]:null;
+   return `<div class="ans pic-rev">${art('word',w.zh,'','pic-mini')}<div class="tx"><span class="zh" style="font-size:24px">${w.zh}</span> ${pyHtml(w.py)}<div style="margin-top:2px">= <b>${w.th}</b></div>${pk?`<div class="pk">คุณเลือก: ${pyPlain(pk.py)} (<span class="zh">${pk.zh}</span> = ${pk.th})</div>`:''}</div>${spkBtn(w.zh,'','ฟัง')}</div>`}}}
+/* การ์ดทบทวนรูป: พลิกดูคำจากบทก่อนหน้าที่เรียนจบแล้ว (ไม่ให้คะแนน — ทวนความจำเฉย ๆ) */
+function picFlip(L,u){const cur=new Set(u.words.map(w=>w.zh)),seen=new Set();
+ const cand=picAll().filter(w=>w.lesson!==L.id&&!cur.has(w.zh)&&isDone(w.lesson)&&(w.lv||1)<=(L.lv||1)&&!seen.has(w.th)&&seen.add(w.th));
+ if(cand.length<3)return null;
+ const mis=cand.filter(w=>S.mistakes&&S.mistakes[w.zh]);
+ const ws=uniqW([...shuffle(mis),...shuffle(cand)]).slice(0,4);return {k:'pflip',ws}}
+function pflipHtml(ws){return `<div class="center"><div class="cap" style="font-size:14px;letter-spacing:1px">ทบทวนด้วยรูป · จากบทที่เรียนแล้ว</div><div class="h2" style="margin:6px 20px 0;font-size:19px">นึกคำจีนจากรูป แล้วแตะเช็กคำตอบ</div></div>
+ <div class="pgrid pflips">${ws.map(w=>`<button class="pflip press" data-sa="flip" data-z="${w.zh}" aria-label="การ์ดรูป แตะเพื่อดูคำตอบ"><span class="pf-f">${art('word',w.zh,'','pic-t')}${picKin(w)}<span class="pf-h">แตะดูคำตอบ</span></span><span class="pf-b"><span class="zh" style="font-size:40px">${w.zh}</span><span class="pf-py">${pyPlain(w.py)}</span><span class="pf-th">${w.th}</span><span class="pf-sp">${SPK} ฟังอีกครั้ง</span></span></button>`).join('')}</div>
+ <p class="cap center" style="margin:12px 20px 0">ทวนเฉย ๆ ไม่มีคะแนน · คำไหนนึกไม่ออก ไม่ต้องกังวล จะเจอในข้อฝึกต่อไป</p>`}
 /* การ์ดคำใหม่แบบมีรูป / อีโมจิชั่วคราว — คืน {top, th} หรือ null */
 function picCard(w){
  if(picHas(w))return {top:`<div class="pic-card hero">${art('word',w.zh,'','pic-big')}${picKin(w)}</div>`,hide:!PIC_KIN.has(w.zh)};

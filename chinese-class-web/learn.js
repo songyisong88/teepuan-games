@@ -54,6 +54,7 @@ function matQ(ws){const seen=new Set(),ps=shuffle(ws).filter(w=>!seen.has(w.th)&
 function learnedPool(u){const L=lessonBy(u.lesson);return uniqW([...L.words,...lvUpTo(L.id).flatMap(l=>l.words),...gameWords().filter(w=>w.lv===L.lv)])}
 function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,steps=[];const Q=q=>q&&steps.push({k:'q',q});
  if(u.part===0)steps.push({k:'story',L,u});
+ {const pf=picFlip(L,u);if(pf)steps.push(pf)}
  [ws.slice(0,4),ws.slice(4)].forEach((h,hi)=>{h.forEach(w=>steps.push({k:'c',w}));const sh=shuffle(h);
   /* เลือกรูปแบบต่อคำ: คำที่มีรูปใช้โจทย์รูป (ฟังเลือกรูป / ดูรูปเลือกคำจีน) แทนข้อเดิมบางข้อ · ข้อเดิม (ไทย→จีน, วรรณยุกต์) ยังอยู่ทุกรอบ */
   const ims=sh.filter(picHas),pa=ims[0],pb=ims[1],q2=shuffle(sh.filter(x=>x!==pa&&x!==pb));
@@ -61,7 +62,9 @@ function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,
   Q(pb?picQ(pb,'aud2pic',pool):makeQ(sw[0],'audio',pool));Q(pa?picQ(pa,'pic2zh',pool):makeQ(sw[1],'zh2th',pool));Q(makeQ(sw[2],'th2zh',pool));
   const tq=sh.map(toneQ).find(Boolean);Q(tq||makeQ(sw[3],'zh2th',pool));
   if(hi===1&&u.part===1){steps.push({k:'dlg',L});Q(replyQ(L))}});
- Q(ws.filter(picHas).length>=3?picMat(ws):matQ(ws));const b=u.part*3;
+ Q(ws.filter(picHas).length>=3?picMat(ws):matQ(ws));
+ {const pw=shuffle(ws.filter(w=>picHas(w)&&w.py.split(/[| ]/).length<=3));if(pw.length>=2)Q(picPyQ(pw[0],pool))}
+ const b=u.part*3;
  if(u.part===0){Q(ordQ(L,b));Q(fillQ(L,b+1,L.id));Q(ordQ(L,b+2))}else{Q(ordQ(L,b));Q(fillQ(L,b+1,L.id));Q(fillQ(L,b+2,L.id))}
  return steps}
 
@@ -95,6 +98,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
  window.__cnCur=()=>({s:cur,left:steps.length-i,locked,ord:ordState});
  function show(){fb.classList.remove('show');locked=false;const s=steps[i];cur=s;pg.style.width=(i/steps.length*100)+'%';pc.textContent=(i+1)+' / '+steps.length;dock.innerHTML='';
   if(s.k==='c'){cardN++;stage.innerHTML=cardHtml(s.w,cardN,nCards);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป</button>`;setTimeout(()=>speak(s.w.zh),400)}
+  else if(s.k==='pflip'){stage.innerHTML=pflipHtml(s.ws);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป</button>`}
   else if(s.k==='story'){stage.innerHTML=storyHtml(s.L,s.u);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ลุยเลย!</button>`}
   else if(s.k==='dlg'){stage.innerHTML=dlgHtml(s.L);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป · ลองตอบเอง</button>`}
   else{const q=s.q;const tag=s.retry?'<div class="retag">ทวนข้อที่พลาด</div>':'';const m=`<div class="qm" id="qm">${M('think')}</div>`;
@@ -133,7 +137,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   if(t.classList.contains('opt')){answer(t);return}
   if(t.classList.contains('mcell')){matTap(t);return}
   if(t.classList.contains('chipw')){if(locked||cur.q.type!=='ord')return;const ix=+t.dataset.ox;vib(6);if(ordState.includes(ix))ordState=ordState.filter(x=>x!==ix);else ordState.push(ix);ordRefresh();return}
-  const a=t.dataset.sa;if(a==='next'){vib(8);next()}else if(a==='thai'){t.outerHTML=`<div class="pic-thr">${t.dataset.th}</div>`}else if(a==='rep')reportSheet(t.dataset.z);else if(a==='quit')quitSheet();
+  const a=t.dataset.sa;if(a==='next'){vib(8);next()}else if(a==='flip'){if(!t.classList.contains('on')){t.classList.add('on');speak(t.dataset.z);vib(6)}else speak(t.dataset.z)}else if(a==='thai'){t.outerHTML=`<div class="pic-thr">${t.dataset.th}</div>`}else if(a==='rep')reportSheet(t.dataset.z);else if(a==='quit')quitSheet();
   else if(a==='dlgall'){const L=cur.L;speakSeq(L.dlg.map(d=>({t:d[1],r:d[0]})))}
   else if(a==='ordcheck'){const q=cur.q;const ok=ordState.every((ix,k)=>ix===k);$$('.chipw',$('#oa',stage)).forEach(b=>b.classList.add(ok?'okc':'badc'));resolve(ok,q,t)}});
  show()}
@@ -178,7 +182,7 @@ SC.review=()=>{const ws=reviewWords();return {title:'ทบทวนตามร
 document.addEventListener('click',e=>{if(e.target.closest('[data-act=reviewgo]'))push('rsession')});
 SC.rsession=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},mount(el){
  const ws=shuffle(reviewWords()).slice(0,6);if(!ws.length){pop();return}const types=['zh2th','th2zh','audio'];
- session(el,ws.map((w,i)=>({k:'q',q:makeQ(w,types[i%3],gw4())})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ถึงรอบทบทวน',reviewWords().length]],back:'review'})},{review:true})}});
+ session(el,ws.map((w,i)=>({k:'q',q:(picHas(w)&&i%2===0&&picQ(w,i%4===0?'pic2zh':'aud2pic',gw4()))||makeQ(w,types[i%3],gw4())})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ถึงรอบทบทวน',reviewWords().length]],back:'review'})},{review:true})}});
 
 /* ----- แผนที่การเดินทาง ----- */
 function nodeHtml(u,cur){const done=unitDone(u.id),open=unitOpen(u.id),isCur=cur&&cur.id===u.id;

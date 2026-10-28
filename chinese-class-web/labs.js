@@ -22,7 +22,7 @@ const LB_HUB_ROWS=()=>{const d=lbDone();return `<div class="group">
   ${ROW('#FDECEC','📖','ซีรีส์ลามา · นิทานอ่านเอง',`${LB.stories.length} เรื่อง · แตะคำดูความหมายและเสียง · อ่านแล้ว ${d.rd}`,undefined,'data-go="readers"')}
   ${ROW('#EAF1FB','🔀','เทียบคำใกล้เคียง',`${LB.pairs.length} คู่ที่คนไทยสับสนบ่อย · 会/能 · 买/卖 …`,undefined,'data-go="pairs"')}
   ${ROW('#E7F8EE','🎧','ชาโดว์อิ้ง · ฟังแล้วพูดตาม','ช้า/ปกติ · ซ่อนพินอิน · นับรอบ · ประเมินตัวเอง',undefined,'data-go="shadow"')}
-  ${ROW('#FDF3E6','📝','ข้อสอบจำลองย่อย','10 ข้อต่อระดับ · จับเวลา · ประเมินระดับคร่าว ๆ',undefined,'data-go="mocklab"')}
+  ${ROW('#FDF3E6','📝','ข้อสอบจำลองย่อย','สุ่ม 10 ข้อจากคลัง 15 ข้อต่อระดับ · จับเวลา · ประเมินระดับคร่าว ๆ',undefined,'data-go="mocklab"')}
   ${ROW('#F2ECFA','🧩','ส่วนประกอบตัวอักษร',`${LB.comp.c.length} ส่วนที่เจอบ่อย + ตระกูลเสียง · มีตัวช่วยจำ`,undefined,'data-go="comps"')}</div>`};
 SC.labs=()=>({title:'ห้องฝึกพิเศษ',body:`<div class="large">ห้องฝึกพิเศษ</div>
  <div class="lbhero fade-in"><div class="lbhl"><b>ฝึกให้ต่างจากแอปทั่วไป</b><span>อ่านนิทาน · แยกคำใกล้เคียง · พูดตาม · ลองสนามสอบ · รู้จักส่วนประกอบ</span></div><div class="lbhm">${M('teach')}</div></div>
@@ -132,8 +132,8 @@ SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const 
   render()}}};
 
 /* ================= 4) ข้อสอบจำลองย่อย ================= */
-const MOCK_SEC=600;
-SC.mocklab=()=>{let lv=curLv();const L=lab().mock;const qn=n=>LB.mock.filter(q=>q.lv===n).length;
+const MOCK_SEC=600,MOCK_N=10;
+SC.mocklab=()=>{let lv=curLv();const L=lab().mock;const qn=n=>Math.min(MOCK_N,LB.mock.filter(q=>q.lv===n).length);
  const draw=()=>`<div class="seg lbseg" id="mseg" role="tablist" style="margin:14px 20px 0">${[1,2,3,4,5].map(n=>`<button role="tab" data-lv="${n}" class="${n===lv?'on':''}" aria-selected="${n===lv}">ระดับ ${n}</button>`).join('')}</div>
   <div class="card pad2" style="margin:16px 20px 0"><div style="display:flex;align-items:center;gap:12px"><span class="lvem" style="font-size:34px">${levelBy(lv).em}</span><div><b style="font-size:19px">ข้อสอบจำลอง ระดับ ${lv}</b><div class="cap">${levelBy(lv).th}</div></div></div>
   <div class="lbrules"><div><b>${qn(lv)}</b><small>ข้อ</small></div><div><b>${MOCK_SEC/60}</b><small>นาที</small></div><div><b>${L[lv]?L[lv].best+'/'+L[lv].total:'—'}</b><small>คะแนนดีที่สุด</small></div></div>
@@ -142,7 +142,7 @@ SC.mocklab=()=>{let lv=curLv();const L=lab().mock;const qn=n=>LB.mock.filter(q=>
   <div class="dock"><button class="pill press" data-go="mockrun" data-lv="${lv}"><b>เริ่มทำข้อสอบ</b><small>เริ่มจับเวลาทันที</small></button></div>`;
  return {title:'ข้อสอบจำลอง',noRefresh:true,body:`<div class="large">ข้อสอบจำลองย่อย</div><div id="mk">${draw()}</div>`,
  mount(el){el.addEventListener('click',e=>{const b=e.target.closest('#mseg [data-lv]');if(!b)return;lv=+b.dataset.lv;$('#mk',el).innerHTML=draw();vib(6)})}}};
-function mockBuild(lv){return shuffle(LB.mock.filter(q=>q.lv===lv)).map(q=>{const opts=shuffle(q.o.map((o,i)=>({o,ok:i===q.a})));return Object.assign({},q,{opts,pick:-1})})}
+function mockBuild(lv){return shuffle(LB.mock.filter(q=>q.lv===lv)).slice(0,MOCK_N).map(q=>{const opts=shuffle(q.o.map((o,i)=>({o,ok:i===q.a})));return Object.assign({},q,{opts,pick:-1})})}
 const fmtT=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 SC.mockrun=({lv})=>{const qs=mockBuild(lv);let i=0,end=Date.now()+MOCK_SEC*1000,tm=0,done=false;
  const nav=`<header class="nav"><div class="nav-l"><button class="back" data-sa="mquit">${BACKI}<span>ออก</span></button></div><div class="nav-t" style="opacity:1;transform:none">ข้อสอบจำลอง ระดับ ${lv}</div><div class="nav-r"><span class="timer" id="mt" role="timer" aria-label="เวลาที่เหลือ">${fmtT(MOCK_SEC)}</span></div></header>`;

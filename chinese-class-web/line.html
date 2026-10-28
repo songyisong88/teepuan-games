@@ -21,7 +21,7 @@ button,input{font:inherit;color:inherit;background:none;border:0}button{cursor:p
 .demo{white-space:nowrap;font-size:11px;font-weight:600;color:#8A6B4A;background:#F3E7D6;border-radius:8px;padding:5px 9px}
 #qtg{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .tabs{background:#fff;display:flex;border-bottom:.5px solid #ddd;padding:0 8px}
-.tabs button{flex:1;padding:9px 4px 10px;font-size:13px;font-weight:600;color:#8A7F76;border-bottom:2.5px solid transparent}
+.tabs button{flex:1;padding:9px 4px 10px;font-size:13px;font-weight:600;color:#6F655F;border-bottom:2.5px solid transparent}
 .tabs button.on{color:#06A94D;border-color:#06C755}
 .view{flex:1;min-height:0;display:none;flex-direction:column}.view.on{display:flex}
 .chat{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
@@ -85,7 +85,7 @@ button,input{font:inherit;color:inherit;background:none;border:0}button{cursor:p
 .fr .dot{width:36px;height:36px;border-radius:50%;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
 .fr .nm2{flex:1;min-width:0}.fr .nm2 small{display:block;color:#6B625B;font-size:11.5px}
 .fr .tag{font-size:10.5px;font-weight:700;color:#8A6B4A;background:#F3E7D6;border-radius:6px;padding:2px 6px}
-.st{font-size:12px;font-weight:600;color:#06A94D;white-space:nowrap}.st.rest{color:#B07A12}.st.done{color:#6B625B}
+.st{font-size:12px;font-weight:600;color:#08783A;white-space:nowrap}.st.rest{color:#8A5E00}.st.done{color:#6B625B}
 .sg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.sg button{min-height:44px;padding:0 14px;border-radius:22px;background:#fff;border:1.5px solid #06C755;color:#06A94D;font-weight:600;font-size:13px}
 .slog{font-size:12.5px;color:#4B433D;line-height:1.7;max-height:130px;overflow-y:auto}
 .tabs button{padding-left:2px;padding-right:2px}
@@ -195,7 +195,7 @@ $$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.cla
 $('#qtg').onclick=()=>$('.tabs [data-v=plan]').click();
 
 /* ---------- กลุ่มห้องเรียน ---------- */
-const MEM=[['พี่ต้น','#C9774A',.8],['น้องมะลิ','#5E9B7A',.55],['แพรว','#5B86C4',.7]];let gi=0,gscore={};
+const MEM=[['พี่ต้น','#A25F3A',.8],['น้องมะลิ','#4B7D61',.55],['แพรว','#4C72A7',.7]];let gi=0,gscore={};
 function grpInit(){if(gi)return;gi=1;G.note('กลุ่ม “ห้องเรียนมินท์” · สมาชิก 4 คน (จำลอง) · บอทเข้ากลุ่มแล้ว');
  G.bot('สวัสดีทุกคน! พิมพ์คำสั่งหรือกดปุ่มด้านล่าง: <b>/ควิซ</b> · <b>/อันดับ</b> · <b>/คำวันนี้</b> · <b>/ท้า</b>','wave',undefined,BR)}
 const GC=[['🎯','ควิซกลุ่ม','ตอบถูกได้แต้ม','quiz'],['🏆','อันดับห้อง','ฟรี','rank'],['💡','คำวันนี้','ฟรี','word'],['⚔️','ท้าทั้งห้อง','การ์ด Flex','duel'],['📣','ประกาศผล','push ทั้งกลุ่ม','announce'],['🔔','ปิดเสียงบอท','คำสั่งดูแลกลุ่ม','mute']];
@@ -239,7 +239,7 @@ async function quizStart(){pullNote();const c=await classPick();if(c.words.lengt
  ask()}
 
 /* ---------- ห้องอ่านด้วยกัน (25 นาที) — จำลองทั้งหมด ---------- */
-const FR=[['พี่ต้น','#C9774A',0],['น้องมะลิ','#5E9B7A',40],['แพรว','#5B86C4',150]];
+const FR=[['พี่ต้น','#A25F3A',0],['น้องมะลิ','#4B7D61',40],['แพรว','#4C72A7',150]];
 const ST={sec:1500,run:false,fast:false,goal:'',tm:0,elapsed:0,log:[],done:false};
 if(!L.study)L.study={mins:0,n:0};
 const fm=x=>String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0');
@@ -278,7 +278,7 @@ function renderPlan(){const el=$('#plan');if(!el)return;const n=monthMsgs(),c=co
  el.innerHTML=`<h3>โควต้าข้อความและค่าใช้จ่าย</h3><p class="c">จำลองว่าถ้าเปิด OA จริง ข้อความแบบไหนเสียโควต้า และจะเสียเท่าไร ตัวเลขแพ็กเกจจาก LINE for Business ไทย (ตรวจ ต.ค. 2026 · ไม่รวม VAT 7% · LINE ปรับได้ — ตรวจหน้าแพ็กเกจก่อนใช้จริง)</p>
  <div class="card"><h4>การใช้งานของคุณในหน้าจำลองนี้</h4><div class="lab"><span>push ที่นับแล้ว</span><b>${L.sent}/${FREE}</b></div><div class="bar2"><i style="width:${Math.min(100,L.sent/3)}%;background:${L.sent>=270?'#C8102E':'#06C755'}"></i></div>
   <div class="row"><span>เตือนรายวัน (opt-in)</span><b>${L.opt===true?'เปิด':L.opt===false?'ปิด':'ยังไม่เลือก'}</b></div>
-  <button class="pill g" id="ptest">ลองให้บอทส่งเตือนหาเอง (+1)</button> <button class="pill" id="preset" style="background:#8A7F76">รีเซ็ตตัวนับ</button>
+  <button class="pill g" id="ptest">ลองให้บอทส่งเตือนหาเอง (+1)</button> <button class="pill" id="preset" style="background:#6F655F">รีเซ็ตตัวนับ</button>
   <p class="tick">ข้อความที่ผู้ใช้พิมพ์มาหาบอทแล้วบอทตอบ (reply) ไม่นับโควต้า · push/broadcast/multicast นับต่อผู้รับ 1 คน = 1 ข้อความ</p></div>
  <div class="card"><h4>เครื่องคำนวณต่อเดือน (จำลอง)</h4>
   <div class="lab"><span>จำนวนเพื่อนที่เพิ่ม OA</span><b>${P.fr.toLocaleString('th-TH')}</b></div><input class="sl" type="range" id="s1" min="50" max="20000" step="50" value="${P.fr}" aria-label="จำนวนเพื่อน">

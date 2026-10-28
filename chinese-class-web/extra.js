@@ -8,7 +8,7 @@ SC.game_speak=()=>({noRefresh:true,nav:gnav('ฝึกพูด'),body:'<div cla
    stage.innerHTML=`<div class="center fade-in"><div style="width:120px;height:120px;margin:0 auto -6px">${M('speaking')}</div><div class="cap">พูดตาม${MASCOT_NAME}</div>
     <div class="bigzh zh" style="font-size:${w.zh.length>2?64:88}px">${w.zh}</div><div style="font-size:26px;font-weight:500">${pyHtml(w.py)}</div><div style="font-size:19px;font-weight:600;margin-top:6px">${w.th}</div>
     <button class="audio press" aria-label="ฟังเสียง" data-act="audio" data-t="${w.zh}" style="margin-top:12px">${SPK}</button><div class="cap mt8">แตะลำโพงเพื่อฟังก่อน</div>
-    <button class="mic press" id="mic" aria-label="พูด">🎤</button><div class="cap" id="mh">แตะไมค์แล้วพูดตามได้เลย</div><div id="sres" class="mt12"></div></div>`;
+    <button class="mic press" id="mic" aria-label="พูด"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button><div class="cap" id="mh">แตะไมค์แล้วพูดตามได้เลย</div><div class="cap" style="font-size:12px">จำลอง: แอปไม่ได้อัดเสียง คะแนนเป็นตัวอย่าง</div><div id="sres" class="mt12"></div></div>`;
    $('#mic',el).onclick=rec}
   function rec(){if(busy||!alive)return;busy=true;vib(12);const m=$('#mic',el);m.classList.add('rec');$('#mh',el).innerHTML='<span class="wv"><i></i><i></i><i></i><i></i><i></i></span> กำลังฟัง…';
    setTimeout(()=>{if(!alive)return;m.classList.remove('rec');sc=70+Math.floor(Math.random()*29);sum+=sc;const st=sc>=92?3:sc>=82?2:1;

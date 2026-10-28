@@ -111,7 +111,7 @@ SC.study=()=>({title:'เรียนด้วยกัน',noRefresh:true,body:
  <div class="seg mt16" id="stg" style="margin:16px 20px 0">${[5,10,15].map((m,i)=>`<button data-m="${m}" class="${i===1?'on':''}">${m} นาที</button>`).join('')}</div>
  <div id="stb"></div>${DEMO}`,
  mount(el){let mins=10,timer=null,fast=false;const box=$('#stb',el);
-  const ppl=[['พี่ต้น','#C9774A'],['น้องมะลิ','#5E9B7A'],['แพรว','#5B86C4']];
+  const ppl=[['พี่ต้น','#A25F3A'],['น้องมะลิ','#4B7D61'],['แพรว','#4C72A7']];
   const idle=()=>{box.innerHTML=`<div class="card pad2 mt16 center" style="margin:16px 20px 0"><div style="font-size:54px;font-weight:700;letter-spacing:1px" class="num">${String(mins).padStart(2,'0')}:00</div><div class="cap">รางวัลเมื่อครบ: +${mins*2} เหรียญ · +${mins} XP</div></div><div class="pad mt16"><button class="pill row1 press" id="go">เริ่มอ่านพร้อมเพื่อน</button></div><p class="cap center" style="padding:10px 30px 0">ใน LINE จริง เพื่อนจะเข้าห้องผ่านลิงก์ชวนในกลุ่ม · การเห็นว่าใครกำลังอ่านต้องมีเซิร์ฟเวอร์ ตอนนี้เพื่อนเป็นข้อมูลจำลอง</p>`;$('#go',el).onclick=start};
   function start(){let left=mins*60;const joined=[];vib(10);
    box.innerHTML=`<div class="card pad2 mt16 center" style="margin:16px 20px 0"><div style="font-size:64px;font-weight:700" class="num" id="tm">${mins}:00</div><div class="prog mt8"><i id="tp" style="width:0%"></i></div><div class="cap mt8" id="tn">กำลังรอเพื่อนเข้าห้อง…</div></div><div class="pbar mt16" id="pp"></div><div class="pad mt16"><button class="pill sm ghost press" id="gv">เลิกก่อน (ไม่ได้รางวัล)</button><button class="cap press" id="ff" style="display:block;margin:14px auto 0;text-decoration:underline;color:var(--sub)">เดโม: เร่งเวลา ×30</button></div>`;

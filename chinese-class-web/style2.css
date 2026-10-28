@@ -228,7 +228,7 @@ button.cap.press{--hy:-14px;--hx:-6px}button.cap.press.spkl,.spkl{--hy:-8px;--hx
 .lbsent{font-size:30px;line-height:1.6;margin:12px 6px 6px;text-align:center}
 .lbsent .zh{font-size:30px}
 .lbblank{display:inline-block;min-width:68px;border-bottom:3px dashed var(--red);color:var(--red);text-align:center;margin:0 4px;animation:lbblink 1.6s ease-in-out infinite}
-@keyframes lbblink{50%{opacity:.45}}
+@keyframes lbblink{50%{border-bottom-color:transparent}}
 /* shadowing */
 .shd{padding:18px 16px 16px;margin-top:12px;text-align:center}
 .shth{font-size:18px;font-weight:600;line-height:1.45}

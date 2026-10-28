@@ -25,9 +25,9 @@ SC.onboard=()=>({nav:'<header class="nav"></header>',noRefresh:true,body:'<div c
    else if(t.dataset.ob==='back'){k=Math.max(0,k-1);draw()}
    else if(t.dataset.ob==='pickopen'){obPick=!obPick;draw();if(obPick)setTimeout(()=>{const g=$('[data-ob=lv]',ob);if(g)g.scrollIntoView({block:'center',behavior:'smooth'})},60)}
    else if(t.dataset.ob==='lv'){const n=+t.dataset.lv;setLevel(n,n-1,true);obPick=true;draw()}
-   else if(t.dataset.ob==='zero'){setLevel(1,0,true);window.__obK=1;k=1;draw()}
+   else if(t.dataset.ob==='zero'){setLevel(1,0,true);window.__pinZero=true;window.__obK=1;k=1;draw()}
    else if(t.dataset.ob==='test'){window.__obK=1;push('placeintro')}
-   else if(t.dataset.ob==='fin'){S.seenOnboard=true;save();window.__obRun=false;window.__obK=0;mountRoot('home',false);setTimeout(()=>toast(lvDriven()?`เริ่มที่ระดับ ${curLv()} แล้ว · ${MASCOT_NAME}ไปด้วยนะ`:`ไปกันเลย! บทแรกรออยู่ ${MASCOT_NAME}จะอยู่ข้าง ๆ`),400)}};
+   else if(t.dataset.ob==='fin'){S.seenOnboard=true;save();window.__obRun=false;window.__obK=0;mountRoot('home',false);if(window.__pinZero){window.__pinZero=false;setTimeout(()=>{try{push('pinlv',{n:1})}catch(e){}},120)}setTimeout(()=>toast(lvDriven()?`เริ่มที่ระดับ ${curLv()} แล้ว · ${MASCOT_NAME}ไปด้วยนะ`:`ไปกันเลย! บทแรกรออยู่ ${MASCOT_NAME}จะอยู่ข้าง ๆ`),400)}};
   draw()}});
 
 /* ทดสอบวัดระดับและเลือกระดับ → levels.js */

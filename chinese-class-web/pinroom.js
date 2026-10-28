@@ -174,9 +174,11 @@ function prCheckQs(){const L=n=>({lv:n}),T=(o,n)=>Object.assign(o,{lv:n});
  q.push(...one(prToneQ(1)).map(o=>T(o,6)),...one(prPairQ([['b','p']],1,'ini')).map(o=>T(o,3)),...one(prPairQ([['d','t']],1,'ini')).map(o=>T(o,4)),
   ...one(prVowelQ().filter(o=>o.ans==='ü'||o.ans==='e')).map(o=>T(o,2)),...one(prPairQ([['x','q'],['j','q']],1,'ini')).map(o=>T(o,9)),
   ...one(prClassQ(2)).map(o=>T(o,10)),
+  ...one(prPairQ([['g','k'],['k','h']],1,'ini')).map(o=>T(o,5)),...one(prPairQ([['ai','ei'],['ao','ou']],1,'fin')).map(o=>T(o,7)),...one(prPairQ([['an','ang'],['en','eng'],['in','ing']],1,'fin')).map(o=>T(o,8)),
+  T({k:'know',q:'พินอิน (拼音) คืออะไร?',opts:['ตัวหนังสือจีนแบบง่าย','ตัวอักษรโรมันที่บอกเสียงอ่านของตัวจีน','ชื่อวรรณยุกต์ตัวที่ 1'],ans:1,rev:'พินอิน = ตัวอักษรโรมันที่เขียนบอกเสียงอ่านของตัวจีน'},1),
   T({k:'listen',say:'一',ans:'yi',opts:['yi','i','ji'],q:'ฟัง 一 แล้วเลือกตัวเขียนพินอิน',rev:'i เดี่ยว ๆ ต้นพยางค์เขียนเป็น <b>yi</b>',pair:[]},11),
   T({k:'listen',say:'不是',ans:'bú shì',opts:['bù shì','bú shì','bū shì'],mark:true,q:'不 ก่อนเสียง 4 พูดเป็น?',rev:'不 + เสียง 4 → <b>bú shì</b>',pair:[]},12));
- return q.slice(0,8)}
+ return q.slice(0,12)}
 /* ----- "อ่านคำนี้ออกแล้ว": นับคำบทเรียนระดับ 1 ที่ต้นเสียง/สระของทุกพยางค์เพิ่งเรียนในห้องนี้ (ไม่ได้ทดสอบทีละคำ) ----- */
 const PR_INI={3:['b','p','m','f'],4:['d','t','n','l'],5:['g','k','h'],9:['j','q','x'],10:['z','c','s','zh','ch','sh','r']},PR_FINK={7:['ai','ei','ao','ou'],8:['an','en','in','ang','eng','ing','ong']};
 function prKnown(skip){const d=n=>n!==skip&&prDone(n);const k={ini:new Set(['']),fin:new Set(),v:d(2),yw:d(11)};
@@ -213,7 +215,7 @@ SC.pinroom=()=>{const done=prDoneN(),rec=prRec();let rows='',zone='';
 SC.pinlv=({n}={})=>{n=+n||1;const L=prLv(n);
  return {title:'ด่าน '+n,body:`<div style="padding:4px 24px 0"><span class="pr-draft" style="background:#EFE8DE;color:var(--sub2);border-color:#E0D5C8">${PR_ZONES[L.z][0]} · ด่าน ${n}/12</span></div><div class="large" style="padding-top:8px">${L.t}</div><p class="cap" style="padding:0 24px">${L.s} · ${L.min} นาที</p>${n===1?prHonest:''}${(L.ini||L.fin)?prApprox:''}${n===10?prApical:''}${prTeach(n)}<div style="height:150px"></div>`,
   extra:`<div class="dock"><button class="pill press" data-go="pinplay" data-n="${n}"><b>เริ่มฝึก</b><small>ฟัง เลือก และต่อเสียง · ${prQs(n).length} ข้อ</small></button></div>`}};
-function prCheckCard(){const c=prSt().check;return `<div class="pr-card pr-chkc"><div class="pr-let">${prImg('extra-thinking','mini','think')}<div class="tt"><h3 style="margin:0">เช็กพินอินของฉัน</h3><small style="color:var(--sub2)">8 ข้อ · ราว 3 นาที · รู้ว่าด่านไหนควรฝึก</small></div></div>${c?`<p>ครั้งล่าสุด: ถูก ${c.right}/${c.total}${c.weakLv.length?' · ควรฝึกด่าน '+c.weakLv.join(', '):' · ครบทุกหัวข้อที่เช็ก'}</p>`:'<p>ไม่แน่ใจว่าควรเริ่มด่านไหน? ลองฟัง 8 ข้อ ผสมทุกหัวข้อ</p>'}<button class="pill sm go press mt12" data-go="pincheck"><b>${c?'เช็กอีกครั้ง':'เริ่มเช็ก'}</b></button><p style="font-size:12px;color:var(--sub);margin-top:8px">ผลนี้ใช้แนะนำเท่านั้น (ข้อละหัวข้อ) ไม่ข้ามหรือปลดล็อกด่านให้อัตโนมัติ</p></div>`}
+function prCheckCard(){const c=prSt().check;return `<div class="pr-card pr-chkc"><div class="pr-let">${prImg('extra-thinking','mini','think')}<div class="tt"><h3 style="margin:0">เช็กพินอินของฉัน</h3><small style="color:var(--sub2)">12 ข้อ · ราว 4 นาที · ครอบคลุมทุกด่าน</small></div></div>${c?`<p>ครั้งล่าสุด: ถูก ${c.right}/${c.total}${c.weakLv.length?' · ควรฝึกด่าน '+c.weakLv.join(', '):' · ครบทุกหัวข้อที่เช็ก'}</p>`:'<p>ไม่แน่ใจว่าควรเริ่มด่านไหน? ลองฟัง 12 ข้อ ผสมทุกด่าน</p>'}<button class="pill sm go press mt12" data-go="pincheck"><b>${c?'เช็กอีกครั้ง':'เริ่มเช็ก'}</b></button><p style="font-size:12px;color:var(--sub);margin-top:8px">ผลนี้ใช้แนะนำเท่านั้น (ข้อละหัวข้อ) ไม่ข้ามหรือปลดล็อกด่านให้อัตโนมัติ</p></div>`}
 SC.pinchk=p=>{const right=+p.right,total=+p.total,wl=JSON.parse(p.weakLv||'[]');const good=wl.length===0;
  setTimeout(()=>{if(right>=total-1)confetti(60)},300);
  return {nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="pr-res"><div class="pm">${prImg(good?'scene-confetti-cheer':'extra-thinking','',good?'cheer':'think')}</div><div class="large" style="padding:6px 0 0">เช็กพินอินเสร็จแล้ว</div><p class="cap">ตอบถูก ${right} จาก ${total} ข้อ</p>
@@ -277,7 +279,7 @@ function pinHomeCard(){if(!prFromZero())return '';const done=prDoneN(),rec=prRec
   <div class="bl"><span class="pr-tile ini">b</span><span class="plus" style="color:#B7AA9D">+</span><span class="pr-tile fin">a</span><span style="color:#B7AA9D">→</span><span class="pys" style="font-size:22px;font-weight:700">${pyHtml('bā')}</span><span class="zh" style="font-size:22px">八</span></div>
   <button class="pill go press" data-go="pinlv" data-n="${rec}"><b>${done?'ไปต่อด่าน '+rec+' · '+l.t:'เริ่มด่านที่ 1 · พินอินคืออะไร'}</b><small>${l.min} นาที${done?' · เรียนแล้ว '+done+'/12':''}</small></button>
   <button class="pill sm ghost press mt12" data-go="pinroom">ดูแผนที่ 12 ด่าน</button></div>`}
-function pinBookRow(){const d=prDoneN();return `<div class="group" style="margin-top:12px">${ROW('#FBE9E4','🔤','ด่าน 0 · ห้องพินอิน',d>=12?'เรียนครบ 12 ด่านแล้ว':(S.level>1?'ทบทวนพินอิน (ไม่บังคับ) · ':'เรียนอ่านพินอินก่อนบทที่ 1 · ')+d+'/12 ด่าน',undefined,'data-go="pinroom"')}${ROW('#FFF3DA','🎧','เช็กพินอินของฉัน','8 ข้อ · รู้ว่าควรเริ่มด่านไหน',undefined,'data-go="pincheck"')}</div>`}
+function pinBookRow(){const d=prDoneN();return `<div class="group" style="margin-top:12px">${ROW('#FBE9E4','🔤','ด่าน 0 · ห้องพินอิน',d>=12?'เรียนครบ 12 ด่านแล้ว':(S.level>1?'ทบทวนพินอิน (ไม่บังคับ) · ':'เรียนอ่านพินอินก่อนบทที่ 1 · ')+d+'/12 ด่าน',undefined,'data-go="pinroom"')}${ROW('#FFF3DA','🎧','เช็กพินอินของฉัน','12 ข้อ · รู้ว่าควรเริ่มด่านไหน',undefined,'data-go="pincheck"')}</div>`}
 
 Object.assign(window.GOX=window.GOX||{},{
  pinroom(){push('pinroom',{})},

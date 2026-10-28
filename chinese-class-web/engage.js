@@ -111,7 +111,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
  <div class="sec">บัดดี้</div><div class="pad">${buddyCard()}</div>
  <div class="sec">วันนี้ทำอะไรดี</div>
  <div class="group">
-  ${ROW('#E7F8EE',M('teach'),'ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย · แก้ประโยค',undefined,'data-go="tutor"')}
+  ${ROW('#E7F8EE',M('teach'),'ถามน้องลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย · แก้ประโยค',undefined,'data-go="tutor"')}
   ${ROW('#EAF1FB','🎮','เกมคำศัพท์',gw?gw+' คำพร้อมเล่น':'เรียนรอบแรกให้จบเพื่อปลดล็อก',undefined,'data-go="games"')}
   ${ROW('#FDF3E6','🎁','หีบประจำวัน',cdone?'รับแล้ววันนี้ กลับมาใหม่พรุ่งนี้':'พร้อมเปิด! รับเหรียญฟรี',cdone?CHEV:'<span class="chip" style="height:26px;padding:0 10px;font-size:12px">เปิด</span>','data-go="chest"')}
   ${ROW('#FBEFEA','📝','ทบทวนตามรอบ',reviewWords().length+' คำถึงรอบ',undefined,'data-go="review"')}

@@ -175,7 +175,7 @@ const CMDS={
   if(!chargePush(1)){C.bot('⛔ โควต้าเดือนนี้เต็ม 300/300 — LINE จะปฏิเสธการส่ง (API ตอบ 429) บอทจะเงียบจนกว่าจะรีเซ็ตต้นเดือน แต่การตอบกลับยังใช้ได้ฟรี','shock');return}
   C.bot('⏰ สตรีค '+(streak||1)+' วันกำลังจะขาด! แตะเมนูเรียนต่อ 3 นาทีก็พอ','sleepy',1)}
 };
-const ALIAS=[[/^(สตรีค|streak|ไฟ)$/i,'streak'],[/^(คำวันนี้|คำศัพท์วันนี้|word)$/i,'word'],[/^(ทบทวน|review)$/i,'review'],[/^(ลีก|อันดับ|league)$/i,'league'],[/^(เหรียญ|เหรียญตรา|badge)$/i,'badge'],[/^(ท้า|ท้าเพื่อน|duel)$/i,'duel'],[/^(ชวน|ชวนเพื่อน|invite)$/i,'invite'],[/^(คลาส|คลาสวันนี้|เรียน|class)$/i,'class'],[/^(ควิซ|ควิซ 3 ข้อ|quiz)$/i,'quiz3'],[/^(ติวเตอร์|ถามพี่ลามา|tutor)$/i,'tutor'],[/^(ช่วย|ช่วยด้วย|help|\?|เมนู)$/i,'help'],[/^(เปิดเตือน|รับเตือน)$/i,'optin'],[/^(ปิดเตือน|หยุดเตือน|stop)$/i,'optout']];
+const ALIAS=[[/^(สตรีค|streak|ไฟ)$/i,'streak'],[/^(คำวันนี้|คำศัพท์วันนี้|word)$/i,'word'],[/^(ทบทวน|review)$/i,'review'],[/^(ลีก|อันดับ|league)$/i,'league'],[/^(เหรียญ|เหรียญตรา|badge)$/i,'badge'],[/^(ท้า|ท้าเพื่อน|duel)$/i,'duel'],[/^(ชวน|ชวนเพื่อน|invite)$/i,'invite'],[/^(คลาส|คลาสวันนี้|เรียน|class)$/i,'class'],[/^(ควิซ|ควิซ 3 ข้อ|quiz)$/i,'quiz3'],[/^(ติวเตอร์|ถามน้องลามา|tutor)$/i,'tutor'],[/^(ช่วย|ช่วยด้วย|help|\?|เมนู)$/i,'help'],[/^(เปิดเตือน|รับเตือน)$/i,'optin'],[/^(ปิดเตือน|หยุดเตือน|stop)$/i,'optout']];
 async function run(raw,shown){const t=(raw||'').trim();if(!t)return;
  if(CMDS[t]){C.me(shown||t);setTimeout(CMDS[t],380);return}
  C.me(shown||t);const al=ALIAS.find(a=>a[0].test(t));if(al){setTimeout(CMDS[al[1]],380);return}
@@ -184,7 +184,7 @@ function send(){const v=$('#txt').value;$('#txt').value='';run(v)}
 $('#send').onclick=send;$('#txt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();send()}});
 
 /* ---------- ริชเมนู 2 หน้า ---------- */
-const RM=[[['main','📖','เรียนวันนี้','เปิดเว็บ (LIFF)','index.html?from=line'],['cmd','🔥','สตรีคของฉัน','ตอบกลับ · ฟรี','streak'],['cmd','💡','คำวันนี้','ตอบกลับ · ฟรี','word'],['cmd','🔁','ทบทวน','ตอบกลับ · ฟรี','review'],['cmd','🤖','ถามพี่ลามา','ค้นคำ · ฟรี','tutor'],['cmd','❓','ช่วยด้วย','คำสั่งทั้งหมด','help']],
+const RM=[[['main','📖','เรียนวันนี้','เปิดเว็บ (LIFF)','index.html?from=line'],['cmd','🔥','สตรีคของฉัน','ตอบกลับ · ฟรี','streak'],['cmd','💡','คำวันนี้','ตอบกลับ · ฟรี','word'],['cmd','🔁','ทบทวน','ตอบกลับ · ฟรี','review'],['cmd','🤖','ถามน้องลามา','ค้นคำ · ฟรี','tutor'],['cmd','❓','ช่วยด้วย','คำสั่งทั้งหมด','help']],
  [['uri','🏆','ลีกสัปดาห์นี้','เปิดเว็บ','index.html?from=line'],['cmd','📊','อันดับของฉัน','ตอบกลับ · ฟรี','league'],['cmd','⚔️','ท้าเพื่อน','การ์ด Flex','duel'],['cmd','🎟️','ชวนเพื่อน','การ์ด Flex','invite'],['cmd','🏅','เหรียญตรา','ตอบกลับ · ฟรี','badge'],['uri','🎒','ห้องเรียนของฉัน','เปิดเว็บ','index.html?from=line']],
  [['main','🎓','คลาสวันนี้','3 คำ · ตอบกลับฟรี','class'],['cmd','📝','ควิซ 3 ข้อ','ตอบกลับ · ฟรี','quiz3'],['cmd','💡','คำวันนี้','ตอบกลับ · ฟรี','word'],['cmd','🔁','ทบทวน','ตอบกลับ · ฟรี','review'],['uri','📚','นิทานลามา','เปิดเว็บ','index.html?from=line'],['cmd','❓','ช่วยด้วย','คำสั่งทั้งหมด','help']]];
 function drawRM(i){$('#rm').innerHTML=RM[i].map(r=>`<button class="t ${r[0]==='main'?'main':''}" ${r[0]==='cmd'||(r[0]==='main'&&r[4]==='class')?`data-cmd="${r[4]}" data-label="${r[2]}"`:`data-uri="${r[4]}"`}><i>${r[1]}</i>${r[2]}<span>${r[3]}</span></button>`).join('');bind()}

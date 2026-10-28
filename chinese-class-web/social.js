@@ -63,7 +63,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
  return {title:'ฉัน',body:`<div class="large">ฉัน</div>
  <div class="card pad2 mt12 fade-in" style="display:flex;gap:14px;align-items:center"><div style="width:96px;height:96px;border-radius:50%;background:var(--redsoft);overflow:hidden;flex:none;display:flex;align-items:flex-end;justify-content:center">${llama('wave',92,{acc:true,style:'margin-top:8px'})}</div>
   <div style="flex:1;min-width:0"><b style="font-size:20px">${dn()||'ผู้เรียน'}</b><div class="cap">${titleNow()} · เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
- <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>คำที่เรียน</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
+ <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>${S.assume>0?'คำที่นับว่าเรียน':'คำที่เรียน'}</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
  <div class="sec">ระดับการเรียน</div><div class="group">
   ${ROW(levelBy(curLv()).bg,levelBy(curLv()).em,'ระดับของฉัน: '+levelBy(curLv()).name,levelBy(curLv()).th+(lvInfo(curLv()).complete?'':' · กำลังเพิ่มเนื้อหา'),'<span class="val">เปลี่ยน</span>'+CHEV,'data-go="levels"')}
   ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?'ผลล่าสุด ≈ ระดับ '+S.placeRes.est+' · ทำใหม่ได้':'12–20 ข้อ ไม่บังคับ',undefined,'data-go="placement"')}</div>
@@ -77,7 +77,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}
   ${ROW('#F2ECFA','🎵','ฝึกวรรณยุกต์สำหรับคนไทย','เทียบกับเสียงสูงต่ำที่เราคุ้นเคย',undefined,'data-go="tones"')}
   ${ROW('#FDF3E6','🧪','ห้องฝึกพิเศษ','นิทาน · เทียบคำ · พูดตาม · ข้อสอบจำลอง',undefined,'data-go="labs"')}
-  ${ROW('#E7F8EE','🤖','ถามพี่ลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย',undefined,'data-go="tutor"')}
+  ${ROW('#E7F8EE','🤖','ถามน้องลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย',undefined,'data-go="tutor"')}
   ${ROW('#FDF3E6','🍵','เรียนพร้อมกัน','ห้องอ่านหนังสือจับเวลา',undefined,'data-go="study"')}
   ${ROW('#EAF1FB','📊','สรุปสัปดาห์ของฉัน','การ์ดสรุปไว้แชร์ใน LINE',undefined,'data-go="recap"')}</div>
  <div class="sec">ตั้งค่า</div><div class="group">

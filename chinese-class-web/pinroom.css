@@ -128,3 +128,4 @@
 .pr-wtag{display:inline-flex;align-items:center;gap:6px;margin:8px auto 0;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;border:0;font-family:inherit;min-height:32px}
 .pr-wtag small{font-weight:400;opacity:.75;font-size:11.5px}
 .pr-wtag.ok{background:var(--oksoft);color:#1F6B41}.pr-wtag.go{background:#EFE8DE;color:var(--sub2)}
+.pr-opt:nth-child(odd):last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 5px)}

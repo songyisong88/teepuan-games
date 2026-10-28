@@ -119,7 +119,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   <button class="pill row1 press ${ok?'ok':'warn'}" style="height:52px;border-radius:26px;margin-top:14px" data-sa="next">ต่อไป</button>`;
   setTimeout(()=>fb.classList.add('show'),250)}
  function answer(btn){if(locked)return;const q=cur.q,k=+btn.dataset.i,ok=k===q.ans;q.picked=k;const os=$$('.opt',stage);
-  os.forEach((o,j)=>{if(j===q.ans){o.classList.add('ok');$('.k',o).innerHTML=CHECK}else if(j===k)o.classList.add('bad');else o.classList.add('dim')});resolve(ok,q,btn)}
+  os.forEach((o,j)=>{o.setAttribute('aria-disabled','true');o.tabIndex=-1;if(j===q.ans){o.classList.add('ok');$('.k',o).innerHTML=CHECK}else if(j===k)o.classList.add('bad');else o.classList.add('dim')});resolve(ok,q,btn)}
  /* เรียงคำ */
  let ordState=[];
  function ordHtml(q){return `<div class="center"><div class="cap" style="font-size:14px">เรียงคำให้เป็นประโยค</div><div style="font-size:23px;font-weight:700;margin:10px 20px 4px">${q.s.th}</div></div><div class="ordans" id="oa"></div><div class="ordpool" id="op">${q.sh.map(ix=>`<button class="chipw press" data-ox="${ix}"><span class="zh">${strip(q.s.zh[ix])||q.s.zh[ix]}</span><small>${pyPlain(strip(q.s.py[ix]||''))}</small></button>`).join('')}</div>`}

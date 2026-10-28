@@ -17,6 +17,7 @@ const LET='ABCD';
 function makeQ(w,type,pool){const p=pool.length>=4?pool:ALLW;const others=shuffle(p.filter(x=>x.zh!==w.zh&&x.th!==w.th)).slice(0,3);const opts=shuffle([w,...others]);
  return {w,type,opts,ans:opts.findIndex(o=>o.zh===w.zh)}}
 function qHtml(q){const w=q.w;let top='',fmt;
+ if(q.pic)return picQHtml(q);
  if(q.top){return `<div class="center">${q.top}</div><div class="group opts mt20" style="margin-top:22px">${q.optsHtml.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span>${o}</span></button>`).join('')}</div>`}
  if(q.type==='zh2th'){top=`<div class="cap" style="font-size:14px">คำนี้แปลว่าอะไร</div><div class="bigzh zh" style="font-size:${w.zh.length>2?64:88}px">${w.zh}</div><div style="font-size:26px;font-weight:500;margin-top:2px">${pyHtml(w.py)}</div>`;fmt=o=>o.th}
  else if(q.type==='th2zh'){top=`<div class="cap" style="font-size:14px">คำจีนของคำว่า</div><div style="font-size:38px;font-weight:700;margin:12px 0 4px">${w.th}</div><div class="cap">เลือกคำที่ถูกต้อง</div>`;fmt=o=>`<span class="zh" style="font-size:26px">${o.zh}</span> <span class="cap" style="margin-left:6px">${pyPlain(o.py)}</span>`}
@@ -54,16 +55,20 @@ function learnedPool(u){const L=lessonBy(u.lesson);return uniqW([...L.words,...l
 function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,steps=[];const Q=q=>q&&steps.push({k:'q',q});
  if(u.part===0)steps.push({k:'story',L,u});
  [ws.slice(0,4),ws.slice(4)].forEach((h,hi)=>{h.forEach(w=>steps.push({k:'c',w}));const sh=shuffle(h);
-  Q(makeQ(sh[0],'audio',pool));Q(makeQ(sh[1],'zh2th',pool));Q(makeQ(sh[2],'th2zh',pool));
-  const tq=sh.map(toneQ).find(Boolean);Q(tq||makeQ(sh[3],'zh2th',pool));
+  /* เลือกรูปแบบต่อคำ: คำที่มีรูปใช้โจทย์รูป (ฟังเลือกรูป / ดูรูปเลือกคำจีน) แทนข้อเดิมบางข้อ · ข้อเดิม (ไทย→จีน, วรรณยุกต์) ยังอยู่ทุกรอบ */
+  const ims=sh.filter(picHas),pa=ims[0],pb=ims[1],q2=shuffle(sh.filter(x=>x!==pa&&x!==pb));
+  const sw=[pb||q2.shift()||sh[0],pa||q2.shift()||sh[1],q2.shift()||sh[2],q2.shift()||sh[3]];
+  Q(pb?picQ(pb,'aud2pic',pool):makeQ(sw[0],'audio',pool));Q(pa?picQ(pa,'pic2zh',pool):makeQ(sw[1],'zh2th',pool));Q(makeQ(sw[2],'th2zh',pool));
+  const tq=sh.map(toneQ).find(Boolean);Q(tq||makeQ(sw[3],'zh2th',pool));
   if(hi===1&&u.part===1){steps.push({k:'dlg',L});Q(replyQ(L))}});
- Q(matQ(ws));const b=u.part*3;
+ Q(ws.filter(picHas).length>=3?picMat(ws):matQ(ws));const b=u.part*3;
  if(u.part===0){Q(ordQ(L,b));Q(fillQ(L,b+1,L.id));Q(ordQ(L,b+2))}else{Q(ordQ(L,b));Q(fillQ(L,b+1,L.id));Q(fillQ(L,b+2,L.id))}
  return steps}
 
 /* ----- การ์ดคำ / เรื่องเล่า / บทสนทนา ----- */
-function cardHtml(w,n,t){return `<div class="center"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div>${art('word',w.zh,'','wart')}<div class="bigzh zh" style="font-size:${w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130}px">${w.zh}</div>
- <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div><div style="font-size:27px;font-weight:600;margin-top:8px;padding:0 20px">${w.th}</div>
+function cardHtml(w,n,t){const pc=picCard(w);const thH=`<div style="font-size:27px;font-weight:600;margin-top:8px;padding:0 20px">${w.th}</div>`;
+ return `<div class="center"><div class="cap" style="letter-spacing:1.5px">คำใหม่ ${n}/${t}</div>${pc?pc.top:art('word',w.zh,'','wart')}<div class="bigzh zh" style="font-size:${pc?(w.zh.length>3?60:w.zh.length>2?72:w.zh.length>1?92:100):(w.zh.length>3?70:w.zh.length>2?84:w.zh.length>1?116:130)}px">${w.zh}</div>
+ <div style="font-size:30px;font-weight:500;margin-top:4px">${pyHtml(w.py)}</div>${pc&&pc.hide?`<button class="pic-th press" data-sa="thai" data-th="${w.th.replace(/"/g,'&quot;')}"><span>👁️</span> แตะดูคำไทย <small>ลองเดาจากรูปก่อน</small></button>`:thH}
  <button class="audio press" aria-label="ฟังเสียง" data-act="audio" data-t="${w.zh}" style="margin-top:14px">${SPK}</button>
  <div class="hint"><span class="hb">อ่านแบบไทย</span><b>${w.h}</b><span class="cap">(ใกล้เคียง · ฟังเสียงจริงอีกที)</span></div>${stkBtn(w.zh)}</div>
  <div class="mnemo"><span class="mi">💡</span><span><b>ตัวช่วยจำ:</b> ${w.mn}</span></div>
@@ -104,12 +109,12 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
    if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;reasked.push(q.w.zh);const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}
    else if(!retry&&!place&&retries<4&&q.rq){retries++;reasked.push(q.w?q.w.zh:(q.lbl||'ประโยค'));steps.push(Object.assign(q.rq(),{retry:1}))}}
   mas(ok?(run>=3?'thumbs':'correct'):'wrong');
-  const w=q.w;let rev='';if(q.reveal)rev=q.reveal;else if(!ok&&w)rev=`<div class="ans"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;${pyHtml(w.py)} &nbsp;= <b>${w.th}</b></div>`;
+  const w=q.w;let rev='';if(q.reveal)rev=typeof q.reveal==='function'?q.reveal(ok,q):q.reveal;else if(!ok&&w)rev=`<div class="ans"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;${pyHtml(w.py)} &nbsp;= <b>${w.th}</b></div>`;
   const pose=ok?(run>=3?'thumbs':'correct'):'wrong';
   fb.innerHTML=`<div class="grabber"></div><div class="fh"><div class="t"><b style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?(run>=3?`ติดต่อกัน ${run} ข้อแล้ว! 🔥`:'ถูกต้อง!'):'ยังไม่ถูก ไม่เป็นไรนะ'}</b><small>${ok?`${MASCOT_NAME}ภูมิใจ${retry||place?'':' · +10 XP'}`:MASCOT_NAME+(retry?'ลองอีกที ครั้งหน้าจะจำได้':'จะพาทวนข้อนี้อีกรอบ')}</small></div><div style="width:84px;height:84px">${M(pose)}</div></div>${rev}
   <button class="pill row1 press ${ok?'ok':'warn'}" style="height:52px;border-radius:26px;margin-top:14px" data-sa="next">ต่อไป</button>`;
   setTimeout(()=>fb.classList.add('show'),250)}
- function answer(btn){if(locked)return;const q=cur.q,k=+btn.dataset.i,ok=k===q.ans;const os=$$('.opt',stage);
+ function answer(btn){if(locked)return;const q=cur.q,k=+btn.dataset.i,ok=k===q.ans;q.picked=k;const os=$$('.opt',stage);
   os.forEach((o,j)=>{if(j===q.ans){o.classList.add('ok');$('.k',o).innerHTML=CHECK}else if(j===k)o.classList.add('bad');else o.classList.add('dim')});resolve(ok,q,btn)}
  /* เรียงคำ */
  let ordState=[];
@@ -118,7 +123,8 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   $$('.chipw',op).forEach(b=>b.classList.toggle('used',ordState.includes(+b.dataset.ox)));const d=$('[data-sa=ordcheck]',dock);if(d)d.disabled=ordState.length!==q.s.zh.length}
  /* จับคู่ */
  let matSel=null,matDone=0,matErr=0;
- function matHtml(q){return `<div class="center"><div class="cap" style="font-size:14px">จับคู่คำจีนกับความหมาย</div></div><div class="matg"><div id="ml">${q.ps.map((w,k)=>`<button class="mcell zh press" data-ml="${k}"><span style="font-size:24px">${w.zh}</span><small>${pyPlain(w.py)}</small></button>`).join('')}</div><div id="mr">${q.right.map(k=>`<button class="mcell th press" data-mr="${k}"><span>${q.ps[k].th}</span></button>`).join('')}</div></div>`}
+ function matHtml(q){if(q.pics)return `<div class="center"><div class="cap" style="font-size:14px">จับคู่รูปกับคำจีน</div></div><div class="matg pmat"><div id="ml">${q.ps.map((w,k)=>`<button class="mcell pmc press" data-ml="${k}" aria-label="รูป ${k+1}">${art('word',w.zh,'','pic-m')}${picKin(w)}</button>`).join('')}</div><div id="mr">${q.right.map(k=>`<button class="mcell zh press" data-mr="${k}"><span style="font-size:24px">${q.ps[k].zh}</span><small>${pyPlain(q.ps[k].py)}</small></button>`).join('')}</div></div>`;
+ return `<div class="center"><div class="cap" style="font-size:14px">จับคู่คำจีนกับความหมาย</div></div><div class="matg"><div id="ml">${q.ps.map((w,k)=>`<button class="mcell zh press" data-ml="${k}"><span style="font-size:24px">${w.zh}</span><small>${pyPlain(w.py)}</small></button>`).join('')}</div><div id="mr">${q.right.map(k=>`<button class="mcell th press" data-mr="${k}"><span>${q.ps[k].th}</span></button>`).join('')}</div></div>`}
  function matTap(t){if(locked)return;const q=cur.q;
   if(t.dataset.ml!==undefined){if(t.classList.contains('ok'))return;$$('[data-ml]',stage).forEach(x=>x.classList.remove('sel'));t.classList.add('sel');matSel=t.dataset.ml;speak(q.ps[+matSel].zh)}
   else if(matSel!==null&&!t.classList.contains('ok')){const L=$(`[data-ml="${matSel}"]`,stage);if(t.dataset.mr===matSel){L.classList.remove('sel');L.classList.add('ok');t.classList.add('ok');matSel=null;matDone++;vib(10);if(matDone===q.ps.length)setTimeout(()=>resolve(matErr<=1,q,t),350)}
@@ -127,7 +133,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   if(t.classList.contains('opt')){answer(t);return}
   if(t.classList.contains('mcell')){matTap(t);return}
   if(t.classList.contains('chipw')){if(locked||cur.q.type!=='ord')return;const ix=+t.dataset.ox;vib(6);if(ordState.includes(ix))ordState=ordState.filter(x=>x!==ix);else ordState.push(ix);ordRefresh();return}
-  const a=t.dataset.sa;if(a==='next'){vib(8);next()}else if(a==='rep')reportSheet(t.dataset.z);else if(a==='quit')quitSheet();
+  const a=t.dataset.sa;if(a==='next'){vib(8);next()}else if(a==='thai'){t.outerHTML=`<div class="pic-thr">${t.dataset.th}</div>`}else if(a==='rep')reportSheet(t.dataset.z);else if(a==='quit')quitSheet();
   else if(a==='dlgall'){const L=cur.L;speakSeq(L.dlg.map(d=>({t:d[1],r:d[0]})))}
   else if(a==='ordcheck'){const q=cur.q;const ok=ordState.every((ix,k)=>ix===k);$$('.chipw',$('#oa',stage)).forEach(b=>b.classList.add(ok?'okc':'badc'));resolve(ok,q,t)}});
  show()}

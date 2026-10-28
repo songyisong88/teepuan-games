@@ -8,3 +8,7 @@
 ## assets/pinroom/ (ห้องพินอิน)
 23 PIXEL images (webp, transparent, 512px, ~33 KB each) from /workspace/cn-images/pinyin/: pose-* (mouth/tongue, 7), tone1..5, scene-* (welcome gate, stage clear, trophy, confetti, try again), extra-* (mouth a/o/e, thinking, headphones, paper test).
 Loaded through `prImg()` in pinroom.js (falls back to the mascot if a file is missing). The mouth/tongue cross-sections are code-drawn simple illustrations, not real anatomy; the UI captions say so.
+
+## assets/art/word/ (เรียนด้วยรูป · ดูรูปแล้วเลือกคำ)
+100 PIXEL word images (HSK1 40 + HSK2–3 60), opaque webp 512px (~18 KB each), named `<คำจีน>.webp`. Registered in `assets/art/index.js` (`word/<zh>` + `PIC_TYPE`).
+Re-run for new batches: `python3 tools/pic-build/build_pics.py <dir1> <dir2> …` (each dir has index.json). Used only inside lessons (piclearn.js → unitSteps): new-word card, ดูรูปเลือกคำจีน, ฟังเลือกรูป 2×2, จับคู่รูป↔คำ. Kinship images (哥哥 姐姐 弟弟 妹妹 爷爷 奶奶 儿子 女儿) always carry a Thai caption. Concrete words without an image show an emoji with the badge "อีโมจิชั่วคราว" (PIC_EMO in piclearn.js).

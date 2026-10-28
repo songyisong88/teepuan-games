@@ -108,6 +108,7 @@ function radDetFeed(q,okFlag){const r=q.r,v=q.v;const semV=r.tr===3?.88:r.tr===2
  ${radMeter('เชื่อถือความหมายได้แค่ไหน',semV,radEsc(r.id)+' · '+radTrustTxt(r.tr)[0])}${snd}
  <p class="warn">⚠ ตัวบางพวกเสียงไม่ตรง${ce.c?` เช่น ${ce.c} ${pyHtml(ce.py)} (${ce.ph} ${pyHtml(ce.pp)})`:''} — ใช้ส่วนเสียงเป็นเบาะแส ไม่ใช่คำตอบ</p></div>`}
 SC.raddet=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const n=p.n||8;const qs=radGenDet(ids,n);
+ if(p.mode==='daily'&&qs.length<n){const have=new Set(qs.map(x=>x.c));radGenDet(radShuf(RAD_CORE.map(r=>r.id)).slice(0,10),n).forEach(x=>{if(qs.length<n&&!have.has(x.c)){have.add(x.c);qs.push(x)}});radShuf(qs)}
  return {title:'',noRefresh:true,nav:radGNav(),body:qs.length>=3?'<div class="rd-game" id="rdg"></div>':radEmpty('ตัวอักษรเดี่ยวของครอบครัวนี้ยังน้อยเกินไปสำหรับนักสืบ'),
  mount(el){if(qs.length<3)return;const g=$('#rdg',el);const N=qs.length;let i=0,right=0,combo=0,best=0,first=0;
   const upd=()=>{$('#rgp',el).style.width=(i/N*100)+'%';$('#rgc',el).textContent=Math.min(first*2,radCoinLeft())};

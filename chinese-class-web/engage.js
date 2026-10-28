@@ -94,7 +94,8 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
  const hello=!S.parts.length?'เริ่มด้วยบทแรก ใช้เวลาแค่ 3 นาที':xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งที่สุด!':curStreak()>=3?`สตรีค ${curStreak()} วันแล้ว อย่าให้ขาดนะ!`:`${MASCOT_NAME}พาเรียนวันนี้`;
  return {title:BRAND_NAME,body:`${S.from==='line'?'<div class="banner fade-in" style="margin-top:2px">✓ เปิดจาก LINE OA (จำลอง) · เข้าสู่ระบบให้แล้ว</div>':''}
  <div class="hero"><div><div class="cap">${dateTxt()}</div><div class="large" style="padding:2px 0 0">สวัสดี, ${S.name}</div><div class="cap" style="margin-top:2px;max-width:200px">${hello}</div></div>${llama(pose,112,{acc:true,cls:'float',style:'margin-bottom:-4px'})}</div>
- <div class="pad mt16">${eventCard()}</div>
+ <div class="pad mt12">${typeof stkHomeSearch==='function'?stkHomeSearch():''}</div>
+ <div class="pad mt12">${eventCard()}</div>
  <div class="card goal fade-in" style="animation-delay:.08s"><div class="cap" style="font-size:14px">เป้าหมายวันนี้${goal!==S.goal?' (วันสบาย ๆ)':''}</div>
   <div class="ringw"><svg viewBox="0 0 216 216"><circle cx="108" cy="108" r="90" fill="none" stroke="#F0E9DF" stroke-width="7"/><circle class="ring-fill" cx="108" cy="108" r="90" fill="none" stroke="#C8102E" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(C*pct).toFixed(1)} 999" transform="rotate(-90 108 108)"/></svg><div class="ctr"><div class="n">${Math.min(xp,999)}</div><div class="cap" style="margin-top:6px;font-size:15px">จาก ${goal} XP</div></div></div>
   <div style="margin-top:14px;font-size:15px;color:var(--sub2)">${xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งมาก! 🎉':xp>0?'อีกนิดเดียวก็ครบแล้ว':'เริ่มรอบแรกของวันนี้กันเลย'}</div>
@@ -102,6 +103,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
   <button class="frz press" data-go="streak"><span>🔥 ${curStreak()} วัน</span><span>🧊 ${S.freezes}</span></button></div>
  <div class="pad mt20 fade-in" style="animation-delay:.16s">${nu?`<button class="pill press" data-go="unit" data-id="${nu.id}"><b>${S.parts.length?'เรียนต่อ':'เริ่มเรียน'}</b><small>${levelBy(curLv()).name} · บทที่ ${nu.lesson} · ${lessonBy(nu.lesson).th} · รอบ ${nu.part+1}</small></button>`:levelEndCta()}</div>
  ${typeof radHomeCard==='function'?'<div class="pad mt16">'+radHomeCard()+'</div>':''}
+ ${typeof stkHomeCard==='function'?'<div class="pad mt16">'+stkHomeCard()+'</div>':''}
  ${missionsHtml()}
  ${typeof weeklyCard==='function'?weeklyCard():''}
  <div class="sec">บัดดี้</div><div class="pad">${buddyCard()}</div>

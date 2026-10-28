@@ -2,7 +2,9 @@
 const LINK=()=>location.origin+location.pathname+'?from=share&ref='+S.inviteCode;
 const imgCache={};
 function loadImg(src){return imgCache[src]||(imgCache[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src}))}
-function wrapTxt(c,t,x,y,w,lh,max=3){const words=[...t];let line='',lines=[];for(const ch of words){const test=line+ch;if(c.measureText(test).width>w&&line){lines.push(line);line=ch}else line=test}lines.push(line);lines=lines.slice(0,max);lines.forEach((l,i)=>c.fillText(l,x,y+i*lh));return lines.length*lh}
+function wrapTxt(c,t,x,y,w,lh,max=3){let toks;try{toks=typeof Intl!=='undefined'&&Intl.Segmenter?[...new Intl.Segmenter('th',{granularity:'word'}).segment(t)].map(s=>s.segment):[...t]}catch(e){toks=[...t]}
+ let line='',lines=[];const put=tk=>{const test=line+tk;if(c.measureText(test).width>w&&line.trim()){lines.push(line.trimEnd());line=tk.trimStart()}else line=test};
+ for(const tk of toks){if(c.measureText(tk).width>w){for(const ch of [...tk])put(ch)}else put(tk)}lines.push(line.trimEnd());lines=lines.slice(0,max);lines.forEach((l,i)=>c.fillText(l,x,y+i*lh));return lines.length*lh}
 const rr=(c,x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()};
 /* spec: {badge,title,sub,mascot|friend,tint,accent,stats:[[big,small]],cta} */
 const CARD_THEMES={soft:{n:'นุ่ม',bg:'#fff',g0:null,g1:'#fff',t:'#27211E',s:'#6E6259',sb:'#F8F3EC',sl:'#8A7F76',f:'#A8A09A',line:'rgba(60,40,30,.10)'},

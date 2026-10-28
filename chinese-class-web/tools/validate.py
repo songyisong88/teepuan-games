@@ -29,7 +29,7 @@ def tone_of(s):
     return 5
 def base(s): return ''.join(c for c in unicodedata.normalize('NFD',s.lower()) if not unicodedata.combining(c)).replace('ü','u')
 # characters where pypinyin's context guess is known to differ from correct usage in our sentences -> not reported
-FP=set('长片场只处便觉假地了得背干差切炸倒缝还拧钉儿谁都着重行为都发调率校数传曲没会将量')
+FP=set('脏长片场只处便觉假地了得背干差切炸倒缝还拧钉儿谁都着重行为都发调率校数传曲没会将量')
 def readings(c):
     return {r for r in sum(pinyin(c,style=Style.TONE,heteronym=True),[])}
 def toneck(zh,py,l,ctx):

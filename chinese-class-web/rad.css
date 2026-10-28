@@ -62,8 +62,18 @@
 .rd-pt.slot{border:2.5px dashed var(--rdbl);color:var(--rdbl);background:rgba(58,100,168,.05);transition:background .2s,transform .2s}.rd-pt.slot.or{border-color:var(--rdor);background:rgba(217,130,43,.06);color:var(--rdor)}.rd-pt.slot small{font-size:12px;text-align:center;line-height:1.25;padding:0 8px;font-weight:600}.rd-pt.slot.hot{background:rgba(58,100,168,.18);transform:scale(1.07)}.rd-pt.slot.or.hot{background:rgba(217,130,43,.2)}
 .rd-pt.slot.fill{border-style:solid;color:var(--ink)}.rd-pt.slot.fill.ok{border-color:var(--ok);background:var(--oksoft);animation:rdpop .4s var(--spring)}.rd-pt.slot.fill.bad{border-color:#C8102E;background:#FDECEC}
 .rd-enc{position:relative;display:inline-block}.rd-enc .in{position:absolute;display:block}.rd-enc .in .rd-pt{width:64px;height:64px;font-size:40px;border-radius:17px;background:#fff}.rd-enc .in .rd-pt.slot small{font-size:9.5px;padding:0 3px}
-.rd-enc.op2ff5 .in,.rd-enc.op2ff4 .in{left:50%;top:50%;transform:translate(-50%,-50%)}.rd-enc.op2ff5 .in{margin-top:8px}.rd-enc.op2ff8 .in{right:8px;bottom:8px}.rd-enc.op2ff6 .in{left:8px;bottom:8px}.rd-enc.op2ff9 .in{right:8px;top:8px}.rd-enc.op2ffa .in{left:50%;bottom:6px;transform:translateX(-50%)}.rd-enc.op2ff7 .in{left:50%;top:6px;transform:translateX(-50%)}.rd-enc.op2ff6 .in,.rd-enc.op2ff7 .in{}
-.rd-enc .big.slot small{font-size:13px}
+/* ตำแหน่งชิ้นในต่อตามความหมายของ IDS: ⿴ล้อมรอบ ⿵ล้อมจากบน ⿶ล้อมจากล่าง ⿷ล้อมจากซ้าย ⿸ซ้ายบน ⿹ขวาบน ⿺ซ้ายล่าง */
+.rd-enc.op2ff4 .in{left:50%;top:50%;transform:translate(-50%,-50%)}
+.rd-enc.op2ff5 .in{left:50%;top:50%;transform:translate(-50%,-50%);margin-top:10px}
+.rd-enc.op2ff6 .in{left:50%;top:10px;transform:translateX(-50%)}
+.rd-enc.op2ff7 .in{right:8px;top:50%;transform:translateY(-50%)}
+.rd-enc.op2ff8 .in{right:8px;bottom:8px}
+.rd-enc.op2ff9 .in{left:8px;bottom:8px}
+.rd-enc.op2ffa .in{right:8px;top:8px}
+.rd-enc .big.slot small{position:absolute;left:8px;right:8px;top:10px;font-size:11.5px;line-height:1.2;text-align:center;padding:0}
+.rd-enc.op2ff6 .big.slot small,.rd-enc.op2ffa .big.slot small{top:auto;bottom:10px}
+.rd-enc.op2ff7 .big.slot small{right:80px;left:6px;top:50%;transform:translateY(-50%)}
+.rd-enc .big{position:relative}
 .rd-hintb{margin:12px 22px 0;min-height:0;font-size:14.5px;line-height:1.55;color:var(--sub2);display:none}.rd-hintb.on{display:block;background:#fff;border-radius:16px;padding:10px 14px;box-shadow:0 1px 0 var(--line)}.rd-hintb.res.ok{background:var(--oksoft);color:#1F6A41}.rd-hintb.res.bad{background:var(--rdorsoft);color:#8A4E10}.rd-hintb .big{font-size:28px;vertical-align:middle}.rd-hintb b{font-weight:600}
 .rd-trayh{font-size:12.5px;color:var(--sub);font-weight:600;padding:18px 26px 8px}
 .rd-tray{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:0 20px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
@@ -120,3 +130,20 @@
 .rd-gc small{display:block;margin-top:2px;line-height:1.35}
 @media (prefers-reduced-motion:reduce){.rd-tile.glow,.shake,.rd-pt.slot.fill.ok{animation:none}}
 @media (min-width:700px){.rd-fgrid{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- กล่องปุ่มจริง ≥44px บนมือถือ (รายงาน report4 ข้อ 5) — ชิปคงรูปเดิมด้วยขอบโปร่งใส + margin ติดลบ ---- */
+.chip.press{box-sizing:content-box;height:32px;border:6px solid transparent;border-left-width:.5px;border-right-width:.5px;border-radius:22px;margin-top:-6px;margin-bottom:-6px;background-clip:padding-box;box-shadow:inset 0 0 0 .5px rgba(60,40,30,.12);position:relative}
+.chip.press::before{display:none}
+.chip.press{min-width:44px}
+.back{min-height:44px;min-width:56px;padding-top:0;padding-bottom:0}
+.x{min-width:44px;min-height:44px}
+.seg button{height:44px}
+.frz{min-height:44px}
+button.cap.press,.spkl{min-height:44px;min-width:44px}
+.rtab,.ltab,.stab,.tchip{min-height:44px}
+.rd-sub button{height:44px}
+.rd-lvf button,.rd-prac .rd-lvr button,.rd-lvf>*{min-height:44px}
+.rd-spk{width:44px;height:44px}
+.rd-start{min-height:44px;padding-top:0;padding-bottom:0;display:inline-flex;align-items:center}
+/* หัวข้อที่ย่อแล้วบนแท็บหลัก: ชิปสามอันกินพื้นที่ขวา — ชิดซ้ายไม่ให้ชนกัน */
+.nav:has(.chip) .nav-t{left:18px;right:236px;text-align:left}

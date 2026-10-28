@@ -63,3 +63,11 @@ wr('terms.html',page('ข้อกำหนดการใช้งาน (ร�
 <h2>การรับผิด</h2><p>บริการนี้ให้ “ตามสภาพ” โดยไม่มีการรับประกันใด ๆ ตามที่กฎหมายอนุญาต (ข้อความนี้เป็นร่างตัวอย่าง ยังไม่ได้ผ่านการตรวจโดยผู้เชี่ยวชาญกฎหมาย)</p>
 <h2>ติดต่อ</h2><p>${cont} · LINE OA: <a href="${esc(cfg.OA_URL)}" rel="noopener">${esc(cfg.OA_ID)}</a> · อ่านเพิ่มที่ <a href="privacy.html">นโยบายความเป็นส่วนตัว</a></p>`));
 console.log('built for',cfg.BRAND_NAME);
+
+/* ---- ตราเวอร์ชัน (กันค้างแคชหลังดีพลอย): แฮชของ js/css/data -> ?v= ใน index.html + version.json + window.APP_VER ---- */
+{const crypto=require('crypto');const files=[];const walk=d=>{for(const f of fs.readdirSync(path.join(D,d)).sort()){const p=d?d+'/'+f:f;const st=fs.statSync(path.join(D,p));if(st.isDirectory()){if(!/^(node_modules|assets|data\/stroke|tools|vendor|fonts|\.git)/.test(p))walk(p)}else if(/\.(js|css)$/.test(f)&&f!=='sw.js')files.push(p)}};
+ const top=fs.readdirSync(D).filter(f=>/\.(js|css)$/.test(f)&&f!=='sw.js'&&f!=='build.js');const hs=crypto.createHash('md5');[...top.sort(),...fs.readdirSync(path.join(D,'data')).filter(f=>/\.js$/.test(f)).sort().map(f=>'data/'+f),...fs.readdirSync(path.join(D,'data/rad')).filter(f=>/\.js$/.test(f)).map(f=>'data/rad/'+f),...(fs.existsSync(path.join(D,'data/stroke/index.js'))?['data/stroke/index.js']:[])].forEach(f=>hs.update(f).update(rd(f)));
+ const v=hs.digest('hex').slice(0,10);let ih=rd('index.html');
+ ih=ih.replace(/(<(?:script src|link rel="stylesheet" href)=")([^"?:]+\.(?:js|css))(\?v=[0-9a-f]+)?"/g,(m,a,f)=>a+f+'?v='+v+'"');
+ if(!/<!--ver:start-->/.test(ih))ih=ih.replace('<script src="config.js','<!--ver:start--><!--ver:end--><script src="config.js');
+ ih=ih.replace(/<!--ver:start-->[\s\S]*?<!--ver:end-->/,`<!--ver:start--><script>window.APP_VER="${v}"</script><!--ver:end-->`);wr('index.html',ih);wr('version.json',JSON.stringify({v}));console.log('version',v)}

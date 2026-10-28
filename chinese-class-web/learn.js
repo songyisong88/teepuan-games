@@ -84,7 +84,7 @@ function dlgHtml(L){const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);
 /* ----- เอนจินบทเรียน ----- */
 const sessNav=`<div class="seshnav"><button class="x" data-sa="quit" aria-label="ปิด">×</button><div class="prog" style="flex:1"><i id="pg" style="width:0"></i></div><div class="cap" id="pc" style="font-weight:600;color:var(--red);min-width:40px;text-align:right"></div></div>`;
 const sessExtra='<div class="dock" id="dock"></div><div class="fb" id="fb"></div>';
-function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,run=0,locked=false,wrong=[],log=[],retries=0;
+function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,run=0,locked=false,wrong=[],log=[],retries=0,reasked=[];
  const stage=$('#stage',el),dock=$('#dock',el),fb=$('#fb',el),pg=$('#pg',el),pc=$('#pc',el),nCards=steps.filter(s=>s.k==='c').length;let cardN=0,qTotal=steps.filter(s=>s.k==='q').length,cur=null;
  const mas=pose=>{const m=$('#qm',stage);if(m)m.innerHTML=M(pose)};
  window.__cnCur=()=>({s:cur,left:steps.length-i,locked,ord:ordState});
@@ -97,12 +97,12 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
    else if(q.type==='mat'){stage.innerHTML=tag+m+matHtml(q);matSel=null;matDone=0;matErr=0}
    else{stage.innerHTML=tag+m+qHtml(q);const a=$('[data-auto]',stage);if(a)setTimeout(()=>speak(q.w.zh,a),350)}}
   stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');$('.scroller',el).scrollTop=0}
- let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log}),250)}else show()}
+ let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log,reasked}),250)}else show()}
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
   if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
   if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:(q.lbl||'ประโยค'));
-   if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}
-   else if(!retry&&!place&&retries<4&&q.rq){retries++;steps.push(Object.assign(q.rq(),{retry:1}))}}
+   if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;reasked.push(q.w.zh);const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}
+   else if(!retry&&!place&&retries<4&&q.rq){retries++;reasked.push(q.w?q.w.zh:(q.lbl||'ประโยค'));steps.push(Object.assign(q.rq(),{retry:1}))}}
   mas(ok?(run>=3?'thumbs':'correct'):'wrong');
   const w=q.w;let rev='';if(q.reveal)rev=q.reveal;else if(!ok&&w)rev=`<div class="ans"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;${pyHtml(w.py)} &nbsp;= <b>${w.th}</b></div>`;
   const pose=ok?(run>=3?'thumbs':'correct'):'wrong';

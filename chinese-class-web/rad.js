@@ -91,7 +91,7 @@ function radNodesHtml(rs,cur){const RH=104,CH=176;let y=44;const pts=rs.map((r,i
   return `<div class="rd-node ${st}" style="left:${p.x.toFixed(1)}%;top:${p.y}px"><button class="rd-c" data-go="radfam" data-id="${r.id}" aria-label="${r.th} ${r.id} ${d?'เรียนแล้ว':p.cur?'ตัวถัดไป':''}"><span class="zh">${r.id}</span>${d?`<i class="ck">${CHECK}</i>`:''}</button><span class="rd-nl"><b>${r.th}</b>${r.bonus?'<em>โบนัส</em>':''}</span></div>${extra}`}).join('');
  return `<div class="rd-path" style="height:${H}px"><svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true">${svg}</svg>${nodes}</div>`}
 /* ---------- หน้าครอบครัวตัวข้าง ---------- */
-SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;const k=radS();const mem=radMembers(r);const done=radDone(id);
+SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;const rdN={b:radGenBuild([id],8,'fam').length,d:radGenDet([id],8).length};const k=radS();const mem=radMembers(r);const done=radDone(id);
  const [tt,tc]=radTrustTxt(r.tr);const pool=lv||0;
  const lvOk=c=>!pool||radLvOf(c)===pool;const sem=mem.sem.filter(lvOk);const show=all?sem:sem.slice(0,8);const ps=r.f.concat([r.id]);
  const card=c=>{const info=RAD_CH[c];const ss=info?(info[6][r.id]||[]):[];const py=radPy(c);const n=radGlNote(c);
@@ -106,10 +106,10 @@ SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;c
  ${sem.length>8&&!all?`<button class="rd-more press" data-go="radfam2" data-id="${id}" data-all="1" data-lv="${pool}">ดูทั้งหมด ${sem.length} ตัว</button>`:''}
  ${mem.weak.length?`<div class="rd-weak"><b>ตัวที่ใช้ ${r.id} เป็นแค่รูปร่าง (${mem.weak.length})</b><p>ตัวเหล่านี้มี ${r.id} อยู่ แต่ไม่ได้บอกความหมาย อย่าใช้เดา</p><div class="rd-wc">${mem.weak.slice(0,18).map(c=>`<button class="rd-wchip zh" data-go="radchar" data-c="${c}" data-r="${r.id}">${c}</button>`).join('')}</div></div>`:''}
  ${ws.length?`<div class="rd-sech" style="margin-top:20px"><b>เจอคำเหล่านี้ในบทเรียน</b><small>ลิงก์ไปบทเรียนเดิม</small></div><div class="rd-words">${ws.map(w=>`<button class="rd-wd press" data-go="unit" data-id="${w.lesson}a"><span class="zh">${zhHtml(w.zh,w.py)}</span><span class="t">${radEsc(w.th)}</span><span class="l">บทที่ ${w.lesson} ›</span></button>`).join('')}</div>`:''}
- <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px"><button class="rd-alt press" data-go="raddet" data-id="${id}">🔎 ลองเป็นนักสืบ ${r.id}</button>${done?'':`<button class="rd-skip press" data-go="radskip" data-id="${id}">รู้จักตัวนี้แล้ว? ข้ามได้ ไม่ต้องเล่น</button>`}</div>
+ <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">${rdN.d>=3?`<button class="rd-alt press" data-go="raddet" data-id="${id}">🔎 ลองเป็นนักสืบ ${r.id}</button>`:''}${done?'':`<button class="rd-skip press" data-go="radskip" data-id="${id}">รู้จักตัวนี้แล้ว? ข้ามได้ ไม่ต้องเล่น</button>`}</div>
  <p class="cap" style="padding:14px 24px 0;line-height:1.5">${RAD_DRAFT} · ครอบครัวนี้รวมเฉพาะตัวอักษรที่อยู่ในบทเรียนของเรา · ข้อมูลส่วนประกอบจาก Make Me a Hanzi (LGPL-3) ผ่านชั้นแก้ไขของเรา</p><div style="height:120px"></div>`;
  return {title:r.th,backLabel:'เรียนตัวอักษร',noRefresh:true,right:`<button class="rd-spk press" data-act="audio" data-t="${radEsc(r.ex[0]||r.id)}" aria-label="ฟังตัวอย่าง ${radEsc(r.ex[0]||'')}">${SPK}</button>`,body,
-  extra:`<div class="dock"><button class="pill press" data-go="radbuild" data-id="${id}"><b>${done?'เล่นประกอบร่างอีกครั้ง':'ลองประกอบร่าง '+r.id+' + ?'}</b><small>8 ข้อ · ใช้เวลาราว 3 นาที</small></button></div>`,
+  extra:`<div class="dock"><button class="pill press" data-go="radbuild" data-id="${id}"><b>${done?'เล่นประกอบร่างอีกครั้ง':'ลองประกอบร่าง '+r.id+' + ?'}</b><small>${rdN.b} ข้อ · ใช้เวลาราว ${Math.max(1,Math.round(rdN.b*22/60))} นาที</small></button></div>`,
   mount(el){radColorize(el)}}};
 Object.assign(window.GOX,{
  radfam(el){push('radfam',{id:el.dataset.id})},
@@ -137,3 +137,12 @@ SC.radcredits=()=>({title:'ที่มาของข้อมูล',backLabel
  <div class="card pad2 mt12" style="padding:16px 18px;line-height:1.6;font-size:15px"><b>ที่เรายังไม่แน่ใจ</b><br>ชื่อไทย ตัวช่วยจำ ชื่อการ์ดและชุดลามะทั้งหมดเป็น${RAD_DRAFT} · ตัวช่วยจำคือเรื่องเล่าให้จำง่าย ไม่ใช่ที่มาทางประวัติศาสตร์ · ส่วนบอกเสียงเดาได้เฉพาะบางครอบครัว (ในแอป ${radPhStat().ex}% อ่านตรงเป๊ะ · ${radPhStat().sy}% ตรงพยางค์ถ้าไม่นับวรรณยุกต์ จากตัวที่มีส่วนเสียง ${radPhStat().n} ตัว)</div>
  <p class="cap" style="padding:12px 24px 0;line-height:1.5">เอกสารสัญญาและประกาศฉบับเต็มอยู่ในโฟลเดอร์ data/rad ของโค้ดบนเว็บนี้ · ดูเพิ่มที่ <a href="terms.html" style="color:var(--red)">เงื่อนไขการใช้งาน</a></p><div style="height:40px"></div>`});
 function radPhStat(){if(radPhStat.c)return radPhStat.c;let n=0,ex=0,sy=0;for(const k in RAD_CH){const v=RAD_CH[k];if(v[1]==='p'&&v[3]&&v[5]>=0){n++;if(v[5]===2){ex++;sy++}else if(v[5]===1)sy++}}return radPhStat.c={n,ex:Math.round(ex/n*100),sy:Math.round(sy/n*100)}}
+/* ฟอนต์สำรองของตัวข้างรูปย่อ (CJK Radicals Supplement): ถ้าเครื่องไม่มีฟอนต์จะเห็นเป็นกล่องว่าง — ตรวจครั้งเดียว แล้วสลับเป็นรูปเต็มที่หน้าตาใกล้เคียงเฉพาะที่หายไป */
+(function radGlyphFallback(){const MAP={'⺮':'竹','⺾':'艹','⺿':'艹','⻌':'辶','⻍':'辶','⻊':'足','⻗':'雨','⺗':'心','⺼':'月','⻏':'阝','⻖':'阝','⺈':'刀','⺊':'卜','⺌':'小','⺤':'爪','⺧':'牛','⺹':'耂','⺭':'礻','⻂':'衤','⺢':'水','⺕':'彐','⻁':'虍','⺘':'扌','⺡':'氵','⺨':'犭','⺖':'忄','⺫':'目','⺪':'攵','⺝':'月','⻎':'辶','⻢':'马','⻔':'门','⻥':'鱼','⻦':'鸟'};
+ const run=()=>{try{const cv=document.createElement('canvas');cv.width=cv.height=48;const c=cv.getContext('2d',{willReadFrequently:true});c.font='36px "Noto Serif SC","Noto Serif CJK SC","Songti SC",serif';
+  const sig=ch=>{c.clearRect(0,0,48,48);c.fillStyle='#000';c.fillText(ch,4,38);const d=c.getImageData(0,0,48,48).data;let h='';for(let i=3;i<d.length;i+=4*7)h+=d[i]>40?'1':'0';return h};
+  const ref=sig('\uE0FF'),ref2=sig('\u{10FFFE}');const miss={};for(const ch in MAP){const s=sig(ch);if(s===ref||s===ref2||!/1/.test(s))miss[ch]=MAP[ch]}
+  const keys=Object.keys(miss);if(!keys.length)return;window.RAD_GLYPH_MISSING=keys;const re=new RegExp('['+keys.join('')+']','g');
+  const fix=n=>{if(n.nodeType===3){if(re.test(n.nodeValue)){re.lastIndex=0;n.nodeValue=n.nodeValue.replace(re,m=>miss[m])}re.lastIndex=0}else if(n.nodeType===1)for(const k of n.childNodes)fix(k)};
+  const root=document.getElementById('frame');fix(root);new MutationObserver(ms=>{for(const m of ms){m.addedNodes.forEach(fix);if(m.type==='characterData')fix(m.target)}}).observe(root,{childList:true,subtree:true,characterData:true})}catch(e){}};
+ (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>setTimeout(run,300))})();

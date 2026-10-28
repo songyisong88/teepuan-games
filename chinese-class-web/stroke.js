@@ -170,14 +170,16 @@ function stkRow(r){const w=r.w,e=r.e;const fs=w.length>3?18:w.length>2?22:w.leng
  return `<button class="stk-row press" data-stk="${w}" aria-label="ดูลำดับขีด ${w}"><span class="gl zh" style="font-size:${fs}px">${w}</span><span class="tx"><b><span class="zh">${w}</span>${e?` <span class="py">${pyHtml(e.py)}</span>`:''}</b><span class="th">${e?e.th:'คำที่คุณพิมพ์ · ไม่อยู่ในบทเรียน (ค้นด้วยภาษาไทยไม่ได้)'}</span><small class="${miss?'bad':''}">${stkInfoLine(w)}${e?` · <i class="lv">ระดับ ${e.lv}</i>`:''}</small></span><span class="pc" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.2-4.2L16.6 4.4a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8z"/></svg></span></button>`}
 function stkDaily(){const lv=curLv();const pool=ALLW.filter(e=>e.lv<=lv&&stkHan(e.zh).length&&stkHan(e.zh).length===1&&e.zh.length===1&&stkHan(e.zh).every(c=>STK_SET.has(c)));if(!pool.length)return null;return pool[(today()*7919)%pool.length]}
 function stkAppChars(){const s=new Set();ALLW.forEach(e=>stkHan(e.zh).forEach(c=>s.add(c)));LESSONS.forEach(l=>l.words.forEach(e=>stkHan(e.ex||'').forEach(c=>s.add(c))));return [...s].filter(c=>STK_SET.has(c))}
+function stkHomeSearch(){const n='';return `<button class="stk-hs press" data-go="stkfocus" aria-label="เขียนทีละขีด ค้นหาคำหรือตัวอักษร"><span class="m">${M('brush')}</span><span class="t"><b>เขียนทีละขีด <i>ใหม่</i></b><small>ดูลำดับขีดเคลื่อนไหว · ลากนิ้วฝึกเขียน</small><span class="f"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>พิมพ์คำหรือตัวจีน เช่น 谢谢 · 你好</span></span></button>`}
+function stkHomeCard(){const dw=stkDaily();if(!dw)return '';const k=stkS();return `<div class="cap stk-hmlab">ตัวอักษรประจำวัน · เขียนทีละขีด</div><button class="stk-daily hm press" data-stk="${dw.zh}" aria-label="ดูลำดับขีด ${dw.zh}"><span class="g zh">${dw.zh}</span><span class="t"><b>${pyHtml(dw.py)}</b><span>${dw.th}</span><small>${stkInfoLine(dw.zh)}${k.n?' · เขียนผ่านแล้ว '+k.n+' ตัว':''}</small></span><span class="go">ดูเลย</span></button>`}
 function stkEntry(){const k=stkS();return `<button class="stk-entry press" data-go="strokes"><span class="m">${M('brush')}</span><span class="t"><b>เขียนทีละขีด</b><small>ดูลำดับขีดเคลื่อนไหว · ลากนิ้วฝึกเขียน · ${STK_COV.length>6000?'6,866':STK_COV.length} ตัวอักษร</small></span>${CHEV}</button>`}
-Object.assign(window.GOX=window.GOX||{},{strokes(){push('strokes',{})}});
-SC.strokes=()=>{const k=stkS();const dw=stkDaily();const dt=new Date(today()*864e5);
+Object.assign(window.GOX=window.GOX||{},{strokes(){push('strokes',{})},stkfocus(){push('strokes',{focus:1})}});
+SC.strokes=(p)=>{p=p||{};const k=stkS();const dw=stkDaily();const dt=new Date(today()*864e5);
  return {title:'เขียนทีละขีด',noRefresh:true,body:`<div class="stk-top"><div class="stk-tm">${M('brush')}</div><div><div class="large" style="padding:0">เขียนทีละขีด</div><p class="stk-sub">ค้นคำหรือตัวอักษรจีน แล้วดูลำดับขีดเคลื่อนไหว ฝึกลากนิ้วเขียนตาม</p></div></div>
  <div class="stk-sbar"><label class="stk-sf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><input id="stkq" type="search" enterkeyhint="search" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="ค้นหา 汉字 · พินอิน · ภาษาไทย" aria-label="ค้นหาคำหรือตัวอักษร"><button class="x" id="stkx" aria-label="ล้างคำค้น" hidden>✕</button></label><button class="stk-cancel" id="stkc" hidden>ยกเลิก</button></div>
  <div class="seg stk-seg" role="group" aria-label="ค้นด้วย" id="stkseg">${[['all','ทั้งหมด'],['zh','汉字'],['py','พินอิน'],['th','ไทย']].map((x,i)=>`<button data-m="${x[0]}" class="${i?'':'on'} ${x[0]==='zh'?'zh':''}">${x[1]}</button>`).join('')}</div>
  <div id="stkres"></div><div id="stkhome">${stkHomeHtml(k,dw,dt)}</div>`,
-  mount(el){const q=$('#stkq',el),res=$('#stkres',el),hm=$('#stkhome',el),x=$('#stkx',el),cc=$('#stkc',el);let mode='all';
+  mount(el){const q=$('#stkq',el),res=$('#stkres',el),hm=$('#stkhome',el),x=$('#stkx',el),cc=$('#stkc',el);let mode='all';if(p.focus)setTimeout(()=>{try{q.focus()}catch(e){}},420);
    const run=()=>{const v=q.value;x.hidden=cc.hidden=!v;if(!v){res.innerHTML='';hm.style.display='';return}hm.style.display='none';const rows=stkSearch(v,mode);
     res.innerHTML=rows.length?`<div class="sec stk-sec" style="margin-top:14px">${rows.length} ผลลัพธ์${rows.length>=40?' (แสดง 40 รายการแรก)':''}</div><div class="stk-list">${rows.map(stkRow).join('')}</div>`:`<div class="stk-empty" style="margin-top:20px">${M('empty')}<div class="h2" style="padding:0">ไม่พบ “${v.replace(/[<>&]/g,'')}”</div><p class="cap" style="margin:8px 10px 0;font-size:14.5px;color:var(--sub2)">ค้นภาษาไทยได้เฉพาะคำที่อยู่ในบทเรียนของเรา · อยากดูตัวอื่น ลองพิมพ์ตัวจีน (汉字) ตรงๆ ได้เลย</p></div>`};
    q.oninput=run;x.onclick=()=>{q.value='';run();q.focus()};cc.onclick=()=>{q.value='';run();q.blur()};
@@ -282,7 +284,7 @@ function stkPractice(el,root,info,datas,idxs,p){const w=info.w;const k=stkS();le
 /* ================= ผลสรุป + การ์ด LINE ================= */
 function stkShareData(r){const e=wordBy(r.w);const datas=r.cs.map(c=>STK_DATA[c]).filter(Boolean);
  return {text:`ฉันเขียน ${r.w} ได้ครบแล้ว!`,sub:`${r.strokes} ขีด · ${r.mis?'พลาด '+r.mis+' ครั้ง':'ไม่พลาดเลย'} · ใช้เวลา ${r.secs} วินาที`,
-  stats:[[`+${r.xp}`,'XP'],[`+${r.coins}`,'เหรียญ'],[`${r.days} วัน`,'เขียนต่อเนื่อง']],glyph:{datas,cs:r.cs,w:r.w,py:e?e.py:'',th:e?e.th:'',stars:r.stars}}}
+  stats:[[r.xp?`+${r.xp}`:'–','XP'],[r.coins?`+${r.coins}`:'–','เหรียญ'],[`${r.days} วัน`,'เขียนต่อเนื่อง']],glyph:{datas,cs:r.cs,w:r.w,py:e?e.py:'',th:e?e.th:'',stars:r.stars}}}
 async function stkDrawCard(c,g,x,y,w,h,TH,F){c.save();c.fillStyle=TH.sb;rr(c,x,y,w,h,32);c.fill();
  let ds=(g.datas||[]);if(!ds.length&&g.cs)ds=(await Promise.all(g.cs.slice(0,3).map(stkLoad))).filter(x=>x&&!x.err);ds=ds.slice(0,3);const n=Math.max(1,ds.length);const cell=Math.min(h-36,Math.floor((w*.62-(n-1)*12)/n));let cx=x+20;const cy=y+(h-cell)/2;
  ds.forEach(d=>{c.fillStyle='#fff';rr(c,cx,cy,cell,cell,22);c.fill();c.strokeStyle='rgba(200,16,46,.28)';c.lineWidth=2;c.stroke();
@@ -291,14 +293,14 @@ async function stkDrawCard(c,g,x,y,w,h,TH,F){c.save();c.fillStyle=TH.sb;rr(c,x,y
   d.strokes.forEach((s,i)=>{const role=d.k&&d.cp&&d.cp[d.k[i]]?d.cp[d.k[i]][1]:null;c.fillStyle=role==='r'?STK_RAD:STK_INK;c.fill(new Path2D(s))});c.restore();cx+=cell+12});
  const tx=cx+14,tw=x+w-tx-18;c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle=TH.t;c.font=`700 ${g.w.length>2?48:62}px "Noto Serif SC","Noto Serif CJK SC",serif`;c.fillText(g.w,tx,y+84,tw);
  c.fillStyle=TH.sl;c.font=`500 28px ${F}`;c.fillText((g.py||'').replace(/\|/g,''),tx,y+128,tw);c.fillStyle=TH.t;c.font=`600 28px ${F}`;wrapTxt(c,g.th||'',tx,y+176,tw,36,2);
- c.font=`600 40px ${F}`;c.fillStyle=TH.ac||'#D9822B';c.fillText('★'.repeat(g.stars)+'☆'.repeat(3-g.stars),tx,y+h-30);c.restore()}
+ c.font=`600 40px ${F}`;c.fillStyle=TH.ac||'#D9822B';if(g.stars>0)c.fillText('★'.repeat(g.stars)+'☆'.repeat(3-g.stars),tx,y+h-30);c.restore()}
 function stkNext(w){const cs=stkHan(w);if(cs.length===1){const d=STK_DATA[cs[0]];const q=d&&d.cp?d.cp.find(([c,r])=>r!=='r'&&c!==cs[0]&&STK_SET.has(c)&&c.length===1&&STK_CNT[c]>1):null;if(q)return {w:q[0],lab:`${cs[0]} → ${q[0]}`}}
  const i=ALLW.findIndex(e=>e.zh===w);for(let j=i+1;j<ALLW.length&&i>=0;j++){const e=ALLW[j];if(e.zh!==w&&stkHan(e.zh).length&&stkHan(e.zh).every(c=>STK_SET.has(c)))return {w:e.zh,lab:`${w} → ${e.zh}`}}return null}
 SC.strokeres=(r)=>{r=r||{};if(!r.cs){const w=r.w||'你好';r={w,cs:stkHan(w),strokes:stkHan(w).reduce((a,c)=>a+(STK_CNT[c]||0),0),mis:0,secs:30,stars:3,xp:0,coins:0,first:false,days:stkS().days||0}}const e=wordBy(r.w);const nx=stkNext(r.w);const pose=r.stars>=3?'celebrate':r.stars===2?'cheer':'thumbs';
  return {title:'ผลการเขียน',backLabel:'กลับ',noRefresh:true,right:'',body:`<div class="stk-res"><div class="stk-burst"></div><div class="rm pop">${M(pose)}</div>
   <div class="large center" style="padding:6px 20px 0">เขียน <span class="zh">${r.w}</span> ได้ครบแล้ว!</div><div class="stk-bigstars" aria-label="${r.stars} ดาว">${stkStarTxt(r.stars)}</div>
   <p class="cap center" style="font-size:14.5px;color:var(--sub2)">${r.strokes} ขีด · ${r.mis?'พลาด '+r.mis+' ครั้ง':'ไม่พลาดเลย'} · ใช้เวลา ${r.secs} วินาที</p>
-  <div class="stk-tiles res"><div><b>+${r.xp}</b><small>XP</small></div><div><b>+${r.coins}</b><small>เหรียญ</small></div><div><b>${r.days}</b><small>วันเขียนต่อเนื่อง</small></div></div>
+  <div class="stk-tiles res"><div><b>${r.xp?'+'+r.xp:'–'}</b><small>XP</small></div><div><b>${r.coins?'+'+r.coins:'–'}</b><small>เหรียญ</small></div><div><b>${r.days}</b><small>วันเขียนต่อเนื่อง</small></div></div>
   ${r.first?'':`<p class="cap center" style="margin-top:8px">วันนี้ได้รางวัลของคำนี้ไปแล้ว · เขียนซ้ำเพื่อฝึกได้เลย พรุ่งนี้รับรางวัลได้อีก</p>`}
   <div class="cardprev" id="rcard" style="margin:14px 20px 0"><div class="cpl">กำลังสร้างการ์ด…</div></div>
   <div style="padding:14px 20px 0;display:flex;flex-direction:column;gap:10px"><button class="pill row1 linebtn press" id="rshare"><span style="display:inline-flex;margin-right:8px">${svg('<path d="M21 11.5C21 7.4 16.97 4 12 4S3 7.4 3 11.5c0 3.6 3.2 6.6 7.5 7.4.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1.1 1 .6 1.2-.5 6.4-3.8 8.7-6.5 1.6-1.7 2.1-3.4 2.1-3.8z"/>',20)}</span>แชร์ไปที่ LINE</button>
@@ -311,3 +313,7 @@ SC.strokeres=(r)=>{r=r||{};if(!r.cs){const w=r.w||'你好';r={w,cs:stkHan(w),str
    $('#ragain',el).onclick=()=>replace('strokeprac',{w:r.w,only:r.only!=null?r.only:-1});
    const rn=$('#rnext',el);if(rn)rn.onclick=()=>replace('stroke',{w:nx.w});
    $('#rview',el).onclick=()=>replace('stroke',{w:r.w,ci:r.only>=0?r.only:undefined})}}};
+
+/* ตรวจเวอร์ชันใหม่หลังดีพลอย: เทียบ window.APP_VER (ใส่โดย build.js) กับ version.json แล้วรีโหลดครั้งเดียว กันผู้ใช้ค้างหน้าเก่า (แคชของ GitHub Pages 10 นาที) */
+(function(){if(location.protocol==='file:'||!window.APP_VER||!window.fetch)return;
+ fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===window.APP_VER)return;const k='lama-ver-reload';try{if(sessionStorage.getItem(k)===j.v)return;sessionStorage.setItem(k,j.v)}catch(e){return}location.reload()}).catch(()=>{})})();

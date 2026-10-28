@@ -1,0 +1,3 @@
+Fonts in this folder are self-hosted copies of IBM Plex Sans Thai, Inter and Noto Serif SC
+(served by Google Fonts, woff2 subsets). All three are licensed under the SIL Open Font License 1.1
+(https://openfontlicense.org). They are redistributed unmodified.

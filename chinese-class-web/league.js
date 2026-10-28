@@ -1,6 +1,6 @@
 /* ลีกประจำสัปดาห์ (จำลอง): 6 ลีก · 5 อันดับแรกเลื่อนขึ้น · 3 อันดับสุดท้ายตกลีก · เปลี่ยนรอบทุกวันจันทร์
    คู่แข่งและ XP ของคู่แข่งคำนวณจากสูตรตายตัว (ไม่มีผู้เล่นจริง/ไม่มี backend) — ของจริงต้องมีเซิร์ฟเวอร์จัดกลุ่มผู้เล่น */
-const LG_TIERS=[{n:'บรอนซ์',e:'🥉',c:'#B8794A'},{n:'เงิน',e:'🥈',c:'#8E98A5'},{n:'ทอง',e:'🥇',c:'#D9A21B'},{n:'แซฟไฟร์',e:'💠',c:'#3F7FD0'},{n:'รูบี้',e:'❤️',c:'#C8102E'},{n:'เพชร',e:'💎',c:'#2AA5B8'}];
+const LG_TIERS=[{n:'บรอนซ์',e:'🥉',c:'#B8794A',t:'#8F5A30'},{n:'เงิน',e:'🥈',c:'#8E98A5',t:'#566474'},{n:'ทอง',e:'🥇',c:'#D9A21B',t:'#7F5C05'},{n:'แซฟไฟร์',e:'💠',c:'#3F7FD0',t:'#2A62B0'},{n:'รูบี้',e:'❤️',c:'#C8102E',t:'#C8102E'},{n:'เพชร',e:'💎',c:'#2AA5B8',t:'#1F7E8D'}];
 const LG_UP=5,LG_DOWN=3;
 const wkStart=(t=today())=>t-((t+3)%7);
 const wkIdx=(t=today())=>Math.floor((wkStart(t)+3)/7);
@@ -18,7 +18,7 @@ function leagueRows(){const b=lgBoard();let o='';
 function leagueHead(){const b=lgBoard(),T=LG_TIERS[b.tier],n=b.rows.length,safe=b.pos<=LG_UP,danger=b.pos>n-LG_DOWN;
  const cut=b.rows[LG_UP-1],ahead=b.rows[b.pos-2];
  const msg=safe?`อยู่ในโซนเลื่อนขึ้น 🎉 รักษาอันดับไว้ถึงวันอาทิตย์`:danger?`อยู่ในโซนตกลีก — เก็บอีก ${Math.max(1,b.rows[n-LG_DOWN-1].xp-b.me.xp+1)} XP เพื่อหนีขึ้นมา`:`ต้องการอีก ${Math.max(1,cut.xp-b.me.xp+1)} XP เพื่อเข้า ${LG_UP} อันดับแรก`;
- return `<div class="card pad2 mt16" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1"><div class="cap" style="color:${T.c};font-weight:700">${T.e} ลีก${T.n} · เหลืออีก ${b.daysLeft} วัน</div><b style="font-size:18px">อันดับ ${b.pos} · ${b.me.xp} XP</b><div class="cap mt8">${msg}</div></div><div style="width:96px;height:96px;flex:none">${M(safe?'trophy':'think')}</div></div>
+ return `<div class="card pad2 mt16" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1"><div class="cap" style="color:${T.t||T.c};font-weight:700">${T.e} ลีก${T.n} · เหลืออีก ${b.daysLeft} วัน</div><b style="font-size:18px">อันดับ ${b.pos} · ${b.me.xp} XP</b><div class="cap mt8">${msg}</div></div><div style="width:96px;height:96px;flex:none">${M(safe?'trophy':'think')}</div></div>
  <div class="lgtiers" aria-label="ลีกทั้งหมด">${LG_TIERS.map((x,i)=>`<span class="${i===b.tier?'on':''} ${i<b.tier?'past':''}" style="${i===b.tier?'border-color:'+x.c:''}" title="${x.n}">${x.e}</span>`).join('')}</div>`}
 const lgBadge=()=>{const T=LG_TIERS[lgTier()];return T.e+' '+T.n};
 /* เปลี่ยนสัปดาห์: สรุปผล เลื่อน/ตกลีก */

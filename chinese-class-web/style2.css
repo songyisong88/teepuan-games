@@ -276,3 +276,4 @@ button.cap.press{--hy:-14px;--hx:-6px}button.cap.press.spkl,.spkl{--hy:-8px;--hx
 .cmbig{font-size:92px;line-height:1.1;animation:lbpop .5s var(--spring)}
 .cmmn{background:var(--warnsoft,#FFF8E7);border-radius:16px;padding:12px 14px;margin-top:14px;font-size:14.5px;line-height:1.6;color:#6B5320}
 @media(prefers-reduced-motion:reduce){.lbhero::after,.lbblank,.shring.listen,.timer.low,.cmbig,.mkscore b{animation:none}}
+.lbg .row{padding-top:10px;padding-bottom:10px}

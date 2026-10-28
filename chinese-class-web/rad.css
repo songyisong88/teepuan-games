@@ -147,3 +147,6 @@ button.cap.press,.spkl{min-height:44px;min-width:44px}
 .rd-start{min-height:44px;padding-top:0;padding-bottom:0;display:inline-flex;align-items:center}
 /* หัวข้อที่ย่อแล้วบนแท็บหลัก: ชิปสามอันกินพื้นที่ขวา — ชิดซ้ายไม่ให้ชนกัน */
 .nav:has(.chip) .nav-t{left:18px;right:236px;text-align:left}
+.stk-sf .x{min-width:0;min-height:0;box-sizing:content-box;width:26px;height:26px;border:9px solid transparent;margin:-9px -5px -9px -9px;background-clip:padding-box}
+.stk-cancel{min-height:44px}
+.stk-sf{min-width:0}.stk-sf input{width:0}.stk-cancel{flex:none}

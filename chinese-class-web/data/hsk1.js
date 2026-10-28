@@ -1,4 +1,4 @@
-LVMETA[1]={standard:'HSK 2.0',original:true,official:150,covered:149}; /* รายการคำ/ประโยคเขียนเอง จัดระดับเทียบรายการคำ HSK 2.0 จาก drkameleon/complete-hsk-vocabulary (ไม่ได้ตรวจกับ PDF ทางการ) · ดูตัวเลข in-level ใน ROADMAP */
+LVMETA[1]={standard:'HSK 2.0',original:true,official:150,covered:150}; /* รายการคำ/ประโยคเขียนเอง จัดระดับเทียบรายการคำ HSK 2.0 จาก drkameleon/complete-hsk-vocabulary (ไม่ได้ตรวจกับ PDF ทางการ) · ดูตัวเลข in-level ใน ROADMAP */
 /* HSK 1 · 5 ตอน · 12 บท · สร้างจาก tools (re-level 2026-10-28) */
 CHAPTERS.push(
 {lv:1,id:1,th:'ท่าเรือสวัสดี',zh:'你好港',sub:'ทักทายและมารยาท',emoji:'⚓',bg:'#EAF1FB'},

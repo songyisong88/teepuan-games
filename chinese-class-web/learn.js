@@ -108,7 +108,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');$('.scroller',el).scrollTop=0}
  let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log,reasked}),250)}else show()}
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
-  if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
+  if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&(q.pic||q.pics))bumpCnt('pic',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
   if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:(q.lbl||'ประโยค'));
    if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;reasked.push(q.w.zh);const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}
    else if(!retry&&!place&&retries<4&&q.rq){retries++;reasked.push(q.w?q.w.zh:(q.lbl||'ประโยค'));steps.push(Object.assign(q.rq(),{retry:1}))}}

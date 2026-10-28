@@ -2,6 +2,14 @@
    ข้อมูลทั้งหมดมาจากสถานะจริงของแอป ไม่มีตัวเลขสมมติ */
 const hmPct=nu=>{if(!nu)return 0;const us=UNITS.filter(u=>u.lesson===nu.lesson);return Math.round(us.filter(u=>unitDone(u.id)).length/us.length*100)};
 function hmRing(p){const C=2*Math.PI*44;return `<div class="hm-ring" role="img" aria-label="${p}% ของบทนี้"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="8"/><circle cx="50" cy="50" r="44" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(C*p/100).toFixed(1)} 999" transform="rotate(-90 50 50)"/></svg><div><b>${p}%</b><small>ของบทนี้</small></div></div>`}
+/* การ์ดเริ่มต้นสำหรับคนใหม่ (ยังไม่เคยเรียนจบรอบใด): 3 ขั้นสั้น ๆ + กำลังใจจากมาสคอต ไม่มีตัวเลขสมมติ */
+const HM_CHEER=['ไม่ต้องรู้ภาษาจีนมาก่อนก็เริ่มได้ ค่อย ๆ ไปทีละนิด','วันละไม่กี่นาทีก็พอ ผิดได้ ลองใหม่ได้ ไม่ต้องรีบ','เริ่มจากดูรูปกับฟังเสียง ไม่ต้องจำทั้งหมดในวันเดียว'];
+function hmStart(){if(S.parts.length||!nextUnit())return '';const nu=nextUnit(),L=lessonBy(nu.lesson),w=(nu.words||L.words).find(x=>picHas(x))||null,cheer=HM_CHEER[today()%HM_CHEER.length];
+ const st=(n,pic,t,s,go,attr)=>`<button class="hm-st press" data-go="${go}" ${attr||''}><span class="n">${n}</span><span class="pc">${pic}</span><span class="tx"><b>${t}</b><small>${s}</small></span></button>`;
+ return `<div class="hm-start"><div class="hm-sh"><b>เริ่มต้นใน 3 ขั้น</b><span>${MASCOT_NAME}: ${cheer}</span></div>
+  ${st(1,w?art('word',w.zh,'','pic-mini sm'):'📖','ดูรูป ฟังเสียง ตอบสั้น ๆ','บทแรก: '+L.th+' · ใช้เวลาราว 3 นาที','unit','data-id="'+nu.id+'"')}
+  ${st(2,'<span class="zh" style="font-size:26px;color:#D9822B">亻</span>','ลองเขียนตัวจีนทีละขีด','ดูลำดับขีดแล้วเขียนตามทีละขีด ลองกี่ครั้งก็ได้','strokes')}
+  ${st(3,'🔤','ฝึกฟังวรรณยุกต์','ด่านเล็ก ๆ เหมาะกับคนที่ยังไม่เคยเรียน','pinlv','data-n="'+(typeof prRec==='function'?(prRec()||1):1)+'"')}</div>`}
 function hmContinue(goal,xp){const nu=nextUnit(),n=curLv(),started=S.parts.length>0;
  if(!nu)return `<div class="hm-cont end"><div style="padding:16px 14px 14px">${levelEndCta()}</div></div>`;
  const L=lessonBy(nu.lesson),ch=CHAPTERS.find(c=>c.id===L.chapter),us=UNITS.filter(u=>u.lesson===L.id),p=hmPct(nu);
@@ -35,5 +43,5 @@ SC.home=()=>{const goal=goalNow(),xp=dayXp(),t=today(),hr=new Date().getHours(),
  const gift=(S.chestDay!==t||S.evDay!==t)?`<div class="hm-gift">${S.chestDay!==t?`<button class="press" data-go="chest">🎁 หีบประจำวันพร้อมเปิด</button>`:''}${S.evDay!==t?`<button class="press" data-go="event">✨ เซอร์ไพรส์ประจำวัน</button>`:''}</div>`:'';
  return {title:BRAND_NAME,body:`${S.from==='line'?'<div class="banner fade-in" style="margin-top:2px">✓ เปิดจาก LINE OA (จำลอง) · เข้าสู่ระบบให้แล้ว</div>':''}
  <div class="hm-hero"><div><div class="cap">${dateTxt()}</div><div class="hm-h1">${nm?'สวัสดี, '+nm:'สวัสดี'}</div><div class="cap" style="margin-top:2px;max-width:210px">${hello}</div></div>${llama(pose,104,{acc:true,cls:'float',style:'margin-bottom:-4px'})}</div>
- ${adapt}${typeof pinHomeCard==='function'?pinHomeCard():''}${hmContinue(goal,xp)}${hmTiles()}${gift}${hmMissions()}${hmDaily()}${hmLine()}<div class="hm-sec" style="padding-top:18px"></div><div class="hm-mw">${hmMore()}</div>${DEMO}`,
+ ${adapt}${typeof pinHomeCard==='function'?pinHomeCard():''}${hmContinue(goal,xp)}${hmStart()}${hmTiles()}${gift}${hmMissions()}${hmDaily()}${hmLine()}<div class="hm-sec" style="padding-top:18px"></div><div class="hm-mw">${hmMore()}</div>${DEMO}`,
  mount(el){const d=el.querySelector('#hmMore');if(d){if(window._hmMore)d.open=true;d.addEventListener('toggle',()=>{window._hmMore=d.open})}}}};

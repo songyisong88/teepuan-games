@@ -4,10 +4,10 @@ function bumpCnt(k,n=1){if(!S.life)S.life={};S.life[k]=(S.life[k]||0)+n;if(S.cnt
 const cntOf=k=>S.cnt.day===today()?(S.cnt[k]||0):0;
 
 /* ----- ภารกิจประจำวัน (หมุนเวียนวันละ 3 ข้อ) ----- */
-const MIS=[{id:'unit',t:'เรียนจบ 1 รอบ',k:'unit',n:1,em:'📖'},{id:'q',t:'ตอบถูก 10 ข้อ',k:'qok',n:10,em:'✅'},{id:'game',t:'เล่นเกม 1 ครั้ง',k:'game',n:1,em:'🎮'},{id:'ear',t:'ฟังเสียงจีน 12 ครั้ง',k:'audio',n:12,em:'🎧'},{id:'q2',t:'ตอบถูก 20 ข้อ',k:'qok',n:20,em:'🎯'},{id:'soc',t:'ท้าเพื่อนหรือส่งกำลังใจ 1 ครั้ง',k:'social',n:1,em:'💚'},{id:'tut',t:'ถามติวเตอร์ 1 คำถาม',k:'tutor',n:1,em:'💬'}];
+const MIS=[{id:'unit',t:'เรียนจบ 1 รอบ',k:'unit',n:1,em:'📖'},{id:'q',t:'ตอบถูก 10 ข้อ',k:'qok',n:10,em:'✅'},{id:'game',t:'เล่นเกม 1 ครั้ง',k:'game',n:1,em:'🎮'},{id:'ear',t:'ฟังเสียงจีน 12 ครั้ง',k:'audio',n:12,em:'🎧'},{id:'q2',t:'ตอบถูก 20 ข้อ',k:'qok',n:20,em:'🎯'},{id:'soc',t:'ท้าเพื่อนหรือส่งกำลังใจ 1 ครั้ง',k:'social',n:1,em:'💚'},{id:'tut',t:'ถามติวเตอร์ 1 คำถาม',k:'tutor',n:1,em:'💬'},{id:'pic',t:'ตอบถูกข้อดูรูป 5 ข้อ',k:'pic',n:5,em:'🖼️'}];
 /* เป้าภารกิจปรับตามระดับ: ระดับสูงขึ้น ต้องตอบ/ฟังมากขึ้น (+15% ต่อระดับ) */
 const misScale=m=>{if(m.k!=='qok'&&m.k!=='audio')return m;const n=Math.round(m.n*(1+.15*(curLv()-1)));return Object.assign({},m,{n,t:m.t.replace(/\d+/,n)})};
-const todayMis=()=>{const t=today();return [0,2,4].map(o=>misScale(MIS[(t+o)%7]))};
+const todayMis=()=>{const t=today();return [0,2,4].map(o=>misScale(MIS[(t+o)%MIS.length]))};
 function misState(){if(S.mis.day!==today())S.mis={day:today(),got:[]};return S.mis}
 function missionsHtml(){const ms=misState(),list=todayMis(),all=list.every(m=>ms.got.includes(m.id));const nGot=ms.got.length;
  return `<div class="sec" style="display:flex;justify-content:space-between;align-items:center">ภารกิจวันนี้<span class="cap" style="font-weight:600">${nGot}/3 ${all?'· รับโบนัสแล้ว ✓':'· ครบสามได้ +25 🪙'}</span></div><div class="group">${list.map(m=>{const c=Math.min(m.n,cntOf(m.k)),done=c>=m.n,got=ms.got.includes(m.id);

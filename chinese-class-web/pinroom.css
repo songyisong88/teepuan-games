@@ -116,3 +116,15 @@
 .pr-let .mini{height:84px;width:auto;flex:none}
 .pr-res .pm .pr-img{height:200px;width:auto;margin:0 auto}
 .pr-hc .pm .pr-img,.pr-head .pm .pr-img{width:100%;height:100%}
+/* เฟส 2 */
+.pr-big2{font-size:44px;font-weight:700;margin:8px 0 2px;letter-spacing:.04em}
+.pr-src{font-size:11.5px;color:var(--sub);margin-top:6px;line-height:1.4}
+.pr-wk{color:#A3281A;font-weight:600}
+.pr-chkc .pr-let img.pr-img.mini{width:56px;height:56px}
+.pr-rd .pr-chip{gap:2px;padding-top:6px}
+.pr-rd .art{display:block;width:44px;height:44px}
+.pr-rd .art img{width:44px;height:44px;object-fit:contain}
+.pr-opt small{display:block}
+.pr-wtag{display:inline-flex;align-items:center;gap:6px;margin:8px auto 0;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;border:0;font-family:inherit;min-height:32px}
+.pr-wtag small{font-weight:400;opacity:.75;font-size:11.5px}
+.pr-wtag.ok{background:var(--oksoft);color:#1F6B41}.pr-wtag.go{background:#EFE8DE;color:var(--sub2)}

@@ -30,7 +30,7 @@ function lvSheet(n){const L=levelBy(n),i=lvInfo(n),cur=curLv()===n,lower=n>1;
 SC.levels=({first}={})=>{const cur=curLv();
  return {title:'เลือกระดับ',body:`<div class="large">${first?'เริ่มที่ระดับไหนดี?':'เลือกระดับของคุณ'}</div><p class="cap" style="padding:2px 24px 0;line-height:1.5">เปลี่ยนได้ทุกเมื่อ ความคืบหน้าไม่หาย · </p><div class="cap" style="padding:6px 24px 0;line-height:1.5">ℹ️ ${STD_NOTE}</div>${dvCard()}
  <div class="group mt16">${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ (แนะนำ)',S.placeRes?`ผลล่าสุด ≈ ${S.placeRes.est?'HSK '+S.placeRes.est:'ก่อน HSK 1'} · ทำใหม่ได้`:'12–20 ข้อ · ราว 3 นาที · ข้ามได้',undefined,'data-go="placement"')}
- ${ROW('#E7F8EE','🌱','ไม่เคยเรียนเลย — เริ่มจากศูนย์','HSK 1 บทที่ 1',undefined,'data-go="lvzero"')}</div>
+ ${ROW('#E7F8EE','🌱','ไม่เคยเรียนเลย — เริ่มจากศูนย์','ระดับ 1 บทที่ 1',undefined,'data-go="lvzero"')}</div>
  <div class="sec">หรือเลือกระดับเอง</div><div class="group">${LEVELS.map(L=>{const i=lvInfo(L.id);return `<button class="row press ${cur===L.id?'selrow':''}" data-go="lvpick" data-lv="${L.id}"><span class="ic" style="background:${L.bg}">${L.em}</span><span class="tx"><b>${L.name} · ${L.th}</b><small>${LVSTAT(L.id)}${i.done?` · เรียนแล้ว ${i.done}/${i.units} รอบ`:''}</small></span>${cur===L.id?'<span class="chip" style="height:26px;padding:0 10px;font-size:12px">ระดับตอนนี้</span>':CHEV}</button>`}).join('')}</div>
  <p class="cap center" style="padding:14px 30px 0;line-height:1.5">ระดับที่ยังเพิ่มเนื้อหาอยู่จะมีป้าย “กำลังเพิ่มเนื้อหา” กำกับ เราไม่ได้อ้างว่าครบทุกคำของ HSK</p>${first?'':''}`}};
 

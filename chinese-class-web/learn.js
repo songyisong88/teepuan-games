@@ -62,7 +62,7 @@ function unitSteps(u){const L=lessonBy(u.lesson),pool=learnedPool(u),ws=u.words,
   Q(pb?picQ(pb,'aud2pic',pool):makeQ(sw[0],'audio',pool));Q(pa?picQ(pa,'pic2zh',pool):makeQ(sw[1],'zh2th',pool));Q(makeQ(sw[2],'th2zh',pool));
   const tq=sh.map(toneQ).find(Boolean);Q(tq||makeQ(sw[3],'zh2th',pool));
   if(hi===1&&u.part===1){steps.push({k:'dlg',L});Q(replyQ(L))}});
- Q(ws.filter(picHas).length>=3?picMat(ws):matQ(ws));
+ Q((()=>{const m=ws.filter(picHas).length>=3?picMat(ws):null;return m&&m.ps.length>=3?m:matQ(ws)})());
  {const pw=shuffle(ws.filter(w=>picHas(w)&&w.py.split(/[| ]/).length<=3));if(pw.length>=2)Q(picPyQ(pw[0],pool))}
  const b=u.part*3;
  if(u.part===0){Q(ordQ(L,b));Q(fillQ(L,b+1,L.id));Q(ordQ(L,b+2))}else{Q(ordQ(L,b));Q(fillQ(L,b+1,L.id));Q(fillQ(L,b+2,L.id))}

@@ -287,3 +287,4 @@ button.cap.press{--hy:-14px;--hx:-6px}button.cap.press.spkl,.spkl{--hy:-8px;--hx
 button.cap.press,.spkl{min-height:44px;min-width:44px}
 .rtab,.ltab,.stab,.tchip,.frz{min-height:44px}
 }
+.audio.sm{min-width:44px;min-height:44px}

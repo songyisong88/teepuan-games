@@ -13,7 +13,8 @@ let _radG=null;
 function radG(c){if(!_radG){_radG={};for(const w of ALLW){for(const ch of stkHan(w.zh)){const cur=_radG[ch];const single=w.zh===ch;
   const better=!cur||(single&&!cur.single)||(single===cur.single&&(w.zh.length<cur.w.length||(w.zh.length===cur.w.length&&w.lv<cur.lv)));
   if(better)_radG[ch]={w:w.zh,th:w.th,py:w.py,single,lv:w.lv,lesson:w.lesson,e:w}}}}return _radG[c]||null}
-function radPy(c){const g=radG(c);if(g){if(g.single)return g.py;const cs=stkHan(g.w);const sy=(g.py||'').split(/[ |]+/).filter(Boolean);if(sy.length===cs.length){const i=cs.indexOf(c);if(i>=0)return sy[i]}}const r=RAD_CH[c];return r?r[7]:(RAD_PY[c]||'')}
+const RAD_FULL={"友": "yǒu", "生": "shēng", "姐": "jiě", "欢": "huān", "服": "fú", "宜": "yí", "候": "hòu", "识": "shí", "思": "sī", "诉": "sù", "情": "qíng", "夫": "fū", "睛": "jīng", "息": "xī", "楚": "chǔ", "务": "wù", "边": "biān", "李": "lǐ", "阳": "yáng", "士": "shì", "净": "jìng", "泼": "pō", "匙": "chí", "户": "hù", "拾": "shí", "嗽": "sòu", "量": "liàng", "寸": "cùn", "牌": "pái", "腐": "fǔ", "篷": "péng", "璃": "lí", "尚": "shàng", "傅": "fù", "巴": "bā", "筝": "zhēng", "矩": "jǔ", "置": "zhì", "糊": "hú"};/* เสียงเต็มของตัวเดี่ยว ตรวจกับ Unihan kMandarin + pypinyin · เสียงเบาจริง (们 吗 的 子 么 了 着 呀 啊 地 呢 吧) คงเดิม */
+function radPy(c){if(RAD_FULL[c])return RAD_FULL[c];const g=radG(c);if(g){if(g.single)return g.py;const cs=stkHan(g.w);const sy=(g.py||'').split(/[ |]+/).filter(Boolean);if(sy.length===cs.length){const i=cs.indexOf(c);if(i>=0)return sy[i]}}const r=RAD_CH[c];return r?r[7]:(RAD_PY[c]||'')}
 /* ความหมายระดับตัวอักษร (report5 M5) — ตัวที่ไม่มีคำเดี่ยวในบทเรียน เดิมใช้ความหมายของทั้งคำ (ร่าง รอครูตรวจ) */
 const RAD_GL1={'超':'ข้าม · เกิน','打':'ตี · ทำ','感':'รู้สึก','酒':'เหล้า · สุรา','车':'รถ','国':'ประเทศ','米':'ข้าว · เมตร'};
 function radGl(c){const g=radG(c);if(RAD_GL1[c]&&!(g&&g.single))return RAD_GL1[c];if(!g)return '';return g.th}

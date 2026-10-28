@@ -103,5 +103,5 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   else if(a==='lost'){S.streak=7;S.lastDay=today()-4;S.lostShown=-99;S.freezes=0;save();checkStreakLost()}
   else if(a==='all'){UNITS.forEach(u=>{if(!unitDone(u.id)){S.parts.push(u.id);S.stars[u.id]=S.stars[u.id]||2}});save();toast('จบทุกบทแล้ว เกมปลดล็อกครบ');refresh()}
   else if(a==='coins'){addCoins(100);toast('+100 เหรียญ');refresh()}
-  else if(a==='reset'){Object.keys(localStorage).filter(k=>k.indexOf('lama-')===0).forEach(k=>localStorage.removeItem(k));location.href=location.pathname}}}}};
+  else if(a==='reset'){if(!confirm('ล้างข้อมูลทั้งหมดในเครื่องนี้ (ความคืบหน้า เหรียญ สตรีค และข้อมูลหน้าจำลอง LINE)? ย้อนกลับไม่ได้'))return;Object.keys(localStorage).filter(k=>k.indexOf('lama-')===0).forEach(k=>localStorage.removeItem(k));location.href=location.pathname}}}}};
 document.addEventListener('DOMContentLoaded',boot);

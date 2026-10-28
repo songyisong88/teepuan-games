@@ -100,8 +100,9 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
  let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log}),250)}else show()}
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
   if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
-  if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:'ประโยค');
-   if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}}
+  if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:(q.lbl||'ประโยค'));
+   if(!retry&&!place&&retries<4&&q.w&&q.type!=='mat'&&!review){retries++;const other={zh2th:'th2zh',th2zh:'zh2th',audio:'zh2th',tone:'audio'}[q.type]||'zh2th';steps.push({k:'q',retry:1,q:makeQ(q.w,other,learnedPool({lesson:q.w.lesson}))})}
+   else if(!retry&&!place&&retries<4&&q.rq){retries++;steps.push(Object.assign(q.rq(),{retry:1}))}}
   mas(ok?(run>=3?'thumbs':'correct'):'wrong');
   const w=q.w;let rev='';if(q.reveal)rev=q.reveal;else if(!ok&&w)rev=`<div class="ans"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;${pyHtml(w.py)} &nbsp;= <b>${w.th}</b></div>`;
   const pose=ok?(run>=3?'thumbs':'correct'):'wrong';

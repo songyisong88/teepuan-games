@@ -88,8 +88,16 @@ const mvA=w=>art('word',w,'','');
 const mvRev=n=>revCard({pic:art('word',n.a,'','pic-big'),zh:n.ph,zhH:zhHtml(n.ph,n.php),py:n.php,th:n.pth});
 const mvRs=n=>`${n.r} ใช้ ${n.m}`;
 /* ตัวลวงจากคำที่สับสนกันจริง ไม่เอาลักษณนามที่คำนามนั้นใช้ได้ด้วย */
-function mvDis(n,k=3,must){const no=new Set([n.m,...n.alt]),out=[];const add=z=>{if(z&&MWI[z]&&!no.has(z)&&!out.includes(z)&&out.length<k)out.push(z)};
- if(must)add(must);shuffle([...MVX[n.m].c]).forEach(add);if(out.length<k)[...MVX[n.m].c].forEach(c=>shuffle([...((MVX[c]||{}).c||'')]).forEach(add));if(out.length<k)shuffle(['个','张','条','只','本','把']).forEach(add);return out}
+/* MV_OK = ลักษณนามที่อยู่ในขอบเขตระดับของผู้เรียน (รอบฝึกรวม) · null = ไม่จำกัด · ตัวลวงเลือกจากในขอบเขตก่อน ไม่พอจึงใช้ตัวอื่น */
+let MV_OK=null;
+function mvDis(n,k=3,must){const no=new Set([n.m,...n.alt]),out=[];let lim=!!MV_OK;const add=z=>{if(z&&MWI[z]&&!no.has(z)&&!out.includes(z)&&out.length<k&&(!lim||MV_OK.has(z)))out.push(z)};
+ const run=()=>{shuffle([...MVX[n.m].c]).forEach(add);if(out.length<k)[...MVX[n.m].c].forEach(c=>shuffle([...((MVX[c]||{}).c||'')]).forEach(add));if(out.length<k)shuffle(['个','张','条','只','本','把']).forEach(add);if(lim&&out.length<k)shuffle([...MV_OK]).forEach(add)};
+ if(must){const l=lim;lim=false;add(must);lim=l}run();if(out.length<k){lim=false;run()}return out}
+/* ขอบเขตรอบฝึกรวม: ลักษณนามระดับ ≤ ระดับปัจจุบัน · ถ้าโจทย์ไม่พอ (ต้องมีทายกลุ่ม 1 ชุด ไม่เข้าพวก 2 คู่เทียบ 2) ขยายทีละระดับ */
+function mvScope(){const ok=n=>{const A=new Set(MW.filter(m=>m.lv<=n).map(m=>m.zh));const g=Object.keys(MV_GRP).filter(m=>MV_GRP[m].nw&&A.has(m));
+  const od=MV_ODD.filter(o=>A.has(o.m)&&A.has(MVA[o.o].m)),pr=MV_PAIR.filter(p=>A.has(MVA[p[0]].m)&&A.has(MVA[p[1]].m));
+  return g.length>=1&&g.some(gm=>od.filter(o=>o.m!==gm&&MVA[o.o].m!==gm).length>=2&&pr.filter(p=>MVA[p[0]].m!==gm&&MVA[p[1]].m!==gm).length>=2)?A:null};
+ for(let n=Math.max(1,curLv());n<=5;n++){const A=ok(n);if(A)return {A,n}}return {A:new Set(MW.map(m=>m.zh)),n:5}}
 /* ---------- แบบคำถาม ---------- */
 const MV_GRP={
  条:{show:['鱼','裤子','路','河'],nw:'蛇',fam:'条张只',exp:'งูเป็นสัตว์ แต่ตัวยาว จึงใช้ 条 เหมือนปลา'},
@@ -119,14 +127,18 @@ const mvOptK='<span class="k" aria-hidden="true"></span>';
 const mvPc=(n,l,s)=>`${mvA(n.a)||`<span class="mv-nopic zh">${n.d}</span>`}<span class="l zh">${l}</span>${s?`<span class="s">${s}</span>`:''}`;
 const mvQs=(n,c)=>`一 <span class="mv-q"${c?' style="color:var(--ok);border-color:var(--ok)"':''}>${c||'?'}</span> ${n.d}`;
 /* 1A ทายกลุ่ม: ภาพทั้ง 4 มีอะไรเหมือนกัน */
-function mvGroupA(m){const G=MV_GRP[m],fam=[...G.fam],o=shuffle(fam.slice()),ns=G.show.map(a=>MVA[a]);
+/* ตัวเลือกกลุ่ม: แทนลักษณนามนอกขอบเขตระดับด้วยตัวในขอบเขต (จำนวนตัวเลือกเท่าเดิม) */
+function mvFam(m,fs){const a=[...fs];if(!MV_OK)return a;const out=a.filter(z=>z===m||MV_OK.has(z));
+ [...((MVX[m]||{}).c||''),...shuffle([...MV_OK])].forEach(z=>{if(out.length<a.length&&MWI[z]&&MVX[z]&&MV_OK.has(z)&&!out.includes(z))out.push(z)});
+ return out.length===a.length?out:a}
+function mvGroupA(m){const G=MV_GRP[m],fam=mvFam(m,G.fam),o=shuffle(fam.slice()),ns=G.show.map(a=>MVA[a]);
  return {type:'mvga',key:'g'+m,lbl:'กลุ่ม '+m,opts:o,ans:o.indexOf(m),html:`<div class="mv"><div class="mv-cap">ภาพทั้ง 4 ใช้ลักษณนามตัวเดียวกัน</div><div class="mv-h">มีอะไรเหมือนกัน</div>
   <div class="mv-g2">${ns.map(n=>`<div class="mv-pc">${mvPc(n,'一<span class="mv-q">?</span>'+n.d,n.th)}</div>`).join('')}</div>
   <div class="mv-opts">${o.map((z,i)=>`<button class="opt mv-opt press" data-i="${i}">${mvOptK}${mvSvg(MVX[z].sh)}<span><b>${MVX[z].t}</b></span></button>`).join('')}</div><div style="height:30px"></div></div>`,
   reveal:ok=>`<div class="mv-ban"><b>${ok?'ถูกต้อง':'คำตอบ: '+MVX[m].t}</b> ${ok?'ของที่'+MVX[m].t.replace(/ /g,'และ'):'ของทั้ง 4 อย่างนี้'} ใช้ ${mvZh(m,'font-size:22px;color:var(--ink)')} ${MWI[m].py}
    <div class="row">${ns.map(n=>`<div class="mv-mini">${mvA(n.a)}<div class="zh">${n.ph}</div></div>`).join('')}</div></div>`}}
 /* 1B ลองกับภาพใหม่ เลือกกลุ่ม */
-function mvGroupB(m){const G=MV_GRP[m],n=MVA[G.nw],fam=shuffle([...G.fam]),ns=G.show.map(a=>MVA[a]);
+function mvGroupB(m){const G=MV_GRP[m],n=MVA[G.nw],fam=shuffle(mvFam(m,G.fam)),ns=G.show.map(a=>MVA[a]);
  return {type:'mvgb',key:m,lbl:n.ph,opts:fam,ans:fam.indexOf(m),html:`<div class="mv"><div class="mv-ban"><b>ของที่${MVX[m].t.replace(/ /g,'และ')}</b> ใช้ ${mvZh(m,'font-size:22px;color:var(--ink)')} ${MWI[m].py}
   <div class="row">${ns.map(n=>`<div class="mv-mini">${mvA(n.a)}<div class="zh">${n.ph}</div></div>`).join('')}</div></div>
   <div class="mv-cap" style="margin-top:14px">ลองกับภาพใหม่ เลือกกลุ่มที่ใช่</div>
@@ -157,14 +169,17 @@ function mvPicks(nouns,k,used,opt={}){const out=[];let ge=opt.ge||0;for(const n 
 /* ---------- รอบฝึกรวม: สอน (ทายกลุ่ม ไม่เข้าพวก คู่เทียบ) แล้วปิดท้ายด้วยรอบบอส ---------- */
 const MV_BOSS_N=10;
 function mvBuild(c){const used=new Set(),teach=[],boss={hp:100,n:0,run:0,ok:0,asked:0,win:false};let steps=[];
- if(!c){const gm=shuffle(Object.keys(MV_GRP).filter(m=>MV_GRP[m].nw))[0],G=MV_GRP[gm];[...G.show,G.nw].forEach(a=>used.add(a));
-  const odds=shuffle(MV_ODD.filter(o=>o.m!==gm&&MVA[o.o].m!==gm)).slice(0,2),pairs=shuffle(MV_PAIR.filter(p=>MVA[p[0]].m!==gm&&MVA[p[1]].m!==gm)).slice(0,2);
+ MV_OK=null;
+ if(!c){const {A}=mvScope();MV_OK=A;const inA=o=>A.has(o.m)&&A.has(MVA[o.o].m),pA=p=>A.has(MVA[p[0]].m)&&A.has(MVA[p[1]].m);
+  const gms=Object.keys(MV_GRP).filter(m=>MV_GRP[m].nw&&A.has(m)&&MV_ODD.filter(o=>inA(o)&&o.m!==m&&MVA[o.o].m!==m).length>=2&&MV_PAIR.filter(p=>pA(p)&&MVA[p[0]].m!==m&&MVA[p[1]].m!==m).length>=2);
+  const gm=shuffle(gms.length?gms:Object.keys(MV_GRP).filter(m=>MV_GRP[m].nw))[0],G=MV_GRP[gm];[...G.show,G.nw].forEach(a=>used.add(a));
+  const odds=shuffle(MV_ODD.filter(o=>inA(o)&&o.m!==gm&&MVA[o.o].m!==gm)).slice(0,2),pairs=shuffle(MV_PAIR.filter(p=>pA(p)&&MVA[p[0]].m!==gm&&MVA[p[1]].m!==gm)).slice(0,2);
   odds.forEach(o=>[...o.f,o.o].forEach(a=>used.add(a)));
   teach.push(mvGroupA(gm),mvGroupB(gm),mvOdd(odds[0]),mvPick(MVA[pairs[0][Math.random()<.5?0:1]],pairs[0]),mvOdd(odds[1]),mvPick(MVA[pairs[1][Math.random()<.5?0:1]],pairs[1]));
   const bossItems=[];
-  const bo=shuffle(MV_ODD.filter(o=>!odds.includes(o))).slice(0,2);bo.forEach(o=>bossItems.push({key:'o'+o.m,mk:()=>mvOdd(o,1)}));
-  const bp=shuffle(MV_PAIR.filter(p=>!pairs.includes(p))).slice(0,2);bp.forEach(p=>{const n=MVA[p[Math.random()<.5?0:1]];bossItems.push({key:n.m,mk:()=>mvPick(n,p,1)})});
-  mvPicks(MVN.filter(n=>!bp.some(p=>p.includes(n.a))),MV_BOSS_N-bossItems.length,used,{ge:0,geMax:1}).forEach(n=>bossItems.push({key:n.m,mk:()=>mvPick(n,null,1)}));
+  const bo=shuffle(MV_ODD.filter(o=>inA(o)&&!odds.includes(o))).slice(0,2);bo.forEach(o=>bossItems.push({key:'o'+o.m,mk:()=>mvOdd(o,1)}));
+  const bp=shuffle(MV_PAIR.filter(p=>pA(p)&&!pairs.includes(p))).slice(0,2);bp.forEach(p=>{const n=MVA[p[Math.random()<.5?0:1]];bossItems.push({key:n.m,mk:()=>mvPick(n,p,1)})});
+  mvPicks(MVN.filter(n=>A.has(n.m)&&!bp.some(p=>p.includes(n.a))),MV_BOSS_N-bossItems.length,used,{ge:0,geMax:1}).forEach(n=>bossItems.push({key:n.m,mk:()=>mvPick(n,null,1)}));
   const ord=mvOrder(bossItems,{prev:teach[teach.length-1].key,ge:0,geMax:1});
   teach.forEach(q=>{q.plain=1;q.fbNo='ดูเหตุผลด้านล่าง แล้วไปต่อกัน'});
   steps=teach.map(q=>({k:'q',q}));

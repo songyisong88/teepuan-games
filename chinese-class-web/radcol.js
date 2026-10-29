@@ -8,13 +8,13 @@ function radCardHtml(id,o){o=o||{};const r=RADI[id];const c=radS().cards[id];
  if(o.mini)return `<div class="rd-card r${c.r} mini"><div class="rc-glyph zh">${r.id}</div></div>`;
  const kn=radKnown(id);const ex=radMembers(r).sem.slice(0,6);
  return `<div class="rd-card r${c.r} ${o.big?'big':''}"><div class="rc-top"><span class="rc-r" aria-label="การ์ด${RAD_RAR[c.r]}">${radStars(c.r)}</span>${o.fresh?'<i class="new">การ์ดใหม่!</i>':''}</div>
-  <div class="rc-hero"><div class="rc-glyph zh">${r.id}</div><img class="rc-mas" src="assets/mascot/${r.pose||'wave'}.webp" alt="" draggable="false"><span class="rc-em" aria-hidden="true">${r.em}</span></div>
+  <div class="rc-hero"><div class="rc-glyph zh">${r.id}</div><img class="rc-mas" src="assets/mascot/${r.pose||'wave'}.webp" alt="" draggable="false">${radPic(r.id)?`<span class="rc-em rc-pic" aria-hidden="true">${radPicImg(r.id)}</span>`:`<span class="rc-em" aria-hidden="true">${r.em}</span>`}</div>
   <div class="rc-name">${r.card}</div><div class="rc-sub">ตัวข้าง ${r.id} · ${r.th} · ${pyHtml(r.py)}</div><span class="rc-sim">ชุดจำลอง · ${RAD_DRAFT}</span>
   <div class="rc-mem">${ex.map(x=>`<span class="zh">${x}</span>`).join('')}</div><div class="rc-know">จำได้ ${kn.n}/${kn.t} ตัว</div></div>`}
 /* ---------- ตัวข้างวันนี้ ---------- */
 const radDailyId=()=>RAD_CORE[(today()*5+3)%RAD_CORE.length].id;
 function radDailyHtml(){const k=radS();const id=radDailyId(),r=RADI[id];const done=k.daily.d===today();
- return `<button class="rd-daily press" data-go="raddaily" aria-label="ตัวข้างวันนี้ ${r.th}"><span class="g zh">${r.id}</span><span class="t"><small>ตัวข้างวันนี้ · ${new Date(today()*864e5).getUTCDate()}/${new Date(today()*864e5).getUTCMonth()+1}</small><b>${r.th} <span>${pyHtml(r.py)}</span></b><small>${done?'เล่นแล้ววันนี้ ✓ — เล่นซ้ำเพื่อฝึกได้':'นักสืบ 5 ข้อ · ได้เหรียญเพิ่ม 5'}</small></span><span class="go">${done?'ฝึกซ้ำ':'เล่น'}</span></button>`}
+ return `<button class="rd-daily press" data-go="raddaily" aria-label="ตัวข้างวันนี้ ${r.th}"><span class="g zh">${r.id}</span>${radPicImg(r.id,'rdd-pic')}<span class="t"><small>ตัวข้างวันนี้ · ${new Date(today()*864e5).getUTCDate()}/${new Date(today()*864e5).getUTCMonth()+1}</small><b>${r.th} <span>${pyHtml(r.py)}</span></b><small>${done?'เล่นแล้ววันนี้ ✓ — เล่นซ้ำเพื่อฝึกได้':'นักสืบ 5 ข้อ · ได้เหรียญเพิ่ม 5'}</small></span><span class="go">${done?'ฝึกซ้ำ':'เล่น'}</span></button>`}
 /* ---------- แท็บ "ฝึก" ---------- */
 function radPracHtml(){const k=radS();const pool=radLvPool();const auto=!(k.lv&&k.lv.length);const done=RAD.filter(r=>radDone(r.id)).length;
  const lvBtn=n=>`<button class="${pool.has(n)&&!auto?'on':''}" data-go="radlv" data-n="${n}" aria-pressed="${pool.has(n)&&!auto}">ระดับ ${n}</button>`;

@@ -77,10 +77,14 @@ const NAV_MS=430;
 (function(){const fix=()=>{const f=document.getElementById('frame');if(f&&(f.scrollLeft||f.scrollTop)){f.scrollLeft=0;f.scrollTop=0}const r=document.scrollingElement;if(r&&(r.scrollLeft||r.scrollTop)){r.scrollLeft=0;r.scrollTop=0}};
  document.addEventListener('scroll',fix,{capture:true,passive:true});window.addEventListener('resize',fix);window.addEventListener('orientationchange',fix);
  document.addEventListener('focusout',()=>setTimeout(fix,60),true)})();
-function syncStack(){stack.forEach((s,i)=>{const d=stack.length-1-i;s.el.classList.toggle('under',d===1);s.el.classList.toggle('deep',d>1);s.el.classList.remove('leaving');if(d>0){s.el.setAttribute('aria-hidden','true');s.el.inert=true}else{s.el.removeAttribute('aria-hidden');s.el.inert=false}});
+/* replace() ยก z-index:11 ให้หน้าใหม่ลอยเหนือหน้าที่กำลังจาง — ต้องล้างทิ้งเมื่อหน้านั้นไม่ได้อยู่บนสุดแล้ว
+   ไม่งั้นหน้าที่ push ทับ (z 10) จะไปอยู่ใต้หน้าเดิมที่เลื่อนซ้าย -26% = สองหน้าซ้อนกันครึ่ง ๆ (เช่น กดกรองระดับในห้องลักษณนามแล้วเปิดคำ) */
+function syncStack(){stack.forEach((s,i)=>{const d=stack.length-1-i;if(d>0)s.el.style.zIndex='';s.el.classList.toggle('under',d===1);s.el.classList.toggle('deep',d>1);s.el.classList.remove('leaving');if(d>0){s.el.setAttribute('aria-hidden','true');s.el.inert=true}else{s.el.removeAttribute('aria-hidden');s.el.inert=false}});
  $$('#stack>.screen').forEach(e=>{if(!stack.some(s=>s.el===e)&&!e.classList.contains('leaving'))e.remove()})}
 function leaveEl(el,tf){el.classList.add('leaving');el.inert=true;el.style.transition='';void el.offsetWidth;if(tf)el.style.transform=tf;let done=false;const rem=()=>{if(done)return;done=true;el.remove()};el.addEventListener('transitionend',e=>{if(e.target===el&&e.propertyName==='transform')rem()});setTimeout(rem,NAV_MS+140)}
-function push(name,params){const s=build(name,params,false);const el=s.el;el.style.transition='none';el.style.transform='translateX(100%)';$('#stack').appendChild(el);stack.push(s);vib(6);
+/* กันกดซ้ำเร็ว ๆ (double-tap) เปิดหน้าเดียวกันซ้อน 2 ชั้น */
+let lastPush=null;
+function push(name,params){const key=name+'|'+JSON.stringify(params||{}),now=Date.now();if(lastPush&&lastPush.k===key&&now-lastPush.t<NAV_MS&&stack.length&&stack[stack.length-1].name===name)return stack[stack.length-1];lastPush={k:key,t:now};const s=build(name,params,false);const el=s.el;el.style.transition='none';el.style.transform='translateX(100%)';$('#stack').appendChild(el);stack.push(s);vib(6);
  void el.offsetWidth;el.style.transition='';el.style.transform='';syncStack();s.r.mount&&s.r.mount(el);return s}
 function pop(){if(stack.length<2)return;const top=stack.pop(),prev=stack[stack.length-1];try{top.r.unmount&&top.r.unmount()}catch(e){}
  leaveEl(top.el,'translateX(100%)');syncStack();
@@ -158,7 +162,7 @@ function playGame(g){if(!gamesOpen()){toast('เรียนบทที่ 1 �
 document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-act]');if(!t||!$('#frame').contains(t))return;
  if(t.dataset.go){vib(6);go(t.dataset.go,t);return}
  const a=t.dataset.act;switch(a){
-  case 'back':vib(6);pop();break;
+  case 'back':{const n=Date.now();if(n-(go.lastBack||0)<NAV_MS)break;go.lastBack=n}vib(6);pop();break;/* กดกลับซ้ำเร็ว ๆ ถอยทีละหน้าเดียว */
   case 'closesheet':closeSheet();break;
   case 'tab':if(t.dataset.tab!==curTab||stack.length>1){vib(6);mountRoot(t.dataset.tab,true)}else{const sc=$('.scroller',stack[0].el);sc.scrollTo({top:0})}break;
   case 'welcome':S.seenWelcome=true;if(t.dataset.v==='line'&&!S.from){S.from='line'}save();vib(10);{const w=$('.welcome');anim(w,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-30px)'}],{duration:400});setTimeout(()=>{w.remove();if(!S.seenOnboard)push('onboard')},400)}break;

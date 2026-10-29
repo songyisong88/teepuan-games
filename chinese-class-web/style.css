@@ -131,7 +131,8 @@ button,a,[data-go],[data-act],.press{touch-action:manipulation}
 .opt svg{width:14px;height:14px}
 @keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
 .fb{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:28px 28px 0 0;box-shadow:0 -10px 40px rgba(60,40,30,.12);z-index:12;padding:0 20px calc(var(--sb) + 20px);transform:translateY(105%);transition:transform .5s var(--ios)}
-.fb.show{transform:none}
+.fb.show{transform:none}.fb.drag{transition:none}
+.fb,.sh-body{overscroll-behavior:contain}
 .grabber{width:36px;height:5px;border-radius:3px;margin:8px auto 0;background:#D9D1C7}
 .fb .fh{display:flex;align-items:center;gap:12px;margin-top:10px}
 .fb .fh .t{flex:1}.fb .fh b{font-size:21px;font-weight:700;display:block}.fb .fh small{font-size:14px;color:var(--sub2)}

@@ -97,6 +97,9 @@ const sessExtra='<div class="dock" id="dock"></div><div class="fb" id="fb"></div
 function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,run=0,locked=false,wrong=[],log=[],retries=0,reasked=[];
  const stage=$('#stage',el),dock=$('#dock',el),fb=$('#fb',el),pg=$('#pg',el),pc=$('#pc',el),nCards=steps.filter(s=>s.k==='c').length;let cardN=0,qTotal=steps.filter(s=>s.k==='q').length,cur=null;
  const mas=pose=>{const m=$('#qm',stage);if(m)m.innerHTML=M(pose)};
+ /* ปัดแผ่นผลลัพธ์ลง = กดปุ่มหลัก (ต่อไป) ผู้เรียนไม่ค้าง */
+ const fbNext=()=>$('[data-sa=next]:not([disabled])',fb);
+ sheetDrag(fb,{active:()=>fb.classList.contains('show'),canDismiss:()=>!!fbNext(),dismiss:()=>{const b=fbNext();fb.classList.remove('show');if(b)b.click()}});
  window.__cnCur=()=>({s:cur,left:steps.length-i,locked,ord:ordState});
  function show(){fb.classList.remove('show');locked=false;const s=steps[i];cur=s;pg.style.width=(i/steps.length*100)+'%';pc.textContent=(i+1)+' / '+steps.length;dock.innerHTML='';
   if(s.k==='c'){cardN++;stage.innerHTML=cardHtml(s.w,cardN,nCards);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป</button>`;setTimeout(()=>speak(s.w.zh),400)}

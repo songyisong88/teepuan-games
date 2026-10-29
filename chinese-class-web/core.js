@@ -95,7 +95,7 @@ function popToRoot(){while(stack.length>2)stack.pop().el.remove();pop()}
 /* swipe-back จากขอบซ้าย: หน้าตามนิ้ว หน้าล่างขยับ parallax ปล่อยแล้วตัดสินด้วยระยะ/ความเร็ว */
 (function(){let g=null;const EDGE=26;
  const frame=()=>document.getElementById('frame');
- document.addEventListener('touchstart',e=>{g=null;if(stack.length<2||e.touches.length!==1)return;if(document.querySelector('#sheetLayer.on,.welcome,.onb'))return;if(!stack[stack.length-1].el.querySelector('[data-act=back]'))return;const fr=frame().getBoundingClientRect(),t=e.touches[0];if(t.clientX-fr.left>EDGE||t.clientX<fr.left)return;
+ document.addEventListener('touchstart',e=>{g=null;if(stack.length<2||e.touches.length!==1)return;if(document.querySelector('#sheetLayer.on,.welcome,.onb'))return;if(e.target.closest&&e.target.closest('.fb.show'))return;if(!stack[stack.length-1].el.querySelector('[data-act=back]'))return;const fr=frame().getBoundingClientRect(),t=e.touches[0];if(t.clientX-fr.left>EDGE||t.clientX<fr.left)return;
   g={x:t.clientX,y:t.clientY,t:Date.now(),w:fr.width,mode:null,dx:0,top:stack[stack.length-1],prev:stack[stack.length-2],lx:t.clientX,lt:Date.now(),v:0}},{passive:true,capture:true});
  document.addEventListener('touchmove',e=>{if(!g)return;const t=e.touches[0],dx=t.clientX-g.x,dy=t.clientY-g.y;
   if(!g.mode){if(Math.abs(dx)<7&&Math.abs(dy)<7)return;if(dx>0&&Math.abs(dx)>Math.abs(dy)*1.2){g.mode='x';g.top.el.style.transition='none';g.prev.el.style.transition='none'}else{g=null;return}}
@@ -110,21 +110,52 @@ function popToRoot(){while(stack.length>2)stack.pop().el.remove();pop()}
 function refresh(){const t=stack[stack.length-1];if(!t||!SC[t.name]||t.r.noRefresh)return;const r=SC[t.name](t.params);const sc=$('.scroller',t.el);const y=sc.scrollTop;sc.style.scrollBehavior='auto';sc.innerHTML=r.body;sc.scrollTop=y;sc.style.scrollBehavior='';
  const n=$('.nav',t.el);if(n&&r.nav===undefined){const rt=$('.nav-r',n);if(rt)rt.innerHTML=r.right===undefined?(stack.length===1?chips():''):r.right}t.r=r;r.mount&&r.mount(t.el)}
 
+/* ---------- ลากลงเพื่อปิดแบบ iOS (ใช้ร่วมกันทุกชีท) ----------
+   sh: ตัวชีท · bd: พื้นหลังมืด (ถ้ามี) · active(): ชีทเปิดอยู่ไหม · dismiss(): ทำเหมือนปุ่มปิด/ปุ่มหลัก
+   จับที่ไหนก็ได้บนชีท ถ้าจุดนั้นอยู่ในกล่องที่เลื่อนได้ จะลากชีทเมื่อกล่องเลื่อนอยู่บนสุดและนิ้วลากลงเท่านั้น */
+function sheetDrag(sh,{bd=null,active=()=>true,dismiss,canDismiss=()=>true}={}){if(!sh||sh.__sd)return;sh.__sd=1;
+ let g=null;
+ const scrollerOf=t=>{for(let n=t;n&&n!==sh.parentNode;n=n.parentNode){if(n.nodeType!==1)continue;const cs=getComputedStyle(n);if(/(auto|scroll)/.test(cs.overflowY)&&n.scrollHeight>n.clientHeight+1)return n;if(n===sh)break}return null};
+ const skip=t=>t&&t.closest&&t.closest('input,textarea,select,[contenteditable],input[type=range],.no-sheet-drag,.bk-scrub');
+ const rubber=x=>{const d=36,c=.55;return(1-1/(x*c/d+1))*d}; /* ดึงขึ้นได้นิดเดียวแบบยางยืด (ไม่เกิน ~30px ไม่เห็นช่องใต้ชีท) */
+ const setY=y=>{sh.style.transform='translateY('+y+'px)';if(bd)bd.style.opacity=Math.max(0,1-Math.max(0,y)/Math.max(sh.offsetHeight,1)).toFixed(3)};
+ const start=(x,y,target,kind)=>{if(!active()||skip(target)){g=null;return}g={x,y,sc:scrollerOf(target),mode:null,dy:0,kind,pts:[[y,performance.now()]]}};
+ const begin=()=>{g.mode='drag';sh.classList.add('drag');sh.style.transition='none';sh.style.willChange='transform';if(bd)bd.style.transition='none'};
+ const move=(x,y,e)=>{if(!g)return false;const dx=x-g.x,dy=y-g.y;
+  if(!g.mode){if(Math.abs(dx)<3&&Math.abs(dy)<3)return false;
+   if(Math.abs(dx)>Math.abs(dy)){g=null;return false}           /* ปัดแนวนอน ปล่อยให้ของในชีททำงาน */
+   if(g.sc&&(dy<0||g.sc.scrollTop>0)){g.mode='scroll';return false} /* ในกล่องเลื่อน: เลื่อนตามปกติ */
+   begin();g.y=y;}                                              /* เริ่มตามนิ้วจากจุดนี้ ไม่กระตุก */
+  if(g.mode==='scroll'){if(g.sc&&g.sc.scrollTop<=0&&dy>0&&e&&e.cancelable){begin();g.y=y}else return false} /* เลื่อนถึงบนสุดแล้วลากต่อ = ลากชีท */
+  if(e&&e.cancelable)e.preventDefault();
+  const d=y-g.y;g.dy=d;setY(d>=0?d:-rubber(-d));
+  const now=performance.now();g.pts.push([y,now]);while(g.pts.length>2&&now-g.pts[0][1]>100)g.pts.shift();return true};
+ const end=()=>{if(!g)return;const o=g;g=null;if(o.mode!=='drag')return;
+  const p0=o.pts[0],p1=o.pts[o.pts.length-1],v=p1[1]>p0[1]&&performance.now()-p1[1]<120?(p1[0]-p0[0])/(p1[1]-p0[1]):0; /* px/ms · นิ้วหยุดนิ่งก่อนปล่อย = ไม่นับว่าสะบัด */
+  const h=Math.max(sh.offsetHeight,1);const go=o.dy>0&&canDismiss()&&(o.dy>Math.min(140,h*.3)||(v>.5&&o.dy>12));
+  sh.classList.remove('drag');sh.style.willChange='';sh.__dragged=1;setTimeout(()=>{sh.__dragged=0},80);
+  if(go){const rest=h+40-o.dy,ms=Math.round(Math.max(160,Math.min(320,rest/Math.max(v*1.3,1.4))));
+   sh.style.transition='transform '+ms+'ms cubic-bezier(.2,.75,.3,1)';if(bd){bd.style.transition='opacity '+ms+'ms linear';bd.style.opacity='0'}
+   sh.style.transform='translateY('+(h+40)+'px)';vib(6);
+   setTimeout(()=>{dismiss&&dismiss();requestAnimationFrame(()=>{sh.style.transition='none';sh.style.transform='';if(bd){bd.style.transition='';bd.style.opacity=''}
+    requestAnimationFrame(()=>{sh.style.transition=''})})},ms)}
+  else{sh.style.transition='transform .42s var(--spring)';sh.style.transform='';if(bd){bd.style.transition='opacity .3s var(--ease)';bd.style.opacity=''}
+   setTimeout(()=>{if(!g){sh.style.transition='';if(bd)bd.style.transition=''}},440)}};
+ /* นิ้ว (iOS/Android) */
+ sh.addEventListener('touchstart',e=>{if(e.touches.length!==1){g=null;return}const t=e.touches[0];start(t.clientX,t.clientY,e.target,'t')},{passive:true});
+ sh.addEventListener('touchmove',e=>{if(!g)return;if(e.touches.length!==1){end();return}const t=e.touches[0];move(t.clientX,t.clientY,e)},{passive:false});
+ sh.addEventListener('touchend',end,{passive:true});sh.addEventListener('touchcancel',end,{passive:true});
+ /* เมาส์ (คอม) — จับที่ขีดจับ/หัวชีท */
+ sh.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button>0)return;if(!e.target.closest('.grabber,.sh-head,.fh'))return;start(e.clientX,e.clientY,e.target,'m');
+  const mv=ev=>{if(move(ev.clientX,ev.clientY,ev))ev.preventDefault()},up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);end()};addEventListener('pointermove',mv);addEventListener('pointerup',up)});
+ /* กันคลิกหลุดหลังลาก (เช่นปล่อยนิ้วบนปุ่ม) */
+ sh.addEventListener('click',e=>{if(sh.__dragged){e.stopPropagation();e.preventDefault();sh.__dragged=0}},true);}
+
 /* ---------- sheet ---------- */
 let sheetOpen=null;
 function openSheet(html,{onMount,onClose,title}={}){closeSheet(true);const L=$('#sheetLayer');L.innerHTML=`<div class="bd" data-act="closesheet"></div><div class="sheet"><div class="sh-head"><div class="grabber"></div>${title?`<div class="sh-t" style="padding-left:0">${title}</div>`:''}</div><div class="sh-body">${html}</div></div>`;
  L.classList.add('on');const sh=$('.sheet',L);requestAnimationFrame(()=>requestAnimationFrame(()=>sh.classList.add('show')));sheetOpen={onClose};vib(8);
- /* ลากลงเพื่อปิด: จับที่หัวชีท หรือที่เนื้อหาเมื่อเลื่อนอยู่บนสุด; ชีทตามนิ้ว พื้นหลังจางตาม; ปล่อยแล้วดูระยะ/ความเร็ว */
- const bd=$('.bd',L);let y0=null,dy=0,t0=0,v=0,ly=0,lt=0,src=null,on=false;const body=$('.sh-body',sh);
- const begin=(y,from)=>{y0=y;dy=0;v=0;ly=y;lt=Date.now();src=from;on=false};
- const move=(y,e)=>{if(y0===null)return;const d=y-y0;if(!on){if(src==='body'){if(d<=6||body.scrollTop>0){if(body.scrollTop>0)y0=y;return}}on=true;sh.classList.add('drag');bd.style.transition='none'}
-  if(e&&e.cancelable)e.preventDefault();const now=Date.now();if(now>lt)v=(y-ly)/(now-lt);ly=y;lt=now;dy=Math.max(0,d)*(d>0?1:0);sh.style.transform='translateY('+dy+'px)';bd.style.opacity=Math.max(0,1-dy/Math.max(sh.offsetHeight,1)).toFixed(3)};
- const up=()=>{if(y0===null)return;const was=on;y0=null;on=false;if(!was)return;sh.classList.remove('drag');bd.style.transition='';const close=dy>Math.min(120,sh.offsetHeight*.3)||(v>.5&&dy>20);sh.style.transform='';bd.style.opacity='';if(close)closeSheet()};
- const hd=$('.sh-head',sh);
- hd.addEventListener('pointerdown',e=>{begin(e.clientY,'head');on=true;sh.classList.add('drag');bd.style.transition='none';try{hd.setPointerCapture(e.pointerId)}catch(_){}});
- hd.addEventListener('pointermove',e=>move(e.clientY,e));hd.addEventListener('pointerup',up);hd.addEventListener('pointercancel',up);
- body.addEventListener('touchstart',e=>{if(e.touches.length===1)begin(e.touches[0].clientY,'body')},{passive:true});
- body.addEventListener('touchmove',e=>move(e.touches[0].clientY,e),{passive:false});body.addEventListener('touchend',up,{passive:true});body.addEventListener('touchcancel',up,{passive:true});
+ sheetDrag(sh,{bd:$('.bd',L),active:()=>!!sheetOpen&&sh.classList.contains('show'),dismiss:()=>{if($('.sheet',L)===sh)closeSheet()}});
  onMount&&onMount(sh);return sh}
 function closeSheet(instant){const L=$('#sheetLayer');if(!sheetOpen&&!L.classList.contains('on'))return;const sh=$('.sheet',L);const cb=sheetOpen&&sheetOpen.onClose;sheetOpen=null;
  if(instant||!sh){L.classList.remove('on');L.innerHTML='';}else{sh.classList.remove('show');L.classList.remove('on');setTimeout(()=>{if(!L.classList.contains('on'))L.innerHTML=''},520)}cb&&cb()}

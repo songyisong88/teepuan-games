@@ -1,3 +1,4 @@
+import unicodedata
 #!/usr/bin/env python3
 # สร้าง data/hsk2.js – hsk5.js เป็นโครงบทแบบใหม่ (v3) เหมือนระดับ 1
 # ใช้: python3 tools/lv-build/build_lv.py [2 3 4 5]
@@ -254,6 +255,7 @@ def mksent(tokstr,th,K,where):
     if py is None:print('NOPY',where,c,file=sys.stderr);return None
     if ' ' in py and len(py.split())==len(c):py=py.replace(' ','|')   # คำเดียวกันเขียนแบบเดียวกับระดับ 1
     nx=wordpy(cs[i+1],K) if i+1<len(toks) else None
+    if len(c)==1 and i>=2 and cs[i-1]=='了' and cs[i-2]==c:py=unicodedata.normalize('NFC',''.join(ch for ch in unicodedata.normalize('NFD',py) if ch not in '\u0304\u0301\u030c\u0300'))   # 弹了弹: พยางค์ซ้ำเป็นเสียงเบา
     if c=='不' and nx:py='bú' if tone1(nx)==4 else 'bù'
     if c=='一' and nx and i+1<len(toks):py='yí' if (tone1(nx)==4 or cs[i+1]=='个') else 'yì'
     if c=='个' and i>0 and cs[i-1] in ('这','那','哪','几','一','两','三','四','五','六','七','八','九','十','每'):py='ge'

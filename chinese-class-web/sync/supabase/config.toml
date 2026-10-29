@@ -1,0 +1,6 @@
+# ใช้กับ `supabase functions deploy` เท่านั้น (ไม่ได้ใช้รัน local stack)
+project_id = "xkwbggclhxcskikqlqkv"
+
+[functions.line-sync]
+# ฟังก์ชันตรวจตัวตนเอง (LINE ID token → session ที่เซ็นด้วย SYNC_SESSION_SECRET) จึงไม่ต้องให้ gateway ตรวจ JWT
+verify_jwt = false

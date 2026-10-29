@@ -161,9 +161,9 @@ function finishUnit(u,res){const first=!unitDone(u.id);const ratio=res.correct/M
  const wasLessonDone=isDone(L.id);if(first)S.parts.push(u.id);S.stars[u.id]=Math.max(S.stars[u.id]||0,stars);
  const wasFirstToday=S.lastDay!==today();xp=evX(xp);coins=evC(coins);addCoins(coins,true);addXp(xp,null,true);save();bumpCnt('unit',1);
  const newCm=!wasLessonDone&&isDone(L.id)?CLASSMATES.find(c=>c.by==='lesson:'+L.id):null;if(newCm&&!S.seenCm.includes(newCm.id)){S.seenCm.push(newCm.id);save()}
- const nu=nextUnit();buddyTick();
- replace('complete',{u,L,res,xp,coins,stars,first,newWords:first?u.words.length:0,streakNew:wasFirstToday,newCm,nu,evMul:eventXpNote()})}
-SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>({nav:'<header class="nav"></header>',noRefresh:true,
+ const nu=nextUnit();/* จบทุกตอนของระดับนี้แล้ว: ปุ่มเริ่มระดับถัดไป (ไม่แสดงที่ระดับสุดท้าย) */const nlu=!nu&&u.lv===curLv()&&curLv()<LV_MAX?(lvUnits(curLv()+1)[0]||null):null;buddyTick();
+ replace('complete',{u,L,res,xp,coins,stars,first,newWords:first?u.words.length:0,streakNew:wasFirstToday,newCm,nu,nlu,evMul:eventXpNote()})}
+SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,nlu,evMul})=>({nav:'<header class="nav"></header>',noRefresh:true,
  body:`<div class="center" style="padding:calc(var(--st) + 24px) 20px 0"><div class="pop" style="width:240px;height:220px;margin:0 auto">${M(stars>=3?'levelup':'cheer')}</div>
  <div class="cap mt8">${uTxt(u)} · ${L.th}</div><div class="large" style="padding:2px 0">${first?(L.v3?(L.kind==='gate'?'ผ่านด่านทบทวนแล้ว':'จบบทนี้แล้ว'):'จบรอบนี้แล้ว'):'ทบทวนเรียบร้อย'}</div>${L.v3&&L.can?`<div class="cap" style="padding:0 24px">ทำได้แล้ว: ${L.can}</div>`:''}${L.v3&&window.l1DoneStrip?l1DoneStrip(L):''}
  <div style="font-size:34px;letter-spacing:6px;margin-top:4px">${[1,2,3].map(n=>`<span class="pop" style="display:inline-block;animation-delay:${.2+n*.15}s;filter:${n<=stars?'none':'grayscale(1) opacity(.3)'}">⭐</span>`).join('')}</div></div>
@@ -177,12 +177,12 @@ SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>
   ${res.wrong.length?ROW('#FDF3E6','📝',`ข้อที่พลาด ${res.wrong.length} ข้อ`,'เพิ่มในรายการทบทวนแล้ว',CHEV,'data-go="review"'):''}</div>
  <div class="pad mt16"><button class="pill sm linebtn row1 press" data-act="sharedone">ท้าเพื่อนใน LINE ด้วยผลนี้</button></div>
  <p class="cap center mt12"><span class="demo">ตัวอย่างทดลอง</span></p>`,
- extra:`<div class="dock">${nu&&first?`<button class="pill press" data-act="finishgo" data-to="next" data-u="${nu.id}"><b>${nu.v3?'เรียนบทถัดไป':'เรียนรอบถัดไป'}</b><small>${uTxt(nu)}</small></button>`:`<button class="pill press" data-act="finishgo" data-to="games"><b>เล่นเกมคำใหม่</b><small>ใช้คำที่เพิ่งเรียนเก็บเหรียญ</small></button>`}<button class="pill sm ghost press mt12" data-act="finishgo" data-to="home">กลับหน้าหลัก</button></div>`,
+ extra:`<div class="dock">${nlu?`<button class="pill press" data-act="finishgo" data-to="nextlv" data-lv="${nlu.lv}" data-u="${nlu.id}"><b>เริ่มระดับถัดไป</b><small>ระดับ ${nlu.lv} · ${uTxt(nlu)} · ${(lessonBy(nlu.lesson)||{}).th||''}</small></button><div style="display:flex;gap:10px;margin-top:12px"><button class="pill sm ghost press" style="flex:1" data-act="finishgo" data-to="games">เล่นเกมคำใหม่</button><button class="pill sm ghost press" style="flex:1" data-act="finishgo" data-to="home">กลับหน้าหลัก</button></div>`:nu&&first?`<button class="pill press" data-act="finishgo" data-to="next" data-u="${nu.id}"><b>${nu.v3?'เรียนบทถัดไป':'เรียนรอบถัดไป'}</b><small>${uTxt(nu)}</small></button>`:`<button class="pill press" data-act="finishgo" data-to="games"><b>เล่นเกมคำใหม่</b><small>ใช้คำที่เพิ่งเรียนเก็บเหรียญ</small></button>`}${nlu?'':'<button class="pill sm ghost press mt12" data-act="finishgo" data-to="home">กลับหน้าหลัก</button>'}</div>`,
  mount(el){confetti(newCm?150:110);vib([20,30,20,30,40]);if(newCm)setTimeout(()=>speak(newCm.say,null,''),900);
   /* เว้นที่ใต้เนื้อหาให้พ้นปุ่มด้านล่าง และเลื่อนให้การ์ดเพื่อนใหม่อยู่เหนือปุ่มทั้งใบ */
   const sc=$('.scroller',el),dk=$('.dock',el);if(sc&&dk){sc.style.paddingBottom=(dk.offsetHeight+20)+'px';const cr=$('.cmreveal',el);if(cr)setTimeout(()=>{const pb=$('.pill',dk)||dk,d=cr.getBoundingClientRect().bottom-(pb.getBoundingClientRect().top-16);if(d>0)sc.scrollBy({top:d,behavior:'smooth'})},700)}
   const b=$('[data-act=sharedone]',el);if(b)b.onclick=()=>shareSheet('result',{kind:'unit',text:`จบ ${L.th}${u.v3?'':' รอบ '+(u.part+1)} ได้ ${stars} ดาว`,stars,L,u,cm:newCm})}});
-document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}if(to==='nextlv'){setLevel(+t.dataset.lv,undefined,true);mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
 
 /* ----- ทบทวน ----- */
 /* แยกรายการ: บทนี้ (บทที่กำลังเรียน) กับ บทก่อนหน้า · ถ้าไม่มีคำของบทนี้ แสดงเฉพาะบทก่อนหน้า */

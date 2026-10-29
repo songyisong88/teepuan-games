@@ -87,7 +87,33 @@ def okstr(s,K):
     if s[i].isdigit():ok[i+1]=True;continue
     for j in range(i+1,min(n,i+8)+1):
       if s[i:j] in K or s[i:j] in NAMES or (i>0 and s[i:j] in ('们','儿')):ok[j]=True
-  return ok[n]
+  return ok[n] and hidden_ok(s,K)
+# คำหลายพยางค์ที่ยังไม่ได้สอนซ่อนอยู่ในประโยค (เช่น 一会儿 ถูกตัดเป็น 一会+儿) → ไม่ผ่าน
+# ยกเว้นเมื่ออยู่ในคำที่ยาวกว่าซึ่งสอนแล้ว หรือเป็นคำประสมทั่วไปใน ALLOW
+ALLOW={'个人','十分','有机','最好','一会','上下','大小','下雪'}
+LONG=sorted(w for w in ALLVOC if len(w)>=2 and w not in ALLOW)
+_HID={}
+def _hidden_in(s):
+  r=_HID.get(s)
+  if r is None:
+    r=[]
+    for u in LONG:
+      if u in s:
+        p=s.find(u)
+        while p>=0:r.append((u,p));p=s.find(u,p+1)
+    _HID[s]=r
+  return r
+def hidden_ok(s,K):
+  n=len(s)
+  for u,p in _hidden_in(s):
+    if u in K or u in NAMES:continue
+    L=len(u);cov=False
+    for q in range(max(0,p+L-8),p+1):
+      for e in range(p+L,min(n,q+8)+1):
+        if e-q>L and s[q:e] in K:cov=True;break
+      if cov:break
+    if not cov:return False
+  return True
 # ---- คลังประโยค/บทสนทนาเดิม
 POOL=[];seenS=set()
 for l in SRC['LESSONS']:
@@ -274,6 +300,11 @@ def mksent(tokstr,th,K,where):
 # ชื่อตอนเดิมที่ไม่เหมาะกับผู้เรียน (ตอนคำเสริมเดิม 1200)
 TOVR={3:{'9-5':'ยิ่ง นาที นก'}}   # ชื่อบทที่ต่อจากคำแปลแล้วอ่านไม่ลื่น
 CHOVR={1200:{'th':'ทักทายเช้าเย็น','zh':'早晚好'}}
+# คำอธิบายตอนของระดับ 5 ให้ตรงกับคำในตอน (ระบุด้วย ระดับ, ลำดับตอน)
+SUBOVR={(5,6):'เทศกาลจีน ตรุษจีน ไหว้พระจันทร์',(5,9):'วันสำคัญ งานเลี้ยง และวันหยุด',(5,16):'อาสาสมัคร การแบ่งปัน และน้ำใจ',
+ (5,23):'วัด ความเชื่อ และมารยาทแบบไทย',(5,37):'อินเทอร์เน็ต บัญชี และแอป',(5,38):'ชีวิตออฟฟิศ งาน และการเลื่อนตำแหน่ง'}
+# ชื่อจีนของด่านทบทวน: ถ้าชื่อตอนมีคำที่ยังไม่ได้สอน ใช้ค่าที่กำหนดไว้ หรือคำแรกของตอนที่สอนแล้ว
+GZ_OVR={}
 def wrong_opts(correct,K,exclude):
   out=[]
   for p in POOL:
@@ -314,6 +345,7 @@ for n in range(2,6):
   for pi,(c,pws) in enumerate(parts(n),1):
     cid=n*1000+pi
     c=dict(c,**CHOVR.get(c['id'],{}))
+    if (n,pi) in SUBOVR:c['sub']=SUBOVR[(n,pi)]
     chap.append(f"{{lv:{n},id:{cid},ep:{pi},th:{js(clean(c['th']))},zh:{js(c['zh'])},sub:{js(clean(c.get('sub','')))},emoji:'',bg:'{c.get('bg') or BG[pi%len(BG)]}'}}")
     groups=split(pws,MAXW[n]);partS=[]
     for k,g in enumerate(groups,1):
@@ -423,7 +455,9 @@ for n in range(2,6):
     scene=pic[:9] if len(pic)>=3 else []  # 3 ภาพขึ้นไป = 1 แถวเต็มของกริดเดิม
     if not scene:print('SCENEEMPTY',n,pi,len(pic),pic,file=sys.stderr)
     if scene:stat['scene']+=1
-    les.append(f"{{id:{n*10000+pi*100+99},v3:1,kind:'gate',code:'{pi}-✓',th:{js('ด่านทบทวน: '+clean(c['th']))},zh:{js(c['zh'])},chapter:{cid},emoji:'⭐',can:'ทบทวนทั้งตอน ผ่าน 70% ขึ้นไป',story:'',scene:{js(scene)},words:[],sents:[],fr:null,dlg:[],rq:null}}")
+    gz=c['zh']
+    if not okstr(gz,known):gz=GZ_OVR.get((n,pi)) or next((z for z in [w['zh'] for w in pws] if okstr(z,known)),pws[0]['zh'])
+    les.append(f"{{id:{n*10000+pi*100+99},v3:1,kind:'gate',code:'{pi}-✓',th:{js('ด่านทบทวน: '+clean(c['th']))},zh:{js(gz)},chapter:{cid},emoji:'⭐',can:'ทบทวนทั้งตอน ผ่าน 70% ขึ้นไป',story:'',scene:{js(scene)},words:[],sents:[],fr:null,dlg:[],rq:null}}")
     stat['gate']+=1
   off=len(OFF[n]);cov=len([w for w in WS[n] if w['zh'] in OFF[n]])
   hdr=f"LVMETA[{n}]={{standard:'HSK 2.0',original:true,official:{off},covered:{cov},v3:1}};\n/* ระดับ {n} โครงใหม่ (v3) · {len(chap)} ตอน · บทละไม่เกิน {MAXW[n]} คำ · ประโยคใช้เฉพาะคำที่สอนแล้ว · ด่านทบทวนท้ายตอน\n   สร้างจาก tools/lv-build/build_lv.py — อย่าแก้ไฟล์นี้ด้วยมือ */\n"

@@ -195,17 +195,20 @@ function prSylOK(sy,k){const b=[...sy.toLowerCase()].map(c=>BASEOF[c]?BASEOF[c][
  const m=/^(zh|ch|sh|[bpmfdtnlgkhjqxrzcsyw])?(.*)$/.exec(b),ini=m[1]||'',f=m[2];if(f==='r'||f==='er')return false;
  if(ini==='y'||ini==='w')return k.yw&&k.v;if(!k.ini.has(ini))return false;if(!f)return false;
  if(k.fin.has(f))return true;const mm=/^(i|u|ü)(.+)$/.exec(f);return !!(mm&&k.fin.has(mm[2]))}
-function prReadable(skip){const k=prKnown(skip);if(!k.v)return [];
- return LESSONS.filter(l=>l.lv===1).flatMap(l=>l.words).filter(w=>w.py&&!/[\s]{2,}/.test(w.zh)&&w.py.split(/[\s|'’·]+/).filter(Boolean).every(sy=>prSylOK(sy,k)))}
+const prAllL1=()=>LESSONS.filter(l=>l.lv===1).flatMap(l=>l.words);
+/* คำตัวอย่างในห้องพินอิน: เฉพาะคำจากบทระดับ 1 ที่เรียนถึงแล้ว (ชุดเดียวกับ lvSoFar) ถ้าได้น้อยกว่า 4 คำจึงใช้ทั้งระดับ */
+const prPool=()=>{const s=uniqW(lvSoFar(1).flatMap(l=>l.words||[]));return s.length>=4?s:prAllL1()};
+function prReadable(skip,all){const k=prKnown(skip);if(!k.v)return [];
+ return (all?prAllL1():prPool()).filter(w=>w.py&&!/[\s]{2,}/.test(w.zh)&&w.py.split(/[\s|'’·]+/).filter(Boolean).every(sy=>prSylOK(sy,k)))}
 function prReadChips(ws,max){const a=ws.slice().sort((x,y)=>(picHas(y)?1:0)-(picHas(x)?1:0)).slice(0,max);
  return `<div class="pr-chips pr-rd">${a.map(w=>`<button class="pr-chip press" data-act="audio" data-t="${w.zh}">${picHas(w)?art('word',w.zh,'','prrdimg'):''}<span class="z zh">${w.zh}</span><small>${pyHtml(w.py)}</small></button>`).join('')}</div>`}
 let _rdKey='',_rdSet=null;
-window.prWordTag=w=>{try{if(!w||w.lv!==1||!w.py)return '';const k=JSON.stringify(prSt().done);if(k!==_rdKey||!_rdSet){_rdKey=k;_rdSet=new Set(prReadable().map(x=>x.zh))}
+window.prWordTag=w=>{try{if(!w||w.lv!==1||!w.py)return '';const k=JSON.stringify(prSt().done);if(k!==_rdKey||!_rdSet){_rdKey=k;_rdSet=new Set(prReadable(undefined,true).map(x=>x.zh))}
  if(_rdSet.has(w.zh))return `<div class="pr-wtag ok">อ่านคำนี้ออกแล้ว <small>จากด่านพินอินที่ผ่าน</small></div>`;
  if(prDoneN()>0&&prDoneN()<12)return `<button class="pr-wtag go press" data-go="pinroom">ยังมีเสียงในคำนี้ที่ไม่ได้ฝึก <small>ไปห้องพินอิน</small></button>`;return ''}catch(e){return ''}};
-function prReadBlock(){const ws=prReadable();const tot=LESSONS.filter(l=>l.lv===1).flatMap(l=>l.words).length;
- return `<div class="pr-card"><h3>อ่านคำนี้ออกแล้ว · ${ws.length} จาก ${tot} คำ</h3><p>คำในบทเรียนระดับ 1 ที่ต้นเสียงและสระของ<b>ทุกพยางค์</b>อยู่ในด่านที่ผ่านแล้ว · นับจากด่านที่ผ่าน ไม่ได้ทดสอบการอ่านทีละคำ</p>${ws.length?prReadChips(ws,6)+(ws.length>6?`<button class="pill sm ghost press mt12" data-act="prreadall">ดูทั้ง ${ws.length} คำ</button>`:''):'<p><b>ผ่านด่าน 2 (สระเดี่ยว) กับด่านพยัญชนะสักด่าน แล้วคำแรกจะขึ้นที่นี่</b></p>'}</div>`}
-document.addEventListener('click',e=>{const t=e.target.closest('[data-act="prreadall"]');if(!t)return;const ws=prReadable();openSheet(`<div class="h2" style="padding:0 20px">อ่านคำนี้ออกแล้ว · ${ws.length} คำ</div><p class="cap" style="padding:0 20px">แตะเพื่อฟัง · เฉพาะคำจากบทเรียนระดับ 1</p><div style="padding:0 16px 8px;max-height:60vh;overflow:auto;-webkit-overflow-scrolling:touch">${prReadChips(ws,200)}</div>`)},true);
+function prReadBlock(){const ws=prReadable();const tot=prPool().length;
+ return `<div class="pr-card"><h3>อ่านคำนี้ออกแล้ว · ${ws.length} จาก ${tot} คำ</h3><p>คำในบทเรียนระดับ 1 ที่เรียนถึงแล้ว ซึ่งต้นเสียงและสระของ<b>ทุกพยางค์</b>อยู่ในด่านที่ผ่านแล้ว · นับจากด่านที่ผ่าน ไม่ได้ทดสอบการอ่านทีละคำ</p>${ws.length?prReadChips(ws,6)+(ws.length>6?`<button class="pill sm ghost press mt12" data-act="prreadall">ดูทั้ง ${ws.length} คำ</button>`:''):'<p><b>ผ่านด่าน 2 (สระเดี่ยว) กับด่านพยัญชนะสักด่าน แล้วคำแรกจะขึ้นที่นี่</b></p>'}</div>`}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act="prreadall"]');if(!t)return;const ws=prReadable();openSheet(`<div class="h2" style="padding:0 20px">อ่านคำนี้ออกแล้ว · ${ws.length} คำ</div><p class="cap" style="padding:0 20px">แตะเพื่อฟัง · เฉพาะคำจากบทเรียนระดับ 1 ที่เรียนถึงแล้ว</p><div style="padding:0 16px 8px;max-height:60vh;overflow:auto;-webkit-overflow-scrolling:touch">${prReadChips(ws,200)}</div>`)},true);
 /* ----- หน้าจอ ----- */
 const PR_NAV=`<div class="seshnav"><button class="x" data-pq="1" aria-label="ปิด">×</button><div class="prog" style="flex:1"><i id="pg" style="width:0"></i></div><div class="cap" id="pc" style="font-weight:600;color:var(--red);min-width:40px;text-align:right"></div></div>`;
 function prMinsLeft(){let m=0;PR_LV.forEach(l=>{if(!prDone(l.n))m+=l.min});return m}

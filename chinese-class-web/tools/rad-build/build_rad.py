@@ -20,7 +20,7 @@ for l in open(SO+'graphics.txt',encoding='utf8'):
     j=json.loads(l)
     if j['character'] in by: gm[j['character']]=len(j['strokes'])
 # report5 M4: พินอินที่ MMAH ให้ต่างจากที่ถูกต้อง → แก้ในชั้นของเรา
-PYFIX={'绩':'jì','迹':'jì'}
+PYFIX={'绩':'jì','迹':'jì','谁':'shéi'}
 for _c,_p in PYFIX.items():
     if _c in dic: dic[_c]['pinyin']=[_p]
     if _c in by: by[_c]['d']['py']=[_p]

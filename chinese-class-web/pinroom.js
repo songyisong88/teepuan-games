@@ -3,7 +3,7 @@
    จึงให้ฟัง "จากคำจริง" แทน · ตารางพยางค์สร้างจาก tools/pinyin-build/build_pinyin.py */
 const PR_SY=(window.PIN_SYL||[]).map(r=>({c:r[0],py:r[1],i:r[2],f:r[3],t:r[4]}));
 const prSy=(i,f,t)=>PR_SY.find(s=>s.i===i&&s.f===f&&(t==null||s.t===t));
-const prAll=(i,f)=>PR_SY.filter(s=>s.i===i&&s.f===f&&s.t<5);
+const prAll=(i,f)=>PR_SY.filter(s=>s.i===i&&s.f===f&&s.t<5&&(typeof prIn!=='function'||prIn(s)));
 const prSt=()=>{S.pin=S.pin||{done:{},weak:{}};S.pin.done=S.pin.done||{};S.pin.weak=S.pin.weak||{};return S.pin};
 const prDone=n=>!!prSt().done[n];
 const prDoneN=()=>Object.keys(prSt().done).length;
@@ -89,6 +89,13 @@ function prTeach(n){const L=prLv(n);let h='';
  else if(L.fin){h=L.fin.filter(k=>k!=='a').map(k=>prLetter(k,false)).join('')}
  return h}
 /* ----- ข้อฝึก ----- */
+/* ขอบเขตเสียงของด่าน: ข้อฝึกด่าน n ใช้เฉพาะต้นเสียง/สระของด่าน 1..n (ไม่ดึง zh ch sh j q x หรือ an ang ของด่านหลังมาก่อน) · เช็กพินอินรวม = ทุกด่าน */
+let PR_N=12;const _prUp={};
+function prUpTo(n){if(_prUp[n])return _prUp[n];const k={ini:new Set(['']),fin:new Set(),v:n>=2,yw:n>=11};
+ if(n>=2)['a','o','e','i','u','ü'].forEach(x=>k.fin.add(x));[3,4,5,9,10].forEach(m=>m<=n&&PR_INI[m].forEach(x=>k.ini.add(x)));[7,8].forEach(m=>m<=n&&PR_FINK[m].forEach(x=>k.fin.add(x)));
+ if(n>=11)['ui','iu','un','ün'].forEach(x=>k.fin.add(x));return _prUp[n]=k}
+const prIn=s=>PR_N>=12||prSylOK(s.py,prUpTo(PR_N));
+const prScope=(a,min=1)=>{const f=a.filter(prIn);return f.length>=min?f:a};
 const prPlain=s=>s.i+s.f;
 const prPickTarget=(arr,used)=>{const f=arr.filter(s=>!used.has(s.c));const a=f.length?f:arr;return a[Math.random()*a.length|0]};
 function prListenGroups(L,mode,n){ /* mode 'ini' = ท้ายเหมือนกัน ต้นต่างกัน · 'fin' = ต้นเหมือนกัน ท้ายต่างกัน */
@@ -102,19 +109,19 @@ function prListenGroups(L,mode,n){ /* mode 'ini' = ท้ายเหมือ�
  return out}
 function prBlendQ(L,n){const IN=['b','p','m','f','d','t','n','l','g','k','h','z','c','s','zh','ch','sh','r'];
  const fins=L.fin||['a','ai','ei','ao','ou','i','u','an','en','ang'];const inis=(L.ini||IN).filter(i=>IN.includes(i));
- const pool=PR_SY.filter(s=>IN.includes(s.i)&&inis.concat(L.fin?IN:[]).includes(s.i)&&fins.includes(s.f)&&s.t<5&&AUDIO_INDEX[s.c]);
+ const pool=prScope(PR_SY.filter(s=>IN.includes(s.i)&&inis.concat(L.fin?IN:[]).includes(s.i)&&fins.includes(s.f)&&s.t<5&&AUDIO_INDEX[s.c]),n);
  const out=[],used=new Set();shuffle(pool).forEach(s=>{if(out.length>=n||used.has(s.c))return;used.add(s.c);
   const pi=L.ini||[...new Set(pool.map(x=>x.i))];const pf=[...new Set(pool.map(x=>x.f))];
   const ti=shuffle([s.i,...shuffle(pi.filter(x=>x!==s.i)).slice(0,4)]).slice(0,5),tf=shuffle([s.f,...shuffle(pf.filter(x=>x!==s.f)).slice(0,3)]);
   const ti2=ti.includes(s.i)?ti:shuffle([s.i,...ti.slice(0,4)]);const tf2=tf.includes(s.f)?tf:shuffle([s.f,...tf.slice(0,3)]);
   out.push({k:'blend',say:s.c,s,ti:ti2,tf:tf2,rev:`${s.c} ${pyHtml(s.py)}`})});return out}
-function prToneQ(n){const g={};PR_SY.filter(s=>s.t<5&&s.i&&AUDIO_INDEX[s.c]).forEach(s=>{(g[s.i+'|'+s.f]=g[s.i+'|'+s.f]||[]).push(s)});
+function prToneQ(n){const g={};prScope(PR_SY.filter(s=>s.t<5&&s.i&&AUDIO_INDEX[s.c]),12).forEach(s=>{(g[s.i+'|'+s.f]=g[s.i+'|'+s.f]||[]).push(s)});
  const ok=Object.values(g).filter(a=>new Set(a.map(s=>s.t)).size>=3).map(a=>{const m={};a.forEach(s=>{if(!m[s.t])m[s.t]=s});return Object.values(m)});
  const out=[];shuffle(ok).slice(0,n).forEach(a=>{const tgt=a[Math.random()*a.length|0];const opts=a.slice().sort((x,y)=>x.t-y.t);
   out.push({k:'listen',say:tgt.c,ans:tgt.py,opts:opts.map(s=>s.py),mark:true,q:'ฟังเสียงสูงต่ำ แล้วเลือกพินอินที่ถูก',rev:`${tgt.c} ${pyHtml(tgt.py)}`,pair:opts.filter(s=>s!==tgt).map(s=>['เสียง'+tgt.t,'เสียง'+s.t])})});return out}
 const PR_V={a:'啊',o:'摸',e:'饿',i:'一',u:'五','ü':'雨'};
 function prVowelQ(){return shuffle(Object.keys(PR_V)).map(v=>{const s=PR_SY.find(x=>x.c===PR_V[v]);return {k:'listen',say:s.c,ans:v,opts:shuffle([v,...shuffle(Object.keys(PR_V).filter(x=>x!==v)).slice(0,3)]),q:'ฟังแล้วเลือกสระที่ได้ยิน'+(v==='o'?' (คลิป 摸 มี m นำหน้า)':''),rev:`${s.c} ${pyHtml(s.py)} → <b>${v}</b>`,pair:[[v,'?']]}})}
-function prQs0(n){const L=prLv(n);let q=[];
+function prQs0(n){PR_N=n;const L=prLv(n);let q=[];
  if(n===1)q=[{k:'listen',say:'你好',ans:'nǐ hǎo',opts:['nǐ hǎo','xiè xie','zài jiàn'],mark:true,q:'ฟังคำนี้ แล้วเลือกพินอินที่ตรงกัน',rev:'你好 nǐ hǎo = สวัสดี',pair:[]},
   {k:'listen',say:'谢谢',ans:'xiè xie',opts:['zài jiàn','xiè xie','nǐ hǎo'],mark:true,q:'ฟังคำนี้ แล้วเลือกพินอินที่ตรงกัน',rev:'谢谢 xiè xie = ขอบคุณ',pair:[]},
   {k:'listen',say:'再见',ans:'zài jiàn',opts:['xiè xie','zài jiàn','nǐ hǎo'],mark:true,q:'ฟังคำนี้ แล้วเลือกพินอินที่ตรงกัน',rev:'再见 zài jiàn = ลาก่อน',pair:[]},
@@ -141,17 +148,17 @@ function prQs0(n){const L=prLv(n);let q=[];
 const prSrc=t=>window.AUDIO_INDEX&&AUDIO_INDEX[t]?'🔊 คลิปเสียงสังเคราะห์ในแอป (ไม่ใช่เสียงคนจริง)':'🔊 เสียงอ่านของเครื่อง/เบราว์เซอร์ (อาจต่างกันตามเครื่อง)';
 function prPairQ(pairs,n,mode){const out=[],used=new Set();const P=shuffle(pairs);
  for(let k=0;k<n*4&&out.length<n;k++){const [a,b]=P[k%P.length];const cands=[];
-  PR_SY.forEach(s=>{if(s.t>=5||!AUDIO_INDEX[s.c])return;if(mode==='ini'?s.i!==a:s.f!==a)return;
-   const o=PR_SY.find(x=>x.t===s.t&&AUDIO_INDEX[x.c]&&(mode==='ini'?x.i===b&&x.f===s.f:x.f===b&&x.i===s.i));if(o&&!used.has(s.c))cands.push([s,o])});
+  PR_SY.forEach(s=>{if(s.t>=5||!AUDIO_INDEX[s.c]||!prIn(s))return;if(mode==='ini'?s.i!==a:s.f!==a)return;
+   const o=PR_SY.find(x=>x.t===s.t&&AUDIO_INDEX[x.c]&&prIn(x)&&(mode==='ini'?x.i===b&&x.f===s.f:x.f===b&&x.i===s.i));if(o&&!used.has(s.c))cands.push([s,o])});
   if(!cands.length)continue;const [s1,s2]=cands[Math.random()*cands.length|0];used.add(s1.c);
   const flip=Math.random()<.5,tgt=flip?s2:s1,oth=flip?s1:s2;
   out.push({k:'listen',say:tgt.c,ans:tgt.py,opts:shuffle([tgt.py,oth.py]),mark:true,q:'คู่เสียงใกล้กัน — ฟังแล้วเลือกที่ได้ยิน',rev:`${tgt.c} ${pyHtml(tgt.py)} · อีกตัวคือ ${oth.c} ${pyHtml(oth.py)}`,pair:[[mode==='ini'?tgt.i:tgt.f,mode==='ini'?oth.i:oth.f]]})}
  return out}
 function prContourQ(n){const T=[1,2,3,4];const out=[];
- shuffle(PR_SY.filter(s=>s.t<5&&AUDIO_INDEX[s.c]&&s.i)).slice(0,n).forEach(s=>{const lab=t=>`<span style="display:flex;flex-direction:column;align-items:center;gap:2px">${tlSvg([t],{h:44,w:56,sw:4})}<small style="font-size:12px;color:var(--sub)">เสียง ${t}</small></span>`;
+ shuffle(prScope(PR_SY.filter(s=>s.t<5&&AUDIO_INDEX[s.c]&&s.i),n)).slice(0,n).forEach(s=>{const lab=t=>`<span style="display:flex;flex-direction:column;align-items:center;gap:2px">${tlSvg([t],{h:44,w:56,sw:4})}<small style="font-size:12px;color:var(--sub)">เสียง ${t}</small></span>`;
   out.push({k:'listen',say:s.c,ans:lab(s.t),opts:T.map(lab),q:'ฟังแล้วเลือก "เส้นเสียงสูงต่ำ" ที่ตรงกับที่ได้ยิน',rev:`${s.c} ${pyHtml(s.py)} = เสียง ${s.t}`,pair:[['เสียง'+s.t,'เส้นเสียง']]})});return out}
 function prClassQ(n){const G=[['z c s · ลิ้นราบ','z','c','s'],['zh ch sh r · ม้วนลิ้น','zh','ch','sh','r']];const out=[];const used=new Set();
- for(let k=0;k<n;k++){const g=G[k%2];const pool=PR_SY.filter(s=>s.t<5&&g.slice(1).includes(s.i)&&AUDIO_INDEX[s.c]&&!used.has(s.c));if(!pool.length)continue;const s=pool[Math.random()*pool.length|0];used.add(s.c);
+ for(let k=0;k<n;k++){const g=G[k%2];const pool=prScope(PR_SY.filter(s=>s.t<5&&g.slice(1).includes(s.i)&&AUDIO_INDEX[s.c]&&!used.has(s.c)));if(!pool.length)continue;const s=pool[Math.random()*pool.length|0];used.add(s.c);
   out.push({k:'listen',say:s.c,ans:g[0],opts:G.map(x=>x[0]),q:'ฟังแล้วเลือกว่าต้นเสียงอยู่กลุ่มไหน',rev:`${s.c} ${pyHtml(s.py)} → ต้นเสียง <b>${s.i}</b> · ${g[0]}`,pair:[['z c s','zh ch sh r']]})}
  return shuffle(out)}
 function prMarkQ(){const M_=[['hao','nǐ hǎo','a','a ได้ก่อน → hǎo',['a','o']],['liu','liù','u','iu ใส่ที่ตัวหลัง → liù',['i','u']],['dui','duì','i','ui ใส่ที่ตัวหลัง → duì',['u','i']],['xue','xué','e','e มาก่อน ü/u → xué',['u','e']],['zou','zǒu','o','a › o e › i u ü → zǒu',['o','u']],['shui','shuǐ','i','ui ใส่ที่ตัวหลัง → shuǐ',['u','i']]];
@@ -169,7 +176,7 @@ function prQs(n){const q=prQs0(n);let x=[];
  else if(n===11)x=[...prMarkQ(),{k:'know',q:'月 (เดือน) เขียนพินอินว่าอย่างไร?',opts:['yuè','yüè','yueh'],ans:0,rev:'ü หลัง y เขียนเป็น <b>u</b> → yuè'},{k:'know',q:'女 (ผู้หญิง) ต้องเขียน ü ไหม?',opts:['เขียน nǚ มีจุดสองจุด','เขียน nu เหมือน j q x'],ans:0,rev:'หลัง n / l ต้องเขียน ü เพื่อแยกจาก u → <b>nǚ</b>'}];
  else if(n===12)x=[{k:'know',q:'一天 (หนึ่งวัน) ออกเสียงเป็น?',opts:['yī tiān','yì tiān','yí tiān'],ans:1,rev:'一 + เสียง 1 → <b>yì</b> tiān'},{k:'know',q:'不吃 (ไม่กิน) 不 ก่อนเสียง 1 ออกเสียงเป็น?',opts:['bù chī','bú chī'],ans:0,rev:'不 เปลี่ยนเป็น bú เฉพาะก่อนเสียง 4 → <b>bù chī</b>'}];
  return [...q,...x].slice(0,14)}
-function prCheckQs(){const L=n=>({lv:n}),T=(o,n)=>Object.assign(o,{lv:n});
+function prCheckQs(){PR_N=12;const L=n=>({lv:n}),T=(o,n)=>Object.assign(o,{lv:n});
  const one=a=>a.slice(0,1);let q=[];
  q.push(...one(prToneQ(1)).map(o=>T(o,6)),...one(prPairQ([['b','p']],1,'ini')).map(o=>T(o,3)),...one(prPairQ([['d','t']],1,'ini')).map(o=>T(o,4)),
   ...one(prVowelQ().filter(o=>o.ans==='ü'||o.ans==='e')).map(o=>T(o,2)),...one(prPairQ([['x','q'],['j','q']],1,'ini')).map(o=>T(o,9)),

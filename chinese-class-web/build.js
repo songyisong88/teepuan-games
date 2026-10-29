@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /* สร้างไฟล์ที่ต้องมีค่าตายตัว (title / meta / OG / manifest / viewport / หน้า privacy+terms) จาก config.js ที่เดียว
    ใช้: node build.js   (แก้ค่าใน config.js แล้วรันครั้งเดียว)
-   หมายเหตุ: ต้องรันหลัง zoom-fix/apply.py ทุกครั้ง เพราะสคริปต์นั้นใส่ no-zoom กลับเข้ามา — โปรเจกต์นี้ตั้งใจให้ซูมด้วยนิ้วได้ (การเข้าถึง) */
+   หมายเหตุ: ล็อกไม่ให้ซูม (ซ้งอี้ขอ 30 ต.ค. 2026 ให้นิ่งเหมือนแอปจริง) — viewport ด้านล่าง + nozoom.js (กัน pinch/double-tap บน iOS) */
 const fs=require('fs'),path=require('path'),vm=require('vm');
 const D=__dirname,rd=f=>fs.readFileSync(path.join(D,f),'utf8'),wr=(f,t)=>fs.writeFileSync(path.join(D,f),t);
 const cfg=vm.runInNewContext(rd('config.js')+';({BRAND_NAME,BRAND_SHORT,MASCOT_NAME,OA_ID,OA_URL,PROVIDER_NAME,PROVIDER_CONTACT,SITE_URL,OG_IMAGE,POLICY_DATE})');
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-const VP='<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">';
+const VP='<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">';
 const title=`${cfg.BRAND_NAME} — ตัวอย่างทดลอง`;
 const desc=`ตัวอย่างทดลองเว็บเรียนภาษาจีนสำหรับคนไทย ${cfg.BRAND_NAME} เรียนสนุกผ่านเรื่องราว เกม และเพื่อนใน LINE (ยังไม่ใช่ระบบจริง)`;
 const img=cfg.SITE_URL+cfg.OG_IMAGE;
@@ -25,7 +25,7 @@ wr('line.html',l);
 const m=JSON.parse(rd('manifest.webmanifest'));m.name=`${cfg.BRAND_NAME} (ตัวอย่างทดลอง)`;m.short_name=cfg.BRAND_SHORT;wr('manifest.webmanifest',JSON.stringify(m));
 
 /* ---- หน้าความเป็นส่วนตัว / ข้อกำหนด (ร่างตัวอย่าง) ---- */
-const page=(t,body)=>`<!DOCTYPE html><html lang="th"><head><meta charset="utf-8">${VP}<meta name="robots" content="noindex">
+const page=(t,body)=>`<!DOCTYPE html><html lang="th"><head><meta charset="utf-8">${VP}<script src="nozoom.js"></script><meta name="robots" content="noindex">
 <title>${esc(t)} — ${esc(cfg.BRAND_NAME)}</title><meta name="theme-color" content="#FAF7F2">
 <link rel="icon" type="image/png" href="assets/icons/favicon-64.png">
 <style>body{margin:0;background:#FAF7F2;color:#27211E;font:16px/1.75 'IBM Plex Sans Thai',system-ui,-apple-system,'Noto Sans Thai',sans-serif}
@@ -84,6 +84,7 @@ console.log('built for',cfg.BRAND_NAME);
  const v=hs.digest('hex').slice(0,10);let ih=rd('index.html');
  ih=ih.replace(/(<(?:script src|link rel="stylesheet" href)=")([^"?:]+\.(?:js|css))(\?v=[0-9a-f]+)?"/g,(m,a,f)=>a+f+'?v='+v+'"');
  if(!/<!--ver:start-->/.test(ih))ih=ih.replace('<script src="config.js','<!--ver:start--><!--ver:end--><script src="config.js');
+ {let lh=rd('line.html');lh=lh.replace(/(<script src=")(nozoom\.js)(\?v=[0-9a-f]+)?"/g,(m,a,f)=>a+f+'?v='+v+'"');wr('line.html',lh)}
  ih=ih.replace(/<!--ver:start-->[\s\S]*?<!--ver:end-->/,`<!--ver:start--><script>window.APP_VER="${v}"</script><!--ver:end-->`);wr('index.html',ih);wr('version.json',JSON.stringify({v}));
  /* service worker: เวอร์ชัน + รายการ shell ที่แคชตอนติดตั้ง */
  {const ls=d=>fs.existsSync(path.join(D,d))?fs.readdirSync(path.join(D,d)).sort():[];

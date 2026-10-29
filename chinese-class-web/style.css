@@ -5,6 +5,12 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;width:100%;overscroll-behavior:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{position:fixed;inset:0}
+/* นิ่งแบบแอป (30 ต.ค.): ไม่ซูม ไม่เด้งทั้งหน้า ไม่เลือกข้อความ/ไม่มีเมนูกดค้างบนปุ่มและรูป · ช่องพิมพ์ยังเลือกข้อความได้ */
+html,body{touch-action:manipulation;overflow-x:hidden}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+input,textarea,select{font-size:max(16px,1em)}
+img,svg{-webkit-touch-callout:none}
 :where(input,textarea,select){font-size:16px}
 body{background:#EDE6DC;color:var(--ink);font-family:'IBM Plex Sans Thai','Inter','Noto Sans Thai','Noto Sans CJK SC',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;font-size:16px;line-height:1.4}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -15,7 +21,7 @@ img{-webkit-user-drag:none;user-select:none}
 @media(min-width:600px){body{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 20% 10%,#F6EEE4,#E9E0D4)}
 #frame{height:min(880px,calc(100dvh - 32px));width:430px;border-radius:44px;box-shadow:0 0 0 10px #27211E,0 30px 80px rgba(60,40,30,.35)}}
 #stack{position:absolute;inset:0}
-.screen{position:absolute;inset:0;background:var(--bg);will-change:transform;transition:transform .43s var(--ios);touch-action:pan-y pinch-zoom}
+.screen{position:absolute;inset:0;background:var(--bg);will-change:transform;contain:layout;transition:transform .43s var(--ios);touch-action:pan-y}
 .screen::after{content:"";position:absolute;inset:0;z-index:60;background:#27211E;opacity:var(--dim,0);pointer-events:none;transition:opacity .43s var(--ios)}
 .screen.under{transform:translateX(-26%);--dim:.1}
 .screen.deep{transform:translateX(-26%);--dim:.1;visibility:hidden;transition:transform .43s var(--ios),visibility 0s .43s}
@@ -70,6 +76,8 @@ button,a,[data-go],[data-act],.press{touch-action:manipulation}
 .pill.warn{background:var(--warn);box-shadow:0 8px 20px rgba(217,130,43,.25)}
 .pill[disabled]{background:#E3DCD3;color:#A8A09A;box-shadow:none;pointer-events:none}
 .dock{position:absolute;left:0;right:0;bottom:0;padding:14px 20px calc(var(--sb) + 18px);z-index:4;background:linear-gradient(to top,var(--bg) 62%,rgba(250,247,242,0))}
+/* ปุ่มล่างที่อยู่ในเนื้อหาที่เลื่อนได้: ตรึงกับขอบล่างของหน้าจอ ไม่เลื่อนตามรายการ (.screen เป็นกรอบอ้างอิงของ fixed) */
+.scroller .dock{position:fixed}
 .chip{height:32px;padding:0 12px 0 9px;border-radius:16px;background:#fff;border:.5px solid rgba(60,40,30,.12);display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--red);white-space:nowrap}
 .chip.coin{color:#7A5200}.chip svg{width:16px;height:16px}
 .chip.bump{animation:bump .5s var(--spring)}

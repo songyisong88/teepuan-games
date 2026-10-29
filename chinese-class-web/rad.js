@@ -1,4 +1,4 @@
-/* เรียนตัวอักษร — เส้นทางตัวข้าง/ส่วนประกอบ (แยกจากบทเรียน ไม่ผูกกับการปลดล็อกบท ไม่มีลิงก์ย้อนจากบทเรียน)
+/* อักษรข้าง — เส้นทางตัวข้าง/ส่วนประกอบ (แยกจากบทเรียน ไม่ผูกกับการปลดล็อกบท ไม่มีลิงก์ย้อนจากบทเรียน)
    ข้อมูล: data/rad/rad.js สร้างจาก Make Me a Hanzi (LGPL-3) ผ่านชั้นแก้ไขของเรา · ชื่อไทย/ตัวช่วยจำ/ชื่อการ์ดเป็น "ร่าง รอครูตรวจ"
    ลำดับขีดสำหรับระบายสีส่วนประกอบ: hanzi-writer-data (Arphic) — ดู data/stroke/NOTICE.md */
 const RAD_DRAFT='ร่าง รอครูตรวจ';
@@ -69,11 +69,11 @@ const radStars=n=>'★'.repeat(n)+'☆'.repeat(3-n);
 function radLessonsFor(r,max=8){const m=RAD_MEM[r.id];const set=new Set([...m.s,...r.ex]);const out=[];const seen=new Set();
  for(const w of ALLW){if(seen.has(w.zh))continue;const cs=stkHan(w.zh);if(!cs.length||cs.length>3)continue;if(cs.some(c=>set.has(c))){seen.add(w.zh);out.push(w)}}
  const lv=radLvPool();out.sort((a,b)=>(lv.has(a.lv)?0:1)-(lv.has(b.lv)?0:1)||a.lv-b.lv||(a.zh.length-b.zh.length));return out.slice(0,max)}
-/* ---------- แท็บ "เรียนตัวอักษร" ---------- */
+/* ---------- แท็บ "อักษรข้าง" ---------- */
 SC.rad=()=>{const k=radS();const tab=k.tab||'path';
  const seg=`<div class="seg rd-seg" role="group" aria-label="มุมมอง">${[['path','เส้นทาง'],['prac','ฝึก'],['col','การ์ด']].map(([v,l])=>`<button data-go="radtab" data-t="${v}" class="${tab===v?'on':''}">${l}</button>`).join('')}</div>`;
- const head=`<div class="rd-head"><div class="rd-kick">เส้นทางแยกจากบทเรียน</div><div class="large" style="padding:0">เรียนตัวอักษร</div></div>`;
- return {title:'เรียนตัวอักษร',body:`${head}${seg}${tab==='path'?radPathHtml():tab==='prac'?radPracHtml():radColHtml()}`,mount(el){radColorize(el);if(tab==='path'){const c=$('.rd-node.cur',el);if(c&&!el.dataset.sc){el.dataset.sc=1;const sc=$('.scroller',el);setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.38;if(y>200)sc.scrollTo({top:y,behavior:'smooth'})},250)}}
+ const head=`<div class="rd-head"><div class="rd-kick">เส้นทางแยกจากบทเรียน</div><div class="large" style="padding:0">อักษรข้าง</div></div>`;
+ return {title:'อักษรข้าง',body:`${head}${seg}${tab==='path'?radPathHtml():tab==='prac'?radPracHtml():radColHtml()}`,mount(el){radColorize(el);if(tab==='path'){const c=$('.rd-node.cur',el);if(c&&!el.dataset.sc){el.dataset.sc=1;const sc=$('.scroller',el);setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.38;if(y>200)sc.scrollTo({top:y,behavior:'smooth'})},250)}}
    if(tab==='col')radColMount(el)}}};
 Object.assign(window.GOX=window.GOX||{},{radtab(el){const k=radS();k.tab=el.dataset.t;save();refresh()}});
 /* ---- มุมมองเส้นทาง ---- */
@@ -106,7 +106,7 @@ SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;c
  const ws=radLessonsFor(r,8);
  const lvs=[...new Set(mem.sem.map(radLvOf).filter(Boolean))].sort();
  const filt=lvs.length>1?`<div class="rd-lvf" role="group" aria-label="กรองตามระดับ"><button class="${!pool?'on':''}" data-go="radfam2" data-id="${id}" data-lv="0">ทุกระดับ</button>${lvs.map(n=>`<button class="${pool===n?'on':''}" data-go="radfam2" data-id="${id}" data-lv="${n}">ระดับ ${n}</button>`).join('')}</div>`:'';
- const body=`<div class="rd-fh card"><div class="rd-ftile"><span class="zh">${r.id}</span></div><div class="rd-fht"><div class="rd-kick2">ตัวข้างที่ ${r.no>48?'โบนัส '+(r.no-48):r.no} · เรียนตัวอักษร</div><div class="rd-fth">${r.th}</div><div class="rd-fpy">อ่านว่า <b>${pyHtml(r.py)}</b>${r.or_?` · ${r.or_}`:''}</div><span class="rd-trust ${tc}">● ${tt}</span>${typeof STK_SET!=='undefined'&&STK_SET.has(r.id)?`<button class="pill sm ghost press rd-stkb" data-go="radstk" data-c="${r.id}" aria-label="ดูลำดับขีดของ ${r.id}">✍️ ดูลำดับขีด ${r.id}</button>`:''}</div></div>
+ const body=`<div class="rd-fh card"><div class="rd-ftile"><span class="zh">${r.id}</span></div><div class="rd-fht"><div class="rd-kick2">ตัวข้างที่ ${r.no>48?'โบนัส '+(r.no-48):r.no} · อักษรข้าง</div><div class="rd-fth">${r.th}</div><div class="rd-fpy">อ่านว่า <b>${pyHtml(r.py)}</b>${r.or_?` · ${r.or_}`:''}</div><span class="rd-trust ${tc}">● ${tt}</span>${typeof STK_SET!=='undefined'&&STK_SET.has(r.id)?`<button class="pill sm ghost press rd-stkb" data-go="radstk" data-c="${r.id}" aria-label="ดูลำดับขีดของ ${r.id}">✍️ ดูลำดับขีด ${r.id}</button>`:''}</div></div>
  <div class="rd-mn"><div class="rm">${M(r.pose||'think')}</div><div class="rd-bub"><b>ตัวช่วยจำ:</b> ${radEsc(r.mn)}<div class="note">ตัวช่วยจำ ไม่ใช่ที่มาจริง · ${RAD_DRAFT}</div></div></div>
  ${(p=>p?`<div class="rd-pic card">${radPicImg(r.id,'rdp')}<div class="t"><small>ภาพสื่อความหมาย</small><b><span class="zh">${p[0]}</span> · ${radEsc(p[1])}</b><div class="note">${p[3]?radEsc(p[3]):`รูปบอกความหมายของ ${r.id} (${radEsc(r.mean)}) ไม่ใช่ที่มาของรูปอักษร`}</div></div></div>`:'')(radPic(r.id))}
  <div class="rd-sech"><b>ครอบครัว ${r.id} · ${mem.sem.length} ตัว</b><small><span class="dot"></span> สีส้ม = ความหมาย</small></div>${filt}
@@ -116,7 +116,7 @@ SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;c
  ${ws.length?`<div class="rd-sech" style="margin-top:20px"><b>เจอคำเหล่านี้ในบทเรียน</b><small>ลิงก์ไปบทเรียนเดิม</small></div><div class="rd-words">${ws.map(w=>`<button class="rd-wd press" data-go="unit" data-id="${w.lesson}a"><span class="zh">${zhHtml(w.zh,w.py)}</span><span class="t">${radEsc(w.th)}</span><span class="l">บทที่ ${w.lesson} ›</span></button>`).join('')}</div>`:''}
  <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">${rdN.d>=3?`<button class="rd-alt press" data-go="raddet" data-id="${id}">🔎 ลองเป็นนักสืบ ${r.id}</button>`:''}${done?'':`<button class="rd-skip press" data-go="radskip" data-id="${id}">รู้จักตัวนี้แล้ว? ข้ามได้ ไม่ต้องเล่น</button>`}</div>
  <p class="cap" style="padding:14px 24px 0;line-height:1.5">${RAD_DRAFT} · ครอบครัวนี้รวมเฉพาะตัวอักษรที่อยู่ในบทเรียนของเรา · ข้อมูลส่วนประกอบจาก Make Me a Hanzi (LGPL-3) ผ่านชั้นแก้ไขของเรา</p><div style="height:120px"></div>`;
- return {title:r.th,backLabel:'เรียนตัวอักษร',noRefresh:true,right:`<button class="rd-spk press" data-act="audio" data-t="${radEsc(r.ex[0]||r.id)}" aria-label="ฟังตัวอย่าง ${radEsc(r.ex[0]||'')}">${SPK}</button>`,body,
+ return {title:r.th,backLabel:'อักษรข้าง',noRefresh:true,right:`<button class="rd-spk press" data-act="audio" data-t="${radEsc(r.ex[0]||r.id)}" aria-label="ฟังตัวอย่าง ${radEsc(r.ex[0]||'')}">${SPK}</button>`,body,
   extra:`<div class="dock"><button class="pill press" data-go="radbuild" data-id="${id}"><b>${done?'เล่นประกอบร่างอีกครั้ง':'ลองประกอบร่าง '+r.id+' + ?'}</b><small>${rdN.b} ข้อ · ใช้เวลาราว ${Math.max(1,Math.round(rdN.b*22/60))} นาที</small></button></div>`,
   mount(el){radColorize(el)}}};
 Object.assign(window.GOX,{

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""สร้าง data/rad/rad.js (เส้นทาง "เรียนตัวอักษร") — ดู README.md
+"""สร้าง data/rad/rad.js (เส้นทาง "อักษรข้าง") — ดู README.md
 อินพุต: ตารางตัวข้างที่ร่างไว้ (table_core.md / table_bonus.md ในโฟลเดอร์นี้) + MMAH dictionary/graphics (LGPL-3)
         + chars.json (สรุป MMAH ของ 1,827 ตัวในบทเรียน) + ชั้นแก้ไขของเรา fixes.json
 ข้อความไทยทั้งหมดเป็น "ร่าง รอครูตรวจ" """
@@ -138,7 +138,7 @@ for no,(g,z) in enumerate(order,1):
     ex=[c for c in cu['ex'] if c in mem[g] or True]
     rad.append(dict(id=g,no=no,z=z,f=FORMS.get(g,[g]),py=m[0],or_=m[1],th=cu['th'],mean=cu['mean'],mn=cu['mn'],tr=cu['tr'],bonus=cu['bonus'],ex=ex,
                     card=m[2],em=m[3],pose=m[4],lv=levels_for(g),n=len(mem[g])))
-js=['/* ข้อมูลเส้นทาง "เรียนตัวอักษร" — สร้างโดย tools/rad-build/build_rad.py ห้ามแก้มือ',
+js=['/* ข้อมูลเส้นทาง "อักษรข้าง" — สร้างโดย tools/rad-build/build_rad.py ห้ามแก้มือ',
  '   การแยกส่วนประกอบมาจาก Make Me a Hanzi (LGPL-3, © Shaunak Kishore et al.) ผ่านชั้นแก้ไขของเรา (tools/rad-build/fixes.json)',
  '   ชื่อไทย/ตัวช่วยจำ/ชื่อการ์ดทั้งหมดเป็น "ร่าง รอครูตรวจ" · ดู data/rad/NOTICE.md */']
 js.append('const RAD_Z='+json.dumps([{'n':z['n'],'sub':z['sub'],'em':z['em']} for z in ZONES],ensure_ascii=False,separators=(',',':'))+';')

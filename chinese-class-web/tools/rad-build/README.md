@@ -1,6 +1,6 @@
 # rad-build
 
-สร้าง `data/rad/rad.js` ของเส้นทาง "เรียนตัวอักษร"
+สร้าง `data/rad/rad.js` ของเส้นทาง "อักษรข้าง"
 
     python3 tools/rad-build/build_rad.py   # ต้องมี MMAH dictionary.txt/graphics.txt ตาม WORK/SO ในสคริปต์
 

@@ -2,7 +2,7 @@
    วิธีใส่ภาพ: วางไฟล์ .webp ไว้ที่ assets/art/lesson/<เลขบท>.webp หรือ assets/art/word/<คำจีน>.webp
    แล้วเพิ่มชื่อลงในรายการด้านล่าง (ตัวอย่าง: "lesson/1","word/你好") — ไม่ขึ้นทะเบียน = ใช้อีโมจิ/ไม่มีรูปตามเดิม ไม่มี 404 */
 window.ART_IDX=window.ART_IDX||{};
-/* รูปตัวข้างจาก PIXEL (assets/art/rad/, ใช้เฉพาะเรียนตัวอักษร ไม่เข้าคลังรูปคำศัพท์) */
+/* รูปตัวข้างจาก PIXEL (assets/art/rad/, ใช้เฉพาะอักษรข้าง ไม่เข้าคลังรูปคำศัพท์) */
 Object.assign(ART_IDX,{"rad/田":1,"rad/王":1});
 
 /* ภาพคำศัพท์จาก PIXEL (711 คำ) · webp 512px — สร้างโดย tools/pic-build/build_pics.py */

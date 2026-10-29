@@ -164,7 +164,7 @@ for L in LS:
     unl=f.get('unlisted',0)+f.get('chars-above',0)
     hl_=(f.get('in',0)+f.get('below',0)+f.get('chars-ok',0))/n
     if hl_<0.80: W(f'L{L["id"]}',f'in-level word % {hl_*100:.0f} < 80 (above={above}, unknown/derived-above={unl})')
-# ---- เขียนทีละขีด: ข้อมูลลำดับขีด (data/stroke) ----
+# ---- ลำดับขีด: ข้อมูลลำดับขีด (data/stroke) ----
 import glob
 SD=os.path.join(APP,'data','stroke')
 for f in ('ARPHICPL.TXT','MMAH-COPYING.txt','NOTICE.md','index.js'):
@@ -197,7 +197,7 @@ srcmiss-=need
 if srcmiss: W('stroke','characters elsewhere in app source without stroke data (will show "ยังไม่มีข้อมูล"): '+''.join(sorted(srcmiss))[:80])
 print(f'stroke data: {len(have)} chars, lesson chars needed {len(need)}, missing {len(miss)}')
 
-# ---- เรียนตัวอักษร (data/rad) ----
+# ---- อักษรข้าง (data/rad) ----
 import subprocess
 RD=os.path.join(APP,'data','rad')
 for f in ('rad.js','NOTICE.md','MMAH-COPYING.txt'):

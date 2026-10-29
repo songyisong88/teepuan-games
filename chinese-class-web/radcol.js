@@ -1,4 +1,4 @@
-/* เรียนตัวอักษร — ฝึก · การ์ด · ชุดลามะ · เพื่อนท้า (LINE) · การ์ดบนหน้าหลัก
+/* อักษรข้าง — ฝึก · การ์ด · ชุดลามะ · เพื่อนท้า (LINE) · การ์ดบนหน้าหลัก
    การ์ด/ชุด/เพื่อนท้าเป็นของจำลองทั้งหมด (ไม่มีกาชา ไม่มีการสุ่ม ไม่ขายของ) · ชื่อการ์ดเป็น "ร่าง รอครูตรวจ" */
 let radSel=null,radSub='c';
 const RAD_RAR={1:'ธรรมดา',2:'เงา',3:'ทอง'};
@@ -67,8 +67,8 @@ function radFriendsHtml(k){const best=k.blitz.best;
 function radColMount(el){radColorize(el)}
 /* ---------- การ์ดบนหน้าหลัก ---------- */
 function radHomeCard(){const k=radS();const n=radCoreDone();const cur=radCur();const ids=['亻','口','女','讠','木'];
- return `<button class="rd-home press" data-go="radhome" aria-label="ไปเรียนตัวอักษร"><div class="rh-t"><b>รู้จักตัวข้าง แล้วจำตัวจีนง่ายขึ้น</b><small>เรียนตัวข้างทีละตัว 3 นาที · แยกจากบทเรียน</small></div>
- <div class="rh-tiles">${ids.map(i=>`<span class="zh">${i}</span>`).join('')}<span class="more">${n}/${RAD_CORE.length}</span></div><span class="rh-btn">${n?'เรียนต่อ'+(cur?' · '+cur.id+' '+cur.th:''):'ไปเริ่มเรียนตัวอักษร (3 นาที)'}</span></button>`}
+ return `<button class="rd-home press" data-go="radhome" aria-label="ไปเรียนอักษรข้าง"><div class="rh-t"><b>รู้จักตัวข้าง แล้วจำตัวจีนง่ายขึ้น</b><small>เรียนตัวข้างทีละตัว 3 นาที · แยกจากบทเรียน</small></div>
+ <div class="rh-tiles">${ids.map(i=>`<span class="zh">${i}</span>`).join('')}<span class="more">${n}/${RAD_CORE.length}</span></div><span class="rh-btn">${n?'เรียนต่อ'+(cur?' · '+cur.id+' '+cur.th:''):'ไปเริ่มเรียนอักษรข้าง (3 นาที)'}</span></button>`}
 Object.assign(window.GOX,{radhome(){mountRoot('rad')}});
 /* ---------- การ์ดแชร์ LINE (วาดด้วย canvas) ---------- */
 async function radDrawCard(c,g,x,y,w,h,TH,F){const r=RADI[g.id];c.save();c.fillStyle=TH.sb;rr(c,x,y,w,h,32);c.fill();

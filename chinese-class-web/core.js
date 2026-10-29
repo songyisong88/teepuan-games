@@ -7,7 +7,7 @@ const IC={
  game:'<rect x="2.5" y="7" width="19" height="11" rx="5.5"/><path d="M8 10.5v4M6 12.5h4"/><circle cx="15.5" cy="11.5" r=".6"/><circle cx="17.8" cy="13.5" r=".6"/>',
  rank:'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 5.5H5v1.5a3 3 0 0 0 3 3M16 5.5h3v1.5a3 3 0 0 1-3 3"/><path d="M12 13v4.5M8.5 20.5h7M10 17.5h4"/>',
  me:'<circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5c0-4 3.3-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/>'};
-const TABS=[['home','หน้าหลัก'],['book','บทเรียน'],['rad','ตัวอักษร'],['game','เกม'],['me','ฉัน']];
+const TABS=[['home','หน้าหลัก'],['book','บทเรียน'],['rad','อักษรข้าง'],['game','เกม'],['me','ฉัน']];
 const svg=(p,w=22,extra='')=>`<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${p}</svg>`;
 const SPK=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>`;
 const FLAME=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.5 4 5.5 6 5.5 11a5.5 5.5 0 0 1-11 0c0-2 1-3.5 2-4.5 0 2 .8 3 2 3.2C10 9.5 10.500 6 12 3z"/></svg>`;

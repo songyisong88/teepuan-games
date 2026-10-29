@@ -1,4 +1,4 @@
-/* เกมในเส้นทาง "เรียนตัวอักษร": ประกอบร่าง (ลากชิ้นส่วน) · นักสืบตัวข้าง (มีมาตรความเชื่อถือ) · ท้า 60 วินาที · ตัวข้างวันนี้
+/* เกมในเส้นทาง "อักษรข้าง": ประกอบร่าง (ลากชิ้นส่วน) · นักสืบตัวข้าง (มีมาตรความเชื่อถือ) · ท้า 60 วินาที · ตัวข้างวันนี้
    ตัวเลือกลวงกรองด้วยตารางคู่ส่วนประกอบของ MMAH ทั้งชุด (RAD_PAIRS ~9.5 พันตัว ลองทั้งสองลำดับ) ไม่ให้ประกอบเป็นตัวอักษรจริง · ข้อความไทยเป็น "ร่าง รอครูตรวจ" */
 const RFORM={};RAD.forEach(r=>[r.id,...r.f].forEach(f=>{if(!RFORM[f])RFORM[f]=r}));
 const RAD_DECS=new Set(Object.values(RAD_CH).map(v=>v[0]));
@@ -93,7 +93,7 @@ SC.radbuild=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const mode=p.
   const finish=(timeout)=>{clearInterval(tm);const stars=first/N>=.85?3:first/N>=.6?2:1;const k=radS();k.built+=1;qs.forEach((q,ix)=>{if(rs[ix].ok)k.known[q.c]=(k.known[q.c]||0)+1});
    let coins=radCoin(first*2+(stars===3?3:0));let xp=Math.max(2,first*2);let cr=null;
    if(mode==='fam'&&ids.length===1){cr=radComplete(ids[0],{stars});coins+=cr.coins;xp+=cr.xp}else{addXp(xp)}save();
-   replace('radres',{kind:'build',id:mode==='fam'?ids[0]:null,stars,title:timeout?'หมดเวลาแล้ว!':'ประกอบร่างจบแล้ว!',sub:`ถูกตั้งแต่ครั้งแรก ${first} / ${N} ข้อ`,stats:[[first+'/'+N,'ถูกครั้งแรก'],['×'+best,'ติดกันสูงสุด'],[hinted,'ครั้งที่ขอใบ้']],coins,xp,cr,again:{n:'radbuild',p:{ids,mode,n}},share:{t:`ฉันประกอบร่างตัวอักษรถูก ${first}/${N} ข้อ`,s:'เรียนตัวอักษรกับลามะ'}})};
+   replace('radres',{kind:'build',id:mode==='fam'?ids[0]:null,stars,title:timeout?'หมดเวลาแล้ว!':'ประกอบร่างจบแล้ว!',sub:`ถูกตั้งแต่ครั้งแรก ${first} / ${N} ข้อ`,stats:[[first+'/'+N,'ถูกครั้งแรก'],['×'+best,'ติดกันสูงสุด'],[hinted,'ครั้งที่ขอใบ้']],coins,xp,cr,again:{n:'radbuild',p:{ids,mode,n}},share:{t:`ฉันประกอบร่างตัวอักษรถูก ${first}/${N} ข้อ`,s:'เรียนอักษรข้างกับลามะ'}})};
   draw()},unmount(){}}};
 /* ---------- นักสืบตัวข้าง ---------- */
 const radMeter=(label,v,note)=>`<div class="rd-met"><div class="top"><b>${label}</b><span>${note||''}</span></div><div class="bar"><i style="left:${Math.round(v*100)}%"></i></div><div class="sc"><span>เดาไม่ได้</span><span>ค่อนข้างแน่</span><span>เชื่อได้</span></div></div>`;
@@ -154,7 +154,7 @@ SC.radblitz=(p)=>{const pool=radBlitzPool();const ch=p.ch||0;
   start()}}};
 /* ---------- หน้าผลลัพธ์ (ใช้ร่วม) ---------- */
 SC.radres=(r)=>{r=Object.assign({kind:'build',stars:1,title:'เรียบร้อย',sub:'',stats:[],coins:0,xp:0},r||{});r.stats=r.stats||[];const pose=r.stars>=3?'celebrate':r.stars===2?'cheer':'thumbs';const id=r.id,rd=id&&RADI[id];const cardNew=r.cr&&(r.cr.newCard||r.cr.up);const nx=r.kind==='build'&&rd?radCur():null;
- return {title:'ผลลัพธ์',backLabel:'เรียนตัวอักษร',noRefresh:true,right:'',nav:'<header class="nav"><div class="nav-l"></div><div class="nav-t"></div><div class="nav-r"><button class="rd-done press" data-act="radexit">เสร็จ</button></div></header>',
+ return {title:'ผลลัพธ์',backLabel:'อักษรข้าง',noRefresh:true,right:'',nav:'<header class="nav"><div class="nav-l"></div><div class="nav-t"></div><div class="nav-r"><button class="rd-done press" data-act="radexit">เสร็จ</button></div></header>',
   body:`<div class="stk-res rd-res"><div class="stk-burst"></div><div class="rm pop">${M(pose)}</div><div class="large center" style="padding:6px 20px 0">${r.title}</div><div class="stk-bigstars" aria-label="${r.stars} ดาว">${radStars(r.stars)}</div>
   <p class="cap center" style="font-size:14.5px;color:var(--sub2)">${r.sub}</p><p class="rd-draft">ข้อความไทยเป็นร่าง รอครูตรวจ</p>
   <div class="stk-tiles res">${r.stats.map(s=>`<div><b>${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>

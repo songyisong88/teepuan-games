@@ -10,4 +10,4 @@
 | ชื่อชนิดขีด (cnchar-order) | theajack | MIT | `vendor/LICENSE-cnchar-order.txt` |
 | ฟอนต์ IBM Plex Sans Thai, Inter, Noto Serif SC | — | SIL OFL | `fonts/` |
 
-ข้อความไทยของเส้นทาง "เขียนทีละขีด" และ "เรียนตัวอักษร" เป็น **ร่าง รอครูตรวจ**
+ข้อความไทยของเส้นทาง "ลำดับขีด" และ "อักษรข้าง" เป็น **ร่าง รอครูตรวจ**

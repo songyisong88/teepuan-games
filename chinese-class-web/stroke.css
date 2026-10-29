@@ -1,4 +1,4 @@
-/* เขียนทีละขีด — สไตล์ iOS นุ่มๆ สีแบรนด์ลามะ (แดง #C8102E / ส้มราก #D9822B) */
+/* ลำดับขีด — สไตล์ iOS นุ่มๆ สีแบรนด์ลามะ (แดง #C8102E / ส้มราก #D9822B) */
 .stk-top{display:flex;align-items:center;gap:6px;padding:2px 20px 0}.stk-tm{width:84px;height:84px;flex:none;margin-left:-6px}.stk-tm .mas{width:100%;height:100%;object-fit:contain}
 .stk-sub{font-size:14px;color:var(--sub2);line-height:1.45;margin-top:2px}
 .stk-sbar{display:flex;align-items:center;gap:10px;margin:12px 20px 0}

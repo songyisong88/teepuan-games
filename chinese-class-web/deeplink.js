@@ -29,7 +29,7 @@
   if((m=/^lesson-(.+)$/i.exec(go))){const r=lessonFor(m[1].toLowerCase());if(!r)return null;const L=r.L||r;const us=UNITS.filter(u=>u.lesson===L.id);if(!us.length)return null;
    const uid=r.uid||(us.find(u=>!unitDone(u.id))||us[us.length-1]).id;return()=>{mountRoot('book',false);setTimeout(()=>unitSheet(uid),250)}}
   if((m=/^game-([a-z]+)$/i.exec(go))){const g=m[1].toLowerCase();if(!DL_GAMES.includes(g))return null;
-   return()=>{mountRoot('game',false);if(!gamesOpen()&&['build','det','blitz'].indexOf(g)<0)return;setTimeout(()=>{if(['build','det','blitz'].includes(g))GOX.radplay({dataset:{g}});else playGame(g)},250)}}
+   return()=>{mountRoot('game',false);if(!gamesOpen()&&['build','det','blitz'].indexOf(g)<0)return setTimeout(()=>toast('เรียนบทที่ 1 ให้จบก่อนเพื่อปลดล็อกเกม'),250);setTimeout(()=>{if(['build','det','blitz'].includes(g))GOX.radplay({dataset:{g}});else playGame(g)},250)}}
   if((m=/^word-(.+)$/i.exec(go))){let w=m[1];try{w=decodeURIComponent(w)}catch(e){}w=w.trim();if(!wordBy(w))return null;return()=>push('stroke',{w})}
   return null}
  function fromBook(){if(q('from')!=='book')return;try{const k='lama-from-book',n=(+localStorage.getItem(k)||0)+1;localStorage.setItem(k,String(n))}catch(e){}}

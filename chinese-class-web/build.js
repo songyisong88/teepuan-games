@@ -45,7 +45,7 @@ wr('privacy.html',page('นโยบายความเป็นส่วน�
 <h2>ตอนนี้เก็บข้อมูลอะไรบ้าง</h2>
 <p>ตอนนี้เว็บนี้เป็นตัวอย่างทดลอง <b>ไม่มีระบบสมาชิก ไม่มีเซิร์ฟเวอร์เก็บข้อมูลของคุณ</b> ข้อมูลทั้งหมดอยู่ใน <b>localStorage ของเบราว์เซอร์บนอุปกรณ์ของคุณเท่านั้น</b> ได้แก่:</p>
 <ul><li>ความคืบหน้าการเรียน คะแนน XP เหรียญ สตรีค ระดับที่เลือก และผลทดสอบวัดระดับ</li><li>คำที่ตอบผิด การตั้งค่า (เช่น เป้าหมายรายวัน เวลาเตือนแบบจำลอง) ของที่ปลดล็อก</li><li>จำนวนครั้งที่ใช้ “ติวเตอร์จำลอง” (ข้อความที่พิมพ์ไม่ได้ถูกบันทึกไว้ และประมวลผลในเครื่อง ไม่ได้ส่งไปที่ใด) · หน้าจำลอง LINE เก็บสถานะเปิด/ปิดเตือน ตัวนับข้อความจำลอง และค่าที่ตั้งในแผน ไว้ในเครื่องเช่นกัน</li></ul>
-<p>นอกจาก localStorage แล้ว ฟีเจอร์ “เขียนทีละขีด” ใช้ <b>Service Worker</b> และ <b>Cache Storage</b> ของเบราว์เซอร์ (ชื่อแคช <code>lama-stk-v1</code>) เก็บไฟล์ลำดับขีดและตัวตรวจขีดไว้ในเครื่องเพื่อใช้ออฟไลน์ — เป็นไฟล์ข้อมูลสาธารณะ ไม่มีข้อมูลส่วนตัว ส่วนข้อมูลการฝึกเขียนและความคืบหน้า “เรียนตัวอักษร” (ตัวข้างที่ผ่าน การ์ดที่ได้ ผลเกม) เก็บใน localStorage ด้วยกัน ปุ่ม “ล้างข้อมูลทั้งหมด” จะลบทั้ง localStorage แคชนี้ และยกเลิกการลงทะเบียน Service Worker</p>
+<p>นอกจาก localStorage แล้ว แอปใช้ <b>Service Worker</b> และ <b>Cache Storage</b> ของเบราว์เซอร์เพื่อให้ใช้งานออฟไลน์ได้: เก็บตัวแอป (หน้าเว็บ สคริปต์ ฟอนต์ไทย รูปน้องลามา) ไว้อัตโนมัติหลังเปิดครั้งแรก, เก็บเสียง รูปคำศัพท์ ไฟล์ลำดับขีด และฟอนต์จีนที่เคยเปิด (เสียงเก็บล่าสุด 400 ไฟล์) และเก็บแพ็กที่คุณกดดาวน์โหลดเองในหน้า “ใช้งานออฟไลน์” (ชื่อแคชขึ้นต้นด้วย <code>lama-</code>) — ทั้งหมดเป็นไฟล์สาธารณะของแอปที่ดาวน์โหลดจากเว็บนี้ ไม่มีข้อมูลส่วนตัว ไม่ส่งอะไรออกจากเครื่อง ลบได้จากหน้า “ใช้งานออฟไลน์”  ส่วนข้อมูลการฝึกเขียนและความคืบหน้า “เรียนตัวอักษร” (ตัวข้างที่ผ่าน การ์ดที่ได้ ผลเกม) เก็บใน localStorage ด้วยกัน ปุ่ม “ล้างข้อมูลทั้งหมด” จะลบทั้ง localStorage แคชนี้ และยกเลิกการลงทะเบียน Service Worker</p>
 <h2>สำรองความก้าวหน้า</h2><p>หน้า “สำรองความก้าวหน้า / ย้ายเครื่อง” สร้างไฟล์ .json หรือรหัสข้อความ <b>ในเครื่องของคุณ</b> ไม่ได้ส่งไปเซิร์ฟเวอร์ใด คุณเป็นผู้เลือกว่าจะเก็บไว้หรือส่งต่อที่ไหน ใครที่ได้ไฟล์/รหัสจะเห็นความก้าวหน้าของคุณ จึงควรเก็บเป็นส่วนตัว</p>
 <h2>สิ่งที่ไม่ได้เก็บ / ไม่ได้ทำ</h2>
 <ul><li>ไม่มีบัญชีผู้ใช้ ไม่เก็บชื่อ อีเมล เบอร์โทร ที่อยู่ หรือข้อมูลบัตร</li><li>ไม่มีระบบชำระเงินจริง (ราคาในแอปเป็นตัวอย่าง)</li><li>ไม่มี analytics หรือเครื่องมือติดตามของบุคคลที่สาม ไม่ใช้คุกกี้โฆษณา</li><li>ไม่ได้เชื่อมต่อ LINE Login หรือ LINE OA จริง ข้อความ “จากเพื่อน/ลีก/การแจ้งเตือน” ที่เห็นเป็นข้อมูลจำลอง</li></ul>
@@ -66,10 +66,25 @@ wr('terms.html',page('ข้อกำหนดการใช้งาน (ร�
 <h2>ติดต่อ</h2><p>${cont} · LINE OA: <a href="${esc(cfg.OA_URL)}" rel="noopener">${esc(cfg.OA_ID)}</a> · อ่านเพิ่มที่ <a href="privacy.html">นโยบายความเป็นส่วนตัว</a></p>`));
 console.log('built for',cfg.BRAND_NAME);
 
+/* ---- รายการไฟล์สำหรับแพ็กออฟไลน์ (offline-index.js) — ต้องสร้างก่อนคำนวณเวอร์ชัน ---- */
+{const ls=d=>fs.existsSync(path.join(D,d))?fs.readdirSync(path.join(D,d)).sort():[];const sz=f=>fs.statSync(path.join(D,f)).size;
+ const cjk=ls('fonts').filter(f=>/^H4ch.*\.woff2$/.test(f)).map(f=>'fonts/'+f);
+ const pr=ls('assets/pinroom').filter(f=>/\.webp$/.test(f)).map(f=>'assets/pinroom/'+f);
+ const kb=a=>Math.round(a.reduce((t,f)=>t+sz(f),0)/1024);
+ wr('offline-index.js','/* สร้างโดย build.js — อย่าแก้เอง: รายการไฟล์ของแพ็กออฟไลน์ที่ไม่ได้อยู่ในข้อมูลบทเรียน */\nwindow.OFF_IDX='+JSON.stringify({cjkFonts:cjk,cjkKB:kb(cjk),pinroom:pr,pinroomKB:kb(pr)})+';\n')}
+
 /* ---- ตราเวอร์ชัน (กันค้างแคชหลังดีพลอย): แฮชของ js/css/data -> ?v= ใน index.html + version.json + window.APP_VER ---- */
 {const crypto=require('crypto');const files=[];const walk=d=>{for(const f of fs.readdirSync(path.join(D,d)).sort()){const p=d?d+'/'+f:f;const st=fs.statSync(path.join(D,p));if(st.isDirectory()){if(!/^(node_modules|assets|data\/stroke|tools|vendor|fonts|\.git)/.test(p))walk(p)}else if(/\.(js|css)$/.test(f)&&f!=='sw.js')files.push(p)}};
  const top=fs.readdirSync(D).filter(f=>/\.(js|css)$/.test(f)&&f!=='sw.js'&&f!=='build.js');const hs=crypto.createHash('md5');[...top.sort(),...fs.readdirSync(path.join(D,'data')).filter(f=>/\.js$/.test(f)).sort().map(f=>'data/'+f),...fs.readdirSync(path.join(D,'data/rad')).filter(f=>/\.js$/.test(f)).map(f=>'data/rad/'+f),...(fs.existsSync(path.join(D,'data/stroke/index.js'))?['data/stroke/index.js']:[])].forEach(f=>hs.update(f).update(rd(f)));
  const v=hs.digest('hex').slice(0,10);let ih=rd('index.html');
  ih=ih.replace(/(<(?:script src|link rel="stylesheet" href)=")([^"?:]+\.(?:js|css))(\?v=[0-9a-f]+)?"/g,(m,a,f)=>a+f+'?v='+v+'"');
  if(!/<!--ver:start-->/.test(ih))ih=ih.replace('<script src="config.js','<!--ver:start--><!--ver:end--><script src="config.js');
- ih=ih.replace(/<!--ver:start-->[\s\S]*?<!--ver:end-->/,`<!--ver:start--><script>window.APP_VER="${v}"</script><!--ver:end-->`);wr('index.html',ih);wr('version.json',JSON.stringify({v}));console.log('version',v)}
+ ih=ih.replace(/<!--ver:start-->[\s\S]*?<!--ver:end-->/,`<!--ver:start--><script>window.APP_VER="${v}"</script><!--ver:end-->`);wr('index.html',ih);wr('version.json',JSON.stringify({v}));
+ /* service worker: เวอร์ชัน + รายการ shell ที่แคชตอนติดตั้ง */
+ {const ls=d=>fs.existsSync(path.join(D,d))?fs.readdirSync(path.join(D,d)).sort():[];
+  const assets=[...ih.matchAll(/(?:script src|link rel="stylesheet" href)="([^"?:]+\.(?:js|css)\?v=[0-9a-f]+)"/g)].map(m=>m[1]);
+  const shell=['index.html','manifest.webmanifest','favicon.ico',...assets,...ls('assets/icons').map(f=>'assets/icons/'+f),...ls('fonts').filter(f=>/\.woff2$/.test(f)&&!/^H4ch/.test(f)).map(f=>'fonts/'+f),
+   ...ls('assets/mascot').filter(f=>/\.webp$/.test(f)).map(f=>'assets/mascot/'+f),...ls('assets/friends').filter(f=>/\.webp$/.test(f)).map(f=>'assets/friends/'+f),'vendor/hanzi-writer.min.js'].filter((f,i,a)=>a.indexOf(f)===i&&fs.existsSync(path.join(D,f.split('?')[0])));
+  let sw=rd('sw.js');const line=`/*shell*/const V='${v}',SHELL=${JSON.stringify(shell)};`;
+  if(!/^\/\*shell\*\/.*$/m.test(sw))throw new Error('sw.js shell marker missing');sw=sw.replace(/^\/\*shell\*\/.*$/m,()=>line);wr('sw.js',sw);
+  console.log('sw shell',shell.length,'files',Math.round(shell.reduce((t,f)=>t+fs.statSync(path.join(D,f.split('?')[0])).size,0)/1024),'KB')}console.log('version',v)}

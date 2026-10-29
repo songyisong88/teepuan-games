@@ -9,4 +9,4 @@ const PROVIDER_NAME='[ยังไม่กำหนด — TBD]';  // ชื่
 const PROVIDER_CONTACT='[ช่องทางติดต่อ — TBD]';
 const SITE_URL='https://songyisong88.github.io/teepuan-games/chinese-class-web/'; // ใช้ใน og:url / og:image (เปลี่ยนเมื่อมีโดเมนจริง)
 const OG_IMAGE='assets/og.jpg';       // รูปพรีวิวแชร์ 1200x630
-const POLICY_DATE='28 ต.ค. 2569';
+const POLICY_DATE='29 ต.ค. 2569';

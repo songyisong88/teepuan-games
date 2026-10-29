@@ -89,6 +89,7 @@ SC.me=()=>{const lv=level(),pr=(S.xp%100);
   ${ROW('#FDF3E6','🔍','อะไรจริง อะไรจำลอง?','สิ่งที่ทำงานจริง / สิ่งที่จำลอง / สิ่งที่ทำได้จริงบน LINE',undefined,'data-go="realnote"')}
   <a class="row press" href="${OA_URL}" target="_blank" rel="noopener"><span class="ic" style="background:#E7F8EE">➕</span><span class="tx"><b>เพิ่มเพื่อนใน LINE</b><small>${BRAND_NAME} (${OA_ID}) · เปิดแอป LINE</small></span>${CHEV}</a></div>
  <div class="sec">ข้อมูลและความเป็นส่วนตัว</div><div class="group">
+  ${ROW('#E7F8EE','📶','ใช้งานออฟไลน์',window.offStatusSub?offStatusSub():'',undefined,'data-go="offline"')}
   ${ROW('#EAF1FB','💾','สำรองความก้าวหน้า / ย้ายเครื่อง','ส่งออก-นำเข้าไฟล์หรือรหัส · ไม่ต้องสมัครบัญชี',undefined,'data-go="backup"')}
   <a class="row press" href="privacy.html" target="_blank" rel="noopener"><span class="ic" style="background:#EAF1FB">🔒</span><span class="tx"><b>นโยบายความเป็นส่วนตัว</b><small>ร่างตัวอย่าง · เก็บข้อมูลในเครื่องนี้เท่านั้น</small></span>${CHEV}</a>
   <a class="row press" href="terms.html" target="_blank" rel="noopener"><span class="ic" style="background:#F2ECFA">📄</span><span class="tx"><b>ข้อกำหนดการใช้งาน</b><small>ร่างตัวอย่าง ยังไม่ผ่านการตรวจโดยผู้เชี่ยวชาญกฎหมาย</small></span>${CHEV}</a></div>

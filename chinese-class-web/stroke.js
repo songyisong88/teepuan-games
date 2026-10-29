@@ -317,4 +317,6 @@ SC.strokeres=(r)=>{r=r||{};if(!r.cs){const w=r.w||'你好';r={w,cs:stkHan(w),str
 
 /* ตรวจเวอร์ชันใหม่หลังดีพลอย: เทียบ window.APP_VER (ใส่โดย build.js) กับ version.json แล้วรีโหลดครั้งเดียว กันผู้ใช้ค้างหน้าเก่า (แคชของ GitHub Pages 10 นาที) */
 (function(){if(location.protocol==='file:'||!window.APP_VER||!window.fetch)return;
- fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===window.APP_VER)return;const k='lama-ver-reload';try{if(sessionStorage.getItem(k)===j.v)return;sessionStorage.setItem(k,j.v)}catch(e){return}location.reload()}).catch(()=>{})})();
+ /* ออฟไลน์: ไม่ยิงคำขอที่รู้ว่าจะล้ม รอจนกลับมาออนไลน์ค่อยตรวจ */
+ if(navigator.onLine===false){addEventListener('online',function f(){removeEventListener('online',f);chk()});return}chk();
+ function chk(){fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.v||j.v===window.APP_VER)return;const k='lama-ver-reload';try{if(sessionStorage.getItem(k)===j.v)return;sessionStorage.setItem(k,j.v)}catch(e){return}location.reload()}).catch(()=>{})}})();

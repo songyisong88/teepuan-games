@@ -288,3 +288,5 @@ button.cap.press,.spkl{min-height:44px;min-width:44px}
 .rtab,.ltab,.stab,.tchip,.frz{min-height:44px}
 }
 .audio.sm{min-width:44px;min-height:44px}
+/* หน้าใช้งานออฟไลน์: ปุ่มเล็กในแถวแพ็ก */
+.off-row{padding-top:10px;padding-bottom:10px}.off-row .pill{width:auto;flex:none;height:40px;padding:0 18px;font-size:15px;white-space:nowrap}

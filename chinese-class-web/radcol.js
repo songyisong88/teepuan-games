@@ -12,7 +12,8 @@ function radCardHtml(id,o){o=o||{};const r=RADI[id];const c=radS().cards[id];
   <div class="rc-name">${r.card}</div><div class="rc-sub">ตัวข้าง ${r.id} · ${r.th} · ${pyHtml(r.py)}</div><span class="rc-sim">ชุดจำลอง · ${RAD_DRAFT}</span>
   <div class="rc-mem">${ex.map(x=>`<span class="zh">${x}</span>`).join('')}</div><div class="rc-know">จำได้ ${kn.n}/${kn.t} ตัว</div></div>`}
 /* ---------- ตัวข้างวันนี้ ---------- */
-const radDailyId=()=>RAD_CORE[(today()*5+3)%RAD_CORE.length].id;
+/* ตัวข้างวันนี้: หมุนเวียนเฉพาะตัวที่เรียนแล้ว + ตัวที่กำลังเรียน · ผู้เรียนใหม่ = ตัวแรกของเส้นทาง */
+const radDailyId=()=>{const cur=radCur();const ids=[...RAD.filter(r=>radDone(r.id)).map(r=>r.id),...(cur?[cur.id]:[])];return ids.length?ids[(today()*5+3)%ids.length]:RAD_CORE[0].id};
 function radDailyHtml(){const k=radS();const id=radDailyId(),r=RADI[id];const done=k.daily.d===today();
  return `<button class="rd-daily press" data-go="raddaily" aria-label="ตัวข้างวันนี้ ${r.th}"><span class="g zh">${r.id}</span>${radPicImg(r.id,'rdd-pic')}<span class="t"><small>ตัวข้างวันนี้ · ${new Date(today()*864e5).getUTCDate()}/${new Date(today()*864e5).getUTCMonth()+1}</small><b>${r.th} <span>${pyHtml(r.py)}</span></b><small>${done?'เล่นแล้ววันนี้ ✓ — เล่นซ้ำเพื่อฝึกได้':'นักสืบ 5 ข้อ · ได้เหรียญเพิ่ม 5'}</small></span><span class="go">${done?'ฝึกซ้ำ':'เล่น'}</span></button>`}
 /* ---------- แท็บ "ฝึก" ---------- */

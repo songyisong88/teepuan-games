@@ -68,7 +68,7 @@ const radMini=(r,cls='')=>`<span class="rd-mini ${cls}"><span class="zh">${r.id}
 const radStars=n=>'★'.repeat(n)+'☆'.repeat(3-n);
 function radLessonsFor(r,max=8){const m=RAD_MEM[r.id];const set=new Set([...m.s,...r.ex]);const out=[];const seen=new Set();
  for(const w of ALLW){if(seen.has(w.zh))continue;const cs=stkHan(w.zh);if(!cs.length||cs.length>3)continue;if(cs.some(c=>set.has(c))){seen.add(w.zh);out.push(w)}}
- const lv=radLvPool();out.sort((a,b)=>(lv.has(a.lv)?0:1)-(lv.has(b.lv)?0:1)||a.lv-b.lv||(a.zh.length-b.zh.length));return out.slice(0,max)}
+ const lv=radLvPool(),dn=w=>isDone(w.lesson)?0:1;out.sort((a,b)=>dn(a)-dn(b)||(lv.has(a.lv)?0:1)-(lv.has(b.lv)?0:1)||a.lv-b.lv||(a.zh.length-b.zh.length));return out.slice(0,max)}
 /* ---------- แท็บ "อักษรข้าง" ---------- */
 SC.rad=()=>{const k=radS();const tab=k.tab||'path';
  const seg=`<div class="seg rd-seg" role="group" aria-label="มุมมอง">${[['path','เส้นทาง'],['prac','ฝึก'],['col','การ์ด']].map(([v,l])=>`<button data-go="radtab" data-t="${v}" class="${tab===v?'on':''}">${l}</button>`).join('')}</div>`;
@@ -133,7 +133,7 @@ function radCharSheet(c,rid){const info=RAD_CH[c];const g=radG(c);const py=radPy
  const ty={p:'ส่วนหนึ่งบอกความหมาย อีกส่วนบอกเสียง',i:'สองส่วนรวมกันเป็นความหมาย',g:'ภาพวาดของสิ่งนั้น','-':''}[info?info[1]:'-'];
  const ph=info&&info[1]==='p'&&info[3]?{c:info[3],py:info[4],m:info[5]}:null;
  const mt={2:['ok','อ่านเหมือนตัวเต็มเป๊ะ'],1:['mid','พยางค์ตรง วรรณยุกต์ต่าง'],0:['lo','เสียงไม่ตรง'],'-1':['','ไม่ทราบ']};
- const ws=ALLW.filter(w=>w.zh.includes(c)).slice(0,4);
+ const ws=ALLW.filter(w=>w.zh.includes(c)).map((w,i)=>[w,i]).sort((a,b)=>(isDone(a[0].lesson)?0:1)-(isDone(b[0].lesson)?0:1)||a[1]-b[1]).map(x=>x[0]).slice(0,4);
  openSheet(`<div class="rd-sheet"><div class="rd-sbig">${radGlyph(c,ss)}</div><div class="rd-spy">${py?pyHtml(py):''}</div><div class="rd-sth">${radEsc(radGl(c))}${radGlNote(c)?` <small>${radGlNote(c)}</small>`:''}</div>
  ${info?`<div class="rd-split"><b>แยกส่วน</b><div class="rd-sp">${(()=>{const raw=[...info[0]],bad=raw.includes('？'),xs=bad?raw.filter(x=>x!=='？'&&!/[⿰-⿻]/.test(x)):raw;return (xs.length?xs:[]).map(x=>/[⿰-⿻]/.test(x)?`<i class="op">${x}</i>`:`<span class="${r&&r.f.includes(x)?'o':ph&&x===ph.c?'b':''}"><span class="zh">${x}</span><small>${RAD_PY[x]?pyHtml(RAD_PY[x]):''}</small></span>`).join('')+(bad?`<span class="rd-unk">${xs.length?'ส่วนที่เหลือ':'ส่วนนี้'}แยกต่อไม่ได้ในข้อมูลของเรา</span>`:'')})()}</div>
  ${ty?`<p>${ty}${ph?` · ส่วนเสียง <b class="zh">${ph.c}</b> ${ph.py?pyHtml(ph.py):''} <span class="rd-mt ${mt[ph.m][0]}">${mt[ph.m][1]}</span>`:''}</p>`:''}</div>`:''}

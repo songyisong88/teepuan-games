@@ -195,7 +195,7 @@ SC.review=()=>{const ws=reviewWords();return {title:'ทบทวนตามร
 document.addEventListener('click',e=>{if(e.target.closest('[data-act=reviewgo]'))push('rsession')});
 SC.rsession=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},mount(el){
  const ws=shuffle(reviewWords()).slice(0,6);if(!ws.length){pop();return}const types=['zh2th','th2zh','audio'];
- session(el,ws.map((w,i)=>({k:'q',q:(picHas(w)&&i%2===0&&picQ(w,i%4===0?'pic2zh':'aud2pic',gw4()))||makeQ(w,types[i%3],gw4())})),res=>{const xp=res.correct*8;addXp(xp);addCoins(res.correct*2);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct*2,stats:[['ตอบถูก',res.correct+'/'+res.total],['ถึงรอบทบทวน',reviewWords().length]],back:'review'})},{review:true})}});
+ session(el,ws.map((w,i)=>({k:'q',q:(picHas(w)&&i%2===0&&picQ(w,i%4===0?'pic2zh':'aud2pic',gw4()))||makeQ(w,types[i%3],gw4())})),res=>{const xp=evX(res.correct*8),rc=evC(res.correct*2);addXp(xp,null,true);addCoins(rc,true);replace('result',{title:'ทบทวนเสร็จแล้ว',mascot:res.correct>=res.total*.6?'correct':'wrong',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:rc,stats:[['ตอบถูก',res.correct+'/'+res.total],['ถึงรอบทบทวน',reviewWords().length]],back:'review'})},{review:true})}});
 
 /* ----- แผนที่การเดินทาง ----- */
 function nodeHtml(u,cur){const done=unitDone(u.id),open=unitOpen(u.id),isCur=cur&&cur.id===u.id;

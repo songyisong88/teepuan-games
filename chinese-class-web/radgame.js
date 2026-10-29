@@ -101,8 +101,8 @@ SC.radbuild=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const mode=p.
    t.addEventListener('pointermove',mv);t.addEventListener('pointerup',up);t.addEventListener('pointercancel',up)});
   g.addEventListener('click',e=>{const t=e.target.closest('.rd-tile');if(t&&e.detail===0&&!done)submit(t.dataset.p,t)});
   const finish=(timeout)=>{clearInterval(tm);const stars=first/N>=.85?3:first/N>=.6?2:1;const k=radS();k.built+=1;qs.forEach((q,ix)=>{if(rs[ix].ok)k.known[q.c]=(k.known[q.c]||0)+1});
-   let coins=radCoin(first*2+(stars===3?3:0));let xp=Math.max(2,first*2);let cr=null;
-   if(mode==='fam'&&ids.length===1){cr=radComplete(ids[0],{stars});coins+=cr.coins;xp+=cr.xp}else{addXp(xp)}save();
+   let coins=radCoin(first*2+(stars===3?3:0));let xp=evX(Math.max(2,first*2));let cr=null;addXp(xp,null,true);
+   if(mode==='fam'&&ids.length===1){cr=radComplete(ids[0],{stars});coins+=cr.coins;xp+=cr.xp}save();
    replace('radres',{kind:'build',id:mode==='fam'?ids[0]:null,stars,title:timeout?'หมดเวลาแล้ว':'ประกอบร่างจบแล้ว',sub:`ถูกตั้งแต่ครั้งแรก ${first} / ${N} ข้อ`,stats:[[first+'/'+N,'ถูกครั้งแรก'],['×'+best,'ติดกันสูงสุด'],[hinted,'ครั้งที่ขอใบ้']],coins,xp,cr,again:{n:'radbuild',p:{ids,mode,n}},share:{t:`ฉันประกอบร่างตัวอักษรถูก ${first}/${N} ข้อ`,s:'เรียนอักษรข้างกับลามะ'}})};
   draw()},unmount(){}}};
 /* ---------- นักสืบตัวข้าง ---------- */
@@ -135,8 +135,8 @@ SC.raddet=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const n=p.n||8;
    if(okFlag){right++;first++;combo++;best=Math.max(best,combo);k.det.ok++;k.known[q.c]=(k.known[q.c]||0)+1;vib([12,30,12])}else{combo=0;vib([30])}save();upd();
    const f=$('#rdf',g);f.innerHTML=radDetFeed(q,okFlag)+`<div class="rd-nextw" style="padding:12px 0 0"><button class="pill row1 press" id="rdn">${i+1>=N?'ดูผล':'ข้อต่อไป'}</button></div><div style="height:30px"></div>`;
    f.scrollIntoView({block:'nearest',behavior:'smooth'});$('#rdn',g).onclick=()=>{i++;if(i>=N)finish();else draw()}};
-  const finish=()=>{const stars=right/N>=.85?3:right/N>=.6?2:1;let coins=radCoin(right*2+(stars===3?3:0));const xp=Math.max(2,right*2);addXp(xp);
-   if(p.mode==='daily'){const k=radS();if(k.daily.d!==today()){k.daily={d:today(),ok:right,n:(k.daily.n||0)+1};coins+=radCoin(5);addXp(10);save()}}
+  const finish=()=>{const stars=right/N>=.85?3:right/N>=.6?2:1;let coins=radCoin(right*2+(stars===3?3:0));let xp=evX(Math.max(2,right*2));addXp(xp,null,true);
+   if(p.mode==='daily'){const k=radS();if(k.daily.d!==today()){k.daily={d:today(),ok:right,n:(k.daily.n||0)+1};coins+=radCoin(5);const dx=evX(10);addXp(dx,null,true);xp+=dx;save()}}
    replace('radres',{kind:'det',stars,title:'ไขคดีเสร็จแล้ว',sub:`ตอบถูก ${right} / ${N} ข้อ`,stats:[[right+'/'+N,'ตอบถูก'],['×'+best,'ติดกันสูงสุด'],[radS().det.ok,'คดีที่ไขได้ทั้งหมด']],coins,xp,again:{n:'raddet',p:{ids,mode:p.mode,n}},share:{t:`ฉันเป็นนักสืบตัวข้าง ไขได้ ${right}/${N} ข้อ`,s:'ดูเบาะแสความหมายกับเสียงในตัวอักษร'}})};
   draw()}}};
 /* ---------- ท้า 60 วินาที: ตัวนี้อยู่ครอบครัวไหน ---------- */
@@ -159,8 +159,8 @@ SC.radblitz=(p)=>{const pool=radBlitzPool();const ch=p.ch||0;
   const start=()=>{g.innerHTML=`<div class="rd-cd"><div class="rm">${M('timer')}</div><b id="rcd">3</b><small>พร้อมนะ… ท้าตัวเอง 60 วินาที${ch?` · คะแนนที่ต้องชนะ ${ch}`:''}</small></div>`;
    const c=setInterval(()=>{if(!el.isConnected){clearInterval(c);return}cd--;const e=$('#rcd',el);if(cd<=0){clearInterval(c);cd=0;next();tm=setInterval(tick,1000)}else if(e)e.textContent=cd},800)};
   const finish=()=>{const k=radS();const old=k.blitz.best;k.blitz.runs++;const nb=score>old;if(nb)k.blitz.best=score;k.blitz.hist=[{d:today(),s:score},...k.blitz.hist].slice(0,10);
-   const stars=score>=18?3:score>=10?2:1;const coins=radCoin(Math.min(15,Math.floor(score/2)));const xp=Math.max(3,Math.min(30,score));addXp(xp);save();
-   replace('radres',{kind:'blitz',stars,title:nb&&old?'สถิติใหม่':'หมดเวลาแล้ว',sub:`${score} ข้อใน 60 วินาที${ch?(score>ch?` · ชนะคำท้า ${ch} 🎉`:score===ch?' · เสมอกับคำท้า':` · แพ้คำท้า ${ch} นิดเดียว`):''}`,stats:[[score,'คะแนน'],[k.blitz.best,'สถิติสูงสุด'],['×'+best,'ติดกันสูงสุด']],coins,xp,again:{n:'radblitz',p:{ch}},share:{t:`ฉันตอบตัวข้างได้ ${score} ข้อใน 60 วินาที`,s:'มาท้าฉันดู',blitz:score}})};
+   const stars=score>=18?3:score>=10?2:1;const coins=radCoin(Math.min(15,Math.floor(score/2)));const xp=evX(Math.max(3,Math.min(30,score)));addXp(xp,null,true);save();
+   replace('radres',{kind:'blitz',stars,title:nb&&old?'สถิติใหม่':'หมดเวลาแล้ว',sub:`${score} ข้อใน 60 วินาที${ch?(score>ch?` · ชนะคำท้า ${ch}`:score===ch?' · เสมอกับคำท้า':` · แพ้คำท้า ${ch} นิดเดียว`):''}`,stats:[[score,'คะแนน'],[k.blitz.best,'สถิติสูงสุด'],['×'+best,'ติดกันสูงสุด']],coins,xp,again:{n:'radblitz',p:{ch}},share:{t:`ฉันตอบตัวข้างได้ ${score} ข้อใน 60 วินาที`,s:'มาท้าฉันดู',blitz:score}})};
   start()}}};
 /* ---------- หน้าผลลัพธ์ (ใช้ร่วม) ---------- */
 SC.radres=(r)=>{r=Object.assign({kind:'build',stars:1,title:'เรียบร้อย',sub:'',stats:[],coins:0,xp:0},r||{});r.stats=r.stats||[];const pose=r.stars>=3?'celebrate':r.stars===2?'cheer':'thumbs';const id=r.id,rd=id&&RADI[id];const cardNew=r.cr&&(r.cr.newCard||r.cr.up);const nx=r.kind==='build'&&rd?radCur():null;

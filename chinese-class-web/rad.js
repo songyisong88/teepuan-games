@@ -51,14 +51,14 @@ function radLvPool(){const k=radS();const a=k.lv&&k.lv.length?k.lv:[1,2,3,4,5].f
 const radTrustTxt=t=>({3:['ความหมายตรงชัด (กว้าง ๆ)','ok'],2:['บอกความหมายได้บางส่วน','mid'],1:['ใช้เป็นรูปร่างมากกว่าความหมาย','lo']}[t]);
 /* รางวัล (เหรียญจำกัดวันละ 60 · ไม่มีกาชา) */
 const RAD_CAP=60;
-function radCoin(n){const k=radS();if(k.coin.d!==today())k.coin={d:today(),n:0};const g=Math.max(0,Math.min(n,RAD_CAP-k.coin.n));k.coin.n+=g;if(g)addCoins(g);else save();return g}
+function radCoin(n){const k=radS();if(k.coin.d!==today())k.coin={d:today(),n:0};const g=Math.max(0,Math.min(n,RAD_CAP-k.coin.n));k.coin.n+=g;const a=g?evC(g):0;if(a)addCoins(a,true);else save();return a}
 const radCoinLeft=()=>{const k=radS();return k.coin.d!==today()?RAD_CAP:Math.max(0,RAD_CAP-k.coin.n)};
 /* ผ่านครอบครัว: ได้การ์ด เหรียญ XP และเช็คชุดของเขต */
 function radComplete(id,o){o=o||{};const k=radS(),r=RADI[id];const stars=o.stars||1;const first=!k.done[id];
  const rar=stars>=3?3:stars===2?2:1;let newCard=false,up=false,zoneSet=null,coins=0,xp=0;
  if(first){k.done[id]={t:today(),s:stars,skip:o.skip?1:0}}else if(stars>(k.done[id].s||0)){k.done[id].s=stars}
  if(!o.skip){const c=k.cards[id];if(!c){k.cards[id]={r:rar,t:today()};newCard=true}else if(rar>c.r){c.r=rar;up=true}
-  if(first){coins=radCoin(10);xp=15;addXp(15)}else{xp=3;addXp(3)}}
+  if(first){coins=radCoin(10);xp=evX(15);addXp(xp,null,true)}else{xp=evX(3);addXp(xp,null,true)}}
  let zdone=false;if(first){const zs=radZone(r.z).filter(x=>!x.bonus||r.bonus);zdone=zs.length&&zs.every(x=>radDone(x.id))&&!k.zones[r.z]}
  if(zdone){k.zones[r.z]=today();zoneSet=r.z;coins+=radCoin(30)}
  save();return {first,newCard,up,coins,xp,zoneSet,rar}}

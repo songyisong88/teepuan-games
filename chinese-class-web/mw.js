@@ -241,7 +241,7 @@ SC.mwdet=(p)=>{const m=MWI[p&&p.c]||MW[0],c=m.zh,X=MVX[c];const sp=t=>`<button c
   extra:`<div class="dock"><button class="pill press" data-go="mwprac" data-c="${c}"><b>${gq?`ฝึก ${c} แบบทายกลุ่ม`:`ฝึกลักษณนาม ${c}`}</b><small>6 ข้อ · ใช้เวลาราว 2 นาที</small></button></div>`}};
 SC.mwprac=(p)=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},
  mount(el){const c=p&&MWI[p.c]?p.c:'';const {steps,boss}=mvBuild(c);
-  session(el,steps,res=>{const tot=res.log.length,ok=res.correct,xp=ok*8,coins=ok*2;addXp(xp);addCoins(coins);
+  session(el,steps,res=>{const tot=res.log.length,ok=res.correct,xp=evX(ok*8),coins=evC(ok*2);addXp(xp,null,true);addCoins(coins,true);
    const stats=[['ตอบถูก',ok+'/'+tot]];if(!c)stats.push(['รอบบอส',boss.win?'ชนะบอส':'บอสเหลือพลัง '+boss.hp+'%']);
    replace('result',{title:c?'ฝึกลักษณนาม '+c+' เสร็จแล้ว':(boss.win?'ชนะบอสแล้ว':'จบรอบฝึกแล้ว'),mascot:(!c&&boss.win)?'celebrate':(ok>=tot*.6?'correct':'wrong'),sub:`ตอบถูก ${ok}/${tot}`,xp,coins,stats})})}});
 /* ---------- เกมแยกใส่ตะกร้า (60 วินาที) ---------- */
@@ -278,7 +278,7 @@ SC.mwsort=()=>{let tick=null,live=false;return {nav:`<div class="seshnav"><butto
    else{G.combo=0;vib([30,40,30]);G.miss.push({n,pick:z});btn.classList.remove('hit','bad');void btn.offsetWidth;btn.classList.add('bad');hud();
     const it=$('#mvi',st);it.classList.add('hint');$('.h',it).innerHTML=`${n.ph} · ${mvRs(n)}`;setTimeout(()=>{if(live)nextItem()},1100)}}
   function finish(){if(!live)return;live=false;clearInterval(tick);const was=S.mwSortOk||0;S.mwSortOk=was+G.ok;S.mwSortBest=Math.max(S.mwSortBest||0,G.score);
-   const xp=G.ok*2,coins=Math.floor(G.ok/2);if(xp)addXp(xp);if(coins)addCoins(coins);save();
+   const xp=evX(G.ok*2),coins=evC(Math.floor(G.ok/2));if(xp)addXp(xp,null,true);if(coins)addCoins(coins,true);save();
    const seen=new Set(),mx=G.miss.filter(x=>!seen.has(x.n.a)&&seen.add(x.n.a)).slice(0,4);
    const cnt={};G.miss.forEach(x=>cnt[x.n.m]=(cnt[x.n.m]||0)+1);const rv=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a])[0]||'';
    const unl=!G.four&&S.mwSortOk>=MV_SORT_UNLOCK,nb=mvSortB(true).find(z=>!G.B.includes(z))||'本';

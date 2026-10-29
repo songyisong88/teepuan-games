@@ -1,5 +1,8 @@
 /* เรียนด้วยรูป "ดูรูปแล้วเลือกคำ" — ขั้นสอนใหม่ในบทเรียน (unitSteps) ไม่ใช่เกม
    เลือกรูปแบบ "ต่อคำ": มีรูป → โจทย์รูป · ไม่มีรูปแต่จับต้องได้ → อีโมจิ + ป้าย "อีโมจิชั่วคราว" · นามธรรม → สอนด้วยประโยคเหมือนเดิม */
+/* การ์ดเฉลยแบบมีรูป (ซ้งอี้อนุมัติ 29 ต.ค.): รูปด้านบน · ตัวจีน / พินอิน / = คำไทย บรรทัดละอย่าง · ปุ่มลำโพงใหญ่มุมขวาบน · ไม่มีรูป → ข้อความ + ลำโพง
+   o={pic,zh,zhH,py,th,pk,t} — pic: html รูป (ใช้คลาส pic-big) · zhH: ตัวจีนแบบลงสี (ถ้ามี) · pk: บรรทัด "คุณเลือก…" · t: ข้อความที่ให้อ่านออกเสียง */
+const revCard=o=>{const t=o.t||o.zh;return `<div class="ans pic-rev2${o.pic?'':' nopic'}">${o.pic?`<span class="pr-pic">${o.pic}</span>`:''}<button class="pr-spk press" data-act="audio" data-t="${t}" aria-label="ฟัง ${t}">${SPK}<span>ฟัง</span></button><div class="pr-tx"><div class="pr-zh zh">${o.zhH||o.zh}</div><div class="pr-py">${pyHtml(o.py)}</div><div class="pr-th">= <b>${o.th}</b></div>${o.pk?`<div class="pr-pk">${o.pk}</div>`:''}</div></div>`};
 const picHas=w=>!!(w&&window.ART_IDX&&ART_IDX['word/'+w.zh]);
 /* ภาพคน (ญาติ/อาชีพ/ตำแหน่ง) แยกยากถ้าไม่มีคำกำกับ → ติดป้ายคำไทยทุกที่ที่แสดงภาพ (การ์ด/โจทย์/ไทล์/จับคู่) */
 const PIC_KIN=new Set(['哥哥','姐姐','弟弟','妹妹','爷爷','奶奶','爸爸','妈妈','儿子','女儿','孩子','男孩','女孩','老人','一家人','妻子','丈夫','阿姨','叔叔','老师','学生','同学','朋友','医生','先生','小姐','人','经理','校长','护士','服务员','房东','邻居','运动员','空姐','歌手','保安','警察','售货员','司机','冠军','记者','律师','厨师','工程师','会计','裁判','农民','画家','理发师','和尚','宇航员','王子','公主','皇后','皇帝','工人','秘书','兽医']);
@@ -30,7 +33,7 @@ function picDist(w,pool,n,needImg){
 function picQ(w,type,pool){const o=picDist(w,pool,3,type==='aud2pic');if(o.length<3)return makeQ(w,'zh2th',pool);const opts=shuffle([w,...o]);
  return {w,type,pic:true,opts,ans:opts.findIndex(x=>x.zh===w.zh),
   reveal:(ok,qq)=>{const pk=!ok&&qq&&qq.picked!=null?qq.opts[qq.picked]:null;
-   return `<div class="ans pic-rev">${art('word',w.zh,'','pic-mini')}<div class="tx"><span class="zh" style="font-size:24px">${w.zh}</span> ${pyHtml(w.py)}<div style="margin-top:2px">= <b>${w.th}</b></div>${pk?`<div class="pk">${type==='pic2zh'?'คุณเลือก':'คุณเลือกรูป'}: <span class="zh">${pk.zh}</span> ${pyPlain(pk.py)} = ${pk.th}</div>`:''}</div>${spkBtn(w.zh,'','ฟัง')}</div>`}}}
+   return revCard({pic:art('word',w.zh,'','pic-big'),zh:w.zh,py:w.py,th:w.th,pk:pk?`${type==='pic2zh'?'คุณเลือก':'คุณเลือกรูป'}: <span class="zh">${pk.zh}</span> ${pyPlain(pk.py)} = ${pk.th}`:''})}}}
 function picMat(ws){const seen=new Set(),ps=shuffle(ws.filter(picHas)).filter(w=>!seen.has(w.th)&&seen.add(w.th)).reduce((acc,w)=>acc.length<4&&!acc.some(x=>picSim(x.zh,w.zh))?[...acc,w]:acc,[]);
  return {w:ps[0],type:'mat',pics:true,ps,right:shuffle(ps.map((_,i)=>i)),reveal:()=>`<div class="ans">${ps.map(w=>`<div class="pic-rv1">${art('word',w.zh,'','pic-mini sm')}<span class="zh" style="font-size:19px">${w.zh}</span> <span style="font-size:13px">${pyHtml(w.py)}</span> = ${w.th}</div>`).join('')}</div>`}}
 function picQHtml(q){const w=q.w;
@@ -47,7 +50,7 @@ function picPyQ(w,pool){const key=x=>pyPlain(x.py),seen=new Set([key(w)]);
  const opts=shuffle([w,...o]);
  return {w,type:'pic2py',pic:true,opts,ans:opts.findIndex(x=>x.zh===w.zh),
   reveal:(ok,qq)=>{const pk=!ok&&qq&&qq.picked!=null?qq.opts[qq.picked]:null;
-   return `<div class="ans pic-rev">${art('word',w.zh,'','pic-mini')}<div class="tx"><span class="zh" style="font-size:24px">${w.zh}</span> ${pyHtml(w.py)}<div style="margin-top:2px">= <b>${w.th}</b></div>${pk?`<div class="pk">คุณเลือก: ${pyPlain(pk.py)} (<span class="zh">${pk.zh}</span> = ${pk.th})</div>`:''}</div>${spkBtn(w.zh,'','ฟัง')}</div>`}}}
+   return revCard({pic:art('word',w.zh,'','pic-big'),zh:w.zh,py:w.py,th:w.th,pk:pk?`คุณเลือก: ${pyPlain(pk.py)} (<span class="zh">${pk.zh}</span> = ${pk.th})`:''})}}}
 /* การ์ดทบทวนรูป: พลิกดูคำจากบทก่อนหน้าที่เรียนจบแล้ว (ไม่ให้คะแนน — ทวนความจำเฉย ๆ) */
 function picFlip(L,u){const cur=new Set(u.words.map(w=>w.zh)),seen=new Set();
  const cand=picAll().filter(w=>w.lesson!==L.id&&!cur.has(w.zh)&&isDone(w.lesson)&&(w.lv||1)<=(L.lv||1)&&!seen.has(w.th)&&seen.add(w.th));

@@ -70,7 +70,7 @@ function l1Taught(L){const a=LESSONS.filter(l=>l.lv===L.lv&&l.v3),k=a.findIndex(
 function l1Dist(w,pool,n,o={}){const ok=x=>x.zh!==w.zh&&x.th!==w.th&&l1T0(x.th)!==l1T0(w.th)&&!picSim(w.zh,x.zh)&&(!o.pic||l1PicOk(x))&&(!o.aud||l1Pk(x)!==l1Pk(w));
  const g=l1Grp(w),c=shuffle(pool.filter(ok)).sort((a,b)=>(l1Grp(b)===g)-(l1Grp(a)===g));const th=new Set([l1T0(w.th)]),pk=new Set([l1Pk(w)]),out=[];
  for(const x of c){if(out.length>=n)break;if(th.has(l1T0(x.th))||pk.has(l1Pk(x)))continue;th.add(l1T0(x.th));pk.add(l1Pk(x));out.push(x)}return out}
-const l1Rev=w=>`<div class="ans pic-rev">${l1Show(w,'pic-mini')}<div class="tx"><span class="zh" style="font-size:24px">${w.zh}</span> ${pyHtml(w.py)}<div style="margin-top:2px">= <b>${w.th}</b></div></div>${spkBtn(w.zh,'','ฟัง')}</div>`;
+const l1Rev=w=>revCard({pic:l1Tile(w,'pic-big')||l1CardVis(w,'pic-big'),zh:w.zh,py:w.py,th:w.th});
 const l1Opts=(opts,fmt)=>`<div class="group opts" style="margin-top:18px">${opts.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span>${fmt(o)}</button>`).join('')}</div>`;
 const l1Aud=(t,lab)=>`<button class="audio press" aria-label="ฟังเสียง" style="width:84px;height:84px;margin-top:10px" data-act="audio" data-t="${t}" data-auto>${SPK}</button><div class="cap mt12">${lab||'แตะเพื่อฟังอีกครั้ง'}</div>`;
 const L1Q={

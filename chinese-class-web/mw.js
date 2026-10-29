@@ -3,10 +3,10 @@ const MW=[{"lv": 1, "zh": "个", "py": "gè", "th": "อัน / คน", "n": "
 const MWI=Object.fromEntries(MW.map(m=>[m.zh,m]));
 function mwQ(m,e){const x=e.zh.indexOf(m.zh),pre=e.zh.slice(0,x),post=e.zh.slice(x+m.zh.length).replace(/。$/,'');
  const pool=shuffle(MW.filter(o=>o.zh!==m.zh&&o.zh!=='个'&&!(e.x||'').includes(o.zh))).slice(0,3);
- const o=shuffle([m,...pool]),ans=o.indexOf(m),im=e.a?art('word',e.a,'','pic-big'):'',mi=e.a?art('word',e.a,'','pic-mini'):'';
+ const o=shuffle([m,...pool]),ans=o.indexOf(m),im=e.a?art('word',e.a,'','pic-big'):'',mi=e.a?art('word',e.a,'','pic-big'):'';
  return {w:null,type:'mwpic',opts:o.map(z=>z.zh),ans,html:`<div class="center"><div class="cap" style="font-size:14px">${im?'เลือกลักษณนามให้ตรงกับภาพ':'เลือกลักษณนามให้ตรงกับคำนาม'}</div>${im?`<div class="pic-card">${im}</div>`:''}<div class="zh" style="font-size:34px;margin-top:14px;letter-spacing:2px">${pre} <span style="display:inline-block;min-width:44px;border-bottom:3px solid var(--red);color:var(--red)">?</span> ${post}</div><div class="cap" style="margin-top:2px">${e.th}</div></div>
  <div class="group opts mt20" style="margin-top:16px">${o.map((z,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span class="zh" style="font-size:26px">${z.zh}</span><span class="pyr">${z.py}</span></button>`).join('')}</div>`,
- reveal:`<div class="ans pic-rev">${mi}<div class="tx"><span class="zh" style="font-size:24px">${zhHtml(e.zh,e.py)}</span> ${pyHtml(e.py)}<div style="margin-top:2px">= <b>${e.th}</b></div></div>${spkBtn(e.zh,'','ฟัง')}</div>`}}
+ reveal:revCard({pic:mi,zh:e.zh,zhH:zhHtml(e.zh,e.py),py:e.py,th:e.th})}}
 /* ---- สอนลักษณนามแบบใหม่ เฟส 1 (ซ้งอี้อนุมัติตามแบบร่าง teach-v2): ทายกลุ่ม · ไม่เข้าพวก · คู่เทียบ · รอบบอส · แยกใส่ตะกร้า ---- */
 const MV_SH={
  long:'<path d="M3 20c6-12 10-12 14 0s9 12 14 0 8-10 10-8"/>',
@@ -85,6 +85,7 @@ const MVA=Object.fromEntries(MVN.map(n=>[n.a,n]));
 const mvOf=m=>MVN.filter(n=>n.m===m);
 const mvZh=(s,c)=>`<span class="zh"${c?` style="${c}"`:''}>${s}</span>`;
 const mvA=w=>art('word',w,'','');
+const mvRev=n=>revCard({pic:art('word',n.a,'','pic-big'),zh:n.ph,zhH:zhHtml(n.ph,n.php),py:n.php,th:n.pth});
 const mvRs=n=>`${n.r} ใช้ ${n.m}`;
 /* ตัวลวงจากคำที่สับสนกันจริง ไม่เอาลักษณนามที่คำนามนั้นใช้ได้ด้วย */
 function mvDis(n,k=3,must){const no=new Set([n.m,...n.alt]),out=[];const add=z=>{if(z&&MWI[z]&&!no.has(z)&&!out.includes(z)&&out.length<k)out.push(z)};
@@ -131,7 +132,7 @@ function mvGroupB(m){const G=MV_GRP[m],n=MVA[G.nw],fam=shuffle([...G.fam]),ns=G.
   <div class="mv-cap" style="margin-top:14px">ลองกับภาพใหม่ เลือกกลุ่มที่ใช่</div>
   <div class="mv-big">${mvA(n.a)}<div class="zh" style="font-size:24px;color:var(--ink)">${mvQs(n)}</div><div class="s">${n.pth}</div></div>
   <div class="mv-fam">${fam.map((z,i)=>`<button class="opt mv-fc press" data-i="${i}">${mvOptK}<span class="zh">${z}</span><span class="t">${MVX[z].g}</span><span class="mv-th">${mvOf(z).filter(x=>x.a!==n.a).slice(0,2).map(x=>mvA(x.a)).join('')}</span></button>`).join('')}</div><div style="height:30px"></div></div>`,
-  reveal:ok=>`<div class="ans pic-rev">${mvA(n.a)}<div class="tx"><span class="zh" style="font-size:24px">${zhHtml(n.ph,n.php)}</span> ${pyHtml(n.php)}<div style="margin-top:2px">= <b>${n.pth}</b></div></div>${spkBtn(n.ph,'','ฟัง')}</div><div class="mv-exp">${G.exp}</div>`}}
+  reveal:ok=>`${mvRev(n)}<div class="mv-exp">${G.exp}</div>`}}
 /* 3 ภาพไหนไม่เข้าพวก */
 function mvOdd(o,boss){const f=o.f.map(a=>MVA[a]),od=MVA[o.o],all=shuffle([...f,od]),ans=all.indexOf(od);
  const q={type:'mvodd',key:'o'+o.m,lbl:od.ph,opts:all.map(n=>n.a),ans,html:`<div class="mv">${boss?'<!--BOSS:ไม่เข้าพวก-->':''}<div class="mv-cap" id="mvoc">3 ภาพใช้ ${mvZh(o.m,'font-size:20px;color:var(--ink)')} ${MWI[o.m].py} อีก 1 ภาพไม่ใช้</div><div class="mv-h" id="mvoh">ภาพไหนไม่เข้าพวก</div>
@@ -147,7 +148,7 @@ function mvPick(n,pair,boss){const must=pair?MVA[pair[0]===n.a?pair[1]:pair[0]].
   <div class="mv-big">${mvA(n.a)||`<span class="mv-nopic zh">${n.d}</span>`}<div class="zh" style="font-size:26px;color:var(--ink)">${mvQs(n)}</div><div class="s">${n.pth}</div></div>
   <div class="mv-o4">${o.map((z,i)=>`<button class="opt mv-ob press" data-i="${i}" aria-label="${z} ${MWI[z].py}">${mvOptK}<span class="zh">${z}</span><span class="py">${MWI[z].py}</span></button>`).join('')}</div><div style="height:30px"></div></div>`,
   reveal:ok=>pair?`<div class="mv-ban mv-pr">${[n,other].map(x=>`<div class="pi">${mvA(x.a)?`<div class="mv-mini">${mvA(x.a)}</div>`:''}<div><div class="zh">${x.ph}</div><small>${x.pth}</small></div></div>`).join('')}</div><div class="mv-cap" style="margin:8px 0 0">${pair[2]}</div>${spkBtn(n.ph,'','ฟัง '+n.ph)}`
-   :`<div class="ans pic-rev">${mvA(n.a)}<div class="tx"><span class="zh" style="font-size:24px">${zhHtml(n.ph,n.php)}</span> ${pyHtml(n.php)}<div style="margin-top:2px">= <b>${n.pth}</b></div></div>${spkBtn(n.ph,'','ฟัง')}</div><div class="mv-exp">เหตุผล: ${mvRs(n)}</div>`}}
+   :`${mvRev(n)}<div class="mv-exp">เหตุผล: ${mvRs(n)}</div>`}}
 /* ---------- จัดลำดับ: คำตอบไม่ซ้ำติดกัน 个 ไม่เกิน 1 ข้อต่อรอบ ---------- */
 function mvOrder(items,cap){for(let t=0;t<60;t++){const pool=shuffle(items.slice()),out=[];let prev=cap.prev||'',ge=cap.ge||0,ok=true;
   while(pool.length){const k=pool.findIndex(it=>it.key!==prev&&!(it.key==='个'&&ge>=cap.geMax));if(k<0){ok=false;break}const it=pool.splice(k,1)[0];out.push(it);prev=it.key;if(it.key==='个')ge++}

@@ -63,3 +63,28 @@ button.pic-card.tap.on .pic-big{box-shadow:0 0 0 2px #E2C57F,0 6px 18px rgba(120
 .pic-th{min-height:48px}.pic-th small{color:#6F655D;font-size:13px}
 .pic-badge{font-size:12.5px;color:#6B5116}.pflip .pf-h{font-size:12.5px;color:#6B5116}
 @media(prefers-reduced-motion:reduce){.wc .pic-card.hero,.wc>*,.pic-thr,button.pic-card.tap .pic-big,.pic-tapchip{animation:none!important;transition:none!important}}
+
+/* การ์ดเฉลยแบบมีรูป (ซ้งอี้อนุมัติ 29 ต.ค.) — revCard() ใน piclearn.js · ใช้ทั้งบทเรียน L1 คำถามภาพ และห้องลักษณนาม */
+.fb .ans.pic-rev2,.pic-rev2{position:relative;display:block;text-align:center;padding:12px 14px 14px}
+.pic-rev2 .pr-pic{display:block;width:min(210px,58vw);margin:0 auto;line-height:0}
+.pic-rev2 .pr-pic .pic-big{width:100%;height:auto;aspect-ratio:1/1;border-radius:18px;box-shadow:0 0 0 1px #EADFCF}
+.pic-rev2 .pr-pic .pic-big img{object-fit:contain}
+.pic-rev2 .pr-zh{margin-top:10px;font-size:34px;line-height:1.15;letter-spacing:2px;font-weight:600;overflow-wrap:anywhere}
+.pic-rev2 .pr-py{margin-top:4px;font-size:18px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.pic-rev2 .pr-th{margin-top:4px;font-size:17px;color:var(--ink);line-height:1.35}
+.pic-rev2 .pr-th b{font-weight:700}
+.pic-rev2 .pr-pk{margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--warn)}
+.pic-rev2 .pr-pk .zh{font-size:16px}
+.pic-rev2 .pr-spk{position:absolute;top:10px;right:10px;z-index:1;width:60px;height:60px;border-radius:50%;border:0;padding:0;background:var(--red);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(200,16,46,.30),0 0 0 4px #fff;cursor:pointer;font:inherit;-webkit-tap-highlight-color:transparent}
+.pic-rev2 .pr-spk svg{width:28px;height:28px}
+.pic-rev2 .pr-spk span{font-size:11.5px;font-weight:700;line-height:1;margin-top:1px}
+.pic-rev2 .pr-spk::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(200,16,46,.35);animation:prPulse 1.8s ease-out infinite;pointer-events:none}
+.pic-rev2 .pr-spk:active{transform:scale(.94)}
+@keyframes prPulse{0%{transform:scale(1);opacity:1}100%{transform:scale(1.25);opacity:0}}
+/* ไม่มีรูป: ข้อความชิดซ้าย ลำโพงอยู่ขวา ไม่มีกรอบรูปว่าง */
+.fb .ans.pic-rev2.nopic,.pic-rev2.nopic{display:flex;align-items:center;gap:12px;text-align:left;padding:14px 14px 14px 16px}
+.pic-rev2.nopic .pr-tx{flex:1;min-width:0;order:1}
+.pic-rev2.nopic .pr-spk{position:relative;top:auto;right:auto;order:2;flex:none}
+.pic-rev2.nopic .pr-zh{margin-top:0}
+@media(max-width:340px){.pic-rev2 .pr-zh{font-size:30px;letter-spacing:1px}.pic-rev2 .pr-pic{width:min(180px,56vw)}.pic-rev2 .pr-spk{width:54px;height:54px}}
+@media(prefers-reduced-motion:reduce){.pic-rev2 .pr-spk::after{animation:none}}

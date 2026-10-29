@@ -313,7 +313,7 @@ async function stkDrawCard(c,g,x,y,w,h,TH,F){c.save();c.fillStyle=TH.sb;rr(c,x,y
  c.fillStyle=TH.sl;c.font=`500 28px ${F}`;c.fillText((g.py||'').replace(/\|/g,''),tx,y+128,tw);c.fillStyle=TH.t;c.font=`600 28px ${F}`;wrapTxt(c,g.th||'',tx,y+176,tw,36,2);
  c.font=`600 40px ${F}`;c.fillStyle=TH.ac||'#D9822B';if(g.stars>0)c.fillText('★'.repeat(g.stars)+'☆'.repeat(3-g.stars),tx,y+h-30);c.restore()}
 function stkNext(w){const cs=stkHan(w);if(cs.length===1){const d=STK_DATA[cs[0]];const q=d&&d.cp?d.cp.find(([c,r])=>r!=='r'&&c!==cs[0]&&STK_SET.has(c)&&c.length===1&&STK_CNT[c]>1):null;if(q)return {w:q[0],lab:`${cs[0]} → ${q[0]}`}}
- const T=stkTaught(),ti=T.findIndex(e=>e.zh===w);if(ti>=0)for(let j=ti+1;j<T.length;j++){const e=T[j];if(e.zh!==w&&stkHan(e.zh).length&&stkHan(e.zh).every(c=>STK_SET.has(c)))return {w:e.zh,lab:`${w} → ${e.zh}`}}
+ const K=uniqW([...gameWords(),...lvSoFar().flatMap(l=>l.words)]),T=K.some(e=>e.zh===w)?K:stkTaught(),ti=T.findIndex(e=>e.zh===w);if(ti>=0)for(let j=ti+1;j<T.length;j++){const e=T[j];if(e.zh!==w&&stkHan(e.zh).length&&stkHan(e.zh).every(c=>STK_SET.has(c)))return {w:e.zh,lab:`${w} → ${e.zh}`}}
  return null}
 SC.strokeres=(r)=>{r=r||{};if(!r.cs){const w=r.w||'你好';r={w,cs:stkHan(w),strokes:stkHan(w).reduce((a,c)=>a+(STK_CNT[c]||0),0),mis:0,secs:30,stars:3,xp:0,coins:0,first:false,days:stkS().days||0}}const e=wordBy(r.w);const nx=stkNext(r.w);const pose=r.stars>=3?'celebrate':r.stars===2?'cheer':'thumbs';
  return {title:'ผลการเขียน',backLabel:'กลับ',noRefresh:true,right:'',body:`<div class="stk-res"><div class="stk-burst"></div><div class="rm pop">${M(pose)}</div>

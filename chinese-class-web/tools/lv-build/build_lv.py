@@ -37,7 +37,7 @@ def decomp(t,K):
   return any(t[:k] in K and decomp(t[k:],K) for k in range(len(t)-1,0,-1))
 known0=set(w['zh'] for l in lv_lessons(1) for w in l['words'])
 known0|={'说'}   # คำย่อยที่ระดับ 1 ใช้ได้หลังบท 7-2 (EXTRA ใน tools/l1-build/spec.py)
-KEEPW={'早上好','晚上好'}   # คำทักทายที่สอนเป็นวลี แม้แยกเป็นคำที่สอนแล้วได้
+KEEPW={'早上好','晚上好','跑鞋'}   # คำทักทายที่สอนเป็นวลี แม้แยกเป็นคำที่สอนแล้วได้
 WS={};kk=set(known0)
 for n in range(2,6):
   ws=[];seen=set()

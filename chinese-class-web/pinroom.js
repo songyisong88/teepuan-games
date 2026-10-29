@@ -145,7 +145,7 @@ function prQs0(n){PR_N=n;const L=prLv(n);let q=[];
  else {const l=prListenGroups(L,L.ini?'ini':'fin',L.fin?3:6);const b=prBlendQ(L,L.fin?5:2);q=[...l,...b]}
  return q}
 /* ----- เฟส 2: กิจกรรมเพิ่ม (คู่เสียง · เส้นเสียง · จัดกลุ่มลิ้น · วางเครื่องหมาย) · เช็กพินอิน 8 ข้อ · "อ่านคำนี้ออกแล้ว" ----- */
-const prSrc=t=>window.AUDIO_INDEX&&AUDIO_INDEX[t]?'🔊 คลิปเสียงสังเคราะห์ในแอป (ไม่ใช่เสียงคนจริง)':'🔊 เสียงอ่านของเครื่อง/เบราว์เซอร์ (อาจต่างกันตามเครื่อง)';
+const prSrc=t=>window.AUDIO_INDEX&&AUDIO_INDEX[t]?'คลิปเสียงสังเคราะห์ในแอป (ไม่ใช่เสียงคนจริง)':'เสียงอ่านของเครื่อง/เบราว์เซอร์ (อาจต่างกันตามเครื่อง)';
 function prPairQ(pairs,n,mode){const out=[],used=new Set();const P=shuffle(pairs);
  for(let k=0;k<n*4&&out.length<n;k++){const [a,b]=P[k%P.length];const cands=[];
   PR_SY.forEach(s=>{if(s.t>=5||!AUDIO_INDEX[s.c]||!prIn(s))return;if(mode==='ini'?s.i!==a:s.f!==a)return;
@@ -201,10 +201,10 @@ function prReadChips(ws,max){const a=ws.slice().sort((x,y)=>(picHas(y)?1:0)-(pic
  return `<div class="pr-chips pr-rd">${a.map(w=>`<button class="pr-chip press" data-act="audio" data-t="${w.zh}">${picHas(w)?art('word',w.zh,'','prrdimg'):''}<span class="z zh">${w.zh}</span><small>${pyHtml(w.py)}</small></button>`).join('')}</div>`}
 let _rdKey='',_rdSet=null;
 window.prWordTag=w=>{try{if(!w||w.lv!==1||!w.py)return '';const k=JSON.stringify(prSt().done);if(k!==_rdKey||!_rdSet){_rdKey=k;_rdSet=new Set(prReadable().map(x=>x.zh))}
- if(_rdSet.has(w.zh))return `<div class="pr-wtag ok">📖 อ่านคำนี้ออกแล้ว <small>จากด่านพินอินที่ผ่าน</small></div>`;
- if(prDoneN()>0&&prDoneN()<12)return `<button class="pr-wtag go press" data-go="pinroom">🔤 ยังมีเสียงในคำนี้ที่ไม่ได้ฝึก <small>ไปห้องพินอิน</small></button>`;return ''}catch(e){return ''}};
+ if(_rdSet.has(w.zh))return `<div class="pr-wtag ok">อ่านคำนี้ออกแล้ว <small>จากด่านพินอินที่ผ่าน</small></div>`;
+ if(prDoneN()>0&&prDoneN()<12)return `<button class="pr-wtag go press" data-go="pinroom">ยังมีเสียงในคำนี้ที่ไม่ได้ฝึก <small>ไปห้องพินอิน</small></button>`;return ''}catch(e){return ''}};
 function prReadBlock(){const ws=prReadable();const tot=LESSONS.filter(l=>l.lv===1).flatMap(l=>l.words).length;
- return `<div class="pr-card"><h3>📖 อ่านคำนี้ออกแล้ว · ${ws.length} จาก ${tot} คำ</h3><p>คำในบทเรียนระดับ 1 ที่ต้นเสียงและสระของ<b>ทุกพยางค์</b>อยู่ในด่านที่ผ่านแล้ว · นับจากด่านที่ผ่าน ไม่ได้ทดสอบการอ่านทีละคำ</p>${ws.length?prReadChips(ws,6)+(ws.length>6?`<button class="pill sm ghost press mt12" data-act="prreadall">ดูทั้ง ${ws.length} คำ</button>`:''):'<p><b>ผ่านด่าน 2 (สระเดี่ยว) กับด่านพยัญชนะสักด่าน แล้วคำแรกจะขึ้นที่นี่</b></p>'}</div>`}
+ return `<div class="pr-card"><h3>อ่านคำนี้ออกแล้ว · ${ws.length} จาก ${tot} คำ</h3><p>คำในบทเรียนระดับ 1 ที่ต้นเสียงและสระของ<b>ทุกพยางค์</b>อยู่ในด่านที่ผ่านแล้ว · นับจากด่านที่ผ่าน ไม่ได้ทดสอบการอ่านทีละคำ</p>${ws.length?prReadChips(ws,6)+(ws.length>6?`<button class="pill sm ghost press mt12" data-act="prreadall">ดูทั้ง ${ws.length} คำ</button>`:''):'<p><b>ผ่านด่าน 2 (สระเดี่ยว) กับด่านพยัญชนะสักด่าน แล้วคำแรกจะขึ้นที่นี่</b></p>'}</div>`}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act="prreadall"]');if(!t)return;const ws=prReadable();openSheet(`<div class="h2" style="padding:0 20px">อ่านคำนี้ออกแล้ว · ${ws.length} คำ</div><p class="cap" style="padding:0 20px">แตะเพื่อฟัง · เฉพาะคำจากบทเรียนระดับ 1</p><div style="padding:0 16px 8px;max-height:60vh;overflow:auto;-webkit-overflow-scrolling:touch">${prReadChips(ws,200)}</div>`)},true);
 /* ----- หน้าจอ ----- */
 const PR_NAV=`<div class="seshnav"><button class="x" data-pq="1" aria-label="ปิด">×</button><div class="prog" style="flex:1"><i id="pg" style="width:0"></i></div><div class="cap" id="pc" style="font-weight:600;color:var(--red);min-width:40px;text-align:right"></div></div>`;
@@ -267,7 +267,7 @@ SC.pinplay=({n,chk}={})=>{chk=chk&&chk!=='0';n=+n||1;
    function finish(){stopAudio();if(chk){const st=prSt();const wl=[...badLv].sort((a,b)=>a-b);st.check={right,total:qs.length,weakLv:wl,at:Date.now()};addXp(10+right*2);save();replace('pinchk',{right,total:qs.length,weakLv:JSON.stringify(wl)});return}
    const first=!prDone(n),acc=right/qs.length;const st=prSt();
     const pass=acc>=.6;if(pass)st.done[n]=1;Object.keys(weak).forEach(k=>st.weak[k]=(st.weak[k]||0)+weak[k]);
-    const xp=8+right*2;addXp(xp);const coins=pass&&first?12:0;if(coins)addCoins(coins);save();replace('pinres',{n,right,total:qs.length,xp,coins,pass,heard:heard.slice(0,6).map(h=>h.c).join(''),weak:JSON.stringify(Object.entries(weak).sort((a,b)=>b[1]-a[1]).slice(0,2))})}
+    const xp=evX(8+right*2);addXp(xp,null,1);const coins=evC(pass&&first?12:0);if(coins)addCoins(coins,1);save();replace('pinres',{n,right,total:qs.length,xp,coins,pass,heard:heard.slice(0,6).map(h=>h.c).join(''),weak:JSON.stringify(Object.entries(weak).sort((a,b)=>b[1]-a[1]).slice(0,2))})}
    show()}}};
 SC.pinres=p=>{const n=+p.n,right=+p.right,total=+p.total,pass=p.pass===true||p.pass==='true';const weak=JSON.parse(p.weak||'[]');const rec=prRec();
  const rdNew=pass?(()=>{const before=new Set(prReadable(n).map(w=>w.zh));return prReadable().filter(w=>!before.has(w.zh))})():[];const heard=[...(p.heard||'')].map(c=>PR_SY.find(s=>s.c===c)).filter(Boolean);
@@ -275,7 +275,7 @@ SC.pinres=p=>{const n=+p.n,right=+p.right,total=+p.total,pass=p.pass===true||p.p
  return {nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="pr-res"><div class="pm">${prImg(pass?(n===12?'scene-reward-trophy':'scene-stage-clear'):'scene-try-again','',pass?'cheer':'think')}</div><div class="large" style="padding:6px 0 0">${pass?'ผ่านด่าน '+n+' แล้ว!':'เกือบแล้ว!'}</div><p class="cap">ตอบถูก ${right} จาก ${total} ข้อ${pass?'':' · ต้องถูก 60% ขึ้นไปจึงจะนับว่าผ่าน'}</p>
   <div class="pr-stats"><div><b>+${p.xp}</b><small>XP</small></div><div><b>${+p.coins>0?'+'+p.coins:'—'}</b><small>${+p.coins>0?'เหรียญ':'เหรียญ (รอบแรกที่ผ่าน)'}</small></div><div><b>${prDoneN()}/12</b><small>ด่านที่ผ่าน</small></div></div>
   ${heard.length?`<div class="cap" style="text-align:left;margin-top:16px;font-size:13px">คำที่ตอบถูกในด่านนี้ — แตะเพื่อฟัง</div><div class="pr-chips">${heard.map(s=>`<button class="pr-chip press" data-act="audio" data-t="${s.c}"><span class="z zh">${s.c}</span><small>${pyHtml(s.py)}</small></button>`).join('')}</div>`:''}
-  ${rdNew.length?`<div class="pr-card" style="margin:14px 0 0;text-align:left"><h3>📖 อ่านคำนี้ออกแล้ว +${rdNew.length} คำ</h3><p>คำจากบทเรียนระดับ 1 ที่ตอนนี้ต้นเสียงและสระครบแล้ว — แตะเพื่อฟัง</p>${prReadChips(rdNew,6)}</div>`:''}${weak.length?`<div class="pr-callout" style="text-align:left;margin-top:14px"><span>🎯</span><span><b>ยังพลาดบ่อย:</b> ${weak.map(w=>w[0]).join(' · ')} — ลองฟังอีกรอบ</span></div>`:''}</div>`,
+  ${rdNew.length?`<div class="pr-card" style="margin:14px 0 0;text-align:left"><h3>อ่านคำนี้ออกแล้ว +${rdNew.length} คำ</h3><p>คำจากบทเรียนระดับ 1 ที่ตอนนี้ต้นเสียงและสระครบแล้ว — แตะเพื่อฟัง</p>${prReadChips(rdNew,6)}</div>`:''}${weak.length?`<div class="pr-callout" style="text-align:left;margin-top:14px"><span>🎯</span><span><b>ยังพลาดบ่อย:</b> ${weak.map(w=>w[0]).join(' · ')} — ลองฟังอีกรอบ</span></div>`:''}</div>`,
   extra:`<div class="dock">${pass&&rec&&rec!==n?`<button class="pill press" data-go="pinlv" data-n="${rec}"><b>ไปด่าน ${rec} · ${prLv(rec).t}</b></button>`:pass&&!rec?`<button class="pill press" data-act="pinbook"><b>เริ่มบทที่ 1</b></button>`:`<button class="pill press" data-go="pinplay" data-n="${n}"><b>ลองอีกครั้ง</b></button>`}<button class="pill sm ghost press mt12" data-act="pinmap">กลับไปแผนที่ห้องพินอิน</button></div>`}};
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act="pinbook"],[data-act="pinmap"]');if(!t)return;
  if(t.dataset.act==='pinbook')mountRoot('book');else{try{replace('pinroom')}catch(_){push('pinroom')}}},true);

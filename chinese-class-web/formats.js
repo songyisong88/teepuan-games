@@ -8,7 +8,7 @@ const lvPool=()=>{const p=gw4();return p.length>=4?p:qFallback()};
 
 SC.teamquiz=({m})=>{
  const relay=m==='relay';
- return {title:relay?'วิ่งผลัดคำศัพท์':'ทีมชนทีม',noRefresh:true,body:`<div class="pad"><div class="large" style="padding:0 0 4px">${relay?'🏃 วิ่งผลัดคำศัพท์':'🧩 ทีมชนทีม'}</div>
+ return {title:relay?'วิ่งผลัดคำศัพท์':'ทีมชนทีม',noRefresh:true,body:`<div class="pad"><div class="large" style="padding:0 0 4px">${relay?'วิ่งผลัดคำศัพท์':'ทีมชนทีม'}</div>
   <p class="cap" style="padding:0 0 12px">${relay?`ส่งไม้ต่อให้ถึงเส้นชัย ${RELAY_LEGS} ช่วง ตอบพลาดไม้หล่น เสียหัวใจ 1 ดวง (มี ${RELAY_LIVES} ดวง)`:`ทีม 3 คนชนกับอีกทีม ${TEAM_ROUNDS} รอบ ใครตอบถูกเยอะกว่าชนะ`}</p>
   <div id="tq"></div></div>${DEMO}`,
  mount(el){const box=$('#tq',el);let dead=false;const alive=()=>!dead&&el.isConnected;
@@ -33,8 +33,8 @@ SC.teamquiz=({m})=>{
      foes.forEach(p=>{if(Math.random()<sk()-.02)B++});
      box.querySelector('#feed').innerHTML=lines.map(l=>`<div class="tqf">${l}</div>`).join('');
      k++;setTimeout(()=>{if(!alive())return;k<TEAM_ROUNDS?show():fin()},900)})};
-   function fin(){const win=A>B,tie=A===B;const xp=win?14:tie?10:7,coins=win?20:tie?10:6;addXp(xp);addCoins(coins);bumpCnt('game');bumpCnt('social');bumpCnt('teamq');if(win)bumpCnt('teamwin');
-    box.innerHTML=`<div class="center"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(win?'celebrate':tie?'correct':'think')}</div><div class="h2">${win?'ทีมคุณชนะ! 🎉':tie?'เสมอกัน 🤝':(B-A<=2?'แพ้นิดเดียว สู้ใหม่!':'ยังมีรอบหน้า สู้ใหม่!')}</div>
+   function fin(){const win=A>B,tie=A===B;const xp=evX(win?14:tie?10:7),coins=evC(win?20:tie?10:6);addXp(xp,null,1);addCoins(coins,1);bumpCnt('game');bumpCnt('social');bumpCnt('teamq');if(win)bumpCnt('teamwin');
+    box.innerHTML=`<div class="center"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(win?'celebrate':tie?'correct':'think')}</div><div class="h2">${win?'ทีมคุณชนะ':tie?'เสมอกัน':(B-A<=2?'แพ้นิดเดียว สู้ใหม่!':'ยังมีรอบหน้า สู้ใหม่!')}</div>
      <p style="color:var(--sub2);margin:4px 0 4px;font-size:15px">${A} : ${B} · คุณตอบถูก ${youOk}/${TEAM_ROUNDS}</p><p class="cap">+${xp} XP · +${coins} เหรียญ</p></div>
      <div class="pad mt16"><button class="pill sm linebtn press" id="sh">แชร์ผลไป LINE</button><button class="pill sm ghost press mt8" id="ag">เล่นอีกรอบ</button></div>`;
     confetti(win?70:0);$('#sh',box).onclick=()=>shareSheet('result',{kind:'score',text:`ทีมชนทีม ${A}:${B} ${win?'ชนะ':tie?'เสมอ':'แพ้'}`});$('#ag',box).onclick=lobby}
@@ -45,8 +45,8 @@ SC.teamquiz=({m})=>{
    const next=()=>{if(!alive())return;if(leg>=RELAY_LEGS)return fin(true);if(lives<=0)return fin(false);const p=team[turn%team.length];turn++;
     if(p===team[0]){box.innerHTML=`${hdr()}<div class="cap center mt8">ตาคุณถือไม้!</div><div id="qa"></div>`;const q=qs[qi++%qs.length];qOne(q,r=>{if(r){leg++;ok++}else lives--;next()})}
     else{const r=Math.random()<sk();box.innerHTML=`${hdr()}<div class="center mt16" style="padding:24px 0">${av(p,64)}<div class="h2 mt8">${p.n} ถือไม้อยู่…</div><p class="cap">${r?'ส่งต่อได้สวย ✓':'ไม้หล่น ✗'}</p></div>`;setTimeout(()=>{if(r)leg++;else lives--;next()},1100)}};
-   function fin(win){const xp=win?16:8,coins=win?24:6;addXp(xp);addCoins(coins);bumpCnt('game');bumpCnt('social');bumpCnt('relay');if(win)bumpCnt('teamwin');
-    box.innerHTML=`<div class="center"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(win?'celebrate':'think')}</div><div class="h2">${win?'ถึงเส้นชัย! 🏁':'ไม้หล่นหมดแล้ว'}</div><p style="color:var(--sub2);margin:4px 0 4px;font-size:15px">คุณตอบถูก ${ok} ครั้ง · วิ่งได้ ${Math.min(leg,RELAY_LEGS)}/${RELAY_LEGS} ช่วง</p><p class="cap">+${xp} XP · +${coins} เหรียญ</p></div>
+   function fin(win){const xp=evX(win?16:8),coins=evC(win?24:6);addXp(xp,null,1);addCoins(coins,1);bumpCnt('game');bumpCnt('social');bumpCnt('relay');if(win)bumpCnt('teamwin');
+    box.innerHTML=`<div class="center"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(win?'celebrate':'think')}</div><div class="h2">${win?'ถึงเส้นชัยแล้ว':'ไม้หล่นหมดแล้ว'}</div><p style="color:var(--sub2);margin:4px 0 4px;font-size:15px">คุณตอบถูก ${ok} ครั้ง · วิ่งได้ ${Math.min(leg,RELAY_LEGS)}/${RELAY_LEGS} ช่วง</p><p class="cap">+${xp} XP · +${coins} เหรียญ</p></div>
      <div class="pad mt16"><button class="pill sm linebtn press" id="sh">แชร์ผลไป LINE</button><button class="pill sm ghost press mt8" id="ag">วิ่งอีกรอบ</button></div>`;
     confetti(win?70:0);$('#sh',box).onclick=()=>shareSheet('result',{kind:'score',text:`วิ่งผลัดคำศัพท์ ${win?'ถึงเส้นชัย':'ไม้หล่น'} (${Math.min(leg,RELAY_LEGS)}/${RELAY_LEGS} ช่วง)`});$('#ag',box).onclick=lobby}
    next()}

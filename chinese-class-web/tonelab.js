@@ -67,6 +67,6 @@ function tlDrill(kind,title){return ()=>({nav:sessNav,body:'<div class="stage" i
  mount(el){const qs=tlQuestions(kind);const st=$('#stage',el);
   if(window.__tlObs)window.__tlObs.disconnect();
   window.__tlObs=new MutationObserver(()=>{const b=$('[data-tl]',st);if(b&&b.dataset.tlDone!=='1'){b.dataset.tlDone='1';setTimeout(()=>{if(document.body.contains(b))speak(b.dataset.tl,b)},350)}});window.__tlObs.observe(st,{childList:true});
-  session(el,qs,res=>{const xp=res.correct*2;addXp(xp);addCoins(res.correct);bumpCnt('tonelab',1);replace('result',{title,mascot:res.correct>=6?'celebrate':'cheer',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:res.correct,stats:[['ตอบถูก',res.correct+'/'+res.total]],back:'x'})},{review:true})}})}
+  session(el,qs,res=>{const xp=evX(res.correct*2),cn=evC(res.correct);addXp(xp,null,1);addCoins(cn,1);bumpCnt('tonelab',1);replace('result',{title,mascot:res.correct>=6?'celebrate':'cheer',sub:`ตอบถูก ${res.correct}/${res.total}`,xp,coins:cn,stats:[['ตอบถูก',res.correct+'/'+res.total]],back:'x'})},{review:true})}})}
 SC.tl_single=tlDrill('single','ฟังเส้นเสียงเสร็จ');SC.tl_pair=tlDrill('pair','ฟังคู่เสียงเสร็จ');SC.tl_min=tlDrill('min','แยกคู่เสียงเสร็จ');
 Object.assign(window.GOX,{tonegrid:()=>push('tonegrid'),tl_single:()=>replace('tl_single'),tl_pair:()=>replace('tl_pair'),tl_min:()=>replace('tl_min')});

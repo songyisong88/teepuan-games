@@ -100,8 +100,10 @@ function plEstimate(log){const tiers=LEVELS.map(l=>l.id).map(lv=>{const a=log.fi
  if(!strong.length){const b=Object.keys(skills).sort((x,y)=>skills[y].c/skills[y].a-skills[x].c/skills[x].a)[0];if(b&&skills[b].c)strong.push(b)}
  const miss=[];log.forEach(x=>{if(!x.ok&&(x.q.sk==='vocab'||x.q.sk==='listen')){const zh=x.q.zh||x.q.say;if(!miss.some(m=>m.zh===zh))miss.push({zh,py:x.q.py,th:x.q.th,lv:x.q.lv})}});
  return {est,rec:Math.min(LV_MAX,est+1),tiers,skills,strong,weak,miss:miss.slice(0,6)}}
+/* จุดเริ่มทดสอบ: ผู้ที่เลือกระดับ/เคยทดสอบแล้ว เริ่มที่ระดับปัจจุบัน (ตอบพลาดจะลดลงเอง) · ผู้เรียนใหม่เริ่มระดับ 1 */
+const plStartLv=()=>(S.lvPicked||S.placed)?Math.min(LV_MAX,Math.max(1,curLv())):1;
 function plRun(el){const stage=$('#stage',el),dock=$('#dock',el),pg=$('#pg',el),pc=$('#pc',el);
- const st={d:1,streak:0,wrongRun:0,log:[],used:new Set(),sk:{},last:null,cur:null,q:null,locked:false};
+ const st={d:plStartLv(),streak:0,wrongRun:0,log:[],used:new Set(),sk:{},last:null,cur:null,q:null,locked:false};
  const lvSeq=[];
  window.__plCur=()=>({q:st.cur,d:st.d,n:st.log.length,ans:st.q?st.q.ans:-1,locked:st.locked});
  function finish(){const r=plEstimate(st.log);const res=Object.assign(r,{at:today(),n:st.log.length,ok:st.log.filter(x=>x.ok).length,early:st.wrongRun>=PL_STOP_WRONG,dk:st.log.filter(x=>x.dk).length});
@@ -127,7 +129,7 @@ function plRun(el){const stage=$('#stage',el),dock=$('#dock',el),pg=$('#pg',el),
   if(t.dataset.pl==='dk')return answer(-1,true);
   if(t.dataset.sa==='quit')quitSheet()});
  show()}
-SC.placeintro=()=>({title:'ทดสอบวัดระดับ',body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:220px;height:220px;margin:0 auto">${M('student')}</div><div class="large" style="padding:0">ทดสอบวัดระดับ</div><p style="color:var(--sub2);font-size:15.5px;margin:6px 14px 0;line-height:1.5">12–20 ข้อ ไล่จากระดับ 1 ไประดับ 5 ถ้าตอบถูกข้อจะยากขึ้น ถ้าพลาดข้อจะง่ายลง จบแล้ว${MASCOT_NAME}จะวิเคราะห์ระดับและแนะนำจุดเริ่มต้น</p></div>
+SC.placeintro=()=>({title:'ทดสอบวัดระดับ',body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:220px;height:220px;margin:0 auto">${M('student')}</div><div class="large" style="padding:0">ทดสอบวัดระดับ</div><p style="color:var(--sub2);font-size:15.5px;margin:6px 14px 0;line-height:1.5">12–20 ข้อ ${plStartLv()>1?`เริ่มที่ระดับ ${plStartLv()} (ระดับปัจจุบันของคุณ)`:'ไล่จากระดับ 1 ไประดับ 5'} ถ้าตอบถูกข้อจะยากขึ้น ถ้าพลาดข้อจะง่ายลง จบแล้ว${MASCOT_NAME}จะวิเคราะห์ระดับและแนะนำจุดเริ่มต้น</p></div>
  <div class="card pad2 mt16" style="font-size:14px;line-height:1.75">✓ ผสม 5 ทักษะ: คำศัพท์ · ฟัง · อ่านประโยค · เติมคำ · วรรณยุกต์<br>✓ ไม่รู้ข้อไหนกด “ไม่รู้ข้อนี้” ได้เลย ไม่ต้องเดา<br>✓ ไม่หักเหรียญ ไม่นับเป็นข้อผิด<br>✓ เลือกระดับเองหรือทำใหม่ได้ทุกเมื่อ</div>
  <p class="cap center" style="padding:10px 30px 0;line-height:1.5">เป็นตัวชี้วัดคร่าว ๆ ไม่ใช่ข้อสอบวัดระดับทางการ</p>
  <div class="dock"><button class="pill press" data-go="placetest"><b>เริ่มทดสอบ</b><small>${S.placeRes?'ทำใหม่ได้ · ผลเก่ายังเก็บไว้จนกว่าจะทำเสร็จ':'ราว 3 นาที'}</small></button><button class="pill sm ghost press mt8" data-go="levels" style="margin-top:8px">ข้าม · เลือกระดับเอง</button></div>`});

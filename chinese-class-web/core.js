@@ -1,6 +1,6 @@
 /* แกนหลัก: นำทาง (push/pop), sheet, toast, เอฟเฟกต์, ไอคอน, หน้าแท็บ */
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const vib=ms=>{try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
+const vib=ms=>{try{const ua=navigator.userActivation;if(ua&&!ua.hasBeenActive)return;navigator.vibrate&&navigator.vibrate(ms)}catch(e){}};
 const IC={
  home:'<path d="M4 11l8-7 8 7v8.5a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/>',
  book:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/>',

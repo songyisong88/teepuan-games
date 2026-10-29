@@ -10,6 +10,13 @@ SRC=json.load(open(D+'/src.json'));OFF={int(k):set(v) for k,v in json.load(open(
 ART=set(re.findall(r'"word/([^"]+)"',open(R+'/assets/art/index.js',encoding='utf8').read()))
 CH={c['id']:c for c in SRC['CHAPTERS']}
 for l in SRC['LESSONS']:l['lv']=CH[l['chapter']]['lv']
+# แยกความหมายคำที่ซ้ำกับ L1 (日 = วันที่)
+THOVR={'日期':('วันเดือนปี','กรุณาเขียนวันเดือนปีด้วย')}
+for l in SRC['LESSONS']:
+  for w in l.get('words',[]):
+    if w.get('zh') in THOVR:
+      w['th']=THOVR[w['zh']][0]
+      w['exTh']=THOVR[w['zh']][1]
 LEVELS=[int(a) for a in sys.argv[1:]] or [2,3,4,5]
 ORDER={2:[200,1200,6,8,7,9,10,230]}
 MAXW={2:6,3:8,4:8,5:8}
@@ -233,6 +240,7 @@ def synth(cands,g,part_zs,WM,n):
   return best
 
 sys.path.insert(0,D);import frames as FRM
+import dialogues as _DLM;FRM.DL=_DLM.DL
 PUNM={'，':',','。':'.','！':'!','？':'?','、':',','：':':','；':';'}
 def wordpy(c,K):
   if c in ('这个','那个','哪个') and c in WM:return WM[c]['py'].replace('gè','ge')
@@ -358,6 +366,15 @@ for n in range(2,6):
       if dc:
         dl=max(dc,key=lambda x:(x['src'] in src,sum(1 for w in zs for y in x['dlg'] if w in y[1]),-abs(len(x['dlg'])-4)))
         usedD.add('|'.join(y[1] for y in dl['dlg']))
+      hd=getattr(FRM,'DL',{}).get(n,{}).get(code)
+      if not dl and hd:   # บทสนทนา 2 บรรทัดที่เขียนเอง (frames.DL) สำหรับบทที่ไม่มีบทสนทนาเดิมให้ใช้
+        lines=[]
+        for r_,t_,th_ in hd:
+          x=mksent(t_,th_,known,code+' dlg')
+          if not x:print('DLFAIL',n,code,t_,file=sys.stderr);lines=None;break
+          lines.append([r_,x['full'],x['s'][1].replace('/',' '),th_])
+        if lines and not any(w in y[1] for y in lines for w in zs):print('DLNOWORD',n,code,file=sys.stderr);lines=None
+        if lines:dl={'dlg':lines,'rq':None,'src':-3};stat['dlg_hand']+=1
       rq=None
       if dl:
         stat['dlg']+=1
@@ -367,7 +384,7 @@ for n in range(2,6):
         wr=[x for x in r.get('wrong',[]) if okstr(x[0],known) and x[0]!=ans]
         if len(wr)<2:
           pool=wrong_opts(ans,known,set(y[1] for y in dl['dlg']))
-          random.shuffle(pool);wr=(wr+pool)[:2]
+          (random.Random(lid) if dl['src']==-3 else random).shuffle(pool);wr=(wr+pool)[:2]
         if len(wr)>=2:rq={'p':p,'wrong':[[x[0],x[1],clean(x[2])] for x in wr[:2]]};stat['rq']+=1
       # คำ
       wsrc=[]
@@ -403,7 +420,8 @@ for n in range(2,6):
       DBGL.append((n,code,'hand' if f and f[0]==99 else ('pron' if fr and fr.get('k')==0 and len(chosen)>1 and chosen[1].get('src')==-2 and not FRM.FR.get(n,{}).get(code) else ('pool' if fr else 'none')),[(w['zh'],thshort(w['th'])) for w in g]))
       if len(sents)<3:stat['few_sents']+=1
     pic=[w['zh'] for w in pws if w['zh'] in ART]
-    scene=pic[:9] if len(pic)>=4 else []
+    scene=pic[:9] if len(pic)>=3 else []  # 3 ภาพขึ้นไป = 1 แถวเต็มของกริดเดิม
+    if not scene:print('SCENEEMPTY',n,pi,len(pic),pic,file=sys.stderr)
     if scene:stat['scene']+=1
     les.append(f"{{id:{n*10000+pi*100+99},v3:1,kind:'gate',code:'{pi}-✓',th:{js('ด่านทบทวน: '+clean(c['th']))},zh:{js(c['zh'])},chapter:{cid},emoji:'⭐',can:'ทบทวนทั้งตอน ผ่าน 70% ขึ้นไป',story:'',scene:{js(scene)},words:[],sents:[],fr:null,dlg:[],rq:null}}")
     stat['gate']+=1

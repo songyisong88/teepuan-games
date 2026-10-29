@@ -18,7 +18,7 @@ const defState=()=>({stk:{rec:[],fav:[],done:{},mode:'guide',days:0,last:-99,n:0
  chestDay:-99,spinDay:-99,own:['flower'],eq:{hat:null,face:null},invited:0,inviteCode:'LAMA-'+Math.random().toString(36).slice(2,6).toUpperCase(),
  remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,level:1,assume:0,lvPicked:false,placeRes:null,placeHist:[],gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
  freezes:1,buddy:null,cnt:{day:-99},mis:{day:-99,got:[]},evDay:-99,evId:'',evGot:-99,comebackDay:-99,freezeUsed:-99,inviteGot:[],
- seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{},lg:{tier:0,wk:-1},life:{},badges:{},bestStreak:0,dv:2,dvNote:0});
+ seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{},lg:{tier:0,wk:-1},life:{},badges:{},bestStreak:0,dv:3,dvNote:0});
 let S;
 let _raw={};try{_raw=JSON.parse(localStorage.getItem(KEY)||'{}')||{};S=Object.assign(defState(),_raw)}catch(e){S=defState()}
 /* ย้ายข้อมูลเมื่อจัดระดับบทเรียนใหม่ตาม HSK 2.0 (dv=2): id บท/รอบเดิมไม่เปลี่ยน ความคืบหน้าอยู่ครบ — แค่แจ้งผู้เรียนเดิมครั้งเดียว และถือผลทดสอบเก่าว่าเก่าแล้ว */
@@ -31,11 +31,16 @@ const weekXp=()=>{let t=today(),s=0;for(let i=0;i<7;i++)s+=dayXp(t-i);return s};
 const level=()=>Math.floor(S.xp/100)+1;
 function touchStreak(){const t=today();if(S.lastDay===t)return false;S.streak=S.lastDay===t-1?S.streak+1:1;S.lastDay=t;S.bestStreak=Math.max(S.bestStreak||0,S.streak);return true}
 /* หน่วยเรียน: 1 บท = 2 รอบ (a = คำ 1–8, b = คำ 9–16 + บทสนทนา) · ลำดับเรียนนับแยกตามระดับ HSK */
-const UNITS=LESSONS.flatMap(L=>[{id:L.id+'a',lesson:L.id,lv:L.lv,part:0,words:L.words.slice(0,8)},{id:L.id+'b',lesson:L.id,lv:L.lv,part:1,words:L.words.slice(8)}]);
+/* ระดับ 1 โครงใหม่ (L.v3): 1 บท = 1 รอบ (id+'a') · บทเสียง/ด่านทบทวนไม่มีคำใหม่ */
+const UNITS=LESSONS.flatMap(L=>L.v3?[{id:L.id+'a',lesson:L.id,lv:L.lv,part:0,words:L.words,v3:1,kind:L.kind}]:[{id:L.id+'a',lesson:L.id,lv:L.lv,part:0,words:L.words.slice(0,8)},{id:L.id+'b',lesson:L.id,lv:L.lv,part:1,words:L.words.slice(8)}]);
+/* ป้ายบท: ระดับ 1 ใหม่ใช้รหัสตอน-บท (เช่น 1-3) · ระดับอื่นใช้เลขบทเดิม */
+const lno=L=>L?(L.code?L.code:L.chapter===1200?'ส'+(L.id-1200):L.id):'';
+const lnoTxt=L=>L&&L.code?(L.kind==='gate'?'ด่านทบทวน ตอน '+L.code.split('-')[0]:'บท '+L.code):L&&L.chapter===1200?'บทเสริม '+(L.id-1200):'บทที่ '+(L?L.id:'');
+const uTxt=u=>{const L=lessonBy(u.lesson);return L&&L.v3?lnoTxt(L):`บทที่ ${u.lesson} · รอบ ${u.part+1}/2`};
 const unitBy=id=>UNITS.find(u=>u.id===id);
 const lessonBy=id=>LESSONS.find(l=>l.id===id);
 const unitDone=id=>S.parts.includes(id);
-const isDone=lid=>unitDone(lid+'a')&&unitDone(lid+'b');
+const isDone=lid=>{const L=lessonBy(lid);return unitDone(lid+'a')&&(L&&L.v3?true:unitDone(lid+'b'))};
 const curLv=()=>LEVELS.some(l=>l.id===S.level)?S.level:1;
 const lvUnits=n=>UNITS.filter(u=>u.lv===n);
 const lvLessons=n=>LESSONS.filter(l=>l.lv===n);
@@ -64,10 +69,10 @@ const seedPick=(arr,n,salt)=>arr.map(w=>[seedHash(w.zh+'|'+(salt||today())),w]).
 const doneWords=()=>uniqW(UNITS.filter(u=>unitDone(u.id)).flatMap(u=>u.words));
 function lvPoolW(){const n=curLv(),win=uniqW(lvWindow().flatMap(l=>l.words)),done=doneWords(),near=gameWords().filter(w=>w.lv>=n-1&&!win.some(x=>x.zh===w.zh));
  return uniqW([...win,...done,...seedPick(near,Math.max(8,win.length))])}
-const gw4=()=>{const g=gameWords();if(lvDriven()){const p=lvPoolW();if(p.length>=4)return p}return g.length>=4?g:uniqW([...g,...(lvLessons(curLv())[0]||LESSONS[0]).words])};
+const gw4=()=>{const g=gameWords();if(lvDriven()){const p=lvPoolW();if(p.length>=4)return p}return g.length>=4?g:uniqW([...g,...lvLessons(curLv()).flatMap(l=>l.words).slice(0,10)])};
 const gamesOpen=()=>gameWords().length>=4||(lvDriven()&&gw4().length>=4);
 /* บทที่ใช้กับติวเตอร์/ฉากสนทนา/ประโยคตัวอย่าง: บทที่จบแล้ว + บทในหน้าต่างระดับ */
-const lvLessonPool=()=>{const done=LESSONS.filter(l=>isDone(l.id));if(!lvDriven())return done.length?done:[LESSONS[0]];const n=curLv();const m=new Map();[...lvWindow(),...done.filter(l=>l.lv>=n-1)].forEach(l=>m.set(l.id,l));return [...m.values()]};
+const lvLessonPool=()=>{const done=LESSONS.filter(l=>isDone(l.id));if(!lvDriven())return done.length?done:[LESSONS.find(l=>l.sents&&l.sents.length&&l.dlg&&l.dlg.length)];const n=curLv();const m=new Map();[...lvWindow(),...done.filter(l=>l.lv>=n-1)].forEach(l=>m.set(l.id,l));return [...m.values()]};
 const learnedCount=()=>gameWords().length;
 const lvBadge=()=>`<span class="chip lvchip press" data-go="levels" aria-label="ระดับของฉัน">ระดับ ${curLv()}</span>`;
 function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;srsGrade(w,false,1);save()}
@@ -82,7 +87,18 @@ const reviewReal=()=>uniqW([...mistakeWords(),...srsDue()]);
 const reviewSeed=()=>{if(!lvDriven())return [];const r=reviewReal();if(r.length>=6)return [];const have=new Set(r.map(w=>w.zh));const n=curLv();const pool=gw4().filter(w=>!have.has(w.zh)&&w.lv>=n);return seedPick(pool.length>=6-r.length?pool:gw4().filter(w=>!have.has(w.zh)),6-r.length,'rv'+today())};
 const reviewWords=()=>uniqW([...reviewReal(),...reviewSeed()]);
 const srsBox=w=>(S.srs&&S.srs[w.zh]?S.srs[w.zh].b:0);
-const cmUnlocked=c=>c.by==='duel'?S.duelWins>0:isDone(+c.by.split(':')[1]);
+const cmUnlocked=c=>c.by==='duel'?S.duelWins>0:(isDone(+c.by.split(':')[1])||!!(c.old&&unitDone(c.old+'a')&&unitDone(c.old+'b')));
+/* ย้ายความคืบหน้าระดับ 1 เดิม → ระดับ 1 ใหม่ (dv=3): รอบเดิมยังอยู่ใน S.parts ไม่หาย · XP/เหรียญไม่ถูกแตะ
+   บทใหม่ที่คำทุกคำเคยเรียนจบในรอบเดิมแล้ว ถือว่าจบ (2 ดาว) · เคยเรียนระดับ 1 = ผ่านตอนเสียงแล้ว · บทครบทั้งตอน = ผ่านด่านทบทวน
+   ทำทุกครั้งที่เปิด (เผื่อความคืบหน้าเดิมเพิ่งซิงก์มาจากอุปกรณ์อื่น) */
+function migrateL1(){if(typeof OLD_L1==='undefined')return 0;const ow=new Set();Object.keys(OLD_L1).forEach(u=>{if(S.parts.includes(u))OLD_L1[u].forEach(z=>ow.add(z))});if(!ow.size)return 0;
+ const add=[],has=z=>ow.has(z);
+ UNITS.forEach(u=>{const L=lessonBy(u.lesson);if(unitDone(u.id))return;
+  if(u.v3&&u.kind==='snd')add.push(u.id);else if(u.v3&&u.kind==='lex'&&u.words.every(w=>has(w.zh)))add.push(u.id);else if(L.chapter===1200&&u.words.length&&u.words.every(w=>has(w.zh)))add.push(u.id)});
+ add.forEach(id=>{S.parts.push(id);S.stars[id]=S.stars[id]||2});
+ const g=[];LESSONS.filter(l=>l.v3&&l.kind==='gate'&&!unitDone(l.id+'a')).forEach(l=>{if(LESSONS.filter(x=>x.chapter===l.chapter&&x.kind==='lex').every(x=>unitDone(x.id+'a')))g.push(l.id+'a')});
+ g.forEach(id=>{S.parts.push(id);S.stars[id]=S.stars[id]||2});return add.length+g.length}
+{const n=migrateL1();if((_raw.dv||0)<3){if(n||(_raw.parts||[]).length)S.dvNote=3;S.dv=3}if(n||(_raw.dv||0)<3)save()}
 
 /* ข้อมูลจำลอง */
 const FRIENDS=[{n:'พี่ต้น',c:'#A25F3A',s:12},{n:'น้องมะลิ',c:'#4B7D61',s:5},{n:'แพรว',c:'#4C72A7',s:21},{n:'โอ๊ต',c:'#8D62AB',s:3},{n:'ฟ้า',c:'#B25567',s:8}];

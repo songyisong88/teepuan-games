@@ -1,0 +1,926 @@
+{
+"老师好！": {
+"text": "老师好！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你好！": {
+"text": "你好！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"老师，再见！": {
+"text": "老师，再见！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"再见！": {
+"text": "再见！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|老师好！": {
+"text": "老师好！",
+"voice": "zh-CN-YunxiNeural"
+},
+"好！": {
+"text": "好！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"谢谢老师！": {
+"text": "谢谢老师！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"谢谢你！": {
+"text": "谢谢你！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"不客气。": {
+"text": "不客气。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"对不起！": {
+"text": "对不起！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"没关系。": {
+"text": "没关系。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"老师，对不起！": {
+"text": "老师，对不起！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|不客气。": {
+"text": "不客气。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我是老师。": {
+"text": "我是老师。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是老师。": {
+"text": "他是老师。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她是老师。": {
+"text": "她是老师。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他不是老师。": {
+"text": "他不是老师。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我不是老师。": {
+"text": "我不是老师。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你是老师？": {
+"text": "你是老师？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我不是老师。": {
+"text": "我不是老师。",
+"voice": "zh-CN-YunxiNeural"
+},
+"谢谢！": {
+"text": "谢谢！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她是学生。": {
+"text": "她是学生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她是医生。": {
+"text": "她是医生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是我朋友。": {
+"text": "他是我朋友。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是我同学。": {
+"text": "他是我同学。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我不是医生。": {
+"text": "我不是医生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是好人。": {
+"text": "他是好人。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你是学生？": {
+"text": "你是学生？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我是学生。": {
+"text": "我是学生。",
+"voice": "zh-CN-YunxiNeural"
+},
+"你叫什么名字？": {
+"text": "你叫什么名字？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我叫大明。": {
+"text": "我叫大明。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我叫小美。": {
+"text": "我叫小美。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她叫什么名字？": {
+"text": "她叫什么名字？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你是老师吗？": {
+"text": "你是老师吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是学生吗？": {
+"text": "他是学生吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我叫大明。": {
+"text": "我叫大明。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我很高兴。": {
+"text": "我很高兴。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"认识你很高兴。": {
+"text": "认识你很高兴。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我是中国人。": {
+"text": "我是中国人。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我是北京人。": {
+"text": "我是北京人。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他不是中国人。": {
+"text": "他不是中国人。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她很好。": {
+"text": "她很好。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你是中国人吗？": {
+"text": "你是中国人吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我不是中国人。": {
+"text": "我不是中国人。",
+"voice": "zh-CN-YunxiNeural"
+},
+"一、二、三！": {
+"text": "一、二、三！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"三、四、五！": {
+"text": "三、四、五！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"五、四、三、二、一！": {
+"text": "五、四、三、二、一！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|四、五！": {
+"text": "四、五！",
+"voice": "zh-CN-YunxiNeural"
+},
+"二、一！": {
+"text": "二、一！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"六、七、八、九、十！": {
+"text": "六、七、八、九、十！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"十、九、八！": {
+"text": "十、九、八！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"零、一、二！": {
+"text": "零、一、二！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"六、七、八！": {
+"text": "六、七、八！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|九、十！": {
+"text": "九、十！",
+"voice": "zh-CN-YunxiNeural"
+},
+"五、四！": {
+"text": "五、四！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"一、二！": {
+"text": "一、二！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你几岁？": {
+"text": "你几岁？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我八岁。": {
+"text": "我八岁。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我十岁。": {
+"text": "我十岁。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"几个人？": {
+"text": "几个人？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"三个人。": {
+"text": "三个人。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"多少人？": {
+"text": "多少人？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我八岁。": {
+"text": "我八岁。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我是学生。": {
+"text": "我是学生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是我爸爸。": {
+"text": "他是我爸爸。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他是我儿子。": {
+"text": "他是我儿子。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她是我妈妈。": {
+"text": "她是我妈妈。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她是我女儿。": {
+"text": "她是我女儿。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我爸爸是医生。": {
+"text": "我爸爸是医生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"北京是我家。": {
+"text": "北京是我家。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"她是你妈妈吗？": {
+"text": "她是你妈妈吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|是，她是我妈妈。": {
+"text": "是，她是我妈妈。",
+"voice": "zh-CN-YunxiNeural"
+},
+"她是我爸爸。": {
+"text": "她是我爸爸。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我有猫。": {
+"text": "我有猫。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我有狗。": {
+"text": "我有狗。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我没有狗。": {
+"text": "我没有狗。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我有猫和狗。": {
+"text": "我有猫和狗。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我们家有三个人。": {
+"text": "我们家有三个人。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你有猫吗？": {
+"text": "你有猫吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你有狗吗？": {
+"text": "你有狗吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我没有狗，我有猫。": {
+"text": "我没有狗，我有猫。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我是狗。": {
+"text": "我是狗。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是桌子。": {
+"text": "这是桌子。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是椅子。": {
+"text": "这是椅子。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是杯子。": {
+"text": "这是杯子。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是书。": {
+"text": "这是书。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我有电脑。": {
+"text": "我有电脑。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是什么？": {
+"text": "这是什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|这是杯子。": {
+"text": "这是杯子。",
+"voice": "zh-CN-YunxiNeural"
+},
+"这是我。": {
+"text": "这是我。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"那是谁？": {
+"text": "那是谁？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"那是我的书。": {
+"text": "那是我的书。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是谁的书？": {
+"text": "这是谁的书？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是谁的杯子？": {
+"text": "这是谁的杯子？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是谁的东西？": {
+"text": "这是谁的东西？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这是我妈妈的东西。": {
+"text": "这是我妈妈的东西。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我有三本书。": {
+"text": "我有三本书。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|那是我的书。": {
+"text": "那是我的书。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我吃米饭。": {
+"text": "我吃米饭。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我吃菜。": {
+"text": "我吃菜。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喝茶。": {
+"text": "我喝茶。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喝水。": {
+"text": "我喝水。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你喝什么？": {
+"text": "你喝什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你吃什么？": {
+"text": "你吃什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我喝茶。": {
+"text": "我喝茶。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我很好。": {
+"text": "我很好。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喜欢苹果。": {
+"text": "我喜欢苹果。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喜欢水果。": {
+"text": "我喜欢水果。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喜欢猫。": {
+"text": "我喜欢猫。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我想喝水。": {
+"text": "我想喝水。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我想吃苹果。": {
+"text": "我想吃苹果。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我爱我妈妈。": {
+"text": "我爱我妈妈。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你喜欢什么？": {
+"text": "你喜欢什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你想喝什么？": {
+"text": "你想喝什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我想喝茶。": {
+"text": "我想喝茶。",
+"voice": "zh-CN-YunxiNeural"
+},
+"这是苹果。": {
+"text": "这是苹果。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"请坐！": {
+"text": "请坐！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"请喝茶。": {
+"text": "请喝茶。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"饭馆的菜很多。": {
+"text": "饭馆的菜很多。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"饭馆的菜很少。": {
+"text": "饭馆的菜很少。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"饭馆的人很多。": {
+"text": "饭馆的人很多。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我们都是学生。": {
+"text": "我们都是学生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|谢谢！": {
+"text": "谢谢！",
+"voice": "zh-CN-YunxiNeural"
+},
+"我去学校。": {
+"text": "我去学校。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我去医院。": {
+"text": "我去医院。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我去商店。": {
+"text": "我去商店。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我去火车站。": {
+"text": "我去火车站。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"他来学校。": {
+"text": "他来学校。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你来我家吗？": {
+"text": "你来我家吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你去医院吗？": {
+"text": "你去医院吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我不去医院，我去学校。": {
+"text": "我不去医院，我去学校。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我是医生。": {
+"text": "我是医生。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我坐飞机去北京。": {
+"text": "我坐飞机去北京。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我坐出租车去北京。": {
+"text": "我坐出租车去北京。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你怎么去学校？": {
+"text": "你怎么去学校？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我爸爸开出租车。": {
+"text": "我爸爸开出租车。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我回家。": {
+"text": "我回家。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我们坐出租车回家。": {
+"text": "我们坐出租车回家。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你怎么去北京？": {
+"text": "你怎么去北京？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我坐飞机去。": {
+"text": "我坐飞机去。",
+"voice": "zh-CN-YunxiNeural"
+},
+"你在哪里？": {
+"text": "你在哪里？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我在学校。": {
+"text": "我在学校。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你住在哪里？": {
+"text": "你住在哪里？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我住在北京。": {
+"text": "我住在北京。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我住在中国。": {
+"text": "我住在中国。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"书在家里。": {
+"text": "书在家里。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"医院在哪里？": {
+"text": "医院在哪里？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我住在北京。": {
+"text": "我住在北京。",
+"voice": "zh-CN-YunxiNeural"
+},
+"猫在桌子上。": {
+"text": "猫在桌子上。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"猫在桌子下。": {
+"text": "猫在桌子下。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"狗在椅子下。": {
+"text": "狗在椅子下。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"学校在医院前面。": {
+"text": "学校在医院前面。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"商店在学校后面。": {
+"text": "商店在学校后面。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"书在椅子上。": {
+"text": "书在椅子上。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"书在哪里？": {
+"text": "书在哪里？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|书在桌子上。": {
+"text": "书在桌子上。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我想买衣服。": {
+"text": "我想买衣服。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这个多少钱？": {
+"text": "这个多少钱？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"十块钱。": {
+"text": "十块钱。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"三块钱。": {
+"text": "三块钱。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"先生，你买什么？": {
+"text": "先生，你买什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"小姐，这个多少钱？": {
+"text": "小姐，这个多少钱？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|十块钱。": {
+"text": "十块钱。",
+"voice": "zh-CN-YunxiNeural"
+},
+"这个杯子太大了。": {
+"text": "这个杯子太大了。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这个杯子太小了。": {
+"text": "这个杯子太小了。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这个杯子很小。": {
+"text": "这个杯子很小。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"衣服太小了。": {
+"text": "衣服太小了。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这些衣服很漂亮。": {
+"text": "这些衣服很漂亮。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"那些书都是我的。": {
+"text": "那些书都是我的。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"这些衣服漂亮吗？": {
+"text": "这些衣服漂亮吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|很漂亮！": {
+"text": "很漂亮！",
+"voice": "zh-CN-YunxiNeural"
+},
+"今天星期三。": {
+"text": "今天星期三。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天星期五。": {
+"text": "今天星期五。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"明天星期四。": {
+"text": "明天星期四。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"昨天星期二。": {
+"text": "昨天星期二。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"现在我在学校。": {
+"text": "现在我在学校。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天星期几？": {
+"text": "今天星期几？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|今天星期三。": {
+"text": "今天星期三。",
+"voice": "zh-CN-YunxiNeural"
+},
+"今天五月八日。": {
+"text": "今天五月八日。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天六月八日。": {
+"text": "今天六月八日。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"明天五月九日。": {
+"text": "明天五月九日。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你什么时候去北京？": {
+"text": "你什么时候去北京？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你什么时候回家？": {
+"text": "你什么时候回家？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我在北京住了一年。": {
+"text": "我在北京住了一年。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我明天去。": {
+"text": "我明天去。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我坐飞机去。": {
+"text": "我坐飞机去。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我在北京。": {
+"text": "我在北京。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"现在三点。": {
+"text": "现在三点。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"现在十点。": {
+"text": "现在十点。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我上午去学校。": {
+"text": "我上午去学校。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我中午吃米饭。": {
+"text": "我中午吃米饭。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我下午回家。": {
+"text": "我下午回家。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"坐出租车十分钟。": {
+"text": "坐出租车十分钟。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"现在几点？": {
+"text": "现在几点？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|现在三点。": {
+"text": "现在三点。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我三岁。": {
+"text": "我三岁。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天天气怎么样？": {
+"text": "今天天气怎么样？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天很冷。": {
+"text": "今天很冷。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天很热。": {
+"text": "今天很热。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"今天下雨了。": {
+"text": "今天下雨了。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"北京很冷。": {
+"text": "北京很冷。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"明天天气怎么样？": {
+"text": "明天天气怎么样？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|今天很热。": {
+"text": "今天很热。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我看电视。": {
+"text": "我看电视。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我看书。": {
+"text": "我看书。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我读书。": {
+"text": "我读书。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我写字。": {
+"text": "我写字。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"请听。": {
+"text": "请听。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你看什么？": {
+"text": "你看什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我看电视。": {
+"text": "我看电视。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我会说汉语。": {
+"text": "我会说汉语。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我会写字。": {
+"text": "我会写字。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我学习汉语。": {
+"text": "我学习汉语。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你会说汉语吗？": {
+"text": "你会说汉语吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"明天我能去。": {
+"text": "明天我能去。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"你在做什么？": {
+"text": "你在做什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我会说汉语。": {
+"text": "我会说汉语。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我在工作。": {
+"text": "我在工作。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我在睡觉。": {
+"text": "我在睡觉。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我在打电话。": {
+"text": "我在打电话。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我看见你了。": {
+"text": "我看见你了。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我想看电影。": {
+"text": "我想看电影。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"喂，你好！": {
+"text": "喂，你好！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"喂，你在做什么？": {
+"text": "喂，你在做什么？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"f|我在看电影。": {
+"text": "我在看电影。",
+"voice": "zh-CN-YunxiNeural"
+},
+"我喜欢猫，你呢？": {
+"text": "我喜欢猫，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喜欢狗，你呢？": {
+"text": "我喜欢狗，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我喜欢苹果，你呢？": {
+"text": "我喜欢苹果，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我很好，你呢？": {
+"text": "我很好，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我是学生，你呢？": {
+"text": "我是学生，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我是老师，你呢？": {
+"text": "我是老师，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+}
+}

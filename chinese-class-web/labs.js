@@ -22,7 +22,7 @@ const lbOptQ=(top,opts,ans,reveal)=>({k:'q',q:{w:null,type:'lab',custom:true,top
 const lbDone=()=>{const L=lab();const rk=Object.keys(L.read);return {rd:rk.filter(k=>k[0]!=='a').length,ar:rk.filter(k=>k[0]==='a').length,pr:Object.keys(L.pair).length,mk:Object.keys(L.mock).length,sh:Object.keys(L.shadow).length}};
 const LB_HUB_ROWS=()=>{const d=lbDone();return `<div class="group lbg">
   ${ROW('#FDECEC','📖','ซีรีส์ลามา · นิทานอ่านเอง',`${LB_ST.length} เรื่อง · แตะคำดูความหมายและเสียง · อ่านแล้ว ${d.rd}`,undefined,'data-go="readers"')}
-  ${ROW('#E6F4F1','📰','บทความสั้นระดับ HSK',`${LB_AR.length} บทความ · ระดับ 1–5 · เรื่องจริงเกี่ยวกับจีนและไทย · แตะคำดูความหมาย · อ่านแล้ว ${d.ar}`,undefined,'data-go="articles"')}
+  ${ROW('#E6F4F1','📰','บทความสั้นตามระดับ',`${LB_AR.length} บทความ · ระดับ 1–5 · เรื่องจริงเกี่ยวกับจีนและไทย · แตะคำดูความหมาย · อ่านแล้ว ${d.ar}`,undefined,'data-go="articles"')}
   ${ROW('#EAF1FB','🔀','เทียบคำใกล้เคียง',`${LB.pairs.length} คู่ที่คนไทยสับสนบ่อย · 会/能 · 买/卖 …`,undefined,'data-go="pairs"')}
   ${ROW('#E7F8EE','🎧','ชาโดว์อิ้ง · ฟังแล้วพูดตาม','ช้า/ปกติ · ซ่อนพินอิน · นับรอบ · ประเมินตัวเอง',undefined,'data-go="shadow"')}
   ${ROW('#FDF3E6','📝','ข้อสอบจำลองย่อย','สุ่ม 10 ข้อจากคลัง 30 ข้อต่อระดับ · จับเวลา · ประเมินระดับคร่าว ๆ',undefined,'data-go="mocklab"')}
@@ -46,7 +46,7 @@ function lbList(ART){const SS=ART?LB_AR:LB_ST;const cv=SS.map(s=>({s,c:lbCover(s
  const lvs=[...new Set(SS.map(s=>s.lv))].sort((a,b)=>(a===cl?-1:b===cl?1:a-b));
  const row=({s,c})=>{const open=c.ratio>=LB_UNLOCK,rd=L.read[s.id];
   return `<button class="row press lbstory ${open?'':'lockd'}" data-go="reader" data-id="${s.id}" ${open?'':'data-lk="1"'}><span class="ic" style="background:${ART?'#E6F4F1':'#FDF3E6'};font-size:22px">${ART&&s.pic?art('word',s.pic,s.e,'pic-mini sm'):s.e}</span><span class="tx"><b><span class="zh">${s.zh}</span> · ${s.th}</b><small>${open?`รู้แล้ว ${c.k}/${c.n} คำ · ${s.s.length} ประโยค${rd?` · ควิซ ${rd.best}/${s.q.length}`:''}`:`🔒 ต้องรู้ ≥${Math.round(LB_UNLOCK*100)}% ของคำ (ตอนนี้ ${c.k}/${c.n})`}</small></span>${rd?'<span class="lbck" aria-label="อ่านแล้ว">✓</span>':CHEV}</button>`};
- const T=ART?'บทความสั้นระดับ HSK':'ซีรีส์ลามา';
+ const T=ART?'บทความสั้นตามระดับ':'ซีรีส์ลามา';
  return {title:T,body:`<div class="large">${T}</div>${lbNote(ART?'บทความสั้นแนวสารคดีที่เขียนเอง ระดับละ 3 บท · คำส่วนใหญ่อยู่ในระดับเดียวกันหรือต่ำกว่า คำที่เกินระดับหรือชื่อเฉพาะมีคำแปลให้แตะดู · ข้อเท็จจริงตรวจจากแหล่งทั่วไปแล้ว แต่ยังรอครู/เจ้าของภาษาตรวจภาษา · จบบทมีควิซ 3 ข้อ':'นิทานสั้นที่เขียนเอง ใช้เฉพาะคำระดับเดียวกันหรือต่ำกว่า (ชื่อคนและคำช่วยพื้นฐานไม่นับ) · แตะคำเพื่อดูความหมาย พินอิน และเสียง · จบเรื่องมีควิซ 3 ข้อ')}
  ${lvs.map(n=>`<div class="sec">ระดับ ${n} · ${(levelBy(n)||{}).th||''}${n===cl?' · ระดับของคุณ':''}</div><div class="group lbg">${cv.filter(x=>x.s.lv===n).map(row).join('')}</div>`).join('')}${DEMO}`,
  mount(el){el.addEventListener('click',e=>{const b=e.target.closest('[data-lk]');if(b){e.stopPropagation();e.preventDefault();toast('เรียนคำในระดับนี้ให้มากกว่านี้ก่อนนะ แล้วเรื่องนี้จะเปิด');vib([12,30,12])}},true)}}}
@@ -107,12 +107,12 @@ SC.game_pairs=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extr
 
 /* ================= 3) ชาโดว์อิ้ง ================= */
 function lbShadowLessons(){return LESSONS.filter(L=>L.sents&&L.sents.length&&(unitDone(L.id+'a')||unitDone(L.id+'b')||L.lv<=(S.assume||0)||(lvDriven()&&L.lv===curLv())))}
-SC.shadow=()=>{const ls=lbShadowLessons(),L=lab().shadow;const row=l=>`<button class="row press" data-go="shrun" data-l="${l.id}"><span class="ic" style="background:#E7F8EE">${l.emoji||'🎧'}</span><span class="tx"><b>บทที่ ${l.id} · ${l.th} <span class="zh" style="font-weight:400">${l.zh}</span></b><small>${l.sents.length} ประโยค${L[l.id]?` · ฝึกแล้ว ${L[l.id].n} รอบ`:''}</small></span>${CHEV}</button>`;
+SC.shadow=()=>{const ls=lbShadowLessons(),L=lab().shadow;const row=l=>`<button class="row press" data-go="shrun" data-l="${l.id}"><span class="ic" style="background:#E7F8EE">${l.emoji||'🎧'}</span><span class="tx"><b>${lnoTxt(l)} · ${l.th} <span class="zh" style="font-weight:400">${l.zh}</span></b><small>${l.sents.length} ประโยค${L[l.id]?` · ฝึกแล้ว ${L[l.id].n} รอบ`:''}</small></span>${CHEV}</button>`;
  return {title:'ชาโดว์อิ้ง',body:`<div class="large">ชาโดว์อิ้ง</div>${lbNote('ฟังประโยคแล้วพูดตามให้ทันเสียง โดยไม่ต้องอ่านพินอิน — ใช้ประโยคจากบทที่เรียนแล้วเท่านั้น · <b>ไม่มีไมค์ ไม่อัดเสียง ไม่อัปโหลด</b> คุณฟังตัวเองแล้วประเมินเอง')}
  <div class="card pad2 mt12" style="margin:14px 20px 0;font-size:14.5px;line-height:1.7"><b>วิธีฝึก</b><br>① ฟังช้า 1 รอบ ② ฟังปกติ ③ พูดตามเมื่อวงแหวนสว่าง ④ นับรอบ (เป้า 3 รอบ) ⑤ ประเมินตัวเอง</div>
  ${ls.length?`<div class="sec">เลือกบท (${ls.length})</div><div class="group lbg">${ls.sort((a,b)=>b.id-a.id).map(row).join('')}</div>`:`<div class="center" style="padding:30px 40px"><div style="width:140px;height:140px;margin:0 auto">${M('locked')}</div><div class="h2 mt8">ยังไม่มีบทให้ฝึก</div><p class="cap mt8">เรียนรอบแรกของบทที่ 1 ให้จบ แล้วกลับมาพูดตาม</p></div>`}${DEMO}`}};
 SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const GOAL=3;let i=0,reps=0,view=1,rating=0,allReps=0,good=0,cd=null,summary=[];
- return {title:'ชาโดว์อิ้ง',noRefresh:true,body:`<div class="large">ชาโดว์อิ้ง</div><div class="cap" style="padding:0 20px">บทที่ ${Ls.id} · ${Ls.th}</div><div class="cap" style="padding:2px 20px 0">🎙️ จำลอง: แอปไม่ได้อัดหรือตรวจเสียงของคุณ — ฟังตัวอย่างแล้วพูดตาม แล้วกดนับและประเมินตัวเอง</div><div class="stage" id="stage" style="padding:8px 0 130px"></div>`,unmount(){stopAudio();clearTimeout(cd)},
+ return {title:'ชาโดว์อิ้ง',noRefresh:true,body:`<div class="large">ชาโดว์อิ้ง</div><div class="cap" style="padding:0 20px">${lnoTxt(Ls)} · ${Ls.th}</div><div class="cap" style="padding:2px 20px 0">🎙️ จำลอง: แอปไม่ได้อัดหรือตรวจเสียงของคุณ — ฟังตัวอย่างแล้วพูดตาม แล้วกดนับและประเมินตัวเอง</div><div class="stage" id="stage" style="padding:8px 0 130px"></div>`,unmount(){stopAudio();clearTimeout(cd)},
  mount(el){const stage=$('#stage',el);
   function render(){const s=sents[i];rating=0;reps=0;
    stage.innerHTML=`<div class="cap center" style="margin-top:6px">ประโยค ${i+1} / ${sents.length}</div><div class="prog" style="margin:8px 40px 0"><i style="width:${i/sents.length*100}%"></i></div>
@@ -129,7 +129,7 @@ SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const 
    lbPlay(s.full,rate,dur=>{ring.classList.remove('listen');msg.textContent='ถึงตาคุณ!';ring.style.setProperty('--d',Math.max(1.6,dur*1.5+.8)+'s');ring.classList.remove('go');void ring.offsetWidth;ring.classList.add('go');cd=setTimeout(()=>{ring.classList.remove('go');msg.textContent='พูดตามแล้วกด +1'},(Math.max(1.6,dur*1.5+.8))*1000)})}
   function finish(){const day=today(),L=lab().shadow;const prev=L[Ls.id];L[Ls.id]={n:(prev?prev.n:0)+1,day,good};const again=prev&&prev.day===day;
    const cap=Math.min(allReps,sents.length*GOAL);let coins=Math.round(cap*.8),xp=Math.round(cap*1.2);if(again){coins=Math.round(coins/2);xp=Math.round(xp/2)}
-   lbEnd('shadow',{xp,coins,title:'พูดตามจบแล้ว!',shareText:`ฉันฝึกพูดตามบทที่ ${Ls.id} จบแล้ว`,mascot:good>=sents.length/2?'celebrate':'cheer',sub:`บทที่ ${Ls.id} · ${sents.length} ประโยค`,stats:[['รอบที่พูดตามทั้งหมด',allReps],['ประเมินตัวเองว่า “ชัดแล้ว”',good+'/'+sents.length],['หมายเหตุ','คะแนนมาจากการประเมินตัวเอง']],back:'x'})}
+   lbEnd('shadow',{xp,coins,title:'พูดตามจบแล้ว!',shareText:`ฉันฝึกพูดตาม${lnoTxt(Ls)} จบแล้ว`,mascot:good>=sents.length/2?'celebrate':'cheer',sub:`${lnoTxt(Ls)} · ${sents.length} ประโยค`,stats:[['รอบที่พูดตามทั้งหมด',allReps],['ประเมินตัวเองว่า “ชัดแล้ว”',good+'/'+sents.length],['หมายเหตุ','คะแนนมาจากการประเมินตัวเอง']],back:'x'})}
   el.addEventListener('click',e=>{const t=e.target.closest('button');if(!t||!stage.contains(t))return;
    if(t.dataset.v){view=+t.dataset.v;paint();return}
    if(t.dataset.p){play(t.dataset.p==='slow'?.65:1);return}

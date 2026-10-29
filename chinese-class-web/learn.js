@@ -17,6 +17,7 @@ const LET='ABCD';
 function makeQ(w,type,pool){const p=pool.length>=4?pool:ALLW;const others=shuffle(p.filter(x=>x.zh!==w.zh&&x.th!==w.th)).slice(0,3);const opts=shuffle([w,...others]);
  return {w,type,opts,ans:opts.findIndex(o=>o.zh===w.zh)}}
 function qHtml(q){const w=q.w;let top='',fmt;
+ if(q.html)return q.html;
  if(q.pic)return picQHtml(q);
  if(q.top){return `<div class="center">${q.top}</div><div class="group opts mt20" style="margin-top:22px">${q.optsHtml.map((o,i)=>`<button class="opt press" data-i="${i}"><span class="k">${LET[i]}</span><span>${o}</span></button>`).join('')}</div>`}
  if(q.type==='zh2th'){top=`<div class="cap" style="font-size:14px">คำนี้แปลว่าอะไร</div><div class="bigzh zh" style="font-size:${w.zh.length>2?64:88}px">${w.zh}</div><div style="font-size:26px;font-weight:500;margin-top:2px">${pyHtml(w.py)}</div>`;fmt=o=>o.th}
@@ -79,8 +80,8 @@ function cardHtml(w,n,t){const pc=picCard(w);const thH=`<div style="font-size:27
  <div class="zh" style="font-size:22px;line-height:1.35">${zhHtml(w.ex,w.exPy)}</div><div style="font-size:13.5px;margin-top:3px;font-weight:500">${pyHtml(w.exPy)}</div><div style="font-size:15.5px;margin-top:5px;color:var(--sub2)">${w.exTh}</div>
  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">${spkBtn(w.ex,'','ฟังประโยค')}<button class="cap press" data-sa="rep" data-z="${w.zh}">แจ้งข้อผิด</button></div></div>`}
 function storyHtml(L,u){const ch=CHAPTERS.find(c=>c.id===L.chapter);const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);
- return `<div class="center"><div class="cap" style="letter-spacing:1px">${ch.emoji} ตอน ${ch.id} · ${ch.th}</div><div style="width:230px;height:230px;margin:6px auto 0" class="pop">${M('story')}</div>
- <div class="large" style="padding:6px 0 0">บทที่ ${L.id} · ${L.th}</div><div class="zh" style="font-size:22px;margin-top:2px;color:var(--sub2)">${L.zh}</div></div>
+ return `<div class="center"><div class="cap" style="letter-spacing:1px">${ch.emoji} ${ch.id===1200?'':'ตอน '+(ch.ep||ch.id)+' · '}${ch.th}</div><div style="width:230px;height:230px;margin:6px auto 0" class="pop">${M('story')}</div>
+ <div class="large" style="padding:6px 0 0">${lnoTxt(L)} · ${L.th}</div><div class="zh" style="font-size:22px;margin-top:2px;color:var(--sub2)">${L.zh}</div></div>
  <div class="card pad2 mt16" style="font-size:16px;line-height:1.55">${L.story}</div>
  ${cm?`<div class="card mt12" style="padding:12px 16px;display:flex;align-items:center;gap:12px"><span class="sil">${cmImg(cm,false)}</span><span style="flex:1;font-size:14px;color:var(--sub2)">จบบทนี้แล้วจะได้เจอเพื่อนใหม่ <b style="color:var(--ink)">${isDone(L.id)||cmUnlocked(cm)?cm.n:'???'}</b></span></div>`:''}
  <p class="cap center mt12">รอบนี้ ${u.words.length} คำ · ประมาณ 3 นาที</p>`}
@@ -100,11 +101,12 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   if(s.k==='c'){cardN++;stage.innerHTML=cardHtml(s.w,cardN,nCards);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป</button>`;setTimeout(()=>speak(s.w.zh),400)}
   else if(s.k==='pflip'){stage.innerHTML=pflipHtml(s.ws);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป</button>`}
   else if(s.k==='story'){stage.innerHTML=storyHtml(s.L,s.u);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ลุยเลย!</button>`}
+  else if(s.k==='h'){stage.innerHTML=s.html;dock.innerHTML=`<button class="pill row1 press" data-sa="next"${s.lock?' disabled':''}>${s.btn||'ต่อไป'}</button>`;if(s.say)setTimeout(()=>speak(s.say),400);if(s.mount)s.mount(stage,dock)}
   else if(s.k==='dlg'){stage.innerHTML=dlgHtml(s.L);dock.innerHTML=`<button class="pill row1 press" data-sa="next">ต่อไป · ลองตอบเอง</button>`}
   else{const q=s.q;const tag=s.retry?'<div class="retag">ทวนข้อที่พลาด</div>':'';const m=`<div class="qm" id="qm">${M('think')}</div>`;
    if(q.type==='ord'){stage.innerHTML=tag+m+ordHtml(q);ordState=[];dock.innerHTML=`<button class="pill row1 press" data-sa="ordcheck" disabled>ตรวจคำตอบ</button>`}
    else if(q.type==='mat'){stage.innerHTML=tag+m+matHtml(q);matSel=null;matDone=0;matErr=0}
-   else{stage.innerHTML=tag+m+qHtml(q);const a=$('[data-auto]',stage);if(a)setTimeout(()=>speak(q.w.zh,a),350)}}
+   else{stage.innerHTML=tag+m+qHtml(q);const a=$('[data-auto]',stage);if(a)setTimeout(()=>speak(a.dataset.t||q.w.zh,a),350)}}
   stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');$('.scroller',el).scrollTop=0}
  let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log,reasked}),250)}else show()}
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
@@ -127,7 +129,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   $$('.chipw',op).forEach(b=>b.classList.toggle('used',ordState.includes(+b.dataset.ox)));const d=$('[data-sa=ordcheck]',dock);if(d)d.disabled=ordState.length!==q.s.zh.length}
  /* จับคู่ */
  let matSel=null,matDone=0,matErr=0;
- function matHtml(q){if(q.pics)return `<div class="center"><div class="cap" style="font-size:14px">จับคู่รูปกับคำจีน</div></div><div class="matg pmat"><div id="ml">${q.ps.map((w,k)=>`<button class="mcell pmc press" data-ml="${k}" aria-label="รูป ${k+1}">${art('word',w.zh,'','pic-m')}${picKin(w)}</button>`).join('')}</div><div id="mr">${q.right.map(k=>`<button class="mcell zh press" data-mr="${k}"><span style="font-size:24px">${q.ps[k].zh}</span><small>${pyPlain(q.ps[k].py)}</small></button>`).join('')}</div></div>`;
+ function matHtml(q){if(q.pics)return `<div class="center"><div class="cap" style="font-size:14px">จับคู่รูปกับคำจีน</div></div><div class="matg pmat"><div id="ml">${q.ps.map((w,k)=>`<button class="mcell pmc press" data-ml="${k}" aria-label="รูป ${k+1}">${window.l1Tile&&w.lv===1?l1Tile(w,'pic-m'):art('word',w.zh,'','pic-m')}${picKin(w)}</button>`).join('')}</div><div id="mr">${q.right.map(k=>`<button class="mcell zh press" data-mr="${k}"><span style="font-size:24px">${q.ps[k].zh}</span><small>${pyPlain(q.ps[k].py)}</small></button>`).join('')}</div></div>`;
  return `<div class="center"><div class="cap" style="font-size:14px">จับคู่คำจีนกับความหมาย</div></div><div class="matg"><div id="ml">${q.ps.map((w,k)=>`<button class="mcell zh press" data-ml="${k}"><span style="font-size:24px">${w.zh}</span><small>${pyPlain(w.py)}</small></button>`).join('')}</div><div id="mr">${q.right.map(k=>`<button class="mcell th press" data-mr="${k}"><span>${q.ps[k].th}</span></button>`).join('')}</div></div>`}
  function matTap(t){if(locked)return;const q=cur.q;
   if(t.dataset.ml!==undefined){if(t.classList.contains('ok'))return;$$('[data-ml]',stage).forEach(x=>x.classList.remove('sel'));t.classList.add('sel');matSel=t.dataset.ml;speak(q.ps[+matSel].zh)}
@@ -157,7 +159,7 @@ function finishUnit(u,res){const first=!unitDone(u.id);const ratio=res.correct/M
  replace('complete',{u,L,res,xp,coins,stars,first,newWords:first?u.words.length:0,streakNew:wasFirstToday,newCm,nu,evMul:eventXpNote()})}
 SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>({nav:'<header class="nav"></header>',noRefresh:true,
  body:`<div class="center" style="padding:calc(var(--st) + 24px) 20px 0"><div class="pop" style="width:240px;height:220px;margin:0 auto">${M(stars>=3?'levelup':'cheer')}</div>
- <div class="cap mt8">บทที่ ${L.id} · ${L.th} · รอบ ${u.part+1}/2</div><div class="large" style="padding:2px 0">${first?'จบรอบนี้แล้ว!':'ทบทวนเรียบร้อย!'}</div>
+ <div class="cap mt8">${uTxt(u)} · ${L.th}</div><div class="large" style="padding:2px 0">${first?(L.v3?(L.kind==='gate'?'ผ่านด่านทบทวนแล้ว':'จบบทนี้แล้ว'):'จบรอบนี้แล้ว!'):'ทบทวนเรียบร้อย!'}</div>${L.v3&&L.can?`<div class="cap" style="padding:0 24px">ทำได้แล้ว: ${L.can}</div>`:''}${L.v3&&window.l1DoneStrip?l1DoneStrip(L):''}
  <div style="font-size:34px;letter-spacing:6px;margin-top:4px">${[1,2,3].map(n=>`<span class="pop" style="display:inline-block;animation-delay:${.2+n*.15}s;filter:${n<=stars?'none':'grayscale(1) opacity(.3)'}">⭐</span>`).join('')}</div></div>
  ${newCm?`<div class="card cmreveal mt16 pop" style="animation-delay:.5s"><div class="cmimg">${cmImg(newCm)}</div><div style="flex:1"><div class="cap" style="color:${newCm.c};font-weight:700">เพื่อนใหม่ในห้อง!</div><b style="font-size:19px">${newCm.n}</b> <span class="zh">${newCm.zh}</span><div style="font-size:13.5px;color:var(--sub2);margin-top:3px">“${newCm.line}”</div></div></div>`:''}
  <div class="stat mt16 fade-in" style="animation-delay:.3s"><div><b style="color:var(--red)">+${xp}</b><small>XP</small></div><div><b style="color:#B07A12">+${coins}</b><small>เหรียญ</small></div><div><b>${res.correct}/${res.total}</b><small>ตอบถูก</small></div></div>
@@ -169,9 +171,9 @@ SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>
   ${res.wrong.length?ROW('#FDF3E6','📝',`ข้อที่พลาด ${res.wrong.length} ข้อ`,'เพิ่มในรายการทบทวนแล้ว',CHEV,'data-go="review"'):''}</div>
  <div class="pad mt16"><button class="pill sm linebtn row1 press" data-act="sharedone">ท้าเพื่อนใน LINE ด้วยผลนี้</button></div>
  <p class="cap center mt12"><span class="demo">ตัวอย่างทดลอง</span></p>`,
- extra:`<div class="dock">${nu&&first?`<button class="pill press" data-act="finishgo" data-to="next" data-u="${nu.id}"><b>เรียนรอบถัดไป</b><small>บทที่ ${nu.lesson} · รอบ ${nu.part+1}</small></button>`:`<button class="pill press" data-act="finishgo" data-to="games"><b>เล่นเกมคำใหม่</b><small>ใช้คำที่เพิ่งเรียนเก็บเหรียญ</small></button>`}<button class="pill sm ghost press mt12" data-act="finishgo" data-to="home">กลับหน้าหลัก</button></div>`,
+ extra:`<div class="dock">${nu&&first?`<button class="pill press" data-act="finishgo" data-to="next" data-u="${nu.id}"><b>${nu.v3?'เรียนบทถัดไป':'เรียนรอบถัดไป'}</b><small>${uTxt(nu)}</small></button>`:`<button class="pill press" data-act="finishgo" data-to="games"><b>เล่นเกมคำใหม่</b><small>ใช้คำที่เพิ่งเรียนเก็บเหรียญ</small></button>`}<button class="pill sm ghost press mt12" data-act="finishgo" data-to="home">กลับหน้าหลัก</button></div>`,
  mount(el){confetti(newCm?150:110);vib([20,30,20,30,40]);if(newCm)setTimeout(()=>speak(newCm.say,null,''),900);
-  const b=$('[data-act=sharedone]',el);if(b)b.onclick=()=>shareSheet('result',{kind:'unit',text:`จบ ${L.th} รอบ ${u.part+1} ได้ ${stars} ดาว`,stars,L,u,cm:newCm})}});
+  const b=$('[data-act=sharedone]',el);if(b)b.onclick=()=>shareSheet('result',{kind:'unit',text:`จบ ${L.th}${u.v3?'':' รอบ '+(u.part+1)} ได้ ${stars} ดาว`,stars,L,u,cm:newCm})}});
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
 
 /* ----- ทบทวน ----- */
@@ -190,6 +192,6 @@ function nodeHtml(u,cur){const done=unitDone(u.id),open=unitOpen(u.id),isCur=cur
 function cmNode(L){const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);if(!cm)return '';const on=cmUnlocked(cm);return `<button class="jn press" data-go="cm" data-id="${cm.id}"><div class="nd cmn ${on?'on':''}" style="${on?`border-color:${cm.c}`:''}">${cmImg(cm,on)}</div><small>${on?cm.n:'เพื่อนใหม่ ?'}</small></button>`}
 /* SC.path อยู่ใน levels.js (แผนที่ต่อระดับ HSK) */
 function unitSheet(id){const u=unitBy(id),L=lessonBy(u.lesson),done=unitDone(id),open=unitOpen(id);
- openSheet(`<div style="padding:0 20px"><div class="cap">บทที่ ${L.id} · รอบ ${u.part+1}/2</div><div style="font-size:24px;font-weight:700">${L.th} <span class="zh" style="font-weight:400">${L.zh}</span></div>
+ openSheet(`<div style="padding:0 20px"><div class="cap">${uTxt(u)}</div><div style="font-size:24px;font-weight:700">${L.th} <span class="zh" style="font-weight:400">${L.zh}</span></div>
  <div class="group mt12" style="margin:14px 0 0">${u.words.map(w=>`<div class="row noic" style="min-height:52px"><span class="tx"><b style="font-weight:500"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;<span style="font-size:13px">${pyHtml(w.py)}</span></b></span><span class="val">${open?w.th:'?'}</span>${open?stkBtn(w.zh,"mini"):""}</div>`).join('')}</div>
  ${open?`<button class="pill row1 press mt16" id="ls">${done?'เรียนทบทวนอีกครั้ง':'เริ่มเรียน'}</button>${done&&typeof SC.shrun==='function'?`<button class="pill sm ghost press mt12" data-go="shrun" data-l="${L.id}">🎧 ฝึกพูดตาม (ชาโดว์อิ้ง) บทนี้</button>`:''}`:`<div class="banner mt16" style="background:#F2ECE4;color:var(--sub2);text-align:center">เรียนรอบก่อนหน้าให้จบก่อน เพื่อปลดล็อกรอบนี้</div>`}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}

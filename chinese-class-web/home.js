@@ -14,7 +14,7 @@ function hmContinue(goal,xp){const nu=nextUnit(),n=curLv(),started=S.parts.lengt
  if(!nu)return `<div class="hm-cont end"><div style="padding:16px 14px 14px">${levelEndCta()}</div></div>`;
  const L=lessonBy(nu.lesson),ch=CHAPTERS.find(c=>c.id===L.chapter),us=UNITS.filter(u=>u.lesson===L.id),p=hmPct(nu);
  return `<div class="hm-cont"><span class="hm-wm zh" aria-hidden="true">${[...L.zh][0]}</span>
-  <div class="hm-ct">${hmRing(p)}<div class="hm-tx"><div class="k">${started?'เรียนต่อ':'เริ่มเรียน'} · ระดับ ${n}</div><b>${L.th}</b><div class="zz"><span class="zh">${L.zh}</span> · บทที่ ${L.id}</div><div class="zs">${ch?ch.th+' · ':''}รอบ ${nu.part+1} จาก ${us.length}</div></div></div>
+  <div class="hm-ct">${hmRing(p)}<div class="hm-tx"><div class="k">${started?'เรียนต่อ':'เริ่มเรียน'} · ระดับ ${n}</div><b>${L.th}</b><div class="zz"><span class="zh">${L.zh}</span> · ${lnoTxt(L)}</div><div class="zs">${ch?ch.th+' · ':''}${L.v3?'':'รอบ '+(nu.part+1)+' จาก '+us.length}</div></div></div>
   <button class="hm-go press" data-go="unit" data-id="${nu.id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>${started?'เรียนต่อ':'เริ่มเรียน'}</button>
   <div class="hm-xp"><span>เป้าวันนี้ ${Math.min(xp,999)}/${goal} XP</span><i><b style="width:${Math.min(100,xp/goal*100)}%"></b></i></div></div>`}
 function hmTiles(){const gw=gamesOpen()?gw4().length:0,rvw=reviewWords(),rv=rvw.length,rvp=rvw.find(w=>picHas(w));

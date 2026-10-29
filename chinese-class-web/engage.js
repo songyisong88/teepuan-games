@@ -104,7 +104,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
   <div style="margin-top:14px;font-size:15px;color:var(--sub2)">${xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งมาก! 🎉':xp>0?'อีกนิดเดียวก็ครบแล้ว':'เริ่มรอบแรกของวันนี้กันเลย'}</div>
   <div class="wk">${wk}</div>
   <button class="frz press" data-go="streak"><span>🔥 ${curStreak()} วัน</span><span>🧊 ${S.freezes}</span></button></div>
- <div class="pad mt20 fade-in" style="animation-delay:.16s">${nu?`<button class="pill press" data-go="unit" data-id="${nu.id}"><b>${S.parts.length?'เรียนต่อ':'เริ่มเรียน'}</b><small>${levelBy(curLv()).name} · บทที่ ${nu.lesson} · ${lessonBy(nu.lesson).th} · รอบ ${nu.part+1}</small></button>`:levelEndCta()}</div>
+ <div class="pad mt20 fade-in" style="animation-delay:.16s">${nu?`<button class="pill press" data-go="unit" data-id="${nu.id}"><b>${S.parts.length?'เรียนต่อ':'เริ่มเรียน'}</b><small>${levelBy(curLv()).name} · ${uTxt(nu).replace(/\/2$/,'')} · ${lessonBy(nu.lesson).th}</small></button>`:levelEndCta()}</div>
  ${typeof radHomeCard==='function'?'<div class="pad mt16">'+radHomeCard()+'</div>':''}
  ${typeof stkHomeCard==='function'?'<div class="pad mt16">'+stkHomeCard()+'</div>':''}
  ${missionsHtml()}

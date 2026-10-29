@@ -65,20 +65,43 @@ function build(name,params,root){const def=SC[name];if(!def)throw new Error('no 
 const anim=(el,k,o)=>el.animate(k,Object.assign({duration:430,easing:'cubic-bezier(.32,.72,0,1)',fill:'both'},o));
 function mountRoot(tab,fade=true){const names={home:'home',book:'path',rad:'rad',game:'games',rank:'rank',me:'me'};
  if(stack[0]){const sc=$('.scroller',stack[0].el);tabScroll[curTab]=sc?sc.scrollTop:0;}
- stack.forEach(s=>{try{s.r.unmount&&s.r.unmount()}catch(e){}});stack.forEach(s=>s.el.remove());stack=[];
+ stack.forEach(s=>{try{s.r.unmount&&s.r.unmount()}catch(e){}});stack.forEach(s=>s.el.remove());stack=[];$$('#stack>.screen').forEach(e=>e.remove());
  curTab=tab;const s=build(names[tab],{},true);$('#stack').appendChild(s.el);stack=[s];
- $('.scroller',s.el).scrollTop=tabScroll[tab]||0;if(fade)anim(s.el,[{opacity:.0},{opacity:1}],{duration:200,easing:'ease-out'});
+ $('.scroller',s.el).scrollTop=tabScroll[tab]||0;if(fade)anim(s.el,[{opacity:.0},{opacity:1}],{duration:200,easing:'ease-out',fill:'none'});
  $$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tab));s.r.mount&&s.r.mount(s.el);$('#tabbar').style.display='flex'}
-function push(name,params){const prev=stack[stack.length-1];const s=build(name,params,false);$('#stack').appendChild(s.el);stack.push(s);vib(6);
- anim(s.el,[{transform:'translateX(100%)'},{transform:'translateX(0)'}]);anim(prev.el,[{transform:'translateX(0)'},{transform:'translateX(-26%)'}]);
- s.r.mount&&s.r.mount(s.el);return s}
+/* ---- การเปลี่ยนหน้าแบบ iOS: สถานะมาจากตำแหน่งใน stack (class .under/.deep) + CSS transition เท่านั้น
+   ไม่ใช้ WAAPI fill:both ค้างบน element (สาเหตุเดิมของหน้าค้างเลื่อนซ้าย/ซ้อนทับเมื่อกดกลับถี่ ๆ) ---- */
+const NAV_MS=430;
+/* iOS Safari: scrollIntoView/focus เลื่อน overflow:hidden ของ #frame ได้ ทำให้ทั้งแอปเลื่อนซ้าย/ขวา → รีเซ็ตกลับ 0 เสมอ */
+(function(){const fix=()=>{const f=document.getElementById('frame');if(f&&(f.scrollLeft||f.scrollTop)){f.scrollLeft=0;f.scrollTop=0}const r=document.scrollingElement;if(r&&(r.scrollLeft||r.scrollTop)){r.scrollLeft=0;r.scrollTop=0}};
+ document.addEventListener('scroll',fix,{capture:true,passive:true});window.addEventListener('resize',fix);window.addEventListener('orientationchange',fix);
+ document.addEventListener('focusout',()=>setTimeout(fix,60),true)})();
+function syncStack(){stack.forEach((s,i)=>{const d=stack.length-1-i;s.el.classList.toggle('under',d===1);s.el.classList.toggle('deep',d>1);s.el.classList.remove('leaving');if(d>0){s.el.setAttribute('aria-hidden','true');s.el.inert=true}else{s.el.removeAttribute('aria-hidden');s.el.inert=false}});
+ $$('#stack>.screen').forEach(e=>{if(!stack.some(s=>s.el===e)&&!e.classList.contains('leaving'))e.remove()})}
+function leaveEl(el,tf){el.classList.add('leaving');el.inert=true;el.style.transition='';void el.offsetWidth;if(tf)el.style.transform=tf;let done=false;const rem=()=>{if(done)return;done=true;el.remove()};el.addEventListener('transitionend',e=>{if(e.target===el&&e.propertyName==='transform')rem()});setTimeout(rem,NAV_MS+140)}
+function push(name,params){const s=build(name,params,false);const el=s.el;el.style.transition='none';el.style.transform='translateX(100%)';$('#stack').appendChild(el);stack.push(s);vib(6);
+ void el.offsetWidth;el.style.transition='';el.style.transform='';syncStack();s.r.mount&&s.r.mount(el);return s}
 function pop(){if(stack.length<2)return;const top=stack.pop(),prev=stack[stack.length-1];try{top.r.unmount&&top.r.unmount()}catch(e){}
- const a=anim(top.el,[{transform:'translateX(0)'},{transform:'translateX(100%)'}]);anim(prev.el,[{transform:'translateX(-26%)'},{transform:'translateX(0)'}]);
- a.onfinish=()=>{top.el.remove();prev.el.getAnimations().forEach(x=>x.cancel());prev.el.style.transform=''};
+ leaveEl(top.el,'translateX(100%)');syncStack();
  if(prev.r.onShow)prev.r.onShow(prev.el);else refresh()}
-function replace(name,params){const old=stack.pop();try{old.r.unmount&&old.r.unmount()}catch(e){}const prev=stack[stack.length-1];const s=build(name,params,false);s.el.style.zIndex=11;$('#stack').appendChild(s.el);stack.push(s);
- anim(s.el,[{opacity:0,transform:'translateY(24px) scale(.98)'},{opacity:1,transform:'none'}],{duration:480});setTimeout(()=>old.el.remove(),300);s.r.mount&&s.r.mount(s.el);return s}
+function replace(name,params){const old=stack.pop();try{old.r.unmount&&old.r.unmount()}catch(e){}const s=build(name,params,false);s.el.style.zIndex=11;$('#stack').appendChild(s.el);stack.push(s);
+ anim(s.el,[{opacity:0,transform:'translateY(24px) scale(.98)'},{opacity:1,transform:'none'}],{duration:480,fill:'none'});leaveEl(old.el,'');syncStack();s.r.mount&&s.r.mount(s.el);return s}
 function popToRoot(){while(stack.length>2)stack.pop().el.remove();pop()}
+/* swipe-back จากขอบซ้าย: หน้าตามนิ้ว หน้าล่างขยับ parallax ปล่อยแล้วตัดสินด้วยระยะ/ความเร็ว */
+(function(){let g=null;const EDGE=26;
+ const frame=()=>document.getElementById('frame');
+ document.addEventListener('touchstart',e=>{g=null;if(stack.length<2||e.touches.length!==1)return;if(document.querySelector('#sheetLayer.on,.welcome,.onb'))return;if(!stack[stack.length-1].el.querySelector('[data-act=back]'))return;const fr=frame().getBoundingClientRect(),t=e.touches[0];if(t.clientX-fr.left>EDGE||t.clientX<fr.left)return;
+  g={x:t.clientX,y:t.clientY,t:Date.now(),w:fr.width,mode:null,dx:0,top:stack[stack.length-1],prev:stack[stack.length-2],lx:t.clientX,lt:Date.now(),v:0}},{passive:true,capture:true});
+ document.addEventListener('touchmove',e=>{if(!g)return;const t=e.touches[0],dx=t.clientX-g.x,dy=t.clientY-g.y;
+  if(!g.mode){if(Math.abs(dx)<7&&Math.abs(dy)<7)return;if(dx>0&&Math.abs(dx)>Math.abs(dy)*1.2){g.mode='x';g.top.el.style.transition='none';g.prev.el.style.transition='none'}else{g=null;return}}
+  e.preventDefault();const now=Date.now();if(now>g.lt){g.v=(t.clientX-g.lx)/(now-g.lt)}g.lx=t.clientX;g.lt=now;
+  const x=Math.max(0,dx),p=Math.min(1,x/g.w);g.dx=x;g.top.el.style.transform='translateX('+x+'px)';g.prev.el.style.transform='translateX('+(-26*(1-p))+'%)';g.prev.el.style.setProperty('--dim',(.1*(1-p)).toFixed(3))},{passive:false,capture:true});
+ const end=()=>{if(!g||g.mode!=='x'){g=null;return}const o=g;g=null;const p=o.dx/o.w,go=p>.4||(o.v>.45&&o.dx>24);
+  o.top.el.style.transition='';o.prev.el.style.transition='';void o.top.el.offsetWidth;
+  o.prev.el.style.transform='';o.prev.el.style.removeProperty('--dim');
+  if(go){vib(6);pop()}else{o.top.el.style.transform=''}};
+ document.addEventListener('touchend',end,{passive:true,capture:true});document.addEventListener('touchcancel',end,{passive:true,capture:true});
+ document.addEventListener('touchstart',()=>{},{passive:true})/* ให้ :active ทำงานบน iOS Safari ทันที */})();
 function refresh(){const t=stack[stack.length-1];if(!t||!SC[t.name]||t.r.noRefresh)return;const r=SC[t.name](t.params);const sc=$('.scroller',t.el);const y=sc.scrollTop;sc.style.scrollBehavior='auto';sc.innerHTML=r.body;sc.scrollTop=y;sc.style.scrollBehavior='';
  const n=$('.nav',t.el);if(n&&r.nav===undefined){const rt=$('.nav-r',n);if(rt)rt.innerHTML=r.right===undefined?(stack.length===1?chips():''):r.right}t.r=r;r.mount&&r.mount(t.el)}
 
@@ -86,10 +109,17 @@ function refresh(){const t=stack[stack.length-1];if(!t||!SC[t.name]||t.r.noRefre
 let sheetOpen=null;
 function openSheet(html,{onMount,onClose,title}={}){closeSheet(true);const L=$('#sheetLayer');L.innerHTML=`<div class="bd" data-act="closesheet"></div><div class="sheet"><div class="sh-head"><div class="grabber"></div>${title?`<div class="sh-t" style="padding-left:0">${title}</div>`:''}</div><div class="sh-body">${html}</div></div>`;
  L.classList.add('on');const sh=$('.sheet',L);requestAnimationFrame(()=>requestAnimationFrame(()=>sh.classList.add('show')));sheetOpen={onClose};vib(8);
- let y0=null,dy=0;const hd=$('.sh-head',sh);
- hd.addEventListener('pointerdown',e=>{y0=e.clientY;dy=0;sh.classList.add('drag');hd.setPointerCapture(e.pointerId)});
- hd.addEventListener('pointermove',e=>{if(y0===null)return;dy=Math.max(0,e.clientY-y0);sh.style.transform=`translateY(${dy}px)`});
- const up=()=>{if(y0===null)return;y0=null;sh.classList.remove('drag');sh.style.transform='';if(dy>90)closeSheet()};hd.addEventListener('pointerup',up);hd.addEventListener('pointercancel',up);
+ /* ลากลงเพื่อปิด: จับที่หัวชีท หรือที่เนื้อหาเมื่อเลื่อนอยู่บนสุด; ชีทตามนิ้ว พื้นหลังจางตาม; ปล่อยแล้วดูระยะ/ความเร็ว */
+ const bd=$('.bd',L);let y0=null,dy=0,t0=0,v=0,ly=0,lt=0,src=null,on=false;const body=$('.sh-body',sh);
+ const begin=(y,from)=>{y0=y;dy=0;v=0;ly=y;lt=Date.now();src=from;on=false};
+ const move=(y,e)=>{if(y0===null)return;const d=y-y0;if(!on){if(src==='body'){if(d<=6||body.scrollTop>0){if(body.scrollTop>0)y0=y;return}}on=true;sh.classList.add('drag');bd.style.transition='none'}
+  if(e&&e.cancelable)e.preventDefault();const now=Date.now();if(now>lt)v=(y-ly)/(now-lt);ly=y;lt=now;dy=Math.max(0,d)*(d>0?1:0);sh.style.transform='translateY('+dy+'px)';bd.style.opacity=Math.max(0,1-dy/Math.max(sh.offsetHeight,1)).toFixed(3)};
+ const up=()=>{if(y0===null)return;const was=on;y0=null;on=false;if(!was)return;sh.classList.remove('drag');bd.style.transition='';const close=dy>Math.min(120,sh.offsetHeight*.3)||(v>.5&&dy>20);sh.style.transform='';bd.style.opacity='';if(close)closeSheet()};
+ const hd=$('.sh-head',sh);
+ hd.addEventListener('pointerdown',e=>{begin(e.clientY,'head');on=true;sh.classList.add('drag');bd.style.transition='none';try{hd.setPointerCapture(e.pointerId)}catch(_){}});
+ hd.addEventListener('pointermove',e=>move(e.clientY,e));hd.addEventListener('pointerup',up);hd.addEventListener('pointercancel',up);
+ body.addEventListener('touchstart',e=>{if(e.touches.length===1)begin(e.touches[0].clientY,'body')},{passive:true});
+ body.addEventListener('touchmove',e=>move(e.touches[0].clientY,e),{passive:false});body.addEventListener('touchend',up,{passive:true});body.addEventListener('touchcancel',up,{passive:true});
  onMount&&onMount(sh);return sh}
 function closeSheet(instant){const L=$('#sheetLayer');if(!sheetOpen&&!L.classList.contains('on'))return;const sh=$('.sheet',L);const cb=sheetOpen&&sheetOpen.onClose;sheetOpen=null;
  if(instant||!sh){L.classList.remove('on');L.innerHTML='';}else{sh.classList.remove('show');L.classList.remove('on');setTimeout(()=>{if(!L.classList.contains('on'))L.innerHTML=''},520)}cb&&cb()}

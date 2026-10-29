@@ -40,7 +40,7 @@ SC.backup=()=>{const m=bkMeta(),has=!!localStorage.getItem('lama-undo-import');
  <input type="file" id="bkfile" accept=".json,application/json" style="display:none">
  <div class="sec">รหัสสำรอง (ข้อความ)</div>
  <div class="card pad2" style="margin:0 20px 12px"><div style="font-size:14px;color:var(--sub2);line-height:1.5;margin-bottom:8px">คัดลอกรหัสไปวางในโน้ต/แชตของตัวเอง แล้ววางที่เครื่องใหม่ · รหัสยาวหลายร้อยตัวอักษร ใครได้รหัสก็เห็นความก้าวหน้าของคุณ เก็บไว้เป็นส่วนตัว</div>
-  <textarea id="bkcode" rows="4" spellcheck="false" autocomplete="off" aria-label="รหัสสำรอง" placeholder="กด “สร้างรหัส” หรือวางรหัสที่ขึ้นต้นด้วย LAMA1: ที่นี่" style="width:100%;box-sizing:border-box;border:1px solid var(--line,#ddd);border-radius:12px;padding:10px;font:12px/1.4 ui-monospace,monospace;resize:vertical"></textarea>
+  <textarea id="bkcode" rows="4" spellcheck="false" autocomplete="off" aria-label="รหัสสำรอง" placeholder="กด “สร้างรหัส” หรือวางรหัสที่ขึ้นต้นด้วย LAMA1: ที่นี่" style="width:100%;box-sizing:border-box;border:1px solid var(--line,#ddd);border-radius:12px;padding:10px;font:16px/1.4 ui-monospace,monospace;resize:vertical"></textarea>
   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="pill sm ghost press" id="bkgen" style="flex:1;min-width:110px">สร้างรหัส</button><button class="pill sm ghost press" id="bkcopy" style="flex:1;min-width:110px">คัดลอก</button><button class="pill sm press" id="bkuse" style="flex:1;min-width:110px">นำเข้าจากรหัส</button></div>
   <div class="cap" id="bkmsg" role="status" style="margin-top:8px;min-height:18px"></div></div>
  <div class="sec">แผนในอนาคต (ยังไม่ได้ทำ)</div>

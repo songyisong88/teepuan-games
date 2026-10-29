@@ -16,7 +16,7 @@ SC.games=()=>{const gw=gw4(),lock=!gamesOpen(),b=S.gameBest;
  ${G('listen','#EAF1FB','<span style="width:50px;height:50px;display:block">'+M('listening')+'</span>','ฝึกฟัง','ฟังเสียงแล้วเลือกความหมาย')}
  <div class="sec">รางวัลและร้านค้า</div>
  <div class="group">
-  ${ROW('#FDF3E6','🎁','หีบและวงล้อประจำวัน',S.chestDay===today()?'รับแล้ว':'พร้อมเปิด!',undefined,'data-go="chest"')}
+  ${ROW('#FDF3E6','🎁','หีบและวงล้อประจำวัน',S.chestDay===today()?'รับแล้ว':'พร้อมเปิด',undefined,'data-go="chest"')}
   ${ROW('#FDECEC','🛍️','ร้านค้าเหรียญ','แต่งตัว'+MASCOT_NAME,`<span class="chip coin">${S.coins}</span>`,'data-go="shop"')}
   ${ROW('#EAF1FB','🏆','ลีกประจำสัปดาห์','ดูอันดับของคุณ',undefined,'data-go="rank"')}
  </div><p class="cap center" style="padding:16px 30px 0">คำในเกมมาจากบทที่เรียนจบแล้วเท่านั้น · ข้อที่พลาดจะไปอยู่ในรายการทบทวน</p>${DEMO}`}};
@@ -77,8 +77,8 @@ SC.duel=(p)=>{const f=(p&&p.f)||FRIENDS[0];return ({noRefresh:true,nav:gnav('ด
    if(ok){me++;vib(10)}else{addMistake(q.w);vib([25,30,25])}$('#ys',el).textContent=me;i++;$('#yp',el).style.width=i/5*100+'%';
    setTimeout(()=>{if(i>=5)fin();else show()},650)};
   function fin(){alive=false;clearInterval(ft);const futureF=fr+Math.round((5-fd)*p);const win=me>futureF||(me===futureF&&fd<5);if(win)S.duelWins++;let xp=evX(win?20:8),coins=evC(win?25:5);if(win&&evOn('duelday'))coins+=30;addXp(xp,null,1);addCoins(coins,1);bumpCnt('game',1);bumpCnt('social',1);save();
-   replace('result',{title:win?'คุณชนะ!':'แพ้นิดเดียว',mascot:win?'celebrate':'wrong',sub:`คุณ ${me} - ${futureF} ${f.n}`,xp,coins,stats:[['คุณ',me+'/5'],[f.n,futureF+'/5']],retry:null,share:{kind:win?'win':'lose',text:`ฉัน ${me}-${futureF} ${f.n}`,f}})}
-  stage.innerHTML=`<div class="center pop" style="padding-top:6px"><div style="width:210px;height:210px;margin:0 auto">${M('duel')}</div><div class="large" style="padding:0">คุณ VS ${f.n}</div><p class="cap mt8">เตรียมตัว! 5 ข้อ ตอบให้เร็วและถูก</p></div>`;setTimeout(()=>{if(alive)show()},1400);this.stop=()=>{alive=false;clearInterval(ft)}},unmount(){this.stop&&this.stop()}})};
+   replace('result',{title:win?'คุณชนะ':'แพ้นิดเดียว',mascot:win?'celebrate':'wrong',sub:`คุณ ${me} - ${futureF} ${f.n}`,xp,coins,stats:[['คุณ',me+'/5'],[f.n,futureF+'/5']],retry:null,share:{kind:win?'win':'lose',text:`ฉัน ${me}-${futureF} ${f.n}`,f}})}
+  stage.innerHTML=`<div class="center pop" style="padding-top:6px"><div style="width:210px;height:210px;margin:0 auto">${M('duel')}</div><div class="large" style="padding:0">คุณ VS ${f.n}</div><p class="cap mt8">เตรียมตัว 5 ข้อ ตอบให้เร็วและถูก</p></div>`;setTimeout(()=>{if(alive)show()},1400);this.stop=()=>{alive=false;clearInterval(ft)}},unmount(){this.stop&&this.stop()}})};
 
 /* ----- ผลลัพธ์ (ใช้ร่วม) ----- */
 SC.result=p=>({nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="center" style="padding:calc(var(--st) + 30px) 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M(p.mascot||'celebrate')}</div>
@@ -105,7 +105,7 @@ SC.chest=()=>({title:'ของรางวัลประจำวัน',noRef
    if(done)$$('.chestb',cb).forEach(b=>b.style.opacity=.5);
    $$('.chestb',cb).forEach(b=>b.onclick=()=>{if(S.chestDay===today()){toast('วันนี้เปิดไปแล้ว กลับมาใหม่พรุ่งนี้');return}S.chestDay=today();const r=pickOne([{c:15},{c:25},{c:40},{c:60},{x:15}]);const others=shuffle([{c:15},{c:25},{x:10},{c:40}]);prize(r);vib([20,40,20]);
     $$('.chestb',cb).forEach((x,i)=>{const mine=x===b;const pr=mine?r:others.pop();x.querySelector('span').textContent=mine?'✨':'📦';x.querySelector('small').textContent=pr.c?'🪙 '+pr.c:'⭐ '+pr.x+' XP';x.style.opacity=mine?1:.55;if(mine){x.style.transform='scale(1.08)';x.style.borderColor='#E8B64A'}});
-    floatXp(r.c?'+'+r.c+' 🪙':'+'+r.x+' XP',b);confetti(60);toast(r.c?`ได้เหรียญ ${r.c} เหรียญ!`:`ได้ XP โบนัส ${r.x}!`)})}
+    floatXp(r.c?'+'+r.c+' 🪙':'+'+r.x+' XP',b);confetti(60);toast(r.c?`ได้เหรียญ ${r.c} เหรียญ`:`ได้ XP โบนัส ${r.x}!`)})}
   function wheel(){const done=S.spinDay===today();const seg=360/6;
    cb.innerHTML=`<div class="center" style="padding-top:22px"><div class="wheel"><div style="position:absolute;left:50%;top:-10px;margin-left:-12px;z-index:3;font-size:26px;color:var(--red);line-height:1">▼</div>
    <div id="wh" style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(#FBF1EC 0 60deg,#fff 60deg 120deg,#FBF1EC 120deg 180deg,#fff 180deg 240deg,#FFE9B8 240deg 300deg,#fff 300deg 360deg);box-shadow:0 8px 30px rgba(60,40,30,.15),inset 0 0 0 4px #27211E;transition:transform 4s cubic-bezier(.12,.7,.15,1)">${WHEEL.map((w,i)=>`<div style="position:absolute;left:50%;top:50%;transform:rotate(${i*seg+seg/2}deg) translateY(-82px) translateX(-50%);transform-origin:0 0;font-size:14px;font-weight:700;width:70px;text-align:center;margin-left:0">${w[0]}</div>`).join('')}</div>
@@ -121,5 +121,5 @@ SC.shop=()=>({title:'ร้านค้าเหรียญ',body:`<div class="
  <div class="shopgrid mt16">${SHOP.map(it=>{const own=S.own.includes(it.id),on=S.eq[it.slot]===it.id;return `<div class="si"><div class="e">${it.e}</div><b>${it.n}</b><small>${it.slot==='hat'?'หัว':'ใบหน้า'}</small><button class="pill press ${on?'ghost':own?'dark':''}" data-buy="${it.id}">${on?'ถอดออก':own?'ใส่':it.p+' 🪙 ซื้อ'}</button></div>`}).join('')}</div>
  <p class="cap center" style="padding:18px 30px 0">ของแต่งตัวเป็นแค่ลูกเล่นหน้าตา ใช้เหรียญที่ได้จากบทเรียนและเกมเท่านั้น</p>${DEMO}`,
  mount(el){$$('[data-buy]',el).forEach(b=>b.onclick=()=>{const it=SHOP.find(s=>s.id===b.dataset.buy);
-  if(!S.own.includes(it.id)){if(S.coins<it.p){vib([30,40,30]);toast('เหรียญไม่พอ ไปเก็บจากบทเรียนและเกมก่อนนะ');return}S.coins-=it.p;S.own.push(it.id);S.eq[it.slot]=it.id;toast('ซื้อ '+it.n+' แล้ว!');confetti(40)}
+  if(!S.own.includes(it.id)){if(S.coins<it.p){vib([30,40,30]);toast('เหรียญไม่พอ ไปเก็บจากบทเรียนและเกมก่อนนะ');return}S.coins-=it.p;S.own.push(it.id);S.eq[it.slot]=it.id;toast('ซื้อ '+it.n+' แล้ว');confetti(40)}
   else S.eq[it.slot]=S.eq[it.slot]===it.id?null:it.id;save();vib(12);refresh();bumpChips()})}});

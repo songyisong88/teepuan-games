@@ -42,5 +42,5 @@ GOX.weekly=()=>{const th=wkTheme(),{q,ts,all,st}=wkState(),n=st.filter(Boolean).
   <p class="cap center" style="padding:10px 28px 4px">คำนวณจากการเรียนในเครื่องนี้ · สัปดาห์เริ่มวันจันทร์ · ไม่มีเซิร์ฟเวอร์จริง</p>`,
   {onMount:sh=>{sh.addEventListener('click',e=>{const b=e.target.closest('[data-sa]');if(!b||b.disabled)return;
    if(b.dataset.sa==='wms'){const k=+b.dataset.n,m=STAMPS.find(x=>x[0]===k);if(!wq().mg.includes(k)){wq().mg.push(k);m[2]();save();bumpChips();vib(15);toast('รับรางวัลแสตมป์ '+k+' วัน '+m[1]);closeSheet(true);setTimeout(GOX.weekly,350);refresh()}}
-   if(b.dataset.sa==='wchest'){const q=wq();if(q.got)return;q.got=true;S.stickers.push(th.em);addXp(CHEST.xp,null,1);addCoins(CHEST.coins,true);save();bumpChips();vib([20,30,20]);confetti(70);toast('เปิดกล่องแล้ว! ได้สติกเกอร์ '+th.em);closeSheet(true);setTimeout(GOX.weekly,350);refresh()}})}})};
+   if(b.dataset.sa==='wchest'){const q=wq();if(q.got)return;q.got=true;S.stickers.push(th.em);addXp(CHEST.xp,null,1);addCoins(CHEST.coins,true);save();bumpChips();vib([20,30,20]);confetti(70);toast('เปิดกล่องแล้ว ได้สติกเกอร์ '+th.em);closeSheet(true);setTimeout(GOX.weekly,350);refresh()}})}})};
 })();

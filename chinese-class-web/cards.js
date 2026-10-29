@@ -24,23 +24,23 @@ async function renderCard(sp,theme){const TH=CARD_THEMES[theme]||CARD_THEMES.sof
  c.textAlign='left';c.fillStyle=TH.f;c.font=`500 24px ${F}`;c.textBaseline='alphabetic';c.fillText(BRAND_NAME+' · ตัวอย่างทดลอง',56,H-44);c.textAlign='right';c.fillText(LINK().replace(/^https?:\/\//,'').slice(0,34)+'…',W-56,H-44);c.restore();
  c.strokeStyle=TH.line;c.lineWidth=2;rr(c,1,1,W-2,H-2,56);c.stroke();return cv}
 function cardSpec(kind,d){d=d||{};const base={
- invite:{badge:'ชวนเพื่อน',title:'มาเรียนจีนด้วยกันนะ!',sub:`ใช้รหัส ${S.inviteCode} เพื่อนเข้าห้อง เราได้เหรียญทั้งคู่`,mascot:'wave',tint:'#FCEFEF',cta:'LINE',ctaTxt:'เข้าร่วม'},
- challenge:{badge:'คำท้า',title:'ท้าดวลศัพท์จีนกับฉัน!',sub:`ฉันสตรีค ${curStreak()} วันแล้ว ลองชนะฉันดูสิ`,mascot:'duel',tint:'#FDF3E6',stats:[[curStreak()+'','วันสตรีค'],[gameWords().length+'','คำที่เรียน']],cta:'LINE',ctaTxt:'รับคำท้า'},
- win:{badge:'ผลดวล',title:'ฉันชนะดวลศัพท์จีน!',sub:d.text||'',mascot:'celebrate',tint:'#E7F8EE',accent:'#2E8B57',cta:'LINE'},
- lose:{badge:'ผลดวล',title:'แพ้นิดเดียว ขอล้างตา!',sub:d.text||'',mascot:'wrong',tint:'#FDF3E6',cta:'LINE'},
+ invite:{badge:'ชวนเพื่อน',title:'มาเรียนจีนด้วยกันนะ',sub:`ใช้รหัส ${S.inviteCode} เพื่อนเข้าห้อง เราได้เหรียญทั้งคู่`,mascot:'wave',tint:'#FCEFEF',cta:'LINE',ctaTxt:'เข้าร่วม'},
+ challenge:{badge:'คำท้า',title:'ท้าดวลศัพท์จีนกับฉัน',sub:`ฉันสตรีค ${curStreak()} วันแล้ว ลองชนะฉันดูสิ`,mascot:'duel',tint:'#FDF3E6',stats:[[curStreak()+'','วันสตรีค'],[gameWords().length+'','คำที่เรียน']],cta:'LINE',ctaTxt:'รับคำท้า'},
+ win:{badge:'ผลดวล',title:'ฉันชนะดวลศัพท์จีน',sub:d.text||'',mascot:'celebrate',tint:'#E7F8EE',accent:'#2E8B57',cta:'LINE'},
+ lose:{badge:'ผลดวล',title:'แพ้นิดเดียว ขอล้างตา',sub:d.text||'',mascot:'wrong',tint:'#FDF3E6',cta:'LINE'},
  lab:{badge:'ห้องฝึกพิเศษ',title:d.text||'ฝึกจีนกับลามา',sub:d.sub||'',mascot:d.mascot||'celebrate',tint:'#E7F8EE',accent:'#2E8B57',cta:'LINE'},
  score:{badge:'ผลเกม',title:'ผลเกมศัพท์จีนของฉัน',sub:d.text||'',mascot:'trophy',tint:'#FCEFEF',cta:'LINE'},
- unit:{badge:'จบบทเรียน',title:d.text||'เรียนจบแล้ว!',sub:'วันนี้เรียนจีนไปอีกนิด สนุกกว่าที่คิด',mascot:'levelup',tint:'#EAF1FB',stats:[['⭐'.repeat(d.stars||1),'ดาวที่ได้'],[curStreak()+'','วันสตรีค']],cta:'LINE'},
- nudge:{badge:'ส่งกำลังใจ',title:`${d.to||'เพื่อน'} วันนี้เรียนหรือยัง?`,sub:d.msg||`สตรีคคู่ของเรา ${buddyStreak()} วันแล้ว อย่าให้ขาดนะ!`,mascot:'cheer',tint:'#F2ECFA',accent:'#7A4FB0',cta:'LINE'},
- streak:{badge:'สตรีค',title:`สตรีค ${curStreak()} วันแล้ว!`,sub:'เรียนทุกวันไม่ขาดเลย',mascot:'streak',tint:'#FDECEC',cta:'LINE'},
+ unit:{badge:'จบบทเรียน',title:d.text||'เรียนจบแล้ว',sub:'วันนี้เรียนจีนไปอีกนิด สนุกกว่าที่คิด',mascot:'levelup',tint:'#EAF1FB',stats:[['⭐'.repeat(d.stars||1),'ดาวที่ได้'],[curStreak()+'','วันสตรีค']],cta:'LINE'},
+ nudge:{badge:'ส่งกำลังใจ',title:`${d.to||'เพื่อน'} วันนี้เรียนหรือยัง?`,sub:d.msg||`สตรีคคู่ของเรา ${buddyStreak()} วันแล้ว อย่าให้ขาดนะ`,mascot:'cheer',tint:'#F2ECFA',accent:'#7A4FB0',cta:'LINE'},
+ streak:{badge:'สตรีค',title:`สตรีค ${curStreak()} วันแล้ว`,sub:'เรียนทุกวันไม่ขาดเลย',mascot:'streak',tint:'#FDECEC',cta:'LINE'},
  recap:d.recap,
  badge:{badge:'เหรียญตรา',title:d.b?d.b.em+' '+d.b.n:'เหรียญตราใหม่',sub:d.b?d.b.d:'',mascot:'trophy',tint:'#FDF3E6',stats:[[badgeN()+'/'+BADGES.length,'เหรียญที่ได้'],[titleNow(),'ฉายา']],cta:'LINE',ctaTxt:'ลองเล่นด้วยกัน'},
  strokes:{badge:'ลำดับขีด',title:d.text||'ฉันเขียนตัวจีนตามลำดับขีดได้แล้ว',sub:d.sub||'',mascot:'celebrate',tint:'#FCEFEF',stats:d.stats,glyph:d.glyph,cta:'LINE',ctaTxt:'ลองเขียนด้วยกัน'},
  radres:{badge:'อักษรข้าง',title:d.text||'ฉันเล่นเกมตัวข้างมา',sub:d.sub||'',mascot:'celebrate',tint:'#FDF3E6',accent:'#D9822B',stats:d.stats,cta:'LINE',ctaTxt:'ลองเล่น'},
  radcard:{badge:'การ์ดตัวข้าง',title:d.id&&RADI[d.id]?'ฉันได้การ์ด “'+RADI[d.id].card+'”':'การ์ดตัวข้าง',sub:d.id&&RADI[d.id]?'มาสะสมการ์ดตัวข้างกับลามะด้วยกัน (ชุดจำลอง)':'',mascot:d.id&&RADI[d.id]?RADI[d.id].pose:'wave',tint:'#FDF3E6',accent:'#D9822B',glyph:d.id?{rad:true,id:d.id}:null,cta:'LINE',ctaTxt:'สะสมด้วยกัน'},
- radchal:{badge:'คำท้า 60 วินาที',title:d.score?`ท้าตอบตัวข้าง! ฉันได้ ${d.score} ข้อ`:'ท้าตอบตัวข้างใน 60 วินาที',sub:d.sub||'ชนะฉันให้ได้ใน 60 วินาที',mascot:'duel',tint:'#EAF1FB',accent:'#3A64A8',stats:[[d.score||0,'คะแนนของฉัน'],['60','วินาที']],cta:'LINE',ctaTxt:'รับคำท้า'},
- classwar:{badge:'ห้องต่อห้อง',title:d.text||'มาแข่งห้องเรียนกัน!',sub:d.sub||'',mascot:'duel',tint:'#FDF3E6',stats:d.stats,cta:'LINE',ctaTxt:'เข้าห้อง'},
- cm:{badge:'เพื่อนใหม่ในห้อง',title:`ฉันได้เจอ${d.cm?d.cm.n:'เพื่อนใหม่'}แล้ว!`,sub:d.cm?`“${d.cm.line}”`:'',friend:d.cm&&d.cm.img,tint:'#E7F8EE',accent:d.cm&&d.cm.c,cta:'LINE'},
+ radchal:{badge:'คำท้า 60 วินาที',title:d.score?`ท้าตอบตัวข้าง ฉันได้ ${d.score} ข้อ`:'ท้าตอบตัวข้างใน 60 วินาที',sub:d.sub||'ชนะฉันให้ได้ใน 60 วินาที',mascot:'duel',tint:'#EAF1FB',accent:'#3A64A8',stats:[[d.score||0,'คะแนนของฉัน'],['60','วินาที']],cta:'LINE',ctaTxt:'รับคำท้า'},
+ classwar:{badge:'ห้องต่อห้อง',title:d.text||'มาแข่งห้องเรียนกัน',sub:d.sub||'',mascot:'duel',tint:'#FDF3E6',stats:d.stats,cta:'LINE',ctaTxt:'เข้าห้อง'},
+ cm:{badge:'เพื่อนใหม่ในห้อง',title:`ฉันได้เจอ${d.cm?d.cm.n:'เพื่อนใหม่'}แล้ว`,sub:d.cm?`“${d.cm.line}”`:'',friend:d.cm&&d.cm.img,tint:'#E7F8EE',accent:d.cm&&d.cm.c,cta:'LINE'},
  placement:{badge:'ทดสอบวัดระดับ',title:d.text||'ผลทดสอบของฉัน',sub:d.sub||'',mascot:d.mascot||'student',tint:'#EAF1FB',stats:d.stats,cta:'LINE'}}[kind]||{badge:BRAND_NAME,title:d.text||'เรียนจีนด้วยกัน',mascot:'wave',cta:'LINE'};
  base.ctaLabel=base.ctaTxt||({invite:'เข้าร่วม',challenge:'รับคำท้า'}[kind])||'ลองเล่นด้วยกัน';base.cta=base.cta==='LINE'?'LINE':base.cta;return base}
 async function cardBlob(cv){return new Promise(r=>cv.toBlob(r,'image/png'))}
@@ -62,7 +62,7 @@ function shareSheet(kind,data={}){const sp=cardSpec(kind==='result'?(data.kind||
   $('#ws',sh).onclick=async()=>{if(!blob){toast('รอสักครู่ กำลังสร้างการ์ด');return}const file=new File([blob],'lama-card.png',{type:'image/png'});const txt=`${sp.title} ${sp.sub||''}`.trim();
    try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],text:txt,url:LINK()});bumpCnt('social',1);return}if(navigator.share){await navigator.share({text:txt,url:LINK()});bumpCnt('social',1);return}}catch(e){if(e&&e.name==='AbortError')return}
    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lama-card.png';a.click();toast('เบราว์เซอร์นี้ไม่มีเมนูแชร์ · บันทึกรูปการ์ดให้แล้ว')};
-  b.onclick=()=>{const n=sel.size;closeSheet();vib([15,30,15]);bumpCnt('social',1);toast(`✓ ส่งแล้ว ${n} ห้อง (จำลอง)`);if(kind==='invite')inviteGain(n);if(kind==='nudge'&&S.buddy){S.buddy.nudgeDay=today();save();buddyTick();setTimeout(refresh,50)}}}})}
+  b.onclick=()=>{const n=sel.size;closeSheet();vib([15,30,15]);bumpCnt('social',1);toast(`ส่งแล้ว ${n} ห้อง (จำลอง)`);if(kind==='invite')inviteGain(n);if(kind==='nudge'&&S.buddy){S.buddy.nudgeDay=today();save();buddyTick();setTimeout(refresh,50)}}}})}
 /* รางวัลชวนเพื่อน (จำลอง: เพื่อนกดลิงก์แล้ว ได้เหรียญทั้งคู่) */
 const INV_MS=[[1,'ชวนครบ 1 คน','+50 🪙',s=>addCoins(50,true)],[3,'ชวนครบ 3 คน','+1 🧊 +100 🪙',s=>{S.freezes=Math.min(2,S.freezes+1);addCoins(100,true)}],[5,'ชวนครบ 5 คน','👑 มงกุฎทอง',s=>{if(!S.own.includes('crown'))S.own.push('crown')}]];
 function inviteGain(n){const before=S.invited;S.invited+=n;save();setTimeout(()=>{toast('มีเพื่อนกดลิงก์เข้ามาแล้ว (จำลอง)');INV_MS.forEach(m=>{if(before<m[0]&&S.invited>=m[0]&&!S.inviteGot.includes(m[0])){S.inviteGot.push(m[0]);m[3]();save();bumpChips();setTimeout(()=>{confetti(80);toast(`🎁 ${m[1]}: ${m[2]}`)},1800)}})},2400)}

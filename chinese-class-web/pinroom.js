@@ -215,7 +215,7 @@ SC.pinroom=()=>{const done=prDoneN(),rec=prRec();let rows='',zone='';
   rows+=`<div class="pr-row ${pos}"><button class="pr-nd ${st} press" data-go="pinlv" data-n="${l.n}" aria-label="ด่าน ${l.n} ${l.t}"><span class="n">${st==='ok'?'✓':l.n}</span><span class="t">${l.n===rec?'<span class="pr-rec">แนะนำ</span>':''}<b>${l.t}</b><small>${wk?'<span class="pr-wk">จากการเช็ก: ควรฝึก</span> · ':''}${l.n===rec?'เริ่มเลย · '+l.min+' นาที':l.s}</small></span></button></div>`});
  const bar=PR_LV.map(l=>`<i class="${prDone(l.n)?'ok':l.n===rec?'cur':''}"></i>`).join('');
  return {title:'ห้องพินอิน',body:`<div class="large">ห้องพินอิน</div><p class="cap" style="padding:0 24px;line-height:1.5">เริ่มจากศูนย์ ฟังและอ่านออกเสียงจีนได้ใน 12 ด่าน · ไม่ล็อก เปิดด่านไหนก่อนก็ได้</p>
-  <div class="pr-hero sm">${prImg('scene-welcome-gate','','wave')}</div><div class="pr-head"><div class="pm">${M('student')}</div><div><b>เรียนไปแล้ว ${done} จาก 12 ด่าน</b><small>${done>=12?'ครบแล้ว! ไปเรียนบทที่ 1 ได้เลย':'เหลือประมาณ '+prMinsLeft()+' นาที · ด่านละ 4–7 นาที'}</small></div></div>
+  <div class="pr-hero sm">${prImg('scene-welcome-gate','','wave')}</div><div class="pr-head"><div class="pm">${M('student')}</div><div><b>เรียนไปแล้ว ${done} จาก 12 ด่าน</b><small>${done>=12?'ครบแล้ว ไปเรียนบทที่ 1 ได้เลย':'เหลือประมาณ '+prMinsLeft()+' นาที · ด่านละ 4–7 นาที'}</small></div></div>
   <div class="pr-zbar">${bar}</div><div class="pr-zl">${Object.values(PR_ZONES).map(z=>`<span style="flex:${z[1].includes('1–6')?6:2}">${z[0]}</span>`).join('')}</div>
   ${prHonest}${prCheckCard()}${prReadBlock()}<div class="pr-path">${rows}</div>`,
   extra:rec?`<div class="dock"><button class="pill press" data-go="pinlv" data-n="${rec}"><b>ไปด่าน ${rec} · ${prLv(rec).t}</b><small>${prLv(rec).min} นาที</small></button></div>`:`<div class="dock"><button class="pill press" data-act="pinbook"><b>เริ่มบทที่ 1</b><small>ไปที่แท็บบทเรียน</small></button></div>`}};
@@ -246,7 +246,7 @@ SC.pinplay=({n,chk}={})=>{chk=chk&&chk!=='0';n=+n||1;
     $$('.pr-opt',stage).forEach(b=>b.onclick=()=>{if(locked)return;locked=true;const k=+b.dataset.k;const ok=q.k==='know'?k===q.ans:q.opts[k]===q.ans;
      $$('.pr-opt',stage).forEach((x,j)=>{x.disabled=true;const good=q.k==='know'?j===q.ans:q.opts[j]===q.ans;if(good)x.classList.add('ok');else if(j===k)x.classList.add('no')});
      if(ok){right++;vib(10);if(q.hit)note(q.hit)}else{vib([20,30,20]);if(q.lv)badLv.add(q.lv);(q.pair||[]).slice(0,1).forEach(p=>{const key=p.join(' ↔ ');weak[key]=(weak[key]||0)+1})}
-     $('#prfb',stage).innerHTML=`<div class="pr-fb ${ok?'ok':'no'}"><b>${ok?'ถูกต้อง!':'ยังไม่ใช่'}</b><br>${q.rev||''}</div>`;nextBtn(ok)})}
+     $('#prfb',stage).innerHTML=`<div class="pr-fb ${ok?'ok':'no'}"><b>${ok?'ถูกต้อง':'ยังไม่ใช่'}</b><br>${q.rev||''}</div>`;nextBtn(ok)})}
    function showBlend(q){const sel={i:null,f:null,t:null};const s=q.s;
     const nk=()=>!sel.i?'i':!sel.f?'f':!sel.t?'t':null;
     const tm=['ˉ','ˊ','ˇ','ˋ','·'];
@@ -262,7 +262,7 @@ SC.pinplay=({n,chk}={})=>{chk=chk&&chk!=='0';n=+n||1;
      dock.innerHTML=`<button class="pill press" id="prChk"><b>ตรวจคำตอบ</b></button>`;$('#prChk',dock).onclick=()=>{locked=true;const ok=sel.i===s.i&&sel.f===s.f&&sel.t===s.t;
       if(ok){right++;vib(10);note(s)}else{vib([20,30,20]);const k=(sel.i!==s.i?s.i+' ↔ '+sel.i:sel.f!==s.f?s.f+' ↔ '+sel.f:'เสียง'+s.t+' ↔ เสียง'+sel.t);weak[k]=(weak[k]||0)+1}
       $$('.pr-tile,.pr-slot',stage).forEach(b=>b.disabled=true);
-      $('#prfb',stage).innerHTML=`<div class="pr-fb ${ok?'ok':'no'}"><b>${ok?'ต่อเสียงถูก!':'ยังไม่ใช่'}</b><br>คำตอบ: <b>${s.i||'∅'}</b> + <b>${s.f}</b> + เสียง ${s.t} → ${q.rev}</div>`;nextBtn(ok)}}
+      $('#prfb',stage).innerHTML=`<div class="pr-fb ${ok?'ok':'no'}"><b>${ok?'ต่อเสียงถูก':'ยังไม่ใช่'}</b><br>คำตอบ: <b>${s.i||'∅'}</b> + <b>${s.f}</b> + เสียง ${s.t} → ${q.rev}</div>`;nextBtn(ok)}}
     draw();chk();setTimeout(()=>{const b=$('.pr-big',stage);if(b&&!locked)speak(q.say,b)},250)}
    function finish(){stopAudio();if(chk){const st=prSt();const wl=[...badLv].sort((a,b)=>a-b);st.check={right,total:qs.length,weakLv:wl,at:Date.now()};addXp(10+right*2);save();replace('pinchk',{right,total:qs.length,weakLv:JSON.stringify(wl)});return}
    const first=!prDone(n),acc=right/qs.length;const st=prSt();
@@ -272,7 +272,7 @@ SC.pinplay=({n,chk}={})=>{chk=chk&&chk!=='0';n=+n||1;
 SC.pinres=p=>{const n=+p.n,right=+p.right,total=+p.total,pass=p.pass===true||p.pass==='true';const weak=JSON.parse(p.weak||'[]');const rec=prRec();
  const rdNew=pass?(()=>{const before=new Set(prReadable(n).map(w=>w.zh));return prReadable().filter(w=>!before.has(w.zh))})():[];const heard=[...(p.heard||'')].map(c=>PR_SY.find(s=>s.c===c)).filter(Boolean);
  setTimeout(()=>{if(pass)confetti(n===12?120:70)},300);
- return {nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="pr-res"><div class="pm">${prImg(pass?(n===12?'scene-reward-trophy':'scene-stage-clear'):'scene-try-again','',pass?'cheer':'think')}</div><div class="large" style="padding:6px 0 0">${pass?'ผ่านด่าน '+n+' แล้ว!':'เกือบแล้ว!'}</div><p class="cap">ตอบถูก ${right} จาก ${total} ข้อ${pass?'':' · ต้องถูก 60% ขึ้นไปจึงจะนับว่าผ่าน'}</p>
+ return {nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="pr-res"><div class="pm">${prImg(pass?(n===12?'scene-reward-trophy':'scene-stage-clear'):'scene-try-again','',pass?'cheer':'think')}</div><div class="large" style="padding:6px 0 0">${pass?'ผ่านด่าน '+n+' แล้ว':'เกือบแล้ว'}</div><p class="cap">ตอบถูก ${right} จาก ${total} ข้อ${pass?'':' · ต้องถูก 60% ขึ้นไปจึงจะนับว่าผ่าน'}</p>
   <div class="pr-stats"><div><b>+${p.xp}</b><small>XP</small></div><div><b>${+p.coins>0?'+'+p.coins:'—'}</b><small>${+p.coins>0?'เหรียญ':'เหรียญ (รอบแรกที่ผ่าน)'}</small></div><div><b>${prDoneN()}/12</b><small>ด่านที่ผ่าน</small></div></div>
   ${heard.length?`<div class="cap" style="text-align:left;margin-top:16px;font-size:13px">คำที่ตอบถูกในด่านนี้ — แตะเพื่อฟัง</div><div class="pr-chips">${heard.map(s=>`<button class="pr-chip press" data-act="audio" data-t="${s.c}"><span class="z zh">${s.c}</span><small>${pyHtml(s.py)}</small></button>`).join('')}</div>`:''}
   ${rdNew.length?`<div class="pr-card" style="margin:14px 0 0;text-align:left"><h3>อ่านคำนี้ออกแล้ว +${rdNew.length} คำ</h3><p>คำจากบทเรียนระดับ 1 ที่ตอนนี้ต้นเสียงและสระครบแล้ว — แตะเพื่อฟัง</p>${prReadChips(rdNew,6)}</div>`:''}${weak.length?`<div class="pr-callout" style="text-align:left;margin-top:14px"><span>🎯</span><span><b>ยังพลาดบ่อย:</b> ${weak.map(w=>w[0]).join(' · ')} — ลองฟังอีกรอบ</span></div>`:''}</div>`,

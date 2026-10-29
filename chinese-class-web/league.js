@@ -34,7 +34,7 @@ function leagueRoll(){if(!S.lg)S.lg={tier:0,wk:-1};const cw=wkIdx();
  const T=LG_TIERS[nt];
  openSheet(`<div class="center" style="padding:0 24px"><div class="pop" style="width:170px;height:170px;margin:0 auto">${M(out==='up'?'celebrate':out==='down'?'tired':'correct')}</div>
   <div class="cap" style="font-weight:700;color:var(--red)">ผลลีกสัปดาห์ที่แล้ว (จำลอง)</div>
-  <div class="h2">${out==='up'?'เลื่อนขึ้น! '+T.e+' ลีก'+T.n:out==='down'?'ตกมาที่ '+T.e+' ลีก'+T.n:'อยู่ต่อที่ '+T.e+' ลีก'+T.n}</div>
+  <div class="h2">${out==='up'?'เลื่อนขึ้น '+T.e+' ลีก'+T.n:out==='down'?'ตกมาที่ '+T.e+' ลีก'+T.n:'อยู่ต่อที่ '+T.e+' ลีก'+T.n}</div>
   <p style="color:var(--sub2);margin:6px 0 4px;font-size:15px">คุณได้อันดับ ${pos} จาก ${n} ด้วย ${meXp} XP${meXp<=0?' (ไม่ได้เรียนเลยทั้งสัปดาห์)':''}</p>
   <p style="font-size:14.5px;font-weight:600;margin:0 0 14px">${coins?'รางวัล +'+coins+' 🪙':'สัปดาห์นี้เก็บ XP ให้ติด 5 อันดับแรก ก็กลับขึ้นได้'}</p>
   <button class="pill sm press" data-act="closesheet">เริ่มสัปดาห์ใหม่</button><p class="cap mt12"><span class="demo">ตัวอย่างทดลอง</span> คู่แข่งเป็นข้อมูลสมมติ</p></div>`,{onClose:()=>{if(out==='up')confetti(80);refresh()}});

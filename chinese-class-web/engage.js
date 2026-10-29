@@ -17,11 +17,11 @@ function missionClaim(id){const ms=misState();if(ms.got.includes(id))return;ms.g
 
 /* ----- กิจกรรมประจำวัน (สุ่มตามวัน เปิดแล้วจึงมีผล) ----- */
 const EVENTS=[
- {id:'lantern',em:'🏮',n:'วันโคมไฟ',d:'XP ทุกอย่างที่ได้วันนี้ ×2',pose:'lantern',say:'โคมไฟสว่างแล้ว! เรียนวันนี้ได้ XP สองเท่า'},
+ {id:'lantern',em:'🏮',n:'วันโคมไฟ',d:'XP ทุกอย่างที่ได้วันนี้ ×2',pose:'lantern',say:'โคมไฟสว่างแล้ว เรียนวันนี้ได้ XP สองเท่า'},
  {id:'tea',em:'🍵',n:'วันจิบน้ำชา',d:'เหรียญที่ได้วันนี้ ×1.5',pose:'tea',say:'จิบชาก่อนเรียน วันนี้ได้เหรียญเพิ่มครึ่งหนึ่ง'},
- {id:'visit',em:'🎁',n:'เพื่อนแวะมาเยี่ยม',d:'เพื่อนร่วมห้องฝากของมาให้',pose:'gift',say:'มีของฝากจากเพื่อนมาถึงแล้ว!',claim:1},
- {id:'mystery',em:'❓',n:'กล่องปริศนา',d:'เปิดดูว่าวันนี้ได้อะไร (20–60 เหรียญ)',pose:'shock',say:'เอ๊ะ! มีกล่องแปลก ๆ วางอยู่หน้าห้อง',claim:1},
- {id:'duelday',em:'⚔️',n:'วันประลอง',d:'ชนะดวลเพื่อนวันนี้ รับโบนัส +30 เหรียญ',pose:'duel',say:'วันนี้ฟ้าสวย เหมาะกับการประลอง!'},
+ {id:'visit',em:'🎁',n:'เพื่อนแวะมาเยี่ยม',d:'เพื่อนร่วมห้องฝากของมาให้',pose:'gift',say:'มีของฝากจากเพื่อนมาถึงแล้ว',claim:1},
+ {id:'mystery',em:'❓',n:'กล่องปริศนา',d:'เปิดดูว่าวันนี้ได้อะไร (20–60 เหรียญ)',pose:'shock',say:'เอ๊ะ มีกล่องแปลก ๆ วางอยู่หน้าห้อง',claim:1},
+ {id:'duelday',em:'⚔️',n:'วันประลอง',d:'ชนะดวลเพื่อนวันนี้ รับโบนัส +30 เหรียญ',pose:'duel',say:'วันนี้ฟ้าสวย เหมาะกับการประลอง'},
  {id:'plum',em:'🌸',n:'วันดอกบ๊วย',d:'ดอกบ๊วยบานแล้ว รับตั๋วกันสตรีคฟรี 1 ใบ',pose:'plum',say:'ดอกบ๊วยบานกลางฤดูหนาว เหมือนคนที่ไม่ยอมแพ้',claim:1},
  {id:'easy',em:'🌤️',n:'วันสบาย ๆ',d:'เป้าหมายวันนี้ลดเหลือ 10 XP',pose:'tea',say:'วันนี้ไม่ต้องหักโหม เป้าหมายเบา ๆ ก็พอ'}];
 const evToday=()=>EVENTS[today()%EVENTS.length];
@@ -31,14 +31,14 @@ const evC=n=>evOn('tea')?Math.round(n*1.5):n;
 const goalNow=()=>evOn('easy')?Math.min(10,S.goal):S.goal;
 const eventXpNote=()=>evOn('lantern')?'วันโคมไฟ: XP คูณสองรวมในผลนี้แล้ว':evOn('tea')?'วันจิบน้ำชา: เหรียญคูณ 1.5 รวมในผลนี้แล้ว':'';
 function eventCard(){const e=evToday(),open=S.evDay===today();
- return `<button class="card evcard press fade-in" data-go="event" style="animation-delay:.04s"><span class="eimg">${M(open?e.pose:'gift')}</span><span class="etx">${open?`<span class="cap" style="color:var(--red);font-weight:700">กิจกรรมวันนี้</span><b>${e.em} ${e.n}</b><small>${e.d}${e.claim&&S.evGot!==today()?' · <u>แตะรับ</u>':''}</small>`:`<span class="cap" style="color:var(--red);font-weight:700">เซอร์ไพรส์ประจำวัน</span><b>มีของพิเศษรออยู่!</b><small>แตะเพื่อเปิดดูว่าวันนี้เป็นวันอะไร</small>`}</span></button>`}
+ return `<button class="card evcard press fade-in" data-go="event" style="animation-delay:.04s"><span class="eimg">${M(open?e.pose:'gift')}</span><span class="etx">${open?`<span class="cap" style="color:var(--red);font-weight:700">กิจกรรมวันนี้</span><b>${e.em} ${e.n}</b><small>${e.d}${e.claim&&S.evGot!==today()?' · <u>แตะรับ</u>':''}</small>`:`<span class="cap" style="color:var(--red);font-weight:700">เซอร์ไพรส์ประจำวัน</span><b>มีของพิเศษรออยู่</b><small>แตะเพื่อเปิดดูว่าวันนี้เป็นวันอะไร</small>`}</span></button>`}
 function eventOpen(){const e=evToday();S.evDay=today();save();
  const can=e.claim&&S.evGot!==today();
  openSheet(`<div class="center" style="padding:0 24px"><div class="pop" style="width:170px;height:170px;margin:0 auto">${M(e.pose)}</div><div class="cap" style="color:var(--red);font-weight:700">กิจกรรมวันนี้</div><div class="h2">${e.em} ${e.n}</div><p style="color:var(--sub2);margin:6px 0 4px;font-size:15px">“${e.say}”</p><p style="font-size:15px;font-weight:600;margin:0 0 16px">${e.d}</p>
   ${can?`<button class="pill sm press" id="ev">${e.id==='visit'?'รับของฝาก':e.id==='plum'?'เก็บดอกบ๊วย':'เปิดกล่อง'}</button>`:`<button class="pill sm press" data-act="closesheet">เริ่มเรียนเลย</button>`}<p class="cap mt12">กิจกรรมเปลี่ยนทุกวัน — กลับมาดูพรุ่งนี้ว่าจะเป็นอะไร</p></div>`,
   {onMount:sh=>{const b=$('#ev',sh);if(b)b.onclick=()=>{let c=e.id==='visit'?25:e.id==='plum'?15:20+(Math.random()*41|0);if(e.id==='plum')S.freezes=Math.min(2,S.freezes+1);S.evGot=today();addCoins(c,true);save();vib([20,30,20]);confetti(60);
     const cm=CLASSMATES.filter(cmUnlocked);const from=cm.length?cm[Math.random()*cm.length|0]:null;
-    $('.center',sh).innerHTML=`<div class="pop" style="width:150px;height:150px;margin:0 auto">${from&&e.id==='visit'?`<img src="assets/friends/${from.img}.webp" style="width:100%;height:100%;object-fit:contain" alt="">`:M('celebrate')}</div><div class="h2 mt8">+${c} เหรียญ${e.id==='plum'?' + ตั๋วกันสตรีค 1 ใบ':''}</div><p style="color:var(--sub2);font-size:15px;margin:6px 0 16px">${e.id==='visit'?(from?`${from.n}ฝากเหรียญมาให้ “สู้ ๆ นะ!”`:'เพื่อนในห้องฝากเหรียญมาให้'):'โชคดีจังเลย!'}</p><button class="pill sm press" data-act="closesheet">ขอบคุณ!</button>`;refresh()}}});refresh()}
+    $('.center',sh).innerHTML=`<div class="pop" style="width:150px;height:150px;margin:0 auto">${from&&e.id==='visit'?`<img src="assets/friends/${from.img}.webp" style="width:100%;height:100%;object-fit:contain" alt="">`:M('celebrate')}</div><div class="h2 mt8">+${c} เหรียญ${e.id==='plum'?' + ตั๋วกันสตรีค 1 ใบ':''}</div><p style="color:var(--sub2);font-size:15px;margin:6px 0 16px">${e.id==='visit'?(from?`${from.n}ฝากเหรียญมาให้ “สู้ ๆ นะ”`:'เพื่อนในห้องฝากเหรียญมาให้'):'โชคดีจังเลย'}</p><button class="pill sm press" data-act="closesheet">ขอบคุณ</button>`;refresh()}}});refresh()}
 
 /* ----- สตรีค: ตั๋วกันสตรีค · ขาด · กลับมา ----- */
 function freezeBuy(){if(S.freezes>=2){toast('ถือตั๋วกันสตรีคได้สูงสุด 2 ใบ');return}if(S.coins<40){toast('เหรียญไม่พอ (ต้องใช้ 40)');return}S.coins-=40;S.freezes++;save();bumpChips();vib([15,30]);toast('ได้ตั๋วกันสตรีคเพิ่ม 1 ใบ');streakSheet()}
@@ -50,7 +50,7 @@ function streakSheet(){const b=S.buddy;
 function dailyCheck(){const t=today();try{leagueRoll()}catch(er){console.error(er)}
  if(S.streak>=1&&S.lastDay>-90&&S.lastDay<t-1){const m=t-1-S.lastDay;
   if(m<=2&&S.freezes>=m&&S.freezeUsed!==t){S.freezes-=m;S.lastDay=t-1;S.freezeUsed=t;save();
-   return setTimeout(()=>openSheet(`<div class="center" style="padding:0 24px"><div style="width:150px;height:150px;margin:0 auto">${M('tea')}</div><div class="h2 mt8">ตั๋วกันสตรีคช่วยไว้</div><p style="color:var(--sub2);margin:6px 0 16px;font-size:15px">วันที่ผ่านมาไม่ได้เรียน แต่ใช้ตั๋ว ${m} ใบ สตรีค ${S.streak} วันจึงยังอยู่ เหลือตั๋ว ${S.freezes} ใบ — วันนี้เรียนสักนิดนะ</p><button class="pill sm press" data-act="closesheet">ได้เลย!</button></div>`),700)}
+   return setTimeout(()=>openSheet(`<div class="center" style="padding:0 24px"><div style="width:150px;height:150px;margin:0 auto">${M('tea')}</div><div class="h2 mt8">ตั๋วกันสตรีคช่วยไว้</div><p style="color:var(--sub2);margin:6px 0 16px;font-size:15px">วันที่ผ่านมาไม่ได้เรียน แต่ใช้ตั๋ว ${m} ใบ สตรีค ${S.streak} วันจึงยังอยู่ เหลือตั๋ว ${S.freezes} ใบ — วันนี้เรียนสักนิดนะ</p><button class="pill sm press" data-act="closesheet">ได้เลย</button></div>`),700)}
   if(S.lostShown!==t)return setTimeout(lostSheet,700)}
  comebackIf()}
 const checkStreakLost=dailyCheck;
@@ -60,7 +60,7 @@ function lostSheet(){if($('.sheet'))return;S.lostShown=today();save();const lost
   {onMount:sh=>{$('#rs',sh).onclick=()=>{if(S.invited>=3)S.invited-=3;else S.coins-=50;S.lastDay=today()-1;save();closeSheet();bumpChips();toast('กู้สตรีคกลับมาแล้ว');refresh()};$('#nw',sh).onclick=()=>{S.streak=0;save();closeSheet();refresh();setTimeout(comebackIf,500)}}})}
 function comebackIf(){const t=today();if(S.lastDay>-90&&t-S.lastDay>=3&&S.comebackDay<S.lastDay&&(S.streak===0||S.lastDay<t-1)&&!$('.sheet')&&S.parts.length){
  if(S.streak>=2&&S.lastDay<t-1)return;S.comebackDay=t;S.coins+=30;S.freezes=Math.min(2,S.freezes+1);save();bumpChips();
- setTimeout(()=>openSheet(`<div class="center" style="padding:0 24px"><div class="pop" style="width:170px;height:170px;margin:0 auto">${M('tired')}</div><div class="h2 mt8">คิดถึงจังเลย!</div><p style="color:var(--sub2);margin:6px 0 12px;font-size:15px">หายไป ${t-S.lastDay} วัน ${MASCOT_NAME}รอมาตลอด เลยเตรียมของขวัญต้อนรับกลับมาให้</p>
+ setTimeout(()=>openSheet(`<div class="center" style="padding:0 24px"><div class="pop" style="width:170px;height:170px;margin:0 auto">${M('tired')}</div><div class="h2 mt8">คิดถึงจังเลย</div><p style="color:var(--sub2);margin:6px 0 12px;font-size:15px">หายไป ${t-S.lastDay} วัน ${MASCOT_NAME}รอมาตลอด เลยเตรียมของขวัญต้อนรับกลับมาให้</p>
   <div class="card" style="padding:12px 16px;display:flex;justify-content:space-around"><span><b style="font-size:20px;color:#B07A12">+30</b><br><small class="cap">เหรียญ</small></span><span><b style="font-size:20px">+1 🧊</b><br><small class="cap">ตั๋วกันสตรีค</small></span></div><p class="cap mt8">ทบทวนข้อผิดสัก 1 รอบก่อน แล้วค่อยเรียนต่อก็ได้</p><button class="pill sm press mt12" data-act="closesheet">กลับมาเรียนกันเถอะ</button></div>`,{onClose:()=>refresh()}),600)}}
 
 /* ----- บัดดี้สตรีค (เพื่อนจำลอง) ----- */
@@ -69,7 +69,7 @@ const buddyDone=d=>{const b=S.buddy;if(!b)return false;return d===today()&&b.nud
 const buddyStreak=()=>{const b=S.buddy;return b&&b.last>=today()-1?b.streak:0};
 const buddyInfo=()=>FRIENDS[S.buddy.n];
 function buddyTick(){const b=S.buddy;if(!b)return;const t=today();if(dayXp()<=0||b.last===t||!buddyDone(t))return;b.streak=b.last===t-1?b.streak+1:1;b.last=t;save();
- if(b.streak>1||b.since===t)setTimeout(()=>{toast(`สตรีคบัดดี้กับ${FRIENDS[b.n].n} ${b.streak} วัน!`);if([3,7,14,30].includes(b.streak))confetti(80)},900)}
+ if(b.streak>1||b.since===t)setTimeout(()=>{toast(`สตรีคบัดดี้กับ${FRIENDS[b.n].n} ${b.streak} วัน`);if([3,7,14,30].includes(b.streak))confetti(80)},900)}
 function buddyDoneRow(){const b=S.buddy;if(!b)return ROW('#F2ECFA','🤝','ชวนเพื่อนเป็นบัดดี้สตรีค','เรียนด้วยกันทุกวัน สตรีคเพิ่มเป็นสองเท่าแรงใจ',CHEV,'data-go="buddy"');
  const f=FRIENDS[b.n],ok=buddyDone(today());return ROW('#F2ECFA','🤝',`บัดดี้สตรีค ${buddyStreak()} วัน`,ok?`${f.n}เรียนวันนี้แล้ว ✓ ครบทั้งคู่`:`รอ${f.n}อยู่ · แตะเพื่อส่งกำลังใจ`,CHEV,'data-go="buddy"')}
 function buddyCard(){const b=S.buddy;if(!b)return `<button class="card buddycard press fade-in" data-go="buddy"><span class="bimg">${M('buddy')}</span><span class="btx"><span class="cap" style="color:#7A4FB0;font-weight:700">ใหม่ · บัดดี้สตรีค</span><b>ชวนเพื่อนมาเรียนคู่กัน</b><small>ถ้าคนใดคนหนึ่งขาด สตรีคของทั้งคู่หลุด… เลยต้องคอยเตือนกัน</small></span></button>`;
@@ -77,7 +77,7 @@ function buddyCard(){const b=S.buddy;if(!b)return `<button class="card buddycard
  return `<button class="card buddycard press fade-in" data-go="buddy"><span class="bpair"><span class="av" style="background:var(--red)">${dn()[0]||'ฉ'}${me?'<i class="tk">✓</i>':''}</span><span class="bfl">🔥</span><span class="av" style="background:${f.c}">${f.n.replace(/^(พี่|น้อง)/,'')[0]}${fr?'<i class="tk">✓</i>':''}</span></span><span class="btx"><b>บัดดี้สตรีค ${buddyStreak()} วัน</b><small>${me&&fr?'วันนี้ครบทั้งคู่แล้ว':!me?'วันนี้คุณยังไม่ได้เรียน — ' +f.n+(fr?'เรียนไปแล้วนะ':'ก็ยังรออยู่'):`รอ${f.n}อยู่ · แตะเพื่อส่งกำลังใจ`}</small></span></button>`}
 SC.buddy=()=>{const b=S.buddy;
  if(!b)return {title:'บัดดี้สตรีค',body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:220px;height:220px;margin:0 auto">${M('buddy')}</div><div class="large" style="padding:0">บัดดี้สตรีค</div><p style="color:var(--sub2);font-size:15.5px;margin:6px 10px 0">เลือกเพื่อนหนึ่งคนเป็นคู่หู — ต้อง <b>เรียนทั้งคู่ในวันเดียวกัน</b> สตรีคคู่ถึงจะเพิ่ม ใครลืมก็ส่งกำลังใจกระตุ้นกันได้ผ่าน LINE</p></div>
-  <div class="card pad2 mt16" style="font-size:14px;line-height:1.55"><b>ทำไมถึงติด?</b><br>· ไม่อยากเป็นคนทำให้เพื่อนสตรีคขาด<br>· เพื่อนทักมาเตือน ดีกว่าแอปเตือนเอง<br>· สตรีคคู่ครบ 3 / 7 / 14 / 30 วัน มีรางวัล</div>
+  <div class="card pad2 mt16" style="font-size:14px;line-height:1.55"><b>ข้อดีของบัดดี้</b><br>· ช่วยกันรักษาสตรีคของทั้งสองคน<br>· เพื่อนเป็นผู้เตือนแทนการแจ้งเตือนจากแอป<br>· สตรีคคู่ครบ 3 / 7 / 14 / 30 วัน รับรางวัล</div>
   <div class="pad mt16"><button class="pill row1 linebtn press" data-go="buddypick">เลือกเพื่อนจาก LINE (จำลอง)</button></div>
   <div class="banner mt16" style="background:#FDF3E6;color:#8A5A12">จริงหรือจำลอง? ใน LINE จริง แอปดูรายชื่อเพื่อนไม่ได้ ต้องส่งลิงก์ชวนให้เพื่อนกดรับเอง · ในหน้านี้เพื่อนและการเรียนของเพื่อนเป็นข้อมูลจำลอง</div>`};
  const f=FRIENDS[b.n],me=dayXp()>0,fr=buddyDone(today()),nud=b.nudgeDay===today();
@@ -94,7 +94,7 @@ SC.buddy=()=>{const b=S.buddy;
 SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goal),C=2*Math.PI*90,t=today(),hr=new Date().getHours();
  const wk=Array.from({length:7},(_,k)=>{const d=t-6+k;return `<div>${['อา','จ','อ','พ','พฤ','ศ','ส'][(d+4)%7]}<i class="${dayXp(d)>0?'on':''} ${d===t?'today':''}">${dayXp(d)>0?'✓':''}</i></div>`}).join('');
  const gw=gamesOpen()?gw4().length:0,cdone=S.chestDay===t;const pose=xp>=goal?'celebrate':!S.parts.length?'wave':hr>=22||hr<5?'sleepy':curStreak()>=3?'jump':'wave';
- const hello=!S.parts.length?(lvDriven()?`เริ่มที่ระดับ ${curLv()} · บทแรกของระดับนี้รออยู่`:'เริ่มด้วยบทแรก ใช้เวลาแค่ 3 นาที'):xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งที่สุด!':curStreak()>=3?`สตรีค ${curStreak()} วันแล้ว อย่าให้ขาดนะ!`:`${MASCOT_NAME}พาเรียนวันนี้`;
+ const hello=!S.parts.length?(lvDriven()?`เริ่มที่ระดับ ${curLv()} · บทแรกของระดับนี้รออยู่`:'เริ่มด้วยบทแรก ใช้เวลาแค่ 3 นาที'):xp>=goal?'ครบเป้าหมายวันนี้แล้ว เก่งที่สุด':curStreak()>=3?`สตรีค ${curStreak()} วันแล้ว อย่าให้ขาดนะ`:`${MASCOT_NAME}พาเรียนวันนี้`;
  return {title:BRAND_NAME,body:`${S.from==='line'?'<div class="banner fade-in" style="margin-top:2px">✓ เปิดจาก LINE OA (จำลอง) · เข้าสู่ระบบให้แล้ว</div>':''}
  <div class="hero"><div><div class="cap">${dateTxt()}</div><div class="large" style="padding:2px 0 0">สวัสดี, ${S.name}</div><div class="cap" style="margin-top:2px;max-width:200px">${hello}</div></div>${llama(pose,112,{acc:true,cls:'float',style:'margin-bottom:-4px'})}</div>
  <div class="pad mt12">${typeof stkHomeSearch==='function'?stkHomeSearch():''}</div>
@@ -114,7 +114,7 @@ SC.home=()=>{const nu=nextUnit(),goal=goalNow(),xp=dayXp(),pct=Math.min(1,xp/goa
  <div class="group">
   ${ROW('#E7F8EE',M('teach'),'ถามน้องลามา (ติวเตอร์จำลอง)','อธิบายคำ · ซ้อมคุย · แก้ประโยค',undefined,'data-go="tutor"')}
   ${ROW('#EAF1FB','🎮','เกมคำศัพท์',gw?gw+' คำพร้อมเล่น':'เรียนรอบแรกให้จบเพื่อปลดล็อก',undefined,'data-go="games"')}
-  ${ROW('#FDF3E6','🎁','หีบประจำวัน',cdone?'รับแล้ววันนี้ กลับมาใหม่พรุ่งนี้':'พร้อมเปิด! รับเหรียญฟรี',cdone?CHEV:'<span class="chip" style="height:26px;padding:0 10px;font-size:12px">เปิด</span>','data-go="chest"')}
+  ${ROW('#FDF3E6','🎁','หีบประจำวัน',cdone?'รับแล้ววันนี้ กลับมาใหม่พรุ่งนี้':'พร้อมเปิด รับเหรียญฟรี',cdone?CHEV:'<span class="chip" style="height:26px;padding:0 10px;font-size:12px">เปิด</span>','data-go="chest"')}
   ${ROW('#FBEFEA','📝','ทบทวนตามรอบ',reviewWords().length+' คำถึงรอบ',undefined,'data-go="review"')}
   ${ROW('#FDECEC',M('speaking'),'ฝึกพูด','พูดตาม'+MASCOT_NAME+' (คะแนนจำลอง)',undefined,'data-go="play" data-g="speak"')}
   ${ROW('#EAF1FB',M('listening'),'ฝึกฟัง','ฟังแล้วเลือกความหมาย',undefined,'data-go="play" data-g="listen"')}

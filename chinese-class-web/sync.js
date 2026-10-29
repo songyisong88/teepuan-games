@@ -133,7 +133,7 @@ function askConsent(){return new Promise(res=>{injectCss();const fr=document.get
 async function doLogin(){
  if(!await askConsent())return;
  hideBanner();meta.consent=Date.now();saveMeta();
- await ensureSession(true);await pullMerge();try{toast('เชื่อมกับ LINE แล้ว ความคืบหน้าถูกเก็บในบัญชี ✓')}catch(x){}}
+ await ensureSession(true);await pullMerge();try{toast('เชื่อมกับ LINE แล้ว ความคืบหน้าถูกเก็บในบัญชี')}catch(x){}}
 
 /* ชวนล็อกอินแบบไม่รบกวน: หลังเรียนจบตามจำนวนที่ตั้ง · ไม่เกิน 3 ครั้ง · ห่างกันอย่างน้อย 3 วัน · ไม่ทับหน้าต่างอื่น */
 function maybePrompt(){const n=C.PROMPT_AFTER_UNITS;if(!n||meta.linked||st.busy)return;const s=getS();if(!s||(s.parts||[]).length<n)return;

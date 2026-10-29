@@ -56,7 +56,7 @@ function badgeCheck(){if(!S.badges)S.badges={};const fresh=[];
   openSheet(`<div class="center" style="padding:0 24px"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(b.big?'trophy':'celebrate')}</div>
    <div class="cap" style="color:var(--red);font-weight:700">ได้เหรียญตราใหม่${fresh.length>1?` (+อีก ${fresh.length-1})`:''}</div>
    <div class="h2">${b.em} ${b.n}</div><p style="color:var(--sub2);margin:6px 0 4px;font-size:15px">${b.d}</p><p style="font-size:15px;font-weight:600;margin:0 0 14px">รางวัล +${b.big?25:10} 🪙</p>
-   <div style="display:flex;gap:10px;justify-content:center"><button class="pill sm ghost press" id="bsh" style="flex:1">แชร์ลง LINE</button><button class="pill sm press" data-act="closesheet" style="flex:1">เยี่ยม!</button></div></div>`,
+   <div style="display:flex;gap:10px;justify-content:center"><button class="pill sm ghost press" id="bsh" style="flex:1">แชร์ลง LINE</button><button class="pill sm press" data-act="closesheet" style="flex:1">เยี่ยม</button></div></div>`,
    {onMount:sh=>{$('#bsh',sh).onclick=()=>{closeSheet(true);shareSheet('badge',{b})}},onClose:()=>{confetti(60);refresh()}})}
  else toast(`ได้เหรียญตรา: ${fresh[0].n}${fresh.length>1?` และอีก ${fresh.length-1}`:''}`)}
 let _bt=0;function badgeSoon(){clearTimeout(_bt);_bt=setTimeout(()=>{try{badgeCheck()}catch(e){console.error(e)}},1500)}
@@ -64,12 +64,12 @@ function badgeTile(b){const got=badgeGot(b.id),[c,g]=b.t(),p=Math.min(1,c/g);
  return `<button class="bdg press ${got?'on':''}" data-go="badge" data-id="${b.id}" aria-label="${b.n} ${got?'ได้แล้ว':'ยังไม่ได้ '+Math.min(c,g)+'/'+g}"><span class="be">${b.em}</span><b>${b.n}</b>${got?'<small>ได้แล้ว ✓</small>':`<span class="prog" style="height:4px;margin:6px 8px 0"><i style="width:${p*100}%"></i></span><small>${Math.min(c,g)}/${g}</small>`}</button>`}
 SC.badges=()=>{const nx=titleNext(),n=learnedCount();
  return {title:'เหรียญตรา',body:`<div class="large">เหรียญตรา</div><p class="cap" style="padding:2px 20px 0">ได้แล้ว ${badgeN()}/${BADGES.length} เหรียญ · ปลดล็อกจากสิ่งที่คุณทำจริง</p>
- <div class="card pad2 mt12" style="display:flex;gap:14px;align-items:center"><div style="width:84px;height:84px;flex:none">${M('student')}</div><div style="flex:1"><div class="cap">ฉายาของคุณตอนนี้</div><b style="font-size:19px">${titleNow()}</b>${nx?`<div class="prog mt8"><i style="width:${Math.min(100,n/nx[0]*100)}%"></i></div><div class="cap mt8">อีก ${nx[0]-n} คำ ได้ฉายา “${nx[1]}”</div>`:'<div class="cap mt8">ฉายาสูงสุดแล้ว!</div>'}</div></div>
+ <div class="card pad2 mt12" style="display:flex;gap:14px;align-items:center"><div style="width:84px;height:84px;flex:none">${M('student')}</div><div style="flex:1"><div class="cap">ฉายาของคุณตอนนี้</div><b style="font-size:19px">${titleNow()}</b>${nx?`<div class="prog mt8"><i style="width:${Math.min(100,n/nx[0]*100)}%"></i></div><div class="cap mt8">อีก ${nx[0]-n} คำ ได้ฉายา “${nx[1]}”</div>`:'<div class="cap mt8">ฉายาสูงสุดแล้ว</div>'}</div></div>
  ${BCATS.map(([k,t])=>`<div class="sec">${t}</div><div class="bdgrid">${BADGES.filter(b=>b.c===k).map(badgeTile).join('')}</div>`).join('')}
  <p class="cap center" style="padding:16px 30px 0">เหรียญตราเก็บในเครื่องนี้ (ตัวอย่างทดลอง) · เหรียญที่เกี่ยวกับเพื่อน/ลีก/ชวนเพื่อนใช้ข้อมูลจำลอง</p>`}};
 window.GOX=window.GOX||{};
 GOX.badges=()=>push('badges');
 GOX.badge=el=>{const b=badgeBy(el.dataset.id),got=badgeGot(b.id),[c,g]=b.t();
  openSheet(`<div class="center" style="padding:0 24px"><div style="font-size:64px;line-height:1;filter:${got?'none':'grayscale(1) opacity(.4)'}">${b.em}</div><div class="h2 mt8">${b.n}</div><p style="color:var(--sub2);margin:6px 0 10px;font-size:15px">${b.d}</p>
-  ${got?`<p style="font-weight:600;color:var(--ok);margin:0 0 14px">ได้แล้ว ✓</p><button class="pill sm ghost press" id="bsh">แชร์ลง LINE</button>`:`<div class="prog" style="margin:0 40px 8px"><i style="width:${Math.min(1,c/g)*100}%"></i></div><p class="cap">${Math.min(c,g)}/${g} · รางวัลเมื่อได้ +${b.big?25:10} 🪙</p><button class="pill sm press mt12" data-act="closesheet">สู้ต่อ!</button>`}</div>`,
+  ${got?`<p style="font-weight:600;color:var(--ok);margin:0 0 14px">ได้แล้ว ✓</p><button class="pill sm ghost press" id="bsh">แชร์ลง LINE</button>`:`<div class="prog" style="margin:0 40px 8px"><i style="width:${Math.min(1,c/g)*100}%"></i></div><p class="cap">${Math.min(c,g)}/${g} · รางวัลเมื่อได้ +${b.big?25:10} 🪙</p><button class="pill sm press mt12" data-act="closesheet">สู้ต่อ</button>`}</div>`,
   {onMount:sh=>{const s=$('#bsh',sh);if(s)s.onclick=()=>{closeSheet(true);shareSheet('badge',{b})}}})};

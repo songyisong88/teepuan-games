@@ -209,7 +209,7 @@ function stkHomeHtml(k,dw,dt){const chip=w=>`<button class="stk-chipw press zh" 
 async function stkOffline(b){const k=stkS();const cs=stkAppChars();const st=$('#stkoffs');if(b.dataset.busy)return;b.dataset.busy=1;let i=0,fail=0;const t0=Date.now();
  const worker=async()=>{while(i<cs.length){const c=cs[i++];const d=await stkLoad(c);if(d.err)fail++;if(st)st.textContent=Math.round(i/cs.length*100)+'%'}};
  await Promise.all([worker(),worker(),worker(),worker()]);b.dataset.busy='';
- if(fail)toast('โหลดไม่ครบ '+fail+' ตัว · ลองใหม่เมื่อออนไลน์');else{k.off=Date.now();save();toast('เก็บ '+cs.length+' ตัวไว้ในเครื่องแล้ว ✓')}if(st)st.textContent=fail?'':'✓'}
+ if(fail)toast('โหลดไม่ครบ '+fail+' ตัว · ลองใหม่เมื่อออนไลน์');else{k.off=Date.now();save();toast('เก็บ '+cs.length+' ตัวไว้ในเครื่องแล้ว')}if(st)st.textContent=fail?'':'✓'}
 Object.assign(window.GOX,{stkcredits(){push('stkcredits',{})}});
 SC.stkcredits=()=>({title:'ที่มาของข้อมูลลำดับขีด',body:`<div class="large">ที่มาและเครดิต</div>
  <div class="card pad2" style="margin:0 20px 12px;font-size:14.5px;line-height:1.55"><b>ลำดับขีด</b> ใช้ข้อมูลเปิดต่อไปนี้ — เราดัดแปลงรูปแบบไฟล์และเพิ่มข้อมูลของเราเอง จึงขอแจ้งไว้ชัดเจนตามสัญญาอนุญาตของแต่ละแหล่ง</div>
@@ -223,7 +223,7 @@ SC.stkcredits=()=>({title:'ที่มาของข้อมูลลำด�
 /* ================= ฝึกเขียนตามขีด ================= */
 let STK_HWP=null;
 function stkLoadHW(){return window.HanziWriter?Promise.resolve():STK_HWP||(STK_HWP=new Promise((res,rej)=>{const s=document.createElement('script');s.src='vendor/hanzi-writer.min.js';s.onload=res;s.onerror=()=>{STK_HWP=null;rej(new Error('hw'))};document.head.appendChild(s)}))}
-const STK_OK=['ขีดนี้สวยเลย!','ถูกต้อง!','เยี่ยม ต่อไปเลย','นิ้วนิ่งมาก!','ใช่เลย ลำดับถูกด้วย'],STK_BAD=['ลองใหม่อีกที เริ่มจากจุดแดงนะ','ใกล้แล้ว! ดูทิศทางลูกศร','ไม่เป็นไร ค่อยๆ ลาก','ลำดับขีดนี้สำคัญนะ ลองขีดอื่นดู'];
+const STK_OK=['ขีดนี้สวยเลย','ถูกต้อง','เยี่ยม ต่อไปเลย','นิ้วนิ่งมาก','ใช่เลย ลำดับถูกด้วย'],STK_BAD=['ลองใหม่อีกที เริ่มจากจุดแดงนะ','ใกล้แล้ว ดูทิศทางลูกศร','ไม่เป็นไร ค่อยๆ ลาก','ลำดับขีดนี้สำคัญนะ ลองขีดอื่นดู'];
 SC.strokeprac=(p)=>{const info=stkWord(p.w);const chars=info.cs;
  return {noRefresh:true,nav:`<header class="nav stk-vnav"><div class="nav-l"><button class="back" data-act="back">${BACKI}<span>ออก</span></button></div><div class="nav-t" style="opacity:1;transform:none">ฝึกเขียน <span class="zh">${p.only>=0?chars[p.only]:p.w}</span></div><div class="nav-r"><span class="stk-chip" id="pchip">…</span></div></header>`,
   body:`<div class="stk-pp" id="stkp"><div class="stk-sk" style="height:18px"></div><div class="stk-sk" style="height:72px;margin-top:12px"></div><div class="stk-sk" style="height:300px;margin-top:12px"></div></div><p class="rd-draft">ชื่อขีดและคำอธิบายภาษาไทยเป็นร่าง รอครูตรวจ</p>`,
@@ -268,24 +268,24 @@ function stkPractice(el,root,info,datas,idxs,p){const w=info.w;const k=stkS();le
   writer.cancelQuiz();mode==='guide'?writer.showOutline():writer.hideOutline();
   writer.quiz({quizStartStrokeNum:from,leniency:hard?.85:1.15,showHintAfterMisses:hard?false:3,highlightOnComplete:false,
    onCorrectStroke(r){if(!alive)return;sn=r.strokeNum+1;okc++;consec++;const t=stkTypeOf(d,r.strokeNum);pill(`✓ ขีดที่ ${r.strokeNum+1} · ${t?t[0]+' '+t[2]:''}`.trim());vib(10);
-    const last=sn>=d.strokes.length;pose(consec>=3?'cheer':'correct');bub(consec>=3?`ต่อเนื่อง ${consec} ขีดแล้ว!`:STK_OK[(okc+r.strokeNum)%STK_OK.length],last?'':'ขีดถัดไป · '+stN());ui()},
+    const last=sn>=d.strokes.length;pose(consec>=3?'cheer':'correct');bub(consec>=3?`ต่อเนื่อง ${consec} ขีดแล้ว`:STK_OK[(okc+r.strokeNum)%STK_OK.length],last?'':'ขีดถัดไป · '+stN());ui()},
    onMistake(r){if(!alive)return;mis++;misChar++;consec=0;vib([12,40,12]);const c=$$p('#pcv');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');
     pose(r.mistakesOnStroke>=2?'think':'wrong',2200);bub(STK_BAD[(mis)%STK_BAD.length],r.mistakesOnStroke>=3&&!hard?'ลองดูเส้นใบ้ที่ขึ้นมา':'ขีดที่ '+(sn+1)+' · '+stN());ui()},
-   onComplete(r){if(!alive)return;perChar.push({c:cc(),mis:misChar});misChar=0;if(pos+1<idxs.length){pose('cheer',1200);bub(`ตัว ${cc()} ครบแล้ว!`,'ไปตัวต่อไปกัน');setTimeout(()=>{if(!alive)return;pos++;consec=0;writer.setCharacter(cc());sn=0;ui();startQuiz(0);bub('ตัวต่อไป '+cc(),'ขีดแรก · '+stN())},950)}else finish()}});
+   onComplete(r){if(!alive)return;perChar.push({c:cc(),mis:misChar});misChar=0;if(pos+1<idxs.length){pose('cheer',1200);bub(`ตัว ${cc()} ครบแล้ว`,'ไปตัวต่อไปกัน');setTimeout(()=>{if(!alive)return;pos++;consec=0;writer.setCharacter(cc());sn=0;ui();startQuiz(0);bub('ตัวต่อไป '+cc(),'ขีดแรก · '+stN())},950)}else finish()}});
   ui()}
  function finish(){done=true;ovClear();const secs=Math.max(1,Math.round((Date.now()-t0)/1000));const stars=stkStars(mis,total);const k=stkS();
   const rd=k.rd&&k.rd.day===today()?k.rd:(k.rd={day:today(),ws:[]});const first=!rd.ws.includes(w);let xp=0,coins=0;
   if(first){rd.ws.push(w);xp=5*stars;coins=stars;k.n+=idxs.length;}
   if(k.last!==today()){k.days=k.last===today()-1?k.days+1:1;k.last=today()}
   const prev=k.done[w]||{stars:0};k.done[w]={stars:Math.max(prev.stars,stars),at:today()};save();if(xp)addXp(xp);if(coins)addCoins(coins);bumpCnt('stroke',1);
-  pose('celebrate',0);bub('ครบแล้ว! '+stkStarTxt(stars),'');pill('✓ เขียนครบทั้งหมด');
+  pose('celebrate',0);bub('ครบแล้ว '+stkStarTxt(stars),'');pill('✓ เขียนครบทั้งหมด');
   setTimeout(()=>{if(alive)replace('strokeres',{w,only:p.only,cs:idxs.map(i=>info.cs[i]),strokes:total,mis,secs,stars,xp,coins,first,days:k.days})},900)}
  /* ปุ่มต่างๆ */
  $$p('#pback').onclick=()=>{if(sn<=0)return;vib(6);okc=Math.max(0,okc-1);consec=0;startQuiz(sn-1);bub('ย้อนกลับมาขีดที่ '+(sn),'ลองเขียนอีกครั้ง · '+stN());ui()};
  $$p('#phint').onclick=()=>{if(mode==='hard')return;hints++;vib(8);ovGuide(true);bub('ใบ้: เริ่มที่จุดแดง','ขีด '+(sn+1)+' · '+stN());clearTimeout(ovT);if(mode!=='guide')ovT=setTimeout(()=>{if(alive)ovGuide()},3200)};
  $$p('#pdemo').onclick=()=>{if(mode==='hard')return;vib(6);demo();bub('ดูตัวอย่างขีดที่ '+(sn+1),stN())};
- $$p('#prst').onclick=()=>{vib(8);mis=0;misChar=0;okc=0;consec=0;hints=0;perChar=[];t0=Date.now();pos=0;writer.setCharacter(cc());startQuiz(0);bub('เริ่มใหม่อีกที!','ขีดแรก · '+stN());pose('write',0)};
- $$('#pmode [data-md]',root).forEach(b=>b.onclick=()=>{mode=b.dataset.md;stkS().mode=mode;save();$$('#pmode [data-md]',root).forEach(x=>x.classList.toggle('on',x===b));vib(6);startQuiz(sn);bub(mode==='hard'?'โหมดท้าทาย!':mode==='free'?'ไม่มีเส้นนำแล้ว':'เปิดเส้นนำให้แล้ว','ขีดที่ '+(sn+1)+' · '+stN())});
+ $$p('#prst').onclick=()=>{vib(8);mis=0;misChar=0;okc=0;consec=0;hints=0;perChar=[];t0=Date.now();pos=0;writer.setCharacter(cc());startQuiz(0);bub('เริ่มใหม่อีกที','ขีดแรก · '+stN());pose('write',0)};
+ $$('#pmode [data-md]',root).forEach(b=>b.onclick=()=>{mode=b.dataset.md;stkS().mode=mode;save();$$('#pmode [data-md]',root).forEach(x=>x.classList.toggle('on',x===b));vib(6);startQuiz(sn);bub(mode==='hard'?'โหมดท้าทาย':mode==='free'?'ไม่มีเส้นนำแล้ว':'เปิดเส้นนำให้แล้ว','ขีดที่ '+(sn+1)+' · '+stN())});
  /* สร้างตัวเขียน */
  const create=()=>{const d=cur();writer=HanziWriter.create($$p('#pw'),cc(),{width:SZ,height:SZ,padding:PAD,showCharacter:false,showOutline:mode==='guide',outlineColor:'#E4D9CE',strokeColor:STK_INK,radicalColor:STK_RAD,drawingColor:STK_RED,drawingWidth:Math.max(10,Math.round(SZ/22)),highlightColor:STK_RED,strokeAnimationSpeed:1,strokeFadeDuration:200,drawingFadeDuration:300,showHintAfterMisses:3,
   charDataLoader:(c,ok,bad)=>{stkLoad(c).then(x=>x.err?bad():ok(x))}});
@@ -293,7 +293,7 @@ function stkPractice(el,root,info,datas,idxs,p){const w=info.w;const k=stkS();le
  create();window.__stkP={get sn(){return sn},get mis(){return mis},get pos(){return pos},mode:()=>mode}}
 /* ================= ผลสรุป + การ์ด LINE ================= */
 function stkShareData(r){const e=wordBy(r.w);const datas=r.cs.map(c=>STK_DATA[c]).filter(Boolean);
- return {text:`ฉันเขียน ${r.w} ได้ครบแล้ว!`,sub:`${r.strokes} ขีด · ${r.mis?'พลาด '+r.mis+' ครั้ง':'ไม่พลาดเลย'} · ใช้เวลา ${r.secs} วินาที`,
+ return {text:`ฉันเขียน ${r.w} ได้ครบแล้ว`,sub:`${r.strokes} ขีด · ${r.mis?'พลาด '+r.mis+' ครั้ง':'ไม่พลาดเลย'} · ใช้เวลา ${r.secs} วินาที`,
   stats:[[r.xp?`+${r.xp}`:'–','XP'],[r.coins?`+${r.coins}`:'–','เหรียญ'],[`${r.days} วัน`,'เขียนต่อเนื่อง']],glyph:{datas,cs:r.cs,w:r.w,py:e?e.py:'',th:e?e.th:'',stars:r.stars}}}
 async function stkDrawCard(c,g,x,y,w,h,TH,F){c.save();c.fillStyle=TH.sb;rr(c,x,y,w,h,32);c.fill();
  let ds=(g.datas||[]);if(!ds.length&&g.cs)ds=(await Promise.all(g.cs.slice(0,3).map(stkLoad))).filter(x=>x&&!x.err);ds=ds.slice(0,3);const n=Math.max(1,ds.length);const cell=Math.min(h-36,Math.floor((w*.62-(n-1)*12)/n));let cx=x+20;const cy=y+(h-cell)/2;
@@ -309,7 +309,7 @@ function stkNext(w){const cs=stkHan(w);if(cs.length===1){const d=STK_DATA[cs[0]]
  const i=ALLW.findIndex(e=>e.zh===w);for(let j=i+1;j<ALLW.length&&i>=0;j++){const e=ALLW[j];if(e.zh!==w&&stkHan(e.zh).length&&stkHan(e.zh).every(c=>STK_SET.has(c)))return {w:e.zh,lab:`${w} → ${e.zh}`}}return null}
 SC.strokeres=(r)=>{r=r||{};if(!r.cs){const w=r.w||'你好';r={w,cs:stkHan(w),strokes:stkHan(w).reduce((a,c)=>a+(STK_CNT[c]||0),0),mis:0,secs:30,stars:3,xp:0,coins:0,first:false,days:stkS().days||0}}const e=wordBy(r.w);const nx=stkNext(r.w);const pose=r.stars>=3?'celebrate':r.stars===2?'cheer':'thumbs';
  return {title:'ผลการเขียน',backLabel:'กลับ',noRefresh:true,right:'',body:`<div class="stk-res"><div class="stk-burst"></div><div class="rm pop">${M(pose)}</div>
-  <div class="large center" style="padding:6px 20px 0">เขียน <span class="zh">${r.w}</span> ได้ครบแล้ว!</div><div class="stk-bigstars" aria-label="${r.stars} ดาว">${stkStarTxt(r.stars)}</div>
+  <div class="large center" style="padding:6px 20px 0">เขียน <span class="zh">${r.w}</span> ได้ครบแล้ว</div><div class="stk-bigstars" aria-label="${r.stars} ดาว">${stkStarTxt(r.stars)}</div>
   <p class="cap center" style="font-size:14.5px;color:var(--sub2)">${r.strokes} ขีด · ${r.mis?'พลาด '+r.mis+' ครั้ง':'ไม่พลาดเลย'} · ใช้เวลา ${r.secs} วินาที</p>
   <div class="stk-tiles res"><div><b>${r.xp?'+'+r.xp:'–'}</b><small>XP</small></div><div><b>${r.coins?'+'+r.coins:'–'}</b><small>เหรียญ</small></div><div><b>${r.days}</b><small>วันเขียนต่อเนื่อง</small></div></div>
   ${r.first?'':`<p class="cap center" style="margin-top:8px">วันนี้ได้รางวัลของคำนี้ไปแล้ว · เขียนซ้ำเพื่อฝึกได้เลย พรุ่งนี้รับรางวัลได้อีก</p>`}

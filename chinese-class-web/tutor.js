@@ -63,18 +63,18 @@ const PRON=[[/zh|ch|sh|จัง|ลิ้นม้วน/i,'zh / ch / sh: ม�
 const zhsOnly=t=>[...String(t)].filter(c=>/[\u4e00-\u9fff]/.test(c)).join('');
 function tutorReplySim(m,ctx){m=(m||'').trim();const k=sh(m);
  if(!k)return {html:'พิมพ์คำถามมาได้เลย หรือแตะปุ่มด้านล่าง'};
- for(const c of CORR)if(k.includes(c[0]))return {html:`เกือบถูกแล้ว! ลองแบบนี้นะ<br><b>${tzh(c[1].replace(/？|！/g,''))}</b> ${spkBtn(c[1].replace(/？|！/g,''))}<br>${c[2]}`,say:c[1]};
+ for(const c of CORR)if(k.includes(c[0]))return {html:`เกือบถูกแล้ว ลองแบบนี้นะ<br><b>${tzh(c[1].replace(/？|！/g,''))}</b> ${spkBtn(c[1].replace(/？|！/g,''))}<br>${c[2]}`,say:c[1]};
  if(/แก้|ตรวจ|ผิดไหม|ถูกไหม/.test(m))return {html:`ส่งประโยคจีนที่อยากให้ตรวจมาได้เลย — ติวเตอร์จำลองตรวจได้เฉพาะ ${CORR.length} แพตเทิร์นที่คนไทยพลาดบ่อย (ไม่ใช่ทุกประโยค) ลองพิมพ์ตัวอย่าง:`,chips:CORR.slice(0,6).map(c=>c[0])};
  if(/ออกเสียง|เสียงยาก|ลิ้น|อ่านไม่ออก|pronun|เสียงเปลี่ยน|เสียงเบา|เสียงกลาง|neutral/i.test(m)){const hit=PRON.filter(p=>p[0].test(m));return {html:(hit.length?hit:PRON.slice(0,3)).map(p=>p[1]).join('<br><br>')+'<br><span class="cap">* เทียบกับเสียงไทยแบบคร่าว ๆ เพื่อช่วยจำ ควรฟังเสียงจริงควบคู่ (กดปุ่มฟังในบทเรียน)</span>'}}
  if(/ไวยากรณ์|อธิบาย|ใช้ยังไง|ใช้อย่างไร|ต่างกัน|หมายถึง/.test(m)){const hit=GRAM.filter(g=>m.includes(g[0])).sort((a,b)=>b[0].length-a[0].length);if(hit.length)return {html:hit.slice(0,2).map(g=>g[1]).join('<br><br>'),chips:['ใช้ 是 ยังไง','ใช้ 了 ยังไง','ใช้ 在 ยังไง','ออกเสียง zh ch sh']}}
  if(GRAM.some(g=>g[0]===zhsOnly(m)))return {html:GRAM.find(g=>g[0]===zhsOnly(m))[1]};
  if(/วรรณยุกต์|เสียงสูงต่ำ|tone|เสียง ?[1-4]/i.test(m))return {html:`จีนกลางมี 4 เสียงหลัก + เสียงเบา:<br>${TONE_GUIDE.slice(0,4).map(t=>`<b>${t.name}</b>: ${t.thai}`).join('<br>')}<br><span class="cap">* เทียบกับเสียงไทยแบบคร่าว ๆ เท่านั้น</span>`,act:'tones'};
- if(/สนทนา|บทบาท|role|คุยกัน|ฝึกพูด/i.test(m))return {html:'มาเล่นบทบาทสมมติกัน! ฉันพูดก่อน คุณเลือกคำตอบที่เหมาะสม',act:'rp'};
- if(/สวัสดี|หวัดดี|hello|hi\b/i.test(m)){const w=wordBy('你好');return {html:`สวัสดีครับ! ภาษาจีนทักทายว่า <b>${tzh('你好','nǐ hǎo')}</b> ${spkBtn('你好')} ลองพูดตามดูนะ`,say:'你好'}}
+ if(/สนทนา|บทบาท|role|คุยกัน|ฝึกพูด/i.test(m))return {html:'มาเล่นบทบาทสมมติกัน ฉันพูดก่อน คุณเลือกคำตอบที่เหมาะสม',act:'rp'};
+ if(/สวัสดี|หวัดดี|hello|hi\b/i.test(m)){const w=wordBy('你好');return {html:`สวัสดีครับ ภาษาจีนทักทายว่า <b>${tzh('你好','nǐ hǎo')}</b> ${spkBtn('你好')} ลองพูดตามดูนะ`,say:'你好'}}
  if(/ขอบคุณ/.test(m)){const w=wordBy('谢谢');if(w)return {html:tutorWordHtml(w)}}
  if(/ลา|บาย|ไปก่อน/.test(m)&&/จีน|พูด/.test(m)){const w=wordBy('再见');if(w)return {html:tutorWordHtml(w)}}
  if(/ขอประโยค|ตัวอย่างประโยค|แต่งประโยค|ประโยคตัวอย่าง/.test(m))return window.tutorSentence();
- if(/สุ่ม|คำศัพท์|ทวน|ขอคำ/.test(m)){const pool=gw4();const w=pool[Math.random()*pool.length|0];return {html:`คำสุ่มวันนี้!<br>${tutorWordHtml(w)}`}}
+ if(/สุ่ม|คำศัพท์|ทวน|ขอคำ/.test(m)){const pool=gw4();const w=pool[Math.random()*pool.length|0];return {html:`คำสุ่มวันนี้<br>${tutorWordHtml(w)}`}}
  const zhs=[...m].filter(c=>/[\u4e00-\u9fff]/.test(c)).join('');
  if(zhs){const ws=ALLW.filter(w=>zhs.includes(w.zh)||w.zh===zhs).sort((a,b)=>b.zh.length-a.zh.length);
   if(ws.length){return {html:(ws.length>1&&ws[0].zh!==zhs?`ในประโยคนี้มีคำที่เราเรียนไปแล้ว ${ws.length} คำ:<br>`:'')+ws.slice(0,2).map(tutorWordHtml).join('<hr style="border:0;border-top:.5px solid rgba(0,0,0,.1);margin:8px 0">')}}
@@ -104,10 +104,10 @@ SC.tutor=()=>({title:'ติวเตอร์จำลอง',noRefresh:true,un
     if(ok){vib(12);bub(false,'ตอบได้เหมาะสมเลย ✓');rp.k++;setTimeout(rpNext,900)}else{vib([25,30,25]);bub(false,`ลองแบบนี้นะ: <span class="zh">${rp.ans[1]}</span> ${spkBtn(rp.ans[1],'f','')}<br><span class="cap">${rp.ans[3]}</span>`);rp.k++;setTimeout(rpNext,1600)}}
    else if(b.dataset.q)ask(b.dataset.q)};
   $('#tf',el).onsubmit=e=>{e.preventDefault();const v=ti.value.trim();if(!v)return;ti.value='';if(rp){bub(false,'ตอนนี้อยู่ในฉากสนทนา เลือกคำตอบจากปุ่มก่อนนะ');return}ask(v)};
-  bub(false,`สวัสดี! ฉันคือ${MASCOT_NAME} ติวเตอร์ประจำตัวของคุณ<br>ถามคำที่เรียนมา ให้ตรวจประโยค หรือฝึกสนทนาได้เลย<br><span class="cap" style="font-size:12.5px">หน้านี้เป็นการจำลอง ตอบจากสคริปต์ที่เตรียมไว้ — ไม่ใช่ปัญญาประดิษฐ์จริง</span>`);setChips(base)}});
+  bub(false,`สวัสดี ฉันคือ${MASCOT_NAME} ติวเตอร์ประจำตัวของคุณ<br>ถามคำที่เรียนมา ให้ตรวจประโยค หรือฝึกสนทนาได้เลย<br><span class="cap" style="font-size:12.5px">หน้านี้เป็นการจำลอง ตอบจากสคริปต์ที่เตรียมไว้ — ไม่ใช่ปัญญาประดิษฐ์จริง</span>`);setChips(base)}});
 
 /* ---------- เรียนด้วยกัน (ห้องอ่านหนังสือจำลอง) ---------- */
-SC.study=()=>({title:'เรียนด้วยกัน',noRefresh:true,body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M('read')}</div><div class="large" style="padding:0">ห้องอ่านหนังสือ</div><p style="color:var(--sub2);font-size:15px;margin:6px 14px 0">เปิดจับเวลาพร้อมเพื่อน ๆ — เห็นว่าใครกำลังตั้งใจอยู่ด้วยกัน มีแรงฮึดขึ้นเยอะ!</p></div>
+SC.study=()=>({title:'เรียนด้วยกัน',noRefresh:true,body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M('read')}</div><div class="large" style="padding:0">ห้องอ่านหนังสือ</div><p style="color:var(--sub2);font-size:15px;margin:6px 14px 0">เปิดจับเวลาพร้อมเพื่อน ๆ — เห็นว่าใครกำลังตั้งใจอยู่ด้วยกัน มีแรงฮึดขึ้นเยอะ</p></div>
  <div class="seg mt16" id="stg" style="margin:16px 20px 0">${[5,10,15].map((m,i)=>`<button data-m="${m}" class="${i===1?'on':''}">${m} นาที</button>`).join('')}</div>
  <div id="stb"></div>${DEMO}`,
  mount(el){let mins=10,timer=null,fast=false;const box=$('#stb',el);
@@ -122,14 +122,14 @@ SC.study=()=>({title:'เรียนด้วยกัน',noRefresh:true,body:
    $('#ff',el).onclick=()=>{fast=true;$('#ff',el).remove()};
    $('#gv',el).onclick=()=>{clearInterval(timer);timer=null;toast('เลิกก่อนแล้ว ไว้ลองใหม่นะ');idle()}}
   function fin(){S.studyN++;bumpCnt('study',1);addXp(mins,null,0);addCoins(mins*2);save();confetti(90);vib([20,30,20]);
-   box.innerHTML=`<div class="center mt16"><div class="pop" style="width:160px;height:160px;margin:0 auto">${M('celebrate')}</div><div class="h2">อ่านครบ ${mins} นาที!</div><p class="cap">+${mins} XP · +${mins*2} เหรียญ</p></div><div class="pad mt16"><button class="pill row1 press" id="ag">อ่านอีกรอบ</button></div>`;$('#ag',el).onclick=idle}
+   box.innerHTML=`<div class="center mt16"><div class="pop" style="width:160px;height:160px;margin:0 auto">${M('celebrate')}</div><div class="h2">อ่านครบ ${mins} นาที</div><p class="cap">+${mins} XP · +${mins*2} เหรียญ</p></div><div class="pad mt16"><button class="pill row1 press" id="ag">อ่านอีกรอบ</button></div>`;$('#ag',el).onclick=idle}
   $$('[data-m]',el).forEach(b=>b.onclick=()=>{if(timer)return;mins=+b.dataset.m;$$('[data-m]',el).forEach(x=>x.classList.toggle('on',x===b));idle()});
   idle();this.stop=()=>clearInterval(timer)},unmount(){this.stop&&this.stop()}});
 
 /* ---------- สรุปสัปดาห์ ---------- */
 function recapData(){const t=today();let days=0,best=0,bd=0;for(let i=0;i<7;i++){const x=dayXp(t-i);if(x>0)days++;if(x>best){best=x;bd=i}}
  const acc=S.qAll?Math.round(S.qOk/S.qAll*100):0;return {xp:weekXp(),days,best,words:learnedCount(),streak:curStreak(),acc,mis:Object.keys(S.mistakes).length,cms:CLASSMATES.filter(cmUnlocked).length,bs:S.buddy?buddyStreak():0}}
-SC.recap=()=>{const r=recapData();const line=r.days>=6?'สัปดาห์นี้คุณเทพมาก!':r.days>=3?'ทำได้ดีมาก ต่อเนื่องแบบนี้เลย':r.days>=1?'เริ่มต้นได้ดี สัปดาห์หน้าเพิ่มอีกวันนะ':'สัปดาห์นี้ยังไม่ได้เรียน เริ่มวันนี้ก็ยังทัน';
+SC.recap=()=>{const r=recapData();const line=r.days>=6?'สัปดาห์นี้คุณเทพมาก':r.days>=3?'ทำได้ดีมาก ต่อเนื่องแบบนี้เลย':r.days>=1?'เริ่มต้นได้ดี สัปดาห์หน้าเพิ่มอีกวันนะ':'สัปดาห์นี้ยังไม่ได้เรียน เริ่มวันนี้ก็ยังทัน';
  const spec={badge:'สรุปสัปดาห์',title:line,sub:`เรียนไป ${r.days}/7 วัน · ${r.words} คำ`,mascot:r.days>=5?'trophy':r.days>=2?'thumbs':'cheer',tint:'#EAF1FB',accent:'#3E6FB0',stats:[[r.xp+'','XP สัปดาห์นี้'],[r.streak+'','วันสตรีค'],[r.acc+'%','ตอบถูก']],ctaLabel:'ลองเรียนด้วยกัน'};
  S.recapDay=today();save();
  return {title:'สรุปสัปดาห์',body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M(spec.mascot)}</div><div class="large" style="padding:0">สรุป 7 วันที่ผ่านมา</div><p style="color:var(--sub2);font-size:15.5px;margin:4px 14px 0">${line}</p></div>

@@ -27,13 +27,13 @@ SC.onboard=()=>({nav:'<header class="nav"></header>',noRefresh:true,body:'<div c
    else if(t.dataset.ob==='lv'){const n=+t.dataset.lv;setLevel(n,n-1,true);obPick=true;draw()}
    else if(t.dataset.ob==='zero'){setLevel(1,0,true);window.__pinZero=true;window.__obK=1;k=1;draw()}
    else if(t.dataset.ob==='test'){window.__obK=1;push('placeintro')}
-   else if(t.dataset.ob==='fin'){S.seenOnboard=true;save();window.__obRun=false;window.__obK=0;mountRoot('home',false);if(window.__pinZero){window.__pinZero=false;setTimeout(()=>{try{push('pinlv',{n:1})}catch(e){}},120)}setTimeout(()=>toast(lvDriven()?`เริ่มที่ระดับ ${curLv()} แล้ว · ${MASCOT_NAME}ไปด้วยนะ`:`ไปกันเลย! บทแรกรออยู่ ${MASCOT_NAME}จะอยู่ข้าง ๆ`),400)}};
+   else if(t.dataset.ob==='fin'){S.seenOnboard=true;save();window.__obRun=false;window.__obK=0;mountRoot('home',false);if(window.__pinZero){window.__pinZero=false;setTimeout(()=>{try{push('pinlv',{n:1})}catch(e){}},120)}setTimeout(()=>toast(lvDriven()?`เริ่มที่ระดับ ${curLv()} แล้ว · ${MASCOT_NAME}ไปด้วยนะ`:`ไปกันเลย บทแรกรออยู่ ${MASCOT_NAME}จะอยู่ข้าง ๆ`),400)}};
   draw()}});
 
 /* ทดสอบวัดระดับและเลือกระดับ → levels.js */
 
 /* ----- วรรณยุกต์สำหรับคนไทย ----- */
-SC.tones=()=>({title:'วรรณยุกต์',body:`<div class="center" style="padding:6px 20px 0"><div style="width:170px;height:170px;margin:0 auto">${M('speaking')}</div><div class="large" style="padding:0">วรรณยุกต์จีน</div><p style="color:var(--sub2);font-size:15px;margin:6px 14px 0">คนไทยได้เปรียบ เพราะเราคุ้นกับเสียงสูงต่ำอยู่แล้ว! แตะการ์ดเพื่อฟังตัวอย่าง</p></div>
+SC.tones=()=>({title:'วรรณยุกต์',body:`<div class="center" style="padding:6px 20px 0"><div style="width:170px;height:170px;margin:0 auto">${M('speaking')}</div><div class="large" style="padding:0">วรรณยุกต์จีน</div><p style="color:var(--sub2);font-size:15px;margin:6px 14px 0">คนไทยได้เปรียบ เพราะเราคุ้นกับเสียงสูงต่ำอยู่แล้ว แตะการ์ดเพื่อฟังตัวอย่าง</p></div>
  <div class="mt16">${TONE_GUIDE.map(t=>{const [py,zh]=t.ex.split(' ');return `<button class="card tonec press" data-act="audio" data-t="${zh}"><span class="tmk ${t.c}">${t.mark}</span><span style="flex:1"><b>${t.name}</b><br><small style="color:var(--sub2);font-size:13.5px;line-height:1.45;display:block;margin-top:2px">${t.thai}</small><small class="cap" style="display:block;margin-top:3px">${t.like}</small></span><span class="tex"><span class="zh" style="font-size:26px">${zh}</span><small>${py}</small></span></button>`}).join('')}</div>
  <p class="cap center" style="padding:6px 30px 0">* การเทียบกับวรรณยุกต์ไทยเป็นการเปรียบเทียบคร่าว ๆ เพื่อช่วยจำ ไม่ใช่เสียงเดียวกันทุกประการ ฟังเสียงจริงควบคู่เสมอ</p>
  <div class="dock"><button class="pill press" data-go="tonedrill"><b>ฝึกฟังวรรณยุกต์</b><small>8 ข้อ จากคำที่เรียนแล้ว</small></button></div>`});
@@ -74,4 +74,4 @@ window.GOX={
  classroom:()=>push('classroom'),cm:el=>cmSheet(el.dataset.id),realnote:()=>push('realnote'),
  reviewgo:()=>push('rsession')};
 function buddyPick(){openSheet(`<div style="padding:0 20px"><div class="h2">เลือกบัดดี้สตรีค</div><p class="cap">หน้าจำลองรายชื่อ LINE · ใน LINE จริงจะส่งลิงก์ชวนให้เพื่อนกดรับ</p></div><div class="group mt12">${FRIENDS.map((f,i)=>`<button class="row press" data-bf="${i}">${avatar(f.n,f.c)}<span class="tx"><b>${f.n}</b><small>สตรีค ${f.s} วัน</small></span>${CHEV}</button>`).join('')}</div>`,
- {onMount:sh=>$$('[data-bf]',sh).forEach(b=>b.onclick=()=>{const i=+b.dataset.bf;closeSheet();toast(`ส่งคำชวนถึง${FRIENDS[i].n}แล้ว…`);bumpCnt('social',1);setTimeout(()=>{S.buddy={n:i,since:today(),last:-99,streak:0,nudgeDay:-99};save();toast(`🤝 ${FRIENDS[i].n}รับคำชวนแล้ว! (จำลอง)`);confetti(60);vib([15,30,15]);buddyTick();refresh()},1300)})})}
+ {onMount:sh=>$$('[data-bf]',sh).forEach(b=>b.onclick=()=>{const i=+b.dataset.bf;closeSheet();toast(`ส่งคำชวนถึง${FRIENDS[i].n}แล้ว…`);bumpCnt('social',1);setTimeout(()=>{S.buddy={n:i,since:today(),last:-99,streak:0,nudgeDay:-99};save();toast(`${FRIENDS[i].n}รับคำชวนแล้ว (จำลอง)`);confetti(60);vib([15,30,15]);buddyTick();refresh()},1300)})})}

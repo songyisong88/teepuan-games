@@ -160,26 +160,26 @@ const wotd=()=>WOTD[Math.floor(Date.now()/864e5)%WOTD.length];
 const CMDS={
  class(){classStart()},
  quiz3(){quizStart()},
- streak(){C.flex({tint:'#FDECEC',img:'streak',t:streak?`สตรีค ${streak} วัน`:'ยังไม่มีสตรีค',d:streak?`XP รวม ${xp} · เหรียญตรา ${badges} เหรียญ · ลีก${tier}<br><small>อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริงจะอ่านจากบัญชีของคุณ</small>`:'เรียนวันนี้แค่ 3 นาทีก็นับเป็นวันแรก',btn:[{t:'เรียนวันนี้ต่อเลย',uri:'index.html?from=line'}]})},
+ streak(){C.flex({tint:'#FDECEC',img:'streak',t:streak?`สตรีค ${streak} วัน`:'ยังไม่มีสตรีค',d:streak?`XP รวม ${xp} · เหรียญตรา ${badges} เหรียญ · ลีก${tier}<br><small>อ่านจากข้อมูลในเบราว์เซอร์นี้ — ถ้ามี LINE Login จริงจะอ่านจากบัญชีของคุณ</small>`:'เรียนวันนี้แค่ 3 นาทีก็นับเป็นวันแรก',btn:[{t:'เรียนต่อวันนี้',uri:'index.html?from=line'}]})},
  word(){const w=wotd();C.flex({tint:'#FCEFEF',img:'teach',t:'คำวันนี้',d:`<div class="zh">${w[0]}</div><div class="py">${w[1]}</div><div style="font-weight:600;margin:2px 0 6px">${w[2]}</div><div style="font-size:12.5px;color:#6B625B">${w[3]}<br>${w[4]}</div>`,btn:[{t:'ฟังเสียง/ฝึกในเว็บ',uri:'index.html?from=line'}]})},
- review(){C.bot('🔁 ทบทวนตามรอบ: ในเว็บจะรวมคำที่ถึงรอบทบทวนให้ในที่เดียว<br><small>ถ้าเปิดเตือนไว้ บอทจะส่งเตือน “เฉพาะวันที่สตรีคใกล้ขาด” เพื่อประหยัดโควต้า</small>','read');C.flex({tint:'#FBEFEA',img:'read',t:'ทบทวนตามรอบ',d:'แตะเพื่อเปิดชุดทบทวนวันนี้',btn:[{t:'เปิดชุดทบทวน',uri:'index.html?from=line'}]})},
+ review(){C.bot('ทบทวนตามรอบ: ในเว็บจะรวมคำที่ถึงรอบทบทวนให้ในที่เดียว<br><small>ถ้าเปิดเตือนไว้ บอทจะส่งเตือน “เฉพาะวันที่สตรีคใกล้ขาด” เพื่อประหยัดโควต้า</small>','read');C.flex({tint:'#FBEFEA',img:'read',t:'ทบทวนตามรอบ',d:'แตะเพื่อเปิดชุดทบทวนวันนี้',btn:[{t:'เปิดชุดทบทวน',uri:'index.html?from=line'}]})},
  league(){const you=Math.max(10,Math.round(xp%300));const rows=[['ฟ้า',you+60],['คุณ',you],['แพรว',Math.max(0,you-35)],['โอ๊ต',Math.max(0,you-70)]].sort((a,b)=>b[1]-a[1]);C.flex({tint:'#EAF1FB',img:'trophy',t:`ลีก${tier} · สัปดาห์นี้`,d:`${rows.map((r,i)=>`<div class="lb ${r[0]==='คุณ'?'me':''}"><span>${i+1}. ${r[0]}</span><span>${r[1]} XP</span></div>`).join('')}<small style="color:#8A7F76">คู่แข่งเป็นข้อมูลจำลอง · 5 อันดับแรกเลื่อนลีกทุกวันจันทร์</small>`,btn:[{t:'ดูอันดับเต็มในเว็บ',uri:'index.html?from=line'}]})},
  badge(){C.flex({tint:'#FDF3E6',img:'trophy',t:`เหรียญตรา ${badges}/31`,d:'ปลดล็อกจากสิ่งที่ทำจริง เช่น สตรีค คำศัพท์ ชนะดวล ชวนเพื่อน',btn:[{t:'ดูเหรียญทั้งหมด',uri:'index.html?from=line'}]})},
- duel(){C.flex({tint:'#FDF3E6',img:'duel',t:'ท้าดวลศัพท์จีนกับฉัน!',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในหน้าจำลองนี้ยังไม่ได้เชื่อมต่อ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]})},
+ duel(){C.flex({tint:'#FDF3E6',img:'duel',t:'ท้าดวลคำศัพท์จีน',d:'การ์ดนี้ส่งต่อให้เพื่อนในแชตหรือกลุ่มได้จริงด้วย LIFF shareTargetPicker (ในหน้าจำลองนี้ยังไม่ได้เชื่อมต่อ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]})},
  invite(){C.flex({tint:'#FCEFEF',img:'wave',t:'ชวนเพื่อนเข้าห้องเรียน',d:'เพื่อนใช้รหัสของคุณ → ได้เหรียญทั้งคู่ · ส่งต่อได้ผ่านปุ่มแชร์ของ LINE',btn:[{t:'เปิดการ์ดชวนเพื่อน',uri:'index.html?from=line'}]})},
- tutor(){C.bot('สวัสดี! พิมพ์คำจีนหรือคำไทยมาได้เลย เช่น <b>你好</b> หรือ <b>ขอบคุณ</b> แล้วบอทจะค้นให้จากคลังคำของห้องเรียน 💬<br><small>ติวเตอร์ในเว็บตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) ไม่ได้ใช้ AI จริง</small>','listening')},
+ tutor(){C.bot('สวัสดี พิมพ์คำจีนหรือคำไทยได้ เช่น <b>你好</b> หรือ <b>ขอบคุณ</b> แล้วบอทจะค้นให้จากคลังคำของห้องเรียน<br><small>ติวเตอร์ในเว็บตอบจากสคริปต์ที่เตรียมไว้ (จำลอง) ไม่ได้ใช้ AI จริง</small>','listening')},
  help(){C.bot('คำสั่งที่ใช้ได้ (ตอบกลับฟรีทั้งหมด):<br>• <b>สตรีค</b> · <b>คำวันนี้</b> · <b>ทบทวน</b><br>• <b>คลาส</b> (3 คำ) · <b>ควิซ</b> (3 ข้อ)<br>• <b>ลีก</b> · <b>เหรียญ</b> · <b>ชวนเพื่อน</b><br>• <b>เปิดเตือน</b> / <b>ปิดเตือน</b><br>• พิมพ์คำจีน (เช่น 谢谢) หรือคำไทย (เช่น เพื่อน) เพื่อค้นคำ','teach')},
- optin(){L.opt=true;saveL();C.bot('เปิดเตือนแล้ว ✅ จะเตือน “ไม่เกินวันละครั้ง และเฉพาะวันที่สตรีคใกล้ขาด” ปิดได้ทุกเมื่อโดยพิมพ์ <b>ปิดเตือน</b>','cheer');renderPlan()},
- optout(){L.opt=false;saveL();C.bot('ปิดเตือนแล้ว 👌 ยังกดเมนูเรียนต่อได้เสมอ และพิมพ์ <b>เปิดเตือน</b> เมื่อไหร่ก็ได้','sleepy');renderPlan()},
+ optin(){L.opt=true;saveL();C.bot('เปิดเตือนแล้ว จะเตือน “ไม่เกินวันละครั้ง และเฉพาะวันที่สตรีคใกล้ขาด” ปิดได้ทุกเมื่อโดยพิมพ์ <b>ปิดเตือน</b>','cheer');renderPlan()},
+ optout(){L.opt=false;saveL();C.bot('ปิดเตือนแล้ว ยังกดเมนูเรียนต่อได้เสมอ และพิมพ์ <b>เปิดเตือน</b> เมื่อไหร่ก็ได้','sleepy');renderPlan()},
  push(){if(L.opt===false){C.bot('คุณปิดเตือนไว้ — บอทจะไม่ส่ง push หาคุณ (นี่คือเหตุผลที่ต้องมี opt-in)','sleepy');return}
-  if(!chargePush(1)){C.bot('⛔ โควต้าเดือนนี้เต็ม 300/300 — LINE จะปฏิเสธการส่ง (API ตอบ 429) บอทจะเงียบจนกว่าจะรีเซ็ตต้นเดือน แต่การตอบกลับยังใช้ได้ฟรี','shock');return}
-  C.bot('⏰ สตรีค '+(streak||1)+' วันกำลังจะขาด! แตะเมนูเรียนต่อ 3 นาทีก็พอ','sleepy',1)}
+  if(!chargePush(1)){C.bot('โควต้าเดือนนี้เต็ม 300/300 — LINE จะปฏิเสธการส่ง (API ตอบ 429) บอทจะเงียบจนกว่าจะรีเซ็ตต้นเดือน แต่การตอบกลับยังใช้ได้ฟรี','shock');return}
+  C.bot('สตรีค '+(streak||1)+' วันใกล้ขาด แตะเมนูเรียนต่อเพื่อเรียน 3 นาที','sleepy',1)}
 };
 const ALIAS=[[/^(สตรีค|streak|ไฟ)$/i,'streak'],[/^(คำวันนี้|คำศัพท์วันนี้|word)$/i,'word'],[/^(ทบทวน|review)$/i,'review'],[/^(ลีก|อันดับ|league)$/i,'league'],[/^(เหรียญ|เหรียญตรา|badge)$/i,'badge'],[/^(ท้า|ท้าเพื่อน|duel)$/i,'duel'],[/^(ชวน|ชวนเพื่อน|invite)$/i,'invite'],[/^(คลาส|คลาสวันนี้|เรียน|class)$/i,'class'],[/^(ควิซ|ควิซ 3 ข้อ|quiz)$/i,'quiz3'],[/^(ติวเตอร์|ถามน้องลามา|tutor)$/i,'tutor'],[/^(ช่วย|ช่วยด้วย|help|\?|เมนู)$/i,'help'],[/^(เปิดเตือน|รับเตือน)$/i,'optin'],[/^(ปิดเตือน|หยุดเตือน|stop)$/i,'optout']];
 async function run(raw,shown){const t=(raw||'').trim();if(!t)return;
  if(CMDS[t]){C.me(shown||t);setTimeout(CMDS[t],380);return}
  C.me(shown||t);const al=ALIAS.find(a=>a[0].test(t));if(al){setTimeout(CMDS[al[1]],380);return}
- const w=await find(t);setTimeout(()=>{if(w)C.flex(wordCard(w));else C.bot('ยังหาคำนี้ไม่เจอในคลังคำที่โหลดไว้ (ระดับ 1–2) 🙏<br>ลองพิมพ์ <b>ช่วย</b> เพื่อดูคำสั่ง หรือเปิดติวเตอร์ในเว็บ','think')},420)}
+ const w=await find(t);setTimeout(()=>{if(w)C.flex(wordCard(w));else C.bot('ยังหาคำนี้ไม่เจอในคลังคำที่โหลดไว้ (ระดับ 1–2)<br>ลองพิมพ์ <b>ช่วย</b> เพื่อดูคำสั่ง หรือเปิดติวเตอร์ในเว็บ','think')},420)}
 function send(){const v=$('#txt').value;$('#txt').value='';run(v)}
 $('#send').onclick=send;$('#txt').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();send()}});
 
@@ -197,26 +197,26 @@ $('#qtg').onclick=()=>$('.tabs [data-v=plan]').click();
 /* ---------- กลุ่มห้องเรียน ---------- */
 const MEM=[['พี่ต้น','#A25F3A',.8],['น้องมะลิ','#4B7D61',.55],['แพรว','#4C72A7',.7]];let gi=0,gscore={};
 function grpInit(){if(gi)return;gi=1;G.note('กลุ่ม “ห้องเรียนมินท์” · สมาชิก 4 คน (จำลอง) · บอทเข้ากลุ่มแล้ว');
- G.bot('สวัสดีทุกคน! พิมพ์คำสั่งหรือกดปุ่มด้านล่าง: <b>/ควิซ</b> · <b>/อันดับ</b> · <b>/คำวันนี้</b> · <b>/ท้า</b>','wave',undefined,BR)}
+ G.bot('สวัสดีทุกคน พิมพ์คำสั่งหรือกดปุ่มด้านล่าง: <b>/ควิซ</b> · <b>/อันดับ</b> · <b>/คำวันนี้</b> · <b>/ท้า</b>','wave',undefined,BR)}
 const GC=[['🎯','ควิซกลุ่ม','ตอบถูกได้แต้ม','quiz'],['🏆','อันดับห้อง','ฟรี','rank'],['💡','คำวันนี้','ฟรี','word'],['⚔️','ท้าทั้งห้อง','การ์ด Flex','duel'],['📣','ประกาศผล','push ทั้งกลุ่ม','announce'],['🔔','ปิดเสียงบอท','คำสั่งดูแลกลุ่ม','mute']];
 $('#gcmd').innerHTML=GC.map(c=>`<button class="t" data-g="${c[3]}"><i>${c[0]}</i>${c[1]}<span>${c[2]}</span></button>`).join('');
 $$('[data-g]').forEach(b=>b.onclick=()=>gcmd(b.dataset.g));
 let gmute=false;
 async function gcmd(k){grpInit();const ME='คุณ';
  if(gmute&&k!=='mute'){G.note('บอทถูกปิดเสียง — พิมพ์ “เปิดเสียงบอท” (ปุ่มเดิม) เพื่อให้ตอบอีกครั้ง');return}
- if(k==='mute'){gmute=!gmute;G.me(gmute?'/ปิดเสียงบอท':'/เปิดเสียงบอท');G.bot(gmute?'โอเค เงียบแล้ว 🤫':'กลับมาแล้ว!','wave',undefined,BR);return}
- if(k==='word'){G.me('/คำวันนี้');const w=wotd();setTimeout(()=>G.flex({tint:'#FCEFEF',img:'teach',t:'คำวันนี้ของห้อง',d:`<div class="zh">${w[0]}</div><div class="py">${w[1]}</div><b>${w[2]}</b><br><small>ใครแต่งประโยคได้ก่อน ได้แต้ม!</small>`,btn:[{t:'ฝึกในเว็บ',uri:'index.html?from=line'}]}),350);return}
- if(k==='duel'){G.me('/ท้า');setTimeout(()=>G.flex({tint:'#FDF3E6',img:'duel',t:`${ME}ท้าทั้งห้องดวลศัพท์!`,d:'ใครกดรับคำท้าก่อน เริ่มดวลได้เลย (เกมจริงอยู่ในเว็บ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]}),350);return}
- if(k==='announce'){G.me('/ประกาศผล');const n=4;if(!chargePush(n)){G.bot('⛔ โควต้าไม่พอสำหรับ push ทั้งกลุ่ม ('+n+' ข้อความ) — จึงไม่ประกาศเอง แต่ใครพิมพ์ /อันดับ จะได้คำตอบฟรี','shock',undefined,BR);return}
-  G.bot('📣 สรุปประจำวัน: ห้องนี้เรียนรวมกัน 3/4 คนแล้ววันนี้!','cheer',n,BR);return}
+ if(k==='mute'){gmute=!gmute;G.me(gmute?'/ปิดเสียงบอท':'/เปิดเสียงบอท');G.bot(gmute?'ปิดเสียงบอทแล้ว':'เปิดเสียงบอทแล้ว','wave',undefined,BR);return}
+ if(k==='word'){G.me('/คำวันนี้');const w=wotd();setTimeout(()=>G.flex({tint:'#FCEFEF',img:'teach',t:'คำวันนี้ของห้อง',d:`<div class="zh">${w[0]}</div><div class="py">${w[1]}</div><b>${w[2]}</b><br><small>ผู้ที่แต่งประโยคได้ก่อนจะได้แต้ม</small>`,btn:[{t:'ฝึกในเว็บ',uri:'index.html?from=line'}]}),350);return}
+ if(k==='duel'){G.me('/ท้า');setTimeout(()=>G.flex({tint:'#FDF3E6',img:'duel',t:`${ME}ท้าทั้งห้องดวลคำศัพท์`,d:'ผู้ที่กดรับคำท้าก่อนจะเริ่มดวลได้ (เกมจริงอยู่ในเว็บ)',btn:[{t:'รับคำท้า',uri:'index.html?from=line'}]}),350);return}
+ if(k==='announce'){G.me('/ประกาศผล');const n=4;if(!chargePush(n)){G.bot('โควต้าไม่พอสำหรับ push ทั้งกลุ่ม ('+n+' ข้อความ) — จึงไม่ประกาศเอง แต่ใครพิมพ์ /อันดับ จะได้คำตอบฟรี','shock',undefined,BR);return}
+  G.bot('สรุปประจำวัน: วันนี้สมาชิกเรียนแล้ว 3 จาก 4 คน','cheer',n,BR);return}
  if(k==='rank'){G.me('/อันดับ');setTimeout(()=>{const r=[['พี่ต้น',180],['คุณ',Math.max(40,xp%260)],['แพรว',90],['น้องมะลิ',60]].sort((a,b)=>b[1]-a[1]);G.flex({tint:'#EAF1FB',img:'trophy',t:'อันดับห้อง “ห้องเรียนมินท์”',d:r.map((x,i)=>`<div class="lb ${x[0]==='คุณ'?'me':''}"><span>${i+1}. ${x[0]}</span><span>${x[1]} XP</span></div>`).join('')+'<small style="color:#8A7F76">ตัวเลขจำลอง</small>',btn:[{t:'ดูในเว็บ',uri:'index.html?from=line'}]})},350);return}
  if(k==='quiz'){G.me('/ควิซ');const db=await loadDB();const pool=db.filter(w=>w.lv===1&&w.th&&w.th.length<14);if(pool.length<4){G.bot('โหลดคลังคำไม่สำเร็จ ลองใหม่อีกครั้ง','shock',undefined,BR);return}const q=pool[Math.floor(Math.random()*pool.length)];
   const opts=[q];let guard=0;while(opts.length<4&&pool.length>=4&&guard++<200){const o=pool[Math.floor(Math.random()*pool.length)];if(!opts.includes(o)&&o.th!==q.th)opts.push(o)}opts.sort(()=>Math.random()-.5);
-  setTimeout(()=>{G.bot(`🎯 ควิซกลุ่ม: <span class="zh" style="font-size:28px">${q.zh}</span> <span class="py">${String(q.py).replace(/\|/g,'')}</span> แปลว่าอะไร?`,'think',undefined,BR);
+  setTimeout(()=>{G.bot(`ควิซกลุ่ม: <span class="zh" style="font-size:28px">${q.zh}</span> <span class="py">${String(q.py).replace(/\|/g,'')}</span> แปลว่าอะไร?`,'think',undefined,BR);
    const id='gq'+Date.now();$('#gchat').insertAdjacentHTML('beforeend',`<div class="qr" id="${id}">${opts.map(o=>`<button data-a="${o===q?1:0}">${esc(o.th)}</button>`).join('')}</div>`);$('#gchat').scrollTop=9e5;
    $$('#'+id+' button').forEach(b=>b.onclick=()=>{const ok=b.dataset.a==='1';$('#'+id).remove();G.me(b.textContent);
     const res=MEM.map(m=>[m[0],Math.random()<m[2]]);gscore[ME]=(gscore[ME]||0)+(ok?1:0);res.forEach(r=>gscore[r[0]]=(gscore[r[0]]||0)+(r[1]?1:0));
-    setTimeout(()=>{G.bot(`${ok?'✅ ถูกต้อง!':'❌ ยังไม่ใช่'} เฉลย: <b>${esc(q.th)}</b><br><small>${res.map(r=>r[0]+(r[1]?' ✓':' ✗')).join(' · ')}</small>`,ok?'celebrate':'wrong',undefined,BR);
+    setTimeout(()=>{G.bot(`${ok?'ถูกต้อง':'ยังไม่ถูก'} เฉลย: <b>${esc(q.th)}</b><br><small>${res.map(r=>r[0]+(r[1]?' ✓':' ✗')).join(' · ')}</small>`,ok?'celebrate':'wrong',undefined,BR);
      const sc=Object.entries(gscore).sort((a,b)=>b[1]-a[1]);G.bot('แต้มสะสมในกลุ่ม: '+sc.map(s=>s.join(' ')).join(' · ')+'<br><small>ผู้ตอบคนอื่นเป็นบอทจำลอง · ในของจริงบอทต้องอ่านข้อความกลุ่มผ่าน webhook</small>','wave',0,BR)},500)})},420)}}
 
 
@@ -225,17 +225,17 @@ let CL=null,clNote=false;
 async function classPick(){if(CL)return CL;const db=await loadDB();const pool=db.filter(w=>w.lv===1&&w.th&&w.th.length<16&&w.zh.length<=3&&!/^[A-Za-z]/.test(w.zh));const seed=Math.floor(Date.now()/864e5);const out=[];let i=0;while(out.length<3&&pool.length>=3&&i<400){const w=pool[(seed*7+i*37)%pool.length];i++;if(!out.includes(w)&&!out.some(x=>x.th===w.th))out.push(w)}CL={words:out,pool};return CL}
 function pullNote(){if(clNote)return;clNote=true;C.note('จำลอง · ในของจริงปุ่มริชเมนูส่ง postback ไปที่ webhook (ต้องมีเซิร์ฟเวอร์ ซึ่งตอนนี้ยังไม่มี) แล้วบอทตอบด้วย reply API = ไม่นับโควต้า')}
 async function classStart(){pullNote();const c=await classPick();if(c.words.length<3){C.bot('โหลดคลังคำไม่สำเร็จ ลองใหม่อีกครั้ง','shock');return}
- setTimeout(()=>{C.bot('🎓 <b>คลาสวันนี้ — 3 คำ ใช้เวลา ~3 นาที</b><br>อ่านครบแล้วกด “ควิซ 3 ข้อ” <span class="cost">ตอบกลับ 1 ครั้งส่งได้สูงสุด 5 ข้อความ (reply token 1 ใบ) · ไม่นับโควต้า</span>','teach',0);
+ setTimeout(()=>{C.bot('<b>คลาสวันนี้ — 3 คำ ใช้เวลา ~3 นาที</b><br>อ่านครบแล้วกด “ควิซ 3 ข้อ” <span class="cost">ตอบกลับ 1 ครั้งส่งได้สูงสุด 5 ข้อความ (reply token 1 ใบ) · ไม่นับโควต้า</span>','teach',0);
   c.words.forEach((w,i)=>setTimeout(()=>C.flex({tint:['#FCEFEF','#EAF1FB','#FDF3E6'][i],img:'teach',t:`คำที่ ${i+1} จาก 3`,d:`<div class="zh">${w.zh}</div><div class="py">${String(w.py).replace(/\|/g,'')}</div><div style="font-weight:600;margin:2px 0 6px">${esc(w.th)}</div><div style="font-size:12.5px;color:#6B625B">${w.ex?esc(w.ex)+'<br>'+esc(String(w.exPy||'').replace(/\|/g,''))+'<br>'+esc(w.exTh||''):''}</div>`,btn:[{t:'ฟังเสียงในเว็บ',uri:'index.html?from=line'}]}),160*(i+1)));
   setTimeout(()=>C.qr([['ควิซ 3 ข้อ','quiz3'],['คำวันนี้','word']]),700)},380)}
 async function quizStart(){pullNote();const c=await classPick();if(c.words.length<3){C.bot('โหลดคลังคำไม่สำเร็จ ลองใหม่อีกครั้ง','shock');return}
  let n=0,ok=0;const order=c.words.slice().sort(()=>Math.random()-.5);
  const ask=()=>{const q=order[n];const opts=[q];let g=0;while(opts.length<3&&g++<300){const o=c.pool[Math.floor(Math.random()*c.pool.length)];if(!opts.includes(o)&&o.th!==q.th)opts.push(o)}opts.sort(()=>Math.random()-.5);
-  C.bot(`📝 ข้อ ${n+1}/3 · <span class="zh" style="font-size:30px">${q.zh}</span> <span class="py">${String(q.py).replace(/\|/g,'')}</span> แปลว่าอะไร?`,'think',0);
+  C.bot(`ข้อ ${n+1}/3 · <span class="zh" style="font-size:30px">${q.zh}</span> <span class="py">${String(q.py).replace(/\|/g,'')}</span> แปลว่าอะไร?`,'think',0);
   const id='q3'+Date.now()+n;$('#chat').insertAdjacentHTML('beforeend',`<div class="qr" id="${id}">${opts.map(o=>`<button data-a="${o===q?1:0}">${esc(o.th)}</button>`).join('')}</div>`);$('#chat').scrollTop=9e5;
   $$('#'+id+' button').forEach(b=>b.onclick=()=>{const good=b.dataset.a==='1';$('#'+id).remove();C.me(b.textContent);if(good)ok++;n++;
-   setTimeout(()=>{C.bot(good?'✅ ถูกต้อง!':`❌ ยังไม่ใช่ — เฉลย <b>${esc(q.th)}</b>`,good?'celebrate':'wrong',0);
-    if(n<3)setTimeout(ask,450);else setTimeout(()=>{C.flex({tint:ok===3?'#E7F8EE':'#FDF3E6',img:ok===3?'celebrate':'cheer',t:`ควิซจบแล้ว ${ok}/3`,d:ok===3?'เต็ม! พรุ่งนี้มี 3 คำใหม่ ใช้ “คลาสวันนี้” ได้อีกครั้ง':'พิมพ์ “คลาส” เพื่อดูคำอีกรอบ แล้วลองใหม่ได้เลย<br><small>คะแนนนี้อยู่ในหน้าจำลองเท่านั้น — เหรียญและ XP ของจริงได้ในเว็บ</small>',btn:[{t:'ฝึกต่อในเว็บ',uri:'index.html?from=line'}]})},600)},350)})};
+   setTimeout(()=>{C.bot(good?'ถูกต้อง':`ยังไม่ถูก · เฉลย <b>${esc(q.th)}</b>`,good?'celebrate':'wrong',0);
+    if(n<3)setTimeout(ask,450);else setTimeout(()=>{C.flex({tint:ok===3?'#E7F8EE':'#FDF3E6',img:ok===3?'celebrate':'cheer',t:`ควิซจบแล้ว ${ok}/3`,d:ok===3?'ได้คะแนนเต็ม พรุ่งนี้มี 3 คำใหม่ ใช้ “คลาสวันนี้” ได้อีกครั้ง':'พิมพ์ “คลาส” เพื่อดูคำอีกรอบ แล้วลองอีกครั้ง<br><small>คะแนนนี้อยู่ในหน้าจำลองเท่านั้น — เหรียญและ XP ของจริงได้ในเว็บ</small>',btn:[{t:'ฝึกต่อในเว็บ',uri:'index.html?from=line'}]})},600)},350)})};
  ask()}
 
 /* ---------- ห้องอ่านด้วยกัน (25 นาที) — จำลองทั้งหมด ---------- */
@@ -243,19 +243,19 @@ const FR=[['พี่ต้น','#A25F3A',0],['น้องมะลิ','#4B7D6
 const ST={sec:1500,run:false,fast:false,goal:'',tm:0,elapsed:0,log:[],done:false};
 if(!L.study)L.study={mins:0,n:0};
 const fm=x=>String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0');
-function frState(i){const e=ST.elapsed,j=FR[i][2];if(e<j)return['ยังไม่เข้า','rest'];if(e>=1500)return['อ่านครบ','done'];const b=600+i*180;if(e>=b&&e<b+60)return['พักสั้น ๆ ☕','rest'];return['กำลังอ่าน','']}
+function frState(i){const e=ST.elapsed,j=FR[i][2];if(e<j)return['ยังไม่เข้า','rest'];if(e>=1500)return['อ่านครบ','done'];const b=600+i*180;if(e>=b&&e<b+60)return['พักสั้น ๆ','rest'];return['กำลังอ่าน','']}
 function frMin(i){const e=Math.min(ST.elapsed,1500),j=FR[i][2];let m=Math.max(0,e-j);const b=600+i*180;if(e>b)m-=Math.min(60,e-b);return Math.floor(Math.max(0,m)/60)}
 function logAdd(t){ST.log.unshift(fm(ST.elapsed)+' '+t);ST.log=ST.log.slice(0,12)}
 function stDraw(){const el=$('#study');if(!el)return;const pr=(1-ST.sec/1500)*100;const mine=Math.floor(ST.elapsed/60);
  el.innerHTML=`<h3>ห้องอ่านด้วยกัน (จำลอง)</h3><p class="c">อ่านพร้อมกัน 25 นาทีแล้วพัก (แบบโพโมโดโร) · <b>เพื่อนในห้องเป็นตัวจำลอง ไม่ใช่คนจริง</b> · ในของจริงต้องมีเซิร์ฟเวอร์ซิงก์เวลาและสถานะของทุกคน ซึ่งยังไม่มี</p>
- <div class="card" style="text-align:center"><div class="ring" style="--p:${pr}%" role="timer" aria-label="เวลาที่เหลือ"><div><b>${fm(ST.sec)}</b><small>${ST.done?'ครบ 25 นาทีแล้ว 🎉':ST.run?'กำลังอ่าน…':ST.elapsed?'หยุดชั่วคราว':'พร้อมเริ่ม'}</small></div></div>
+ <div class="card" style="text-align:center"><div class="ring" style="--p:${pr}%" role="timer" aria-label="เวลาที่เหลือ"><div><b>${fm(ST.sec)}</b><small>${ST.done?'ครบ 25 นาทีแล้ว':ST.run?'กำลังอ่าน…':ST.elapsed?'หยุดชั่วคราว':'พร้อมเริ่ม'}</small></div></div>
   <input id="sgoal" type="text" placeholder="วันนี้จะอ่านอะไร? เช่น บทที่ 3" value="${esc(ST.goal)}" maxlength="40" aria-label="เป้าหมายการอ่านวันนี้" style="width:100%;background:#F3EEE6;border-radius:14px;padding:11px 14px;font-size:14px;outline:none;margin-top:6px">
   <div class="sbtn"><button class="g" id="sgo">${ST.done?'เริ่มรอบใหม่':ST.run?'หยุดพัก':ST.elapsed?'อ่านต่อ':'เริ่มอ่าน'}</button><button class="o" id="srs">รีเซ็ต</button><button class="o" id="sfs" aria-pressed="${ST.fast}">${ST.fast?'⏩ เร่ง 60× เปิดอยู่':'⏩ เร่งดูตัวอย่าง 60×'}</button></div>
   <p class="tick">ปุ่ม “เร่ง” ใช้ดูตัวอย่างรอบ 25 นาทีให้จบใน ~25 วินาที (เฉพาะหน้าจำลอง)</p></div>
  <div class="card"><h4>ในห้อง (${1+FR.length} คน · จำลอง 3 คน)</h4>
   <div class="fr"><span class="dot" style="background:#C8102E">คุณ</span><span class="nm2"><b>คุณ</b><small>อ่านแล้ว ${mine} นาทีในรอบนี้</small></span><span class="st ${ST.run?'':'done'}">${ST.run?'กำลังอ่าน':ST.done?'อ่านครบ':'หยุด'}</span></div>
   ${FR.map((f,i)=>{const s=frState(i);return `<div class="fr"><span class="dot" style="background:${f[1]}">${f[0].slice(-1)}</span><span class="nm2"><b>${f[0]}</b> <span class="tag">จำลอง</span><small>อ่านแล้ว ${ST.run||ST.elapsed?frMin(i):0} นาที</small></span><span class="st ${s[1]}">${ST.run||ST.elapsed?s[0]:'รอเริ่ม'}</span></div>`}).join('')}</div>
- <div class="card"><h4>ส่งกำลังใจ (ตอบกลับฟรี)</h4><div class="sg"><button data-ch="👏 สู้ ๆ!">👏 สู้ ๆ</button><button data-ch="🔥 ไฟลุก!">🔥 ไฟลุก</button><button data-ch="☕ พักแป๊บ">☕ พักแป๊บ</button></div>
+ <div class="card"><h4>ส่งกำลังใจ (ตอบกลับฟรี)</h4><div class="sg"><button data-ch="เป็นกำลังใจให้">เป็นกำลังใจให้</button><button data-ch="เรียนต่อเนื่องได้ดี">เรียนต่อเนื่องได้ดี</button><button data-ch="พักสักครู่">พักสักครู่</button></div>
   <div class="slog" aria-live="polite">${ST.log.length?ST.log.map(esc).join('<br>'):'ยังไม่มีความเคลื่อนไหว — กด “เริ่มอ่าน”'}</div></div>
  <div class="card"><h4>รวมในหน้าจำลองนี้</h4><div class="row"><span>รอบที่อ่านครบ</span><b>${L.study.n}</b></div><div class="row"><span>นาทีที่อ่านรวม</span><b>${L.study.mins}</b></div><p class="tick">ตัวเลขนี้อยู่ในเบราว์เซอร์นี้เท่านั้น ไม่ได้ให้เหรียญ/XP — การเรียนจริงนับในเว็บแอป</p></div>`;
  const g=$('#sgoal');g.oninput=()=>{ST.goal=g.value};
@@ -266,7 +266,7 @@ function stReset(){clearInterval(ST.tm);ST.sec=1500;ST.run=false;ST.elapsed=0;ST
 function stRun(){clearInterval(ST.tm);const step=ST.fast?60:1;ST.tm=setInterval(()=>{if(!ST.run)return;const prev=ST.elapsed;ST.elapsed=Math.min(1500,ST.elapsed+step);ST.sec=1500-ST.elapsed;
   FR.forEach((f,i)=>{if(prev<f[2]&&ST.elapsed>=f[2])logAdd(f[0]+' (จำลอง) เข้าห้องมาแล้ว')});
   FR.forEach((f,i)=>{const b=600+i*180;if(prev<b&&ST.elapsed>=b&&ST.elapsed<1500)logAdd(f[0]+' (จำลอง) พักสั้น ๆ')});
-  if(ST.elapsed>=1500){ST.run=false;ST.done=true;clearInterval(ST.tm);L.study.n++;L.study.mins+=25;saveL();logAdd('ครบ 25 นาที! พักได้ 5 นาที');
+  if(ST.elapsed>=1500){ST.run=false;ST.done=true;clearInterval(ST.tm);L.study.n++;L.study.mins+=25;saveL();logAdd('ครบ 25 นาทีแล้ว พักได้ 5 นาที');
    G.note('ห้องอ่านด้วยกัน (จำลอง): รอบ 25 นาทีจบแล้ว · เพื่อนจำลองอ่านครบเหมือนกัน')}
   const sec=$('#v-study');if(sec&&sec.classList.contains('on')&&!(document.activeElement&&document.activeElement.id==='sgoal'))stDraw();else if(ST.elapsed>=1500)stDraw()},1000)}
 
@@ -288,7 +288,7 @@ function renderPlan(){const el=$('#plan');if(!el)return;const n=monthMsgs(),c=co
   <div class="row"><span>ข้อความที่ต้อง push / เดือน</span><b class="${fits?'ok':'bad'}">${n.toLocaleString('th-TH')}</b></div>
   <div class="row"><span>แพ็กเกจที่ถูกที่สุดที่พอ</span><b>${c.plan}</b></div>
   <div class="row"><span>ค่าใช้จ่ายประมาณ</span><b class="big ${c.baht?'bad':'ok'}">฿${Math.round(c.baht).toLocaleString('th-TH')}</b></div>
-  <p class="tick">${fits?'พออยู่ในแพ็กเกจฟรี (300) ✅':'เกินแพ็กเกจฟรี 300 — ต้องอัปเกรด หรือลดจำนวน push'}</p></div>
+  <p class="tick">${fits?'พออยู่ในแพ็กเกจฟรี (300)':'เกินแพ็กเกจฟรี 300 — ต้องอัปเกรด หรือลดจำนวน push'}</p></div>
  <div class="card"><h4>แพ็กเกจ LINE OA ไทย (อ้างอิง)</h4><div class="row"><span>ฟรี</span><b>฿0 · 300 ข้อความ</b></div><div class="row"><span>เบสิก</span><b>฿1,280 · 15,000 · เกิน ฿0.10</b></div><div class="row"><span>โปร</span><b>฿1,780 · 35,000 · เกิน ฿0.06</b></div></div>
  <div class="card"><h4>ผลต่อการออกแบบแอปนี้</h4><p class="tick" style="font-size:12.5px;line-height:1.6;color:#4B433D">• ใช้ “ตอบกลับ” (ฟรี) เป็นหลัก: ริชเมนู คำสั่งพิมพ์ ปุ่ม Quick Reply<br>• push เฉพาะคนที่กดรับเตือน ไม่เกินวันละครั้ง และเฉพาะวันที่สตรีคใกล้ขาด<br>• เตือนในกลุ่มห้องเรียน: ให้ผู้ใช้เรียก /อันดับ เอง แทนที่บอทประกาศทั้งกลุ่มเอง (push กลุ่มนับตามจำนวนสมาชิก)<br>• ถ้าโควต้าเต็ม (API ตอบ 429) บอทหยุด push แต่ริชเมนูและการตอบกลับยังทำงานตามปกติ</p></div>`;
  const sv=()=>{try{localStorage.setItem('lama-line-plan',JSON.stringify(P))}catch(e){}renderPlan()};
@@ -298,8 +298,8 @@ function renderPlan(){const el=$('#plan');if(!el)return;const n=monthMsgs(),c=co
 
 /* ---------- เริ่มต้น: ข้อความต้อนรับ (greeting) ---------- */
 C.note('วันนี้ '+nowT()+' · หน้าจำลองแชต LINE OA — ลองแตะริชเมนู หรือพิมพ์คำสั่ง บอทตอบเหมือนจริง');
-C.bot(`<b>${esc(MN)}</b>มาแล้ว! 👋 ยินดีต้อนรับสู่ ${esc(BR)}<br>เรียนจีนวันละนิด ไม่เบื่อ เล่นกับเพื่อนใน LINE ได้ด้วย<br><span class="cost">ข้อความต้อนรับ (greeting) · ไม่นับโควต้า</span>`,'wave');
-setTimeout(()=>{if(L.opt===null){C.bot('อยากให้เตือนเมื่อสตรีคใกล้ขาดไหม? <small>(ไม่เกินวันละครั้ง ปิดได้ตลอด)</small>','cheer',undefined);C.qr([['รับเตือน','optin'],['ไม่ต้อง','optout'],['เริ่มเรียนเลย','go']])}},700);
+C.bot(`สวัสดี ฉันคือ<b>${esc(MN)}</b> ยินดีต้อนรับสู่ ${esc(BR)}<br>เรียนภาษาจีนวันละเล็กน้อย และฝึกร่วมกับเพื่อนใน LINE ได้<br><span class="cost">ข้อความต้อนรับ (greeting) · ไม่นับโควต้า</span>`,'wave');
+setTimeout(()=>{if(L.opt===null){C.bot('อยากให้เตือนเมื่อสตรีคใกล้ขาดไหม? <small>(ไม่เกินวันละครั้ง ปิดได้ตลอด)</small>','cheer',undefined);C.qr([['รับเตือน','optin'],['ไม่ต้อง','optout'],['เริ่มเรียน','go']])}},700);
 CMDS.go=()=>go('index.html?from=line');
 quota();bind();
 })();

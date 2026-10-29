@@ -7,6 +7,9 @@ from PIL import Image
 R=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC='/workspace/cn-images/l1-new';SCN='/workspace/cn-images/l1-scenes'
 IDX=os.path.join(R,'assets/art/index.js')
+# ภาพที่มีลามะ (ทักทาย/การกระทำ/อารมณ์) — ข้ามไว้จนกว่าซ่งอี้จะตัดสินใจ (ตรวจด้วยตาจาก lot-1..4-sheet)
+SKIP_LLAMA={'l1_nihao','l1_zaijian','l1_xiexie','l1_duibuqi','l1_bukeqi','l1_meiguanxi','l1_piaoliang','l1_kai','l1_hui','l1_lai','l1_qu','l1_zhu','l1_kan','l1_du','l1_shuohua','l1_renshi','l1_kanjian','l1_wei'}
+skipped=[]
 TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n'}
 def conv(src,dst,size=512):
   im=Image.open(src).convert('RGB')
@@ -29,7 +32,9 @@ if os.path.exists(ij):
   d=json.load(open(ij,encoding='utf-8'))
   rows=d if isinstance(d,list) else [dict(v,id=k) if isinstance(v,dict) else {'id':k,'file':v} for k,v in d.items()]
   for r in rows:
-    i=r.get('id') or r.get('key');zh=r.get('zh') or (items.get(i) or {}).get('zh')
+    i=r.get('id') or r.get('key')
+    if i in SKIP_LLAMA:skipped.append(r.get('zh') or i);continue
+    zh=r.get('zh') or (items.get(i) or {}).get('zh')
     f=r.get('file') or r.get('filename') or r.get('path') or (find(i) if i else None)
     if f and not os.path.isabs(f):f=os.path.join(SRC,f)
     if zh and f and os.path.exists(f) and r.get('ok',True) is not False:words[zh]=f;typ[zh]=TYPE.get(r.get('type') or (items.get(i) or {}).get('type'),'x')
@@ -51,4 +56,4 @@ blk='\n/* L1-NEW · ภาพระดับ 1 ใหม่จาก PIXEL ('+st
 mk='\n/* ภาพคำศัพท์จาก PIXEL'
 a,b=s.split(mk,1);s=a.rstrip()+'\n'+blk+'\n'+mk+b
 open(IDX,'w',encoding='utf-8').write(s)
-print('words',len(words),sorted(words),'scenes',sorted(scenes))
+print('words',len(words),sorted(words),'scenes',sorted(scenes));print('skipped (llama)',len(skipped),skipped)

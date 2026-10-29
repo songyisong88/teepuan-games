@@ -36,6 +36,8 @@ def decomp(t,K):
   if t in K:return True
   return any(t[:k] in K and decomp(t[k:],K) for k in range(len(t)-1,0,-1))
 known0=set(w['zh'] for l in lv_lessons(1) for w in l['words'])
+known0|={'说'}   # คำย่อยที่ระดับ 1 ใช้ได้หลังบท 7-2 (EXTRA ใน tools/l1-build/spec.py)
+KEEPW={'早上好','晚上好'}   # คำทักทายที่สอนเป็นวลี แม้แยกเป็นคำที่สอนแล้วได้
 WS={};kk=set(known0)
 for n in range(2,6):
   ws=[];seen=set()
@@ -43,7 +45,7 @@ for n in range(2,6):
     for w in l['words']:
       z=w['zh']
       if z in kk or z in seen:continue
-      if not any(z in OFF[k] for k in OFF) and decomp(z,kk|seen):continue
+      if z not in KEEPW and not any(z in OFF[k] for k in OFF) and decomp(z,kk|seen):continue
       seen.add(z);ws.append(dict(w,old=l['id'],ch=l['chapter']))
   WS[n]=ws;kk|=seen
 # ---- คำมาตรฐานของระดับ n ที่เดิมอยู่ระดับสูงกว่า → ย้ายลงมาระดับ n (ใส่ตอนที่มีประโยคใช้คำนั้นมากที่สุด)
@@ -66,6 +68,23 @@ for n in range(2,6):
     w['ch']=best[1];MOVED[w['zh']]=n
     # ต่อท้ายคำของตอนนั้น
     last=max(i for i,x in enumerate(WS[n]) if x['ch']==best[1])
+    WS[n].insert(last+1,w)
+# ---- ย้ายคำระดับ 2 ไปอยู่ตอนที่ตรงหัวข้อ (คำที่ย้ายลงมาและไม่มีประโยคร่วมกับตอนใดจะตกไปอยู่ตอนแรก)
+WCH={2:{'第一':1200,'号':1200,'去年':1200,'阴':1200,'雨':1200,'雪':1200,'晴':1200,
+ '妻子':6,'丈夫':6,'身体':6,'眼睛':6,
+ '左边':8,'右边':8,'旁边':8,'外':8,'船':8,
+ '百':7,'千':7,'服务员':7,'饭店':7,
+ '打':9,'打篮球':9,'次':9,'课':9,'休息':9,'教室':9,'报纸':9,'考试':9,
+ '长':10,'快':10,'最':10,'高':10,'比':10,'非常':10,'慢':10,'还':10,
+ '懂':230,'错':230,'可能':230,'药':230}}
+for n,mp in WCH.items():
+  if n not in WS:continue
+  order=list(mp)
+  mv=sorted([w for w in WS[n] if w['zh'] in mp],key=lambda w:order.index(w['zh']))
+  ids=set(id(w) for w in mv);WS[n]=[w for w in WS[n] if id(w) not in ids]
+  for w in mv:
+    w['ch']=mp[w['zh']]
+    last=max((i for i,x in enumerate(WS[n]) if x['ch']==w['ch']),default=len(WS[n])-1)
     WS[n].insert(last+1,w)
 # ---- ชื่อเฉพาะ (พินอินขึ้นต้นตัวใหญ่ และไม่ใช่คำศัพท์ในบทใด)
 NAMES=set()
@@ -301,7 +320,11 @@ def mksent(tokstr,th,K,where):
 TOVR={3:{'9-5':'ยิ่ง นาที นก'}}   # ชื่อบทที่ต่อจากคำแปลแล้วอ่านไม่ลื่น
 CHOVR={1200:{'th':'ทักทายเช้าเย็น','zh':'早晚好'}}
 # คำอธิบายตอนของระดับ 5 ให้ตรงกับคำในตอน (ระบุด้วย ระดับ, ลำดับตอน)
-SUBOVR={(5,6):'เทศกาลจีน ตรุษจีน ไหว้พระจันทร์',(5,9):'วันสำคัญ งานเลี้ยง และวันหยุด',(5,16):'อาสาสมัคร การแบ่งปัน และน้ำใจ',
+# หัวข้อเป้าหมายของบท (can) เมื่อคำในบทมาจากหลายหัวข้อหลังจัดกลุ่มใหม่ — ไม่ใช้หัวข้อของคำแรกตรง ๆ
+CANOVR={(2,'1-1'):'ถามและขอโทษอย่างสุภาพ',(2,'1-2'):'แนะนำตัว',(2,'1-3'):'ต้อนรับและแนะนำตัว',(2,'2-2'):'เวลาและวันที่',(2,'2-3'):'อากาศ',
+ (2,'3-3'):'ครอบครัวและร่างกาย',(2,'5-4'):'ร้านอาหารและราคา',(2,'6-6'):'การทำงาน',(2,'6-7'):'บ้านและกีฬา',(2,'6-8'):'โรงเรียนและการสอบ',
+ (2,'7-4'):'ซื้อของและบอกลักษณะ',(2,'8-3'):'บอกการกระทำและทิศทาง',(2,'8-4'):'ปัญหาและสุขภาพ',(2,'8-5'):'ถามตอบและความเข้าใจ'}
+SUBOVR={(2,2):'ทักทายตามเวลา อากาศ',(5,6):'เทศกาลจีน ตรุษจีน ไหว้พระจันทร์',(5,9):'วันสำคัญ งานเลี้ยง และวันหยุด',(5,16):'อาสาสมัคร การแบ่งปัน และน้ำใจ',
  (5,23):'วัด ความเชื่อ และมารยาทแบบไทย',(5,37):'อินเทอร์เน็ต บัญชี และแอป',(5,38):'ชีวิตออฟฟิศ งาน และการเลื่อนตำแหน่ง'}
 # ชื่อจีนของด่านทบทวน: ถ้าชื่อตอนมีคำที่ยังไม่ได้สอน ใช้ค่าที่กำหนดไว้ หรือคำแรกของตอนที่สอนแล้ว
 GZ_OVR={}
@@ -446,7 +469,7 @@ for n in range(2,6):
       th=' '.join(dict.fromkeys(thshort(w['th']) for w in g[:3] if thshort(w['th'])))
       if len(th)>18:th=' '.join(dict.fromkeys(thshort(w['th']) for w in g[:2] if thshort(w['th'])))
       th=TOVR.get(n,{}).get(code,th)
-      can=f"ใช้คำเกี่ยวกับ{clean(old['th'])} {len(g)} คำ"
+      can=f"ใช้คำเกี่ยวกับ{CANOVR.get((n,code)) or clean(old['th'])} {len(g)} คำ"
       les.append(f"{{id:{lid},v3:1,kind:'lex',code:'{pi}-{k}',th:{js(th)},zh:{js(zs[0])},chapter:{cid},emoji:{js(old.get('emoji') or '📖')},can:{js(can)},story:'',\n words:[{','.join(wsrc)}],\n sents:{js(sents)},\n fr:{js(fr)},dlg:{js(dlo)},rq:{js(rq)}}}")
       stat['lex']+=1;stat['words']+=len(g)
       DBGL.append((n,code,'hand' if f and f[0]==99 else ('pron' if fr and fr.get('k')==0 and len(chosen)>1 and chosen[1].get('src')==-2 and not FRM.FR.get(n,{}).get(code) else ('pool' if fr else 'none')),[(w['zh'],thshort(w['th'])) for w in g]))

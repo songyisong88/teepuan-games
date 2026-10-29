@@ -38,6 +38,8 @@ const getS=()=>(typeof S!=='undefined'?S:null);
 function applyState(merged){const s=getS();if(!s)return;for(const k of Object.keys(merged))s[k]=merged[k];meta.lc=s.coins;saveMeta();origSave&&origSave();
  try{if(typeof refresh==='function')refresh()}catch(e){}}
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+/* สถานะจากคลาวด์ที่บันทึกก่อนปรับลำดับคำ (dv 3) → ย้ายก่อนรวม เพื่อให้ id บทระดับ 2 แบบเดิมไม่ถูกอ่านเป็นบทใหม่ */
+const up4=st=>{try{if(st&&typeof migrate4==='function'&&(st.dv||0)>=3&&(st.dv||0)<4)migrate4(st)}catch(e){}return st};
 /* สมุดเหรียญต่อเครื่อง: coinLog={base, d:{<เครื่อง>:{e:ได้รวม, s:ใช้รวม}}} — ตัวนับเพิ่มอย่างเดียว รวมด้วย max ได้ถูกต้อง
    เหรียญ = base + Σ(e−s) → ใช้เหรียญบนเครื่องหนึ่งแล้วซิงก์ เหรียญจะไม่เด้งกลับจากอีกเครื่อง */
 function devId(){if(!meta.dev){meta.dev=Math.random().toString(36).slice(2,10);saveMeta()}return meta.dev}
@@ -61,7 +63,7 @@ async function ensureSession(interactive){
 async function pullMerge(){const ses=await ensureSession(false);const cloud=await adapter().pull(ses);const s=getS();if(!s)return;trackCoins();
  const local=JSON.parse(JSON.stringify(s));
  if(!cloud||!cloud.state){meta.rev=0;saveMeta();await pushNow();return}
- const merged=LamaMerge.mergeState(local,cloud.state,meta.tLocal||0,cloud.t||0);
+ const merged=LamaMerge.mergeState(local,up4(cloud.state),meta.tLocal||0,cloud.t||0);
  meta.rev=cloud.rev;saveMeta();
  if(!same(merged,local))applyState(merged);
  if(!same(merged,cloud.state))await pushNow();else{meta.last=Date.now();saveMeta()}}
@@ -75,7 +77,7 @@ async function pushNow(keepalive){clearTimeout(pushT);pushT=null;
    const r=await adapter().push(ses,body,{keepalive});
    if(r.ok){meta.rev=r.rev;meta.last=Date.now();saveMeta();return}
    if(r.conflict){/* อีกเครื่องส่งมาก่อน: รวมกับของล่าสุดแล้วลองใหม่ */
-    const merged=LamaMerge.mergeState(body.state,r.state||{},body.t,r.t||0);meta.rev=r.rev;saveMeta();if(!same(merged,body.state))applyState(merged);continue}
+    const merged=LamaMerge.mergeState(body.state,up4(r.state||{}),body.t,r.t||0);meta.rev=r.rev;saveMeta();if(!same(merged,body.state))applyState(merged);continue}
    throw new Error('ซิงก์ไม่สำเร็จ')}
   throw new Error('ข้อมูลชนกันหลายครั้ง ลองใหม่ภายหลัง')})();
  try{await inflight;st.err=''}catch(e){st.err=e.message||String(e);if(e.status===401||e.relogin){meta.session='';saveMeta()}throw e}finally{inflight=null}}

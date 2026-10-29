@@ -59,8 +59,10 @@ let stack=[],curTab='home',tabScroll={};
 const SC={};
 const frame=()=>$('#frame');
 function navHtml(r,root){return `<header class="nav"><div class="nav-l">${root?'':`<button class="back" data-act="back">${BACKI}<span>${r.backLabel||'กลับ'}</span></button>`}</div><div class="nav-t">${r.title||''}</div><div class="nav-r">${r.right===undefined?(root?chips():''):r.right}</div></header>`}
+/* ปุ่มล่าง (.dock) ที่มากับเนื้อหา: ย้ายออกมานอกส่วนที่เลื่อนได้ ให้ปุ่มนิ่งอยู่ขอบล่างเหมือนแอปจริง (ยกเว้นที่อยู่ใน .stage ซึ่งโค้ดเกมอ้างถึงเอง) */
+function hoistDock(el){el.querySelectorAll(':scope>.dock[data-hoist]').forEach(d=>d.remove());el.querySelectorAll('.scroller .dock').forEach(d=>{if(d.closest('.stage'))return;d.dataset.hoist='1';el.appendChild(d)})}
 function build(name,params,root){const def=SC[name];if(!def)throw new Error('no screen '+name);const r=def(params||{});const el=document.createElement('section');el.className='screen '+(root?'root':'pushed');el.dataset.name=name;
- el.innerHTML=(r.nav!==undefined?r.nav:navHtml(r,root))+`<div class="scroller">${r.body}</div>${r.extra||''}`;
+ el.innerHTML=(r.nav!==undefined?r.nav:navHtml(r,root))+`<div class="scroller">${r.body}</div>${r.extra||''}`;hoistDock(el);
  const sc=$('.scroller',el);sc.addEventListener('scroll',()=>el.classList.toggle('collapsed',sc.scrollTop>(r.collapseAt||34)),{passive:true});
  return {el,name,params:params||{},r}}
 const anim=(el,k,o)=>el.animate(k,Object.assign({duration:430,easing:'cubic-bezier(.32,.72,0,1)',fill:'both'},o));
@@ -107,7 +109,7 @@ function popToRoot(){while(stack.length>2)stack.pop().el.remove();pop()}
   if(go){vib(6);pop()}else{o.top.el.style.transform=''}};
  document.addEventListener('touchend',end,{passive:true,capture:true});document.addEventListener('touchcancel',end,{passive:true,capture:true});
  document.addEventListener('touchstart',()=>{},{passive:true})/* ให้ :active ทำงานบน iOS Safari ทันที */})();
-function refresh(){const t=stack[stack.length-1];if(!t||!SC[t.name]||t.r.noRefresh)return;const r=SC[t.name](t.params);const sc=$('.scroller',t.el);const y=sc.scrollTop;sc.style.scrollBehavior='auto';sc.innerHTML=r.body;sc.scrollTop=y;sc.style.scrollBehavior='';
+function refresh(){const t=stack[stack.length-1];if(!t||!SC[t.name]||t.r.noRefresh)return;const r=SC[t.name](t.params);const sc=$('.scroller',t.el);const y=sc.scrollTop;sc.style.scrollBehavior='auto';sc.innerHTML=r.body;hoistDock(t.el);sc.scrollTop=y;sc.style.scrollBehavior='';
  const n=$('.nav',t.el);if(n&&r.nav===undefined){const rt=$('.nav-r',n);if(rt)rt.innerHTML=r.right===undefined?(stack.length===1?chips():''):r.right}t.r=r;r.mount&&r.mount(t.el)}
 
 /* ---------- ลากลงเพื่อปิดแบบ iOS (ใช้ร่วมกันทุกชีท) ----------

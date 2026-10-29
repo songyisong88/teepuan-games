@@ -333,6 +333,18 @@ for n in range(2,6):
         if cw:chosen.append(max(cw,key=lambda p:score(p,zs,n,src)))
       rest=sorted([p for p in rel if p not in chosen],key=lambda p:-score(p,zs,n,src))
       while len(chosen)<min(MAXS[n],5) and rest:chosen.append(rest.pop(0))
+      if n>=5 and not fr:   # ระดับอ่าน: กรอบประโยคเปลี่ยนผู้พูด (ฉัน/เขา) โดยคงคำใหม่ไว้
+        SW={'我':('他','ฉัน','เขา'),'他':('我','เขา','ฉัน')}
+        for p in chosen:
+          t0=p['toks'][0]
+          if t0 not in SW or any(x in t for t in p['s'][0].split('/')[1:] for x in ('我','他','她','你','自己','，','、','；')):continue
+          if not any(has_word(p,w) for w in zs) or len(p['toks'])<3:continue
+          nz,a_,b_=SW[t0];th0=p['s'][2]
+          if th0.count(a_)!=1 or 'ภูเขา' in th0 or 'ฉันท' in th0:continue
+          tk=p['s'][0].split('/');tk[0]=nz+tk[0][len(t0):]
+          v=mksent('/'.join(tk),th0.replace(a_,b_),known,code)
+          if not v or v['full'] in usedS:continue
+          chosen=[p,v]+[c for c in chosen if c is not p];fr={'k':0,'s':[0,1]};stat['fr_pron']+=1;break
       for p in chosen:usedS.add(p['full'])
       sents=[p['s'] for p in chosen]
       if not sents:stat['nosent']+=1
@@ -367,6 +379,7 @@ for n in range(2,6):
             cl=[p for p in POOL if p['full'] not in usedS and p['full'] not in usedEx and has_word(p,w['zh']) and all(okstr(t,LVK) for t in p['toks'])] if n>=3 else []
             if cl:
               p=min(cl,key=lambda p:abs(len(p['full'])-10));ex,exPy,exTh=p['full'],p['s'][1].replace('/',' '),p['s'][2];stat['ex_lv']+=1
+            elif n>=5 and ex and ex not in usedEx:stat['ex_orig']+=1   # ระดับอ่าน: ใช้ประโยคตัวอย่างเดิมบนบัตรคำ (ไม่ใช้ในแบบฝึก)
             else:ex=exPy=exTh='';stat['noex']+=1
         if ex:usedEx.add(ex)
         if ex:audio[ex]=''

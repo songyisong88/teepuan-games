@@ -7,8 +7,8 @@ from PIL import Image
 R=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC='/workspace/cn-images/l1-new';SCN='/workspace/cn-images/l1-scenes'
 IDX=os.path.join(R,'assets/art/index.js')
-# ภาพที่มีลามะ (ทักทาย/การกระทำ/อารมณ์) — ข้ามไว้จนกว่าซ่งอี้จะตัดสินใจ (ตรวจด้วยตาจาก lot-1..4-sheet)
-SKIP_LLAMA={'l1_nihao','l1_zaijian','l1_xiexie','l1_duibuqi','l1_bukeqi','l1_meiguanxi','l1_piaoliang','l1_kai','l1_hui','l1_lai','l1_qu','l1_zhu','l1_kan','l1_du','l1_shuohua','l1_renshi','l1_kanjian','l1_wei'}
+# ภาพที่มีลามะ (ทักทาย/การกระทำ/อารมณ์): ซ่งอี้อนุมัติแล้ว 29 ต.ค. 2026 — ไม่ข้ามแล้ว (ใส่ id ที่นี่ถ้าต้องการข้าม)
+SKIP_LLAMA=set()
 skipped=[]
 TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n'}
 def conv(src,dst,size=512):

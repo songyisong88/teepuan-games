@@ -7,6 +7,8 @@
 |---|---|---|
 | **hanzi-writer-data 2.0.1** (David Chanin) — เส้นขีด (`strokes`), เส้นกลางขีด (`medians`), `radStrokes` | รูปร่างและเส้นทางของทุกขีด | **Arphic Public License** (ข้อมูลฟอนต์ Arphic PL KaitiM GB / UKai © 1999 Arphic Technology Co., Ltd.) — ข้อความเต็มใน `ARPHICPL.TXT` |
 | **Make Me a Hanzi** (Shaunak Kishore) `dictionary.txt` — การแยกส่วนประกอบ (`d`), รากอักษร (`rad`), พินอิน (`py`), ขีดไหนอยู่ในส่วนประกอบใด (`k`, `cp`) | ระบายสีส่วนประกอบ | Arphic Public License (© 1999 Arphic Technology Co., Ltd., © 2016 Shaunak Kishore) |
+| **animCJK** (François Mizessyn, github.com/parsimonhi/animCJK, ดาวน์โหลด 2026-10-29) `graphicsZhHans.txt` — เส้นขีด/เส้นกลางขีดของ 316 ตัว (ฟิลด์ `src:"acjk"`) | ตัวใน 通用规范汉字表 และส่วนประกอบที่ hanzi-writer-data ไม่มี | **Arphic Public License** (ดัดแปลงจากฟอนต์ Arphic PL KaitiM GB และ Make Me a Hanzi) — `ARPHICPL.TXT`, ประกาศต้นฉบับ `ANIMCJK-COPYING.txt` |
+| **animCJK** `dictionaryZhHans.txt` — `d`, `rad`, `py` และ `k`/`cp` (เฉพาะตัวที่โครง ⿰/⿱ สองส่วนและจำนวนขีดรวมตรง) ของ 316 ตัวนั้น | ข้อมูลประกอบ | **LGPL-3.0** — `LGPL-3.0.txt` |
 | **cnchar-order 3.2.6** (theajack) — ชื่อชนิดขีดภาษาจีน | ฟิลด์ `n` (ชื่อขีด) | MIT — ดู `vendor/LICENSE-cnchar-order.txt` |
 | **Hanzi Writer 3.7.3** (David Chanin) — ไลบรารีตรวจขีดตอนฝึกเขียน (`vendor/hanzi-writer.min.js`) | ตรวจเส้นที่ผู้เรียนลาก | MIT — ดู `vendor/LICENSE-hanzi-writer.txt` |
 
@@ -16,7 +18,10 @@
 3. ชื่อขีดที่ cnchar-order ระบุกำกวม (เช่น `横撇|横钩`, `斜钩|卧钩`) เราตัดสินด้วยกฎเรขาคณิตง่ายๆ จากเส้นกลางขีด (ดู `tools/stroke-build/README.md`) — **ยังไม่ผ่านครูตรวจ**
 4. **ชื่อขีดภาษาไทยและคำอธิบายทิศทาง (`STK_T`) เป็นร่าง รอครูตรวจ**
 
-ตัวที่ไม่อยู่ใน 9,485 ตัวนี้ — รวมตัวใน 通用规范汉字表 อีก 1,239 ตัว (ตัวหายาก/ชื่อสถานที่ ระดับ 3 ที่ไม่มีในแหล่งเปิดที่ใช้) และรูปตัวข้างย่อยในบล็อก CJK Radicals Supplement (⺾ ⻌ ⻔ ฯลฯ) กับ 𠂢 𢦏 𠂤 𬊈 冃 — แอปแสดง "ยังไม่มีข้อมูล" — ไม่มีการเดาเส้นขีดเอง
+5. 2026-10-29 (v3): เพิ่ม 316 ตัวจาก animCJK — ตัวใน 通用规范汉字表 ที่ hanzi-writer-data ไม่มี (302) + ส่วนประกอบที่แอปใช้ (⺕ ⺝ ⺤ ⺫ ⻌ ⻍ ⻎ ⻏ ⻖ ⻗ 冃 𠂢 𠂤 𢦏) · ตรวจจำนวนขีดเทียบ Unihan `kTotalStrokes` และหมวดขีดในตารางทางการ — 滫 ไม่ตรง (animCJK 14 / ตาราง 13) จึงไม่เอา · ตัวที่ cnchar ไม่มีชื่อขีดจะแสดง "ขีดที่ N"
+6. รูปตัวข้างในบล็อก CJK Radicals Supplement 13 ตัว (⺖ ⺘ ⺡ ⺢ ⺨ ⺭ ⺹ ⺾ ⻂ ⻔ ⻢ ⻥ ⻦) ใช้ไฟล์ของตัวมาตรฐานที่ Unicode `EquivalentUnifiedIdeograph.txt` ระบุว่าเทียบเท่า (ฟิลด์ `eq`) — ไม่วาดใหม่ · ⺧ ⻁ ⺿ รูปต่างจากตัวเทียบเท่าจึงไม่ใช้
+
+รวม **9,814 ตัว** · ตัวที่ไม่อยู่ในนี้ — 通用规范汉字表 อีก 937 ตัว (ระดับ 2: 28, ระดับ 3: 909 — ตัวหายาก/ชื่อคน/สถานที่ ที่ทั้งสองแหล่งไม่มี) และ ⺧ ⺪ ⺷ ⺿ ⻁ ⻊ 𬊈 — แอปแสดง "ยังไม่มีข้อมูล" — ไม่มีการเดาเส้นขีดเอง
 
 สัญญา Arphic Public License กำหนดว่าการแจกจ่ายซ้ำต้องแนบข้อความสัญญาและประกาศนี้ไปด้วย — อย่าลบไฟล์ `ARPHICPL.TXT` และ `NOTICE.md`
 

@@ -12,6 +12,24 @@ _extra=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'extra_chars
 _have=set(json.loads(l)['character'] for l in open(W+'/graphics.txt',encoding='utf8'))
 _have={c for c in _have&set(_extra) if os.path.exists(W+'/package/'+c+'.json')}
 cov+=''.join(sorted(_have-set(cov)))
+# v3 (2026-10-29): animCJK svgsZhHans (graphicsZhHans.txt, Arphic PL; dictionaryZhHans.txt, LGPL-3) — github.com/parsimonhi/animCJK
+# เพิ่มเฉพาะ (ก) ตัวใน 通用规范汉字表 8,105 ที่ hanzi-writer-data ไม่มี (ข) ตัวข้าง/ส่วนประกอบที่ใช้ในแอปแต่ยังไม่มีข้อมูล
+# ตรวจจำนวนขีดเทียบ Unihan kTotalStrokes + ลำดับหมวดขีดในตารางทางการ; ไม่ตรง = ไม่เอา (รายการ acjk_chars.txt สร้างโดย acjk_select.py)
+AJ='/workspace/stroke-order/acjk'
+AG={};[AG.__setitem__(j['character'],j) for j in map(json.loads,open(AJ+'/graphicsZhHans.txt',encoding='utf8'))]
+AD={};[AD.__setitem__(j['character'],j) for j in map(json.loads,open(AJ+'/dictionaryZhHans.txt',encoding='utf8'))]
+_acjk=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'acjk_chars.txt'),encoding='utf8').read().strip()
+ACJK=[c for c in _acjk if c not in set(cov) and c in AG]
+cov+=''.join(ACJK);ACJK=set(ACJK)
+# รูปตัวข้างในบล็อก CJK Radicals Supplement → ตัวมาตรฐานที่ Unicode ระบุว่าเทียบเท่า (EquivalentUnifiedIdeograph.txt) ใช้ข้อมูลของตัวนั้น + ฟิลด์ eq
+EQ={'⺖':'忄','⺘':'扌','⺨':'犭','⺡':'氵','⺢':'氺','⺭':'礻','⺹':'耂','⺾':'艹','⻂':'衤','⻔':'门','⻢':'马','⻥':'鱼','⻦':'鸟'}
+cov+=''.join(c for c in EQ if c not in set(cov))
+def acjk_k(c,n):
+    m=re.fullmatch(r'(.)([⿰⿱])([^\d.⿰-⿻])(\.?)(\d+)([^\d.⿰-⿻])(\.?)(\d+)',(AD.get(c) or {}).get('acjk',''))
+    if not m or m.group(1)!=c:return None
+    a,b=int(m.group(5)),int(m.group(8))
+    if a+b!=n:return None
+    return [0]*a+[1]*b,[[m.group(3),'r' if m.group(4) else 'o'],[m.group(6),'r' if m.group(7) else 'o']]
 NAMES=json.load(open(W+'/names_all2.json',encoding='utf8'))
 DIC={}
 for l in open(W+'/dictionary.txt',encoding='utf8'):
@@ -89,11 +107,18 @@ stats={'ambig':0,'noname':0,'nocomp':0,'chars':0,'bytes':0,'nlenbad':0}
 amb_list=[]
 LIC='Arphic Public License (1999) - derived from hanzi-writer-data 2.0.1 / Make Me a Hanzi; modified: compact JSON, added n,k,cp,d fields; stroke names from cnchar-order (MIT); see data/stroke/ARPHICPL.TXT & NOTICE.md'
 for ch in cov:
-    d=json.load(open(W+'/package/'+ch+'.json',encoding='utf8'))
+    eq=EQ.get(ch) if ch in EQ and not os.path.exists(W+'/package/'+ch+'.json') else None
+    src=eq or ch
+    if src in ACJK:
+        g=AG[src];d={'strokes':g['strokes'],'medians':g['medians']}
+    else:
+        d=json.load(open(W+'/package/'+src+'.json',encoding='utf8'))
     n_s=len(d['strokes'])
     o={'lic':'APL-modified','strokes':d['strokes'],'medians':d['medians']}
     if d.get('radStrokes'):o['radStrokes']=d['radStrokes']
-    nm=NAMES.get(ch)
+    if eq:o['eq']=eq
+    if src in ACJK:o['src']='acjk'
+    nm=NAMES.get(src)
     if nm and len(nm)==n_s:
         ids=[];fl=[]
         for i,n in enumerate(nm):
@@ -111,7 +136,14 @@ for ch in cov:
     else:
         stats['noname']+=1
         if nm:stats['nlenbad']+=1
-    e=DIC.get(ch)
+    e=DIC.get(src)
+    if src in ACJK and not e:
+        a=AD.get(src) or {}
+        if a.get('decomposition'):o['d']=a['decomposition']
+        if a.get('radical'):o['rad']=a['radical'].split(' ')[0]
+        if a.get('pinyin'):o['py']=a['pinyin'][:3]
+        kk=acjk_k(src,n_s)
+        if kk:o['k'],o['cp']=kk
     if e:
         ids=e.get('decomposition','')
         o['d']=ids
@@ -150,6 +182,7 @@ idx='/* ข้อมูลลำดับขีด: ดัชนีตัวอ�
 idx+='const STK_COV='+json.dumps(cov,ensure_ascii=False)+';\n'
 B36='0123456789abcdefghijklmnopqrstuvwxyz'
 idx+='const STK_SC='+json.dumps(''.join(B36[min(35,n)] for n in SC))+';/* จำนวนขีดต่อตัว (base36) เรียงตาม STK_COV */\n'
+idx+='const STK_ACJK=%d;/* จำนวนตัวที่ใช้ข้อมูล animCJK */\n'%len(ACJK)
 idx+='const STK_T='+json.dumps(T,ensure_ascii=False,separators=(',',':'))+';\n'
 G={}
 for f in ('table_core.md','table_bonus.md'):

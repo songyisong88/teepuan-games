@@ -203,11 +203,4 @@ const L1SND={'0-1':'รู้จักตัวจีนกับพินอิ
  ${open?`<button class="pill row1 press mt16" id="ls">${done?'เรียนอีกครั้ง':'เริ่มเรียน'}</button>`:`<div class="banner mt16" style="background:#F2ECE4;color:var(--sub2);text-align:center">เรียนบทก่อนหน้าให้จบก่อน</div>`}
  ${L.code==='0-1'&&!unitDone('1003a')?`<button class="pill sm ghost press mt12" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบบท 0-3</button>`:''}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}}
 
-/* ---------- แผนที่ระดับ 1 (รายการตามตอน) ---------- */
-{const _lm=lcMap;lcMap=function(n){if(!LESSONS.some(l=>l.lv===n&&l.v3))return _lm(n);const cur=nextUnit(n);
- return `<div class="l1map">${CHAPTERS.filter(c=>c.lv===n&&LESSONS.some(l=>l.chapter===c.id)).map(c=>{const ls=LESSONS.filter(l=>l.chapter===c.id),dn=ls.filter(l=>unitDone(l.id+'a')).length;
-  return `<section class="l1part"><div class="l1ph"><span class="l1ep">ตอน ${c.ep}</span><div class="tx"><b>${c.th}</b><small>${c.sub||''}</small></div><span class="cap">${dn}/${ls.length}</span></div>
-  ${ls.map(L=>{const id=L.id+'a',done=unitDone(id),open=unitOpen(id),isCur=cur&&cur.id===id,g=L.kind==='gate';const th=(g?l1SceneWords(L):L.words).filter(l1PicOk).slice(0,2);
-   const cm=CLASSMATES.find(x=>x.by==='lesson:'+L.id);
-   return `<button class="l1row press${done?' done':''}${isCur?' cur':''}${!open&&!done?' lock':''}${g?' gate':''}" data-go="unit" data-id="${id}" aria-label="${lnoTxt(L)} ${L.th}"><span class="l1c">${g?(done?CHECK:'✓'):L.code}${done&&!g?`<i>${CHECK}</i>`:''}</span><span class="tx"><b>${g?`ทบทวนตอนที่ ${c.ep}`:L.th}</b><small>${g?'ฉากทบทวน · ผ่าน 70%':L.words.length?L.words.map(w=>w.zh).join(' · '):L1SND[L.code]||''}</small></span><span class="l1tm">${th.map(w=>l1Tile(w,'pic-mini')).join('')}</span>${isCur?'<span class="l1go">เริ่ม</span>':!open&&!done?`<span class="l1lk">${LOCK}</span>`:''}</button>
-   ${cm?`<button class="l1row cmr press" data-go="cm" data-id="${cm.id}"><span class="l1c cm">${cmImg(cm,cmUnlocked(cm))}</span><span class="tx"><b>${cmUnlocked(cm)?cm.n:'เพื่อนใหม่'}</b><small>${cmUnlocked(cm)?'เพื่อนในห้องเรียน':'ผ่านด่านนี้แล้วจะได้เจอ'}</small></span></button>`:''}`}).join('')}</section>`}).join('')}</div>`}}
+/* แผนที่ระดับ 1: ใช้แผนที่ซิกแซกแบบ C ร่วมกับทุกระดับ (lcMap ใน levels.js รองรับบท v3 ด่านทบทวน และเพื่อนในห้อง) */

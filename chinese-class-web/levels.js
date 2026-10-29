@@ -36,22 +36,25 @@ SC.levels=({first}={})=>{const cur=curLv();
 
 /* ----- หน้าบทเรียน (แบบ C): หัวทักทาย · ทางลัด 6 วง · การ์ดตอน+ป้ายระดับ · แผนที่ซิกแซกจากบทจริงของระดับที่เลือก ----- */
 const LC_X=[50,27,50,73];
-function lcPic(Ls){const w=(Ls.words||[]).find(x=>typeof picHas==='function'&&picHas(x));return w?art('word',w.zh,'','lc-art'):`<span class="lc-em">${Ls.emoji||'📖'}</span>`}
+function lcPic(Ls){if(Ls.v3&&window.l1Tile){for(const x of Ls.words||[]){const t=l1Tile(x,'lc-art');if(t)return t}}const w=(Ls.words||[]).find(x=>typeof picHas==='function'&&picHas(x));return w?art('word',w.zh,'','lc-art'):`<span class="lc-em">${Ls.emoji||'📖'}</span>`}
 function lcRev(){const r=reviewWords().length;return {k:'R',st:'rev',html:`<button class="lc-node rev press" data-go="review" aria-label="ทบทวนตามรอบ${r?' '+r+' คำ':''}"><span class="o">${M('think')}</span>${r?`<span class="rb">${r}</span>`:''}<span class="nl">ทบทวนตามรอบ</span></button>`}}
 function lcMap(n){const cur=nextUnit(n);let html='',sec=0;const chs=CHAPTERS.filter(c=>c.lv===n&&LESSONS.some(l=>l.chapter===c.id)),lastCh=chs.length-1;
  chs.forEach((ch,ci)=>{const ls=LESSONS.filter(l=>l.chapter===ch.id);
   const items=[];let lsDone=0;
   ls.forEach(Ls=>{const us=UNITS.filter(u=>u.lesson===Ls.id),dn=us.filter(u=>unitDone(u.id)).length,done=dn===us.length,isCur=!!(cur&&us.some(u=>u.id===cur.id)),open=us.some(u=>unitOpen(u.id));if(done)lsDone++;
    const go=(us.find(u=>!unitDone(u.id))||us[us.length-1]).id;
-   items.push({k:'L',st:done?'done':isCur?'cur':open?'open':'lock',html:`<button class="lc-node press ${done?'done':isCur?'cur':open?'':'lock'}" data-go="unit" data-id="${go}" aria-label="${lnoTxt(Ls)} ${Ls.th}${done?' เรียนจบแล้ว':isCur?' บทปัจจุบัน':open?'':' ยังล็อก'}">${isCur?'<span class="lc-bub">เริ่ม ▶</span>':''}<span class="o">${lcPic(Ls)}</span>${done?'<span class="ok">✓</span>':''}${!done&&!isCur&&!open?'<span class="lk">🔒</span>':''}<span class="nl">${Ls.th}${isCur&&dn?` · ${dn}/${us.length}`:''}</span></button>`});
-   if(isCur)items.push(lcRev())});
-  if(ci===lastCh&&!cur)items.push(lcRev());
+   const gt=Ls.kind==='gate';
+   items.push({k:'L',st:done?'done':isCur?'cur':open?'open':'lock',html:`<button class="lc-node press${gt?' rev gate':''} ${done?'done':isCur?'cur':open?'':'lock'}" data-go="unit" data-id="${go}" aria-label="${lnoTxt(Ls)} ${Ls.th}${done?' เรียนจบแล้ว':isCur?' บทปัจจุบัน':open?'':' ยังล็อก'}">${isCur?'<span class="lc-bub">เริ่ม ▶</span>':''}<span class="o">${gt?M('think'):lcPic(Ls)}</span>${done?'<span class="ok">✓</span>':''}${!done&&!isCur&&!open?'<span class="lk">🔒</span>':''}<span class="nl">${gt?'ทบทวนตอน '+ch.ep:Ls.th}${isCur&&dn&&!Ls.v3?` · ${dn}/${us.length}`:''}</span></button>`});
+   const cm=Ls.v3&&CLASSMATES.find(x=>x.by==='lesson:'+Ls.id);
+   if(cm){const on=cmUnlocked(cm);items.push({k:'C',st:'cm',html:`<button class="lc-node cm press ${on?'':'lock'}" data-go="cm" data-id="${cm.id}" aria-label="${on?cm.n:'เพื่อนใหม่ ผ่านด่านนี้แล้วจะได้เจอ'}"><span class="o">${cmImg(cm,on)}</span>${on?'':'<span class="lk">🔒</span>'}<span class="nl">${on?cm.n:'เพื่อนใหม่'}</span></button>`})}
+   if(isCur&&!Ls.v3)items.push(lcRev())});
+  if(ci===lastCh&&!cur&&!ls.some(l=>l.v3))items.push(lcRev());
   /* ตำแหน่งซิกแซก: x เป็น % ของความกว้าง, y เป็น px */
   let y=items[0]&&items[0].st==='cur'?112:70;const pts=items.map((it,i)=>{const big=it.st==='cur';if(i)y+=big||items[i-1].st==='cur'?150:124;return {x:LC_X[(i+sec)%4],y,big}});sec+=items.length;
   const H=y+80,curI=items.findIndex(it=>it.st==='cur'),lastDone=curI>=0?curI:items.reduce((a,it,i)=>it.st==='done'?i:a,-1);
   const seg=(a,b)=>{let d=`M${pts[a].x} ${pts[a].y}`;for(let i=a+1;i<=b;i++){const p=pts[i-1],q=pts[i],m=(q.y-p.y)/2;d+=` C${p.x} ${p.y+m} ${q.x} ${q.y-m} ${q.x} ${q.y}`}return d};
   const cheer=curI>=0?`<span class="lc-cheer" style="top:${pts[curI].y-90}px;${pts[curI].x<=50?'right:4%':'left:4%'}">${M('cheer')}</span>`:'';
-  html+=`<div class="lc-chap"><div class="lc-ch"><span class="e" style="background:${ch.bg}">${ch.emoji}</span><span class="t"><b>${ch.th} <small class="ep">ตอน ${ci+1}</small></b><small>${ch.sub}</small></span>${1?`<button class="lc-lv press" data-go="levels" aria-label="เปลี่ยนระดับ (ตอนนี้ ${levelBy(n).name})">${levelBy(n).name}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>`:''}</div>
+  html+=`<div class="lc-chap"><div class="lc-ch"><span class="e" style="background:${ch.bg}">${ch.emoji||ch.ep}</span><span class="t"><b>${ch.th} <small class="ep">ตอน ${ch.ep!=null?ch.ep:ci+1}</small></b><small>${ch.sub}</small></span>${1?`<button class="lc-lv press" data-go="levels" aria-label="เปลี่ยนระดับ (ตอนนี้ ${levelBy(n).name})">${levelBy(n).name}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>`:''}</div>
    <div class="lc-zz" style="height:${H}px"><svg class="lc-path" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${seg(0,pts.length-1)}" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" vector-effect="non-scaling-stroke"/>${lastDone>0?`<path d="${seg(0,lastDone)}" fill="none" stroke="#2E8B57" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 12" vector-effect="non-scaling-stroke"/>`:''}</svg>${cheer}
    ${items.map((it,i)=>`<div class="lc-pos" style="left:${pts[i].x}%;top:${pts[i].y}px">${it.html}</div>`).join('')}</div></div>`});
  return html}

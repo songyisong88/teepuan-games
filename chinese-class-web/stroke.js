@@ -132,13 +132,13 @@ function stkViewer(el,root,info,datas,p,setAnim){const w=info.w,nc=datas.length;
   const cta=$('#stkcta',el),pr=$('#stkprac',el);cta.style.display=ent?'':'none';const lab=isAll?(nc>1?`ฝึกเขียนทั้งคำ ${w}`:'ฝึกเขียนตามขีด'):(nc>1?`ฝึกเขียน ${info.cs[tab]}`:'ฝึกเขียนตามขีด');
   pr.innerHTML=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.2-4.2L16.6 4.4a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8z"/></svg><span>${lab}</span>`;
   pr.onclick=()=>{anim&&anim.pause();push('strokeprac',{w,only:isAll?-1:tab})};
-  $$('[data-t]',root).forEach(b=>b.onclick=()=>{tab=+b.dataset.t;vib(6);draw()});
+  $$('.stk-tabs [data-t]',root).forEach(b=>b.onclick=()=>{tab=+b.dataset.t;vib(6);draw()});
 }
  function wire(items){const svgEl=$('.stk-svg',root);if(!svgEl)return;anim=stkAnimator(svgEl,items,s=>upd(s,items));setAnim(anim);
   const play=$('#bplay',root);$('#bprev',root).onclick=()=>{vib(5);anim.prev()};$('#bnext',root).onclick=()=>{vib(5);anim.next()};play.onclick=()=>{vib(6);anim.toggle()};
   $$('[data-sp]',root).forEach(b=>b.onclick=()=>{$$('[data-sp]',root).forEach(x=>x.classList.toggle('on',x===b));anim.setSpeed(+b.dataset.sp);vib(5)});
   $$('[data-tg]',root).forEach(b=>b.onclick=()=>{const on=!b.classList.contains('on');b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);b.firstElementChild.textContent=on?'✓':'';anim.st[b.dataset.tg]=on;anim.paint();vib(5)});
-  $$('[data-j]',root).forEach(b=>b.onclick=()=>{anim.jump(+b.dataset.j);vib(5)});
+  $$('[data-j]',root).forEach(b=>b.onclick=()=>{anim&&anim.jump(+b.dataset.j);vib(5)});
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)anim.play();else anim.jump(items.length)}
  function upd(s,items){const n=items.length;const shown=s.anim>=0?s.anim+1:s.done;const cur=s.anim>=0?s.anim:s.done-1;
   const bar=$('#stkbar',root);if(!bar)return;[...bar.children].forEach((b,i)=>{const bb=b.querySelector('b');const full=i<s.done,isA=i===s.anim;b.classList.toggle('on',full);b.classList.toggle('cur',isA);bb.style.width=full?'100%':isA?Math.round(s.p*100)+'%':'0%'});

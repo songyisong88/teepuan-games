@@ -167,7 +167,7 @@ SC.bookplay=(p)=>{const G=group(p&&p.g);const tr=G?G.tr:[];const i=Math.max(0,tr
  const ansLbl=ls?'ดูเฉลยและบทที่อ่าน':'ดูบทที่อ่าน';
  const ol=t.items.map(x=>`<li>${x.zh?`<span class="bk-zh">${esc(x.zh)}</span> `:''}<span class="bk-py">${pyHtml(x.py||'')}</span></li>`).join('');
  const ansTxt=Array.isArray(t.ans)?t.ans.join(' · '):String(t.ans||'');
- const ansOpen=`<div class="bk-hd"><b>${ls?'เฉลยแทร็ก':'บทที่อ่านในแทร็ก'} ${t.id}</b><span>แตะเพื่อซ่อน</span></div>${ls?(ansTxt?`<div class="bk-script">${pyw(ansTxt)}</div>`:`<div class="bk-script">เฉลยอยู่ท้ายหน้า${pg?' '+pg:''} ในหนังสือ</div>`):''}${ol?`<ol class="bk-ol">${ol}</ol>`:''}${t.note?`<div class="bk-script">${esc(t.note)}</div>`:''}`;
+ const ansOpen=`<div class="bk-hd"><b>${ls?'เฉลยแทร็ก':'บทที่อ่านในแทร็ก'} ${t.id}</b><span>แตะเพื่อซ่อน</span></div>${ansTxt?`<div class="bk-script">${pyw(ansTxt)}</div>`:`${ls?`<div class="bk-script">เฉลยอยู่ท้ายหน้า${pg?' '+pg:''} ในหนังสือ</div>`:''}${ol?`<ol class="bk-ol">${ol}</ol>`:''}`}${t.note?`<div class="bk-script">${esc(t.note)}</div>`:''}`;
  const ansClosed=`<span class="bk-ic">${I.eye(20)}</span><div class="bk-tx"><b>${ansLbl}</b><small>ซ่อนไว้ แตะเมื่อ${ls?'เขียนคำตอบเสร็จแล้ว':'ต้องการดู'}</small></div>${I.chev()}`;
  return {title:head,noRefresh:true,
   nav:`<header class="nav bk-hdr"><button class="bk-bk press" data-act="back" aria-label="กลับ">${I.down()}</button><div class="bk-tt" style="text-align:center"><b>${zhw(head)}</b><small>ห้องเรียนคู่หนังสือ</small></div><span class="bk-bk"></span></header>`,

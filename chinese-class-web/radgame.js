@@ -167,7 +167,7 @@ SC.radres=(r)=>{r=Object.assign({kind:'build',stars:1,title:'เรียบร�
   mount(el){confetti(r.stars>=3?110:70);
    $('#rshare',el).onclick=()=>{if(r.share&&r.share.blitz!=null)return shareSheet('radchal',{score:r.share.blitz,text:r.share.t,sub:r.share.s});if(cardNew)return shareSheet('radcard',{id});shareSheet('radres',{text:r.share?r.share.t:r.title,sub:r.share?r.share.s:'',stats:r.stats.slice(0,3)})};
    $('#ragain',el).onclick=()=>replace(r.again.n,r.again.p);
-   $('#rcol',el).onclick=()=>{const k=radS();k.tab='col';save();mountRoot('rad')};
+   $('#rcol',el).onclick=()=>{const k=radS();k.tab='col';save();goRad()};
    const nb=$('#rnext',el);if(nb)nb.onclick=()=>{popToRoot();push('radfam',{id:nx.id})}}}};
-Object.assign(window.GOX,{radexit(){mountRoot('rad')}});
-document.addEventListener('click',e=>{const t=e.target.closest('[data-act="radexit"]');if(t&&$('#frame').contains(t)){vib(6);mountRoot('rad')}});
+Object.assign(window.GOX,{radexit(){goRad()}});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act="radexit"]');if(t&&$('#frame').contains(t)){vib(6);goRad()}});

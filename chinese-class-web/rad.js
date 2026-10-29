@@ -73,7 +73,7 @@ function radLessonsFor(r,max=8){const m=RAD_MEM[r.id];const set=new Set([...m.s,
 SC.rad=()=>{const k=radS();const tab=k.tab||'path';
  const seg=`<div class="seg rd-seg" role="group" aria-label="มุมมอง">${[['path','เส้นทาง'],['prac','ฝึก'],['col','การ์ด']].map(([v,l])=>`<button data-go="radtab" data-t="${v}" class="${tab===v?'on':''}">${l}</button>`).join('')}</div>`;
  const head=`<div class="rd-head"><div class="rd-kick">เส้นทางแยกจากบทเรียน</div><div class="large" style="padding:0">อักษรข้าง</div></div>`;
- return {title:'อักษรข้าง',body:`${head}${seg}${tab==='path'?radPathHtml():tab==='prac'?radPracHtml():radColHtml()}`,mount(el){radColorize(el);if(tab==='path'){const c=$('.rd-node.cur',el);if(c&&!el.dataset.sc){el.dataset.sc=1;const sc=$('.scroller',el);setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.38;if(y>200)sc.scrollTo({top:y,behavior:'smooth'})},250)}}
+ return {title:'อักษรข้าง',backLabel:'แหล่งความรู้',body:`${head}${seg}${tab==='path'?radPathHtml():tab==='prac'?radPracHtml():radColHtml()}`,mount(el){radColorize(el);if(tab==='path'){const c=$('.rd-node.cur',el);if(c&&!el.dataset.sc){el.dataset.sc=1;const sc=$('.scroller',el);setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.38;if(y>200)sc.scrollTo({top:y,behavior:'smooth'})},250)}}
    if(tab==='col')radColMount(el)}}};
 Object.assign(window.GOX=window.GOX||{},{radtab(el){const k=radS();k.tab=el.dataset.t;save();refresh()}});
 /* ---- มุมมองเส้นทาง ---- */

@@ -69,7 +69,7 @@ function radColMount(el){radColorize(el)}
 function radHomeCard(){const k=radS();const n=radCoreDone();const cur=radCur();const ids=['亻','口','女','讠','木'];
  return `<button class="rd-home press" data-go="radhome" aria-label="ไปเรียนอักษรข้าง"><div class="rh-t"><b>รู้จักตัวข้าง แล้วจำตัวจีนง่ายขึ้น</b><small>เรียนตัวข้างทีละตัว 3 นาที · แยกจากบทเรียน</small></div>
  <div class="rh-tiles">${ids.map(i=>`<span class="zh">${i}</span>`).join('')}<span class="more">${n}/${RAD_CORE.length}</span></div><span class="rh-btn">${n?'เรียนต่อ'+(cur?' · '+cur.id+' '+cur.th:''):'ไปเริ่มเรียนอักษรข้าง (3 นาที)'}</span></button>`}
-Object.assign(window.GOX,{radhome(){mountRoot('rad')}});
+Object.assign(window.GOX,{radhome(){goRad()}});
 /* ---------- การ์ดแชร์ LINE (วาดด้วย canvas) ---------- */
 async function radDrawCard(c,g,x,y,w,h,TH,F){const r=RADI[g.id];c.save();c.fillStyle=TH.sb;rr(c,x,y,w,h,32);c.fill();
  const s=h-48,tx=x+24,ty=y+24;c.fillStyle='rgba(217,130,43,.16)';rr(c,tx,ty,s,s,30);c.fill();c.strokeStyle='rgba(217,130,43,.55)';c.lineWidth=3;c.setLineDash([10,8]);rr(c,tx+6,ty+6,s-12,s-12,26);c.stroke();c.setLineDash([]);

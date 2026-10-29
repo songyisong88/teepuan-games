@@ -146,6 +146,8 @@ js.append('const RAD='+json.dumps(rad,ensure_ascii=False,separators=(',',':'))+'
 memo={g:{'s':[c for c in l if roles[(g,c)]=='s'],'w':[c for c in l if roles[(g,c)]=='w']} for g,l in mem.items()}
 js.append('const RAD_MEM='+json.dumps(memo,ensure_ascii=False,separators=(',',':'))+';')
 js.append('/* ตัวอักษร -> [โครงสร้าง, ชนิด(p=บอกเสียง i=รวมความหมาย g=รูปภาพ), ส่วนความหมาย, ส่วนเสียง, พินอินส่วนเสียง, ตรงเสียง(2=เป๊ะ 1=ตรงพยางค์ 0=ไม่ตรง -1=ไม่ทราบ), {ตัวข้าง:[ลำดับขีด]}] */')
+for _k,_v in fixes.get('chfix',{}).items():
+    if _k in CH and isinstance(_v,dict): CH[_k].update(_v)
 js.append('const RAD_CH='+json.dumps({k:[v['dec'],v['t'],v['sem'],v['ph'],v.get('pp',''),v.get('m',-1),v['ss'],v['py']] for k,v in CH.items()},ensure_ascii=False,separators=(',',':'))+';')
 import re
 RP={}

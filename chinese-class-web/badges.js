@@ -51,7 +51,7 @@ const titleNext=()=>{const n=learnedCount();return TITLES.find(x=>x[0]>n)};
 function badgeCheck(){if(!S.badges)S.badges={};const fresh=[];
  BADGES.forEach(b=>{if(S.badges[b.id])return;const [c,g]=b.t();if(c>=g){S.badges[b.id]=today();fresh.push(b)}});
  if(!fresh.length)return;fresh.forEach(b=>{S.coins+=b.big?25:10;S.coinsEarned+=b.big?25:10});save();bumpChips();
- const top=stack[stack.length-1],ok=top&&['home','complete','result','me','rank','badges','games','path','rad'].includes(top.name);
+ const top=stack[stack.length-1],ok=top&&['home','complete','result','me','rank','badges','games','path','rad','know'].includes(top.name);
  if(ok&&!$('.sheet')){const b=fresh[0];
   openSheet(`<div class="center" style="padding:0 24px"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(b.big?'trophy':'celebrate')}</div>
    <div class="cap" style="color:var(--red);font-weight:700">ได้เหรียญตราใหม่${fresh.length>1?` (+อีก ${fresh.length-1})`:''}</div>

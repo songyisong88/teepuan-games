@@ -1,4 +1,4 @@
-/* สำรองความก้าวหน้าข้ามเครื่อง — ทำทั้งหมดในเครื่อง: ส่งออก/นำเข้าไฟล์ .json หรือ "รหัสสำรอง" (ข้อความ) ไม่ส่งข้อมูลไปที่ใด ไม่ต้องมีบัญชี */
+/* สำรองความก้าวหน้าข้ามเครื่อง — ทำทั้งหมดในเครื่อง: ส่งออก/นำเข้าไฟล์ .json หรือ "รหัสสำรอง" (ข้อความ) ไม่ส่งข้อมูลไปที่ใด ไม่ต้องมีบัญชี (ซิงก์ผ่าน LINE อยู่ใน sync.js แยกต่างหาก) */
 (function(){
 const PFX='lama-',SKIP=/^lama-(ver-reload|undo-import|backup-meta|art-|stk-)/;
 const MAXB=3e6;
@@ -32,7 +32,7 @@ function bkAsk(o,how){const s=bkSummary(o);
  bkApply(o);toast('นำเข้าแล้ว กำลังเปิดใหม่…');setTimeout(()=>{location.href=location.pathname},700);return true}
 SC.backup=()=>{const m=bkMeta(),has=!!localStorage.getItem('lama-undo-import');
  return {title:'สำรองความก้าวหน้า',body:`<div class="large">สำรอง / ย้ายเครื่อง</div>
- <div class="card pad2" style="margin:0 20px 12px;font-size:14.5px;line-height:1.6">ความก้าวหน้า เหรียญ สตรีค และข้อมูลฝึกเขียน เก็บอยู่ใน <b>เครื่องนี้เท่านั้น</b> — ถ้าล้างเบราว์เซอร์หรือเปลี่ยนมือถือจะหาย ใช้ไฟล์หรือรหัสด้านล่างย้ายไปเครื่องใหม่ได้ <b>ไม่ต้องสมัครบัญชี และไม่มีข้อมูลถูกส่งไปที่ใด</b>${m.t?`<br><small class="cap">สำรองไฟล์ล่าสุด: ${fmtD(m.t)}</small>`:'<br><small class="cap">ยังไม่เคยสำรอง</small>'}</div>
+ <div class="card pad2" style="margin:0 20px 12px;font-size:14.5px;line-height:1.6">ความก้าวหน้า เหรียญ สตรีค และข้อมูลฝึกเขียน เก็บอยู่ใน <b>เครื่องนี้เท่านั้น</b> — ถ้าล้างเบราว์เซอร์หรือเปลี่ยนมือถือจะหาย ใช้ไฟล์หรือรหัสด้านล่างย้ายไปเครื่องใหม่ได้ <b>ไม่ต้องสมัครบัญชี และไฟล์/รหัสสำรองไม่ถูกส่งไปที่ใด</b>${m.t?`<br><small class="cap">สำรองไฟล์ล่าสุด: ${fmtD(m.t)}</small>`:'<br><small class="cap">ยังไม่เคยสำรอง</small>'}</div>
  <div class="group">
   <button class="row press" id="bkexp"><span class="ic" style="background:#EAF1FB">💾</span><span class="tx"><b>ส่งออกเป็นไฟล์</b><small>ได้ไฟล์ .json เก็บไว้ในเครื่อง/ส่งหาตัวเองใน LINE Keep</small></span>${CHEV}</button>
   <button class="row press" id="bkimp"><span class="ic" style="background:#E7F8EE">📂</span><span class="tx"><b>นำเข้าจากไฟล์</b><small>เลือกไฟล์ที่เคยส่งออก · แทนที่ข้อมูลในเครื่องนี้</small></span>${CHEV}</button>
@@ -44,7 +44,7 @@ SC.backup=()=>{const m=bkMeta(),has=!!localStorage.getItem('lama-undo-import');
   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="pill sm ghost press" id="bkgen" style="flex:1;min-width:110px">สร้างรหัส</button><button class="pill sm ghost press" id="bkcopy" style="flex:1;min-width:110px">คัดลอก</button><button class="pill sm press" id="bkuse" style="flex:1;min-width:110px">นำเข้าจากรหัส</button></div>
   <div class="cap" id="bkmsg" role="status" style="margin-top:8px;min-height:18px"></div></div>
  <div class="sec">แผนในอนาคต (ยังไม่ได้ทำ)</div>
- <div class="card pad2" style="margin:0 20px 12px;font-size:14px;line-height:1.6">เข้าสู่ระบบด้วย LINE เพื่อซิงก์อัตโนมัติ — <b>ยังไม่มี</b> เพราะต้องใช้บัญชีนักพัฒนา LINE และเซิร์ฟเวอร์เก็บข้อมูล จะเปิดก็ต่อเมื่อพร้อมและขอความยินยอมก่อน (แผนอยู่ใน ROADMAP.md) · ตอนนี้ใช้ไฟล์/รหัสด้านบนไปก่อน</div>`,
+ <div class="card pad2" style="margin:0 20px 12px;font-size:14px;line-height:1.6">เข้าสู่ระบบด้วย LINE (ไม่บังคับ) เพื่อซิงก์อัตโนมัติ: ระบบจะเก็บรหัสผู้ใช้ LINE และความคืบหน้าไว้บนเซิร์ฟเวอร์คลาวด์ (Supabase ภูมิภาคสิงคโปร์) ลบได้ที่ “ฉัน” → “ลบข้อมูลบนคลาวด์” · ขณะนี้อยู่ระหว่างทดสอบ ไฟล์และรหัสสำรองด้านบนใช้ได้ตามปกติโดยไม่ต้องเข้าสู่ระบบ</div>`,
  mount(el){const q=s=>el.querySelector(s),msg=t=>{q('#bkmsg').textContent=t};
   q('#bkexp').onclick=()=>{const o=bkPack(),s=JSON.stringify(o);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'application/json'}));const d=new Date();a.download='lama-backup-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);bkMark();toast('บันทึกไฟล์สำรองแล้ว ('+Math.max(1,Math.round(s.length/1024))+' KB)')};
   q('#bkimp').onclick=()=>q('#bkfile').click();

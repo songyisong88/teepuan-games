@@ -1,5 +1,6 @@
 /* รวมความคืบหน้า 2 ชุด (เครื่องนี้ + คลาวด์) แบบไม่ทำข้อมูลหาย — ฟังก์ชันบริสุทธิ์ ใช้ได้ทั้งในเบราว์เซอร์และ Node (ทดสอบ)
    หลัก: ตัวเลข → ค่ามากกว่า · อาร์เรย์ → รวมไม่ซ้ำ · ออบเจกต์ → รวมทีละคีย์ · boolean → true ชนะ · ข้อความ/ค่าอื่น → ฝั่งที่แก้ล่าสุด
+   เหรียญใช้สมุดต่อเครื่อง (coinLog) ถ้ามี — กันเหรียญที่ใช้ไปแล้วเด้งกลับ
    ข้อยกเว้นเฉพาะคีย์ (ดู RULES) เช่น สตรีคยึดฝั่งที่เรียนล่าสุด, ออบเจกต์ที่มี day/wk ยึดฝั่งที่ใหม่กว่า, การตั้งค่ายึดฝั่งที่แก้ล่าสุด */
 (function(root){
 const isObj=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
@@ -39,6 +40,14 @@ function mergeState(local,cloud,tLocal,tCloud){
   if(la!==lb){const w=la>lb?local:cloud;o.lastDay=w.lastDay;o.streak=w.streak}
   else{o.lastDay=la;o.streak=Math.max(local.streak||0,cloud.streak||0)}
   o.bestStreak=Math.max(o.bestStreak||0,o.streak||0,local.streak||0,cloud.streak||0)}
+ /* เหรียญ: ถ้ามีสมุดเหรียญ (coinLog) ฝั่งใดฝั่งหนึ่ง → base ใช้ค่ามาก, ตัวนับ e/s ต่อเครื่องใช้ค่ามาก (เพิ่มอย่างเดียว)
+    แล้วคำนวณ coins = base + Σ(e−s) · ฝั่งที่ยังไม่มีสมุดถือว่า base = เหรียญที่มีอยู่ */
+ if(isObj(local.coinLog)||isObj(cloud.coinLog)){
+  const lg=x=>isObj(x.coinLog)?x.coinLog:{base:typeof x.coins==='number'?x.coins:0,d:{}};
+  const A=lg(local),B=lg(cloud),d={};
+  for(const k of new Set([...Object.keys(A.d||{}),...Object.keys(B.d||{})])){const x=(A.d||{})[k]||{},y=(B.d||{})[k]||{};d[k]={e:Math.max(x.e||0,y.e||0),s:Math.max(x.s||0,y.s||0)}}
+  const base=Math.max(A.base||0,B.base||0);let c=base;for(const k in d)c+=d[k].e-d[k].s;
+  o.coinLog={base,d};o.coins=Math.max(0,c)}
  return o}
 const api={mergeState,_m:m};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LamaMerge=api;

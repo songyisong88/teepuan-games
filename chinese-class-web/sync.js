@@ -1,5 +1,6 @@
 /* ล็อกอิน LINE (LIFF) + ซิงก์ความคืบหน้าขึ้นคลาวด์ — ไม่บังคับ: ผู้เยี่ยมชมใช้ localStorage เหมือนเดิม
-   • ปิดเองทั้งหมดถ้า sync-config.js ยังไม่มี LIFF_ID/endpoint (ไม่โหลด SDK ไม่ส่งข้อมูล ไม่มีปุ่ม)
+   • ปิดเองทั้งหมดถ้า sync-config.js ยังไม่มี LIFF_ID/endpoint หรือยังไม่เปิดโหมดทดสอบ (ไม่โหลด SDK ไม่ส่งข้อมูล ไม่มีปุ่ม)
+   • โหมดทดสอบ: เปิดด้วย ?beta=line (จำไว้ใน localStorage lama-beta-line=1) · ปิดด้วย ?beta=off · อ่านจาก liff.state ด้วย (ลิงก์ liff.line.me/<id>?beta=line)
    • ไม่เชื่อ userId จากเครื่องผู้ใช้: ส่ง LINE ID token ให้เซิร์ฟเวอร์ตรวจกับ LINE เอง แล้วได้ "session" ที่เซิร์ฟเวอร์เซ็นไว้กลับมา
    • รวมข้อมูลแบบไม่หาย (sync-merge.js) · บันทึกถี่ ๆ รวมเป็นการส่งครั้งเดียว (debounce) · ส่งค้างตอนปิดแท็บ
    • backend เป็นอแดปเตอร์: window.LAMA_SYNC_ADAPTERS[name]={configured,login,pull,push,remove} (โหลดก่อน sync.js) — มี supabase แล้ว (sync-supabase.js) */
@@ -16,8 +17,14 @@ const saveMeta=()=>{try{localStorage.setItem(LS_META,JSON.stringify(meta))}catch
 const st={phase:'idle',err:'',busy:false};
 let liffReady=null,pushT=null,inflight=null,dirty=false,origSave=null;
 
+/* โหมดทดสอบ (channel ยังเป็น Developing: คนทั่วไปล็อกอินไม่ได้) */
+const BETA_KEY='lama-beta-line';
+function betaParam(){try{const q=new URLSearchParams(location.search);let v=q.get('beta');
+ if(!v&&q.get('liff.state')){const ls=q.get('liff.state'),i=ls.indexOf('?');v=new URLSearchParams(i>=0?ls.slice(i+1):ls).get('beta')}return v}catch(e){return null}}
+function betaOn(){const v=betaParam();try{if(v==='line')localStorage.setItem(BETA_KEY,'1');else if(v==='off')localStorage.removeItem(BETA_KEY);return localStorage.getItem(BETA_KEY)==='1'}catch(e){return false}}
 function adapter(){return ADAPTERS[C.BACKEND||'supabase']}
 function configured(){return filled(C.LIFF_ID)&&!!adapter()&&adapter().configured()}
+api.beta=betaOn;
 
 /* ---------- LIFF ---------- */
 function loadSdk(){if(window.liff)return Promise.resolve(window.liff);
@@ -28,9 +35,17 @@ const inLine=()=>/ Line\//i.test(navigator.userAgent);
 
 /* ---------- state ---------- */
 const getS=()=>(typeof S!=='undefined'?S:null);
-function applyState(merged){const s=getS();if(!s)return;for(const k of Object.keys(merged))s[k]=merged[k];origSave&&origSave();
+function applyState(merged){const s=getS();if(!s)return;for(const k of Object.keys(merged))s[k]=merged[k];meta.lc=s.coins;saveMeta();origSave&&origSave();
  try{if(typeof refresh==='function')refresh()}catch(e){}}
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+/* สมุดเหรียญต่อเครื่อง: coinLog={base, d:{<เครื่อง>:{e:ได้รวม, s:ใช้รวม}}} — ตัวนับเพิ่มอย่างเดียว รวมด้วย max ได้ถูกต้อง
+   เหรียญ = base + Σ(e−s) → ใช้เหรียญบนเครื่องหนึ่งแล้วซิงก์ เหรียญจะไม่เด้งกลับจากอีกเครื่อง */
+function devId(){if(!meta.dev){meta.dev=Math.random().toString(36).slice(2,10);saveMeta()}return meta.dev}
+function trackCoins(){const s=getS();if(!s||typeof s.coins!=='number')return;
+ if(!s.coinLog||typeof s.coinLog!=='object'){s.coinLog={base:s.coins,d:{}};meta.lc=s.coins;saveMeta();return}
+ const d=s.coins-(typeof meta.lc==='number'?meta.lc:s.coins);
+ if(d){const e=s.coinLog.d[devId()]||(s.coinLog.d[devId()]={e:0,s:0});if(d>0)e.e+=d;else e.s+=-d}
+ if(meta.lc!==s.coins){meta.lc=s.coins;saveMeta()}}
 
 async function ensureSession(interactive){
  if(meta.session&&(meta.exp||0)>Date.now()+60e3)return meta.session;
@@ -43,7 +58,7 @@ async function ensureSession(interactive){
  Object.assign(meta,{session:r.session,exp:r.exp,linked:1,pending:0,name:nm});saveMeta();return r.session}
 
 /* ดึงจากคลาวด์ → รวม → เขียนในเครื่อง → ส่งกลับถ้าในเครื่องมีมากกว่า */
-async function pullMerge(){const ses=await ensureSession(false);const cloud=await adapter().pull(ses);const s=getS();if(!s)return;
+async function pullMerge(){const ses=await ensureSession(false);const cloud=await adapter().pull(ses);const s=getS();if(!s)return;trackCoins();
  const local=JSON.parse(JSON.stringify(s));
  if(!cloud||!cloud.state){meta.rev=0;saveMeta();await pushNow();return}
  const merged=LamaMerge.mergeState(local,cloud.state,meta.tLocal||0,cloud.t||0);
@@ -71,7 +86,12 @@ function schedulePush(){if(!meta.linked)return;dirty=true;clearTimeout(pushT);pu
 const CSS=`.lsync-ban{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 74px);z-index:60;background:#fff;border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.16);padding:12px 14px;display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.45;transform:translateY(12px);opacity:0;transition:.25s}
 .lsync-ban.on{transform:none;opacity:1}.lsync-ban b{display:block;font-size:15px}.lsync-ban .tx{flex:1;min-width:0}
 .lsync-ban .go{background:#06C755;color:#fff;border:0;border-radius:999px;padding:8px 12px;font:inherit;font-weight:700;white-space:nowrap}
-.lsync-ban .x{background:none;border:0;color:#888;font-size:20px;line-height:1;padding:4px 2px}`;
+.lsync-ban .x{background:none;border:0;color:#888;font-size:20px;line-height:1;padding:4px 2px}
+.lsync-cs{position:absolute;inset:0;z-index:80;background:rgba(0,0,0,.4);display:flex;align-items:flex-end;justify-content:center}
+.lsync-cs .bx{background:#fff;border-radius:20px 20px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom,0px) + 18px);width:100%;max-width:520px;font-size:14.5px;line-height:1.6;color:#222}
+.lsync-cs .h{display:block;font-size:18px;margin-bottom:8px}.lsync-cs p{margin:0 0 10px}.lsync-cs a{color:#06C755;font-weight:600}
+.lsync-cs .bt{display:flex;gap:10px;margin-top:14px}.lsync-cs button{flex:1;min-height:46px;border-radius:999px;font:inherit;font-weight:700;border:0}
+.lsync-cs .no{background:#F1F1F1;color:#333}.lsync-cs .ok{background:#06C755;color:#fff}`;
 function injectCss(){if(document.getElementById('lsync-css'))return;const s=document.createElement('style');s.id='lsync-css';s.textContent=CSS;document.head.appendChild(s)}
 function fmtT(t){if(!t)return 'ยังไม่เคย';const d=new Date(t);return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')+' น. '+d.getDate()+'/'+(d.getMonth()+1)}
 const R=(bg,em,t,sub,right,attrs)=>typeof ROW==='function'?ROW(bg,em,t,sub,right,attrs):`<button class="row press" ${attrs}><span class="tx"><b>${t}</b><small>${sub}</small></span></button>`;
@@ -95,13 +115,23 @@ async function onMeClick(e){const t=e.target.closest('[data-sync]');if(!t||st.bu
   else if(a==='now'){say('กำลังซิงก์…');await pullMerge();say('ซิงก์แล้ว ✓')}
   else if(a==='logout'){if(!confirm('ออกจากระบบ LINE บนเครื่องนี้? ความคืบหน้าในเครื่องยังอยู่ครบ'))return;
    if(dirty)await pushNow().catch(()=>{});try{const l=await initLiff();if(l.isLoggedIn())l.logout()}catch(x){}
-   meta={tLocal:meta.tLocal,promptN:meta.promptN,promptAt:meta.promptAt};saveMeta();say('ออกจากระบบแล้ว')}
+   meta={tLocal:meta.tLocal,promptN:meta.promptN,promptAt:meta.promptAt,dev:meta.dev,lc:meta.lc};saveMeta();say('ออกจากระบบแล้ว')}
   else if(a==='delete'){if(!confirm('ลบความคืบหน้าที่เก็บไว้บนคลาวด์ทั้งหมด และออกจากระบบ? ข้อมูลในเครื่องนี้ไม่ถูกลบ'))return;
    const ses=await ensureSession(false);await adapter().remove(ses);try{const l=await initLiff();if(l.isLoggedIn())l.logout()}catch(x){}
-   meta={tLocal:meta.tLocal,promptN:9};saveMeta();say('ลบข้อมูลบนคลาวด์แล้ว')}
+   meta={tLocal:meta.tLocal,promptN:9,dev:meta.dev,lc:meta.lc};saveMeta();say('ลบข้อมูลบนคลาวด์แล้ว')}
  }catch(x){st.err=x.message||String(x);say(st.err)}finally{st.busy=false;try{refresh()}catch(x){}}}
+/* ขอความยินยอมก่อนเข้าสู่ระบบ (มีลิงก์นโยบาย) → resolve(true/false) */
+function askConsent(){return new Promise(res=>{injectCss();const fr=document.getElementById('frame')||document.body;
+ const w=document.createElement('div');w.className='lsync-cs';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');w.setAttribute('aria-label','ความยินยอมในการเข้าสู่ระบบด้วย LINE');
+ w.innerHTML=`<div class="bx"><b class="h">เข้าสู่ระบบด้วย LINE</b>
+ <p>เมื่อเข้าสู่ระบบ ระบบจะเก็บ <b>รหัสผู้ใช้ LINE</b> และ <b>ข้อมูลความคืบหน้าการเรียน</b> (บทเรียน XP เหรียญ สตรีค คำที่ทบทวน และการตั้งค่า) ไว้บนเซิร์ฟเวอร์คลาวด์ (Supabase ภูมิภาคสิงคโปร์) เพื่อซิงก์ข้ามอุปกรณ์</p>
+ <p>ไม่เก็บอีเมล เบอร์โทร รายชื่อเพื่อน หรือข้อความแชต · ออกจากระบบหรือลบข้อมูลบนคลาวด์ได้ที่หน้า “ฉัน”</p>
+ <p><a href="privacy.html#line" target="_blank" rel="noopener">อ่านนโยบายความเป็นส่วนตัว</a></p>
+ <div class="bt"><button class="no" data-c="0">ยกเลิก</button><button class="ok" data-c="1">ยินยอมและเข้าสู่ระบบ</button></div></div>`;
+ const done=v=>{w.remove();res(v)};w.onclick=e=>{const b=e.target.closest('[data-c]');if(b)done(b.dataset.c==='1');else if(e.target===w)done(false)};
+ fr.appendChild(w);setTimeout(()=>{const b=w.querySelector('.ok');b&&b.focus()},0)})}
 async function doLogin(){
- if(!confirm('เข้าสู่ระบบด้วย LINE เพื่อเก็บความคืบหน้าในบัญชี?\n\nสิ่งที่เก็บ: ความคืบหน้าในแอป (บทเรียน XP เหรียญ สตรีค คำที่ทบทวน) และรหัสผู้ใช้ LINE ของคุณ\nไม่เก็บ: รายชื่อเพื่อน แชต หรือเบอร์โทร\nออกจากระบบหรือลบข้อมูลบนคลาวด์ได้ทุกเมื่อที่หน้า “ฉัน”'))return;
+ if(!await askConsent())return;
  hideBanner();meta.consent=Date.now();saveMeta();
  await ensureSession(true);await pullMerge();try{toast('เชื่อมกับ LINE แล้ว ความคืบหน้าถูกเก็บในบัญชี ✓')}catch(x){}}
 
@@ -119,20 +149,20 @@ function hideBanner(){const b=document.querySelector('.lsync-ban');if(b){b.class
 
 /* ---------- boot ---------- */
 function hookSave(){if(typeof window.save!=='function'||window.save.__lsync)return;origSave=window.save;
- const w=function(){const r=origSave.apply(this,arguments);meta.tLocal=Date.now();saveMeta();schedulePush();clearTimeout(hookSave.p);hookSave.p=setTimeout(maybePrompt,1500);return r};
+ const w=function(){if(meta.linked)try{trackCoins()}catch(e){}const r=origSave.apply(this,arguments);meta.tLocal=Date.now();saveMeta();schedulePush();clearTimeout(hookSave.p);hookSave.p=setTimeout(maybePrompt,1500);return r};
  w.__lsync=1;window.save=w}
 function start(){
- if(!configured())return;/* ยังไม่ตั้งค่า → ปิดทั้งระบบ */
+ if(!configured()||!betaOn())return;/* ยังไม่ตั้งค่า หรือไม่ได้เปิดโหมดทดสอบ → ปิดทั้งระบบ (เว็บทำงานแบบเดิมทุกอย่าง) */
  api.enabled=true;hookSave();hookMe();
  /* "ล้างข้อมูลทั้งหมด" ลบคีย์ lama-* ไปแล้ว → ถือว่าออกจากระบบบนเครื่องนี้ (ไม่ดึงคลาวด์กลับมาเอง) */
  if(meta.linked&&!localStorage.getItem(typeof KEY!=='undefined'?KEY:'lama-cn-web-demo-v2')){meta={promptN:meta.promptN,promptAt:meta.promptAt};saveMeta()}
  api.login=doLogin;api.syncNow=pullMerge;api.flush=()=>pushNow();
  const kick=()=>{
-  if(meta.linked||meta.pending||cbParams()){
-   initLiff().then(l=>{if(meta.pending&&!l.isLoggedIn()){meta.pending=0;saveMeta();return}
-    if(meta.pending&&!meta.consent){meta.pending=0;saveMeta();return}
+  if(meta.linked||meta.pending){
+   initLiff().then(l=>{if(meta.pending&&(!l.isLoggedIn()||!meta.consent)){meta.pending=0;saveMeta();return}
     return pullMerge()}).then(()=>{try{refresh()}catch(e){}}).catch(e=>{st.err=e.message||String(e)})}
-  else if(inLine())initLiff().then(()=>setTimeout(maybePrompt,2500)).catch(()=>{});
+  /* เปิดจากลิงก์ LIFF / ในแอป LINE: init เพื่อให้ LIFF พากลับ URL ปลายทาง แต่ไม่เชื่อมบัญชีจนกว่าผู้ใช้จะยินยอม */
+  else if(cbParams()||inLine())initLiff().then(()=>setTimeout(maybePrompt,2500)).catch(()=>{});
   else setTimeout(maybePrompt,3000)};
  if(document.readyState==='complete')setTimeout(kick,0);else addEventListener('load',()=>setTimeout(kick,0));
  document.addEventListener('visibilitychange',()=>{if(!meta.linked)return;

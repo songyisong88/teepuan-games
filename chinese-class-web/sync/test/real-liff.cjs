@@ -14,11 +14,11 @@ const TYPES = { js: 'application/javascript', css: 'text/css', html: 'text/html'
   p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type() === 'error') errs.push(m.text()) });
   p.on('framenavigated', f => { if (f === p.mainFrame()) nav.push(f.url()) }); p.on('dialog', d => { console.log('dialog:', d.message().slice(0, 120).replace(/\n/g, ' / ')); d.accept() });
   await p.addInitScript(() => { if (!localStorage.getItem('lama-cn-web-demo-v2')) localStorage.setItem('lama-cn-web-demo-v2', JSON.stringify({ seenWelcome: true, seenOnboard: true, lvPicked: true, xp: 40, parts: ['1a'] })) });
-  await p.goto(SITE); await p.waitForTimeout(2000);
+  await p.goto(SITE + (process.env.Q ?? '?liff.state=%3Fbeta%3Dline')); await p.waitForTimeout(4000); console.log('url after LIFF init:', p.url());
   console.log('enabled:', await p.evaluate(() => LamaSync.enabled), '| errors before login:', errs.length, errs.join(' | '));
   await p.click('#tabbar [data-tab=me]'); await p.waitForTimeout(500);
   await p.evaluate(() => document.querySelector('[data-sync=login]').scrollIntoView({ block: 'center' })); await p.waitForTimeout(300);
-  await p.click('[data-sync=login]');
+  await p.click('[data-sync=login]'); await p.click('.lsync-cs .ok');
   await p.waitForURL(/access\.line\.me/, { timeout: 20000 }).catch(e => console.log('no redirect:', e.message));
   await p.waitForTimeout(3000);
   const u = new URL(p.url()); console.log('now at:', u.origin + u.pathname);

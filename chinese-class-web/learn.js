@@ -2,7 +2,7 @@
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const ROW=(bg,em,t,sub,right,attrs)=>`<button class="row press" ${attrs||''}><span class="ic" style="background:${bg}">${em}</span><span class="tx"><b>${t}</b>${sub?`<small>${sub}</small>`:''}</span>${right===undefined?CHEV:right}</button>`;
 const dateTxt=()=>new Date(Date.now()+S.shift*864e5).toLocaleDateString('th-TH',{weekday:'long',day:'numeric',month:'long'});
-const DEMO=`<p class="cap center" style="padding:22px 30px 0"><span class="demo">ตัวอย่างทดลอง</span><br><span style="display:block;margin-top:6px">ข้อมูลเก็บในเครื่องนี้เท่านั้น ไม่มีระบบหลังบ้านและไม่มีการชำระเงิน</span><span style="display:block;margin-top:4px;font-size:12px;color:var(--sub)">${NAME_NOTE}</span><button class="cap press" style="margin-top:8px;color:var(--red);font-weight:600" data-go="realnote">อะไรจริง อะไรจำลอง?</button></p>`;
+const DEMO=`<p class="cap center" style="padding:22px 30px 0"><span class="demo">ตัวอย่างทดลอง</span><br><span style="display:block;margin-top:6px">ข้อมูลเก็บในเครื่องนี้ (ยกเว้นเมื่อเลือกเข้าสู่ระบบด้วย LINE) · ไม่มีการชำระเงิน</span><span style="display:block;margin-top:4px;font-size:12px;color:var(--sub)">${NAME_NOTE}</span><button class="cap press" style="margin-top:8px;color:var(--red);font-weight:600" data-go="realnote">อะไรจริง อะไรจำลอง?</button></p>`;
 
 /* ----- ตัวช่วยเรื่องประโยคและวรรณยุกต์ ----- */
 const strip=t=>t.replace(/[，。！？、,.!?]/g,'');

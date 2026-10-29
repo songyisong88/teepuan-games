@@ -166,7 +166,7 @@ button.cap.press,.spkl{min-height:44px;min-width:44px}
 .rd-lnk,.cap a,.rd-sheet a,.card a{display:inline-block;padding:12px 4px;margin:-12px -4px}
 .rd-lnk{min-height:44px;box-sizing:border-box}
 .rd-lnk{margin:0 -4px}
-.rd-stkb{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 16px 0 14px;margin:10px 0 0 0;width:auto;max-width:100%;white-space:nowrap;font-size:15px}.rd-stkb .ic{font-size:17px;line-height:1;flex:none}
+.rd-stkb{margin:12px 0 0 0;max-width:100%}
 
 /* รูปประกอบตัวข้าง (เฟส 5) */
 .rd-pic{margin:12px 20px 0;padding:12px 14px;display:flex;gap:14px;align-items:center}.rd-pic .art.has{width:96px;height:96px;flex:none;border-radius:20px;overflow:hidden;background:#FFF8EE}.rd-pic .art.has img{object-fit:cover}

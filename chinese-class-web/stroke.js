@@ -50,7 +50,9 @@ function stkMini(item,i,items,id){const cur=items[i];const g=items.filter(x=>x.c
 const stkStars=(mis,n)=>mis===0?3:mis<=Math.max(1,Math.ceil(n/4))?2:1;
 const stkStarTxt=n=>'⭐'.repeat(n)+'☆'.repeat(3-n);
 /* ปุ่มเข้าจากการ์ดคำศัพท์ทุกที่ */
-function stkBtn(zh,cls=''){if(!stkHan(zh).length)return '';return `<button class="stk-btn press ${cls}" data-stk="${zh}" aria-label="ดูลำดับขีด ${zh}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.2-4.2L16.6 4.4a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8z"/><path d="M14.5 6.5l3 3"/></svg><span>ดูลำดับขีด</span></button>`}
+/* ไอคอนพู่กันจีน (SVG) ใช้กับปุ่ม "ดูลำดับขีด" ทุกที่ */
+const STK_ICO='<svg class="stk-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 3.5l-6.6 6.6"/><path d="M15.4 11.6l-3-3"/><path d="M12.4 8.6c-1.6.2-3 1.2-3.9 2.6-1.3 2-1.6 4.6-4.5 6.6-.6.4-.6 1.3.1 1.5 3.6 1 7.4-.3 9.3-3.2.9-1.4 1.6-2.8 2-4.5" fill="currentColor" fill-opacity=".22"/></svg>';
+function stkBtn(zh,cls='',lab=''){if(!stkHan(zh).length)return '';return `<button class="stk-btn press ${cls}" data-stk="${zh}" aria-label="ดูลำดับขีด ${zh}">${STK_ICO}<span class="stk-bt">${lab||'ดูลำดับขีด'}</span></button>`}
 function stkOpen(w){if(!stkHan(w).length)return;closeSheet(true);push('stroke',{w})}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-stk]');if(!b||!$('#frame').contains(b))return;e.preventDefault();e.stopPropagation();stkOpen(b.dataset.stk)},true);
 function stkRecent(w){const k=stkS();k.rec=[w,...k.rec.filter(x=>x!==w)].slice(0,8);save()}

@@ -76,10 +76,10 @@
 .cardprev .cpl{color:var(--sub);padding:50px 0}
 @media (prefers-reduced-motion:reduce){.stk-pulse,.stk-coach .cm .mas{animation:none}.stk-pc.shake{animation:none}}
 /* ปุ่มบนการ์ดคำศัพท์ */
-.stk-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 18px;border-radius:22px;background:#fff;color:var(--red);font-size:15px;font-weight:600;box-shadow:inset 0 0 0 1.5px rgba(200,16,46,.3);margin:10px auto 0}
-.stk-btn.sm{height:44px;font-size:14px;padding:0 14px}
+.stk-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;height:44px;padding:0 18px 1px;border-radius:22px;background:rgba(200,16,46,.08);color:var(--red);font-size:15px;font-weight:600;line-height:20px;white-space:nowrap;box-shadow:none;margin:10px auto 0;-webkit-tap-highlight-color:transparent;transition:background .15s}.stk-btn:active{background:rgba(200,16,46,.16)}.stk-btn .stk-ico{flex:none;display:block}.stk-btn .stk-bt{display:block}.stk-btn .stk-bt .zh{font-size:16px}
+.stk-btn.sm{height:44px;font-size:14px;padding:0 16px 1px}
 @media (max-width:359px){.stk-acts button{font-size:12px}}
-.stk-btn.mini{width:44px;padding:0;margin:0 0 0 6px;flex:none;background:var(--redsoft);box-shadow:none}.stk-btn.mini span{display:none}
+.stk-btn.mini{width:44px;padding:0;margin:0 0 0 6px;flex:none;gap:0}.stk-btn.mini span{display:none}
 
 .stk-hmlab{margin:0 2px 6px;font-weight:600;color:var(--sub2)}
 .stk-daily.hm{margin:0;width:100%;min-height:44px}

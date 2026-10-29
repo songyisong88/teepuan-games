@@ -106,8 +106,8 @@ out+="/* รอบเรียนระดับ 1 เดิม → คำใน
 open(R+'/data/hsk1.js','w').write(out)
 json.dump({k:{'text':v[0],'voice':v[1]} for k,v in audio.items()},open(D+'/audio-texts.json','w'),ensure_ascii=False,indent=0)
 print('audio keys',len(audio),file=sys.stderr)
-# ---- คำเสริมที่ไม่ใช่คำระดับ 1 มาตรฐาน → ย้ายไปท้ายระดับ 2 (โครงบทแบบเดิม 16 คำ = 2 รอบ) ----
-if OLD:
+# ---- (เลิกใช้แล้ว) คำเสริมเดิมย้ายไปอยู่ในระดับ 2 โครงใหม่ (tools/lv-build/build_lv.py) · data/hsk2x.js เหลือเป็นไฟล์ว่าง ----
+if False:
   CH={c['id']:c for c in OLD['CHAPTERS']};old=[L for L in OLD['LESSONS'] if CH[L['chapter']]['lv']==1]
   OW={w['zh']:w for L in old for w in L['words']};OL={L['id']:L for L in old}
   def pick(ids):

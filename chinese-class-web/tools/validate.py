@@ -63,20 +63,28 @@ lvl_stats=collections.defaultdict(lambda:collections.Counter())
 lesson_fit={}
 for L in LS:
     i=L['id'];lv=L['lv'];tag=f'L{i}'
-    for k in ('th','zh','story','emoji'):
+    V3=bool(L.get('v3'))
+    if V3 and L.get('kind')!='lex': continue   # v3 gate / sound units: no word data
+    for k in (('th','zh','emoji') if V3 else ('th','zh','story','emoji')):
         if not L.get(k): E(tag,f'missing {k}')
     if L['chapter'] not in CH: E(tag,'unknown chapter')
-    if len(L['words'])!=16: E(tag,f'words={len(L["words"])} (need 16)')
-    if len(L['sents'])!=6: E(tag,f'sents={len(L["sents"])} (need 6)')
-    if len(L['dlg'])!=4: E(tag,f'dlg={len(L["dlg"])} (need 4)')
+    if V3:
+        if not(2<=len(L['words'])<=8): E(tag,f'v3 words={len(L["words"])}')
+        if len(L['dlg']) not in (0,4): E(tag,f'v3 dlg={len(L["dlg"])}')
+    elif len(L['words'])!=16: E(tag,f'words={len(L["words"])} (need 16)')
+    if V3: pass
+    elif len(L['sents'])!=6: E(tag,f'sents={len(L["sents"])} (need 6)')
+    if V3: pass
+    elif len(L['dlg'])!=4: E(tag,f'dlg={len(L["dlg"])} (need 4)')
     roles=[d[0] for d in L['dlg']]
-    if any(roles[k]==roles[k+1] for k in range(3)): E(tag,f'dialog roles do not alternate {roles}')
+    if len(roles)==4 and any(roles[k]==roles[k+1] for k in range(3)): E(tag,f'dialog roles do not alternate {roles}')
     for t in [L['zh'],L['story']]+[w['zh'] for w in L['words']]:
         if t2s.convert(t)!=t: E(tag,f'traditional characters in: {t}')
     for w in L['words']:
         allwords[w['zh']].append(i)
-        for k in ('zh','py','th','h','mn','ex','exPy','exTh'):
+        for k in (('zh','py','th','h','mn') if V3 and not w.get('ex') else ('zh','py','th','h','mn','ex','exPy','exTh')):
             if not w.get(k): E(tag,f'word {w["zh"]} missing {k}')
+        if V3 and not w.get('ex'): W(tag,f'v3 word without example: {w["zh"]}');w=dict(w,ex=w['zh'],exPy=w['py'],exTh=w['th'])
         if t2s.convert(w['ex'])!=w['ex']: E(tag,f'traditional in example: {w["ex"]}')
         toneck(w['zh'],w['py'],tag,'word');toneck(w['ex'],w['exPy'],tag,'example')
         if w['zh'] not in w['ex']: W(tag,f'example does not contain the word: {w["zh"]} -> {w["ex"]}')
@@ -115,23 +123,24 @@ for L in LS:
         if not THAI.search(d[3]): E(tag,f'dialog translation not Thai {d[1]}')
         if not haveaudio(('f|' if d[0]=='f' else '')+d[1]): E(tag,f'no audio for dialog line {d[1]}')
         seen_dlg[d[1]].append(i)
-    rq=L['rq'];p=rq['p']
-    if not(0<=p<=2) or p+1>=len(L['dlg']): E(tag,f'rq.p={p} invalid')
+    rq=L.get('rq')
+    if V3 and not L['dlg']: rq=None
+    if rq is None: pass
+    elif not(0<=rq['p']<=2) or rq['p']+1>=len(L['dlg']): E(tag,f'rq.p={rq["p"]} invalid')
     else:
-        correct=L['dlg'][p+1][1]
+        p=rq['p'];correct=L['dlg'][p+1][1]
         ws=[x[0] for x in rq['wrong']]
         if len(ws)<2: E(tag,'need at least 2 wrong replies')
         if len(set(ws+[correct]))!=len(ws)+1: E(tag,'duplicate answer options')
-        q=han(L['dlg'][p][1])
         for x in rq['wrong']:
             toneck(x[0],x[1],tag,'wrong-reply');wrong_use[x[0]]+=1
-            # a wrong reply must not share a 3-char run with the correct reply or answer the question
             for a in range(len(han(x[0]))-2):
                 if han(x[0])[a:a+3] in han(correct): W(tag,f'wrong reply overlaps correct reply: {x[0]}');break
     # difficulty summary per lesson
     c=lvl_stats[i];n=sum(c.values())
     good=c['in']+c['below']+c['chars-ok']
     lesson_fit[i]=dict(lv=lv,n=n,**{k:v for k,v in c.items()})
+LS=[L for L in LS if L['id'] in lesson_fit]   # v3 gates / sound units carry no word data
 # ---- global repetition / templating
 for ex,ids in seen_ex.items():
     if len(ids)>1: E('global',f'identical example sentence in lessons {ids}: {ex}')

@@ -173,6 +173,8 @@ SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>
  <p class="cap center mt12"><span class="demo">ตัวอย่างทดลอง</span></p>`,
  extra:`<div class="dock">${nu&&first?`<button class="pill press" data-act="finishgo" data-to="next" data-u="${nu.id}"><b>${nu.v3?'เรียนบทถัดไป':'เรียนรอบถัดไป'}</b><small>${uTxt(nu)}</small></button>`:`<button class="pill press" data-act="finishgo" data-to="games"><b>เล่นเกมคำใหม่</b><small>ใช้คำที่เพิ่งเรียนเก็บเหรียญ</small></button>`}<button class="pill sm ghost press mt12" data-act="finishgo" data-to="home">กลับหน้าหลัก</button></div>`,
  mount(el){confetti(newCm?150:110);vib([20,30,20,30,40]);if(newCm)setTimeout(()=>speak(newCm.say,null,''),900);
+  /* เว้นที่ใต้เนื้อหาให้พ้นปุ่มด้านล่าง และเลื่อนให้การ์ดเพื่อนใหม่อยู่เหนือปุ่มทั้งใบ */
+  const sc=$('.scroller',el),dk=$('.dock',el);if(sc&&dk){sc.style.paddingBottom=(dk.offsetHeight+20)+'px';const cr=$('.cmreveal',el);if(cr)setTimeout(()=>{const pb=$('.pill',dk)||dk,d=cr.getBoundingClientRect().bottom-(pb.getBoundingClientRect().top-16);if(d>0)sc.scrollBy({top:d,behavior:'smooth'})},700)}
   const b=$('[data-act=sharedone]',el);if(b)b.onclick=()=>shareSheet('result',{kind:'unit',text:`จบ ${L.th}${u.v3?'':' รอบ '+(u.part+1)} ได้ ${stars} ดาว`,stars,L,u,cm:newCm})}});
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
 

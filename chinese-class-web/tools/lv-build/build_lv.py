@@ -282,6 +282,7 @@ def split(ws,m):
     s=base+(1 if j<rem else 0);out.append(ws[i:i+s]);i+=s
   return out
 import random
+DBGW=[];DBGL=[]
 random.seed(7)
 BG=['#EAF1FB','#FDF0E6','#EEF6EC','#F4EEF8','#FCF6E3','#E9F5F5','#F8ECEE','#F3EEE6']
 PYOVR={'弹':'tán'}   # คำพ้องรูป: ในบทนี้หมายถึงดีด/เล่นเครื่องดนตรี
@@ -374,13 +375,13 @@ for n in range(2,6):
           cw=[p for p in chosen if has_word(p,w['zh'])] or [p for p in cands if has_word(p,w['zh'])]
           if cw:
             p=min(cw,key=lambda p:abs(len(p['full'])-8));ex,exPy,exTh=p['full'],p['s'][1].replace('/',' '),p['s'][2]
-          elif n>=3 and ex and okstr(ex,LVK) and ex not in usedEx:stat['ex_lv']+=1
+          elif n>=3 and ex and okstr(ex,LVK) and ex not in usedEx:stat['ex_lv']+=1;DBGW.append((n,code,w['zh'],'lv'))
           else:
             cl=[p for p in POOL if p['full'] not in usedS and p['full'] not in usedEx and has_word(p,w['zh']) and all(okstr(t,LVK) for t in p['toks'])] if n>=3 else []
             if cl:
-              p=min(cl,key=lambda p:abs(len(p['full'])-10));ex,exPy,exTh=p['full'],p['s'][1].replace('/',' '),p['s'][2];stat['ex_lv']+=1
-            elif n>=5 and ex and ex not in usedEx:stat['ex_orig']+=1   # ระดับอ่าน: ใช้ประโยคตัวอย่างเดิมบนบัตรคำ (ไม่ใช้ในแบบฝึก)
-            else:ex=exPy=exTh='';stat['noex']+=1
+              p=min(cl,key=lambda p:abs(len(p['full'])-10));ex,exPy,exTh=p['full'],p['s'][1].replace('/',' '),p['s'][2];stat['ex_lv']+=1;DBGW.append((n,code,w['zh'],'lvpool'))
+            elif n>=5 and ex and ex not in usedEx:stat['ex_orig']+=1;DBGW.append((n,code,w['zh'],'orig'))   # ระดับอ่าน: ใช้ประโยคตัวอย่างเดิมบนบัตรคำ (ไม่ใช้ในแบบฝึก)
+            else:ex=exPy=exTh='';stat['noex']+=1;DBGW.append((n,code,w['zh'],'none'))
         if ex:usedEx.add(ex)
         if ex:audio[ex]=''
         audio[w['zh']]=''
@@ -397,6 +398,7 @@ for n in range(2,6):
       can=f"ใช้คำเกี่ยวกับ{clean(old['th'])} {len(g)} คำ"
       les.append(f"{{id:{lid},v3:1,kind:'lex',code:'{pi}-{k}',th:{js(th)},zh:{js(zs[0])},chapter:{cid},emoji:{js(old.get('emoji') or '📖')},can:{js(can)},story:'',\n words:[{','.join(wsrc)}],\n sents:{js(sents)},\n fr:{js(fr)},dlg:{js(dlo)},rq:{js(rq)}}}")
       stat['lex']+=1;stat['words']+=len(g)
+      DBGL.append((n,code,'hand' if f and f[0]==99 else ('pron' if fr and fr.get('k')==0 and len(chosen)>1 and chosen[1].get('src')==-2 and not FRM.FR.get(n,{}).get(code) else ('pool' if fr else 'none')),[(w['zh'],thshort(w['th'])) for w in g]))
       if len(sents)<3:stat['few_sents']+=1
     pic=[w['zh'] for w in pws if w['zh'] in ART]
     scene=pic[:9] if len(pic)>=4 else []
@@ -411,3 +413,6 @@ for n in range(2,6):
   open(R+f'/data/hsk{n}.js','w').write(out)
   json.dump(sorted(audio),open(D+f'/audio-l{n}.json','w'),ensure_ascii=False,indent=0)
   print('level',n,dict(stat),file=sys.stderr)
+
+if os.environ.get('DBG'):
+  import json as _j;_j.dump({'L':DBGL,'W':DBGW},open(os.environ['DBG'],'w'),ensure_ascii=False)

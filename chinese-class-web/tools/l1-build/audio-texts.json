@@ -187,12 +187,12 @@
 "text": "五、四、三、二、一！",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
-"老师，是三吗？": {
-"text": "老师，是三吗？",
+"是三，不是五。": {
+"text": "是三，不是五。",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
-"老师，是五吗？": {
-"text": "老师，是五吗？",
+"是五，不是三。": {
+"text": "是五，不是三。",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
 "f|四、五！": {

@@ -14,7 +14,10 @@ function stkS(){if(!S.stk||typeof S.stk!=='object')S.stk=stkDefault();const k=S.
 const STK_CACHE={},STK_DATA={};
 function stkLoad(c){if(STK_CACHE[c])return STK_CACHE[c];
  if(!STK_SET.has(c))return STK_CACHE[c]=Promise.resolve({err:'nodata',c});
- const p=fetch('data/stroke/'+stkHex(c)+'.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{d.c=c;STK_DATA[c]=d;return d}).catch(()=>{delete STK_CACHE[c];return {err:'net',c}});
+ const u='data/stroke/'+stkHex(c)+'.json';
+ /* ออฟไลน์: ดูในแคชก่อน ถ้าไม่มีก็ไม่ยิงเน็ต (กัน console error) แล้วแสดงข้อความต่อเน็ตตามเดิม */
+ const get=(!navigator.onLine&&'caches' in window)?caches.match(u).then(r=>{if(!r)throw new Error('offline-miss');return r}):fetch(u);
+ const p=get.then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{d.c=c;STK_DATA[c]=d;return d}).catch(()=>{delete STK_CACHE[c];return {err:'net',c}});
  return STK_CACHE[c]=p}
 const stkLoadAll=cs=>Promise.all(cs.map(stkLoad));
 /* ---- ข้อมูลคำ/ตัวอักษรจากบทเรียน ---- */

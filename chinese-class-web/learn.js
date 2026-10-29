@@ -117,7 +117,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   mas(ok?(run>=3?'thumbs':'correct'):'wrong');
   const w=q.w;let rev='';if(q.reveal)rev=typeof q.reveal==='function'?q.reveal(ok,q):q.reveal;else if(!ok&&w)rev=`<div class="ans"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;${pyHtml(w.py)} &nbsp;= <b>${w.th}</b></div>`;
   const pose=ok?(run>=3?'thumbs':'correct'):'wrong';
-  fb.innerHTML=`<div class="grabber"></div><div class="fh"><div class="t"><b style="color:${ok?'var(--ok)':'var(--warn)'}">${ok?(run>=3?`ติดต่อกัน ${run} ข้อแล้ว! 🔥`:'ถูกต้อง!'):'ยังไม่ถูก ไม่เป็นไรนะ'}</b><small>${ok?`${MASCOT_NAME}ภูมิใจ${retry||place?'':' · +10 XP'}`:MASCOT_NAME+(retry?'ลองอีกที ครั้งหน้าจะจำได้':'จะพาทวนข้อนี้อีกรอบ')}</small></div><div style="width:84px;height:84px">${M(pose)}</div></div>${rev}
+  fb.innerHTML=`<div class="grabber"></div><div class="fh"><div class="t"><b style="color:${ok?'var(--ok)':'var(--warn)'}">${q.plain?(ok?(run>=3?`ถูกต้อง · ติดต่อกัน ${run} ข้อ`:'ถูกต้อง'):'ยังไม่ถูก'):ok?(run>=3?`ติดต่อกัน ${run} ข้อแล้ว! 🔥`:'ถูกต้อง!'):'ยังไม่ถูก ไม่เป็นไรนะ'}</b><small>${ok?`${MASCOT_NAME}ภูมิใจ${retry||place||q.plain?'':' · +10 XP'}`:(q.fbNo&&!retry?q.fbNo:MASCOT_NAME+(retry?'ลองอีกที ครั้งหน้าจะจำได้':'จะพาทวนข้อนี้อีกรอบ'))}</small></div><div style="width:84px;height:84px">${M(pose)}</div></div>${rev}
   <button class="pill row1 press ${ok?'ok':'warn'}" style="height:52px;border-radius:26px;margin-top:14px" data-sa="next">ต่อไป</button>`;
   setTimeout(()=>fb.classList.add('show'),250)}
  function answer(btn){if(locked)return;const q=cur.q,k=+btn.dataset.i,ok=k===q.ans;q.picked=k;const os=$$('.opt',stage);

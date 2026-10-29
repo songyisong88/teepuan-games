@@ -57,7 +57,7 @@ function lcMap(n){const cur=nextUnit(n);let html='',sec=0;const chs=CHAPTERS.fil
    ${items.map((it,i)=>`<div class="lc-pos" style="left:${pts[i].x}%;top:${pts[i].y}px">${it.html}</div>`).join('')}</div></div>`});
  return html}
 SC.path=()=>{const n=curLv(),L=levelBy(n),i=lvInfo(n),cur=nextUnit(),rv=reviewWords().length;
- const hello=!S.parts.length?'เริ่มกันเลย':cur?'ไปต่อกันเลย':'เก่งมาก';
+ const hello=!S.parts.length?'เริ่มกันเลย':cur?'ไปต่อกันเลย':'เรียนครบแล้ว';
  const ch=chips().replace(lvBadge(),'');
  const tail=i.empty?`<div class="card pad2 center lc-empty"><div style="width:130px;height:130px;margin:0 auto">${M('brush')}</div><div class="h2 mt8">${L.name} กำลังเพิ่มเนื้อหา</div><p class="cap" style="margin:6px 8px 0;line-height:1.5">ยังไม่มีบทเรียนในระดับนี้ — ${MASCOT_NAME}กำลังเตรียมอยู่ ระหว่างนี้เล่นเกมจากคำที่รู้แล้ว หรือย้อนไประดับอื่นได้</p><button class="pill sm press mt12" data-go="levels">เลือกระดับอื่น</button></div>`
   :(i.complete?'':`<div class="group lc-wip">${ROW('#EFE8DE',M('brush'),`ตอนต่อไปของ ${L.name}`,`กำลังเพิ่มเนื้อหา · เป้า ≈ ${i.target} คำ (มีแล้ว ${i.words})`,LOCK.replace('<svg','<svg width="18" height="18" style="color:#B9B0A6"'))}</div>`)+(!cur&&n<LV_MAX?`<div class="pad mt16"><button class="pill press" data-go="lvpick" data-lv="${n+1}"><b>ไปต่อที่ ${levelBy(n+1).name}</b><small>${lvInfo(n+1).empty?'กำลังเพิ่มเนื้อหา':LVSTAT(n+1)}</small></button></div>`:'');
@@ -69,7 +69,7 @@ SC.path=()=>{const n=curLv(),L=levelBy(n),i=lvInfo(n),cur=nextUnit(),rv=reviewWo
  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?`ผลล่าสุด ≈ ${S.placeRes.est?'ระดับ '+S.placeRes.est:'ก่อนระดับ 1'} · ทำใหม่ได้`:'ไม่แน่ใจว่าควรเริ่มตรงไหน? ลอง 12–20 ข้อ',undefined,'data-go="placement"')}
  ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}</div>${DEMO}</div>`,
  mount(el){const c=$('.lc-node.cur,.l1row.cur',el),sc=$('.scroller',el);if(c&&!sc.scrollTop){setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.42;if(y>120)sc.scrollTo({top:y,behavior:'smooth'})},260)}
-  el.addEventListener('click',e=>{const b=e.target.closest('[data-lcm]');if(b){vib(8);toast('ผ่านภารกิจตอน “'+b.dataset.lcm+'” แล้ว เก่งมาก')}})}}};
+  el.addEventListener('click',e=>{const b=e.target.closest('[data-lcm]');if(b){vib(8);toast('ผ่านภารกิจตอน “'+b.dataset.lcm+'” แล้ว')}})}}};
 
 /* ----- ทดสอบวัดระดับ: ปรับระดับตามคำตอบ (2 ถูกขึ้น / 1 ผิดลง) ----- */
 const PL_MIN=12,PL_MAX=20,PL_STOP_WRONG=5;
@@ -137,7 +137,7 @@ SC.placetest=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra
 SC.placeres=()=>{const r=S.placeRes;if(!r)return {title:'ผลทดสอบ',body:'<div class="large">ยังไม่มีผลทดสอบ</div>'};
  const est=r.est,rec=r.rec,RL=levelBy(rec),pose=est>=4?'trophy':est>=2?'celebrate':est>=1?'cheer':'student';
  const head=est?`ระดับของคุณ ≈ ระดับ ${est}`:'ระดับของคุณ ≈ ก่อนระดับ 1';
- const msg=est>=LV_MAX?`เก่งมาก ผ่านถึงระดับสูงสุดที่มีในแอป — ${MASCOT_NAME}ขอทึ่ง`:est>=3?`พื้นฐานแน่นแล้ว ${MASCOT_NAME}แนะนำให้ไปต่อที่ ${RL.name}`:est>=1?`ดีเลย คุณมีพื้นฐานอยู่แล้ว ${MASCOT_NAME}แนะนำให้เริ่มที่ ${RL.name}`:`ไม่เป็นไรเลย ทุกคนเริ่มจากศูนย์ — ${MASCOT_NAME}จะพาไปทีละบท`;
+ const msg=est>=LV_MAX?`ผ่านถึงระดับสูงสุดที่มีในแอป — ${MASCOT_NAME}ขอทึ่ง`:est>=3?`พื้นฐานแน่นแล้ว ${MASCOT_NAME}แนะนำให้ไปต่อที่ ${RL.name}`:est>=1?`ดีเลย คุณมีพื้นฐานอยู่แล้ว ${MASCOT_NAME}แนะนำให้เริ่มที่ ${RL.name}`:`ไม่เป็นไรเลย ทุกคนเริ่มจากศูนย์ — ${MASCOT_NAME}จะพาไปทีละบท`;
  const bars=r.tiers.map(t=>{const x=levelBy(t.lv),p=t.a?t.c/t.a:0;return `<div class="tier"><b style="width:56px">${x.name}</b><div class="tr"><i style="width:${t.a?Math.max(6,p*100):0}%;background:${x.c}"></i></div><small>${t.a?t.c+'/'+t.a:'ไม่ได้ถาม'}</small></div>`}).join('');
  const chipsOf=(arr,cls)=>arr.map(k=>`<span class="skc ${cls}">${PLACE_SKILLS[k]}</span>`).join('');
  const ri=lvInfo(rec);

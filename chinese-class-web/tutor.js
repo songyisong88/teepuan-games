@@ -63,7 +63,7 @@ const PRON=[[/zh|ch|sh|จัง|ลิ้นม้วน/i,'zh / ch / sh: ม�
 const zhsOnly=t=>[...String(t)].filter(c=>/[\u4e00-\u9fff]/.test(c)).join('');
 function tutorReplySim(m,ctx){m=(m||'').trim();const k=sh(m);
  if(!k)return {html:'พิมพ์คำถามมาได้เลย หรือแตะปุ่มด้านล่าง'};
- for(const c of CORR)if(k.includes(c[0]))return {html:`เกือบถูกแล้ว ลองแบบนี้นะ<br><b>${tzh(c[1].replace(/？|！/g,''))}</b> ${spkBtn(c[1].replace(/？|！/g,''))}<br>${c[2]}`,say:c[1]};
+ for(const c of CORR)if(k.includes(c[0]))return {html:`เกือบถูก ลองแบบนี้<br><b>${tzh(c[1].replace(/？|！/g,''))}</b> ${spkBtn(c[1].replace(/？|！/g,''))}<br>${c[2]}`,say:c[1]};
  if(/แก้|ตรวจ|ผิดไหม|ถูกไหม/.test(m))return {html:`ส่งประโยคจีนที่อยากให้ตรวจมาได้เลย — ติวเตอร์จำลองตรวจได้เฉพาะ ${CORR.length} แพตเทิร์นที่คนไทยพลาดบ่อย (ไม่ใช่ทุกประโยค) ลองพิมพ์ตัวอย่าง:`,chips:CORR.slice(0,6).map(c=>c[0])};
  if(/ออกเสียง|เสียงยาก|ลิ้น|อ่านไม่ออก|pronun|เสียงเปลี่ยน|เสียงเบา|เสียงกลาง|neutral/i.test(m)){const hit=PRON.filter(p=>p[0].test(m));return {html:(hit.length?hit:PRON.slice(0,3)).map(p=>p[1]).join('<br><br>')+'<br><span class="cap">* เทียบกับเสียงไทยแบบคร่าว ๆ เพื่อช่วยจำ ควรฟังเสียงจริงควบคู่ (กดปุ่มฟังในบทเรียน)</span>'}}
  if(/ไวยากรณ์|อธิบาย|ใช้ยังไง|ใช้อย่างไร|ต่างกัน|หมายถึง/.test(m)){const hit=GRAM.filter(g=>m.includes(g[0])).sort((a,b)=>b[0].length-a[0].length);if(hit.length)return {html:hit.slice(0,2).map(g=>g[1]).join('<br><br>'),chips:['ใช้ 是 ยังไง','ใช้ 了 ยังไง','ใช้ 在 ยังไง','ออกเสียง zh ch sh']}}
@@ -129,7 +129,7 @@ SC.study=()=>({title:'เรียนด้วยกัน',noRefresh:true,body:
 /* ---------- สรุปสัปดาห์ ---------- */
 function recapData(){const t=today();let days=0,best=0,bd=0;for(let i=0;i<7;i++){const x=dayXp(t-i);if(x>0)days++;if(x>best){best=x;bd=i}}
  const acc=S.qAll?Math.round(S.qOk/S.qAll*100):0;return {xp:weekXp(),days,best,words:learnedCount(),streak:curStreak(),acc,mis:Object.keys(S.mistakes).length,cms:CLASSMATES.filter(cmUnlocked).length,bs:S.buddy?buddyStreak():0}}
-SC.recap=()=>{const r=recapData();const line=r.days>=6?'สัปดาห์นี้คุณเทพมาก':r.days>=3?'ทำได้ดีมาก ต่อเนื่องแบบนี้เลย':r.days>=1?'เริ่มต้นได้ดี สัปดาห์หน้าเพิ่มอีกวันนะ':'สัปดาห์นี้ยังไม่ได้เรียน เริ่มวันนี้ก็ยังทัน';
+SC.recap=()=>{const r=recapData();const line=r.days>=6?'สัปดาห์นี้เรียนสม่ำเสมอ':r.days>=3?'ทำได้ดี เรียนต่อเนื่องแบบนี้ต่อไป':r.days>=1?'เริ่มต้นได้ดี สัปดาห์หน้าลองเพิ่มอีกหนึ่งวัน':'สัปดาห์นี้ยังไม่ได้เรียน เริ่มวันนี้ก็ยังทัน';
  const spec={badge:'สรุปสัปดาห์',title:line,sub:`เรียนไป ${r.days}/7 วัน · ${r.words} คำ`,mascot:r.days>=5?'trophy':r.days>=2?'thumbs':'cheer',tint:'#EAF1FB',accent:'#3E6FB0',stats:[[r.xp+'','XP สัปดาห์นี้'],[r.streak+'','วันสตรีค'],[r.acc+'%','ตอบถูก']],ctaLabel:'ลองเรียนด้วยกัน'};
  S.recapDay=today();save();
  return {title:'สรุปสัปดาห์',body:`<div class="center" style="padding:6px 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M(spec.mascot)}</div><div class="large" style="padding:0">สรุป 7 วันที่ผ่านมา</div><p style="color:var(--sub2);font-size:15.5px;margin:4px 14px 0">${line}</p></div>

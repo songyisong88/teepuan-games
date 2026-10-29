@@ -223,7 +223,7 @@ SC.stkcredits=()=>({title:'ที่มาของข้อมูลลำด�
 /* ================= ฝึกเขียนตามขีด ================= */
 let STK_HWP=null;
 function stkLoadHW(){return window.HanziWriter?Promise.resolve():STK_HWP||(STK_HWP=new Promise((res,rej)=>{const s=document.createElement('script');s.src='vendor/hanzi-writer.min.js';s.onload=res;s.onerror=()=>{STK_HWP=null;rej(new Error('hw'))};document.head.appendChild(s)}))}
-const STK_OK=['ขีดนี้สวยเลย','ถูกต้อง','เยี่ยม ต่อไปเลย','นิ้วนิ่งมาก','ใช่เลย ลำดับถูกด้วย'],STK_BAD=['ลองใหม่อีกที เริ่มจากจุดแดงนะ','ใกล้แล้ว ดูทิศทางลูกศร','ไม่เป็นไร ค่อยๆ ลาก','ลำดับขีดนี้สำคัญนะ ลองขีดอื่นดู'];
+const STK_OK=['ถูกต้อง','ถูกต้อง ขีดต่อไป','ทำได้ดี','ลำดับถูกต้อง'],STK_BAD=['ลองอีกครั้ง เริ่มจากจุดแดง','เกือบถูก ดูทิศทางลูกศร','ลองอีกครั้ง ลากช้า ๆ','ลำดับขีดสำคัญ ลองอีกครั้ง'];
 SC.strokeprac=(p)=>{const info=stkWord(p.w);const chars=info.cs;
  return {noRefresh:true,nav:`<header class="nav stk-vnav"><div class="nav-l"><button class="back" data-act="back">${BACKI}<span>ออก</span></button></div><div class="nav-t" style="opacity:1;transform:none">ฝึกเขียน <span class="zh">${p.only>=0?chars[p.only]:p.w}</span></div><div class="nav-r"><span class="stk-chip" id="pchip">…</span></div></header>`,
   body:`<div class="stk-pp" id="stkp"><div class="stk-sk" style="height:18px"></div><div class="stk-sk" style="height:72px;margin-top:12px"></div><div class="stk-sk" style="height:300px;margin-top:12px"></div></div><p class="rd-draft">ชื่อขีดและคำอธิบายภาษาไทยเป็นร่าง รอครูตรวจ</p>`,

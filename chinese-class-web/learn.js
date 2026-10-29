@@ -123,7 +123,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   mas(ok?(run>=3?'thumbs':'correct'):'wrong');
   const w=q.w;let rev='';if(q.reveal)rev=typeof q.reveal==='function'?q.reveal(ok,q):q.reveal;else if(!ok&&w)rev=`<div class="ans"><span class="zh" style="font-size:20px">${w.zh}</span> &nbsp;${pyHtml(w.py)} &nbsp;= <b>${w.th}</b></div>`;
   const pose=ok?(run>=3?'thumbs':'correct'):'wrong';
-  fb.innerHTML=`<div class="grabber"></div><div class="fh"><div class="t"><b style="color:${ok?'var(--ok)':'var(--warn)'}">${q.plain?(ok?(run>=3?`ถูกต้อง · ติดต่อกัน ${run} ข้อ`:'ถูกต้อง'):'ยังไม่ถูก'):ok?(run>=3?`ติดต่อกัน ${run} ข้อแล้ว`:'ถูกต้อง'):'ยังไม่ถูก ไม่เป็นไรนะ'}</b><small>${ok?`${MASCOT_NAME}ภูมิใจ${retry||place||q.plain?'':' · +10 XP'}`:(q.fbNo&&!retry?q.fbNo:MASCOT_NAME+(retry?'ลองอีกที ครั้งหน้าจะจำได้':'จะพาทวนข้อนี้อีกรอบ'))}</small></div><div style="width:84px;height:84px">${M(pose)}</div></div>${rev}
+  fb.innerHTML=`<div class="grabber"></div><div class="fh"><div class="t"><b style="color:${ok?'var(--ok)':'var(--warn)'}">${q.plain?(ok?(run>=3?`ถูกต้อง · ติดต่อกัน ${run} ข้อ`:'ถูกต้อง'):'ยังไม่ถูก'):ok?(run>=3?`ติดต่อกัน ${run} ข้อแล้ว`:'ถูกต้อง'):'ยังไม่ถูก'}</b><small>${ok?`ทำได้ดี${retry||place||q.plain?'':' · +10 XP'}`:(q.fbNo&&!retry?q.fbNo:(retry?'ลองอีกครั้งในรอบหน้า':MASCOT_NAME+'จะพาทวนข้อนี้อีกรอบ'))}</small></div><div style="width:84px;height:84px">${M(pose)}</div></div>${rev}
   <button class="pill row1 press ${ok?'ok':'warn'}" style="height:52px;border-radius:26px;margin-top:14px" data-sa="next">ต่อไป</button>`;
   setTimeout(()=>fb.classList.add('show'),250)}
  function answer(btn){if(locked)return;const q=cur.q,k=+btn.dataset.i,ok=k===q.ans;q.picked=k;const os=$$('.opt',stage);
@@ -171,7 +171,7 @@ SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,evMul})=>
  <div class="stat mt16 fade-in" style="animation-delay:.3s"><div><b style="color:var(--red)">+${xp}</b><small>XP</small></div><div><b style="color:#B07A12">+${coins}</b><small>เหรียญ</small></div><div><b>${res.correct}/${res.total}</b><small>ตอบถูก</small></div></div>
  ${evMul?`<div class="banner mt12" style="background:#FDF3E6;color:#8A5A12">${evMul}</div>`:''}
  <div class="group mt16 fade-in" style="animation-delay:.4s">
-  ${ROW('#FDECEC','🔥',`สตรีค ${curStreak()} วัน`,streakNew?'วันนี้นับเป็นวันเรียนแล้ว':'ต่อเนื่องดีมาก','')}
+  ${ROW('#FDECEC','🔥',`สตรีค ${curStreak()} วัน`,streakNew?'วันนี้นับเป็นวันเรียนแล้ว':'เรียนต่อเนื่อง','')}
   ${newWords?ROW('#E7F8EE','🎮',`ปลดล็อกคำในเกม +${newWords} คำ`,u.words.map(w=>w.zh).join(' · '),'', 'style="cursor:default"'):''}
   ${buddyDoneRow()}
   ${res.wrong.length?ROW('#FDF3E6','📝',`ข้อที่พลาด ${res.wrong.length} ข้อ`,'เพิ่มในรายการทบทวนแล้ว',CHEV,'data-go="review"'):''}</div>
@@ -191,7 +191,7 @@ function rvSplit(ws){const cur=lvSoFar().slice(-1)[0],L=cur&&lessonBy(cur.id);co
 SC.review=()=>{const ws=reviewWords();return {title:'ทบทวนตามรอบ',body:`<div class="large">ทบทวนตามรอบ</div>`+(ws.length?`
  <p class="cap" style="padding:4px 20px 14px">มี ${ws.length} คำถึงรอบทบทวน${reviewSeed().length?` (รวมคำแนะนำของระดับ ${curLv()} ที่ยังไม่เคยทวน)`:''} · ตอบถูกแล้วจะถูกเลื่อนไปทวนอีกครั้งห่างขึ้น (1→2→4→8→16 วัน) · ตอบพลาดจะกลับมาทวนวันนี้</p>${rvSplit(ws).map(([h,g])=>`${h?`<div class="sec">${h}</div>`:''}<div class="group">${g.map(w=>`<div class="row noic" style="min-height:68px">${picHas(w)?art('word',w.zh,'','rv-pic'):''}<span class="tx"><b><span class="zh" style="font-size:22px">${w.zh}</span> <span style="font-size:14px;font-weight:500">${pyHtml(w.py)}</span></b><small>${w.th} · ${S.mistakes[w.zh]?'พลาด '+S.mistakes[w.zh]+' ครั้ง':S.srs&&S.srs[w.zh]?'ทวนรอบ '+srsBox(w)+'/5':'คำแนะนำของระดับ '+(w.lv||curLv())}</small></span>${stkBtn(w.zh,"mini")}<button class="audio press" aria-label="ฟังเสียง" style="width:42px;height:42px;margin:0" data-act="audio" data-t="${w.zh}"><span style="width:20px;display:flex">${SPK}</span></button></div>`).join('')}</div>`).join('')}
  <div class="dock"><button class="pill press" data-act="reviewgo"><b>ฝึกทบทวน</b><small>${Math.min(6,ws.length)} ข้อ</small></button></div>`:
- `<div class="empty" style="padding-top:50px"><div style="width:200px;height:200px">${M('empty')}</div><b>วันนี้ยังไม่มีคำที่ถึงรอบทบทวน</b><span>เยี่ยมมาก คำที่เรียนแล้วจะกลับมาทวนตามรอบ (พรุ่งนี้ 2 วัน 4 วัน…) และคำที่พลาดจะมาอยู่ที่นี่</span></div>`)}};
+ `<div class="empty" style="padding-top:50px"><div style="width:200px;height:200px">${M('empty')}</div><b>วันนี้ยังไม่มีคำที่ถึงรอบทบทวน</b><span>คำที่เรียนแล้วจะกลับมาทวนตามรอบ (พรุ่งนี้ 2 วัน 4 วัน…) และคำที่พลาดจะมาอยู่ที่นี่</span></div>`)}};
 document.addEventListener('click',e=>{if(e.target.closest('[data-act=reviewgo]'))push('rsession')});
 SC.rsession=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},mount(el){
  const ws=shuffle(reviewWords()).slice(0,6);if(!ws.length){pop();return}const types=['zh2th','th2zh','audio'];

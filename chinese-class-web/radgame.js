@@ -114,7 +114,7 @@ function radDetFeed(q,okFlag){const r=q.r,v=q.v;const semV=r.tr===3?.88:r.tr===2
  let snd='';let mt=v[5];if(v[1]==='p'&&v[3]){const f=radPhFam(v[3]);const sv=mt===2?.92:mt===1?.6:mt===0?.14:.4;
   snd=radMeter('เชื่อถือเสียงได้แค่ไหน',sv,`${v[3]} ${v[4]?pyHtml(v[4]):''} → ตัวนี้ ${q.py?pyHtml(q.py):''}`)+(f&&f.n>1?`<p class="mn">ส่วนเสียง ${v[3]} ในแอป: ${f.n} ตัว อ่านเหมือนกันเป๊ะ ${f.ex} ตัว</p>`:'')}
  const ce=radCounter();
- return `<div class="rd-feed card ${okFlag?'ok':'bad'}"><div class="fh"><div class="rm">${M(okFlag?'celebrate':'think')}</div><div><b>${okFlag?'เก่งมาก':'ใกล้แล้ว'}</b><span>${q.c} แปลว่า <b>${radEsc(q.ans)}</b></span></div></div>
+ return `<div class="rd-feed card ${okFlag?'ok':'bad'}"><div class="fh"><div class="rm">${M(okFlag?'celebrate':'think')}</div><div><b>${okFlag?'ถูกต้อง':'ยังไม่ถูก'}</b><span>${q.c} แปลว่า <b>${radEsc(q.ans)}</b></span></div></div>
  <p class="fx">${sem}${v[1]==='p'&&v[3]?` · <span class="b">${v[3]}</span> ใบ้เสียง ${v[4]?pyHtml(v[4]):''}`:''}</p>
  ${radMeter('เชื่อถือความหมายได้แค่ไหน',semV,radEsc(r.id)+' · '+radTrustTxt(r.tr)[0])}${snd}
  <p class="warn">⚠ ตัวบางพวกเสียงไม่ตรง${ce.c?` เช่น ${ce.c} ${pyHtml(ce.py)} (${ce.ph} ${pyHtml(ce.pp)})`:''} — ใช้ส่วนเสียงเป็นเบาะแส ไม่ใช่คำตอบ</p></div>`}

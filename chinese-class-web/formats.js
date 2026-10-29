@@ -34,7 +34,7 @@ SC.teamquiz=({m})=>{
      box.querySelector('#feed').innerHTML=lines.map(l=>`<div class="tqf">${l}</div>`).join('');
      k++;setTimeout(()=>{if(!alive())return;k<TEAM_ROUNDS?show():fin()},900)})};
    function fin(){const win=A>B,tie=A===B;const xp=evX(win?14:tie?10:7),coins=evC(win?20:tie?10:6);addXp(xp,null,1);addCoins(coins,1);bumpCnt('game');bumpCnt('social');bumpCnt('teamq');if(win)bumpCnt('teamwin');
-    box.innerHTML=`<div class="center"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(win?'celebrate':tie?'correct':'think')}</div><div class="h2">${win?'ทีมคุณชนะ':tie?'เสมอกัน':(B-A<=2?'แพ้นิดเดียว สู้ใหม่':'ยังมีรอบหน้า สู้ใหม่')}</div>
+    box.innerHTML=`<div class="center"><div class="pop" style="width:150px;height:150px;margin:0 auto">${M(win?'celebrate':tie?'correct':'think')}</div><div class="h2">${win?'ทีมคุณชนะ':tie?'เสมอกัน':(B-A<=2?'แพ้ไม่กี่คะแนน ลองอีกครั้ง':'ลองอีกครั้งในรอบหน้า')}</div>
      <p style="color:var(--sub2);margin:4px 0 4px;font-size:15px">${A} : ${B} · คุณตอบถูก ${youOk}/${TEAM_ROUNDS}</p><p class="cap">+${xp} XP · +${coins} เหรียญ</p></div>
      <div class="pad mt16"><button class="pill sm linebtn press" id="sh">แชร์ผลไป LINE</button><button class="pill sm ghost press mt8" id="ag">เล่นอีกรอบ</button></div>`;
     confetti(win?70:0);$('#sh',box).onclick=()=>shareSheet('result',{kind:'score',text:`ทีมชนทีม ${A}:${B} ${win?'ชนะ':tie?'เสมอ':'แพ้'}`});$('#ag',box).onclick=lobby}

@@ -178,7 +178,7 @@ function mockBand(lv,c){const n=lv,nx=n<5?`ลองข้อสอบระด�
  if(c>=9)return {m:'celebrate',t:'แม่นมาก',d:`คะแนนบอกว่าคุณแข็งแรงกับระดับ ${n} · ${nx}`};
  if(c>=7)return {m:'celebrate',t:'ดี — พร้อมกับระดับนี้เป็นส่วนใหญ่',d:'ทบทวนข้อที่พลาดด้านล่าง แล้วลองอีกรอบ'};
  if(c>=4)return {m:'cheer',t:'พอไปได้ — ยังมีช่องโหว่',d:`ทบทวนบทระดับ ${n} อีกรอบ โดยเฉพาะข้อที่พลาดด้านล่าง`};
- return {m:'wrong',t:'ยังไม่พร้อมกับระดับนี้ — ไม่เป็นไร',d:`${pv} หรือเรียนบทระดับ ${n} ต่อ`}}
+ return {m:'wrong',t:'ยังไม่พร้อมสำหรับระดับนี้',d:`${pv} หรือเรียนบทระดับ ${n} ต่อ`}}
 SC.mockres=({lv,qs,correct,used,xp,coins})=>{const b=mockBand(lv,correct),tot=qs.length;
  const ansTxt=q=>q.opts.find(o=>o.ok).o;
  return {nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="center" style="padding:calc(var(--st) + 24px) 20px 0"><div class="pop" style="width:170px;height:170px;margin:0 auto">${M(b.m)}</div>

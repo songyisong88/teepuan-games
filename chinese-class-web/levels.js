@@ -45,10 +45,8 @@ function lcMap(n){const cur=nextUnit(n);let html='',sec=0;const chs=CHAPTERS.fil
    const go=(us.find(u=>!unitDone(u.id))||us[us.length-1]).id;
    const gt=Ls.kind==='gate';
    items.push({k:'L',st:done?'done':isCur?'cur':open?'open':'lock',html:`<button class="lc-node press${gt?' rev gate':''} ${done?'done':isCur?'cur':open?'':'lock'}" data-go="unit" data-id="${go}" aria-label="${lnoTxt(Ls)} ${Ls.th}${done?' เรียนจบแล้ว':isCur?' บทปัจจุบัน':open?'':' ยังล็อก'}">${isCur?'<span class="lc-bub">เริ่ม ▶</span>':''}<span class="o">${gt?M('think'):lcPic(Ls)}</span>${done?'<span class="ok">✓</span>':''}${!done&&!isCur&&!open?'<span class="lk">🔒</span>':''}<span class="nl">${gt?'ทบทวนตอน '+ch.ep:Ls.th}${isCur&&dn&&!Ls.v3?` · ${dn}/${us.length}`:''}</span></button>`});
-   const cm=Ls.v3&&CLASSMATES.find(x=>x.by==='lesson:'+Ls.id);
-   if(cm){const on=cmUnlocked(cm);items.push({k:'C',st:'cm',html:`<button class="lc-node cm press ${on?'':'lock'}" data-go="cm" data-id="${cm.id}" aria-label="${on?cm.n:'เพื่อนใหม่ ผ่านด่านนี้แล้วจะได้เจอ'}"><span class="o">${cmImg(cm,on)}</span>${on?'':'<span class="lk">🔒</span>'}<span class="nl">${on?cm.n:'เพื่อนใหม่'}</span></button>`})}
-   if(isCur&&!Ls.v3)items.push(lcRev())});
-  if(ci===lastCh&&!cur&&!ls.some(l=>l.v3))items.push(lcRev());
+   if(isCur)items.push(lcRev())});
+  if(ci===lastCh&&!cur)items.push(lcRev());
   /* ตำแหน่งซิกแซก: x เป็น % ของความกว้าง, y เป็น px */
   let y=items[0]&&items[0].st==='cur'?112:70;const pts=items.map((it,i)=>{const big=it.st==='cur';if(i)y+=big||items[i-1].st==='cur'?150:124;return {x:LC_X[(i+sec)%4],y,big}});sec+=items.length;
   const H=y+80,curI=items.findIndex(it=>it.st==='cur'),lastDone=curI>=0?curI:items.reduce((a,it,i)=>it.st==='done'?i:a,-1);

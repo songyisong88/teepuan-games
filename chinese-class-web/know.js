@@ -18,11 +18,12 @@ function knCards(){const n=x=>(+x||0).toLocaleString('en-US');const LBx=window.L
   ['เทียบคำใกล้เคียง','#EAF1FB',`<span class="kn-row">${zc('买','#3D6FB6',46)}${zc('卖','#C8102E',46,'margin-left:6px')}</span>`,(LBx.pairs||[]).length?n(LBx.pairs.length):'','data-go="pairs"','คู่'],
   ['ส่วนประกอบ','#FDF3E6',`<span class="kn-row">${zc('女','#E08A2E',34)}<i class="kn-op">+</i>${zc('子','#E08A2E',34)}<i class="kn-op">=</i>${zc('好','#fff',44,'color:var(--text);box-shadow:0 2px 6px rgba(60,40,30,.12)')}</span>`,'','data-go="comps"',''],
   ['ฟังแล้วพูดตาม','#EAF4EC',img('assets/pinroom/extra-listening-headphones.webp'),'','data-go="shadow"',''],
-  ['ข้อสอบจำลอง','#FCE9EF',M('timer','kn-m'),(LBx.mock||[]).length?n(LBx.mock.length):'','data-go="mocklab"','ข้อในคลัง']]}
+  ['ข้อสอบจำลอง','#FCE9EF',M('timer','kn-m'),(LBx.mock||[]).length?n(LBx.mock.length):'','data-go="mocklab"','ข้อในคลัง'],
+  ['ลักษณนาม','#FFF4D6',`<span class="kn-row">${zc('只','#C8102E',40)}${pic('word','猫','猫','margin-left:4px')}</span>`,'','data-go="mwroom"','']]}
 /* คำโปรยใต้ชื่อการ์ด บรรทัดเดียว (ซ้งอี้อนุมัติแล้ว ตามแบบร่าง v5) · เช็กพินอินใช้ 12 ข้อตามจำนวนข้อจริงในแอป (แบบร่างเขียน 8) */
 const KN_DESC={'ห้องพินอิน':'ฝึกพินอินพื้นฐาน 12 ด่าน','เช็กพินอิน':'ทดสอบพินอิน 12 ข้อ','วรรณยุกต์':'ฝึกฟังแยก 4 วรรณยุกต์','ลำดับขีด':'ดูลำดับขีดและฝึกเขียนตาม',
  'อักษรข้าง':'เรียนความหมายตัวข้าง','คลังการ์ด':'สะสมการ์ดอักษรข้าง','บทความสั้น':'อ่านบทความสั้น 5 ระดับ','นิทานอ่านเอง':'อ่านนิทานพร้อมคำแปล',
- 'เทียบคำใกล้เคียง':'เปรียบเทียบคำที่มักสับสน','ส่วนประกอบ':'แยกส่วนประกอบตัวอักษร','ฟังแล้วพูดตาม':'ฝึกฟังและพูดตามประโยค','ข้อสอบจำลอง':'ทดสอบ 10 ข้อแบบจับเวลา'};
+ 'เทียบคำใกล้เคียง':'เปรียบเทียบคำที่มักสับสน','ส่วนประกอบ':'แยกส่วนประกอบตัวอักษร','ฟังแล้วพูดตาม':'ฝึกฟังและพูดตามประโยค','ข้อสอบจำลอง':'ทดสอบ 10 ข้อแบบจับเวลา','ลักษณนาม':'คำบอกหน่วย ใช้หลังตัวเลข'};
 SC.know=()=>({title:'แหล่งความรู้',body:`<div class="kn-hd"><h1>แหล่งความรู้</h1><p>อ่าน ฟัง ฝึก ได้ทุกเมื่อ</p></div>
  <div class="kn-grid">${knCards().map(([t,bg,ic,bd,at,u])=>`<button class="kn-t press" style="background:${bg}" ${at} aria-label="${t}"><span class="kn-v">${ic}</span><span class="kn-l">${t}</span>${KN_DESC[t]?`<span class="kn-d">${KN_DESC[t]}</span>`:''}</button>`).join('')}</div>${DEMO}`});
 Object.assign(window.GOX=window.GOX||{},{knrad(el){const k=radS();k.tab=el.dataset.t||(k.tab==='col'?'path':k.tab||'path');save();push('rad')},radopen(){push('rad')}});

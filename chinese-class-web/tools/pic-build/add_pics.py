@@ -54,7 +54,7 @@ for zh,f in words.items():conv(f,os.path.join(R,'assets/art/word',zh+'.webp'))
 scenes={}
 if os.path.isdir(SCN):
   for f in sorted(glob.glob(os.path.join(SCN,'*'))):
-    m=re.search(r'p(?:art)?[-_]?([1-7])',os.path.basename(f).lower())
+    m=re.search(r'(?:^|-)p(?:art)?[-_]?([1-9])\b',os.path.basename(f).lower())
     if m and f.lower().rsplit('.',1)[-1] in ('png','jpg','jpeg','webp'):
       im=Image.open(f);w=min(900,im.width);im=im.convert('RGB').resize((w,round(im.height*w/im.width)),Image.LANCZOS)
       os.makedirs(os.path.join(R,'assets/art/scene'),exist_ok=True);im.save(os.path.join(R,'assets/art/scene','l'+SLV+'-p'+m.group(1)+'.webp'),'WEBP',quality=80,method=6);scenes['scene/l'+SLV+'-p'+m.group(1)]=1

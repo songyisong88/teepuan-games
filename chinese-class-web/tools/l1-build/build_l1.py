@@ -65,7 +65,7 @@ for p,th,zh,sub,bg in S.PARTS:
     for z in words:
       w=SRC[z];thv=S.TH.get(z,w['th'])
       ex=next((s for s in sents if z in re.sub('['+PUN+']','',s[0]).split('/')),None)
-      if ex:ez,ep=sent(ex[0],upto,code);ex=[ez.replace('/',''),ep.replace('/',' ').replace('|',''),ex[1]]
+      if ex:ez,ep=sent(ex[0],upto,code);ex=[ez.replace('/',''),re.sub(r'\|(?=[aeoāáǎàēéěèōóǒò])',"'",ep.replace('/',' ')).replace('|',''),ex[1]]   # nǚ'ér
       else:ex=['','','']
       ws.append(f"W({js(z)},{js(w['py'])},{js(thv)},{js(w.get('h',''))},{js(w.get('mn',''))},{js(ex[0])},{js(ex[1])},{js(ex[2])})")
     so=[];
@@ -88,7 +88,7 @@ for p,th,zh,sub,bg in S.PARTS:
 allw=[w for x in S.L for w in x[5]]
 assert len(allw)==len(set(allw)),'dup words'
 print('lessons',len(les),'words',len(allw),file=sys.stderr)
-OLD=json.load(open('/tmp/cn-lessons.json')) if os.path.exists('/tmp/cn-lessons.json') else None
+OLD=json.load(open(os.environ['L1_OLD'])) if os.environ.get('L1_OLD') else None   # สร้าง old-l1.json ใหม่เฉพาะเมื่อระบุ L1_OLD=<ไฟล์ข้อมูลเดิม>
 hdr="""LVMETA[1]={standard:'HSK 2.0',original:true,official:150,covered:150,v3:1};
 /* ระดับ 1 โครงใหม่ (v3) · 8 ตอน (ตอน 0 = เสียง) · บทละไม่เกิน 6 คำ · ใช้เฉพาะคำที่สอนแล้ว · ด่านทบทวนท้ายตอน
    สร้างจาก tools/l1-build/spec.py ด้วย build_l1.py — อย่าแก้ไฟล์นี้ด้วยมือ */

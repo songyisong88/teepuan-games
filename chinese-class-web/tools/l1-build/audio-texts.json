@@ -187,6 +187,14 @@
 "text": "五、四、三、二、一！",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
+"老师，是三吗？": {
+"text": "老师，是三吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"老师，是五吗？": {
+"text": "老师，是五吗？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
 "f|四、五！": {
 "text": "四、五！",
 "voice": "zh-CN-YunxiNeural"
@@ -205,6 +213,14 @@
 },
 "零、一、二！": {
 "text": "零、一、二！",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"不是六，是九。": {
+"text": "不是六，是九。",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"不是六，是八。": {
+"text": "不是六，是八。",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
 "六、七、八！": {
@@ -847,10 +863,6 @@
 "text": "我会写字。",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
-"我学习汉语。": {
-"text": "我学习汉语。",
-"voice": "zh-CN-XiaoxiaoNeural"
-},
 "你会说汉语吗？": {
 "text": "你会说汉语吗？",
 "voice": "zh-CN-XiaoxiaoNeural"
@@ -877,10 +889,6 @@
 },
 "我在打电话。": {
 "text": "我在打电话。",
-"voice": "zh-CN-XiaoxiaoNeural"
-},
-"我看见你了。": {
-"text": "我看见你了。",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
 "我想看电影。": {
@@ -911,12 +919,16 @@
 "text": "我喜欢苹果，你呢？",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
-"我很好，你呢？": {
-"text": "我很好，你呢？",
-"voice": "zh-CN-XiaoxiaoNeural"
-},
 "我是学生，你呢？": {
 "text": "我是学生，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我学习汉语，你呢？": {
+"text": "我学习汉语，你呢？",
+"voice": "zh-CN-XiaoxiaoNeural"
+},
+"我看见你了。": {
+"text": "我看见你了。",
 "voice": "zh-CN-XiaoxiaoNeural"
 },
 "我是老师，你呢？": {

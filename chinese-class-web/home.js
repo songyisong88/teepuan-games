@@ -73,13 +73,14 @@ function hgQuick(){const nu=nextUnit(),started=S.parts.length>0,rv=reviewWords()
  else a=`<div class="hg-qa end"><small>ระดับ ${curLv()}</small><b>เรียนครบทุกบทที่มีแล้ว</b><button class="go press" data-go="levels">เลือกระดับ</button></div>`;
  return `<div class="hg-quick">${a}<div class="hg-qs"><button class="hg-qb press" data-go="review" style="background:#E8F1FB"><b>${rv?'ทบทวน '+rv+' คำ':'ทบทวนคำ'}</b><small>${rv?'ราว '+Math.max(1,Math.ceil(rv*.4))+' นาที':'ยังไม่มีคำค้าง'}</small>${M('think')}</button>
   <button class="hg-qb press" data-go="play" data-g="speed" style="background:#EEF7F1"><b>รอบเร็ว</b><small>${go?'60 วินาที':'เปิดหลังจบบทที่ 1'}</small>${M('timer')}</button></div></div>`}
-/* วงล้อคำ: 6 คำใหม่ที่มีรูปและเสียง (ยังไม่อยู่ในคำทบทวน/คำที่เรียนแล้ว) เลือกแบบคงที่ตามวัน */
-function hgPool(){const t=today(),n=curLv(),k=hgS(),own=new Set([...gameWords().map(w=>w.zh),...Object.keys(S.srs||{}),...k.got.map(g=>g.zh)]),seen=new Set();
- const ok=w=>w&&!seen.has(w.zh)&&(seen.add(w.zh),true)&&picHas(w)&&audioUrl(w.zh)&&w.th;
- let P=ALLW.filter(w=>w.lv===n&&!own.has(w.zh)&&ok(w));
- if(P.length<6){seen.clear();P=ALLW.filter(w=>w.lv<=n+1&&!own.has(w.zh)&&ok(w))}
- if(P.length<6){seen.clear();P=ALLW.filter(w=>!k.got.some(g=>g.zh===w.zh)&&ok(w))}
- return seedPick(P,6,'hgspin'+t)}
+/* วงล้อคำประจำวัน: ตามบทที่เรียนถึง — คำของบทจนถึงบทที่กำลังเรียนที่ยังไม่ได้ก่อน → คำที่เรียนแล้ว (ยังไม่ได้จากวงล้อ) → คำที่เรียนแล้ว → คำของบทแรก ๆ
+   ไม่เอาคำของบทอนาคตหรือระดับถัดไป (คำที่หมุนได้เข้าไปอยู่ในรอบทบทวน จึงต้องเป็นคำที่เรียนถึงแล้วเท่านั้น) */
+function hgPool(){const t=today(),n=curLv(),k=hgS(),got=new Set(k.got.map(g=>g.zh)),own=new Set([...gameWords().map(w=>w.zh),...Object.keys(S.srs||{}),...got]);
+ const ok=w=>w&&picHas(w)&&audioUrl(w.zh)&&w.th;
+ const soFar=uniqW(lvSoFar(n).flatMap(l=>l.words)).filter(ok),taught=gameWords().filter(ok);
+ const tiers=[soFar.filter(w=>!own.has(w.zh)),taught.filter(w=>!got.has(w.zh)),taught,soFar,lvStarter(n,12).filter(ok)];
+ let P=[];for(const tr of tiers){if(P.length>=6)break;const have=new Set(P.map(w=>w.zh));P=P.concat(seedPick(uniqW(tr).filter(w=>!have.has(w.zh)),6-P.length,'hgspin'+t))}
+ return P.slice(0,6)}
 const HG_SEG=['#FBE3E0','#FDF0DA','#EEF7F1','#E8F1FB','#F6F1FB','#FFF6E4'];
 function hgWheelSvg(ws){const C=88,R=88,pt=a=>[C+R*Math.sin(a*Math.PI/180),C-R*Math.cos(a*Math.PI/180)].map(v=>v.toFixed(1));let seg='',defs='';
  ws.forEach((w,i)=>{const a0=i*60-30,a1=i*60+30,p0=pt(a0),p1=pt(a1),cx=(C+56*Math.sin(i*Math.PI/3)).toFixed(1),cy=(C-56*Math.cos(i*Math.PI/3)).toFixed(1);

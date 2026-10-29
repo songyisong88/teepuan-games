@@ -23,8 +23,10 @@ function picDist(w,pool,n,needImg){
  const ok=x=>x.zh!==w.zh&&x.th!==w.th&&!picSim(w.zh,x.zh)&&(!needImg||(picHas(x)&&!PIC_HARD.has(x.zh)));
  const base=uniqW([...pool.filter(ok),...picAll().filter(ok)]);
  const same=shuffle(base.filter(x=>picT(x)===picT(w))),oth=shuffle(base.filter(x=>picT(x)!==picT(w)));
- const lvOk=x=>(x.lv||1)<=(w.lv||1);
- const r=[...same.filter(lvOk),...oth.filter(lvOk),...same.filter(x=>!lvOk(x)),...oth.filter(x=>!lvOk(x))];
+ /* ลำดับ: คำในคลังบทนี้/คำที่เรียนแล้ว → คำระดับไม่สูงกว่าโจทย์ → ที่เหลือ (เดิมเรียงแค่ระดับ ทำให้คำบทอนาคตในระดับเดียวกันโผล่) */
+ const inP=new Set(pool.map(x=>x.zh)),tg=x=>inP.has(x.zh)||isDone(x.lesson)||(x.lv||1)<=(S.assume||0);
+ const lvOk=x=>(x.lv||1)<=(w.lv||1),tier=x=>tg(x)?0:lvOk(x)?1:2;
+ const r=[0,1,2].flatMap(t=>[...same.filter(x=>tier(x)===t),...oth.filter(x=>tier(x)===t)]);
  /* L2: ไม่เอาตัวเลือกที่พินอินไม่นับวรรณยุกต์ซ้ำ หรือคำไทยหลักซ้ำกับโจทย์/ตัวเลือกอื่น (ฟังไม่ออก/อ่านไทยซ้ำ) */
  const pk=x=>String(x.py||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-züv]/gi,'').toLowerCase(),tk=x=>picLab(x);
  const seenP=new Set([pk(w)]),seenT=new Set([tk(w)]),out=[];

@@ -7,7 +7,7 @@ function radCardHtml(id,o){o=o||{};const r=RADI[id];const c=radS().cards[id];
  if(!c)return `<div class="rd-card lock ${o.big?'big':''} ${o.mini?'mini':''}"><div class="rc-glyph zh">?</div><div class="rc-name">ยังไม่ได้การ์ด</div><div class="rc-sub">${r.id} ${r.th}</div></div>`;
  if(o.mini)return `<div class="rd-card r${c.r} mini"><div class="rc-glyph zh">${r.id}</div></div>`;
  const kn=radKnown(id);const ex=radMembers(r).sem.slice(0,6);
- return `<div class="rd-card r${c.r} ${o.big?'big':''}"><div class="rc-top"><span class="rc-r" aria-label="การ์ด${RAD_RAR[c.r]}">${radStars(c.r)}</span>${o.fresh?'<i class="new">การ์ดใหม่!</i>':''}</div>
+ return `<div class="rd-card r${c.r} ${o.big?'big':''}"><div class="rc-top"><span class="rc-r" aria-label="การ์ด${RAD_RAR[c.r]}">${radStars(c.r)}</span>${o.fresh?'<i class="new">การ์ดใหม่</i>':''}</div>
   <div class="rc-hero"><div class="rc-glyph zh">${r.id}</div><img class="rc-mas" src="assets/mascot/${r.pose||'wave'}.webp" alt="" draggable="false">${radPic(r.id)?`<span class="rc-em rc-pic" aria-hidden="true">${radPicImg(r.id)}</span>`:`<span class="rc-em" aria-hidden="true">${r.em}</span>`}</div>
   <div class="rc-name">${r.card}</div><div class="rc-sub">ตัวข้าง ${r.id} · ${r.th} · ${pyHtml(r.py)}</div><span class="rc-sim">ชุดจำลอง · ${RAD_DRAFT}</span>
   <div class="rc-mem">${ex.map(x=>`<span class="zh">${x}</span>`).join('')}</div><div class="rc-know">จำได้ ${kn.n}/${kn.t} ตัว</div></div>`}
@@ -25,7 +25,7 @@ function radPracHtml(){const k=radS();const pool=radLvPool();const auto=!(k.lv&&
  <div class="rd-lvbox card"><div class="t"><b>เลือกระดับตัวอักษรที่จะเจอในเกม</b><small>${auto?`ตอนนี้: ตามระดับของฉัน (ถึงระดับ ${curLv()})`:`ตอนนี้: ${[...pool].sort().map(n=>'ระดับ '+n).join(', ')}`}</small></div><div class="rd-lvf" role="group" aria-label="ระดับ"><button class="${auto?'on':''}" data-go="radlv" data-n="0" aria-pressed="${auto}">ตามระดับของฉัน</button>${[1,2,3,4,5].map(lvBtn).join('')}</div></div>
  <div class="sec">เกมตัวข้าง</div>
  ${G('#FDF3E6','🧩','ประกอบร่าง','ลากชิ้นส่วนมาวางให้ครบตัวอักษร · '+(done?`จากตัวข้างที่เรียนแล้ว ${done} ตัว`:'เริ่มจากเขต 1'),'radplay','data-g="build"')}
- ${G('#EAF1FB','🔎','นักสืบตัวข้าง','ใช้เบาะแสความหมาย + เสียง เดาคำแปลของตัวที่ไม่เคยเห็น','radplay','data-g="det"')}
+ ${(()=>{const di=radDetInfo(radPickIds(8),8);return G('#EAF1FB','🔎','นักสืบตัวข้าง',di.ok?'ใช้เบาะแสความหมายและเสียง เดาคำแปลของตัวอักษร':radDetLockNote(di),'radplay','data-g="det"')})()}
  ${G('#FDECEC','⚡','ท้า 60 วินาที','ตัวนี้อยู่ครอบครัวไหน? ตอบให้ได้มากที่สุด'+(dbl?` · สถิติ ${dbl}`:''),'radplay','data-g="blitz"')}
  <p class="rd-draft">ชื่อไทย ตัวช่วยจำ และข้อความในเกมเป็นร่าง รอครูตรวจ</p>
  <p class="cap" style="padding:12px 24px 0;line-height:1.5">เหรียญจากเกมตัวข้างได้วันละไม่เกิน ${RAD_CAP} เหรียญ (วันนี้เหลือ ${radCoinLeft()}) · ไม่มีการสุ่มกาชา</p>
@@ -33,7 +33,7 @@ function radPracHtml(){const k=radS();const pool=radLvPool();const auto=!(k.lv&&
 Object.assign(window.GOX,{
  radlv(el){const k=radS();const n=+el.dataset.n;if(!n){k.lv=[]}else{const s=new Set(k.lv||[]);s.has(n)?s.delete(n):s.add(n);k.lv=[...s].sort()}save();refresh()},
  radplay(el){const g=el.dataset.g;if(g==='build')push('radbuild',{ids:radPickIds(),mode:'mix'});else if(g==='det')push('raddet',{ids:radPickIds(8),mode:'mix'});else push('radblitz',{})},
- raddaily(){const id=radDailyId();push('raddet',{ids:[id],mode:'daily',n:5})},
+ raddaily(){const id=radDailyId();if(radDetInfo([id],5).ok)push('raddet',{ids:[id],mode:'daily',n:5});else push('radbuild',{ids:[id],mode:'fam',n:5})},/* นักสืบยังไม่เปิด: เล่นประกอบร่างของตัวข้างวันนี้แทน */
  radsel(el){radSel=el.dataset.id;refresh()},
  radsub(el){radSub=el.dataset.s;refresh()},
  radcshare(el){shareSheet('radcard',{id:el.dataset.id})},
@@ -50,7 +50,7 @@ function radColHtml(){const k=radS();const have=RAD.filter(r=>k.cards[r.id]);con
  const fresh=has&&k.cards[sel].t===today()&&sel===(radSel||sel)&&!radSel;
  return `${head}${tabs}<div class="rd-feat">${radCardHtml(sel,{big:1,fresh})}</div>
  ${has?`<div class="rd-acts"><button class="pill row1 linebtn press" data-go="radcshare" data-id="${sel}"><span style="display:inline-flex;margin-right:6px">${svg('<path d="M21 11.5C21 7.4 16.97 4 12 4S3 7.4 3 11.5c0 3.6 3.2 6.6 7.5 7.4.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1.1 1 .6 1.2-.5 6.4-3.8 8.7-6.5 1.6-1.7 2.1-3.4 2.1-3.8z"/>',19)}</span>แชร์การ์ดไป LINE</button><button class="pill row1 press" data-go="radcchal">ท้าเพื่อน 60 วิ</button></div>
-  <div class="rd-line"><span class="lg">LINE</span><div class="bb"><b>${radEsc(dn()||'ฉัน')}</b> ส่งการ์ด “${r.card}”<br><small>ตัวข้าง ${r.id} ${r.th} · ฉันจำได้ ${radKnown(sel).n}/${radKnown(sel).t} ตัว มาเล่นด้วยกัน!</small></div></div>`
+  <div class="rd-line"><span class="lg">LINE</span><div class="bb"><b>${radEsc(dn()||'ฉัน')}</b> ส่งการ์ด “${r.card}”<br><small>ตัวข้าง ${r.id} ${r.th} · ฉันจำได้ ${radKnown(sel).n}/${radKnown(sel).t} ตัว มาเล่นด้วยกัน</small></div></div>`
  :`<div class="rd-acts"><button class="pill row1 press" data-go="radgo" data-id="${sel}">ไปเรียน ${r.id} เพื่อรับการ์ด</button></div>`}
  <div class="rd-sech" style="margin-top:20px"><b>ทั้งหมดในหมู่บ้านลามะ</b><small>แตะเพื่อเลือก</small></div>
  <div class="rd-strip" role="list">${RAD.map(x=>`<button class="rd-ct ${k.cards[x.id]?'have':''} ${x.id===sel?'sel':''}" data-go="radsel" data-id="${x.id}" role="listitem" aria-label="${x.th} ${k.cards[x.id]?'ได้แล้ว':'ยังไม่ได้'}">${radCardHtml(x.id,{mini:1})}${x.bonus?'<em>โบนัส</em>':''}</button>`).join('')}</div>

@@ -23,7 +23,8 @@ function radGenBuild(ids,n,mode){const pool=radLvPool();let cands=[];const seen=
  const lrn=radLearnedSet(),rk=x=>(lrn.has(x.c)?0:1)+(pool.has(radLvOf(x.c))?0:2);/* ตัวที่เรียนในบทแล้วก่อน → ตัวในระดับ → ที่เหลือ */
  const pref=radShuf(cands.filter(x=>pool.has(radLvOf(x.c)))).sort((a,b)=>rk(a)-rk(b)),rest=radShuf(cands.filter(x=>!pool.has(radLvOf(x.c))));
  const take=(pref.length>=Math.min(n,4)?pref.concat(rest):radShuf(cands)).slice(0,n);
- return take.map(x=>{const flip=mode!=='fam'&&Math.random()<.3;const other=x.side==='a'?'b':'a';const knownSide=flip?other:x.side;const missSide=flip?x.side:other;
+ const flipOk=RAD.filter(r=>radDone(r.id)).length>=2;/* โจทย์เติมตัวข้างที่หายไป เปิดเมื่อเรียนตัวข้างครบ 2 ตัว */
+ return take.map(x=>{const flip=mode!=='fam'&&flipOk&&Math.random()<.3;const other=x.side==='a'?'b':'a';const knownSide=flip?other:x.side;const missSide=flip?x.side:other;
   const known=x.sp[knownSide],miss=x.sp[missSide];const v=RAD_CH[x.c];const missRad=flip;
   const q={c:x.c,r:x.r,op:x.sp.op,knownSide,missSide,known,miss,missRad,type:v[1],ph:v[3],py:radPy(x.c),gl:radGl(x.c),note:radGlNote(x.c)};
   q.opts=radShuf([miss,...radDistract(q)]);return q})}
@@ -34,9 +35,14 @@ function radDistract(q){const out=[];const bad=new Set([q.miss,q.known]);const r
 /* ---------- สร้างโจทย์นักสืบ ---------- */
 let _radSingles=null;
 const radSingles=()=>_radSingles||(_radSingles=ALLW.filter(w=>stkHan(w.zh).length===1&&w.zh.length===1&&RAD_CH[w.zh]));
-function radGenDet(ids,n){const pool=radLvPool(),learned=radLearnedSet();const seen=new Set();let cands=[];
- ids.forEach(id=>{const r=RADI[id];radMembers(r).sem.forEach(c=>{if(seen.has(c))return;const g=radG(c);const v=RAD_CH[c];if(!g||!g.single||!v||v[1]==='g')return;
-  const inSem=r.f.includes(v[2])||RAD_MEM[id].s.includes(c);if(!inSem)return;seen.add(c);cands.push({c,r,g,v,un:!learned.has(c)})})});
+function radDetCands(ids,learned){const seen=new Set(),cands=[];
+ ids.forEach(id=>{const r=RADI[id];if(!r)return;radMembers(r).sem.forEach(c=>{if(seen.has(c))return;const g=radG(c);const v=RAD_CH[c];if(!g||!g.single||!v||v[1]==='g')return;
+  const inSem=r.f.includes(v[2])||RAD_MEM[id].s.includes(c);if(!inSem)return;seen.add(c);cands.push({c,r,g,v,un:!learned.has(c)})})});return cands}
+/* นักสืบเปิดเมื่อเรียนคำที่มีตัวอักษรของตัวข้างเหล่านี้แล้วอย่างน้อยครึ่งหนึ่งของจำนวนข้อ (ขั้นต่ำ 3 ตัว) */
+const RAD_DET_MIN=n=>Math.max(3,Math.ceil(n/2));
+function radDetInfo(ids,n=8){const c=radDetCands(ids,radLearnedSet());const k=c.filter(x=>!x.un).length,need=Math.min(RAD_DET_MIN(n),c.length||RAD_DET_MIN(n));return {k,need,ok:c.length>0&&k>=need}}
+const radDetLockNote=i=>`ยังไม่เปิด · เรียนคำที่มีตัวอักษรของตัวข้างนี้ให้ครบ ${i.need} ตัวก่อน (ตอนนี้ ${i.k} ตัว)`;
+function radGenDet(ids,n){const pool=radLvPool(),learned=radLearnedSet();let cands=radDetCands(ids,learned);
  const score=x=>(x.un?0:3)+(pool.has(x.g.lv)?2:0)+Math.random();/* ตัวที่เรียนในบทแล้วก่อน → ตัวในระดับ */cands.sort((a,b)=>score(b)-score(a));cands=cands.slice(0,n);
  const gw=new Set(gameWords().map(w=>w.zh)),lvN=curLv(),sk=w=>(gw.has(w.zh)?0:w.lv<=lvN?1:2);const sing=radShuf(radSingles()).sort((a,b)=>sk(a)-sk(b));/* ตัวเลือกความหมาย: คำที่เรียนแล้ว → คำระดับเดียวกัน → ที่เหลือ */
  return radShuf(cands).map(x=>{const own=new Set(RAD_MEM[x.r.id].s);const dis=(sing.filter(w=>!own.has(w.zh)&&w.th!==x.g.th&&!w.th.includes(x.g.th.split(/[ \/(]/)[0])&&!x.g.th.includes(w.th.split(/[ \/(]/)[0]))).map(w=>w.th);
@@ -73,7 +79,7 @@ SC.radbuild=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const mode=p.
   const reveal=(okFlag)=>{const q=qs[i];done=true;const gd=$('#rgb',el);gd.innerHTML=radLayout(q,q.miss,okFlag);const rm=$('.rd-prompt .rm',el);rm.innerHTML=M(okFlag?'celebrate':'think');
    const sem=q.r;const mk=(p)=>RFORM[p]?`${p} (${RFORM[p].th})`:`${p}${RAD_PY[p]?' '+RAD_PY[p]:''}`;
    const full=RAD_CH[q.c];const s=full&&full[6][q.r.id]||[];
-   $('#rgh',el).className='rd-hintb on res '+(okFlag?'ok':'bad');$('#rgh',el).innerHTML=`${okFlag?'✓ ถูกต้อง!':'ไม่เป็นไร ลองจำไว้นะ'} <span class="zh big">${radGlyph(q.c,s)}</span> ${mk(q.known)} + ${mk(q.miss)} = <b>${q.c}</b> ${q.py?pyHtml(q.py):''}`;radColorize(g);
+   $('#rgh',el).className='rd-hintb on res '+(okFlag?'ok':'bad');$('#rgh',el).innerHTML=`${okFlag?'✓ ถูกต้อง':'ไม่เป็นไร ลองจำไว้นะ'} <span class="zh big">${radGlyph(q.c,s)}</span> ${mk(q.known)} + ${mk(q.miss)} = <b>${q.c}</b> ${q.py?pyHtml(q.py):''}`;radColorize(g);
    $('#rgt2',el).outerHTML=`<div class="rd-nextw"><button class="pill row1 press" id="rgn">${i+1>=N?'ดูผล':'ข้อต่อไป'}</button></div>`;$('#rgbh',el).style.display='none';$('#rgn',el).onclick=()=>{i++;if(i>=N)finish(false);else draw()};
    if(okFlag&&!learnedC.has(q.c))learnedC.add(q.c);vib(okFlag?[12,30,12]:[30])};
   const submit=(piece,tile)=>{if(done||locked)return;const q=qs[i],r0=rs[i];r0.t++;
@@ -97,7 +103,7 @@ SC.radbuild=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const mode=p.
   const finish=(timeout)=>{clearInterval(tm);const stars=first/N>=.85?3:first/N>=.6?2:1;const k=radS();k.built+=1;qs.forEach((q,ix)=>{if(rs[ix].ok)k.known[q.c]=(k.known[q.c]||0)+1});
    let coins=radCoin(first*2+(stars===3?3:0));let xp=Math.max(2,first*2);let cr=null;
    if(mode==='fam'&&ids.length===1){cr=radComplete(ids[0],{stars});coins+=cr.coins;xp+=cr.xp}else{addXp(xp)}save();
-   replace('radres',{kind:'build',id:mode==='fam'?ids[0]:null,stars,title:timeout?'หมดเวลาแล้ว!':'ประกอบร่างจบแล้ว!',sub:`ถูกตั้งแต่ครั้งแรก ${first} / ${N} ข้อ`,stats:[[first+'/'+N,'ถูกครั้งแรก'],['×'+best,'ติดกันสูงสุด'],[hinted,'ครั้งที่ขอใบ้']],coins,xp,cr,again:{n:'radbuild',p:{ids,mode,n}},share:{t:`ฉันประกอบร่างตัวอักษรถูก ${first}/${N} ข้อ`,s:'เรียนอักษรข้างกับลามะ'}})};
+   replace('radres',{kind:'build',id:mode==='fam'?ids[0]:null,stars,title:timeout?'หมดเวลาแล้ว':'ประกอบร่างจบแล้ว',sub:`ถูกตั้งแต่ครั้งแรก ${first} / ${N} ข้อ`,stats:[[first+'/'+N,'ถูกครั้งแรก'],['×'+best,'ติดกันสูงสุด'],[hinted,'ครั้งที่ขอใบ้']],coins,xp,cr,again:{n:'radbuild',p:{ids,mode,n}},share:{t:`ฉันประกอบร่างตัวอักษรถูก ${first}/${N} ข้อ`,s:'เรียนอักษรข้างกับลามะ'}})};
   draw()},unmount(){}}};
 /* ---------- นักสืบตัวข้าง ---------- */
 const radMeter=(label,v,note)=>`<div class="rd-met"><div class="top"><b>${label}</b><span>${note||''}</span></div><div class="bar"><i style="left:${Math.round(v*100)}%"></i></div><div class="sc"><span>เดาไม่ได้</span><span>ค่อนข้างแน่</span><span>เชื่อได้</span></div></div>`;
@@ -108,13 +114,13 @@ function radDetFeed(q,okFlag){const r=q.r,v=q.v;const semV=r.tr===3?.88:r.tr===2
  let snd='';let mt=v[5];if(v[1]==='p'&&v[3]){const f=radPhFam(v[3]);const sv=mt===2?.92:mt===1?.6:mt===0?.14:.4;
   snd=radMeter('เชื่อถือเสียงได้แค่ไหน',sv,`${v[3]} ${v[4]?pyHtml(v[4]):''} → ตัวนี้ ${q.py?pyHtml(q.py):''}`)+(f&&f.n>1?`<p class="mn">ส่วนเสียง ${v[3]} ในแอป: ${f.n} ตัว อ่านเหมือนกันเป๊ะ ${f.ex} ตัว</p>`:'')}
  const ce=radCounter();
- return `<div class="rd-feed card ${okFlag?'ok':'bad'}"><div class="fh"><div class="rm">${M(okFlag?'celebrate':'think')}</div><div><b>${okFlag?'เก่งมาก!':'ใกล้แล้ว!'}</b><span>${q.c} แปลว่า <b>${radEsc(q.ans)}</b></span></div></div>
+ return `<div class="rd-feed card ${okFlag?'ok':'bad'}"><div class="fh"><div class="rm">${M(okFlag?'celebrate':'think')}</div><div><b>${okFlag?'เก่งมาก':'ใกล้แล้ว'}</b><span>${q.c} แปลว่า <b>${radEsc(q.ans)}</b></span></div></div>
  <p class="fx">${sem}${v[1]==='p'&&v[3]?` · <span class="b">${v[3]}</span> ใบ้เสียง ${v[4]?pyHtml(v[4]):''}`:''}</p>
  ${radMeter('เชื่อถือความหมายได้แค่ไหน',semV,radEsc(r.id)+' · '+radTrustTxt(r.tr)[0])}${snd}
  <p class="warn">⚠ ตัวบางพวกเสียงไม่ตรง${ce.c?` เช่น ${ce.c} ${pyHtml(ce.py)} (${ce.ph} ${pyHtml(ce.pp)})`:''} — ใช้ส่วนเสียงเป็นเบาะแส ไม่ใช่คำตอบ</p></div>`}
-SC.raddet=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const n=p.n||8;const qs=radGenDet(ids,n);
+SC.raddet=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const n=p.n||8;const di=p.mode==='daily'?{ok:true}:radDetInfo(ids,n);const qs=di.ok?radGenDet(ids,n):[];
  if(p.mode==='daily'&&qs.length<n){const have=new Set(qs.map(x=>x.c));radGenDet(radShuf(RAD.filter(r=>radDone(r.id)&&!ids.includes(r.id)).map(r=>r.id)).slice(0,10),n).forEach(x=>{if(qs.length<n&&!have.has(x.c)){have.add(x.c);qs.push(x)}});radShuf(qs)}
- return {title:'',noRefresh:true,nav:radGNav(),body:qs.length>=3?'<div class="rd-game" id="rdg"></div><p class="rd-draft">ข้อความไทยในเกมเป็นร่าง รอครูตรวจ</p>':radEmpty('ตัวอักษรเดี่ยวของครอบครัวนี้ยังน้อยเกินไปสำหรับนักสืบ'),
+ return {title:'',noRefresh:true,nav:radGNav(),body:qs.length>=3?'<div class="rd-game" id="rdg"></div><p class="rd-draft">ข้อความไทยในเกมเป็นร่าง รอครูตรวจ</p>':radEmpty(di.ok?'ตัวอักษรเดี่ยวของครอบครัวนี้ยังน้อยเกินไปสำหรับนักสืบ':radDetLockNote(di)),
  mount(el){if(qs.length<3)return;const g=$('#rdg',el);const N=qs.length;let i=0,right=0,combo=0,best=0,first=0;
   const upd=()=>{$('#rgp',el).style.width=(i/N*100)+'%';$('#rgc',el).textContent=Math.min(first*2,radCoinLeft())};
   const draw=()=>{const q=qs[i];const sem=q.v[2]||q.r.id;const ph=q.v[1]==='p'&&q.v[3]?q.v[3]:'';
@@ -131,7 +137,7 @@ SC.raddet=(p)=>{const ids=p.ids&&p.ids.length?p.ids:radPickIds();const n=p.n||8;
    f.scrollIntoView({block:'nearest',behavior:'smooth'});$('#rdn',g).onclick=()=>{i++;if(i>=N)finish();else draw()}};
   const finish=()=>{const stars=right/N>=.85?3:right/N>=.6?2:1;let coins=radCoin(right*2+(stars===3?3:0));const xp=Math.max(2,right*2);addXp(xp);
    if(p.mode==='daily'){const k=radS();if(k.daily.d!==today()){k.daily={d:today(),ok:right,n:(k.daily.n||0)+1};coins+=radCoin(5);addXp(10);save()}}
-   replace('radres',{kind:'det',stars,title:'ไขคดีเสร็จแล้ว!',sub:`ตอบถูก ${right} / ${N} ข้อ`,stats:[[right+'/'+N,'ตอบถูก'],['×'+best,'ติดกันสูงสุด'],[radS().det.ok,'คดีที่ไขได้ทั้งหมด']],coins,xp,again:{n:'raddet',p:{ids,mode:p.mode,n}},share:{t:`ฉันเป็นนักสืบตัวข้าง ไขได้ ${right}/${N} ข้อ`,s:'ดูเบาะแสความหมายกับเสียงในตัวอักษร'}})};
+   replace('radres',{kind:'det',stars,title:'ไขคดีเสร็จแล้ว',sub:`ตอบถูก ${right} / ${N} ข้อ`,stats:[[right+'/'+N,'ตอบถูก'],['×'+best,'ติดกันสูงสุด'],[radS().det.ok,'คดีที่ไขได้ทั้งหมด']],coins,xp,again:{n:'raddet',p:{ids,mode:p.mode,n}},share:{t:`ฉันเป็นนักสืบตัวข้าง ไขได้ ${right}/${N} ข้อ`,s:'ดูเบาะแสความหมายกับเสียงในตัวอักษร'}})};
   draw()}}};
 /* ---------- ท้า 60 วินาที: ตัวนี้อยู่ครอบครัวไหน ---------- */
 function radBlitzPool(){const ids=new Set(radPickIds(12));RAD.filter(r=>radDone(r.id)).forEach(r=>ids.add(r.id));const out=[];ids.forEach(id=>{const r=RADI[id];(RAD_MEM[id].s||[]).forEach(c=>{if(radG(c)&&c!==r.id&&!(RAD_CH[c]&&RAD_CH[c][6]&&Object.keys(RAD_CH[c][6]).length>1&&false))out.push({c,r})})});return out}
@@ -154,7 +160,7 @@ SC.radblitz=(p)=>{const pool=radBlitzPool();const ch=p.ch||0;
    const c=setInterval(()=>{if(!el.isConnected){clearInterval(c);return}cd--;const e=$('#rcd',el);if(cd<=0){clearInterval(c);cd=0;next();tm=setInterval(tick,1000)}else if(e)e.textContent=cd},800)};
   const finish=()=>{const k=radS();const old=k.blitz.best;k.blitz.runs++;const nb=score>old;if(nb)k.blitz.best=score;k.blitz.hist=[{d:today(),s:score},...k.blitz.hist].slice(0,10);
    const stars=score>=18?3:score>=10?2:1;const coins=radCoin(Math.min(15,Math.floor(score/2)));const xp=Math.max(3,Math.min(30,score));addXp(xp);save();
-   replace('radres',{kind:'blitz',stars,title:nb&&old?'สถิติใหม่!':'หมดเวลาแล้ว!',sub:`${score} ข้อใน 60 วินาที${ch?(score>ch?` · ชนะคำท้า ${ch} 🎉`:score===ch?' · เสมอกับคำท้า':` · แพ้คำท้า ${ch} นิดเดียว`):''}`,stats:[[score,'คะแนน'],[k.blitz.best,'สถิติสูงสุด'],['×'+best,'ติดกันสูงสุด']],coins,xp,again:{n:'radblitz',p:{ch}},share:{t:`ฉันตอบตัวข้างได้ ${score} ข้อใน 60 วินาที`,s:'มาท้าฉันดู!',blitz:score}})};
+   replace('radres',{kind:'blitz',stars,title:nb&&old?'สถิติใหม่':'หมดเวลาแล้ว',sub:`${score} ข้อใน 60 วินาที${ch?(score>ch?` · ชนะคำท้า ${ch} 🎉`:score===ch?' · เสมอกับคำท้า':` · แพ้คำท้า ${ch} นิดเดียว`):''}`,stats:[[score,'คะแนน'],[k.blitz.best,'สถิติสูงสุด'],['×'+best,'ติดกันสูงสุด']],coins,xp,again:{n:'radblitz',p:{ch}},share:{t:`ฉันตอบตัวข้างได้ ${score} ข้อใน 60 วินาที`,s:'มาท้าฉันดู',blitz:score}})};
   start()}}};
 /* ---------- หน้าผลลัพธ์ (ใช้ร่วม) ---------- */
 SC.radres=(r)=>{r=Object.assign({kind:'build',stars:1,title:'เรียบร้อย',sub:'',stats:[],coins:0,xp:0},r||{});r.stats=r.stats||[];const pose=r.stars>=3?'celebrate':r.stars===2?'cheer':'thumbs';const id=r.id,rd=id&&RADI[id];const cardNew=r.cr&&(r.cr.newCard||r.cr.up);const nx=r.kind==='build'&&rd?radCur():null;
@@ -163,7 +169,7 @@ SC.radres=(r)=>{r=Object.assign({kind:'build',stars:1,title:'เรียบร�
   <p class="cap center" style="font-size:14.5px;color:var(--sub2)">${r.sub}</p><p class="rd-draft">ข้อความไทยเป็นร่าง รอครูตรวจ</p>
   <div class="stk-tiles res">${r.stats.map(s=>`<div><b>${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
   <div class="rd-rw"><span>+${r.xp} XP</span><span>${COIN.replace('<svg','<svg width="15" height="15"')} +${r.coins} เหรียญ</span>${radCoinLeft()===0?'<em>ถึงเพดานเหรียญวันนี้แล้ว (60/วัน)</em>':''}</div>
-  ${cardNew?`<div class="rd-newc">${radCardHtml(id,{big:1,fresh:1})}<p class="cap center" style="margin-top:8px">${r.cr.up?'การ์ดอัปเกรดแล้ว!':'ได้การ์ดใหม่เข้าคอลเลกชัน!'}</p></div>`:''}
+  ${cardNew?`<div class="rd-newc">${radCardHtml(id,{big:1,fresh:1})}<p class="cap center" style="margin-top:8px">${r.cr.up?'การ์ดอัปเกรดแล้ว':'ได้การ์ดใหม่เข้าคอลเลกชัน'}</p></div>`:''}
   ${r.cr&&r.cr.zoneSet!=null?`<div class="rd-zset card">${RAD_Z[r.cr.zoneSet].em} <b>ครบเขต ${r.cr.zoneSet+1}!</b> ได้ชุดลามะ “${RAD_Z[r.cr.zoneSet].n}” (ชุดจำลอง · ${RAD_DRAFT}) +30 เหรียญ</div>`:''}
   <div style="padding:16px 20px 0;display:flex;flex-direction:column;gap:10px"><button class="pill row1 linebtn press" id="rshare"><span style="display:inline-flex;margin-right:8px">${svg('<path d="M21 11.5C21 7.4 16.97 4 12 4S3 7.4 3 11.5c0 3.6 3.2 6.6 7.5 7.4.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1.1 1 .6 1.2-.5 6.4-3.8 8.7-6.5 1.6-1.7 2.1-3.4 2.1-3.8z"/>',20)}</span>${r.share&&r.share.blitz!=null?'ท้าเพื่อนใน LINE':cardNew?'แชร์การ์ดไป LINE':'แชร์ผลไป LINE'}</button>
   ${nx?`<button class="pill row1 press" id="rnext">ตัวข้างถัดไป: ${nx.id} ${nx.th}</button>`:''}</div>

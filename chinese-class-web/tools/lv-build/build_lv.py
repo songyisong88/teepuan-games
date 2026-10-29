@@ -252,6 +252,7 @@ def mksent(tokstr,th,K,where):
     if not okstr(c,K):print('UNTAUGHT',where,tokstr,c,file=sys.stderr);return None
     py=wordpy(c,K)
     if py is None:print('NOPY',where,c,file=sys.stderr);return None
+    if ' ' in py and len(py.split())==len(c):py=py.replace(' ','|')   # คำเดียวกันเขียนแบบเดียวกับระดับ 1
     nx=wordpy(cs[i+1],K) if i+1<len(toks) else None
     if c=='不' and nx:py='bú' if tone1(nx)==4 else 'bù'
     if c=='一' and nx and i+1<len(toks):py='yí' if (tone1(nx)==4 or cs[i+1]=='个') else 'yì'
@@ -283,6 +284,10 @@ def split(ws,m):
 import random
 random.seed(7)
 BG=['#EAF1FB','#FDF0E6','#EEF6EC','#F4EEF8','#FCF6E3','#E9F5F5','#F8ECEE','#F3EEE6']
+PYOVR={'弹':'tán'}   # คำพ้องรูป: ในบทนี้หมายถึงดีด/เล่นเครื่องดนตรี
+for _n in WS:
+  for _w in WS[_n]:
+    if _w['zh'] in PYOVR:_w['py']=PYOVR[_w['zh']]
 WM={w['zh']:w for l in lv_lessons(1) for w in l['words']}
 for n in WS:
   for w in WS[n]:WM.setdefault(w['zh'],w)

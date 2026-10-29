@@ -110,3 +110,14 @@
 .l1sg{grid-template-columns:repeat(3,minmax(0,1fr))}.l1sg.n4{grid-template-columns:repeat(2,minmax(0,1fr))}
 .l1sit{min-width:0}.l1sit .l1sl{max-width:100%;overflow:hidden;text-overflow:ellipsis}
 @media (max-width:360px){.l1sit .l1sl small,.l1sit .l1sl .py{display:none}.l1scene{margin:4px 10px 0;padding:10px 8px 12px}.l1sg{gap:6px}}
+
+/* ระดับ 3–4: พินอินแบบแตะ (แบบ ก) */
+[data-pyt]:not(.on) .pyx{display:none!important}
+[data-pyt].on .pyt-exh{display:none}
+[data-pyt]{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pyt-w{position:relative;display:inline-block;border-bottom:2px dashed rgba(200,16,46,.45);padding:0 4px}
+.pyt-r{display:block;font-size:30px;font-weight:500;line-height:1.1;color:var(--red);font-family:inherit;margin-bottom:-6px}
+.pyt-hint{display:inline-flex;align-items:center;gap:6px;margin:6px auto 0;padding:6px 14px;border-radius:999px;background:rgba(200,16,46,.07);color:var(--red);font-size:14px;font-weight:600}
+.pyt-hint.on{background:rgba(0,0,0,.05);color:var(--sub2)}
+.pyt-exh{font-size:13px;color:var(--sub2);margin-top:3px}
+.dbub .pyt-exh{display:none}

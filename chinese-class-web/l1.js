@@ -3,6 +3,16 @@
    ภาพที่ยังไม่มี: ใช้ภาพวาดในแอป (ตัวเลข ปฏิทิน นาฬิกา ตำแหน่ง ดวงอาทิตย์) หรือการ์ดประโยค
    ภาพใหม่จาก PIXEL ลงทะเบียนผ่าน tools/pic-build/add_pics.py แล้วจะแสดงแทนอัตโนมัติ */
 if(window.PIC_TYPE_X&&window.PIC_TYPE)Object.assign(PIC_TYPE,PIC_TYPE_X);
+/* ระดับ 3–4: ซ่อนพินอินไว้ก่อน แตะคำ/ประโยคเพื่อแสดง แตะอีกครั้งเพื่อซ่อน (แบบ ก ที่อนุมัติ) · ใช้ระดับจากข้อมูลบท (L.lv) */
+const pyTapLv=L=>!!L&&(L.lv===3||L.lv===4);
+window.pyTapLv=pyTapLv;
+const PYT_HINT=['แตะคำจีนเพื่อดูพินอิน','แตะคำอีกครั้งเพื่อซ่อนพินอิน'];
+let pytN=0;
+function pyTapToggle(t){const on=t.classList.toggle('on');t.setAttribute('aria-pressed',on?'true':'false');
+ const h=t.dataset.pyh&&document.getElementById(t.dataset.pyh);if(h){h.classList.toggle('on',on);h.textContent=PYT_HINT[on?1:0]}vib(6)}
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-pyt]');if(t)pyTapToggle(t)});
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const t=e.target.closest&&e.target.closest('span[data-pyt],div[data-pyt]');if(t&&t===e.target){e.preventDefault();pyTapToggle(t)}});
+window.pyTapSent=(zhH,pyH,cls)=>`<div class="pyt-s${cls?' '+cls:''}" data-pyt role="button" tabindex="0" aria-pressed="false">${zhH}<div class="pyx">${pyH}</div><div class="pyt-exh">แตะประโยคเพื่อดูพินอิน</div></div>`;
 const L1NUM={'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10};
 const L1GRP={cal:['今天','明天','昨天','星期','年','月','日'],clk:['点','分钟'],sun:['上午','中午','下午'],pos:['上','下','前面','后面']};
 const l1Img=z=>`assets/art/word/${encodeURIComponent(z)}.webp`;
@@ -98,16 +108,16 @@ function l1IntroHtml(L){const ch=l1Ch(L);
  <div class="l1lama">${M('teach')}</div></div>`}
 function l1CardHtml(w,n,t,L){const sz=w.zh.length>3?56:w.zh.length>2?68:w.zh.length>1?84:96;
  return `<div class="center wc l1card"><div class="cap" style="letter-spacing:1px">${L.code} · คำใหม่ ${n}/${t}</div><div class="l1pic">${l1Show(w,'pic-big')}</div>
- <div class="bigzh zh" style="font-size:${sz}px">${w.zh}</div><div style="font-size:28px;font-weight:500;margin-top:2px">${pyHtml(w.py)}</div><div style="font-size:24px;font-weight:600;margin-top:6px;padding:0 20px">${w.th}</div>
+ ${pyTapLv(L)?(()=>{const id='pyh'+(++pytN);return `<div class="bigzh zh" style="font-size:${sz}px"><span class="pyt-w" data-pyt data-pyh="${id}" role="button" tabindex="0" aria-pressed="false" aria-label="${w.zh} แตะเพื่อดูพินอิน"><span class="pyt-r pyx">${pyHtml(w.py)}</span>${w.zh}</span></div><div class="center"><span class="pyt-hint" id="${id}" aria-live="polite">${PYT_HINT[0]}</span></div>`})():`<div class="bigzh zh" style="font-size:${sz}px">${w.zh}</div><div style="font-size:28px;font-weight:500;margin-top:2px">${pyHtml(w.py)}</div>`}<div style="font-size:24px;font-weight:600;margin-top:6px;padding:0 20px">${w.th}</div>
  <button class="audio lg press" aria-label="ฟังเสียง ${w.zh}" data-act="audio" data-t="${w.zh}">${SPK}<span>ฟังเสียง</span></button></div>
  <details class="l1more card"><summary>เพิ่มเติม</summary><div class="l1mi"><span class="hb">อ่านแบบไทย</span> <b>${w.h}</b> <span class="cap">(ใกล้เคียง)</span></div>${w.mn?`<div class="l1mi">${String(w.mn).replace(/^ตัวช่วยจำ:\s*/,'')}</div>`:''}
- ${w.ex?`<div class="l1mi"><div class="zh" style="font-size:20px">${zhHtml(w.ex,w.exPy)}</div><div style="font-size:13px">${pyHtml(w.exPy)}</div><div class="cap">${w.exTh}</div>${spkBtn(w.ex,'','ฟังประโยค')}</div>`:''}</details>`}
+ ${w.ex?`<div class="l1mi">${pyTapLv(L)?pyTapSent(`<div class="zh" style="font-size:20px">${zhHtml(w.ex,w.exPy)}</div>`,`<div style="font-size:13px">${pyHtml(w.exPy)}</div>`):`<div class="zh" style="font-size:20px">${zhHtml(w.ex,w.exPy)}</div><div style="font-size:13px">${pyHtml(w.exPy)}</div>`}<div class="cap">${w.exTh}</div>${spkBtn(w.ex,'','ฟังประโยค')}</div>`:''}</details>`}
 function l1FrameStep(L,pool){const f=L.fr;const vars=f.s.map(k=>{const s=parseSent(L.sents[k]);return {s,tok:strip(s.zh[f.k]||'')}}).filter((v,i,a)=>v.tok&&a.findIndex(x=>x.tok===v.tok)===i);
- if(vars.length<2)return null;const wOf=t=>pool.find(w=>w.zh===t)||ALLW.find(w=>w.zh===t);let cur=0;const tried=new Set([0]);
- const sentH=()=>{const v=vars[cur],w=wOf(v.tok);return `<div class="l1fs zh">${v.s.zh.map((t,i)=>i===f.k?t.replace(v.tok,`<span class="l1slot">${w?l1Tile(w,'l1st'):''}<b>${v.tok}</b></span>`):`<span>${t}</span>`).join('')}</div><div class="l1fp">${pyHtml(v.s.pyAll)}</div><div class="l1ft">${v.s.th}</div>`};
+ if(vars.length<2)return null;const wOf=t=>pool.find(w=>w.zh===t)||ALLW.find(w=>w.zh===t);let cur=0;const tried=new Set([0]);const pt=pyTapLv(L);
+ const sentH=()=>{const v=vars[cur],w=wOf(v.tok);return `<div class="l1fs zh">${v.s.zh.map((t,i)=>i===f.k?t.replace(v.tok,`<span class="l1slot">${w?l1Tile(w,'l1st'):''}<b>${v.tok}</b></span>`):`<span>${t}</span>`).join('')}</div><div class="l1fp${pt?' pyx':''}">${pyHtml(v.s.pyAll)}</div>${pt?'<div class="pyt-exh">แตะประโยคเพื่อดูพินอิน</div>':''}<div class="l1ft">${v.s.th}</div>`};
  const cnt=()=>`ลองครบ ${vars.length} คำเพื่อไปต่อ · ${tried.size}/${vars.length}`;
  return {k:'h',lock:true,btn:'ต่อไป',html:`<div class="center"><div class="cap" style="font-size:14px">กรอบประโยคของบทนี้</div><div class="cap">แตะคำด้านล่างเพื่อเปลี่ยนคำในช่อง แล้วฟังทั้งประโยค</div></div>
- <div class="card l1frame"><div id="l1fsent">${sentH()}</div><button class="cap press spkl" id="l1fsp"><span class="spi">${SPK}</span>ฟังประโยค</button></div>
+ <div class="card l1frame"><div id="l1fsent"${pt?' class="pyt-s" data-pyt role="button" tabindex="0" aria-pressed="false"':''}>${sentH()}</div><button class="cap press spkl" id="l1fsp"><span class="spi">${SPK}</span>ฟังประโยค</button></div>
  <div class="l1chips">${vars.map((v,i)=>{const w=wOf(v.tok);return `<button class="l1chip press${i===0?' on':''}" data-fr="${i}">${w?l1Tile(w,'l1ct'):''}<span class="zh">${v.tok}</span><small>${w?pyPlain(w.py):''}</small></button>`}).join('')}</div><p class="cap center mt12" id="l1fc">${cnt()}</p>`,
  mount(stage,dock){setTimeout(()=>speak(vars[0].s.full),450);const nb=$('[data-sa=next]',dock);
   stage.onclick=e=>{const sp=e.target.closest('#l1fsp');if(sp){speak(vars[cur].s.full,sp);return}const b=e.target.closest('[data-fr]');if(!b)return;cur=+b.dataset.fr;tried.add(cur);vib(6);

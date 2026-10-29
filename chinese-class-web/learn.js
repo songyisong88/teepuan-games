@@ -87,7 +87,8 @@ function storyHtml(L,u){const ch=CHAPTERS.find(c=>c.id===L.chapter);const cm=CLA
  <p class="cap center mt12">รอบนี้ ${u.words.length} คำ · ประมาณ 3 นาที</p>`}
 const cmImg=(cm,on=true)=>`<img src="assets/friends/${cm.img}.webp" alt="" draggable="false" class="${on?'':'silh'}">`;
 function dlgHtml(L){const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);
- return `<div class="center"><div class="cap">บทสนทนาสั้น ๆ · แตะฟองเพื่อฟัง</div></div><div class="dlgwrap">${L.dlg.map(d=>`<div class="dl ${d[0]}"><span class="dav">${d[0]==='t'?M('teacher'):cm?cmImg(cm):M('student')}</span><button class="dbub press" data-act="audio" data-t="${d[1]}" data-r="${d[0]}"><span class="zh dz">${zhHtml(d[1],d[2])}</span><span class="dp">${pyHtml(d[2])}</span><span class="dt">${d[3]}</span></button></div>`).join('')}</div>
+ const pt=window.pyTapLv&&pyTapLv(L);
+ return `<div class="center"><div class="cap">บทสนทนาสั้น ๆ · ${pt?'แตะฟองเพื่อฟังและดูพินอิน':'แตะฟองเพื่อฟัง'}</div></div><div class="dlgwrap">${L.dlg.map(d=>`<div class="dl ${d[0]}"><span class="dav">${d[0]==='t'?M('teacher'):cm?cmImg(cm):M('student')}</span><button class="dbub press${pt?' pyt-s':''}" data-act="audio" data-t="${d[1]}" data-r="${d[0]}"${pt?' data-pyt aria-pressed="false"':''}><span class="zh dz">${zhHtml(d[1],d[2])}</span><span class="dp${pt?' pyx':''}">${pyHtml(d[2])}</span><span class="dt">${d[3]}</span></button></div>`).join('')}</div>
  <div class="center mt12"><button class="pill sm ghost press" style="width:auto;display:inline-flex;padding:0 22px;flex-direction:row;gap:8px" data-sa="dlgall"><span style="width:18px;display:flex">${SPK}</span>ฟังทั้งบทสนทนา</button></div>`}
 
 /* ----- เอนจินบทเรียน ----- */

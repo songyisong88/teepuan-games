@@ -35,7 +35,7 @@ function touchStreak(){const t=today();if(S.lastDay===t)return false;S.streak=S.
 const UNITS=LESSONS.flatMap(L=>L.v3?[{id:L.id+'a',lesson:L.id,lv:L.lv,part:0,words:L.words,v3:1,kind:L.kind}]:[{id:L.id+'a',lesson:L.id,lv:L.lv,part:0,words:L.words.slice(0,8)},{id:L.id+'b',lesson:L.id,lv:L.lv,part:1,words:L.words.slice(8)}]);
 /* ป้ายบท: ระดับ 1 ใหม่ใช้รหัสตอน-บท (เช่น 1-3) · ระดับอื่นใช้เลขบทเดิม */
 const lno=L=>L?(L.code?L.code:L.chapter===1200?'ส'+(L.id-1200):L.id):'';
-const lnoTxt=L=>L&&L.code?(L.kind==='gate'?'ด่านทบทวน ตอน '+L.code.split('-')[0]:'บท '+L.code):L&&L.chapter===1200?'บทเสริม '+(L.id-1200):'บทที่ '+(L?L.id:'');
+const lnoTxt=L=>L&&L.code?(L.kind==='gate'?'ตอน '+L.code.split('-')[0]:'บท '+L.code):L&&L.chapter===1200?'บทเสริม '+(L.id-1200):'บทที่ '+(L?L.id:'');
 const uTxt=u=>{const L=lessonBy(u.lesson);return L&&L.v3?lnoTxt(L):`บทที่ ${u.lesson} · รอบ ${u.part+1}/2`};
 const unitBy=id=>UNITS.find(u=>u.id===id);
 const lessonBy=id=>LESSONS.find(l=>l.id===id);

@@ -128,7 +128,7 @@ for l in SRC['LESSONS']:
   key='|'.join(x[1] for x in dl)
   if key in seenD:continue
   seenD.add(key);DLG.append({'dlg':[[r,z,p,clean(t)] for r,z,p,t in dl],'rq':l.get('rq'),'src':l['id']})
-usedS=set();usedD=set()
+usedS=set();usedD=set();usedEx=set()
 for l in lv_lessons(1):
   for s in l['sents']:usedS.add(s[0].replace('/',''))
   if l.get('dlg'):usedD.add('|'.join(x[1] for x in l['dlg']))
@@ -234,7 +234,11 @@ def synth(cands,g,part_zs,WM,n):
 sys.path.insert(0,D);import frames as FRM
 PUNM={'，':',','。':'.','！':'!','？':'?','、':',','：':':','；':';'}
 def wordpy(c,K):
+  if c in ('这个','那个','哪个') and c in WM:return WM[c]['py'].replace('gè','ge')
   if c in WM:return WM[c]['py']
+  if len(c)>1 and c[-1] in '们儿':
+    r=wordpy(c[:-1],K)
+    return r and r+('|men' if c[-1]=='们' else '|r')
   n=len(c)
   for k in range(n-1,0,-1):
     if c[:k] in WM:
@@ -251,12 +255,13 @@ def mksent(tokstr,th,K,where):
     nx=wordpy(cs[i+1],K) if i+1<len(toks) else None
     if c=='不' and nx:py='bú' if tone1(nx)==4 else 'bù'
     if c=='一' and nx and i+1<len(toks):py='yí' if (tone1(nx)==4 or cs[i+1]=='个') else 'yì'
-    if c=='个' and i>0 and cs[i-1] in ('这','那','几','一','两','三','四','五','六','七','八','九','十','每'):py='ge'
+    if c=='个' and i>0 and cs[i-1] in ('这','那','哪','几','一','两','三','四','五','六','七','八','九','十','每'):py='ge'
     tail=t[len(c):]
     ps.append(py+''.join(PUNM.get(x,x) for x in tail))
   full=tokstr.replace('/','')
   return {'s':[tokstr,'/'.join(ps),th],'full':full,'toks':cs,'src':-2,'lv':0}
 # ชื่อตอนเดิมที่ไม่เหมาะกับผู้เรียน (ตอนคำเสริมเดิม 1200)
+TOVR={3:{'9-5':'ยิ่ง นาที นก'}}   # ชื่อบทที่ต่อจากคำแปลแล้วอ่านไม่ลื่น
 CHOVR={1200:{'th':'ทักทายเช้าเย็น','zh':'早晚好'}}
 def wrong_opts(correct,K,exclude):
   out=[]
@@ -283,8 +288,9 @@ for n in WS:
   for w in WS[n]:WM.setdefault(w['zh'],w)
 known=set(known0)
 for n in range(2,6): 
-  if n not in LEVELS:
+  if n>max(LEVELS):
     known|=set(w['zh'] for w in WS[n]);continue
+  LVK=set(known)|set(w['zh'] for w in WS[n])   # คำทั้งระดับนี้ (ใช้เฉพาะตัวอย่างบนบัตรคำ เมื่อหาประโยคจากคำที่สอนแล้วไม่ได้)
   chap=[];les=[];audio={};stat=collections.Counter();oldmap={}
   for l in lv_lessons(n):
     oldmap[str(l['id'])+'a']=[w['zh'] for w in l['words'][:8]]
@@ -351,7 +357,13 @@ for n in range(2,6):
           cw=[p for p in chosen if has_word(p,w['zh'])] or [p for p in cands if has_word(p,w['zh'])]
           if cw:
             p=min(cw,key=lambda p:abs(len(p['full'])-8));ex,exPy,exTh=p['full'],p['s'][1].replace('/',' '),p['s'][2]
-          else:ex=exPy=exTh='';stat['noex']+=1
+          elif n>=3 and ex and okstr(ex,LVK) and ex not in usedEx:stat['ex_lv']+=1
+          else:
+            cl=[p for p in POOL if p['full'] not in usedS and p['full'] not in usedEx and has_word(p,w['zh']) and all(okstr(t,LVK) for t in p['toks'])] if n>=3 else []
+            if cl:
+              p=min(cl,key=lambda p:abs(len(p['full'])-10));ex,exPy,exTh=p['full'],p['s'][1].replace('/',' '),p['s'][2];stat['ex_lv']+=1
+            else:ex=exPy=exTh='';stat['noex']+=1
+        if ex:usedEx.add(ex)
         if ex:audio[ex]=''
         audio[w['zh']]=''
         wsrc.append(f"W({js(w['zh'])},{js(w['py'])},{js(clean(w['th']))},{js(clean(w.get('h','')))},{js(clean(w.get('mn','')))},{js(ex)},{js(exPy)},{js(exTh)})")
@@ -363,6 +375,7 @@ for n in range(2,6):
       old=next(l for l in SRC['LESSONS'] if l['id']==g[0]['old'])
       th=' '.join(dict.fromkeys(thshort(w['th']) for w in g[:3] if thshort(w['th'])))
       if len(th)>18:th=' '.join(dict.fromkeys(thshort(w['th']) for w in g[:2] if thshort(w['th'])))
+      th=TOVR.get(n,{}).get(code,th)
       can=f"ใช้คำเกี่ยวกับ{clean(old['th'])} {len(g)} คำ"
       les.append(f"{{id:{lid},v3:1,kind:'lex',code:'{pi}-{k}',th:{js(th)},zh:{js(zs[0])},chapter:{cid},emoji:{js(old.get('emoji') or '📖')},can:{js(can)},story:'',\n words:[{','.join(wsrc)}],\n sents:{js(sents)},\n fr:{js(fr)},dlg:{js(dlo)},rq:{js(rq)}}}")
       stat['lex']+=1;stat['words']+=len(g)
@@ -376,6 +389,7 @@ for n in range(2,6):
   hdr=f"LVMETA[{n}]={{standard:'HSK 2.0',original:true,official:{off},covered:{cov},v3:1}};\n/* ระดับ {n} โครงใหม่ (v3) · {len(chap)} ตอน · บทละไม่เกิน {MAXW[n]} คำ · ประโยคใช้เฉพาะคำที่สอนแล้ว · ด่านทบทวนท้ายตอน\n   สร้างจาก tools/lv-build/build_lv.py — อย่าแก้ไฟล์นี้ด้วยมือ */\n"
   out=hdr+"CHAPTERS.push(\n"+",\n".join(chap)+"\n);\nLESSONS.push(\n"+",\n".join(les)+"\n);\n"
   out+=f"/* รอบเรียนระดับ {n} เดิม → คำในรอบนั้น (ย้ายความคืบหน้าให้ผู้เรียนเดิม) */\nObject.assign(OLD_L1,{js(oldmap)});\n"
+  if n not in LEVELS:continue
   open(R+f'/data/hsk{n}.js','w').write(out)
   json.dump(sorted(audio),open(D+f'/audio-l{n}.json','w'),ensure_ascii=False,indent=0)
   print('level',n,dict(stat),file=sys.stderr)

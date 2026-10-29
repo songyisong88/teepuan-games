@@ -15,9 +15,8 @@ Re-run for new batches: `python3 tools/pic-build/build_pics.py <dir1> <dir2> …
 Lot 3 (94 images, folder hsk4-5-more) maps to lessons of level 2–3 (all 94 words match exactly one lesson word, Thai matches). Labelled (PIC_KIN): family, people and occupations. Look-alike groups (PIC_SIM) are never used as distractors for each other. Rebuild: `python3 tools/pic-build/build_pics.py /…/hsk1 /…/hsk2-3 /…/hsk4-5-more`.
 
 ## รูปประกอบตัวข้าง (เฟส 5)
-`data/rad/pic.js` (RAD_PIC) ชี้ตัวข้าง → รูปคำศัพท์ที่มีอยู่แล้วใน `assets/art/word/` (58 ตัว) + รูป PIXEL เฉพาะตัวข้างใน `assets/art/rad/` (田 王, จาก /workspace/cn-images/rad-extra/, opaque webp 512px) = 60/60
-คำขอรูปจาก PIXEL — 田 และ 王 ได้รับแล้ว 29 ต.ค. 2026 (王 วาดเป็นราชา ไม่ใช่หยก มีหมายเหตุกำกับในแอป) · ที่ยังค้าง:
+`data/rad/pic.js` (RAD_PIC) ชี้ตัวข้าง → รูปคำศัพท์ที่มีอยู่แล้วใน `assets/art/word/` (58 ตัว) + รูป PIXEL เฉพาะตัวข้างใน `assets/art/rad/` (田 + 玉 สำหรับ 王, จาก /workspace/cn-images/rad-extra/, opaque webp 512px) = 60/60
+คำขอรูปจาก PIXEL — 田 และ 王 ได้รับแล้ว 29 ต.ค. 2026 (王 ใช้รูป 玉 จี้หยก yu_jade.png แทนรูปราชาเดิม เพราะตัวข้าง 王 มาจาก 玉) · ที่ยังค้าง:
 - `田` — ผืนนาข้าวแบ่งเป็นแปลงสี่เหลี่ยม มองจากมุมสูง (ชื่อไฟล์แนะนำ `田地.webp`)
-- `王` (หยก) — หยกเขียวร้อยเชือกแดง/จี้หยก (ชื่อไฟล์แนะนำ `玉.webp`)
 - (ถ้ามีเวลา) `酉` — ไหหมักดินเผาปากแคบ แทนรูปเบียร์ (ชื่อไฟล์แนะนำ `酒坛.webp`)
 เมื่อได้รูป: วางไฟล์, ลงทะเบียนใน `assets/art/index.js`, แก้ `data/rad/pic.js` แล้ว `node build.js`

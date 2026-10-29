@@ -102,7 +102,7 @@ SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;c
  const ws=radLessonsFor(r,8);
  const lvs=[...new Set(mem.sem.map(radLvOf).filter(Boolean))].sort();
  const filt=lvs.length>1?`<div class="rd-lvf" role="group" aria-label="กรองตามระดับ"><button class="${!pool?'on':''}" data-go="radfam2" data-id="${id}" data-lv="0">ทุกระดับ</button>${lvs.map(n=>`<button class="${pool===n?'on':''}" data-go="radfam2" data-id="${id}" data-lv="${n}">ระดับ ${n}</button>`).join('')}</div>`:'';
- const body=`<div class="rd-fh card"><div class="rd-ftile"><span class="zh">${r.id}</span></div><div class="rd-fht"><div class="rd-kick2">ตัวข้างที่ ${r.no>48?'โบนัส '+(r.no-48):r.no} · เรียนตัวอักษร</div><div class="rd-fth">${r.th}</div><div class="rd-fpy">อ่านว่า <b>${pyHtml(r.py)}</b>${r.or_?` · ${r.or_}`:''}</div><span class="rd-trust ${tc}">● ${tt}</span></div></div>
+ const body=`<div class="rd-fh card"><div class="rd-ftile"><span class="zh">${r.id}</span></div><div class="rd-fht"><div class="rd-kick2">ตัวข้างที่ ${r.no>48?'โบนัส '+(r.no-48):r.no} · เรียนตัวอักษร</div><div class="rd-fth">${r.th}</div><div class="rd-fpy">อ่านว่า <b>${pyHtml(r.py)}</b>${r.or_?` · ${r.or_}`:''}</div><span class="rd-trust ${tc}">● ${tt}</span>${typeof STK_SET!=='undefined'&&STK_SET.has(r.id)?`<button class="pill sm ghost press rd-stkb" data-go="radstk" data-c="${r.id}" aria-label="ดูลำดับขีดของ ${r.id}">✍️ ดูลำดับขีด ${r.id}</button>`:''}</div></div>
  <div class="rd-mn"><div class="rm">${M(r.pose||'think')}</div><div class="rd-bub"><b>ตัวช่วยจำ:</b> ${radEsc(r.mn)}<div class="note">ตัวช่วยจำ ไม่ใช่ที่มาจริง · ${RAD_DRAFT}</div></div></div>
  <div class="rd-sech"><b>ครอบครัว ${r.id} · ${mem.sem.length} ตัว</b><small><span class="dot"></span> สีส้ม = ความหมาย</small></div>${filt}
  <div class="rd-fgrid">${show.map(card).join('')||`<p class="cap" style="grid-column:1/-1;padding:6px 4px">ไม่มีตัวอักษรระดับนี้ในครอบครัวนี้</p>`}</div>
@@ -116,6 +116,7 @@ SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;c
   mount(el){radColorize(el)}}};
 Object.assign(window.GOX,{
  radfam(el){push('radfam',{id:el.dataset.id})},
+ radstk(el){stkOpen(el.dataset.c)},
  radfam2(el){const t=stack[stack.length-1];const id=el.dataset.id;replace('radfam',{id,all:!!el.dataset.all,lv:+el.dataset.lv||0})},
  radchar(el){radCharSheet(el.dataset.c,el.dataset.r)},
  radbuild(el){push('radbuild',{ids:[el.dataset.id],mode:'fam'})},

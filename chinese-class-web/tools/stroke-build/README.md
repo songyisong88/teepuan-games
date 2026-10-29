@@ -1,6 +1,6 @@
 # สร้างไฟล์ลำดับขีด (`data/stroke/*.json`)
 
-`build_strokes.py` สร้างไฟล์ต่อตัวอักษร (6,866 ตัว) + `data/stroke/index.js` จาก
+`build_strokes.py` สร้างไฟล์ต่อตัวอักษร (9,485 ตัว — ตัวย่อมาตรฐาน 6,866 + ตัวเต็ม/ตัวข้าง/ส่วนประกอบที่ใช้จริง 2,619 ตามรายการ extra_chars.txt) + `data/stroke/index.js` จาก
 - hanzi-writer-data 2.0.1 (Arphic Public License) — `strokes`, `medians`, `radStrokes`
 - Make Me a Hanzi `dictionary.txt` (Arphic PL + LGPL-3) — ส่วนประกอบ (`cp`) ราก (`rad`) ที่มา (`ty`) ความหมาย (`d`)
 - cnchar-order (MIT) — ชื่อชนิดขีดจีน (`n`) · ตัวที่ไม่มีชื่อใช้ “ขีดที่ N”

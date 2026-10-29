@@ -2,10 +2,17 @@
 # สร้าง data/stroke/*.json จาก hanzi-writer-data 2.0.1 (Arphic Public License) + Make Me a Hanzi dictionary + cnchar-order (ชื่อขีด)
 import json,os,re,sys,math,shutil
 W='/workspace/stroke-order/work'
-OUT='/workspace/teepuan-games/chinese-class-web/data/stroke'
+OUT=os.environ.get('OUT','/workspace/teepuan-games/chinese-class-web/data/stroke')
 os.makedirs(OUT,exist_ok=True)
-cov=open(W+'/covered.txt',encoding='utf8').read().strip()
-NAMES=json.load(open(W+'/names_all.json',encoding='utf8'))
+cov=open(W+'/covered.txt',encoding='utf8').read().strip()  # 6,866 ตัวแรก = 通用规范汉字表 ∩ hanzi-writer-data
+# v2 (2026-10-29): เพิ่มตัวนอก 通用规范汉字表 ที่ใช้จริง ตามรายการ tools/stroke-build/extra_chars.txt
+# เกณฑ์: (ก) ตัวที่ปรากฏในแอป เช่น ตัวข้าง/ส่วนประกอบ/ตัวเต็มในหน้า rad (ข) ตัวเต็มของตัวย่อ (Unihan kTraditionalVariant)
+# (ค) ตัวใน Big5 (ไต้หวัน/ฮ่องกง ใช้บนป้าย/ชื่อ) — เฉพาะตัวที่ Make Me a Hanzi graphics.txt / hanzi-writer-data มีข้อมูลจริง ไม่วาดเอง; ตัวโบราณ/หายากมากไม่เอา
+_extra=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'extra_chars.txt'),encoding='utf8').read().strip()
+_have=set(json.loads(l)['character'] for l in open(W+'/graphics.txt',encoding='utf8'))
+_have={c for c in _have&set(_extra) if os.path.exists(W+'/package/'+c+'.json')}
+cov+=''.join(sorted(_have-set(cov)))
+NAMES=json.load(open(W+'/names_all2.json',encoding='utf8'))
 DIC={}
 for l in open(W+'/dictionary.txt',encoding='utf8'):
     j=json.loads(l);DIC[j['character']]=j

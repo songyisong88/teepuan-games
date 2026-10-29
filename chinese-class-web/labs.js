@@ -1,6 +1,8 @@
 /* ห้องฝึกพิเศษ — 5 รูปแบบ: ซีรีส์ลามา (นิทานอ่านเอง) · เทียบคำใกล้เคียง · ชาโดว์อิ้ง · ข้อสอบจำลอง · ส่วนประกอบตัวอักษร
    เนื้อหาเขียนเอง (data/labs.js) · ทำงานในเครื่องทั้งหมด ไม่มีเซิร์ฟเวอร์ ไม่มีไมโครโฟน ไม่อัปโหลดเสียง · เสียงเป็นเสียงสังเคราะห์ */
 const LB=window.LABS||{stories:[],pairs:[],mock:[],comp:{c:[],s:[]}};
+/* บทความสั้นระดับ HSK (k:'a') เก็บรวมกับนิทานเพื่อใช้หน้าอ่าน/ควิซเดียวกัน แต่แสดงแยกรายการ */
+const LB_ST=LB.stories.filter(s=>s.k!=='a'),LB_AR=LB.stories.filter(s=>s.k==='a');
 const lab=()=>{if(!S.lab)S.lab={};['read','pair','mock','shadow','comp'].forEach(k=>{if(!S.lab[k])S.lab[k]={}});return S.lab};
 const lbKnown=()=>{const s=new Set(gameWords().map(w=>w.zh));if(lvDriven())lvAllWords().forEach(w=>s.add(w.zh));return s};
 let _lbAll=null;const lbAllWords=()=>{if(!_lbAll){_lbAll=new Map();LESSONS.forEach(l=>l.words.forEach(w=>{if(!_lbAll.has(w.zh))_lbAll.set(w.zh,{w,lesson:l.id,lv:l.lv})}))}return _lbAll};
@@ -17,9 +19,10 @@ const lbNote=(t)=>`<p class="cap" style="padding:10px 24px 0;line-height:1.55">$
 const lbOptQ=(top,opts,ans,reveal)=>({k:'q',q:{w:null,type:'lab',custom:true,top,optsHtml:opts,ans,reveal}});
 
 /* ================= หน้ารวม ================= */
-const lbDone=()=>{const L=lab();return {rd:Object.keys(L.read).length,pr:Object.keys(L.pair).length,mk:Object.keys(L.mock).length,sh:Object.keys(L.shadow).length}};
+const lbDone=()=>{const L=lab();const rk=Object.keys(L.read);return {rd:rk.filter(k=>k[0]!=='a').length,ar:rk.filter(k=>k[0]==='a').length,pr:Object.keys(L.pair).length,mk:Object.keys(L.mock).length,sh:Object.keys(L.shadow).length}};
 const LB_HUB_ROWS=()=>{const d=lbDone();return `<div class="group lbg">
-  ${ROW('#FDECEC','📖','ซีรีส์ลามา · นิทานอ่านเอง',`${LB.stories.length} เรื่อง · แตะคำดูความหมายและเสียง · อ่านแล้ว ${d.rd}`,undefined,'data-go="readers"')}
+  ${ROW('#FDECEC','📖','ซีรีส์ลามา · นิทานอ่านเอง',`${LB_ST.length} เรื่อง · แตะคำดูความหมายและเสียง · อ่านแล้ว ${d.rd}`,undefined,'data-go="readers"')}
+  ${ROW('#E6F4F1','📰','บทความสั้นระดับ HSK',`${LB_AR.length} บทความ · ระดับ 1–5 · เรื่องจริงเกี่ยวกับจีนและไทย · แตะคำดูความหมาย · อ่านแล้ว ${d.ar}`,undefined,'data-go="articles"')}
   ${ROW('#EAF1FB','🔀','เทียบคำใกล้เคียง',`${LB.pairs.length} คู่ที่คนไทยสับสนบ่อย · 会/能 · 买/卖 …`,undefined,'data-go="pairs"')}
   ${ROW('#E7F8EE','🎧','ชาโดว์อิ้ง · ฟังแล้วพูดตาม','ช้า/ปกติ · ซ่อนพินอิน · นับรอบ · ประเมินตัวเอง',undefined,'data-go="shadow"')}
   ${ROW('#FDF3E6','📝','ข้อสอบจำลองย่อย','สุ่ม 10 ข้อจากคลัง 30 ข้อต่อระดับ · จับเวลา · ประเมินระดับคร่าว ๆ',undefined,'data-go="mocklab"')}
@@ -28,38 +31,42 @@ SC.labs=()=>({title:'ห้องฝึกพิเศษ',body:`<div class="lar
  <div class="lbhero fade-in"><div class="lbhl"><b>ฝึกให้ต่างจากแอปทั่วไป</b><span>อ่านนิทาน · แยกคำใกล้เคียง · พูดตาม · ลองสนามสอบ · รู้จักส่วนประกอบ</span></div><div class="lbhm">${M('teach')}</div></div>
  <div class="sec">เลือกห้อง</div>${LB_HUB_ROWS()}
  <div class="sec">อะไรจริง อะไรจำลอง</div><div class="card pad2" style="font-size:14px;line-height:1.7">
- <b>จริง:</b> เนื้อหานิทาน คำเทียบ ข้อสอบย่อย และส่วนประกอบ เขียนเองและตรวจกับรายการคำในแอป · ใช้เฉพาะคำระดับเดียวกันหรือต่ำกว่า<br>
+ <b>จริง:</b> เนื้อหานิทาน บทความสั้น คำเทียบ ข้อสอบย่อย และส่วนประกอบ เขียนเองและตรวจกับรายการคำในแอป · ใช้เฉพาะคำระดับเดียวกันหรือต่ำกว่า<br>
  <b>จำลอง/จำกัด:</b> เสียงเป็นเสียงสังเคราะห์ · ชาโดว์อิ้งให้คะแนนตัวเอง (ไม่มีไมค์ ไม่ตรวจเสียง ไม่อัปโหลด) · ข้อสอบจำลองไม่ใช่ข้อสอบจริงของหน่วยงานใด และประเมินระดับได้แค่คร่าว ๆ · ตัวช่วยจำของส่วนประกอบไม่ใช่ที่มาทางภาษาศาสตร์<br>
  <b>ยังรอผู้ตรวจ:</b> เนื้อหาทั้งหมดรอเจ้าของภาษา/ครูไทยตรวจ (ดูรายการตรวจในเอกสารโครงการ)</div>${DEMO}`});
 const _gamesSC=SC.games;
 SC.games=()=>{const r=_gamesSC();r.body=r.body.replace('<div class="sec">รางวัลและร้านค้า</div>',`<div class="sec">ห้องฝึกพิเศษ <span class="lbnew">ใหม่</span></div>${LB_HUB_ROWS()}<div class="sec">รางวัลและร้านค้า</div>`);return r};
-Object.assign(window.GOX,{labs:()=>push('labs'),readers:()=>push('readers'),pairs:()=>push('pairs'),shadow:()=>push('shadow'),mocklab:()=>push('mocklab'),comps:()=>push('comps'),
+Object.assign(window.GOX,{labs:()=>push('labs'),readers:()=>push('readers'),articles:()=>push('articles'),pairs:()=>push('pairs'),shadow:()=>push('shadow'),mocklab:()=>push('mocklab'),comps:()=>push('comps'),
  reader:el=>push('reader',{id:el.dataset.id}),rdquiz:el=>push('rdquiz',{id:el.dataset.id}),shrun:el=>{closeSheet();push('shrun',{l:+el.dataset.l})},mockrun:el=>push('mockrun',{lv:+el.dataset.lv}),mockagain:el=>replace('mockrun',{lv:+el.dataset.lv}),compq:()=>push('game_comp'),pairq:()=>push('game_pairs')});
 
 /* ================= 1) ซีรีส์ลามา ================= */
 function lbCover(st){const known=lbKnown(),all=lbAllWords(),u=new Set();st.s.forEach(s=>s.t.forEach(t=>{if(all.has(t))u.add(t)}));let k=0;u.forEach(t=>{if(known.has(t))k++});return {k,n:u.size,ratio:u.size?k/u.size:1}}
 const LB_UNLOCK=.6;
-SC.readers=()=>{const cv=LB.stories.map(s=>({s,c:lbCover(s)}));const cl=curLv();const L=lab();
- const lvs=[...new Set(LB.stories.map(s=>s.lv))].sort((a,b)=>(a===cl?-1:b===cl?1:a-b));
+function lbList(ART){const SS=ART?LB_AR:LB_ST;const cv=SS.map(s=>({s,c:lbCover(s)}));const cl=curLv();const L=lab();
+ const lvs=[...new Set(SS.map(s=>s.lv))].sort((a,b)=>(a===cl?-1:b===cl?1:a-b));
  const row=({s,c})=>{const open=c.ratio>=LB_UNLOCK,rd=L.read[s.id];
-  return `<button class="row press lbstory ${open?'':'lockd'}" data-go="reader" data-id="${s.id}" ${open?'':'data-lk="1"'}><span class="ic" style="background:#FDF3E6;font-size:22px">${s.e}</span><span class="tx"><b><span class="zh">${s.zh}</span> · ${s.th}</b><small>${open?`รู้แล้ว ${c.k}/${c.n} คำ · ${s.s.length} ประโยค${rd?` · ควิซ ${rd.best}/${s.q.length}`:''}`:`🔒 ต้องรู้ ≥${Math.round(LB_UNLOCK*100)}% ของคำ (ตอนนี้ ${c.k}/${c.n})`}</small></span>${rd?'<span class="lbck" aria-label="อ่านแล้ว">✓</span>':CHEV}</button>`};
- return {title:'ซีรีส์ลามา',body:`<div class="large">ซีรีส์ลามา</div>${lbNote('นิทานสั้นที่เขียนเอง ใช้เฉพาะคำระดับเดียวกันหรือต่ำกว่า (ชื่อคนและคำช่วยพื้นฐานไม่นับ) · แตะคำเพื่อดูความหมาย พินอิน และเสียง · จบเรื่องมีควิซ 3 ข้อ')}
+  return `<button class="row press lbstory ${open?'':'lockd'}" data-go="reader" data-id="${s.id}" ${open?'':'data-lk="1"'}><span class="ic" style="background:${ART?'#E6F4F1':'#FDF3E6'};font-size:22px">${ART&&s.pic?art('word',s.pic,s.e,'pic-mini sm'):s.e}</span><span class="tx"><b><span class="zh">${s.zh}</span> · ${s.th}</b><small>${open?`รู้แล้ว ${c.k}/${c.n} คำ · ${s.s.length} ประโยค${rd?` · ควิซ ${rd.best}/${s.q.length}`:''}`:`🔒 ต้องรู้ ≥${Math.round(LB_UNLOCK*100)}% ของคำ (ตอนนี้ ${c.k}/${c.n})`}</small></span>${rd?'<span class="lbck" aria-label="อ่านแล้ว">✓</span>':CHEV}</button>`};
+ const T=ART?'บทความสั้นระดับ HSK':'ซีรีส์ลามา';
+ return {title:T,body:`<div class="large">${T}</div>${lbNote(ART?'บทความสั้นแนวสารคดีที่เขียนเอง ระดับละ 3 บท · คำส่วนใหญ่อยู่ในระดับเดียวกันหรือต่ำกว่า คำที่เกินระดับหรือชื่อเฉพาะมีคำแปลให้แตะดู · ข้อเท็จจริงตรวจจากแหล่งทั่วไปแล้ว แต่ยังรอครู/เจ้าของภาษาตรวจภาษา · จบบทมีควิซ 3 ข้อ':'นิทานสั้นที่เขียนเอง ใช้เฉพาะคำระดับเดียวกันหรือต่ำกว่า (ชื่อคนและคำช่วยพื้นฐานไม่นับ) · แตะคำเพื่อดูความหมาย พินอิน และเสียง · จบเรื่องมีควิซ 3 ข้อ')}
  ${lvs.map(n=>`<div class="sec">ระดับ ${n} · ${(levelBy(n)||{}).th||''}${n===cl?' · ระดับของคุณ':''}</div><div class="group lbg">${cv.filter(x=>x.s.lv===n).map(row).join('')}</div>`).join('')}${DEMO}`,
- mount(el){el.addEventListener('click',e=>{const b=e.target.closest('[data-lk]');if(b){e.stopPropagation();e.preventDefault();toast('เรียนคำในระดับนี้ให้มากกว่านี้ก่อนนะ แล้วเรื่องนี้จะเปิด');vib([12,30,12])}},true)}}};
+ mount(el){el.addEventListener('click',e=>{const b=e.target.closest('[data-lk]');if(b){e.stopPropagation();e.preventDefault();toast('เรียนคำในระดับนี้ให้มากกว่านี้ก่อนนะ แล้วเรื่องนี้จะเปิด');vib([12,30,12])}},true)}}}
+SC.readers=()=>lbList(false);SC.articles=()=>lbList(true);
+/* เครื่องหมายวรรคตอนติดกับคำข้าง ๆ เสมอ (ไม่ให้ “，” ขึ้นต้นบรรทัดใหม่) */
+function lbGlue(t,tok){const out=[];let open='';t.forEach(x=>{const h=tok(x);if(/^[“‘（]$/.test(x)){open+=h;return}if(/^[，。！？、：；”’）…]+$/.test(x)&&out.length){out[out.length-1]=`<span class="lbnw">${out[out.length-1]}${h}</span>`;return}out.push(open?`<span class="lbnw">${open}${h}</span>`:h);open=''});if(open)out.push(open);return out.join('')}
 SC.reader=({id})=>{const st=LB.stories.find(x=>x.id===id);const known=lbKnown(),all=lbAllWords();let py=true,th=false,playing=false;
  const tok=t=>{const d=st.d[t];if(!d)return `<span class="lbp">${t}</span>`;const a=all.get(t);const nw=a&&!known.has(t);
   return `<button class="lbt press ${nw?'new':''}" data-tk="${lbEsc(t)}"><i class="py">${pyPlain(d[0])}</i><span class="zh">${t}</span></button>`};
- const sent=(s,i)=>`<div class="lbs"><div class="lbtk">${s.t.map(tok).join('')}</div><div class="lbth" ${th?'':'hidden'}>${s.th}</div><button class="spkl cap press" data-act="audio" data-t="${lbEsc(s.z)}" aria-label="ฟังประโยค ${i+1}"><span class="spi">${SPK}</span>ฟังประโยค ${i+1}</button></div>`;
- return {title:st.zh,noRefresh:true,body:`<div class="large"><span class="zh">${st.zh}</span></div><div class="cap" style="padding:2px 20px 0">${st.e} ${st.th} · ${lbLvTag(st.lv)}</div>
+ const sent=(s,i)=>`<div class="lbs"><div class="lbtk">${lbGlue(s.t,tok)}</div><div class="lbth" ${th?'':'hidden'}>${s.th}</div><button class="spkl cap press" data-act="audio" data-t="${lbEsc(s.z)}" aria-label="ฟังประโยค ${i+1}"><span class="spi">${SPK}</span>ฟังประโยค ${i+1}</button></div>`;
+ return {title:st.zh,noRefresh:true,body:`<div class="large"><span class="zh">${st.zh}</span></div><div class="cap" style="padding:2px 20px 0">${st.e} ${st.th} · ${lbLvTag(st.lv)}${st.k==='a'?' · บทความ':''}</div>${st.k==='a'&&st.pic?`<div class="center" style="padding:8px 0 0">${art('word',st.pic,'','wart')}</div>`:''}
  <div class="lbbar"><button class="chip press on" data-rt="py" aria-pressed="true">พินอิน</button><button class="chip press" data-rt="th" aria-pressed="false">คำแปลไทย</button><button class="chip press" data-rt="all" aria-pressed="false">▶ ฟังทั้งเรื่อง</button></div>
  <div class="card lbbook" id="lbbook">${st.s.map(sent).join('')}</div>
  <p class="cap center" style="padding:12px 30px 0"><span class="lbdot"></span> = คำที่อยู่ในแอปแต่คุณยังไม่ได้เรียน · แตะคำเพื่อดูความหมาย</p>
- <div class="dock"><button class="pill press" data-go="rdquiz" data-id="${st.id}"><b>ทำควิซท้ายเรื่อง</b><small>3 ข้อ · ได้เหรียญ</small></button></div>`,
+ <div class="dock"><button class="pill press" data-go="rdquiz" data-id="${st.id}"><b>ทำควิซท้าย${st.k==='a'?'บท':'เรื่อง'}</b><small>3 ข้อ · ได้เหรียญ</small></button></div>`,
  unmount(){stopAudio()},
  mount(el){const book=$('#lbbook',el);
   el.addEventListener('click',e=>{const t=e.target.closest('[data-tk]');if(t){const k=t.dataset.tk,d=st.d[k],a=all.get(k);speak(k,t);
     openSheet(`<div class="center" style="padding:0 24px 8px"><div class="zh" style="font-size:64px;line-height:1.2">${k}</div><div style="font-size:24px;margin-top:2px">${pyHtml(d[0])}</div><div style="font-size:20px;font-weight:600;margin-top:8px">${d[1]}</div>
-    ${a?`<div class="cap mt8">${known.has(k)?'✓ เรียนแล้ว':'คำนี้อยู่ในบทที่ '+a.lesson+' (ยังไม่ได้เรียน)'}</div>`:`<div class="cap mt8">ชื่อคน/คำช่วยพื้นฐาน</div>`}
+    ${a?`<div class="cap mt8">${known.has(k)?'✓ เรียนแล้ว':'คำนี้อยู่ในบทที่ '+a.lesson+' (ยังไม่ได้เรียน)'}</div>`:`<div class="cap mt8">${st.k==='a'?'คำเกินระดับ/ชื่อเฉพาะ (ไม่อยู่ในบทเรียนของแอป)':'ชื่อคน/คำช่วยพื้นฐาน'}</div>`}
     <button class="pill sm press mt16" data-act="audio" data-t="${lbEsc(k)}">ฟังอีกครั้ง</button>${stkBtn(k)}</div>`);return}
    const r=e.target.closest('[data-rt]');if(!r)return;const w=r.dataset.rt;
    if(w==='py'){py=!py;book.classList.toggle('nopy',!py);r.classList.toggle('on',py);r.setAttribute('aria-pressed',py)}
@@ -72,7 +79,7 @@ SC.rdquiz=({id})=>{const st=LB.stories.find(x=>x.id===id);
  return {nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},
  mount(el){const qs=st.q.map(q=>{const idx=shuffle(q.o.map((_,i)=>i));const opts=idx.map(i=>q.o[i]);return lbOptQ(`<div class="cap" style="font-size:14px">${st.e} <span class="zh">${st.zh}</span> · คำถามเกี่ยวกับเรื่อง</div><div style="font-size:26px;font-weight:700;margin:14px 8px 0;line-height:1.35">${q.q}</div>`,opts.map(o=>`<span>${o}</span>`),idx.indexOf(q.a),`<div class="ans">เฉลย: <b>${q.o[q.a]}</b></div>`)});
   session(el,qs,res=>{const L=lab(),prev=L.read[id],first=!prev;L.read[id]={best:Math.max(res.correct,prev?prev.best:0),n:(prev?prev.n:0)+1,day:today()};
-   const xp=(first?8:3)+res.correct*3,coins=(first?4:1)+res.correct*2;lbEnd('read',{xp,coins,title:'อ่านจบแล้ว!',shareText:`ฉันอ่านนิทานจีน “${st.th}” จบแล้ว`,mascot:res.correct>=2?'celebrate':'cheer',sub:`${st.zh} · ตอบถูก ${res.correct}/${res.total}`,stats:[['เรื่องที่อ่าน',st.th],['ตอบถูก',res.correct+'/'+res.total],['ระดับ',levelBy(st.lv).th]],back:'x'})},{review:true})}}};
+   const xp=(first?8:3)+res.correct*3,coins=(first?4:1)+res.correct*2;lbEnd('read',{xp,coins,title:'อ่านจบแล้ว!',shareText:`ฉันอ่าน${st.k==='a'?'บทความ':'นิทาน'}จีน “${st.th}” จบแล้ว`,mascot:res.correct>=2?'celebrate':'cheer',sub:`${st.zh} · ตอบถูก ${res.correct}/${res.total}`,stats:[['เรื่องที่อ่าน',st.th],['ตอบถูก',res.correct+'/'+res.total],['ระดับ',levelBy(st.lv).th]],back:'x'})},{review:true})}}};
 
 /* ================= 2) เทียบคำใกล้เคียง ================= */
 function lbPairOpen(p,known){return known.has(p.a[0])&&known.has(p.b[0])}

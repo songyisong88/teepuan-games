@@ -290,3 +290,5 @@ button.cap.press,.spkl{min-height:44px;min-width:44px}
 .audio.sm{min-width:44px;min-height:44px}
 /* หน้าใช้งานออฟไลน์: ปุ่มเล็กในแถวแพ็ก */
 .off-row{padding-top:10px;padding-bottom:10px}.off-row .pill{width:auto;flex:none;height:40px;padding:0 18px;font-size:15px;white-space:nowrap}
+.lbg .ic .pic-mini.sm{margin:0;width:100%;height:100%;border-radius:inherit}
+.lbnw{display:inline-flex;align-items:flex-end}

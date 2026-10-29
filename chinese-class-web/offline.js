@@ -10,6 +10,8 @@ function packLv(lv){const L=LESSONS.filter(l=>l.lv===lv);const a=new Set(),p=new
  L.forEach(l=>{strs(l,new Set()).forEach(t=>audioOf(t).forEach(u=>a.add(u)));if(window.ART_IDX&&ART_IDX['lesson/'+l.id])p.add('assets/art/lesson/'+encodeURIComponent(l.id)+'.webp');
   l.words.forEach(w=>{if(window.ART_IDX&&ART_IDX['word/'+w.zh])p.add('assets/art/word/'+encodeURIComponent(w.zh)+'.webp');
    if(typeof stkHan==='function'&&typeof STK_SET!=='undefined')stkHan(w.zh).forEach(c=>{if(STK_SET.has(c))s.add('data/stroke/'+hexOf(c)+'.json')})})});
+ /* นิทาน/บทความของระดับนี้ (ห้องฝึกพิเศษ): เสียงประโยค+คำ และรูปปกบทความ */
+ ((window.LABS&&LABS.stories)||[]).filter(x=>x.lv===lv).forEach(x=>{x.s.forEach(z=>audioOf(z.z).forEach(u=>a.add(u)));Object.keys(x.d||{}).forEach(t=>audioOf(t).forEach(u=>a.add(u)));if(x.pic&&window.ART_IDX&&ART_IDX['word/'+x.pic])p.add('assets/art/word/'+encodeURIComponent(x.pic)+'.webp')});
  return {a:[...a],p:[...p],s:[...s]}}
 function packs(){const P=[];[1,2,3,4,5].forEach(lv=>{if(!LESSONS.some(l=>l.lv===lv))return;const k=packLv(lv);const urls=[...k.a,...k.p,...k.s];
   P.push({id:'lv'+lv,em:'📘',t:'แพ็ก HSK '+lv,sub:`เสียง ${k.a.length.toLocaleString('en-US')} · รูป ${k.p.length} · ลำดับขีด ${k.s.length.toLocaleString('en-US')} ไฟล์`,urls,kb:Math.round(k.a.length*AVG.a+k.p.length*AVG.p+k.s.length*AVG.s),est:true})});

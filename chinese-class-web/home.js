@@ -90,14 +90,14 @@ function hgWheelSvg(ws){const C=88,R=88,pt=a=>[C+R*Math.sin(a*Math.PI/180),C-R*M
  return `<svg width="176" height="176" viewBox="0 0 176 176" aria-hidden="true"><defs>${defs}</defs><circle cx="88" cy="88" r="88" fill="#C8102E"/><g>${seg}</g>${dots}</svg>`}
 const hgWord=w=>`${picHas(w)?art('word',w.zh,'','hg-rpic',w.th):''}<div class="hg-rz zh">${w.zh}</div><div class="hg-rpy">${(w.py||'').replace(/\|/g,'')}</div><div class="hg-rth">${w.th}</div>`;
 function hgSpinCard(){const k=hgS(),t=today(),done=k.spin.d===t,ws=done&&k.spin.ws?k.spin.ws.map(wordBy).filter(Boolean):hgPool(),w=done?wordBy(k.spin.zh):null,idx=w?Math.max(0,ws.findIndex(x=>x.zh===w.zh)):0;
- if(ws.length<6&&!done)return `<div class="card hg-spin"><div class="hg-stx"><b>วงล้อคำประจำวัน</b><small>ตอนนี้ได้คำใหม่ครบทุกคำที่มีรูปและเสียงแล้ว</small></div></div>`;
+ if(ws.length<6&&!done)return `<div class="card hg-spin"><div class="hg-stx"><b>วงล้อคำประจำวัน</b><small>ตอนนี้ได้ครบทุกคำที่มีรูปและเสียงในบทที่เรียนแล้ว</small></div></div>`;
  const rot=done?-idx*60:0;
  return `<div class="card hg-spin" id="hgSpin"><div class="hg-wh"><span class="hg-ptr" aria-hidden="true"></span><div class="hg-rot" id="hgRot" style="transform:rotate(${rot}deg)">${hgWheelSvg(ws)}</div><button class="hg-hub press" id="hgHub" aria-label="หมุนวงล้อ" ${done?'disabled':''}>${HG_PLAY}</button></div>
   <div class="hg-stx">${done&&w?`<div class="hg-got"><b class="zh">${w.zh}</b><span>${(w.py||'').replace(/\|/g,'')}</span><small>${w.th}</small></div><small>วันนี้ได้คำนี้แล้ว อยู่ในคำที่ควรทบทวน หมุนใหม่ได้พรุ่งนี้</small><div class="hg-srow"><button class="hg-say press" data-go="hgsay" data-z="${w.zh}" aria-label="ฟังเสียง ${w.zh}">${SPK}</button><button class="hg-sbtn ghost press" data-go="hgres">ดูคำนี้</button></div>`
-   :`<b>หมุนวันละครั้ง รับคำใหม่ 1 คำ</b><small>คำที่ได้จะเข้าไปอยู่ในคำที่ควรทบทวน และได้ 10 เหรียญ</small><button class="hg-sbtn press" id="hgGo">หมุนวงล้อ</button>`}</div></div>`}
+   :`<b>หมุนวันละครั้ง ทบทวน 1 คำ</b><small>คำที่ได้จะเข้าไปอยู่ในคำที่ควรทบทวน และได้ 10 เหรียญ</small><button class="hg-sbtn press" id="hgGo">หมุนวงล้อ</button>`}</div></div>`}
 function hgResult(w,fresh){openSheet(`<div class="hg-res">${hgWord(w)}<button class="hg-say lg press" id="hgRs" aria-label="ฟังเสียง ${w.zh}">${SPK}</button>
   <p class="cap">${fresh?'เพิ่มเข้าคำที่ควรทบทวนแล้ว · ได้ 10 เหรียญ':'คำนี้อยู่ในคำที่ควรทบทวน'}</p><button class="pill row1 press mt12" data-go="hgrev">ไปทบทวนคำ</button></div>`,
-  {title:fresh?'ได้คำใหม่':'คำของวันนี้',onMount(sh){const b=$('#hgRs',sh);b.onclick=()=>speak(w.zh,b);setTimeout(()=>speak(w.zh,b),350)}})}
+  {title:fresh?'คำทบทวนของวันนี้':'คำของวันนี้',onMount(sh){const b=$('#hgRs',sh);b.onclick=()=>speak(w.zh,b);setTimeout(()=>speak(w.zh,b),350)}})}
 function hgSpin(el){const k=hgS(),t=today();if(k.spin.d===t)return;const ws=hgPool();if(ws.length<6)return;const i=Math.random()*6|0,w=ws[i];
  k.spin={d:t,zh:w.zh,ws:ws.map(x=>x.zh)};if(!k.got.some(g=>g.zh===w.zh))k.got.unshift({zh:w.zh,d:t});k.got=k.got.slice(0,200);hgSave();
  srsGrade(w,false,1);addCoins(10);save();vib(30);

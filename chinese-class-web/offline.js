@@ -17,7 +17,7 @@ function packs(){const P=[];[1,2,3,4,5].forEach(lv=>{if(!LESSONS.some(l=>l.lv===
   P.push({id:'lv'+lv,em:'📘',t:'แพ็ก HSK '+lv,sub:`เสียง ${k.a.length.toLocaleString('en-US')} · รูป ${k.p.length} · ลำดับขีด ${k.s.length.toLocaleString('en-US')} ไฟล์`,urls,kb:Math.round(k.a.length*AVG.a+k.p.length*AVG.p+k.s.length*AVG.s),est:true})});
  const O=window.OFF_IDX||{};
  if(O.cjkFonts&&O.cjkFonts.length)P.push({id:'font',em:'🔤',t:'ฟอนต์ตัวจีน (Noto Serif SC)',sub:'ให้ตัวจีนแสดงด้วยฟอนต์ของแอปเมื่อออฟไลน์ · '+O.cjkFonts.length+' ไฟล์',urls:O.cjkFonts,kb:O.cjkKB});
- if(typeof RAD_PIC!=='undefined'&&window.ART_IDX){const urls=[...new Set(Object.values(RAD_PIC).filter(p=>ART_IDX['word/'+p[0]]).map(p=>'assets/art/word/'+encodeURIComponent(p[0])+'.webp'))];if(urls.length)P.push({id:'radpic',em:'🖼️',t:'รูปประกอบตัวข้าง',sub:'เรียนตัวอักษร · รูป '+urls.length+' ไฟล์',urls,kb:Math.round(urls.length*AVG.p),est:true})}
+ if(typeof RAD_PIC!=='undefined'&&window.ART_IDX){const urls=[...new Set(Object.values(RAD_PIC).map(p=>[p[2]||'word',p[0]]).filter(([k,z])=>ART_IDX[k+'/'+z]).map(([k,z])=>'assets/art/'+k+'/'+encodeURIComponent(z)+'.webp'))];if(urls.length)P.push({id:'radpic',em:'🖼️',t:'รูปประกอบตัวข้าง',sub:'เรียนตัวอักษร · รูป '+urls.length+' ไฟล์',urls,kb:Math.round(urls.length*AVG.p),est:true})}
  if(typeof PR_SY!=='undefined'){const a=new Set();PR_SY.forEach(s=>audioOf(s.c).forEach(u=>a.add(u)));const urls=[...(O.pinroom||[]),...a];P.push({id:'pin',em:'🔊',t:'ห้องพินอิน',sub:`เสียง ${a.size} · รูป ${(O.pinroom||[]).length} ไฟล์`,urls,kb:Math.round((O.pinroomKB||0)+a.size*AVG.a),est:true})}
  return P}
 const fmt=kb=>kb>=1024?(kb/1024).toFixed(kb>=10240?0:1)+' MB':Math.max(1,Math.round(kb))+' KB';

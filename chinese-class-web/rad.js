@@ -3,8 +3,9 @@
    ลำดับขีดสำหรับระบายสีส่วนประกอบ: hanzi-writer-data (Arphic) — ดู data/stroke/NOTICE.md */
 const RAD_DRAFT='ร่าง รอครูตรวจ';
 /* รูปประกอบตัวข้าง (เฟส 5): ใช้รูปคำศัพท์ที่มีอยู่ (data/rad/pic.js) สื่อความหมาย · ไม่มีรูป = ไม่แสดงอะไร */
-const radPic=id=>{const p=typeof RAD_PIC!=='undefined'&&RAD_PIC[id];return p&&window.ART_IDX&&ART_IDX['word/'+p[0]]?p:null};
-const radPicImg=(id,cls)=>{const p=radPic(id);return p?art('word',p[0],'',cls||'',p[1]):''};
+const radPicK=p=>p[2]||'word';
+const radPic=id=>{const p=typeof RAD_PIC!=='undefined'&&RAD_PIC[id];return p&&window.ART_IDX&&ART_IDX[radPicK(p)+'/'+p[0]]?p:null};
+const radPicImg=(id,cls)=>{const p=radPic(id);return p?art(radPicK(p),p[0],'',cls||'',p[1]):''};
 const RADI={};RAD.forEach(r=>RADI[r.id]=r);
 const RAD_CORE=RAD.filter(r=>!r.bonus);
 const RAD_OR='#D9822B',RAD_BL='#3A64A8';
@@ -107,7 +108,7 @@ SC.radfam=({id,all,lv})=>{const r=RADI[id]||(radCur&&radCur())||RAD[0];id=r.id;c
  const filt=lvs.length>1?`<div class="rd-lvf" role="group" aria-label="กรองตามระดับ"><button class="${!pool?'on':''}" data-go="radfam2" data-id="${id}" data-lv="0">ทุกระดับ</button>${lvs.map(n=>`<button class="${pool===n?'on':''}" data-go="radfam2" data-id="${id}" data-lv="${n}">ระดับ ${n}</button>`).join('')}</div>`:'';
  const body=`<div class="rd-fh card"><div class="rd-ftile"><span class="zh">${r.id}</span></div><div class="rd-fht"><div class="rd-kick2">ตัวข้างที่ ${r.no>48?'โบนัส '+(r.no-48):r.no} · เรียนตัวอักษร</div><div class="rd-fth">${r.th}</div><div class="rd-fpy">อ่านว่า <b>${pyHtml(r.py)}</b>${r.or_?` · ${r.or_}`:''}</div><span class="rd-trust ${tc}">● ${tt}</span>${typeof STK_SET!=='undefined'&&STK_SET.has(r.id)?`<button class="pill sm ghost press rd-stkb" data-go="radstk" data-c="${r.id}" aria-label="ดูลำดับขีดของ ${r.id}">✍️ ดูลำดับขีด ${r.id}</button>`:''}</div></div>
  <div class="rd-mn"><div class="rm">${M(r.pose||'think')}</div><div class="rd-bub"><b>ตัวช่วยจำ:</b> ${radEsc(r.mn)}<div class="note">ตัวช่วยจำ ไม่ใช่ที่มาจริง · ${RAD_DRAFT}</div></div></div>
- ${(p=>p?`<div class="rd-pic card">${radPicImg(r.id,'rdp')}<div class="t"><small>ภาพสื่อความหมาย</small><b><span class="zh">${p[0]}</span> · ${radEsc(p[1])}</b><div class="note">รูปบอกความหมายของ ${r.id} (${radEsc(r.mean)}) ไม่ใช่ที่มาของรูปอักษร</div></div></div>`:'')(radPic(r.id))}
+ ${(p=>p?`<div class="rd-pic card">${radPicImg(r.id,'rdp')}<div class="t"><small>ภาพสื่อความหมาย</small><b><span class="zh">${p[0]}</span> · ${radEsc(p[1])}</b><div class="note">${p[3]?radEsc(p[3]):`รูปบอกความหมายของ ${r.id} (${radEsc(r.mean)}) ไม่ใช่ที่มาของรูปอักษร`}</div></div></div>`:'')(radPic(r.id))}
  <div class="rd-sech"><b>ครอบครัว ${r.id} · ${mem.sem.length} ตัว</b><small><span class="dot"></span> สีส้ม = ความหมาย</small></div>${filt}
  <div class="rd-fgrid">${show.map(card).join('')||`<p class="cap" style="grid-column:1/-1;padding:6px 4px">ไม่มีตัวอักษรระดับนี้ในครอบครัวนี้</p>`}</div>
  ${sem.length>8&&!all?`<button class="rd-more press" data-go="radfam2" data-id="${id}" data-all="1" data-lv="${pool}">ดูทั้งหมด ${sem.length} ตัว</button>`:''}

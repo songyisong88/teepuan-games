@@ -4,7 +4,7 @@ const LB=window.LABS||{stories:[],pairs:[],mock:[],comp:{c:[],s:[]}};
 /* บทความสั้นระดับ HSK (k:'a') เก็บรวมกับนิทานเพื่อใช้หน้าอ่าน/ควิซเดียวกัน แต่แสดงแยกรายการ */
 const LB_ST=LB.stories.filter(s=>s.k!=='a'),LB_AR=LB.stories.filter(s=>s.k==='a');
 const lab=()=>{if(!S.lab)S.lab={};['read','pair','mock','shadow','comp'].forEach(k=>{if(!S.lab[k])S.lab[k]={}});return S.lab};
-const lbKnown=()=>{const s=new Set(gameWords().map(w=>w.zh));if(lvDriven())lvAllWords().forEach(w=>s.add(w.zh));return s};
+const lbKnown=()=>{const s=new Set(gameWords().map(w=>w.zh));if(lvDriven())lvSoFar().forEach(l=>l.words.forEach(w=>s.add(w.zh)));return s};/* คำที่รู้: เรียนจบแล้ว + บทจนถึงบทที่กำลังเรียน (ไม่รวมบทอนาคต) */
 let _lbAll=null;const lbAllWords=()=>{if(!_lbAll){_lbAll=new Map();LESSONS.forEach(l=>l.words.forEach(w=>{if(!_lbAll.has(w.zh))_lbAll.set(w.zh,{w,lesson:l.id,lv:l.lv})}))}return _lbAll};
 const lbLvTag=n=>{const l=levelBy(n)||{};return `<span class="lbtag" style="background:${l.bg||'#eee'};color:${l.c||'#333'}">${l.em||''} ระดับ ${n}</span>`};
 const lbEsc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
@@ -106,7 +106,7 @@ SC.game_pairs=()=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extr
    gameEnd(el,'pairs',res.correct,{xp,coins,title:'เทียบคำเสร็จแล้ว',mascot:res.correct>=6?'celebrate':'cheer',sub:`ตอบถูก ${res.correct}/${res.total}`,stats:[['ตอบถูก',res.correct+'/'+res.total],['คู่คำที่ได้ทบทวน',new Set(items.map(x=>x.p.a[0])).size]]})},{review:true})}});
 
 /* ================= 3) ชาโดว์อิ้ง ================= */
-function lbShadowLessons(){return LESSONS.filter(L=>L.sents&&L.sents.length&&(unitDone(L.id+'a')||unitDone(L.id+'b')||L.lv<=(S.assume||0)||(lvDriven()&&L.lv===curLv())))}
+function lbShadowLessons(){return LESSONS.filter(L=>L.sents&&L.sents.length&&(unitDone(L.id+'a')||unitDone(L.id+'b')||L.lv<=(S.assume||0)||(lvDriven()&&lvSoFar().some(x=>x.id===L.id))))}
 SC.shadow=()=>{const ls=lbShadowLessons(),L=lab().shadow;const row=l=>`<button class="row press" data-go="shrun" data-l="${l.id}"><span class="ic" style="background:#E7F8EE">${l.emoji||'🎧'}</span><span class="tx"><b>${lnoTxt(l)} · ${l.th} <span class="zh" style="font-weight:400">${l.zh}</span></b><small>${l.sents.length} ประโยค${L[l.id]?` · ฝึกแล้ว ${L[l.id].n} รอบ`:''}</small></span>${CHEV}</button>`;
  return {title:'ชาโดว์อิ้ง',body:`<div class="large">ชาโดว์อิ้ง</div>${lbNote('ฟังประโยคแล้วพูดตามให้ทันเสียง โดยไม่ต้องอ่านพินอิน — ใช้ประโยคจากบทที่เรียนแล้วเท่านั้น · <b>ไม่มีไมค์ ไม่อัดเสียง ไม่อัปโหลด</b> คุณฟังตัวเองแล้วประเมินเอง')}
  <div class="card pad2 mt12" style="margin:14px 20px 0;font-size:14.5px;line-height:1.7"><b>วิธีฝึก</b><br>① ฟังช้า 1 รอบ ② ฟังปกติ ③ พูดตามเมื่อวงแหวนสว่าง ④ นับรอบ (เป้า 3 รอบ) ⑤ ประเมินตัวเอง</div>

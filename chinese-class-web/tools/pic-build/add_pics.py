@@ -14,6 +14,8 @@ if '--src' in a:SRC=opt('--src',SRC);SCN=opt('--scenes','');TAG=opt('--tag','X-N
 IDX=os.path.join(R,'assets/art/index.js')
 # ภาพที่มีลามะ (ทักทาย/การกระทำ/อารมณ์): ซ่งอี้อนุมัติแล้ว 29 ต.ค. 2026 — ไม่ข้ามแล้ว (ใส่ id ที่นี่ถ้าต้องการข้าม)
 SKIP_LLAMA=set()
+# --skip 姓,语文 : คำที่ PIXEL ข้าม/ไม่ใช้ภาพ (ดู SKIPPED.md) → ไม่ลงทะเบียน แสดงเป็นการ์ดตัวอักษร
+SKIP_ZH=set(x for x in opt('--skip','').split(',') if x)
 skipped=[]
 TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n'}
 def conv(src,dst,size=512):
@@ -40,6 +42,7 @@ if os.path.exists(ij):
     i=r.get('id') or r.get('key')
     if i in SKIP_LLAMA:skipped.append(r.get('zh') or i);continue
     zh=r.get('zh') or (items.get(i) or {}).get('zh')
+    if zh in SKIP_ZH:skipped.append(zh);continue
     f=r.get('file') or r.get('filename_512') or r.get('filename') or r.get('path') or (find(i) if i else None)
     if f and not os.path.isabs(f):f=os.path.join(SRC,f)
     if zh and f and os.path.exists(f) and r.get('ok',True) is not False:words[zh]=f;typ[zh]=TYPE.get(r.get('type') or (items.get(i) or {}).get('type'),'x')

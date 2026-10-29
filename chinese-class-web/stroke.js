@@ -1,3 +1,11 @@
+/* หน้าคำ: ลิงก์ไปอักษรข้างและลักษณนามของคำนี้ แสดงเฉพาะเมื่อมีข้อมูล และเปิดถึงระดับของผู้เรียนแล้ว */
+function stkLinks(w){const out=[],lv=curLv(),CH='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+ const st='height:36px;padding:0 8px 0 11px;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1.5px #E3DCD3;font-size:13.5px;font-weight:600;color:var(--sub2);display:inline-flex;align-items:center;gap:5px;white-space:nowrap',zh='font-family:inherit;font-size:18px;color:var(--ink);font-weight:500';
+ try{if(w.length===1&&typeof RAD_CH!=='undefined'&&typeof RADI!=='undefined'){const v=RAD_CH[w],r=v&&v[2]?RADI[v[2]]:null;
+  if(r&&(r.lv||1)<=lv){const nm=(r.mean||r.th).split(' (')[0];out.push(`<button class="press" style="${st}" data-go="radfam" data-id="${r.id}" aria-label="อักษรข้าง ${r.id} ${nm}"><span style="color:var(--warn)">อักษรข้าง</span><span class="zh" style="${zh}">${r.id}</span><span>${nm}</span>${CH}</button>`)}}}catch(e){}
+ try{if(typeof MW!=='undefined'){let hit=null;for(const m of MW){if((m.lv||1)>lv)continue;const x=(m.ex||[]).find(x=>x.a===w);if(x){hit=[m,x];break}}
+  if(hit)out.push(`<button class="press" style="${st}" data-go="mwdet" data-c="${hit[0].zh}" aria-label="ลักษณนาม ${hit[0].zh} ${hit[1].zh}"><span style="color:var(--red)">ลักษณนาม</span><span class="zh" style="${zh}">${hit[0].zh}</span><span class="zh" style="font-size:14px">${hit[1].zh}</span>${CH}</button>`)}}catch(e){}
+ return out.length?`<div class="stk-xlinks" style="display:flex;gap:8px;padding:10px 20px 0;flex-wrap:wrap">${out.join('')}</div>`:''}
 /* ลำดับขีด — ดูลำดับขีดเคลื่อนไหว + ลากนิ้วฝึกเขียนตรวจทีละขีด
    ข้อมูล: data/stroke/*.json (hanzi-writer-data 2.0.1 + Make Me a Hanzi + animCJK, Arphic Public License · ดัดแปลงแล้ว ดู data/stroke/NOTICE.md)
    ตัวตรวจขีดตอนฝึก: Hanzi Writer 3.7.3 (MIT) โหลดเมื่อเข้าหน้าฝึกเท่านั้น · ชื่อขีดภาษาไทยเป็นร่าง รอครูตรวจ */
@@ -133,7 +141,7 @@ function stkViewer(el,root,info,datas,p,setAnim){const w=info.w,nc=datas.length;
     ${stkMnemo(info,tab,isAll,d1)}`;
    setTimeout(()=>wire(items),0)}
   const mean=e?e.th:'';
-  root.innerHTML=`<div class="stk-head"><div class="stk-hz zh" style="font-size:${w.length>3?28:w.length>1?44:56}px">${w}</div><div class="stk-hm"><div class="py">${isAll?(info.py.some(x=>!x)?pyHtml(e?e.py:''):pyHtml(info.py.join(' '))):pyHtml(pyS)}</div><div class="th">${mean||(isAll?'':'')}</div><div class="meta">${e?'ระดับ '+e.lv+' · ':'ไม่อยู่ในบทเรียน · '}${total} ขีด${lessonOf?` · ${lnoTxt(lessonOf)} “${lessonOf.th}”`:''}</div></div><button class="stk-spk press" data-act="audio" data-t="${w}" aria-label="ฟังเสียง ${w}">${SPK}</button></div>${tabs}${main}`;
+  root.innerHTML=`<div class="stk-head"><div class="stk-hz zh" style="font-size:${w.length>3?28:w.length>1?44:56}px">${w}</div><div class="stk-hm"><div class="py">${isAll?(info.py.some(x=>!x)?pyHtml(e?e.py:''):pyHtml(info.py.join(' '))):pyHtml(pyS)}</div><div class="th">${mean||(isAll?'':'')}</div><div class="meta">${e?'ระดับ '+e.lv+' · ':'ไม่อยู่ในบทเรียน · '}${total} ขีด${lessonOf?` · ${lnoTxt(lessonOf)} “${lessonOf.th}”`:''}</div></div><button class="stk-spk press" data-act="audio" data-t="${w}" aria-label="ฟังเสียง ${w}">${SPK}</button></div>${stkLinks(w)}${tabs}${main}`;
   const cta=$('#stkcta',el),pr=$('#stkprac',el);cta.style.display=ent?'':'none';const lab=isAll?(nc>1?`ฝึกเขียนทั้งคำ ${w}`:'ฝึกเขียนตามขีด'):(nc>1?`ฝึกเขียน ${info.cs[tab]}`:'ฝึกเขียนตามขีด');
   pr.innerHTML=`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.2-4.2L16.6 4.4a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8z"/></svg><span>${lab}</span>`;
   pr.onclick=()=>{anim&&anim.pause();push('strokeprac',{w,only:isAll?-1:tab})};

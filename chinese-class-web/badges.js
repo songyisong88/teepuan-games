@@ -58,7 +58,7 @@ function badgeCheck(){if(!S.badges)S.badges={};const fresh=[];
    <div class="h2">${b.em} ${b.n}</div><p style="color:var(--sub2);margin:6px 0 4px;font-size:15px">${b.d}</p><p style="font-size:15px;font-weight:600;margin:0 0 14px">รางวัล +${b.big?25:10} 🪙</p>
    <div style="display:flex;gap:10px;justify-content:center"><button class="pill sm ghost press" id="bsh" style="flex:1">แชร์ลง LINE</button><button class="pill sm press" data-act="closesheet" style="flex:1">เยี่ยม!</button></div></div>`,
    {onMount:sh=>{$('#bsh',sh).onclick=()=>{closeSheet(true);shareSheet('badge',{b})}},onClose:()=>{confetti(60);refresh()}})}
- else toast(`🏅 ได้เหรียญตรา: ${fresh[0].n}${fresh.length>1?` และอีก ${fresh.length-1}`:''}`)}
+ else toast(`ได้เหรียญตรา: ${fresh[0].n}${fresh.length>1?` และอีก ${fresh.length-1}`:''}`)}
 let _bt=0;function badgeSoon(){clearTimeout(_bt);_bt=setTimeout(()=>{try{badgeCheck()}catch(e){console.error(e)}},1500)}
 function badgeTile(b){const got=badgeGot(b.id),[c,g]=b.t(),p=Math.min(1,c/g);
  return `<button class="bdg press ${got?'on':''}" data-go="badge" data-id="${b.id}" aria-label="${b.n} ${got?'ได้แล้ว':'ยังไม่ได้ '+Math.min(c,g)+'/'+g}"><span class="be">${b.em}</span><b>${b.n}</b>${got?'<small>ได้แล้ว ✓</small>':`<span class="prog" style="height:4px;margin:6px 8px 0"><i style="width:${p*100}%"></i></span><small>${Math.min(c,g)}/${g}</small>`}</button>`}

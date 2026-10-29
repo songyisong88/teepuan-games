@@ -51,7 +51,7 @@ function confetti(n=90){const cv=$('#fx'),f=$('#frame');cv.width=f.clientWidth;c
 function bumpChips(){['cs','cc'].forEach(id=>{$$('#'+id).forEach(e=>{e.textContent=id==='cs'?curStreak():S.coins;e.parentElement.classList.remove('bump');void e.offsetWidth;e.parentElement.classList.add('bump')})})}
 
 /* ---------- ให้รางวัล ---------- */
-function addXp(n,el,pre){if(n<=0)return false;if(!pre)n=evX(n);S.xp+=n;S.xpDay[today()]=dayXp()+n;const first=touchStreak();save();if(el)floatXp('+'+n+' XP',el);if(first){setTimeout(()=>{toast('🔥 สตรีควันที่ '+S.streak+' แล้ว!');vib([20,40,20])},400)}try{buddyTick()}catch(e){}try{badgeSoon()}catch(e){}return first}
+function addXp(n,el,pre){if(n<=0)return false;if(!pre)n=evX(n);S.xp+=n;S.xpDay[today()]=dayXp()+n;const first=touchStreak();save();if(el)floatXp('+'+n+' XP',el);if(first){setTimeout(()=>{toast('สตรีควันที่ '+S.streak+' แล้ว');vib([20,40,20])},400)}try{buddyTick()}catch(e){}try{badgeSoon()}catch(e){}return first}
 function addCoins(n,pre){if(n>0&&!pre)n=evC(n);S.coins+=n;S.coinsEarned+=Math.max(0,n);save();bumpChips()}
 
 /* ---------- นำทาง ---------- */

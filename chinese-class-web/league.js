@@ -17,7 +17,7 @@ function leagueRows(){const b=lgBoard();let o='';
   o+=`<div class="lrow ${p.me?'me':''}"><span class="rk">${i+1}</span>${p.me?`<span class="av" style="background:var(--red)">ฉ</span>`:avatar(p.n,AVC[(p.n.charCodeAt(0))%6])}<span style="flex:1;font-weight:${p.me?700:500}">${p.me?'คุณ':p.n}</span><span class="val" style="font-weight:600;color:var(--ink)">${p.xp} XP</span></div>`});return o}
 function leagueHead(){const b=lgBoard(),T=LG_TIERS[b.tier],n=b.rows.length,safe=b.pos<=LG_UP,danger=b.pos>n-LG_DOWN;
  const cut=b.rows[LG_UP-1],ahead=b.rows[b.pos-2];
- const msg=safe?`อยู่ในโซนเลื่อนขึ้น 🎉 รักษาอันดับไว้ถึงวันอาทิตย์`:danger?`อยู่ในโซนตกลีก — เก็บอีก ${Math.max(1,b.rows[n-LG_DOWN-1].xp-b.me.xp+1)} XP เพื่อหนีขึ้นมา`:`ต้องการอีก ${Math.max(1,cut.xp-b.me.xp+1)} XP เพื่อเข้า ${LG_UP} อันดับแรก`;
+ const msg=safe?`อยู่ในโซนเลื่อนขึ้น รักษาอันดับไว้ถึงวันอาทิตย์`:danger?`อยู่ในโซนตกลีก — เก็บอีก ${Math.max(1,b.rows[n-LG_DOWN-1].xp-b.me.xp+1)} XP เพื่อหนีขึ้นมา`:`ต้องการอีก ${Math.max(1,cut.xp-b.me.xp+1)} XP เพื่อเข้า ${LG_UP} อันดับแรก`;
  return `<div class="card pad2 mt16" style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="flex:1"><div class="cap" style="color:${T.t||T.c};font-weight:700">${T.e} ลีก${T.n} · เหลืออีก ${b.daysLeft} วัน</div><b style="font-size:18px">อันดับ ${b.pos} · ${b.me.xp} XP</b><div class="cap mt8">${msg}</div></div><div style="width:96px;height:96px;flex:none">${M(safe?'trophy':'think')}</div></div>
  <div class="lgtiers" aria-label="ลีกทั้งหมด">${LG_TIERS.map((x,i)=>`<span class="${i===b.tier?'on':''} ${i<b.tier?'past':''}" style="${i===b.tier?'border-color:'+x.c:''}" title="${x.n}">${x.e}</span>`).join('')}</div>`}
 const lgBadge=()=>{const T=LG_TIERS[lgTier()];return T.e+' '+T.n};

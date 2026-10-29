@@ -112,7 +112,7 @@ SC.shadow=()=>{const ls=lbShadowLessons(),L=lab().shadow;const row=l=>`<button c
  <div class="card pad2 mt12" style="margin:14px 20px 0;font-size:14.5px;line-height:1.7"><b>วิธีฝึก</b><br>① ฟังช้า 1 รอบ ② ฟังปกติ ③ พูดตามเมื่อวงแหวนสว่าง ④ นับรอบ (เป้า 3 รอบ) ⑤ ประเมินตัวเอง</div>
  ${ls.length?`<div class="sec">เลือกบท (${ls.length})</div><div class="group lbg">${ls.sort((a,b)=>b.id-a.id).map(row).join('')}</div>`:`<div class="center" style="padding:30px 40px"><div style="width:140px;height:140px;margin:0 auto">${M('locked')}</div><div class="h2 mt8">ยังไม่มีบทให้ฝึก</div><p class="cap mt8">เรียนรอบแรกของบทที่ 1 ให้จบ แล้วกลับมาพูดตาม</p></div>`}${DEMO}`}};
 SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const GOAL=3;let i=0,reps=0,view=1,rating=0,allReps=0,good=0,cd=null,summary=[];
- return {title:'ชาโดว์อิ้ง',noRefresh:true,body:`<div class="large">ชาโดว์อิ้ง</div><div class="cap" style="padding:0 20px">${lnoTxt(Ls)} · ${Ls.th}</div><div class="cap" style="padding:2px 20px 0">🎙️ จำลอง: แอปไม่ได้อัดหรือตรวจเสียงของคุณ — ฟังตัวอย่างแล้วพูดตาม แล้วกดนับและประเมินตัวเอง</div><div class="stage" id="stage" style="padding:8px 0 130px"></div>`,unmount(){stopAudio();clearTimeout(cd)},
+ return {title:'ชาโดว์อิ้ง',noRefresh:true,body:`<div class="large">ชาโดว์อิ้ง</div><div class="cap" style="padding:0 20px">${lnoTxt(Ls)} · ${Ls.th}</div><div class="cap" style="padding:2px 20px 0">จำลอง: แอปไม่ได้อัดหรือตรวจเสียงของคุณ — ฟังตัวอย่างแล้วพูดตาม แล้วกดนับและประเมินตัวเอง</div><div class="stage" id="stage" style="padding:8px 0 130px"></div>`,unmount(){stopAudio();clearTimeout(cd)},
  mount(el){const stage=$('#stage',el);
   function render(){const s=sents[i];rating=0;reps=0;
    stage.innerHTML=`<div class="cap center" style="margin-top:6px">ประโยค ${i+1} / ${sents.length}</div><div class="prog" style="margin:8px 40px 0"><i style="width:${i/sents.length*100}%"></i></div>
@@ -122,7 +122,7 @@ SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const 
    <div class="shrep"><div id="shdots" aria-label="จำนวนรอบพูดตาม"></div><button class="pill sm ghost press" data-s="rep" style="width:auto;padding:0 22px">พูดตามแล้ว +1</button></div>
    <div class="cap center" style="margin-top:14px">คุณพูดชัดแค่ไหน? (ประเมินเอง)</div><div class="shrate" id="shrate"><button data-r="1" class="press">😕 ยังไม่ชัด</button><button data-r="2" class="press">🙂 พอได้</button><button data-r="3" class="press">😄 ชัดแล้ว</button></div>
    <div class="dock"><button class="pill row1 press" data-s="next" disabled id="shnext">ประโยคถัดไป</button></div>`;view=view;paint();dots()}
-  function paint(){const s=sents[i];$('#shzh',stage).innerHTML=view?s.full:'<span class="cap">ฟังแล้วพูดตาม ไม่ต้องดูตัวอักษร 👂</span>';$('#shpy',stage).textContent=view===2?s.pyAll:'';$$('#shseg button',stage).forEach(b=>b.classList.toggle('on',+b.dataset.v===view))}
+  function paint(){const s=sents[i];$('#shzh',stage).innerHTML=view?s.full:'<span class="cap">ฟังแล้วพูดตาม ไม่ต้องดูตัวอักษร</span>';$('#shpy',stage).textContent=view===2?s.pyAll:'';$$('#shseg button',stage).forEach(b=>b.classList.toggle('on',+b.dataset.v===view))}
   function dots(){$('#shdots',stage).innerHTML=Array.from({length:GOAL},(_,k)=>`<i class="${k<reps?'on':''}"></i>`).join('')+(reps>GOAL?`<span class="cap">+${reps-GOAL}</span>`:'');chk()}
   function chk(){$('#shnext',stage).disabled=!(reps>=1&&rating)}
   function play(rate){const s=sents[i],ring=$('#shring',stage),msg=$('#shmsg',stage);clearTimeout(cd);ring.classList.remove('go');msg.textContent=rate<1?'ฟังช้า…':'ฟังปกติ…';ring.classList.add('listen');
@@ -134,7 +134,7 @@ SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const 
    if(t.dataset.v){view=+t.dataset.v;paint();return}
    if(t.dataset.p){play(t.dataset.p==='slow'?.65:1);return}
    if(t.dataset.r){rating=+t.dataset.r;$$('#shrate button',stage).forEach(b=>b.classList.toggle('on',b===t));vib(8);chk();return}
-   if(t.dataset.s==='rep'){reps++;allReps++;vib(14);dots();if(reps===GOAL){confetti(30);toast('ครบ 3 รอบแล้ว เก่งมาก 👏')}return}
+   if(t.dataset.s==='rep'){reps++;allReps++;vib(14);dots();if(reps===GOAL){confetti(30);toast('ครบ 3 รอบแล้ว')}return}
    if(t.dataset.s==='next'){stopAudio();if(rating===3)good++;i++;if(i>=sents.length)finish();else render()}});
   render()}}};
 
@@ -201,7 +201,7 @@ SC.comps=()=>{const C=LB.comp.c,F=LB.comp.s,L=lab().comp;
  mount(el){el.addEventListener('click',e=>{const b=e.target.closest('[data-ci]'),f=e.target.closest('[data-fi]');
   if(b){const c=C[+b.dataset.ci];lab().comp[c.c]=1;save();b.classList.add('seen');speak(c.ex[0].w[0]);
    openSheet(`<div style="padding:0 20px"><div class="center"><div class="cmbig zh">${c.c}</div><div style="font-size:20px;font-weight:600">${c.m}</div><div class="cap">${c.py}</div><div class="cap mt8"><span class="demo" style="background:#EAF1FB;color:#3B7DD8">${c.kind}</span></div></div>
-   <div class="cmmn"><b>🧠 ตัวช่วยจำ (ไม่ใช่ที่มาจริง)</b><br>${c.tip}</div>
+   <div class="cmmn"><b>ตัวช่วยจำ (ไม่ใช่ที่มาจริง)</b><br>${c.tip}</div>
    <div class="sec" style="padding:16px 0 6px">ตัวอย่างในแอป</div><div class="group" style="margin:0">${c.ex.map(x=>`<button class="row noic press" data-act="audio" data-t="${x.w[0]}"><span class="tx"><b style="font-weight:500"><span class="zh" style="font-size:26px">${x.w[0].split('').map(ch=>ch===x.ch?`<span class="lbhi">${ch}</span>`:ch).join('')}</span> <span style="font-size:14px">${pyHtml(x.w[1])}</span></b><small>${x.w[2]} · ระดับ ${x.w[3]}</small></span><span class="spi" style="width:22px">${SPK}</span></button>`).join('')}</div></div>`)}
   else if(f){const x=F[+f.dataset.fi];openSheet(`<div style="padding:0 20px"><div class="center"><div class="cmbig zh">${x.c}</div><div style="font-size:20px;font-weight:600">เสียง ${x.py}</div></div><p style="margin:10px 0 0;font-size:15px;line-height:1.6">${x.t}</p>
    <div class="group mt12" style="margin:12px 0 0">${x.ex.map(e=>`<button class="row noic press" data-act="audio" data-t="${e.w[0]}"><span class="tx"><b style="font-weight:500"><span class="zh" style="font-size:26px">${e.ch}</span> ${pyHtml(e.py)}</b><small>${e.m} · ในคำ ${e.w[0]} ${pyPlain(e.w[1])}</small></span><span class="spi" style="width:22px">${SPK}</span></button>`).join('')}</div><p class="cap mt12">ใกล้เคียง ไม่ใช่เหมือนเสมอ</p></div>`)}})}}};

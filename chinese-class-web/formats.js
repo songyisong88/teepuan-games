@@ -4,7 +4,7 @@ window.GOX=window.GOX||{};
 const TEAM_ROUNDS=6,RELAY_LEGS=6,RELAY_LIVES=3;
 const mates=n=>shuffle(FRIENDS.slice()).slice(0,n);
 const av=(p,sz=34)=>`<span class="av" style="background:${p.c};width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.46)}px">${p.n.replace(/^(พี่|น้อง)/,'')[0]}</span>`;
-const lvPool=()=>{const p=gw4();return p.length>=4?p:ALLW};
+const lvPool=()=>{const p=gw4();return p.length>=4?p:qFallback()};
 
 SC.teamquiz=({m})=>{
  const relay=m==='relay';

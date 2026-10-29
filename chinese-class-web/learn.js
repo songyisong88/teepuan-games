@@ -14,7 +14,9 @@ function tokPool(maxLesson){const m=new Map();lvUpTo(maxLesson).forEach(l=>l.sen
 
 /* ----- ชนิดคำถาม ----- */
 const LET='ABCD';
-function makeQ(w,type,pool){const p=pool.length>=4?pool:ALLW;const others=shuffle(p.filter(x=>x.zh!==w.zh&&x.th!==w.th)).slice(0,3);const opts=shuffle([w,...others]);
+/* ตัวลวง: จากคลังของบทนี้ · ไม่พอ = คำที่เรียนแล้ว/บทจนถึงบทที่กำลังเรียน · ไม่ดึงคำระดับอื่นที่ยังไม่เรียน */
+const qFallback=()=>{const f=lvFallback(8);return f.length>=4?f:ALLW.filter(w=>w.lv<=curLv())};
+function makeQ(w,type,pool){const p=pool.length>=4?pool:qFallback();const others=shuffle(p.filter(x=>x.zh!==w.zh&&x.th!==w.th)).slice(0,3);const opts=shuffle([w,...others]);
  return {w,type,opts,ans:opts.findIndex(o=>o.zh===w.zh)}}
 function qHtml(q){const w=q.w;let top='',fmt;
  if(q.html)return q.html;

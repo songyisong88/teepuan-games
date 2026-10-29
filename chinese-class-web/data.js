@@ -58,21 +58,34 @@ const doneUnitCount=()=>S.parts.length;
 const uniqW=ws=>{const m=new Set();return ws.filter(w=>!m.has(w.zh)&&m.add(w.zh))};
 const gameWords=()=>uniqW([...UNITS.filter(u=>unitDone(u.id)||u.lv<=S.assume).flatMap(u=>u.words)]);
 /* ===== ระดับที่เลือก/ผลทดสอบ ขับเคลื่อนทุกหน้า =====
+   หลักลำดับการสอน: สอนคำก่อน → ฝึกด้วยคำที่สอนแล้วเท่านั้น → ทบทวนเฉพาะคำของบทที่ผ่านมาแล้ว (บทก่อนหน้าได้ บทอนาคตไม่ได้)
    lvDriven = ผู้ใช้เลือกระดับเองหรือรับผลทดสอบ (ระดับ>1 หรือบอกว่ารู้ระดับก่อนหน้า) แม้ยังไม่เรียนบทไหนจบ
-   lvWindow = บทของระดับปัจจุบันตั้งแต่ต้นจนถึงบทถัดไปที่ยังไม่จบ +2 บท (คำที่ "พอดีระดับ" ตอนนี้)
-   gw4()    = คลังคำสำหรับเกม/ทบทวน/ติวเตอร์/ท้าเพื่อน: คำในหน้าต่างระดับ + คำที่เรียนจบ + คำระดับ n-1 ที่ถือว่ารู้ (สุ่มคงที่รายวัน ไม่เกินจำนวนคำระดับ n) */
+   lvSoFar  = บทของระดับปัจจุบันตั้งแต่บทแรกจนถึง "บทที่กำลังเรียน" (บทถัดไปที่ยังไม่จบ) — ไม่มีบทอนาคต
+   lvWindow = เท่ากับ lvSoFar (เดิมเผื่อไปข้างหน้า +2 บท ทำให้เกม/ทบทวนดึงคำบทอนาคต — แก้แล้ว)
+   gw4()    = คลังคำสำหรับเกม/ทบทวน/ติวเตอร์/ท้าเพื่อน: คำที่เรียนจบ + คำระดับ n-1 ที่ถือว่ารู้ (สุ่มคงที่รายวัน)
+              ผู้เรียนใหม่ที่ยังไม่มีคำ: ใช้คำของบทแรก ๆ จนถึงบทที่กำลังเรียน (lvFallback) */
 const lvDriven=()=>!!(S.lvPicked||S.placed)&&(curLv()>1||(S.assume||0)>0);
-const lvWindow=()=>{const n=curLv(),ls=lvLessons(n);if(!ls.length)return [];const nu=nextUnit(n);const k=nu?Math.max(0,ls.findIndex(l=>l.id===nu.lesson)):ls.length;return ls.slice(0,Math.min(ls.length,k+3))};
+const lvCurIdx=(n=curLv())=>{const ls=lvLessons(n),nu=nextUnit(n);return nu?Math.max(0,ls.findIndex(l=>l.id===nu.lesson)):ls.length-1};
+const lvSoFar=(n=curLv())=>lvLessons(n).slice(0,lvCurIdx(n)+1);
+const lvWindow=()=>lvSoFar();
 const lvAllWords=(n=curLv())=>uniqW(lvLessons(n).flatMap(l=>l.words));
+/* คำเริ่มต้นของระดับ: คำของบทแรก ๆ ตามลำดับ จนได้อย่างน้อย min คำ */
+const lvStarter=(n=curLv(),min=4)=>{const out=[];for(const l of lvLessons(n)){if(uniqW(out).length>=min)break;out.push(...l.words)}return uniqW(out)};
+/* คลังสำรองเมื่อคำที่เรียนแล้วยังไม่พอ: คำที่เรียนแล้ว → คำของบทจนถึงบทที่กำลังเรียน → คำของบทแรก ๆ (ไม่กระโดดไปบทอนาคตไกล ๆ หรือระดับอื่น) */
+const lvFallback=(min=4)=>{const g=gameWords();if(g.length>=min)return g;const s=uniqW([...g,...lvSoFar().flatMap(l=>l.words)]);return s.length>=min?s:uniqW([...s,...lvStarter(curLv(),min)])};
 const seedHash=s=>{let h=5381;s=String(s);for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h};
 const seedPick=(arr,n,salt)=>arr.map(w=>[seedHash(w.zh+'|'+(salt||today())),w]).sort((a,b)=>a[0]-b[0]).slice(0,n).map(x=>x[1]);
 const doneWords=()=>uniqW(UNITS.filter(u=>unitDone(u.id)).flatMap(u=>u.words));
-function lvPoolW(){const n=curLv(),win=uniqW(lvWindow().flatMap(l=>l.words)),done=doneWords(),near=gameWords().filter(w=>w.lv>=n-1&&!win.some(x=>x.zh===w.zh));
- return uniqW([...win,...done,...seedPick(near,Math.max(8,win.length))])}
-const gw4=()=>{const g=gameWords();if(lvDriven()){const p=lvPoolW();if(p.length>=4)return p}return g.length>=4?g:uniqW([...g,...lvLessons(curLv()).flatMap(l=>l.words).slice(0,10)])};
+/* คำพอดีระดับ: คำที่เรียนจบในระดับนี้ก่อน + คำที่เรียนจบอื่น ๆ + คำระดับ n-1 ที่ถือว่ารู้ (สุ่มคงที่รายวัน) — ไม่มีคำบทที่ยังไม่เรียน */
+function lvPoolW(){const n=curLv(),done=doneWords(),cur=done.filter(w=>w.lv===n),near=gameWords().filter(w=>w.lv>=n-1&&w.lv<n&&!done.some(x=>x.zh===w.zh));
+ return uniqW([...cur,...done,...seedPick(near,Math.max(8,cur.length))])}
+const gw4=()=>{const g=gameWords();if(g.length<4)return lvFallback(4);if(lvDriven()){const p=lvPoolW();if(p.length>=4)return p}return g};
 const gamesOpen=()=>gameWords().length>=4||(lvDriven()&&gw4().length>=4);
-/* บทที่ใช้กับติวเตอร์/ฉากสนทนา/ประโยคตัวอย่าง: บทที่จบแล้ว + บทในหน้าต่างระดับ */
-const lvLessonPool=()=>{const done=LESSONS.filter(l=>isDone(l.id));if(!lvDriven())return done.length?done:[LESSONS.find(l=>l.sents&&l.sents.length&&l.dlg&&l.dlg.length)];const n=curLv();const m=new Map();[...lvWindow(),...done.filter(l=>l.lv>=n-1)].forEach(l=>m.set(l.id,l));return [...m.values()]};
+/* บทที่ใช้กับติวเตอร์/ฉากสนทนา/ประโยคตัวอย่าง: บทที่จบแล้ว (+ บทระดับก่อนหน้าที่บอกว่ารู้แล้ว) · ยังไม่มี = บทจนถึงบทที่กำลังเรียน */
+const lvLessonPool=()=>{const done=LESSONS.filter(l=>isDone(l.id));const n=curLv();const has=l=>l.sents&&l.sents.length&&l.dlg&&l.dlg.length;
+ if(!lvDriven()){if(done.length)return done;const s=lvSoFar(n).filter(has);return s.length?s:[LESSONS.find(has)]}
+ const m=new Map();[...done.filter(l=>l.lv>=n-1),...LESSONS.filter(l=>l.lv<n&&l.lv>=n-1&&l.lv<=(S.assume||0))].forEach(l=>m.set(l.id,l));
+ if(!m.size)lvSoFar(n).forEach(l=>m.set(l.id,l));return [...m.values()]};
 const learnedCount=()=>gameWords().length;
 const lvBadge=()=>`<span class="chip lvchip press" data-go="levels" aria-label="ระดับของฉัน">ระดับ ${curLv()}</span>`;
 function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;srsGrade(w,false,1);save()}

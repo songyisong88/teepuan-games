@@ -320,7 +320,7 @@ SC.strokeres=(r)=>{r=r||{};if(!r.cs){const w=r.w||'你好';r={w,cs:stkHan(w),str
   <div class="large center" style="padding:6px 20px 0">เขียน <span class="zh">${r.w}</span> ได้ครบแล้ว</div><div class="stk-bigstars" aria-label="${r.stars} ดาว">${stkStarTxt(r.stars)}</div>
   <p class="cap center" style="font-size:14.5px;color:var(--sub2)">${r.strokes} ขีด · ${r.mis?'พลาด '+r.mis+' ครั้ง':'ไม่พลาดเลย'} · ใช้เวลา ${r.secs} วินาที</p>
   <div class="stk-tiles res"><div><b>${r.xp?'+'+r.xp:'–'}</b><small>XP</small></div><div><b>${r.coins?'+'+r.coins:'–'}</b><small>เหรียญ</small></div><div><b>${r.days}</b><small>วันเขียนต่อเนื่อง</small></div></div>
-  ${r.first?'':`<p class="cap center" style="margin-top:8px">วันนี้ได้รางวัลของคำนี้ไปแล้ว · เขียนซ้ำเพื่อฝึกได้เลย พรุ่งนี้รับรางวัลได้อีก</p>`}
+  ${r.first?'':`<p class="cap center" style="margin-top:8px;padding:0 24px;overflow-wrap:anywhere">วันนี้ได้รางวัลของคำนี้ไปแล้ว · เขียนซ้ำเพื่อฝึกได้เลย พรุ่งนี้รับรางวัลได้อีก</p>`}
   <div class="cardprev" id="rcard" style="margin:14px 20px 0"><div class="cpl">กำลังสร้างการ์ด…</div></div>
   <div style="padding:14px 20px 0;display:flex;flex-direction:column;gap:10px"><button class="pill row1 linebtn press" id="rshare"><span style="display:inline-flex;margin-right:8px">${svg('<path d="M21 11.5C21 7.4 16.97 4 12 4S3 7.4 3 11.5c0 3.6 3.2 6.6 7.5 7.4.3.1.7.2.8.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1.1 1 .6 1.2-.5 6.4-3.8 8.7-6.5 1.6-1.7 2.1-3.4 2.1-3.8z"/>',20)}</span>แชร์ไปที่ LINE</button>
   <button class="pill row1 ghost press" id="rsave">บันทึกรูป</button></div>

@@ -59,11 +59,13 @@ SC.plans=()=>({title:'แผนและราคา',body:`<div class="large">�
   openSheet(`<div class="center" style="padding:0 24px"><div style="width:130px;height:130px;margin:0 auto">${M('bow')}</div><div class="h2 mt8">ยังไม่เปิดชำระเงิน</div><p style="color:var(--sub2);margin:6px 0 16px;font-size:15px">นี่คือหน้าตัวอย่างทดลอง ไม่มีการตัดเงินจริง ลองสลับแผนเพื่อดูหน้าตาได้เลย</p><button class="pill sm press" id="tp">ลองแผน ${PLANS.find(p=>p.id===id).n} (จำลอง)</button><button class="pill sm ghost press mt12" data-act="closesheet">ไว้ก่อน</button></div>`,{onMount:sh=>$('#tp',sh).onclick=()=>{S.plan=id;save();closeSheet();refresh();toast('สลับเป็นแผน '+PLANS.find(p=>p.id===id).n+' (จำลอง)')}})})}});
 
 /* ----- โปรไฟล์ ----- */
+/* คำที่เรียน: คำจากบทที่เรียนจบ + คำที่ตอบถูกแล้วอย่างน้อยหนึ่งครั้งในรอบทบทวน/สมุดคำ/เกม (S.srs b>=1) */
+function meWordsN(){const z=new Set(gameWords().map(w=>w.zh));const r=S.srs||{};for(const k in r)if(r[k]&&r[k].b>=1)z.add(k);return z.size}
 SC.me=()=>{const lv=level(),pr=(S.xp%100);
  return {title:'ฉัน',body:`<div class="large">ฉัน</div>
  <div class="card pad2 mt12 fade-in" style="display:flex;gap:14px;align-items:center"><div style="width:96px;height:96px;border-radius:50%;background:var(--redsoft);overflow:hidden;flex:none;display:flex;align-items:flex-end;justify-content:center">${llama('wave',92,{acc:true,style:'margin-top:8px'})}</div>
   <div style="flex:1;min-width:0"><b style="font-size:20px">${dn()||'ผู้เรียน'}</b><div class="cap">${titleNow()} · เลเวล ${lv} · ${S.xp} XP</div><div class="prog mt8"><i style="width:${pr}%"></i></div><div class="cap mt8">อีก ${100-pr} XP ถึงเลเวล ${lv+1}</div></div></div>
- <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${gameWords().length}</b><small>${S.assume>0?'คำที่นับว่าเรียน':'คำที่เรียน'}</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
+ <div class="stat mt16"><div><b>${curStreak()}</b><small>วันสตรีค</small></div><div><b>${meWordsN()}</b><small>${S.assume>0?'คำที่นับว่าเรียน':'คำที่เรียน'}</small></div><div><b>${S.coins}</b><small>เหรียญ</small></div></div>
  <div class="sec">ระดับการเรียน</div><div class="group">
   ${ROW(levelBy(curLv()).bg,levelBy(curLv()).em,'ระดับของฉัน: '+levelBy(curLv()).name,levelBy(curLv()).th+(lvInfo(curLv()).complete?'':' · กำลังเพิ่มเนื้อหา'),'<span class="val">เปลี่ยน</span>'+CHEV,'data-go="levels"')}
   ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?'ผลล่าสุด ≈ ระดับ '+S.placeRes.est+' · ทำใหม่ได้':'12–20 ข้อ ไม่บังคับ',undefined,'data-go="placement"')}</div>

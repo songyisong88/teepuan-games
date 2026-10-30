@@ -81,7 +81,9 @@ SC.duel=(p)=>{const f=(p&&p.f)||FRIENDS[0];return ({noRefresh:true,nav:gnav('ด
   stage.innerHTML=`<div class="center pop" style="padding-top:6px"><div style="width:210px;height:210px;margin:0 auto">${M('duel')}</div><div class="large" style="padding:0">คุณ VS ${f.n}</div><p class="cap mt8">เตรียมตัว 5 ข้อ ตอบให้เร็วและถูก</p></div>`;setTimeout(()=>{if(alive)show()},1400);this.stop=()=>{alive=false;clearInterval(ft)}},unmount(){this.stop&&this.stop()}})};
 
 /* ----- ผลลัพธ์ (ใช้ร่วม) ----- */
-SC.result=p=>({nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="center" style="padding:calc(var(--st) + 30px) 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M(p.mascot||'celebrate')}</div>
+/* ค่าเริ่มต้นกันหน้าผลแสดง undefined เมื่อเปิดโดยไม่มีค่า */
+function resDef(p){p=Object.assign({},p||{});const d={title:'ทำเสร็จแล้ว',xp:0,coins:0};for(const k in d)if(p[k]==null||p[k]!==p[k])p[k]=d[k];return p}
+SC.result=p=>(p=resDef(p),{nav:'<header class="nav"></header>',noRefresh:true,body:`<div class="center" style="padding:calc(var(--st) + 30px) 20px 0"><div class="pop" style="width:200px;height:200px;margin:0 auto">${M(p.mascot||'celebrate')}</div>
  <div class="large" style="padding:6px 0 0">${p.title}</div><div style="font-size:16px;color:var(--sub2);margin-top:2px">${p.sub||''}</div></div>
  <div class="stat mt20 fade-in"><div><b style="color:var(--red)">+${p.xp}</b><small>XP</small></div><div><b style="color:#B07A12">+${p.coins}</b><small>เหรียญ</small></div></div>
  ${p.stats?`<div class="group mt16 fade-in">${p.stats.map(s=>`<div class="row noic" style="min-height:52px"><span class="tx"><b style="font-weight:500">${s[0]}</b></span><span class="val" style="color:var(--ink);font-weight:600">${s[1]}</span></div>`).join('')}</div>`:''}

@@ -235,7 +235,7 @@ SC.mwdet=(p)=>{const m=MWI[p&&p.c]||MW[0],c=m.zh,X=MVX[c];const sp=t=>`<button c
  <div class="mv-why">${mvSvg(X.sh)}<div><b>ดูที่${X.k}: ${X.t}</b><span>${X.y}</span></div></div>
  ${conf.length?`<div class="rd-sech"><b>ระวังสับสน</b></div>${conf.map(n=>`<div class="mv-mx">${mvA(n.a)}<div class="t"><span class="zh">${n.ph}</span><br>${mvRs(n)}</div>${sp(n.ph)}</div>`).join('')}`:''}
  <div class="rd-sech"><b>ตัวอย่างประโยค</b><small>${m.ex.length} ประโยค</small></div>
- ${m.ex.map(e=>`<div class="rd-pic card">${e.a?art('word',e.a,'',''):''}<div class="t" style="flex:1"><b style="font-size:22px"><span class="zh" style="color:inherit">${zhHtml(e.zh,e.py)}</span></b><div style="font-size:14.5px;margin-top:2px">${pyHtml(e.py)}</div><small style="margin-top:2px">${e.th}</small></div>${sp(e.zh)}</div>`).join('')}
+ ${m.ex.map(e=>{const A=typeof alEx==='function'?alEx(e.zh,e.py,e.th):{on:false,z:zhHtml(e.zh,e.py),p:pyHtml(e.py),t:e.th};return `<div class="rd-pic card">${e.a?art('word',e.a,'',''):''}<div class="t${A.on?' al-on':''}" style="flex:1"><b style="font-size:22px"><span class="zh" style="color:inherit">${A.z}</span></b><div style="font-size:14.5px;margin-top:2px">${A.p}</div><small style="margin-top:2px">${A.t}</small></div>${sp(e.zh)}</div>`}).join('')}
  ${m.cau?`<div class="rd-weak"><b>ข้อควรระวัง</b><p>${m.cau}</p></div>`:''}<div style="height:120px"></div>`;
  return {title:c,backLabel:'ลักษณนาม',noRefresh:true,right:`<button class="rd-spk press" data-act="audio" data-t="${m.ex[0].zh}" aria-label="ฟังตัวอย่าง">${SPK}</button>`,body,
   extra:`<div class="dock"><button class="pill press" data-go="mwprac" data-c="${c}"><b>${gq?`ฝึก ${c} แบบทายกลุ่ม`:`ฝึกลักษณนาม ${c}`}</b><small>6 ข้อ · ใช้เวลาราว 2 นาที</small></button></div>`}};

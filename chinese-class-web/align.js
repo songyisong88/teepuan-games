@@ -47,6 +47,13 @@ function alEx(zh,pyRaw,th){const zH=zhHtml(zh,pyRaw),pH=pyHtml(pyRaw),no={on:fal
 /* ข้อความล้วน (สมุดคำ): คืน null เมื่อไม่มีข้อมูล หรือมีอักขระที่ต้อง escape — ผู้เรียกแสดงแบบเดิม */
 function alLines(zh,py,th){if([zh,py,th].some(x=>typeof x!=='string'||/[&<>"]/.test(x)))return null;const R=alGet(zh,py,th);if(!R)return null;return {z:alWrap(zh,R,'z'),p:alWrap(py,R,'p'),t:alWrap(th,R,'t')}}
 
+/* ห้องอ่าน: ประโยคแบ่งเป็นปุ่มคำ (ปุ่มละ จีน+พินอิน) — ตัดช่วงสีให้อยู่ในแต่ละปุ่ม · pys[j] = พินอินที่แสดงบนปุ่ม j (null = ไม่ใช่ปุ่มคำ)
+   คืน {z:[html ต่อปุ่ม], p:[...], t} หรือ null (ไม่มีข้อมูล/ไม่ตรง/มีอักขระที่ต้อง escape) — ผู้เรียกแสดงแบบเดิม */
+function alStory(zh,toks,pys,th){if(typeof zh!=='string'||typeof th!=='string'||!Array.isArray(toks)||toks.join('')!==zh||[zh,th,...pys.filter(p=>p!=null)].some(x=>typeof x!=='string'||/[&<>]/.test(x)))return null;
+ const py=pys.filter(p=>p!=null).join(' ');const R=alGet(zh,py,th);if(!R)return null;
+ const cut=(s,a,b,k)=>alWrap(s,R.filter(r=>r[k][0]<b&&r[k][1]>a).map(r=>Object.assign({},r,{[k]:[Math.max(a,r[k][0])-a,Math.min(b,r[k][1])-a]})),k);
+ const z=[],p=[];let za=0,pa=0;toks.forEach((t,j)=>{if(pys[j]==null){z.push(null);p.push(null)}else{z.push(cut(t,za,za+t.length,'z'));p.push(cut(pys[j],pa,pa+pys[j].length,'p'));pa+=pys[j].length+1}za+=t.length});
+ return {z,p,t:alWrap(th,R,'t')}}
 /* ---- สีไล่ตามเสียง: เวลาของแต่ละคำประมาณจากจำนวนพยางค์พินอิน (+ช่วงหยุดที่เครื่องหมายวรรคตอน) ---- */
 function alTimes(tx){const a=tx.querySelector('.al[data-l="p"]'),p=a?a.parentElement:tx.querySelector('.p');if(!p)return null;const parts=[];let pos=0;const cut=[];
  p.childNodes.forEach(n=>{const t=n.textContent;if(n.nodeType===1&&n.classList.contains('al'))cut.push({i:+n.dataset.i,a:pos,b:pos+t.length});parts.push(t);pos+=t.length});
@@ -70,7 +77,7 @@ function alFollow(tx){alStop();const T=alTimes(tx);if(!T)return;const t0=perform
   run.raf=requestAnimationFrame(tick)};
  run.raf=requestAnimationFrame(tick)}
 if(typeof document!=='undefined')document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-act="audio"]');if(!b)return;
- const row=b.closest('.exr,.hb-ex,.exc,.l1nwex');const tx=row&&(row.matches('.al-on')?row:row.querySelector('.al-on'));if(tx)setTimeout(()=>alFollow(tx),0);else alStop()});
-G.alTx=alTx;G.alEx=alEx;G.alLines=alLines;G.alResolve=alResolve;G.alFollow=alFollow;G.alStop=alStop;
-if(typeof module!=='undefined')module.exports={alResolve,alFind,alTx,alWrapHtml,alWrap};
+ const row=b.closest('.exr,.hb-ex,.exc,.l1nwex,.dbub,.rd-pic');const tx=row&&(row.matches('.al-on')?row:row.querySelector('.al-on'));if(tx)setTimeout(()=>alFollow(tx),0);else alStop()});
+G.alTx=alTx;G.alEx=alEx;G.alStory=alStory;G.alLines=alLines;G.alResolve=alResolve;G.alFollow=alFollow;G.alStop=alStop;
+if(typeof module!=='undefined')module.exports={alResolve,alFind,alTx,alWrapHtml,alWrap,alStory};
 })(typeof window!=='undefined'?window:globalThis);

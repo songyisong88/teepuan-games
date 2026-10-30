@@ -87,14 +87,14 @@ function cardClick(e){if(e.__x2)return;const c=e.target.closest&&e.target.closes
 
 /* ---------- R25 คาราโอเกะในห้องอ่าน ---------- */
 let KR=null;
-function krStop(){if(!KR)return;const k=KR;KR=null;cancelAnimationFrame(k.raf);try{k.pill.remove()}catch(e){}k.toks.forEach(t=>{t.classList.remove('x2-kw');t.style.translate=''});if(k.book)k.book.classList.remove('x2-kdim');if(k.row)k.row.classList.remove('x2-kon')}
+function krStop(){if(!KR)return;const k=KR;KR=null;cancelAnimationFrame(k.raf);try{k.pill.remove()}catch(e){}k.toks.forEach(t=>{t.classList.remove('x2-kw');t.style.translate=''});if(k.book)k.book.classList.remove('x2-kdim');if(k.row){k.row.classList.remove('x2-kon');k.row.querySelectorAll('.al-lit').forEach(e=>e.classList.remove('al-lit'))}}
 function aud(){try{return typeof curAudio!=='undefined'?curAudio:null}catch(e){return null}}
 X2.karaoke=T(row=>{krStop();if(!row||!row.isConnected)return;const tk=$1('.lbtk',row);if(!tk)return;const toks=$A('.lbt',tk);if(!toks.length)return;
  const book=row.closest('.lbbook');const w=toks.map(t=>Math.max(1,($1('.zh',t)||t).textContent.trim().length));const tot=w.reduce((a,b)=>a+b,0);
  const pill=document.createElement('i');pill.className='x2-kp';tk.appendChild(pill);
  const k=KR={row,toks,book,pill,i:-1,t0:performance.now(),a:null,raf:0};if(book&&!RM())book.classList.add('x2-kdim');row.classList.add('x2-kon');
  const place=i=>{if(i===k.i)return;k.i=i;toks.forEach((t,j)=>{t.classList.toggle('x2-kw',j===i);if(!RM())t.style.translate=j===i?'0 -2px':''});
-  const t=toks[i];pill.style.left=t.offsetLeft+'px';pill.style.top=t.offsetTop+'px';pill.style.width=t.offsetWidth+'px';pill.style.height=t.offsetHeight+'px';pill.style.opacity='1';if(RM())pill.style.transition='none'};
+  const t=toks[i];pill.style.left=t.offsetLeft+'px';pill.style.top=t.offsetTop+'px';pill.style.width=t.offsetWidth+'px';pill.style.height=t.offsetHeight+'px';pill.style.opacity='1';if(RM())pill.style.transition='none';if(row.classList.contains('al-on')){const on=new Set([...t.querySelectorAll('.al')].map(e=>e.dataset.i));row.querySelectorAll('.al').forEach(e=>e.classList.toggle('al-lit',on.has(e.dataset.i)))}};
  let waited=0;
  const tick=()=>{if(KR!==k)return;if(!row.isConnected){krStop();return}
   let p;const a=k.a;

@@ -1,4 +1,4 @@
-// สร้าง data/align.js จาก tools/align/hub.txt (คลังคำ) + tools/align/lessons.txt (บทเรียนระดับ 1–2) + tools/align/lessons3.txt (บทเรียนระดับ 3 ขึ้นไป) · ตรวจทุกคู่ก่อนเขียน: ข้อมูลผิด = หยุด ไม่เขียนไฟล์
+// สร้าง data/align.js จาก tools/align/hub.txt (คลังคำ) + lessons.txt (บทเรียนระดับ 1–2) + lessons3.txt (บทเรียนระดับ 3 ขึ้นไป) + stories.txt (ห้องอ่าน) + dialogues.txt (บทสนทนา) + mw.txt (ลักษณนาม) · ตรวจทุกคู่ก่อนเขียน: ข้อมูลผิด = หยุด ไม่เขียนไฟล์
 // ใช้: node tools/align/build.js [--check]
 const fs=require('fs'),path=require('path'),vm=require('vm');
 const ROOT=path.join(__dirname,'..','..');const {alResolve,alFind}=require(path.join(ROOT,'align.js'));
@@ -9,7 +9,13 @@ const H=load(['data/hub.js']);const hub=[];for(const s of H.window.HUB_SETS)for(
 // บทเรียน: LESSONS[].words[] ที่มี ex (พินอินที่แสดงจริง = ตัด | ออก) · ระดับ 1–2 → lessons.txt · ระดับ ≥3 → lessons3.txt
 const L=load(['data/common.js','data/hsk1.js','data/hsk2.js','data/hsk2x.js','data/hsk3.js','data/hsk4.js','data/hsk5.js']);const LS=vm.runInContext('LESSONS',L),CH=vm.runInContext('CHAPTERS',L);
 const les=[],les3=[];for(const l of LS){const lv=(CH.find(c=>c.id===l.chapter)||{lv:1}).lv;for(const w of l.words)if(w.ex)(lv>2?les3:les).push({lv,w:w.zh,zh:w.ex,py:pyPlain(w.exPy),th:w.exTh})}
-const SRC=[{name:'คลังคำ',file:'hub.txt',list:hub},{name:'บทเรียน 1–2',file:'lessons.txt',list:les},{name:'บทเรียน 3+',file:'lessons3.txt',list:les3}];
+// ห้องอ่าน: LABS.stories[].s[] (พินอิน = พินอินของแต่ละคำ d[คำ][0] ต่อกันด้วยช่องว่าง ตามที่แสดงบนปุ่มคำ) → stories.txt
+const LBX=load(['data/labs.js']).window.LABS;const sto=[];for(const st of LBX.stories)for(const x of st.s)sto.push({lv:st.lv,zh:x.z,py:x.t.map(t=>st.d[t]?pyPlain(st.d[t][0]):null).filter(p=>p!=null).join(' '),th:x.th});
+// บทสนทนา: LESSONS[].dlg[] = [ผู้พูด,จีน,พินอิน,ไทย] → dialogues.txt
+const dlg=[];for(const l of LS){const lv=(CH.find(c=>c.id===l.chapter)||{lv:1}).lv;for(const d of (l.dlg||[]))dlg.push({lv,zh:d[1],py:pyPlain(d[2]),th:d[3]})}
+// ลักษณนาม: MW[].ex[] ใน mw.js → mw.txt
+const MWX=JSON.parse(fs.readFileSync(path.join(ROOT,'mw.js'),'utf8').match(/const MW=(\[.*?\]);\n/s)[1]);const mwx=[];for(const m of MWX)for(const e of (m.ex||[]))mwx.push({lv:m.lv,zh:e.zh,py:pyPlain(e.py),th:e.th});
+const SRC=[{name:'คลังคำ',file:'hub.txt',list:hub},{name:'บทเรียน 1–2',file:'lessons.txt',list:les},{name:'บทเรียน 3+',file:'lessons3.txt',list:les3},{name:'ห้องอ่าน',file:'stories.txt',list:sto},{name:'บทสนทนา',file:'dialogues.txt',list:dlg},{name:'ลักษณนาม',file:'mw.txt',list:mwx}];
 const out={},errs=[],warn=[],rec=[];let seg=null;try{seg=new Intl.Segmenter('th',{granularity:'word'})}catch(e){}
 const thBounds=t=>{const b=new Set([0,t.length]);if(seg)for(const x of seg.segment(t)){b.add(x.index);b.add(x.index+x.segment.length)}return b};
 const add=(zh,spec)=>{(out[zh]=out[zh]||[]);if(!out[zh].includes(spec))out[zh].push(spec)};

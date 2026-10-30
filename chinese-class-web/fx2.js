@@ -190,10 +190,13 @@ X2.countdown=countdown;
 function speedGo(e){if(skipFx(e))return;const g=e.target.closest&&e.target.closest('#go');if(!g)return;const s=g.closest('section.screen');if(!s||s.dataset.name!=='game_speed'||typeof g.onclick!=='function')return;
  e.preventDefault();e.stopImmediatePropagation();if(g._x2cd)return;g._x2cd=1;const fn=g.onclick;countdown(()=>{if(s.isConnected)fn.call(g,e)})}
 function wrapTimed(){['game_catch','game_boss'].concat(['duel']).forEach(k=>{const f=typeof SC!=='undefined'&&SC[k];if(typeof f!=='function'||f.__x2)return;
- const w=function(){const r=f.apply(this,arguments);if(!r||typeof r.mount!=='function'||r.__x2)return r;r.__x2=1;const om=r.mount,ou=r.unmount;let c=null,dead=false,started=false;
+ const w=function(){const args=arguments;const r=f.apply(this,arguments);if(!r||typeof r.mount!=='function'||r.__x2)return r;r.__x2=1;const om=r.mount,ou=r.unmount;let c=null,dead=false,started=false;
   r.mount=function(el){const self=this;if(k==='game_boss'&&typeof S!=='undefined'&&S.boss&&S.boss.hp<=0&&S.boss.day===today()){started=true;return om.call(self,el)}
    const q=ev=>{if(ev.target.closest('[data-sa=gquit]')&&!started){dead=true;c&&c.cancel();pop()}};el.addEventListener('click',q);
-   c=countdown(()=>{el.removeEventListener('click',q);if(dead||!el.isConnected)return;started=true;om.call(self,el)},320)};
+   const run=d=>{c=countdown(()=>{el.removeEventListener('click',q);if(dead||!el.isConnected)return;started=true;om.call(self,el)},d)};
+   if(k==='duel'){const fr0=(args[0]&&args[0].f)||(typeof FRIENDS!=='undefined'&&FRIENDS[0])||{n:'เพื่อน',c:'#3F6FB5'};
+    c=vsIntro({n:'คุณ',c:'#C8102E',av:avH('คุณ','#C8102E')},{n:fr0.n,c:fr0.c||'#3F6FB5',av:avH(fr0.n,fr0.c||'#3F6FB5')},()=>{if(!dead&&el.isConnected)run(0)},300)}
+   else run(320)};
   r.unmount=function(){dead=true;c&&c.cancel();if(started&&ou)return ou.apply(this,arguments)};return r};
  w.__x2=1;SC[k]=w})}
 
@@ -284,9 +287,281 @@ function eqOn(b){if(!b||!b.isConnected||!$1(':scope>svg',b))return;if(eqBtn&&eqB
 function wrapSpeak(){const f=window.speak;if(typeof f!=='function'||f.__x2)return;
  const w=function(t,btn){const out=f.apply(this,arguments);try{if(btn&&btn.nodeType===1)eqOn(btn);else if(eqBtn)eqOff(eqBtn)}catch(er){console.error('[fx2]',er)}return out};w.__x2=1;window.speak=w;}
 
-function wrapRefresh(){const f=window.refresh;if(typeof f!=='function'||f.__x2)return;const w=function(){const o=f.apply(this,arguments);try{const s=top();if(s){setTimeout(()=>X2.mascot(s),60);if(SKS[s.dataset.name])X2.skel(s)}}catch(e){}return o};w.__x2=1;window.refresh=w}
+function wrapRefresh(){const f=window.refresh;if(typeof f!=='function'||f.__x2)return;const w=function(){const o=f.apply(this,arguments);try{const s=top();if(s){setTimeout(()=>X2.mascot(s),60);if(SKS[s.dataset.name])X2.skel(s);stTier(s);if($1('.lc-map',s))setTimeout(()=>mapFx(s,1),120)}}catch(e){}return o};w.__x2=1;window.refresh=w}
+
+/* ================= ชุดที่ 3 ================= */
+const SVGN='http://www.w3.org/2000/svg';
+const vibp=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(_){}};
+const REWARD=[18,60,18,60,30];
+
+/* ---------- R06 หัวข้อใหญ่หด/จางตามการเลื่อน เส้นขอบแถบบนค่อย ๆ ปรากฏ ภาพปกเลื่อนช้ากว่าการ์ด ---------- */
+function r06(e){const sc=e.target;if(!sc||!sc.classList||!sc.classList.contains('scroller'))return;if(sc.__x2r6)return;sc.__x2r6=1;
+ requestAnimationFrame(T(()=>{sc.__x2r6=0;const s=sc.closest('section.screen');if(s)r06apply(s,sc)}))}
+function r06apply(s,sc){const st=Math.max(0,sc.scrollTop),k=Math.min(1,st/50),rm=RM();
+ if(sc.__x2lg===undefined||(sc.__x2lg&&!sc.__x2lg.isConnected)){const lg=$1(':scope>.large,:scope>.kn-hd>h1,:scope>.hg-hello>h1',sc);sc.__x2lg=lg||null}
+ const lg=sc.__x2lg;if(lg){if(!rm){lg.style.transformOrigin='0 60%';lg.style.scale=k?String(1-.08*k):''}lg.style.opacity=k?String(1-k*.65):''}
+ const nav=$1(':scope>.nav',s);if(nav){nav.style.boxShadow=k&&!s.classList.contains('collapsed')?`0 .5px 0 rgba(60,40,30,${(.18*k).toFixed(3)})`:''}
+ if(rm)return;const sr=sc.getBoundingClientRect();let n=0;
+ for(const im of sc.getElementsByTagName('img')){if(n>40)break;if(im.__x2px===0)continue;
+  if(im.__x2px===undefined){if(!im.complete||!im.naturalWidth)continue;const cs=getComputedStyle(im),pa=im.parentElement;
+   const ok=cs.objectFit==='cover'&&(cs.objectPosition==='50% 50%')&&im.offsetHeight>=60&&pa&&getComputedStyle(pa).overflow==='hidden'&&Math.abs(im.naturalWidth/im.naturalHeight-im.offsetWidth/im.offsetHeight)>.08;im.__x2px=ok?1:0;if(!ok)continue}
+  const r=im.getBoundingClientRect();if(r.bottom<sr.top||r.top>sr.bottom)continue;n++;
+  const f=Math.max(-1,Math.min(1,((r.top+r.height/2)-(sr.top+sr.height/2))/(sr.height/2)));im.style.objectPosition=`50% ${(50+f*22).toFixed(1)}%`}}
+
+/* ---------- R08 ข้อความแจ้งเตือนเลื่อนลงแบบสปริง ขยายจากเล็ก และหดกลับขึ้นไป ---------- */
+let tObs=null;
+function toastIn(t){if(t.__x2t)t.__x2t.cancel();const rm=RM();
+ t.__x2t=rm?A(t,[{transform:'translate(-50%,0)',opacity:0},{transform:'translate(-50%,0)',opacity:1}],{duration:250,fill:'forwards'})
+  :A(t,[{transform:'translate(-50%,-56px) scale(.42,.55)',opacity:.2},{transform:'translate(-50%,3px) scale(1.02,1.02)',opacity:1,offset:.68},{transform:'translate(-50%,0) scale(1)',opacity:1}],{duration:350,easing:'cubic-bezier(.25,.8,.3,1)',fill:'forwards'});
+ const a=t.__x2t;setTimeout(()=>{if(t.__x2t===a){a&&a.cancel();t.__x2t=null}},560);
+ if(!tObs){let on=true;tObs=new MutationObserver(()=>{const now2=t.classList.contains('on');if(on&&!now2)toastOut(t);on=now2});tObs.observe(t,{attributes:true,attributeFilter:['class']})}}
+function toastOut(t){if(t.__x2t)t.__x2t.cancel();const rm=RM();
+ t.__x2t=rm?A(t,[{transform:'translate(-50%,0)',opacity:1},{transform:'translate(-50%,0)',opacity:0}],{duration:200,fill:'forwards'})
+  :A(t,[{transform:'translate(-50%,0) scale(1)',opacity:1},{transform:'translate(-50%,-46px) scale(.45,.5)',opacity:0}],{duration:250,easing:'cubic-bezier(.5,0,.75,.3)',fill:'forwards'});
+ const a=t.__x2t;setTimeout(()=>{if(t.__x2t===a){a&&a.cancel();t.__x2t=null}},560)}
+function wrapToast(){const f=window.toast;if(typeof f!=='function'||f.__x2)return;
+ const w=function(){const t=$1('#toast');const was=t&&t.classList.contains('on');const o=f.apply(this,arguments);try{const t2=$1('#toast');if(t2&&!was&&t2.classList.contains('on'))toastIn(t2)}catch(er){console.error('[fx2]',er)}return o};w.__x2=1;window.toast=w}
+
+/* ---------- R09 สวิตช์ยืดเป็นแคปซูล · ตัวเลือกแบ่งส่วนเลื่อนแบบสปริง ---------- */
+function ctlTap(e){if(skipFx(e))return;const sw=e.target.closest&&e.target.closest('.sw');
+ if(sw){const was=sw.classList.contains('on');setTimeout(T(()=>{if(RM()||!sw.isConnected)return;const on=sw.classList.contains('on');if(on===was)return;
+   sw.classList.remove('x2-mvon','x2-mvoff');void sw.offsetWidth;sw.classList.add(on?'x2-mvon':'x2-mvoff');setTimeout(()=>sw.classList.remove('x2-mvon','x2-mvoff'),380)}),0);return}
+ const b=e.target.closest&&e.target.closest('.seg>button');if(!b)return;const sg=b.parentElement;if($1(':scope>.th',sg))return;const old=$1(':scope>button.on',sg);if(!old||old===b)return;
+ const s=sg.closest('section.screen'),si=s?$A('.seg',s).indexOf(sg):-1,r0=old.getBoundingClientRect();
+ setTimeout(T(()=>{if(RM())return;let g=sg;if(!g.isConnected){const s2=top();g=s2&&si>=0&&$A('.seg',s2)[si];if(!g)return}
+  const nb=$1(':scope>button.on',g);if(!nb)return;const r1=nb.getBoundingClientRect(),gr=g.getBoundingClientRect();if(Math.abs(r1.left-r0.left)<2)return;
+  const th=document.createElement('span');th.className='x2-segth';th.style.cssText=`left:${r1.left-gr.left-g.clientLeft}px;top:${r1.top-gr.top-g.clientTop}px;width:${r1.width}px;height:${r1.height}px`;
+  g.appendChild(th);g.classList.add('x2-segm');
+  A(th,[{transform:`translateX(${r0.left-r1.left}px)`,width:r0.width+'px'},{transform:'none',width:r1.width+'px'}],{duration:300,easing:SPR});
+  A(nb,[{color:'var(--sub2)'},{color:'var(--ink)'}],{duration:250});
+  setTimeout(()=>{g.classList.remove('x2-segm');th.remove()},310)}),0)}
+
+/* ---------- R10 ตัวเลขสถิตินับขึ้นจาก 0 เมื่อเข้ามาในจอ ---------- */
+const CNT={me:1,recap:1,mockres:1};
+const eOut=k=>1-Math.pow(1-k,3);
+function runCount(x,D){const fin=x.textContent;const parts=fin.split(/(\d+)/);const nums=parts.map((p,i)=>i%2?parseInt(p,10):null);if(!nums.some(v=>v>0))return;
+ const t0=now();let last=null;const step=()=>{if(!x.isConnected)return;if(last!==null&&x.textContent!==last)return;const k=Math.min(1,(now()-t0)/D),e=eOut(k);
+  last=parts.map((p,i)=>i%2?String(Math.round(nums[i]*e)):p).join('');if(k>=1)last=fin;x.textContent=last;if(k<1)requestAnimationFrame(step)};step()}
+function countIn(el,n){if(!CNT[n]||RM())return;const t0=now();
+ $A('.stat b,.group .row .val',el).filter(x=>!x.children.length&&/[1-9]/.test(x.textContent)).slice(0,12).forEach(x=>{
+  const io=new IntersectionObserver(es=>{if(!es.some(z=>z.isIntersecting))return;io.disconnect();if(now()-t0<1600)runCount(x,700)});io.observe(x)})}
+
+/* ---------- R11 ระบบการสั่น: แตะทั่วไปไม่สั่น · ถูก 1 ครั้ง · ผิด 2 ครั้ง · รางวัล 3 จังหวะ · หีบถี่ขึ้น ---------- */
+let pdT=0;
+function pdMark(e){const t=e.target.closest&&e.target.closest('button,a,[data-go],[data-act],[data-sa],.press');if(t)pdT=now()}
+function wrapVib(){const n=navigator;if(typeof n.vibrate!=='function'||n.vibrate.__x2)return;const o=n.vibrate.bind(n);
+ const w=function(p){try{const v=Array.isArray(p)?(p.length===1?p[0]:null):p;if(typeof v==='number'&&v>0&&v<=8&&now()-pdT<350)return true}catch(_){}return o(p)};
+ w.__x2=1;try{n.vibrate=w}catch(_){}}
+
+/* ---------- R14 แผนที่บทเรียน: เส้นทางวาดตัวเอง วงแสงหายใจรอบด่านปัจจุบัน ---------- */
+let mkId=0;
+function mapFx(el,nd){const map=$1('.lc-map',el);if(!map)return;const rm=RM();
+ const cur=$1('.lc-node.cur',map);if(cur&&!rm){const pos=cur.closest('.lc-pos')||cur.parentElement,o=$1('.o',cur)||cur;
+  if(pos&&!$1(':scope>.x2-ring',pos)){const pr=pos.getBoundingClientRect(),orr=o.getBoundingClientRect();if(orr.width){const rg=document.createElement('span');rg.className='x2-ring';
+   rg.style.cssText=`left:${orr.left-pr.left}px;top:${orr.top-pr.top}px;width:${orr.width}px;height:${orr.height}px`;pos.insertBefore(rg,pos.firstChild)}}}
+ if(rm||nd)return;
+ $A('svg.lc-path',map).forEach(svg=>{if(!vis(svg))return;const g=$A('path',svg).find(p=>/2e8b57/i.test(p.getAttribute('stroke')||''));if(!g||g.__x2d)return;g.__x2d=1;
+  const vb=(svg.getAttribute('viewBox')||'0 0 100 100').split(/[ ,]+/).map(Number),id='x2mk'+(++mkId);
+  const m=document.createElementNS(SVGN,'mask');m.id=id;m.setAttribute('maskUnits','userSpaceOnUse');m.setAttribute('x',vb[0]-20);m.setAttribute('y',vb[1]-20);m.setAttribute('width',vb[2]+40);m.setAttribute('height',vb[3]+40);
+  const mp=document.createElementNS(SVGN,'path');mp.setAttribute('d',g.getAttribute('d'));mp.setAttribute('fill','none');mp.setAttribute('stroke','#fff');mp.setAttribute('stroke-width','16');mp.setAttribute('vector-effect','non-scaling-stroke');mp.setAttribute('pathLength','1');mp.setAttribute('stroke-dasharray','1 1');mp.setAttribute('stroke-dashoffset','1');mp.setAttribute('stroke-linecap','round');
+  m.appendChild(mp);svg.appendChild(m);g.setAttribute('mask',`url(#${id})`);
+  const an=A(mp,[{strokeDashoffset:1},{strokeDashoffset:0}],{duration:600,delay:180,easing:'cubic-bezier(.4,0,.2,1)',fill:'both'});
+  setTimeout(()=>{g.removeAttribute('mask');m.remove()},820)})}
+
+/* ---------- R15/R27 แผ่นล่างขยายออกจากจุดที่แตะ (ด่านบนแผนที่ / คำในบทอ่าน) ---------- */
+let from=null;
+function originTap(e){const t=e.target.closest&&e.target.closest('.lc-node,.lbt[data-tk]');if(!t)return;const r=t.getBoundingClientRect();from={x:r.left+r.width/2,y:r.top+r.height/2,t:now(),w:t.classList.contains('lbt')?t:null}}
+function sheetFrom(o){const L=$1('#sheetLayer'),sh=L&&$1('.sheet',L);if(!sh)return;
+ if(o.w){$A('.x2-wsel').forEach(x=>x.classList.remove('x2-wsel'));o.w.classList.add('x2-wsel')}
+ const rm=RM();sh.style.transition='none';sh.style.transform='none';
+ const r=sh.getBoundingClientRect(),cx=Math.max(-40,Math.min(r.width+40,o.x-r.left)),cy=o.y-r.top;
+ const R=Math.ceil(Math.max(Math.hypot(cx,cy-r.height),Math.hypot(r.width-cx,cy-r.height),Math.hypot(cx,cy),Math.hypot(r.width-cx,cy)))+4;
+ if(rm)A(sh,[{opacity:0},{opacity:1}],{duration:200});
+ else{const c0=Math.max(18,cy<0?-cy+18:18);A(sh,[{clipPath:`circle(${c0}px at ${cx}px ${cy}px)`},{clipPath:`circle(${R}px at ${cx}px ${cy}px)`}],{duration:300,easing:'cubic-bezier(.3,.7,.2,1)'});
+  const bs=[...new Set($A('.sh-body button,.sh-body .pill',sh))].filter(b=>!b.closest('.pill')||b.classList.contains('pill')).slice(0,7);
+  bs.forEach((b,i)=>A(b,[{opacity:0,translate:'0 12px'},{opacity:1,translate:'0 0'}],{duration:240,delay:110+i*45,fill:'backwards'}))}
+ setTimeout(()=>{sh.style.transition='';sh.style.transform=''},rm?220:330)}
+function wrapSheet(){const f=window.openSheet;if(typeof f==='function'&&!f.__x2){const w=function(){const o=from;from=null;const out=f.apply(this,arguments);try{if(o&&now()-o.t<600)sheetFrom(o)}catch(er){console.error('[fx2]',er)}return out};w.__x2=1;window.openSheet=w}
+ const c=window.closeSheet;if(typeof c==='function'&&!c.__x2){const w2=function(){try{$A('.x2-wsel').forEach(x=>x.classList.remove('x2-wsel'))}catch(_){}return c.apply(this,arguments)};w2.__x2=1;window.closeSheet=w2}}
+
+/* ---------- R17 เรียงคำ: คำบินโค้งเข้าช่องแบบแม่เหล็ก คำอื่นขยับปิดช่อง แตะออกแล้วบินกลับ ---------- */
+function ordTap(e){if(skipFx(e))return;const c=e.target.closest&&e.target.closest('.chipw[data-ox]');if(!c)return;const inA=c.closest('#oa'),inP=c.closest('#op');if(!inA&&!inP)return;if(inP&&c.classList.contains('used'))return;
+ const st=c.closest('section.screen');if(!st)return;const ox=c.dataset.ox,r0=c.getBoundingClientRect(),before={};$A('#oa .chipw[data-ox]',st).forEach(x=>before[x.dataset.ox]=x.getBoundingClientRect());
+ setTimeout(T(()=>{if(RM())return;const oa=$1('#oa',st),op=$1('#op',st);if(!oa||!op)return;
+  if(inP){const t=$1(`.chipw[data-ox="${ox}"]`,oa);if(t){const r1=t.getBoundingClientRect(),dx=r0.left-r1.left,dy=r0.top-r1.top;
+    A(t,[{translate:`${dx}px ${dy}px`},{translate:`${dx*.45}px ${Math.min(dy,0)*.45-26}px`,offset:.45},{translate:'0 -3px',offset:.8},{translate:'0 0'}],{duration:280,easing:'cubic-bezier(.3,.6,.35,1)'})}}
+  else{const t=$1(`.chipw[data-ox="${ox}"]`,op);if(t&&c!==t){const r1=t.getBoundingClientRect(),a=rel(r0);const k=c.cloneNode(true);k.classList.add('x2-chfly');k.style.cssText=`left:${a.x}px;top:${a.y}px;width:${r0.width}px;height:${r0.height}px`;layer().appendChild(k);
+    const dx=r1.left-r0.left,dy=r1.top-r0.top;t.style.visibility='hidden';
+    A(k,[{translate:'0 0'},{translate:`${dx*.5}px ${Math.min(dy,0)*.5-22}px`,offset:.45},{translate:`${dx}px ${dy}px`}],{duration:280,easing:'cubic-bezier(.3,.6,.35,1)',fill:'forwards'});
+    setTimeout(()=>{t.style.visibility='';k.remove()},285)}}
+  $A('.chipw[data-ox]',oa).forEach(x=>{if(inP&&x.dataset.ox===ox)return;const b=before[x.dataset.ox];if(!b)return;const r=x.getBoundingClientRect(),dx=b.left-r.left,dy=b.top-r.top;if(Math.abs(dx)+Math.abs(dy)<1)return;
+   A(x,[{translate:`${dx}px ${dy}px`},{translate:'0 0'}],{duration:280,easing:SPR})})}),0)}
+
+/* ---------- R18 จับคู่: เส้นโค้งเชื่อมคู่ที่เลือก ถูกแล้วขยับเข้าหากัน ผิดแล้วเส้นหดกลับ ---------- */
+function matTap(e){if(skipFx(e)||RM())return;const R=e.target.closest&&e.target.closest('[data-mr]');if(!R||R.classList.contains('ok'))return;const st=R.closest('section.screen'),Lc=st&&$1('[data-ml].sel',st);if(!Lc)return;
+ const L=layer();if(!L)return;const a=rel(Lc.getBoundingClientRect()),b=rel(R.getBoundingClientRect()),rt=b.cx>=a.cx;
+ const x1=rt?a.x+a.w-6:a.x+6,y1=a.cy,x2=rt?b.x+6:b.x+b.w-6,y2=b.cy,mx=(x1+x2)/2;
+ const sv=document.createElementNS(SVGN,'svg');sv.setAttribute('class','x2-mline');const p=document.createElementNS(SVGN,'path');
+ p.setAttribute('d',`M${x1} ${y1}C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`);p.setAttribute('pathLength','1');sv.appendChild(p);
+ [[x1,y1],[x2,y2]].forEach(([x,y],i)=>{const d=document.createElementNS(SVGN,'circle');d.setAttribute('cx',x);d.setAttribute('cy',y);d.setAttribute('r','4');if(i)d.setAttribute('class','e');sv.appendChild(d)});L.appendChild(sv);
+ A(p,[{strokeDashoffset:1},{strokeDashoffset:0}],{duration:140,easing:'ease-out',fill:'forwards'});A($1('circle.e',sv),[{opacity:0},{opacity:0,offset:.8},{opacity:1}],{duration:140,fill:'forwards'});
+ setTimeout(T(()=>{const ok=R.classList.contains('ok');
+  if(ok){sv.classList.add('ok');const dx=(b.cx-a.cx)*.06,dy=(b.cy-a.cy)*.06;
+   A(Lc,[{translate:'0 0'},{translate:`${dx}px ${dy}px`,offset:.45},{translate:'0 0'}],{duration:300,easing:'ease-out'});A(R,[{translate:'0 0'},{translate:`${-dx}px ${-dy}px`,offset:.45},{translate:'0 0'}],{duration:300,easing:'ease-out'});
+   A(sv,[{opacity:1},{opacity:1,offset:.4},{opacity:0}],{duration:320,fill:'forwards'});kill(sv,330)}
+  else{A(p,[{strokeDashoffset:0},{strokeDashoffset:1}],{duration:200,easing:'ease-in',fill:'forwards'});A($A('circle',sv)[1],[{opacity:1},{opacity:0}],{duration:120,fill:'forwards'});A(sv,[{opacity:1},{opacity:1,offset:.7},{opacity:0}],{duration:260,fill:'forwards'});kill(sv,270)}}),150)}
+
+/* ---------- R20 วรรณยุกต์: จุดสว่างวิ่งตามเส้นขณะเล่นเสียง เส้นที่ผ่านเข้มขึ้น ---------- */
+function toneRun(e){const b=e.target.closest&&e.target.closest('.tlc[data-act=audio],.tlg[data-act=audio]');if(!b)return;const sv=$1('svg',b);if(!sv)return;const pls=$A(':scope>polyline',sv);if(!pls.length)return;
+ $A('.x2-tl',sv).forEach(x=>x.remove());const rm=RM(),per=pls.length>1?380:520,ov=[];
+ pls.forEach((pl,k)=>{const c=pl.cloneNode(false);c.setAttribute('class','x2-tl');c.setAttribute('stroke','rgba(30,10,10,.38)');c.setAttribute('pathLength','1');c.setAttribute('stroke-dasharray','1 1');c.setAttribute('stroke-dashoffset',rm?'0':'1');pl.after(c);ov.push(c);
+  if(!rm){A(c,[{strokeDashoffset:1},{strokeDashoffset:0}],{duration:per,delay:k*per,easing:'linear',fill:'forwards'});
+   const sw=parseFloat(pl.getAttribute('stroke-width'))||5,d=document.createElementNS(SVGN,'circle');d.setAttribute('class','x2-tl x2-tldot');d.setAttribute('r',String(sw*.95));d.setAttribute('fill','#fff');d.setAttribute('stroke',pl.getAttribute('stroke'));d.setAttribute('stroke-width','2');d.style.opacity='0';sv.appendChild(d);ov.push(d);
+   let L0=0;try{L0=pl.getTotalLength()}catch(_){}const t0=now()+k*per;
+   const step=()=>{if(!d.isConnected)return;const q=(now()-t0)/per;if(q<0){requestAnimationFrame(step);return}const z=Math.min(1,q);
+    try{const P=pl.getPointAtLength(L0*z);d.setAttribute('cx',P.x);d.setAttribute('cy',P.y)}catch(_){}d.style.opacity=z>=1?'0':'1';if(z<1)requestAnimationFrame(step)};requestAnimationFrame(step)}});
+ const tEnd=rm?600:per*pls.length+260;setTimeout(()=>{ov.forEach(x=>{if(x.classList.contains('x2-tldot'))x.remove();else A(x,[{opacity:1},{opacity:0}],{duration:240,fill:'forwards'})});setTimeout(()=>ov.forEach(x=>x.remove()),250)},tEnd)}
+
+/* ---------- R23 ตารางวรรณยุกต์คู่: ช่องที่แตะยุบลง คลื่นกระจายสองชั้น แถว/คอลัมน์เดียวกันสว่างนานกว่า ---------- */
+function gridTap(e){const b=e.target.closest&&e.target.closest('.tlgrid>.tlg');if(!b)return;const g=b.parentElement,cells=$A(':scope>.tlg',g),i=cells.indexOf(b);if(i<0)return;
+ const cols=getComputedStyle(g).gridTemplateColumns.split(' ').filter(Boolean).length||4,r=Math.floor(i/cols),c=i%cols,rm=RM();
+ if(!rm)A(b,[{scale:'1'},{scale:'.93',offset:.35},{scale:'1'}],{duration:320,easing:SPR});
+ cells.forEach((x,j)=>{if(x===b)return;const rr=Math.floor(j/cols),cc=j%cols,line=rr===r||cc===c,d=Math.max(Math.abs(rr-r),Math.abs(cc-c));
+  const col=line?'rgba(200,16,46,.5)':'rgba(232,182,74,.55)',z={outline:'2px solid rgba(0,0,0,0)',outlineOffset:'-2px'},on={outline:'2px solid '+col,outlineOffset:'-2px'};
+  if(rm){if(line)A(x,[on,Object.assign({offset:.8},on),z],{duration:700,easing:'linear'});return}
+  if(!line&&d>2)return;
+  A(x,line?[z,Object.assign({offset:.2},on),Object.assign({offset:.75},on),z]:[z,Object.assign({offset:.4},on),z],{duration:line?700:360,delay:(d-1)*80+40,easing:'linear',fill:'backwards'})})}
+
+/* ---------- R21 ฝึกเขียน: เส้นที่เขียนซึมหมึกเล็กน้อยเมื่อจบขีด ---------- */
+function inkUp(e){if(RM())return;const pw=e.target.closest&&e.target.closest('#pcv,#pw');if(!pw)return;const box=pw.closest('.stk-pc')||pw;
+ setTimeout(T(()=>{const ps=$A('#pw svg path',box).filter(p=>p.getAttribute('fill')==='none'&&p.getAttribute('stroke-width')!=='200'&&!/opacity:\s*0/.test(p.getAttribute('style')||''));const p=ps[ps.length-1];if(!p||p.__x2i)return;p.__x2i=1;
+  const sw=parseFloat(p.getAttribute('stroke-width'))||17;
+  A(p,[{strokeWidth:sw+'px',filter:'drop-shadow(0 0 0 rgba(200,16,46,0))'},{strokeWidth:(sw*1.16)+'px',filter:'drop-shadow(0 0 1.6px rgba(200,16,46,.55))'}],{duration:250,easing:'ease-out',fill:'forwards'})}),10)}
+
+/* ---------- R22 ประกอบอักษร: ส่วนประกอบเลื่อนเข้าหากันรวมเป็นตัวอักษร ขอบมีแสงวาบ ---------- */
+function radWatch(el){if(el.__x2rw)return;el.__x2rw=1;new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType!==1)continue;const s=n.id==='rgs'?n:$1('#rgs',n);if(s&&s.classList.contains('fill')&&s.classList.contains('ok')){setTimeout(T(()=>radJoin(el,s)),0);return}}}).observe(el,{childList:true,subtree:true})}
+function radJoin(el,slot){if(slot.__x2j||!slot.isConnected)return;slot.__x2j=1;const lay=slot.parentElement,kn=lay&&$1('.rd-pt.k',lay);if(!kn)return;
+ const hb=$1('#rgh b',el),ch=hb&&hb.textContent.trim();if(!ch||ch.length>2)return;
+ const L=layer();if(!L)return;const lr=rel(lay.getBoundingClientRect()),kr=rel(kn.getBoundingClientRect()),sr=rel(slot.getBoundingClientRect()),rm=RM(),pl=$1('i.pl',lay);
+ const fs=Math.min(lr.h*.9,Math.max(kr.h,sr.h)*1.25);const o=mk('x2-radj',`<span class="zh">${ch}</span>`);o.style.cssText=`left:${lr.cx-100}px;top:${lr.cy-fs*.6}px;width:200px;height:${fs*1.2}px;font-size:${fs}px;line-height:${fs*1.2}px`;
+ const parts=[kn,slot,pl].filter(Boolean);
+ if(rm){parts.forEach(p=>A(p,[{opacity:1},{opacity:0},{opacity:0,offset:.85},{opacity:1}],{duration:1500}));A(o,[{opacity:0},{opacity:1,offset:.2},{opacity:1,offset:.8},{opacity:0}],{duration:1500,fill:'forwards'});kill(o,1520);return}
+ [kn,slot].forEach(p=>{const r=rel(p.getBoundingClientRect()),dx=(lr.cx-r.cx)*.7,dy=(lr.cy-r.cy)*.7;
+  A(p,[{translate:'0 0',opacity:1,easing:'cubic-bezier(.4,0,.2,1)'},{translate:`${dx}px ${dy}px`,opacity:1,offset:.45},{translate:`${dx}px ${dy}px`,opacity:0,offset:.62},{translate:`${dx}px ${dy}px`,opacity:0,offset:.86},{translate:'0 0',opacity:1}],{duration:1500,easing:'linear'})});
+ if(pl)A(pl,[{opacity:1},{opacity:0,offset:.2},{opacity:0,offset:.86},{opacity:1}],{duration:1500,easing:'linear'});
+ A(o,[{opacity:0,scale:'.9',textShadow:'0 0 0 rgba(245,196,67,0)'},{opacity:0,scale:'.9',offset:.18},{opacity:1,scale:'1.04',textShadow:'0 0 18px rgba(245,196,67,1)',offset:.3},{opacity:1,scale:'1',textShadow:'0 0 4px rgba(245,196,67,.3)',offset:.42},{opacity:1,scale:'1',textShadow:'0 0 0 rgba(245,196,67,0)',offset:.8},{opacity:0,scale:'1'}],{duration:1500,easing:'linear',fill:'forwards'});
+ const chk=setInterval(()=>{if(!lay.isConnected){o.remove();clearInterval(chk)}},100);setTimeout(()=>{clearInterval(chk);o.remove()},1520)}
+
+/* ---------- R24 ลักษณนาม: การ์ดคำบินโค้งลงกล่อง กล่องยุบรับ รูปล่าสุดในกล่องเด้งขึ้น ---------- */
+function mwTap(e){if(skipFx(e))return;const btn=e.target.closest&&e.target.closest('.mv-b');if(!btn)return;const it=$1('#mvi',btn.closest('section.screen')||document);if(!it)return;
+ const r0=it.getBoundingClientRect(),k=it.cloneNode(true);k.removeAttribute('id');
+ setTimeout(T(()=>{if(!btn.classList.contains('hit')||RM())return;const L=layer();if(!L)return;const br=btn.getBoundingClientRect(),a=rel(r0);
+  k.classList.add('x2-mvfly');k.style.cssText=`left:${a.x}px;top:${a.y}px;width:${r0.width}px;height:${r0.height}px`;L.appendChild(k);
+  const dx=(br.left+br.width/2)-(r0.left+r0.width/2),dy=(br.top+br.height*.4)-(r0.top+r0.height/2);
+  A(k,[{translate:'0 0',scale:'1',opacity:1},{translate:`${dx*.45}px ${Math.min(dy*.4,0)-34}px`,scale:'.62',opacity:1,offset:.45},{translate:`${dx}px ${dy}px`,scale:'.14',opacity:.3}],{duration:350,easing:'cubic-bezier(.45,0,.4,1)',fill:'forwards'});kill(k,360);
+  A(it,[{opacity:0},{opacity:0}],{duration:250,fill:'none'});
+  setTimeout(T(()=>{A(btn,[{scale:'1 1'},{scale:'1.05 .9',offset:.35},{scale:'.98 1.03',offset:.7},{scale:'1 1'}],{duration:320,easing:'ease-out'});
+   const tn=$1('.in',btn),last=tn&&tn.lastElementChild;if(last)A(last,[{scale:'.3',opacity:0},{scale:'1.15',opacity:1,offset:.6},{scale:'1',opacity:1}],{duration:300,easing:SPR})}),330)}),0)}
+
+/* ---------- R29 เวลาใกล้หมด: ตัวเลขเต้นทุกวินาที ขอบจอแดงจาง ๆ ---------- */
+const TMR=['#tm','#mvt','#rgt','#rbt','#mt'];
+const tParse=s=>{s=(s||'').trim();const m=s.match(/(\d+):(\d{1,2})/);if(m)return +m[1]*60+ +m[2];const n=s.match(/^\D*(\d+)\D*$/);return n?+n[1]:NaN};
+function tmTick(){if(document.hidden)return;const s=top();if(!s)return;let el=null;for(const q of TMR){el=$1(q,s);if(el)break}if(!el)return;const v=tParse(el.textContent);
+ if(v>=1&&v<=5){if(el.__x2v===v)return;el.__x2v=v;el.classList.add('x2-tlow');if(RM())return;
+  A(el,[{scale:'1'},{scale:'1.32',offset:.22},{scale:'1'}],{duration:620,easing:'ease-out'});
+  const vg=mk('x2-vig');A(vg,[{opacity:0},{opacity:1,offset:.22},{opacity:0}],{duration:900,easing:'ease-out',fill:'forwards'});kill(vg,920)}
+ else if(el.__x2v){el.__x2v=0;el.classList.remove('x2-tlow')}}
+
+/* ---------- R30 เกมบอส: หยุดภาพชั่วครู่ บอสกะพริบขาว จอสั่น 2px แถบพลังลดสองชั้น ---------- */
+function bossSetup(el){const bar=$1('#bbar',el);if(!bar||bar.__x2g)return;bar.__x2g=1;const pg=bar.parentElement;pg.classList.add('x2-bprog');bar.classList.add('x2-bbar');
+ const gh=document.createElement('i');gh.className='x2-ghost';gh.style.width=bar.style.width||'100%';pg.insertBefore(gh,bar);let w0=parseFloat(bar.style.width)||100,ga=null;
+ new MutationObserver(()=>{const w=parseFloat(bar.style.width);if(isNaN(w))return;if(w<w0){const from=gh.style.width||w0+'%';if(ga)ga.cancel();gh.style.width=w+'%';ga=A(gh,[{width:from},{width:from,offset:.4},{width:w+'%'}],{duration:700,easing:'cubic-bezier(.4,0,.2,1)'})}else{gh.style.width=w+'%'}w0=w}).observe(bar,{attributes:true,attributeFilter:['style']})}
+function bossTap(e){const o=e.target.closest&&e.target.closest('#qa .opt');if(!o)return;const s=o.closest('section.screen');if(!s||s.dataset.name!=='game_boss')return;
+ setTimeout(T(()=>{if(!o.classList.contains('ok')||RM())return;const bi=$1('#bimg',s),st=$1('#stage',s);
+  if(bi)A(bi,[{filter:'brightness(1)'},{filter:'brightness(2.6) saturate(.15)',offset:.12},{filter:'brightness(2.6) saturate(.15)',offset:.32},{filter:'brightness(1)'}],{duration:320,easing:'ease-out'});
+  if(st)A(st,[{translate:'0 0'},{translate:'0 0',offset:.2},{translate:'2px 0',offset:.36},{translate:'-2px 0',offset:.54},{translate:'2px 0',offset:.72},{translate:'0 0'}],{duration:300})}),0)}
+
+/* ---------- R31 ดวล/ทีมชนทีม: ฉากเปิดแยกจอสองฝั่ง ---------- */
+function vsIntro(Lf,Rt,done,delay){let dead=false,ov=null;const tm=[];const fin=()=>{if(dead)return;dead=true;tm.forEach(clearTimeout);if(ov)ov.remove();done()};
+ tm.push(setTimeout(T(()=>{if(dead)return;const L=layer();if(!L){fin();return}const rm=RM();
+  ov=mk('x2-vs',`<div class="x2-vsh l" style="--c:${Lf.c}"><div class="in"><div class="av2">${Lf.av}</div><b>${Lf.n}</b></div></div><div class="x2-vsh r" style="--c:${Rt.c}"><div class="in"><div class="av2">${Rt.av}</div><b>${Rt.n}</b></div></div><i class="x2-vsd"></i><span class="x2-vst">VS</span>`);
+  const l=$1('.l',ov),r=$1('.r',ov),d=$1('.x2-vsd',ov),v=$1('.x2-vst',ov);
+  if(rm){A(ov,[{opacity:0},{opacity:1},{opacity:1,offset:.75},{opacity:0}],{duration:1000,fill:'forwards'});tm.push(setTimeout(T(fin),1000));return}
+  const ei='cubic-bezier(.2,.8,.25,1)',eo='cubic-bezier(.6,0,.85,.4)';A(l,[{translate:'-100% 0',easing:ei},{translate:'0 0',offset:.25},{translate:'0 0',offset:.68,easing:eo},{translate:'-100% 0'}],{duration:1200,easing:'linear',fill:'forwards'});
+  A(r,[{translate:'100% 0',easing:ei},{translate:'0 0',offset:.25},{translate:'0 0',offset:.68,easing:eo},{translate:'100% 0'}],{duration:1200,easing:'linear',fill:'forwards'});
+  A($1('.l .in',ov),[{translate:'-30px 0'},{translate:'0 0'}],{duration:500,delay:200,easing:EZ,fill:'backwards'});A($1('.r .in',ov),[{translate:'30px 0'},{translate:'0 0'}],{duration:500,delay:200,easing:EZ,fill:'backwards'});
+  A(d,[{opacity:0},{opacity:0,offset:.25},{opacity:1,offset:.32},{opacity:.5,offset:.5},{opacity:0,offset:.66},{opacity:0}],{duration:1200,easing:'linear',fill:'forwards'});
+  A(v,[{opacity:0,scale:'.6'},{opacity:0,scale:'.6',offset:.27},{opacity:1,scale:'1.08',offset:.36},{opacity:1,scale:'1',offset:.62},{opacity:0,scale:'1'}],{duration:1200,easing:'linear',fill:'forwards'});
+  tm.push(setTimeout(()=>vibp(12),330));tm.push(setTimeout(T(fin),1200))}),delay||0));
+ return {cancel(){if(dead)return;dead=true;tm.forEach(clearTimeout);if(ov)ov.remove()}}}
+X2.vs=vsIntro;
+const avH=(n,c)=>{try{if(typeof avatar==='function')return avatar(n,c)}catch(_){}return `<span class="av" style="background:${c}">${String(n).replace('พี่','').replace('น้อง','')[0]||''}</span>`};
+function teamGo(e){if(skipFx(e))return;const g=e.target.closest&&e.target.closest('#go');if(!g)return;const s=g.closest('section.screen');if(!s||s.dataset.name==='game_speed')return;const vs=$1('.tqvs',s);if(!vs||typeof g.onclick!=='function')return;
+ e.preventDefault();e.stopImmediatePropagation();if(g._x2vs)return;g._x2vs=1;const fn=g.onclick;
+ const row=(el,k)=>{const r=el&&el[k];return r&&r.classList&&r.classList.contains('tqrow')?r:null};
+ const prevRow=(()=>{let x=vs.previousElementSibling;while(x&&!x.classList.contains('tqrow'))x=x.previousElementSibling;return x})(),nextRow=(()=>{let x=vs.nextElementSibling;while(x&&!x.classList.contains('tqrow'))x=x.nextElementSibling;return x})();
+ const avs=r=>r?$A('.tqp',r).slice(0,4).map(p=>{const a=p.firstElementChild;return a?a.outerHTML:''}).join(''):'';
+ vsIntro({n:'ทีมของคุณ',c:'#C8102E',av:`<span class="grp">${avs(prevRow)}</span>`},{n:'ทีมตรงข้าม',c:'#3F6FB5',av:`<span class="grp">${avs(nextRow)}</span>`},()=>{g._x2vs=0;if(s.isConnected)fn.call(g,e)})}
+
+/* ---------- R32 ผลเกม: ตัวเลขหมุนแบบสล็อตหยุดทีละหลัก · ป้าย "สถิติใหม่" ---------- */
+let REC=null;
+function wrapGameEnd(){const f=window.gameEnd;if(typeof f!=='function'||f.__x2)return;
+ const w=function(el,g,score){try{const prev=(typeof S!=='undefined'&&S.gameBest)?(S.gameBest[g]||0):0;REC=(typeof score==='number'&&score>prev&&prev>0)?{t:now()}:null}catch(_){REC=null}return f.apply(this,arguments)};w.__x2=1;window.gameEnd=w}
+function slot(x,delay){const fin=x.textContent;if(x.children.length||!/\d/.test(fin))return 0;let k=0,mx=0;
+ x.innerHTML=fin.split('').map(ch=>{if(!/\d/.test(ch))return ch.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));const n=7+k*3,seq=[];for(let i=0;i<n-1;i++)seq.push((+ch+i*7+3)%10);seq.push(ch);const d=420+k*160;mx=Math.max(mx,d);k++;
+  return `<span class="x2-rl"><span class="x2-rc" data-n="${n}" data-d="${d}">${seq.join('<br>')}</span></span>`}).join('');
+ $A('.x2-rc',x).forEach(c=>{const n=+c.dataset.n;A(c,[{translate:'0 0'},{translate:`0 ${-(n-1)*1.15}em`}],{duration:+c.dataset.d,delay,easing:'cubic-bezier(.2,.7,.25,1)',fill:'both'})});
+ setTimeout(()=>{if(x.isConnected)x.textContent=fin},delay+mx+60);return delay+mx}
+function resultFx(el){const rec=REC&&now()-REC.t<4000;REC=null;const rm=RM();let end=0;
+ if(!rm)$A('.stat b,.group .row .val',el).slice(0,8).forEach((x,i)=>{end=Math.max(end,slot(x,250+i*60))});
+ if(!rec)return;const lg=$1('.large',el),box=lg&&lg.parentElement;if(!box)return;if(getComputedStyle(box).position==='static')box.style.position='relative';
+ const st=document.createElement('div');st.className='x2-stamp';st.textContent='สถิติใหม่';st.style.top=(lg.offsetTop-4)+'px';box.appendChild(st);
+ if(rm)return;A(st,[{scale:'1.6',opacity:0,rotate:'-16deg'},{scale:'.94',opacity:1,rotate:'-8deg',offset:.7},{scale:'1',opacity:1,rotate:'-8deg'}],{duration:380,delay:Math.max(700,end),easing:'cubic-bezier(.5,0,.6,1.2)',fill:'backwards'});
+ setTimeout(()=>{if(st.isConnected)vibp(REWARD)},Math.max(700,end)+260)}
+
+/* ---------- R37 วันต่อเนื่องถึงหลัก 7/30/100: เปลวไฟเปลี่ยนสี และแสงวิ่งรอบชิปหนึ่งรอบ ---------- */
+const tierOf=v=>v>=100?3:v>=30?2:v>=7?1:0;
+function stTier(el){$A('.nav-r [data-go=streak]',el||document).forEach(ch=>{const cs=$1('#cs',ch),v=cs?parseInt(cs.textContent,10):0,t=tierOf(v);[1,2,3].forEach(i=>ch.classList.toggle('x2-st'+i,t===i))})}
+function stMile(chip,to){if(!chip||!chip.isConnected)return;const t=tierOf(to);[1,2,3].forEach(i=>chip.classList.toggle('x2-st'+i,t===i));if(RM())return;
+ const sv=$1('svg',chip);if(sv)A(sv,[{filter:'brightness(1.6)'},{filter:'brightness(1)'}],{duration:500});
+ chip.classList.add('x2-rel');const sw=document.createElement('span');sw.className='x2-sweep';chip.appendChild(sw);
+ A(sw,[{'--x2a':'0deg',opacity:1},{'--x2a':'360deg',opacity:1,offset:.9},{'--x2a':'360deg',opacity:0}],{duration:1000,easing:'cubic-bezier(.4,0,.3,1)',fill:'forwards'});setTimeout(()=>{sw.remove()},1020);vibp(REWARD)}
+function wrapStreak(){const X=window.FX;if(!X||typeof X.streak!=='function'||X.streak.__x2)return;const f=X.streak;
+ const w=function(from,to,chip){const o=f.apply(this,arguments);try{if(to===7||to===30||to===100)setTimeout(T(()=>stMile(chip,to)),2720)}catch(_){}return o};w.__x2=1;X.streak=w}
+X2.streakMile=stMile;
+
+/* ---------- R38 การ์ดแชร์: เลื่อนขึ้น เอียงแล้วตั้งตรง แสงวาบวิ่งผ่านหนึ่งครั้ง ---------- */
+function cardFx(cp,cv){if(!cv.isConnected)return;const rm=RM();
+ if(rm){A(cv,[{opacity:0},{opacity:1}],{duration:300});return}
+ A(cv,[{translate:'0 46px',rotate:'-4deg',opacity:0},{translate:'0 -4px',rotate:'.8deg',opacity:1,offset:.62},{translate:'0 0',rotate:'0deg',opacity:1}],{duration:460,easing:'cubic-bezier(.2,.8,.3,1)'});
+ setTimeout(T(()=>{if(!cv.isConnected)return;if(getComputedStyle(cp).position==='static')cp.classList.add('x2-rel');const r=cv.getBoundingClientRect(),pr=cp.getBoundingClientRect();
+  const w=document.createElement('span');w.className='x2-shw';w.style.cssText=`left:${r.left-pr.left}px;top:${r.top-pr.top}px;width:${r.width}px;height:${r.height}px;border-radius:${getComputedStyle(cv).borderRadius}`;w.innerHTML='<i></i>';cp.appendChild(w);
+  A(w.firstChild,[{translate:'-120% 0'},{translate:'260% 0'}],{duration:520,easing:'ease-in-out',fill:'forwards'});kill(w,540)}),330)}
+function wrapShare(){const f=window.shareSheet;if(typeof f!=='function'||f.__x2)return;
+ const w=function(){const o=f.apply(this,arguments);try{const cp=$1('#sheetLayer #cp');if(cp){const ex=$1('canvas,img',cp);if(ex)cardFx(cp,ex);else{const mo=new MutationObserver(()=>{const c=$1('canvas,img',cp);if(c){mo.disconnect();cardFx(cp,c)}});mo.observe(cp,{childList:true,subtree:true});setTimeout(()=>mo.disconnect(),8000)}}}catch(er){console.error('[fx2]',er)}return o};w.__x2=1;window.shareSheet=w}
 
 /* ---------- ติดตั้ง ---------- */
+/* ชุดที่ 3 */
+document.addEventListener('scroll',T(r06),{capture:true,passive:true});
+document.addEventListener('click',T(ctlTap),true);
+document.addEventListener('pointerdown',T(pdMark),{capture:true,passive:true});
+document.addEventListener('click',T(originTap),true);
+document.addEventListener('click',T(ordTap),true);
+document.addEventListener('click',T(matTap),true);
+document.addEventListener('click',T(toneRun),true);
+document.addEventListener('click',T(gridTap),true);
+document.addEventListener('pointerup',T(inkUp),{capture:true,passive:true});
+document.addEventListener('click',T(mwTap),true);
+document.addEventListener('click',T(bossTap),true);
+document.addEventListener('click',T(teamGo),true);
+setInterval(T(tmTick),250);
+onScr.push((el,n)=>{countIn(el,n)});
+onScr.push((el,n)=>{if($1('.lc-map',el))setTimeout(()=>mapFx(el),120)});
+onScr.push((el,n)=>{if(n==='radbuild')radWatch(el)});
+onScr.push((el,n)=>{if(n==='game_boss')bossSetup(el)});
+onScr.push((el,n)=>{if(n==='result')requestAnimationFrame(()=>resultFx(el))});
+onScr.push((el,n)=>{stTier(el)});
+
 onScr.push((el,n)=>{if(STG[n])requestAnimationFrame(()=>X2.stagger(el,n))});
 onScr.push((el,n)=>{if(n==='reader')readerHook(el)});
 onScr.push((el,n)=>{if(n==='rank')setTimeout(()=>X2.league(el),120)});
@@ -302,6 +577,6 @@ document.addEventListener('click',T(speedGo),true);
 document.addEventListener('click',T(shopBuy),true);
 document.addEventListener('click',T(badgeTap),true);
 
-const go=()=>{try{watch()}catch(e){console.error('[fx2]',e)}[wrapTimed,wrapWheel,wrapSpeak,wrapRefresh].forEach(fn=>{try{fn()}catch(e){console.error('[fx2]',e)}})};
+const go=()=>{try{watch()}catch(e){console.error('[fx2]',e)}[wrapTimed,wrapWheel,wrapSpeak,wrapRefresh,wrapToast,wrapVib,wrapSheet,wrapGameEnd,wrapStreak,wrapShare].forEach(fn=>{try{fn()}catch(e){console.error('[fx2]',e)}})};
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go):go();
 })();

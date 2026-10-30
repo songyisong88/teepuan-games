@@ -3,6 +3,8 @@
 LESSONS.forEach(l=>{l.lv=(CHAPTERS.find(c=>c.id===l.chapter)||{lv:1}).lv;l.words.forEach(w=>{w.lesson=l.id;w.lv=l.lv})});
 const ALLW=LESSONS.flatMap(l=>l.words);
 const wordBy=zh=>ALLW.find(w=>w.zh===zh);
+/* หาคำทั้งจากบทเรียนและคลังคำน่ารู้ (ใช้เฉพาะรายการทบทวน เพื่อให้คำที่กดเก็บจากคลังแสดงในคำที่ควรทบทวน) */
+const wordAny=zh=>wordBy(zh)||(window.hubWord?window.hubWord(zh):null);
 
 /* วรรณยุกต์ → สี */
 const TONES={'ā':1,'ē':1,'ī':1,'ō':1,'ū':1,'ǖ':1,'á':2,'é':2,'í':2,'ó':2,'ú':2,'ǘ':2,'ǎ':3,'ě':3,'ǐ':3,'ǒ':3,'ǔ':3,'ǚ':3,'à':4,'è':4,'ì':4,'ò':4,'ù':4,'ǜ':4};
@@ -91,11 +93,11 @@ const learnedCount=()=>gameWords().length;
 const lvBadge=()=>`<span class="chip lvchip press" data-go="levels" aria-label="ระดับของฉัน">ระดับ ${curLv()}</span>`;
 function addMistake(w){if(!w)return;S.mistakes[w.zh]=(S.mistakes[w.zh]||0)+1;srsGrade(w,false,1);save()}
 function fixMistake(w){if(w&&S.mistakes[w.zh]){S.mistakes[w.zh]--;if(S.mistakes[w.zh]<=0)delete S.mistakes[w.zh];save()}}
-const mistakeWords=()=>Object.keys(S.mistakes).map(wordBy).filter(Boolean);
+const mistakeWords=()=>Object.keys(S.mistakes).map(wordAny).filter(Boolean);
 /* ทบทวนแบบเว้นช่วง (Leitner 5 กล่อง): ตอบถูก → กล่องสูงขึ้น ทบทวนห่างขึ้น 1→2→4→8→16 วัน · ตอบผิด → กลับกล่อง 0 ทบทวนวันนี้ */
 const SRS_INT=[0,1,2,4,8,16];
 function srsGrade(w,ok,quiet){if(!w||!w.zh)return;if(!S.srs)S.srs={};const r=S.srs[w.zh]||{b:0,d:0};if(ok&&r.b>0&&r.d>today())return;r.b=ok?Math.min(5,r.b+1):0;r.d=today()+SRS_INT[r.b];S.srs[w.zh]=r;if(!quiet)save()}
-const srsDue=()=>Object.keys(S.srs||{}).filter(z=>S.srs[z].d<=today()).map(wordBy).filter(Boolean);
+const srsDue=()=>Object.keys(S.srs||{}).filter(z=>S.srs[z].d<=today()).map(wordAny).filter(Boolean);
 const reviewReal=()=>uniqW([...mistakeWords(),...srsDue()]);
 /* ผู้ใช้ที่เลือกระดับแล้วแต่ยังไม่มีคำค้าง: เติมคำแนะนำของระดับ (สุ่มคงที่รายวัน) ให้ทบทวนได้ทันที */
 const reviewSeed=()=>{if(!lvDriven())return [];const r=reviewReal();if(r.length>=6)return [];const have=new Set(r.map(w=>w.zh));const n=curLv();const pool=gw4().filter(w=>!have.has(w.zh)&&w.lv>=n);return seedPick(pool.length>=6-r.length?pool:gw4().filter(w=>!have.has(w.zh)),6-r.length,'rv'+today())};

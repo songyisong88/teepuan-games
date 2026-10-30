@@ -25,6 +25,6 @@ function knCards(){const n=x=>(+x||0).toLocaleString('en-US');const LBx=window.L
 const KN_DESC={'ห้องเรียนคู่หนังสือ':'เสียงประกอบหนังสือ 32 บท','ห้องพินอิน':'ฝึกพินอินพื้นฐาน 12 ด่าน','เช็กพินอิน':'ทดสอบพินอิน 12 ข้อ','วรรณยุกต์':'ฝึกฟังแยก 4 วรรณยุกต์','ลำดับขีด':'ดูลำดับขีดและฝึกเขียนตาม',
  'อักษรข้าง':'เรียนความหมายตัวข้าง','คลังการ์ด':'สะสมการ์ดอักษรข้าง','บทความสั้น':'อ่านบทความสั้น 5 ระดับ','นิทานอ่านเอง':'อ่านนิทานพร้อมคำแปล',
  'เทียบคำใกล้เคียง':'เปรียบเทียบคำที่มักสับสน','ส่วนประกอบ':'แยกส่วนประกอบตัวอักษร','ฟังแล้วพูดตาม':'ฝึกฟังและพูดตามประโยค','ข้อสอบจำลอง':'ทดสอบ 10 ข้อแบบจับเวลา','ลักษณนาม':'คำบอกหน่วย ใช้หลังตัวเลข'};
-SC.know=()=>({title:'แหล่งความรู้',body:`<div class="kn-hd"><h1>แหล่งความรู้</h1><p>อ่าน ฟัง ฝึก ได้ทุกเมื่อ</p></div>
- <div class="kn-grid">${knCards().map(([t,bg,ic,bd,at,u])=>`<button class="kn-t press" style="background:${bg}" ${at} aria-label="${t}"><span class="kn-v">${ic}</span><span class="kn-l">${t}</span>${KN_DESC[t]?`<span class="kn-d">${KN_DESC[t]}</span>`:''}</button>`).join('')}</div>${DEMO}`});
+SC.know=()=>({title:'แหล่งความรู้',body:`<div class="kn-hd"><h1>แหล่งความรู้</h1><p>อ่าน ฟัง ฝึก ได้ทุกเมื่อ</p></div>${typeof hbHubHtml==='function'?hbHubHtml():''}
+ <div class="kn-grid"${typeof hbHubHtml==='function'?' style="margin-top:10px"':''}>${knCards().map(([t,bg,ic,bd,at,u])=>`<button class="kn-t press" style="background:${bg}" ${at} aria-label="${t}"><span class="kn-v">${ic}</span><span class="kn-l">${t}</span>${KN_DESC[t]?`<span class="kn-d">${KN_DESC[t]}</span>`:''}</button>`).join('')}</div>${DEMO}`});
 Object.assign(window.GOX=window.GOX||{},{knrad(el){const k=radS();k.tab=el.dataset.t||(k.tab==='col'?'path':k.tab||'path');save();push('rad')},radopen(){push('rad')}});

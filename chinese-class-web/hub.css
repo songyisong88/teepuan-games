@@ -72,3 +72,4 @@
 .hb-bc .nv{flex:none;width:50px;height:50px;border-radius:50%;background:#F3EDE4;display:grid;place-items:center;color:var(--sub2);border:0;padding:0}.hb-bc .nv.dis{opacity:.4;pointer-events:none}
 .hb-bc .ft .pill{flex:1;width:auto;min-width:0}
 @media (prefers-reduced-motion:reduce){.hb-bc .dots i{transition:none}}
+.hb-bc .say.playing,.hb-card .say.playing{animation:bump .6s var(--spring) 2}

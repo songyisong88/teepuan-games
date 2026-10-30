@@ -88,6 +88,9 @@ function hbBigHtml(o){const {s,list,k}=o;const it=list[k],N=list.length,kc=hbKno
  ${parts.length?`<div class="box"><h4>คำในบทเรียนที่อยู่ในคำนี้</h4><div class="hb-wd">${parts.map(w=>`<span class="${hbHan(w.zh).every(c=>kc.has(c))?'':'no'}"><span class="zh">${w.zh}</span>${hbGloss(w.th)}</span>`).join('')}</div></div>`:''}
  <div class="sp"></div></div>
  <div class="ft"><button class="nv press${k?'':' dis'}" data-hbnav="-1" aria-label="คำก่อนหน้า">${HB_I.l}</button>${nbBtn(it.zh)}<button class="nv press${k<N-1?'':' dis'}" data-hbnav="1" aria-label="คำถัดไป">${HB_I.r}</button></div>`}
+/* เปิดการ์ดคำ/เปลี่ยนคำ = อ่านออกเสียงทันที (เรียกในจังหวะแตะ เพื่อให้ iOS ยอมเล่น) · ถูกบล็อก = เงียบ */
+function hbAutoSay(root,it){try{const b=root&&root.querySelector('[data-act="audio"]');speak(b?b.dataset.t:hbKey(it),b||null)}catch(e){}}
+function hbMarkSay(root){const b=root&&root.querySelector('[data-act="audio"]');if(b)b.classList.add('playing')}
 let hbOv=null;
 const hbA=(el,k,o)=>el.animate?el.animate(k,Object.assign({fill:'both'},o)):{finished:Promise.resolve(),cancel(){}};
 const hbDone=a=>a&&a.finished?a.finished.catch(()=>{}):Promise.resolve();
@@ -100,7 +103,7 @@ function hbFlyTile(o,tile,back){const fr=$('#frame').getBoundingClientRect(),r=t
 function hbOpen(s,list,k,tile,scr){if(hbOv)return;stopAudio();const F=$('#frame');const rm=hbRM();
  const ov=document.createElement('div');ov.className='hb-ov';ov.innerHTML=`<div class="hb-bd"></div><div class="hb-fly"></div><div class="hb-bc" role="dialog" aria-modal="true" aria-label="${hbAt(s.t)}"><div class="hb-in"></div></div>`;
  const o=hbOv={s,list,k,ov,scr,bd:ov.querySelector('.hb-bd'),fly:ov.querySelector('.hb-fly'),card:ov.querySelector('.hb-bc'),inn:ov.querySelector('.hb-in'),busy:1};
- o.inn.innerHTML=hbBigHtml(o);F.appendChild(ov);vib(8);
+ o.inn.innerHTML=hbBigHtml(o);F.appendChild(ov);vib(8);hbAutoSay(o.inn,o.list[o.k]);
  const fin=()=>{o.busy=0;o.card.style.visibility='';};
  if(rm||!tile||!ov.animate){hbA(ov,[{opacity:0},{opacity:1}],{duration:rm?120:200,fill:'none'});fin()}
  else{o.card.style.visibility='hidden';tile.style.visibility='hidden';hbA(o.bd,[{opacity:0},{opacity:1}],{duration:420,easing:'cubic-bezier(.215,.61,.355,1)',fill:'none'});
@@ -118,7 +121,7 @@ function hbClose(instant){const o=hbOv;if(!o)return;hbOv=null;stopAudio();docume
   return hbFlyTile(o,tile,true)}).then(()=>{tile.style.visibility='';gone()})}
 /* เปลี่ยนคำ: ปุ่ม ‹ › หรือปัดซ้าย/ขวา */
 function hbShow(o,k2,dir,from){if(k2<0||k2>=o.list.length||k2===o.k){if(from)hbA(o.inn,[{transform:`translateX(${from}px)`},{transform:'none'}],{duration:320,easing:'cubic-bezier(.2,.75,.3,1)',fill:'none'});return}
- stopAudio();const put=()=>{o.k=k2;o.inn.innerHTML=hbBigHtml(o)};vib(6);
+ hbAutoSay(null,o.list[k2]);const put=()=>{o.k=k2;o.inn.innerHTML=hbBigHtml(o);hbMarkSay(o.inn)};vib(6);
  if(hbRM()||!o.inn.animate){put();return}
  o.busy=1;hbDone(hbA(o.inn,[{transform:`translateX(${from||0}px)`,opacity:1},{transform:`translateX(${-dir*90}px)`,opacity:0}],{duration:150,easing:'cubic-bezier(.4,0,1,1)'})).then(()=>{put();
   return hbDone(hbA(o.inn,[{transform:`translateX(${dir*90}px)`,opacity:0},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.75,.3,1)'}))}).then(()=>{o.busy=0;o.inn.getAnimations&&o.inn.getAnimations().forEach(a=>a.cancel())})}
@@ -161,7 +164,7 @@ function hbWordDock(s,i){const it=s.items[i];const last=i>=s.items.length-1;
  return `<div class="hb-dock3"><button class="pill ghost press${i?'':' hb-dis'}" style="flex:1" data-hbnav="-1">ก่อนหน้า</button>${typeof nbBtn==='function'?nbBtn(it.zh).replace('pill sm','pill').replace('class="','style="flex:1.7" class="'):''}<button class="pill ghost press${last?' hb-dis':''}" style="flex:1" data-hbnav="1">ถัดไป</button></div>`}
 SC.hubword=p=>{const s=hbSet(p.c)||HB_SETS[0];let i=Math.max(0,Math.min(s.items.length-1,+p.i||0));const kc=hbKnownCh();
  return {title:s.t,noRefresh:true,body:`<div data-hbw>${hbWordBody(s,i,kc)}</div><div class="dock" data-hbd>${hbWordDock(s,i)}</div>`,
- mount(el){const sc=el.querySelector('.scroller');const show=(n,dir)=>{if(n<0||n>=s.items.length)return;stopAudio();i=n;p.i=n;const box=el.querySelector('[data-hbw]');box.innerHTML=hbWordBody(s,i,hbKnownCh());el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i);sc.style.scrollBehavior='auto';sc.scrollTop=0;
+ mount(el){hbAutoSay(el.querySelector('[data-hbw]'),s.items[i]);const sc=el.querySelector('.scroller');const show=(n,dir)=>{if(n<0||n>=s.items.length)return;stopAudio();i=n;p.i=n;const box=el.querySelector('[data-hbw]');box.innerHTML=hbWordBody(s,i,hbKnownCh());el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i);sc.style.scrollBehavior='auto';sc.scrollTop=0;hbAutoSay(box,s.items[i]);
    if(dir&&box.animate)box.animate([{transform:`translateX(${dir*28}px)`,opacity:.3},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.32,.72,0,1)'})};
   el.addEventListener('click',e=>{const t=e.target.closest('[data-hbnav],[data-nbsave],[data-hbslow]');if(!t)return;vib(6);
    if(t.dataset.hbslow!==undefined){t.classList.add('playing');lbPlay(t.dataset.hbslow,.7,()=>t.classList.remove('playing'));return}

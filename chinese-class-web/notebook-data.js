@@ -30,8 +30,8 @@ const pyTxt=p=>typeof pyPlain==='function'?pyPlain(p||''):(p||'');
 /* ---------- API ---------- */
 window.nbHas=zh=>isOn(NB()[zh]);
 window.nbDoneHas=zh=>isDone(NB()[zh]);
-window.nbAdd=(zh,info,src)=>{const nb=NB();const e=Object.assign({},nb[zh]||{});e.t=stamp();if(info){if(info.py)e.py=info.py;if(info.th)e.th=info.th}if(src)e.src=src;nb[zh]=e;
- if(!S.srs)S.srs={};const r=S.srs[zh]||{b:0,d:0};if(!(r.d<=today()))r.d=today();if(!(typeof wordBy==='function'&&wordBy(zh)))r.b=0;S.srs[zh]=r;save()};
+window.nbAdd=(zh,info,src)=>{const nb=NB();const e=Object.assign({},nb[zh]||{});/* เก็บซ้ำ = คงสถานะ “จำได้แล้ว” เดิมไว้ */const wasDone=(e.k||0)>Math.max(e.t||0,e.r||0);e.t=stamp();if(wasDone)e.k=stamp();if(info){if(info.py)e.py=info.py;if(info.th)e.th=info.th}if(src)e.src=src;nb[zh]=e;
+ if(!S.srs)S.srs={};if(wasDone&&S.srs[zh]){save();return}const r=S.srs[zh]||{b:0,d:0};if(!(r.d<=today()))r.d=today();if(!(typeof wordBy==='function'&&wordBy(zh)))r.b=0;S.srs[zh]=r;save()};
 window.nbRemove=zh=>{const e=NB()[zh];if(!e)return;e.x=stamp();save()};
 function nbLearn(zh){const e=NB()[zh];if(!e)return null;const prev=srsOf(zh)?Object.assign({},srsOf(zh)):null;e.k=stamp();if(!S.srs)S.srs={};S.srs[zh]={b:5,d:today()+16};save();return prev}
 function nbRelearn(zh,prev){const e=NB()[zh];if(!e)return;e.r=stamp();if(!S.srs)S.srs={};S.srs[zh]=prev&&prev.b<5?prev:{b:0,d:today()};save()}

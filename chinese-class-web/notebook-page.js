@@ -76,7 +76,7 @@ function pressFx(b,cb){if(RM()||!b.animate){cb();return}b.animate([{transform:'n
 function n4Wire(el,box,paint){let busy=false;
  const learn=(zh,c)=>{if(busy)return;busy=true;vib(10);stampOut(c,true,()=>{const prev=nbLearn(zh);busy=false;paint();snack(el,`ย้าย <span class="zh">${esc(zh)}</span> ไปที่ “คำที่จำแล้ว”`,()=>{nbRelearn(zh,prev);paint()})},el.dataset.keep==='1')};
  const back=(zh,c,out)=>{if(busy)return;busy=true;vib(10);const go2=()=>{nbRelearn(zh,null);busy=false;paint();snack(el,`ย้าย <span class="zh">${esc(zh)}</span> กลับมาทบทวนอีก`,()=>{nbLearn(zh);paint()})};out?stampOut(c,false,go2):go2()};
- const del=zh=>{nbRemove(zh);vib(10);paint();snack(el,`นำ <span class="zh">${esc(zh)}</span> ออกจากสมุดแล้ว`,()=>{const e=NB()[zh];if(e){e.t=stamp();save()}paint()})};
+ const del=zh=>{nbRemove(zh);vib(10);paint();snack(el,`นำ <span class="zh">${esc(zh)}</span> ออกจากสมุดแล้ว`,()=>{const e=NB()[zh];if(e){const d=(e.k||0)>Math.max(e.t||0,e.r||0);e.t=stamp();if(d)e.k=stamp();save()}paint()})};
  const onAct=(t,e)=>{const a=t.dataset.n4;
   if(a==='all'){if(!nbLearning().length){toast(nbAll().length?'จำได้ครบทุกคำแล้ว ยังไม่มีคำให้ทบทวน':'ยังไม่มีคำในสมุด');return}push('nbswipe',{all:1});return}if(a==='start'){if(!nbPool().length&&!nbLearning().length){toast(nbAll().length?'จำได้ครบทุกคำแล้ว ยังไม่มีคำให้ทบทวน':'ยังไม่มีคำในสมุด');return}push('nbswipe',{});return}if(a==='hub'){go('huball',t);return}
   if(a==='list'){const f=t.dataset.f;if(t.classList.contains('db'))pressFx(t,()=>push('nblist',{f}));else push('nblist',{f});return}
@@ -113,6 +113,12 @@ function nbBigBtn(it){const zh=it.zh;if(nbHas(zh)&&isDone(NB()[zh]))return `<but
 function nbBig(el,c,paint){const sec=c.closest('.track,.grid')||c.parentNode;const cs=[...sec.querySelectorAll('.cd[data-z]')];const zs=cs.map(x=>x.dataset.z);const k=Math.max(0,zs.indexOf(c.dataset.z));
  let dirty=false;const S0={t:'สมุดคำ',bg:TINT[0],from:c,
   tag:(it,kc)=>it.s!=null?(it.browse?'<span class="hb-tag lv">อ่านเล่น</span>':hbTag(it,kc)):((l=>l?`<span class="hb-tag lv">ระดับ ${l}</span>`:'')(hbLv(it))),
+  /* ปุ่มล่าง: จำได้แล้ว = ไม่นำออก (สั่นเบา ๆ) · อยู่ในสมุดแล้ว = นำออกพร้อมแถบเลิกทำ · เก็บลงสมุด = ใช้แบบเดิมของห้องคำ */
+  save:(o,btn,it)=>{const zh=it.zh,rm=typeof hbRM==='function'&&hbRM();if(!nbHas(zh))return false;
+   if(isDone(NB()[zh])){vib(6);if(!rm&&btn.animate)btn.animate([{transform:'none'},{transform:'translateX(-6px)'},{transform:'translateX(5px)'},{transform:'translateX(-3px)'},{transform:'none'}],{duration:360,easing:'ease-out'});return true}
+   const sw=()=>{const b=o.inn.querySelector('.ft [data-nbsave]');if(b)b.outerHTML=nbBigBtn(it);const ph=o.inn.querySelector('.ph');let r=ph&&ph.querySelector('.rib');
+    if(nbHas(zh)){if(ph&&!r){r=document.createElement('i');r.className='rib';ph.appendChild(r)}}else if(r)r.remove()};
+   nbRemove(zh);vib(10);sw();snack(o.ov,`นำ <span class="zh">${esc(zh)}</span> ออกจากสมุดแล้ว`,()=>{const e=NB()[zh];if(e){const d=(e.k||0)>Math.max(e.t||0,e.r||0);e.t=stamp();if(d)e.k=stamp();save()}if(hbOv===o&&o.list[o.k]===it)sw()});return true},
   btn:nbBigBtn,src:it=>(nbInfo(it.zh).src||''),
   tileOf:it=>{const t=[...el.querySelectorAll('.cd[data-z]')].find(x=>x.dataset.z===it.zh&&sec.contains(x))||null;if(!t)return null;const sc=el.querySelector('.scroller')||el;const r=t.getBoundingClientRect(),q=sc.getBoundingClientRect();return r.bottom>q.top+20&&r.top<q.bottom-60&&r.right>0&&r.left<innerWidth?t:null},
   onClose:()=>{const now=nbAll().join()+'|'+nbLearned().join();if(now!==snap)paint()}};

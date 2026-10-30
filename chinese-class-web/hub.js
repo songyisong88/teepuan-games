@@ -135,7 +135,7 @@ function hbShow(o,k2,dir,from){if(k2<0||k2>=o.list.length||k2===o.k){if(from)hbA
  o.busy=1;hbDone(hbA(o.inn,[{transform:`translateX(${from||0}px)`,opacity:1},{transform:`translateX(${-dir*90}px)`,opacity:0}],{duration:150,easing:'cubic-bezier(.4,0,1,1)'})).then(()=>{put();
   return hbDone(hbA(o.inn,[{transform:`translateX(${dir*90}px)`,opacity:0},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.75,.3,1)'}))}).then(()=>{o.busy=0;o.inn.getAnimations&&o.inn.getAnimations().forEach(a=>a.cancel())})}
 /* เก็บลงสมุด: ริบบิ้นแดงหล่นลงที่มุมภาพ ปุ่มเด้ง ประกายเล็ก ๆ · นำออก: ริบบิ้นยกออก */
-function hbSaveFx(o,btn){const it=o.list[o.k];const on=nbSaveToggle(it.zh,{py:it.py,th:it.th},o.s.src?o.s.src(it):'คลัง'+o.s.t,null);
+function hbSaveFx(o,btn){const it=o.list[o.k];if(o.s.save&&o.s.save(o,btn,it)!==false)return;const on=nbSaveToggle(it.zh,{py:it.py,th:it.th},o.s.src?o.s.src(it):'คลัง'+o.s.t,null);
  const nb=document.createElement('div');nb.innerHTML=o.s.btn?o.s.btn(it):nbBtn(it.zh);const b2=nb.firstChild;btn.replaceWith(b2);const ph=o.inn.querySelector('.ph');const rm=hbRM();let rib=ph.querySelector('.rib');
  if(on){if(!rib){rib=document.createElement('i');rib.className='rib';ph.appendChild(rib)}
   if(!rm){hbA(rib,[{transform:'translateY(-60px)'},{transform:'none'}],{duration:440,easing:'cubic-bezier(.34,1.56,.64,1)',fill:'none'});

@@ -56,7 +56,7 @@ for p,th,zh,sub,bg in S.PARTS:
   chap.append(f"{{lv:1,id:{1000+p},ep:{p},th:{js(th)},zh:{js(zh)},sub:{js(sub)},emoji:'',bg:'{bg}'}}")
   ls=[x for x in S.L if x[0].split('-')[0]==str(p)]
   for k,(code,lth,lzh,emo,can,words,sents,fr,dlg,wrong,story) in enumerate(ls,1):
-    lid=1000+p*10+k;code_of[code]=lid
+    lid=getattr(S,'IDS',{}).get(code,1000+p*10+k);code_of[code]=lid
     kind='snd' if p==0 else 'lex'
     for w in words:
       if w in upto:print('DUP',w,file=sys.stderr)

@@ -141,41 +141,166 @@ function l1LexSteps(u,L){const pool=l1Taught(L),ws=L.words,st=[],Q=q=>q&&st.push
  const tq=shuffle(ws.slice()).map(toneQ).find(Boolean);if(tq)Q(tq);
  return st}
 
-/* ---------- ตอน 0: เสียง ---------- */
+/* ---------- ตอน 0: เสียง (เรียงตามลำดับมาตรฐาน: พยัญชนะต้น → สระ → วรรณยุกต์ → ประกอบพยางค์ → ทดสอบ) ---------- */
 const L1TONE=[['妈','mā','แม่'],['麻','má','ป่าน'],['马','mǎ','ม้า'],['骂','mà','ด่า']];
 const l1Contour=(t,cls)=>{const d=['M14 22 L86 22','M14 56 L86 20','M14 52 L44 82 L86 30','M14 18 L86 84'][t-1];
  return `<svg class="l1ct ${cls||''}" viewBox="0 0 100 100" aria-hidden="true">${[18,34,50,66,82].map(y=>`<line x1="8" y1="${y}" x2="92" y2="${y}" stroke="#EFE7DC" stroke-width="1.4"/>`).join('')}<path d="${d}" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`};
 function l1PyQ(top,opts,ans,reveal,lbl){const o=opts.map((x,i)=>({x,i}));const sh=shuffle(o);return {w:null,lbl:lbl||'เสียง',custom:true,top,optsHtml:sh.map(v=>`<span style="font-size:24px;font-weight:500">${v.x}</span>`),ans:sh.findIndex(v=>v.i===ans),reveal}}
 const l1Txt=(t)=>`<div class="ans">${t}</div>`;
-function l1SndSteps(u,L){const st=[],Q=q=>q&&st.push({k:'q',q});
- if(L.code==='0-1'){
-  st.push({k:'h',say:'你好',btn:'ต่อไป',html:`<div class="center l1snd"><div class="l1code">0-1</div><div class="large" style="padding:6px 0 0">ตัวจีน กับ พินอิน</div>
-   <div class="card l1two"><div><span class="zh" style="font-size:54px">你好</span><small>ตัวจีน (汉字)<br>บอกความหมาย</small></div><div><span style="font-size:34px;font-weight:600">${pyHtml('nǐ hǎo')}</span><small>พินอิน<br>บอกวิธีอ่าน</small></div></div>
-   <p class="l1p">พินอินเขียนด้วยอักษรโรมัน ช่วยให้อ่านตัวจีนออกเสียงได้ · 你好 อ่านว่า nǐ hǎo แปลว่า สวัสดี</p>
-   <button class="audio lg press" data-act="audio" data-t="你好">${SPK}<span>ฟังเสียง</span></button>
-   <button class="pill sm ghost press mt16" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบบท 0-3</button></div>`});
+/* เสียงตัวอย่าง: [ตัวพินอิน, เสียงใกล้เคียงภาษาไทย, ตัวจีน, พินอินเต็ม, ความหมาย] · ทุกตัวจีนมีคลิปเสียงจริงใน AUDIO_INDEX */
+const L1PY={
+ b:['ใกล้ ป · ไม่พ่นลม','八','bā','แปด'],p:['ใกล้ พ · พ่นลม','跑','pǎo','วิ่ง'],m:['เหมือน ม','妈','mā','แม่'],f:['เหมือน ฟ','发','fā','ส่ง'],
+ d:['ใกล้ ต · ไม่พ่นลม','大','dà','ใหญ่'],t:['ใกล้ ท · พ่นลม','他','tā','เขา'],n:['เหมือน น','你','nǐ','คุณ'],l:['เหมือน ล','来','lái','มา'],
+ g:['ใกล้ ก · ไม่พ่นลม','高','gāo','สูง'],k:['ใกล้ ค · พ่นลม','开','kāi','เปิด'],h:['ใกล้ ฮ · ลมเสียดในลำคอ','好','hǎo','ดี'],
+ j:['ใกล้ จ · ลิ้นแบน ยิ้มกว้าง','鸡','jī','ไก่'],q:['ใกล้ ช · ลิ้นแบน พ่นลม','七','qī','เจ็ด'],x:['ใกล้ ซ · ลิ้นแบน ยิ้มกว้าง','西','xī','ตะวันตก'],
+ zh:['ม้วนปลายลิ้น · ใกล้ จ','纸','zhǐ','กระดาษ'],ch:['ม้วนปลายลิ้น · ใกล้ ช พ่นลม','吃','chī','กิน'],sh:['ม้วนปลายลิ้น · ใกล้ ซ','十','shí','สิบ'],r:['ม้วนปลายลิ้น · ใกล้ ร เบา ๆ ไม่รัว','日','rì','วัน'],
+ z:['ใกล้ ตซ · ไม่พ่นลม','字','zì','ตัวอักษร'],c:['ใกล้ ตซ · พ่นลม','菜','cài','อาหาร'],s:['ใกล้ ซ · ลิ้นราบ ไม่ม้วน','四','sì','สี่'],
+ y:['ใกล้ ย · ใช้แทน i ต้นพยางค์','一','yī','หนึ่ง'],w:['ใกล้ ว · ใช้แทน u ต้นพยางค์','五','wǔ','ห้า'],
+ a:['อา','啊','a','คำอุทาน'],o:['ออ · ปากกลม','摸','mō','ลูบ'],e:['เออ · ไม่ใช่ เอ','饿','è','หิว'],i:['อี','一','yī','หนึ่ง'],u:['อู','五','wǔ','ห้า'],'ü':['อี แต่ห่อปากกลม','雨','yǔ','ฝน'],er:['เออ แล้วม้วนลิ้น','二','èr','สอง'],
+ ai:['อาย','白','bái','ขาว'],ei:['เอย','黑','hēi','ดำ'],ao:['อาว','好','hǎo','ดี'],ou:['โอว','手','shǒu','มือ'],
+ ia:['เอีย (อี+อา)','家','jiā','บ้าน'],ie:['เอีย (อี+เอ)','写','xiě','เขียน'],iao:['เอียว','小','xiǎo','เล็ก'],iu:['อิว (iou)','六','liù','หก'],
+ ua:['อัว (อู+อา)','花','huā','ดอกไม้'],uo:['อัว (อู+ออ)','多','duō','มาก'],uai:['อวาย','快','kuài','เร็ว'],ui:['เอว (uei)','对','duì','ถูกต้อง'],'üe':['ü + เอ','月','yuè','เดือน'],
+ an:['อัน','三','sān','สาม'],en:['เอิน','门','mén','ประตู'],in:['อิน','新','xīn','ใหม่'],'ün':['ü + น','云','yún','เมฆ'],
+ ang:['อาง','忙','máng','ยุ่ง'],eng:['เอิง','冷','lěng','หนาว'],ing:['อิง','听','tīng','ฟัง'],ong:['อุง','红','hóng','แดง'],
+ ian:['เอียน','天','tiān','ท้องฟ้า'],uan:['อวน','关','guān','ปิด'],iang:['เอียง','想','xiǎng','คิดถึง'],uang:['อวาง','黄','huáng','เหลือง'],iong:['อยง','穷','qióng','จน']};
+/* ชุดฝึกฟัง: ตัวเลือก + [ตัวจีน, พินอิน, คำตอบ] (ทุกตัวมีคลิปเสียงจริง) */
+const L1SET={
+ bpmf:[['b','p','m','f'],[['被','bèi','b'],['陪','péi','p'],['没','méi','m'],['非','fēi','f'],['比','bǐ','b'],['披','pī','p'],['米','mǐ','m']]],
+ dtnl:[['d','t','n','l'],[['大','dà','d'],['他','tā','t'],['拿','ná','n'],['拉','lā','l'],['都','dōu','d'],['偷','tōu','t'],['楼','lóu','l']]],
+ gkh:[['g','k','h'],[['个','gè','g'],['渴','kě','k'],['喝','hē','h'],['盖','gài','g'],['开','kāi','k'],['还','hái','h']]],
+ jqx:[['j','q','x'],[['鸡','jī','j'],['七','qī','q'],['西','xī','x'],['九','jiǔ','j'],['秋','qiū','q'],['修','xiū','x']]],
+ zhchshr:[['zh','ch','sh','r'],[['支','zhī','zh'],['吃','chī','ch'],['诗','shī','sh'],['日','rì','r'],['找','zhǎo','zh'],['炒','chǎo','ch'],['少','shǎo','sh'],['绕','rào','r']]],
+ zcs:[['z','c','s'],[['字','zì','z'],['次','cì','c'],['四','sì','s'],['早','zǎo','z'],['草','cǎo','c']]],
+ zhz:[['zh','z'],[['纸','zhǐ','zh'],['紫','zǐ','z']]],shs:[['sh','s'],[['是','shì','sh'],['四','sì','s']]],chc:[['ch','c'],[['菜','cài','c'],['拆','chāi','ch']]],
+ yw:[['y','w'],[['一','yī','y'],['五','wǔ','w'],['鱼','yú','y'],['我','wǒ','w']]],
+ aeu:[['a','e','u'],[['哈','hā','a'],['喝','hē','e'],['湖','hú','u']]],aoi:[['a','o','i'],[['妈','mā','a'],['摸','mō','o'],['米','mǐ','i']]],
+ uu:[['u','ü'],[['路','lù','u'],['绿','lǜ','ü']]],iuu:[['i','u','ü'],[['一','yī','i'],['五','wǔ','u'],['雨','yǔ','ü']]],eer:[['e','er'],[['饿','è','e'],['二','èr','er']]],
+ aieiaoou:[['ai','ei','ao','ou'],[['还','hái','ai'],['黑','hēi','ei'],['好','hǎo','ao'],['厚','hòu','ou'],['白','bái','ai'],['被','bèi','ei'],['包','bāo','ao']]],
+ iaie:[['ia','ie','iao','iu'],[['下','xià','ia'],['些','xiē','ie'],['小','xiǎo','iao'],['修','xiū','iu']]],
+ uaui:[['ua','uo','uai','ui'],[['刮','guā','ua'],['过','guò','uo'],['乖','guāi','uai'],['贵','guì','ui']]],
+ uee:[['üe','ie'],[['雪','xuě','üe'],['写','xiě','ie'],['月','yuè','üe'],['夜','yè','ie']]],
+ anang:[['an','ang'],[['满','mǎn','an'],['忙','máng','ang'],['蓝','lán','an'],['狼','láng','ang']]],
+ eneng:[['en','eng'],[['门','mén','en'],['梦','mèng','eng'],['根','gēn','en'],['更','gèng','eng']]],
+ ining:[['in','ing'],[['新','xīn','in'],['行','xíng','ing'],['您','nín','in'],['零','líng','ing']]],
+ hnasal:[['an','en','eng','ong'],[['喊','hǎn','an'],['很','hěn','en'],['横','héng','eng'],['红','hóng','ong']]],
+ uanuang:[['uan','uang'],[['关','guān','uan'],['光','guāng','uang']]]};
+const l1Pick=(k,n,what)=>{const [opts,items]=L1SET[k];return shuffle(items.slice()).slice(0,n).map(([hz,py,a])=>l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือก${what}</div>${l1Aud(hz)}`,opts,opts.indexOf(a),l1Txt(`<b>${pyHtml(py)}</b> <span class="zh">${hz}</span> · ${what} <b>${a}</b>`),py))};
+/* การ์ดแตะฟัง: ต้องแตะครบทุกช่องก่อนไปต่อ */
+const l1Tiles=(keys)=>`<div class="l1tones">${keys.map(k=>{const v=L1PY[k];return `<button class="l1tn press" data-act="audio" data-t="${v[1]}" data-l1k="${k}"><b>${k}</b><span><span class="zh">${v[1]}</span> ${pyHtml(v[2])} · ${v[3]}</span><span>${v[0]}</span></button>`}).join('')}</div>`;
+const l1LockMount=n=>(stage,dock)=>{const nb=$('[data-sa=next]',dock),seen=new Set(),c=$('.l1cnt',stage);stage.addEventListener('click',e=>{const b=e.target.closest('[data-l1k]');if(!b)return;b.style.borderColor='var(--red)';seen.add(b.dataset.l1k);if(c)c.textContent=`แตะฟังแล้ว ${seen.size}/${n}`;if(seen.size>=n&&nb)nb.disabled=false})};
+const l1TileStep=(cap,title,keys,note)=>({k:'h',lock:true,btn:'ต่อไป',mount:l1LockMount(keys.length),html:`<div class="center l1snd"><div class="cap">${cap}</div><div class="large" style="padding:4px 0 0">${title}</div>${l1Tiles(keys)}${note?`<p class="l1p">${note}</p>`:''}<p class="cap l1cnt">แตะทุกช่องเพื่อฟัง · 0/${keys.length}</p></div>`});
+const l1Intro=(L,body)=>({k:'h',btn:'เริ่มเรียน',html:`<div class="center l1snd"><div class="l1code">${L.code}</div><div class="large" style="padding:6px 0 0">${L.th}</div>${body}</div>`});
+const l1Know=(q,opts,reveal,lbl)=>l1PyQ(`<div class="cap" style="font-size:15px;margin:0 16px">${q}</div>`,opts,0,l1Txt(reveal),lbl);
+const L1_SKIP=`<button class="pill sm ghost press mt16" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบท้ายตอน</button>`;
+function l1SndSteps(u,L){const st=[],Q=q=>q&&st.push({k:'q',q}),QA=a=>a.forEach(Q);
+ if(L.id===1001){ /* 0-1 พินอินคืออะไร */
+  st.push({k:'h',say:'你好',btn:'ต่อไป',html:`<div class="center l1snd"><div class="l1code">0-1</div><div class="large" style="padding:6px 0 0">พินอินคืออะไร</div>
+   <div class="card l1two"><div><span class="zh" style="font-size:54px">你好</span><small>ตัวจีน (汉字)<br>บอกความหมาย</small></div><div><span style="font-size:34px;font-weight:600">${pyHtml('nǐ hǎo')}</span><small>พินอิน (拼音)<br>บอกวิธีอ่าน</small></div></div>
+   <p class="l1p">ตัวจีนไม่ได้บอกเสียงอ่าน จึงใช้พินอิน ซึ่งเขียนด้วยอักษรโรมัน กำกับวิธีออกเสียงของตัวจีนแต่ละตัว</p>
+   <button class="audio lg press" data-act="audio" data-t="你好">${SPK}<span>ฟังเสียง</span></button>${L1_SKIP}</div>`});
   st.push({k:'h',say:'八',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">พินอิน 1 พยางค์ มี 3 ส่วน</div><div class="zh" style="font-size:72px;margin-top:6px">八</div>
    <div class="l1parts"><span class="pi">b</span><span class="pf">ā</span></div>
-   <div class="l1legend"><div><i class="pi"></i><b>b</b> พยัญชนะต้น</div><div><i class="pf"></i><b>a</b> สระ</div><div><i class="pt"></i><b>ˉ</b> วรรณยุกต์ (เครื่องหมายบนสระ)</div></div>
-   <p class="l1p">八 bā แปลว่า แปด · เครื่องหมายบนสระบอกเสียงสูงต่ำ</p><button class="audio lg press" data-act="audio" data-t="八">${SPK}<span>ฟังเสียง</span></button></div>`});
+   <div class="l1legend"><div><i class="pi"></i><b>b</b> พยัญชนะต้น (声母)</div><div><i class="pf"></i><b>a</b> สระ (韵母)</div><div><i class="pt"></i><b>ˉ</b> วรรณยุกต์ (声调) เครื่องหมายบนสระ</div></div>
+   <p class="l1p">八 bā แปลว่า แปด</p><button class="audio lg press" data-act="audio" data-t="八">${SPK}<span>ฟังเสียง</span></button></div>`});
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">ลำดับการเรียนในตอนนี้</div><div class="large" style="padding:4px 0 0">เรียนทีละส่วน</div>
+   <div class="l1legend" style="font-size:15.5px;gap:10px"><div><i class="pi"></i>0-2 ถึง 0-4 · พยัญชนะต้น 23 ตัว</div><div><i class="pf"></i>0-5 ถึง 0-7 · สระเดี่ยว สระผสม สระเสียงขึ้นจมูก</div><div><i class="pt"></i>0-8 · วรรณยุกต์ 4 เสียงและเสียงเบา</div><div><i class="pi"></i>0-9 · ประกอบพยางค์และกฎการเขียน</div><div><i class="pf"></i>0-10 · ทดสอบฟังเสียง</div></div>
+   <p class="l1p">แต่ละบทฝึกเฉพาะเสียงที่เรียนไปแล้วเท่านั้น</p></div>`});
   Q(l1PyQ(`<div class="cap" style="font-size:14px">พินอินมีไว้ทำอะไร</div><div class="zh" style="font-size:48px;margin-top:10px">你好</div><div style="font-size:22px">${pyHtml('nǐ hǎo')}</div>`,['บอกวิธีอ่านออกเสียง','บอกความหมายของคำ','บอกจำนวนขีดของตัวจีน'],0,l1Txt('พินอินบอกวิธีอ่าน · ความหมายดูจากตัวจีนและคำแปล'),'พินอิน'));
-  Q(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud('八')}`,['bā','pā','mā'],0,l1Txt('<b>bā</b> 八 = แปด'),'bā'));
+  Q(l1PyQ(`<div class="cap" style="font-size:14px">ในพินอิน bā ส่วนไหนคือพยัญชนะต้น</div><div style="font-size:56px;font-weight:600;margin-top:8px">bā</div>`,['b','a','เครื่องหมาย ˉ'],0,l1Txt('พยัญชนะต้นอยู่หน้าพยางค์ · ใน bā คือ b'),'พยัญชนะต้น'));
+  Q(l1PyQ(`<div class="cap" style="font-size:14px">ในพินอิน mā ส่วนไหนคือสระ</div><div style="font-size:56px;font-weight:600;margin-top:8px">mā</div>`,['a','m','เครื่องหมาย ˉ'],0,l1Txt('สระตามหลังพยัญชนะต้น · ใน mā คือ a'),'สระ'));
   Q(l1PyQ(`<div class="cap" style="font-size:14px">ในพินอิน bā ส่วนไหนคือวรรณยุกต์</div><div style="font-size:56px;font-weight:600;margin-top:8px">bā</div>`,['เครื่องหมาย ˉ บนตัว a','ตัว b','ตัว a'],0,l1Txt('วรรณยุกต์คือเครื่องหมายบนสระ บอกเสียงสูงต่ำ'),'วรรณยุกต์'));
-  Q(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud('你好')}`,['nǐ hǎo','nī hāo','nì hào'],0,l1Txt(`<b>${pyHtml('nǐ hǎo')}</b> 你好 = สวัสดี`),'nǐ hǎo'));
   return st}
- if(L.code==='0-2'){
-  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="l1code">0-2</div><div class="large" style="padding:6px 0 0">สี่เสียง</div><p class="l1p">ภาษาจีนมี 4 เสียงวรรณยุกต์ เสียงต่างกัน ความหมายก็ต่างกัน · แตะแต่ละช่องเพื่อฟัง</p>
-   <div class="l1tones">${L1TONE.map((t,i)=>`<button class="l1tn press tc${i+1}" data-act="audio" data-t="${t[0]}">${l1Contour(i+1)}<b>${t[1]}</b><span><span class="zh">${t[0]}</span> ${t[2]}</span></button>`).join('')}</div>
-   <p class="cap">นอกจากนี้มีเสียงเบา (ไม่มีเครื่องหมาย) เช่น xie ตัวหลังใน 谢谢</p></div>`});
+ if(L.id===1004){ /* 0-2 b p m f · d t n l */
+  st.push(l1Intro(L,`<p class="l1p">พยัญชนะต้น (声母) คือเสียงที่ขึ้นต้นพยางค์ ภาษาจีนมี 23 ตัว แบ่งเป็นกลุ่มตามตำแหน่งที่ออกเสียง · บทนี้เรียน 2 กลุ่มแรก</p><p class="l1p">ยังไม่มีคลิปเสียงของตัวอักษรเดี่ยว จึงฝึกฟังจากคำจริง ให้ตั้งใจฟังเสียงต้นคำ</p>`));
+  st.push(l1TileStep('กลุ่มริมฝีปาก','b p m f',['b','p','m','f'],'ใช้ริมฝีปากออกเสียง · f ใช้ฟันบนแตะริมฝีปากล่าง'));
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">จุดที่คนไทยมักพลาด</div><div class="large" style="padding:4px 0 0">พ่นลม หรือ ไม่พ่นลม</div>
+   <div class="card l1two"><div><span style="font-size:44px;font-weight:600">b</span><small>ไม่พ่นลม<br>ใกล้ ป ไม่ใช่ บ</small></div><div><span style="font-size:44px;font-weight:600">p</span><small>พ่นลม<br>ใกล้ พ</small></div></div>
+   <p class="l1p">ลองถือกระดาษไว้หน้าปาก เมื่อออกเสียง p กระดาษจะไหว แต่ b กระดาษแทบไม่ขยับ · คู่ d กับ t ก็เป็นแบบเดียวกัน</p></div>`});
+  st.push(l1TileStep('กลุ่มปลายลิ้นแตะเหงือก','d t n l',['d','t','n','l'],'d ใกล้ ต ไม่ใช่ ด · t พ่นลม'));
+  QA(l1Pick('bpmf',3,'พยัญชนะต้น'));QA(l1Pick('dtnl',3,'พยัญชนะต้น'));
+  Q(l1Know('คู่ไหนต่างกันที่การพ่นลม',['b กับ p','m กับ f','n กับ l'],'b ไม่พ่นลม · p พ่นลม (d กับ t ก็เช่นกัน)','พ่นลม'));
+  return st}
+ if(L.id===1005){ /* 0-3 g k h · j q x */
+  st.push(l1Intro(L,`<p class="l1p">ต่อจาก b p m f · d t n l บทนี้เรียนกลุ่มโคนลิ้น g k h และกลุ่มลิ้นแบน j q x</p>`));
+  st.push(l1TileStep('กลุ่มโคนลิ้น','g k h',['g','k','h'],'g ไม่พ่นลม · k พ่นลม (เป็นคู่เหมือน b กับ p)'));
+  st.push(l1TileStep('กลุ่มลิ้นแบน','j q x',['j','q','x'],'ปลายลิ้นแตะหลังฟันล่าง ยิ้มกว้าง · j q x ใช้กับสระ i และ ü เท่านั้น'));
+  QA(l1Pick('gkh',3,'พยัญชนะต้น'));QA(l1Pick('jqx',3,'พยัญชนะต้น'));
+  Q(l1Know('ออกเสียง j q x ต้องทำลิ้นอย่างไร',['ลิ้นแบน ยิ้มกว้าง','ม้วนปลายลิ้นขึ้น','ห่อปากกลม'],'j q x ลิ้นแบน ปลายลิ้นแตะหลังฟันล่าง','j q x'));
+  return st}
+ if(L.id===1006){ /* 0-4 zh ch sh r · z c s · y w */
+  st.push(l1Intro(L,`<p class="l1p">บทสุดท้ายของพยัญชนะต้น · กลุ่มม้วนลิ้น zh ch sh r กลุ่มลิ้นตรง z c s และ y w</p>`));
+  st.push(l1TileStep('กลุ่มม้วนลิ้น','zh ch sh r',['zh','ch','sh','r'],'ยกปลายลิ้นขึ้นไปทางเพดาน · ch พ่นลม'));
+  st.push(l1TileStep('กลุ่มลิ้นตรง','z c s',['z','c','s'],'ลิ้นราบ ไม่ม้วน · z c มีเสียง ต นำเบา ๆ · c พ่นลม'));
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">ฟังคู่ที่คล้ายกัน</div><div class="large" style="padding:4px 0 0">ม้วนลิ้น หรือ ไม่ม้วน</div>
+   <div class="card l1two"><div><span style="font-size:40px;font-weight:600">${pyHtml('zhǐ')}</span><small><span class="zh">纸</span> กระดาษ<br>ม้วนลิ้น</small><button class="audio press" data-act="audio" data-t="纸">${SPK}</button></div><div><span style="font-size:40px;font-weight:600">${pyHtml('zǐ')}</span><small><span class="zh">紫</span> สีม่วง<br>ไม่ม้วนลิ้น</small><button class="audio press" data-act="audio" data-t="紫">${SPK}</button></div></div>
+   <div class="card l1two"><div><span style="font-size:40px;font-weight:600">${pyHtml('shì')}</span><small><span class="zh">是</span> เป็น<br>ม้วนลิ้น</small><button class="audio press" data-act="audio" data-t="是">${SPK}</button></div><div><span style="font-size:40px;font-weight:600">${pyHtml('sì')}</span><small><span class="zh">四</span> สี่<br>ไม่ม้วนลิ้น</small><button class="audio press" data-act="audio" data-t="四">${SPK}</button></div></div></div>`});
+  st.push(l1TileStep('ใช้นำหน้าพยางค์ที่ขึ้นต้นด้วยสระ','y w',['y','w'],'พยางค์ที่ไม่มีพยัญชนะต้นและขึ้นต้นด้วย i หรือ u จะเขียน y หรือ w นำ · ครบ 23 ตัวแล้ว'));
+  QA(l1Pick('zhchshr',2,'พยัญชนะต้น'));QA(l1Pick('zcs',2,'พยัญชนะต้น'));QA(l1Pick('zhz',1,'พยัญชนะต้น'));QA(l1Pick('shs',1,'พยัญชนะต้น'));QA(l1Pick('chc',1,'พยัญชนะต้น'));QA(l1Pick('yw',1,'พยัญชนะต้น'));
+  return st}
+ if(L.id===1007){ /* 0-5 สระเดี่ยว */
+  st.push(l1Intro(L,`<p class="l1p">สระ (韵母) คือเสียงที่ตามหลังพยัญชนะต้น เริ่มจากสระเดี่ยว 6 ตัว a o e i u ü และ er</p><p class="l1p">ตัวอย่างบางคำเขียนด้วย y w นำหน้า เพราะไม่มีพยัญชนะต้น ตามที่เรียนในบท 0-4</p>`));
+  st.push(l1TileStep('สระเดี่ยว 1','a o e',['a','o','e'],'e ออกเสียง เออ ไม่ใช่ เอ · ในคลิป 摸 มีเสียง m นำ ให้ฟังส่วนท้าย'));
+  st.push(l1TileStep('สระเดี่ยว 2','i u ü er',['i','u','ü','er'],'ü ทำปากห่อกลมแล้วออกเสียง อี · er คือ เออ แล้วม้วนลิ้น'));
+  QA(l1Pick('aeu',2,'สระ'));QA(l1Pick('aoi',1,'สระ'));QA(l1Pick('uu',2,'สระ'));QA(l1Pick('iuu',1,'สระ'));QA(l1Pick('eer',1,'สระ'));
+  return st}
+ if(L.id===1008){ /* 0-6 สระผสม */
+  st.push(l1Intro(L,`<p class="l1p">สระผสมคือสระเดี่ยวตั้งแต่ 2 ตัวขึ้นไปออกเสียงต่อเนื่องกันเป็นเสียงเดียว</p>`));
+  st.push(l1TileStep('สระผสม 1','ai ei ao ou',['ai','ei','ao','ou']));
+  st.push(l1TileStep('สระผสมที่ขึ้นต้นด้วย i','ia ie iao iu',['ia','ie','iao','iu'],'iu เป็นรูปย่อของ iou'));
+  st.push(l1TileStep('สระผสมที่ขึ้นต้นด้วย u และ ü','ua uo uai ui üe',['ua','uo','uai','ui','üe'],'ui เป็นรูปย่อของ uei'));
+  QA(l1Pick('aieiaoou',3,'สระ'));QA(l1Pick('iaie',2,'สระ'));QA(l1Pick('uaui',2,'สระ'));QA(l1Pick('uee',1,'สระ'));
+  return st}
+ if(L.id===1009){ /* 0-7 สระเสียงขึ้นจมูก */
+  st.push(l1Intro(L,`<p class="l1p">สระที่ลงท้ายด้วย n หรือ ng · n ปิดท้ายแบบ น (ปลายลิ้นแตะเหงือก) · ng ปิดท้ายแบบ ง (โคนลิ้นยก)</p>`));
+  st.push(l1TileStep('ลงท้ายด้วย n','an en in ün',['an','en','in','ün']));
+  st.push(l1TileStep('ลงท้ายด้วย ng','ang eng ing ong',['ang','eng','ing','ong']));
+  st.push(l1TileStep('สระนาสิกที่มี i หรือ u นำ','ian uan iang uang iong',['ian','uan','iang','uang','iong']));
+  QA(l1Pick('anang',2,'สระ'));QA(l1Pick('eneng',2,'สระ'));QA(l1Pick('ining',2,'สระ'));QA(l1Pick('hnasal',1,'สระ'));QA(l1Pick('uanuang',1,'สระ'));
+  return st}
+ if(L.id===1002){ /* 0-8 วรรณยุกต์ */
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="l1code">${L.code}</div><div class="large" style="padding:6px 0 0">วรรณยุกต์ 4 เสียง</div><p class="l1p">ภาษาจีนกลางมี 4 เสียงวรรณยุกต์ (声调) พยางค์เดียวกันแต่เสียงต่างกัน ความหมายก็ต่างกัน · แตะแต่ละช่องเพื่อฟัง</p>
+   <div class="l1tones">${L1TONE.map((t,i)=>`<button class="l1tn press tc${i+1}" data-act="audio" data-t="${t[0]}">${l1Contour(i+1)}<b>${t[1]}</b><span><span class="zh">${t[0]}</span> ${t[2]}</span></button>`).join('')}</div></div>`});
   L1TONE.forEach((t,i)=>{const g=TONE_GUIDE[i];st.push({k:'h',say:t[0],btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">${i+1}/4 · ${g.name}</div><div class="l1tbig tc${i+1}">${l1Contour(i+1)}</div><div style="font-size:52px;font-weight:600" class="t${i+1}">${t[1]}</div><div><span class="zh" style="font-size:30px">${t[0]}</span> <span style="font-size:20px">= ${t[2]}</span></div><p class="l1p">${g.thai}</p>${g.like?`<p class="cap">${g.like}</p>`:''}<button class="audio lg press" data-act="audio" data-t="${t[0]}">${SPK}<span>ฟังเสียง</span></button></div>`})});
+  st.push({k:'h',say:'吗',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">เสียงที่ 5</div><div class="large" style="padding:4px 0 0">เสียงเบา (轻声)</div><div style="font-size:52px;font-weight:600;margin-top:8px">ma</div><div><span class="zh" style="font-size:30px">吗</span> <span style="font-size:20px">= คำลงท้ายคำถาม</span></div>
+   <p class="l1p">ไม่มีเครื่องหมายวรรณยุกต์ ออกเสียงสั้นและเบา มักเป็นคำท้ายประโยคหรือพยางค์หลังของคำ เช่น 谢谢 xièxie</p><button class="audio lg press" data-act="audio" data-t="吗">${SPK}<span>ฟังเสียง</span></button></div>`});
   shuffle([0,1,2,3]).forEach(k=>{const mk=()=>{const o=shuffle([0,1,2,3]);return {w:null,lbl:L1TONE[k][1],html:`<div class="center"><div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกเส้นเสียง</div>${l1Aud(L1TONE[k][0])}</div><div class="pgrid">${o.map((t,i)=>`<button class="opt ptile press tc${t+1}" data-i="${i}"><span class="k">${LET[i]}</span>${l1Contour(t+1,'pic-t')}<span class="l1tl">${L1TONE[t][1]}</span></button>`).join('')}</div>`,ans:o.indexOf(k),reveal:l1Txt(`<b class="t${k+1}">${L1TONE[k][1]}</b> <span class="zh">${L1TONE[k][0]}</span> = ${L1TONE[k][2]} · ${TONE_GUIDE[k].name}`)}};const q=mk();q.rq=()=>({k:'q',q:mk()});Q(q)});
+  const TG=[['汤','tāng'],['糖','táng'],['躺','tǎng'],['烫','tàng']];shuffle([0,1,2,3]).slice(0,2).forEach(k=>Q(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud(TG[k][0])}`,TG.map(x=>x[1]),k,l1Txt(`<b class="t${k+1}">${TG[k][1]}</b> <span class="zh">${TG[k][0]}</span> · ${TONE_GUIDE[k].name}`),TG[k][1])));
+  Q(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud('吗')}`,['ma','mā','mà'],0,l1Txt('<b>ma</b> <span class="zh">吗</span> · เสียงเบา ไม่มีเครื่องหมาย'),'ma'));
   return st}
- /* 0-3 ทดสอบ: พยางค์เดียวกัน ต่างเสียง (มีคลิปเสียงจริงครบ 4 เสียง) */
- st.push({k:'h',btn:'เริ่มทดสอบ',html:`<div class="center l1snd"><div class="l1code">0-3</div><div class="large" style="padding:6px 0 0">ฟังแล้วเลือกเสียง</div><p class="l1p">ทดสอบ 10 ข้อ ฟังพยางค์แล้วเลือกพินอินที่มีเสียงวรรณยุกต์ตรงกัน · ตอบถูก 7 ข้อขึ้นไปนับว่าผ่านตอนที่ 0</p><div class="l1lama">${M('listening')}</div></div>`});
+ if(L.id===1010){ /* 0-9 ประกอบพยางค์และกฎการเขียน */
+  const part=(i,f,hz,th)=>`<div class="card" style="margin:10px 16px 0;padding:8px 12px"><div class="l1parts" style="font-size:36px;margin-top:0"><span class="pi">${i}</span><span class="pf">${f}</span></div><div style="font-size:16px;margin-top:6px"><span class="zh">${hz}</span> ${th} <button class="audio press" style="vertical-align:middle" data-act="audio" data-t="${hz}">${SPK}</button></div></div>`;
+  st.push(l1Intro(L,`<p class="l1p">นำพยัญชนะต้น สระ และวรรณยุกต์ที่เรียนมาประกอบเป็นพยางค์ แล้วเรียนกฎการเขียนพินอินที่ต้องรู้</p>${part('h','ǎo','好','ดี')}${part('sh','uǐ','水','น้ำ')}${part('x','iǎo','小','เล็ก')}`));
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">กฎที่ 1</div><div class="large" style="padding:4px 0 0">วางเครื่องหมายวรรณยุกต์ที่ไหน</div>
+   <div class="l1legend" style="font-size:15.5px;gap:10px"><div><i class="pt"></i>มี a ใส่ที่ a · ${pyHtml('hǎo')} ${pyHtml('kuài')}</div><div><i class="pt"></i>ไม่มี a แต่มี o หรือ e ใส่ที่ตัวนั้น · ${pyHtml('duō')} ${pyHtml('xiě')}</div><div><i class="pt"></i>iu และ ui ใส่ที่ตัวหลัง · ${pyHtml('liù')} ${pyHtml('duì')}</div><div><i class="pt"></i>มีสระตัวเดียว ใส่ที่ตัวนั้น · ${pyHtml('nǐ')} ${pyHtml('wǔ')}</div></div></div>`});
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">กฎที่ 2</div><div class="large" style="padding:4px 0 0">y w และจุดบน ü</div>
+   <div class="l1legend" style="font-size:15.5px;gap:10px"><div><i class="pf"></i>ไม่มีพยัญชนะต้น: i เขียน yi · u เขียน wu · ü เขียน yu · ${pyHtml('yī')} ${pyHtml('wǔ')} ${pyHtml('yú')}</div><div><i class="pf"></i>ü หลัง j q x y ตัดจุดออก เขียนเป็น u · ${pyHtml('qù')} ${pyHtml('xuě')} ${pyHtml('yuè')}</div><div><i class="pf"></i>ü หลัง n l ต้องคงจุดไว้ · ${pyHtml('lǜ')} เขียว ต่างจาก ${pyHtml('lù')} ถนน</div></div>
+   <div class="card l1two"><div><span style="font-size:34px;font-weight:600">${pyHtml('qù')}</span><small><span class="zh">去</span> ไป · อ่าน q+ü</small><button class="audio press" data-act="audio" data-t="去">${SPK}</button></div><div><span style="font-size:34px;font-weight:600">${pyHtml('lǜ')}</span><small><span class="zh">绿</span> เขียว</small><button class="audio press" data-act="audio" data-t="绿">${SPK}</button></div></div></div>`});
+  st.push({k:'h',btn:'ต่อไป',html:`<div class="center l1snd"><div class="cap">กฎที่ 3</div><div class="large" style="padding:4px 0 0">รูปย่อ และเสียง 3 ต่อกัน</div>
+   <div class="l1legend" style="font-size:15.5px;gap:10px"><div><i class="pi"></i>iou เขียน iu · ${pyHtml('liù')}</div><div><i class="pi"></i>uei เขียน ui · ${pyHtml('duì')}</div><div><i class="pi"></i>uen เขียน un · ${pyHtml('chūn')}</div><div><i class="pt"></i>เสียง 3 สองตัวติดกัน ตัวแรกอ่านเป็นเสียง 2 แต่ยังเขียนเสียง 3 · ${pyHtml('nǐ hǎo')} อ่านว่า ní hǎo</div></div>
+   <button class="audio lg press" data-act="audio" data-t="你好">${SPK}<span>ฟัง 你好</span></button></div>`});
+  const sp=(q,opts,rev,lbl)=>Q(l1PyQ(`<div class="cap" style="font-size:15px;margin:0 16px">เขียนพินอินอย่างไร</div><div style="font-size:20px;margin-top:10px">${q}</div>`,opts,0,l1Txt(rev),lbl));
+  sp('<span class="zh">去</span> ไป · q + ü + เสียง 4',['qù','qǜ','qiù'],'ü หลัง j q x y เขียนเป็น u · <b>qù</b>','qù');
+  sp('<span class="zh">绿</span> เขียว · l + ü + เสียง 4',['lǜ','lù','lüè'],'หลัง n l ต้องคงจุดบน ü · <b>lǜ</b> (lù คือ 路 ถนน)','lǜ');
+  sp('<span class="zh">好</span> ดี · h + ao + เสียง 3',['hǎo','haǒ','hǎó'],'มี a ใส่เครื่องหมายที่ a · <b>hǎo</b>','hǎo');
+  sp('<span class="zh">六</span> หก · l + iu + เสียง 4',['liù','lìu','lioù'],'iu ใส่เครื่องหมายที่ตัวหลัง · <b>liù</b>','liù');
+  sp('<span class="zh">五</span> ห้า · u + เสียง 3 ไม่มีพยัญชนะต้น',['wǔ','ǔ','yǔ'],'ไม่มีพยัญชนะต้น u เขียนเป็น wu · <b>wǔ</b>','wǔ');
+  [['水','shuǐ',['shuǐ','suǐ','shǔ']],['雪','xuě',['xuě','xiě','xuè']],['月','yuè',['yuè','yè','yuě']]].forEach(([hz,py,o])=>Q(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud(hz)}`,o,0,l1Txt(`<b>${pyHtml(py)}</b> <span class="zh">${hz}</span>`),py)));
+  return st}
+ /* 0-10 [1003] ทดสอบท้ายตอน: พยัญชนะ 3 · สระ 3 · วรรณยุกต์ 3 · ทั้งพยางค์ 3 */
+ st.push({k:'h',btn:'เริ่มทดสอบ',html:`<div class="center l1snd"><div class="l1code">${L.code||'0-10'}</div><div class="large" style="padding:6px 0 0">ทดสอบฟังเสียง</div><p class="l1p">ทดสอบ 12 ข้อ ฟังแล้วเลือกพยัญชนะต้น สระ วรรณยุกต์ และพินอินทั้งพยางค์ · ตอบถูก 70% ขึ้นไป (9 ข้อ) นับว่าผ่านตอนที่ 0</p><div class="l1lama">${M('listening')}</div></div>`});
+ const qs=[];shuffle(['bpmf','dtnl','gkh','jqx','zhchshr','zcs']).slice(0,3).forEach(k=>qs.push(...l1Pick(k,1,'พยัญชนะต้น')));
+ shuffle(['aeu','uu','aieiaoou','iaie','anang','eneng','ining']).slice(0,3).forEach(k=>qs.push(...l1Pick(k,1,'สระ')));
  const fam={};(window.PIN_SYL||[]).forEach(r=>{if(r[4]<1||r[4]>4)return;const k=r[2]+'|'+r[3];(fam[k]=fam[k]||{})[r[4]]=fam[k][r[4]]||r});
  const full=shuffle(Object.values(fam).filter(f=>f[1]&&f[2]&&f[3]&&f[4]&&(!window.AUDIO_INDEX||[1,2,3,4].every(t=>AUDIO_INDEX[f[t][0]]))));
- full.concat(shuffle(full.slice())).slice(0,10).forEach(f=>{const t=1+(Math.random()*4|0),r=f[t];Q(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud(r[0])}`,[1,2,3,4].map(x=>f[x][1]),t-1,l1Txt(`<b class="t${t}">${r[1]}</b> · ${TONE_GUIDE[t-1].name}`),r[1]))});
+ full.slice(0,3).forEach(f=>{const t=1+(Math.random()*4|0),r=f[t];qs.push(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกวรรณยุกต์</div>${l1Aud(r[0])}`,[1,2,3,4].map(x=>f[x][1]),t-1,l1Txt(`<b class="t${t}">${r[1]}</b> · ${TONE_GUIDE[t-1].name}`),r[1]))});
+ shuffle([['水','shuǐ',['shuǐ','suǐ','shǔ']],['雪','xuě',['xuě','xiě','xuè']],['月','yuè',['yuè','yè','yuě']],['去','qù',['qù','jù','qiù']],['绿','lǜ',['lǜ','lù','nǚ']],['想','xiǎng',['xiǎng','xiǎn','qiǎng']],['春','chūn',['chūn','cūn','chēn']]]).slice(0,3).forEach(([hz,py,o])=>qs.push(l1PyQ(`<div class="cap" style="font-size:14px">ฟังเสียง แล้วเลือกพินอิน</div>${l1Aud(hz)}`,o,0,l1Txt(`<b>${pyHtml(py)}</b> <span class="zh">${hz}</span>`),py)));
+ shuffle(qs).forEach(Q);
  return st}
+/* ตอน 0: ผ่านบททดสอบท้ายตอน (1003a) = นับว่าจบทุกบทในตอน 0 (ไม่ล็อกความคืบหน้าเดิม) */
+const L1_SEC0=()=>LESSONS.filter(l=>l.v3&&l.chapter===1000).map(l=>l.id+'a');
+function l1Sec0Fix(){try{if(typeof S==='undefined'||!S||!S.parts||!S.parts.includes('1003a'))return;let ch=0;L1_SEC0().forEach(id=>{if(unitBy(id)&&!S.parts.includes(id)){S.parts.push(id);S.stars=S.stars||{};S.stars[id]=Math.max(S.stars[id]||0,2);ch=1}});if(ch)save()}catch(e){}}
+l1Sec0Fix();
+{const _mr=mountRoot;mountRoot=function(...a){l1Sec0Fix();return _mr.apply(this,a)}}
 
 /* ---------- ด่านทบทวน (ฉาก B) ---------- */
 function l1SceneHtml(L,tap){const ch=l1Ch(L),ws=l1SceneWords(L),reg=window.ART_IDX&&ART_IDX['scene/l'+(ch.lv||1)+'-p'+ch.ep];
@@ -198,8 +323,8 @@ function l1GateSteps(u,L){const ch=l1Ch(L),pool=l1Taught(L),st=[],Q=q=>q&&st.pus
 /* ---------- จบบท / ไม่ผ่าน ---------- */
 window.l1DoneStrip=L=>{const ws=L.kind==='gate'?l1SceneWords(L):L.words;if(!ws.length)return '';return `<div class="l1thumbs mt12">${ws.map(w=>`<div class="l1th">${l1Show(w,'pic-mini')}<span class="zh">${w.zh}</span></div>`).join('')}</div>`};
 {const _fu=finishUnit;finishUnit=function(u,res){const L=lessonBy(u.lesson);if(!L||!L.v3)return _fu(u,res);const r=res.correct/Math.max(1,res.total);
- if((L.kind==='gate'||L.code==='0-3')&&r<.7){replace('l1retry',{u,L,res});return}
- if(L.code==='0-3')['1001a','1002a'].forEach(id=>{if(unitBy(id)&&!unitDone(id)){S.parts.push(id);S.stars[id]=Math.max(S.stars[id]||0,2)}});
+ if((L.kind==='gate'||L.id===1003)&&r<.7){replace('l1retry',{u,L,res});return}
+ if(L.id===1003)L1_SEC0().forEach(id=>{if(unitBy(id)&&!unitDone(id)){S.parts.push(id);S.stars[id]=Math.max(S.stars[id]||0,2)}});
  return _fu(u,res)}}
 SC.l1retry=({u,L,res})=>({nav:'<header class="nav"></header>',noRefresh:true,
  body:`<div class="center" style="padding:calc(var(--st) + 24px) 20px 0"><div style="width:200px;height:190px;margin:0 auto">${M('think')}</div><div class="cap mt8">${lnoTxt(L)}</div><div class="large" style="padding:2px 0">ยังไม่ผ่าน</div>
@@ -210,11 +335,11 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
  if(t.closest('.stage'))replace('lesson',{uid:id});else{try{closeSheet()}catch(x){}setTimeout(()=>push('lesson',{uid:id}),120)}});
 
 /* ---------- แผ่นรายละเอียดบท ---------- */
-const L1SND={'0-1':'รู้จักตัวจีนกับพินอิน และส่วนประกอบของพยางค์','0-2':'ฟังและแยกเสียงวรรณยุกต์ทั้ง 4 เสียง','0-3':'ทดสอบฟังเสียง 10 ข้อ ผ่านแล้วนับว่าจบตอนที่ 0'};
+const L1SND={1001:'รู้ว่าพินอินคืออะไร และพยางค์หนึ่งมีพยัญชนะต้น สระ วรรณยุกต์',1004:'พยัญชนะต้นกลุ่มริมฝีปาก b p m f และกลุ่มปลายลิ้น d t n l',1005:'พยัญชนะต้นกลุ่มโคนลิ้น g k h และกลุ่มลิ้นแบน j q x',1006:'พยัญชนะต้นกลุ่มม้วนลิ้น zh ch sh r กลุ่มลิ้นตรง z c s และ y w',1007:'สระเดี่ยว a o e i u ü และ er',1008:'สระผสม ai ei ao ou · ia ie iao iu · ua uo uai ui üe',1009:'สระเสียงขึ้นจมูก an en in ün · ang eng ing ong และ ian uan iang uang iong',1002:'วรรณยุกต์ 4 เสียงและเสียงเบา',1010:'ประกอบพยางค์ ตำแหน่งวรรณยุกต์ กฎ y w และ ü',1003:'ทดสอบฟังเสียง 12 ข้อ ผ่าน 70% แล้วนับว่าจบตอนที่ 0'};
 {const _us=unitSheet;unitSheet=function(id){const u=unitBy(id),L=u&&lessonBy(u.lesson);if(!L||!L.v3)return _us(id);const done=unitDone(id),open=unitOpen(id);
  openSheet(`<div style="padding:0 20px"><div class="cap">${lnoTxt(L)}</div><div style="font-size:24px;font-weight:700">${L.th} <span class="zh" style="font-weight:400">${L.zh}</span></div>${L.can?`<div class="cap mt8">เป้าหมาย: ${L.can}</div>`:''}
- ${L.words.length?`<div class="l1sw">${L.words.map(w=>`<div class="l1swi">${l1Show(w,'pic-mini')}<span class="zh">${w.zh}</span><small>${pyHtml(w.py)}</small><small>${open?w.th:'?'}</small></div>`).join('')}</div>`:`<p class="cap mt12" style="font-size:14px">${L.kind==='gate'?'ทบทวนคำทั้งตอนจากภาพ · ผ่านเมื่อตอบถูก 70% ขึ้นไป':L1SND[L.code]||''}</p>`}
+ ${L.words.length?`<div class="l1sw">${L.words.map(w=>`<div class="l1swi">${l1Show(w,'pic-mini')}<span class="zh">${w.zh}</span><small>${pyHtml(w.py)}</small><small>${open?w.th:'?'}</small></div>`).join('')}</div>`:`<p class="cap mt12" style="font-size:14px">${L.kind==='gate'?'ทบทวนคำทั้งตอนจากภาพ · ผ่านเมื่อตอบถูก 70% ขึ้นไป':L1SND[L.id]||''}</p>`}
  ${open?`<button class="pill row1 press mt16" id="ls">${done?'เรียนอีกครั้ง':'เริ่มเรียน'}</button>`:`<div class="banner mt16" style="background:#F2ECE4;color:var(--sub2);text-align:center">เรียนบทก่อนหน้าให้จบก่อน</div>`}
- ${L.code==='0-1'&&!unitDone('1003a')?`<button class="pill sm ghost press mt12" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบบท 0-3</button>`:''}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}}
+ ${L.id===1001&&!unitDone('1003a')?`<button class="pill sm ghost press mt12" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบท้ายตอน</button>`:''}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}}
 
 /* แผนที่ระดับ 1: ใช้แผนที่ซิกแซกแบบ C ร่วมกับทุกระดับ (lcMap ใน levels.js รองรับบท v3 ด่านทบทวน และเพื่อนในห้อง) */

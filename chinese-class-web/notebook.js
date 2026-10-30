@@ -144,7 +144,7 @@ SC.nbrev=p=>({nav:`<div class="seshnav"><button class="x" data-nr="quit" aria-la
     else if(chk){S.srs[zh]={b:5,d:today()+16};save();okN++;chkN++;vib(10)}
     else{nbLearn(zh);okN++;vib(10);const at=i;undo=()=>{nbRelearn(zh,prevS);okN--;i=at;flip=true;paint('in')}}
     hist.push(zh);i++;flip=false;paint('in');
-    if(undo)snack(el,`ย้าย <span class="zh">${esc(zh)}</span> ไปที่ “จำได้แล้ว”`,undo)}})
+    if(undo&&i<ws.length)snack(el,`ย้าย <span class="zh">${esc(zh)}</span> ไปที่ “จำได้แล้ว”`,undo)}})
   ;paint()}});
 /* ---------- ควิซ (ใช้ระบบ session เดิม · เฉพาะคำในสมุด) ---------- */
 SC.nbquiz=p=>({nav:sessNav,body:'<div class="stage" id="stage"></div>',extra:sessExtra,noRefresh:true,unmount(){stopAudio()},mount(el){

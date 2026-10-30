@@ -52,7 +52,7 @@ function knItems(){const n=x=>(+x||0).toLocaleString('en-US');const L=window.LAB
 function knCard(x,cls){if(!x)return '';const ic=String(x.ic).replace(/ loading="lazy"/g,'');
  return `<button class="kn-c press${cls||''}" ${x.at} aria-label="${x.t}">${x.lv?`<span class="kn-lv">${x.lv}</span>`:''}<span class="kn-cov" style="background:${x.bg}">${ic}</span><b class="kn-ct">${x.t}</b><span class="kn-cd">${(KN_TXT[x.t]||'').replace(/\{([^}]+)\}/g,'<span class="nw">$1</span>')}</span>${x.n?`<span class="kn-cn">${x.n}</span>`:''}</button>`}
 SC.know=()=>{const I=knItems();return {title:'แหล่งความรู้',body:`<div class="kn-hd"><h1>แหล่งความรู้</h1><p>อ่าน ฟัง ฝึก ได้ทุกเมื่อ</p></div>
- ${KN_CATS.map(([h,sub,ts],i)=>`<div class="kn-sec"><div><h3>${h}</h3><small>${sub}</small></div><button class="lk press" data-go="kncat" data-i="${i}">ดูทั้งหมด</button></div><div class="kn-rowx">${ts.map(t=>knCard(I[t])).join('')}</div>`).join('')}${DEMO}`}};
+ ${KN_CATS.map(([h,sub,ts],i)=>`<div class="kn-sec"><div><h3>${h}</h3><small>${sub}</small></div><button class="lk press" data-go="kncat" data-i="${i}">ดูทั้งหมด</button></div>${h==='คำศัพท์และแบบทดสอบ'&&window.nbEntry?nbEntry():''}<div class="kn-rowx">${ts.map(t=>knCard(I[t])).join('')}</div>`).join('')}${DEMO}`}};
 /* ดูทั้งหมด: หน้ารวมการ์ดของหมวด 2 คอลัมน์ */
 SC.kncat=p=>{const c=KN_CATS[+p.i]||KN_CATS[0];const I=knItems();return {title:c[0],noRefresh:true,body:`<div class="large">${c[0]}</div><p class="cap" style="padding:8px 24px 0;line-height:1.55">${c[1]} · ${c[2].length} รายการ</p>
  <div class="kn-all">${c[2].map(t=>knCard(I[t],' sm')).join('')}</div><div style="height:30px"></div>`}};

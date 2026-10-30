@@ -23,8 +23,9 @@ const hbTag=(it,kc,sty)=>{const st=sty?` style="${sty}"`:'';if(hbLearned(it,kc))
 const hbKey=it=>it.say||it.zh;
 /* คำที่เก็บไว้ทบทวน: ให้รายการทบทวนเดิมหาคำจากคลังได้ (ใช้ใน data.js ผ่าน wordAny) */
 const _hbW={};window.hubWord=zh=>{if(_hbW[zh])return _hbW[zh];for(const s of HB_SETS)for(const it of s.items)if(it.zh===zh){const l=hbLv(it)||s.lv||1;return _hbW[zh]={zh:it.zh,py:it.py,th:it.th,lv:l,hub:1}}return null};
-const hbSaved=it=>{const r=S.srs&&S.srs[it.zh];return !!(r&&r.d<=today())};
-function hbSave(it){if(!S.srs)S.srs={};const w=wordBy(it.zh);const r=S.srs[it.zh]||{b:0,d:0};r.d=today();if(!w)r.b=0;S.srs[it.zh]=r;save()}
+/* เก็บคำ → สมุดคำของฉัน (notebook.js) · เดิมเก็บเข้ารอบทบทวน S.srs (คำที่เคยเก็บไว้ย้ายเข้าสมุดอัตโนมัติ) */
+const hbSaved=it=>typeof nbHas==='function'&&nbHas(it.zh);
+function hbSave(it){if(typeof nbAdd==='function')nbAdd(it.zh,{py:it.py,th:it.th},'คลัง'+((hbSet(it.s)||{}).t||''))}
 /* คำประจำสัปดาห์: หมุนทุกวันจันทร์ · สัปดาห์ที่เปิดตัว (26 ต.ค. 2026) เริ่มที่ 520 */
 const HB_WM={'520':'爱','1314':'久','88':'别','666':'牛','555':'哭','yyds':'神'};
 function hbWeekPool(){const lists=HB_ORDER.map(id=>{const s=hbSet(id);if(!s)return [];const a=s.items.filter(x=>x.wk);return s.browse?a:[...a,...s.items.filter(x=>!x.wk).slice(0,4)]});
@@ -69,16 +70,16 @@ function hbWordBody(s,i,kc){const it=s.items[i];const N=s.items.length;const len
  <div class="hb-box"><h4>ตัวอย่างประโยค</h4>${it.ex.map(e=>`<div class="hb-ex"><span class="tx"><b class="zh">${e.zh}</b><span class="p">${e.py}</span><small>${e.th}</small></span><button class="hb-say press" data-act="audio" data-t="${e.say}" aria-label="ฟังประโยค">${HB_SPK}</button></div>`).join('')}</div>
  ${parts.length?`<div class="hb-box"><h4>คำในบทเรียนที่อยู่ในคำนี้</h4><div class="hb-wd">${parts.map(w=>`<span class="${hbHan(w.zh).every(c=>kc.has(c))?'':'no'}"><span class="zh">${w.zh}</span>${hbGloss(w.th)}</span>`).join('')}</div></div>`:''}
  <div style="height:120px"></div>`}
-function hbWordDock(s,i){const it=s.items[i];const last=i>=s.items.length-1;const sv=hbSaved(it);
- return `<div style="display:flex;gap:10px"><button class="pill ghost press${i?'':' hb-dis'}" style="height:52px;flex:1" data-hbnav="-1">ก่อนหน้า</button><button class="pill press" style="height:52px;flex:2" data-hbsave>${sv?(last?'อยู่ในคำที่ควรทบทวนแล้ว':'เก็บแล้ว · คำถัดไป'):'เก็บเข้าคำที่ควรทบทวน'}</button></div>`}
+function hbWordDock(s,i){const it=s.items[i];const last=i>=s.items.length-1;
+ return `<div class="hb-dock3"><button class="pill ghost press${i?'':' hb-dis'}" style="flex:1" data-hbnav="-1">ก่อนหน้า</button>${typeof nbBtn==='function'?nbBtn(it.zh).replace('pill sm','pill').replace('class="','style="flex:1.7" class="'):''}<button class="pill ghost press${last?' hb-dis':''}" style="flex:1" data-hbnav="1">ถัดไป</button></div>`}
 SC.hubword=p=>{const s=hbSet(p.c)||HB_SETS[0];let i=Math.max(0,Math.min(s.items.length-1,+p.i||0));const kc=hbKnownCh();
  return {title:s.t,noRefresh:true,body:`<div data-hbw>${hbWordBody(s,i,kc)}</div><div class="dock" data-hbd>${hbWordDock(s,i)}</div>`,
  mount(el){const sc=el.querySelector('.scroller');const show=(n,dir)=>{if(n<0||n>=s.items.length)return;stopAudio();i=n;p.i=n;const box=el.querySelector('[data-hbw]');box.innerHTML=hbWordBody(s,i,hbKnownCh());el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i);sc.style.scrollBehavior='auto';sc.scrollTop=0;
    if(dir&&box.animate)box.animate([{transform:`translateX(${dir*28}px)`,opacity:.3},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.32,.72,0,1)'})};
-  el.addEventListener('click',e=>{const t=e.target.closest('[data-hbnav],[data-hbsave],[data-hbslow]');if(!t)return;vib(6);
+  el.addEventListener('click',e=>{const t=e.target.closest('[data-hbnav],[data-nbsave],[data-hbslow]');if(!t)return;vib(6);
    if(t.dataset.hbslow!==undefined){t.classList.add('playing');lbPlay(t.dataset.hbslow,.7,()=>t.classList.remove('playing'));return}
-   if(t.dataset.hbnav){show(i-1,-1);return}
-   const it=s.items[i];if(hbSaved(it)){if(i<s.items.length-1)show(i+1,1);return}hbSave(it);toast('เก็บเข้าคำที่ควรทบทวนแล้ว');el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i)});
+   if(t.dataset.hbnav){const d=+t.dataset.hbnav;show(i+d,d);return}
+   const it=s.items[i];nbSaveToggle(it.zh,{py:it.py,th:it.th},'คลัง'+s.t);el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i)});
   let x0=null,y0=0;sc.addEventListener('touchstart',e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY},{passive:true});
   sc.addEventListener('touchend',e=>{if(x0===null)return;const t=e.changedTouches[0];const dx=t.clientX-x0,dy=t.clientY-y0;if(x0<28){x0=null;return}x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)show(i+(dx<0?1:-1),dx<0?1:-1)},{passive:true})},
  unmount(){stopAudio()}}};

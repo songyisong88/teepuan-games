@@ -7,6 +7,7 @@
    go=games                    แท็บเกม (ลานเกม · หน้ารวมเกม)
    go=pinroom / tones / mwroom  ห้องพินอิน / ห้องวรรณยุกต์ / ห้องลักษณนาม (เปิดจากแท็บแหล่งความรู้ เหมือนกดการ์ดในหน้านั้น)
    go=review                   ทบทวนตามรอบ (เปิดจากแท็บฉัน)
+   go=notebook                 สมุดคำของฉัน (เปิดจากแท็บแหล่งความรู้ หมวดคำศัพท์และแบบทดสอบ)
    go=me                       แท็บฉัน · go=lessons แท็บบทเรียน (แผนที่บท)
    go=word-<คำจีน>             เช่น word-%E4%BD%A0%E5%A5%BD (你好) → หน้าคำ (ลำดับขีด เสียง ความหมาย)
    from=book                   นับครั้งที่เปิดจากหนังสือไว้ในเครื่องเท่านั้น (localStorage lama-from-book) ไม่ส่งออกไปไหน
@@ -23,7 +24,7 @@
   if(/^games$/i.test(go))return()=>mountRoot('game',false);
   if(/^me$/i.test(go))return()=>mountRoot('me',false);
   if(/^lessons$/i.test(go))return()=>mountRoot('book',false);
-  const SUB={pinroom:'know',tones:'know',mwroom:'know',review:'me'};const k=go.toLowerCase();
+  const SUB={pinroom:'know',tones:'know',mwroom:'know',review:'me',notebook:'know'};const k=go.toLowerCase();
   if(SUB[k])return()=>{mountRoot(SUB[k],false);setTimeout(()=>go_(k),250)};
   if(/^book$/i.test(go)){if(typeof window.bookDeepLink!=='function')return null;return window.bookDeepLink(String(q('ch')||'').trim().toLowerCase())}
   if((m=/^lesson-(.+)$/i.exec(go))){const r=lessonFor(m[1].toLowerCase());if(!r)return null;const L=r.L||r;const us=UNITS.filter(u=>u.lesson===L.id);if(!us.length)return null;

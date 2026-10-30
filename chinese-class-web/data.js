@@ -20,7 +20,7 @@ const defState=()=>({stk:{rec:[],fav:[],done:{},mode:'guide',days:0,last:-99,n:0
  chestDay:-99,spinDay:-99,own:['flower'],eq:{hat:null,face:null},invited:0,inviteCode:'LAMA-'+Math.random().toString(36).slice(2,6).toUpperCase(),
  remind:true,remindAt:'เย็น',plan:'free',seenWelcome:false,seenOnboard:false,interest:'',placed:0,level:1,assume:0,lvPicked:false,placeRes:null,placeHist:[],gameBest:{catch:0,speed:0,mem:0},duelWins:0,from:'',lostShown:-99,boss:{hp:260,max:260,day:-99},bossWins:0,
  freezes:1,buddy:null,cnt:{day:-99},mis:{day:-99,got:[]},evDay:-99,evId:'',evGot:-99,comebackDay:-99,freezeUsed:-99,inviteGot:[],
- seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{},lg:{tier:0,wk:-1},life:{},badges:{},bestStreak:0,dv:4,dvNote:0,kw:[]});
+ seenCm:[],tutorN:0,studyN:0,qOk:0,qAll:0,words:{},recapDay:-99,gqDay:-99,tipSeen:{},lg:{tier:0,wk:-1},life:{},badges:{},bestStreak:0,dv:4,dvNote:0,kw:[],nb:{}});
 let S;
 let _raw={};try{_raw=JSON.parse(localStorage.getItem(KEY)||'{}')||{};S=Object.assign(defState(),_raw)}catch(e){S=defState()}
 /* ย้ายข้อมูลเมื่อจัดระดับบทเรียนใหม่ตาม HSK 2.0 (dv=2): id บท/รอบเดิมไม่เปลี่ยน ความคืบหน้าอยู่ครบ — แค่แจ้งผู้เรียนเดิมครั้งเดียว และถือผลทดสอบเก่าว่าเก่าแล้ว */

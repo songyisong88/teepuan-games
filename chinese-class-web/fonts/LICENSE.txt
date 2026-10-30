@@ -1,3 +1,7 @@
 Fonts in this folder are self-hosted copies of IBM Plex Sans Thai, Inter and Noto Serif SC
 (served by Google Fonts, woff2 subsets). All three are licensed under the SIL Open Font License 1.1
 (https://openfontlicense.org). They are redistributed unmodified.
+
+sriracha-thai.woff2 is a subset (Basic Latin + Thai) of Sriracha Regular,
+Copyright (c) 2015 Cadson Demak (info@cadsondemak.com), Copyright (c) 2014 Pablo Impallari,
+licensed under the SIL Open Font License 1.1 (https://openfontlicense.org). Subset only; glyphs are unmodified.

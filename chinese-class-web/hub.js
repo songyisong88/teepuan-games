@@ -23,7 +23,7 @@ const hbTag=(it,kc,sty)=>{const st=sty?` style="${sty}"`:'';if(hbLearned(it,kc))
 const hbKey=it=>it.say||it.zh;
 /* คำที่เก็บไว้ทบทวน: ให้รายการทบทวนเดิมหาคำจากคลังได้ (ใช้ใน data.js ผ่าน wordAny) */
 const _hbW={};window.hubWord=zh=>{if(_hbW[zh])return _hbW[zh];for(const s of HB_SETS)for(const it of s.items)if(it.zh===zh){const l=hbLv(it)||s.lv||1;return _hbW[zh]={zh:it.zh,py:it.py,th:it.th,lv:l,hub:1}}return null};
-/* เก็บคำ → สมุดคำของฉัน (notebook.js) · เดิมเก็บเข้ารอบทบทวน S.srs (คำที่เคยเก็บไว้ย้ายเข้าสมุดอัตโนมัติ) */
+/* เก็บคำ → สมุดคำของฉัน (notebook-data.js) · เดิมเก็บเข้ารอบทบทวน S.srs (คำที่เคยเก็บไว้ย้ายเข้าสมุดอัตโนมัติ) */
 const hbSaved=it=>typeof nbHas==='function'&&nbHas(it.zh);
 function hbSave(it){if(typeof nbAdd==='function')nbAdd(it.zh,{py:it.py,th:it.th},'คลัง'+((hbSet(it.s)||{}).t||''))}
 /* คำประจำสัปดาห์: หมุนทุกวันจันทร์ · สัปดาห์ที่เปิดตัว (26 ต.ค. 2026) เริ่มที่ 520 */

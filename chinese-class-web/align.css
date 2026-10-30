@@ -1,0 +1,5 @@
+/* สีจับคู่คำ (C2 ไฮไลต์สีอ่อน) · ใช้กับ .tx.al-on เท่านั้น ประโยคที่ไม่มีข้อมูลไม่ได้รับผล */
+.tx.al-on .al{background-color:var(--al);border-radius:6px;padding:0 2px;margin:0 1px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-color .14s,box-shadow .14s}
+.tx.al-on b.zh .al{white-space:nowrap}
+.tx.al-on .al.al-lit{background-color:var(--alh);box-shadow:0 0 0 1.5px var(--alf)}
+@media (prefers-reduced-motion:reduce){.tx.al-on .al{transition:none}}

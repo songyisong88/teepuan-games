@@ -53,3 +53,7 @@ Object.assign(ART_IDX,{"word/一件事": 1, "word/两本书": 1, "word/三本汉
 /* HUB-COV · ปกชุดคำในคลังคำน่ารู้ จาก PIXEL (6 ภาพ, assets/art/hub/, hub.js HB_VIS) */
 Object.assign(ART_IDX,{"hub/kamhit": 1, "hub/tualek": 1, "hub/phudphid": 1, "hub/ahanthai": 1, "hub/uayporn": 1, "hub/social": 1});
 /* /HUB-COV */
+
+/* HUB-WORD · ภาพคำในห้องอาหารไทยในภาษาจีน (7 ภาพ, assets/art/hubw/, hub.js hbImg) */
+Object.assign(ART_IDX,{"hubw/冬阴功汤": 1, "hubw/泰式炒河粉": 1, "hubw/青木瓜沙拉": 1, "hubw/芒果糯米饭": 1, "hubw/糯米饭": 1, "hubw/绿咖喱": 1, "hubw/红咖喱": 1});
+/* /HUB-WORD */

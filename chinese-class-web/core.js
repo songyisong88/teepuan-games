@@ -99,7 +99,7 @@ function popToRoot(){while(stack.length>2)stack.pop().el.remove();pop()}
 /* swipe-back จากขอบซ้าย: หน้าตามนิ้ว หน้าล่างขยับ parallax ปล่อยแล้วตัดสินด้วยระยะ/ความเร็ว */
 (function(){let g=null;const EDGE=26;
  const frame=()=>document.getElementById('frame');
- document.addEventListener('touchstart',e=>{g=null;if(stack.length<2||e.touches.length!==1)return;if(document.querySelector('#sheetLayer.on,.welcome,.onb'))return;if(e.target.closest&&e.target.closest('.fb.show'))return;if(!stack[stack.length-1].el.querySelector('[data-act=back]'))return;const fr=frame().getBoundingClientRect(),t=e.touches[0];if(t.clientX-fr.left>EDGE||t.clientX<fr.left)return;
+ document.addEventListener('touchstart',e=>{g=null;if(stack.length<2||e.touches.length!==1)return;if(document.querySelector('#sheetLayer.on,.welcome,.onb,.hb-ov'))return;if(e.target.closest&&e.target.closest('.fb.show'))return;if(!stack[stack.length-1].el.querySelector('[data-act=back]'))return;const fr=frame().getBoundingClientRect(),t=e.touches[0];if(t.clientX-fr.left>EDGE||t.clientX<fr.left)return;
   g={x:t.clientX,y:t.clientY,t:Date.now(),w:fr.width,mode:null,dx:0,top:stack[stack.length-1],prev:stack[stack.length-2],lx:t.clientX,lt:Date.now(),v:0}},{passive:true,capture:true});
  document.addEventListener('touchmove',e=>{if(!g)return;const t=e.touches[0],dx=t.clientX-g.x,dy=t.clientY-g.y;
   if(!g.mode){if(Math.abs(dx)<7&&Math.abs(dy)<7)return;if(dx>0&&Math.abs(dx)>Math.abs(dy)*1.2){g.mode='x';g.top.el.style.transition='none';g.prev.el.style.transition='none'}else{g=null;return}}

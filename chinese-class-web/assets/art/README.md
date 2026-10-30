@@ -24,3 +24,6 @@ Lot 3 (94 images, folder hsk4-5-more) maps to lessons of level 2–3 (all 94 wor
 ## assets/art/hub/ (ปกชุดในคลังคำน่ารู้)
 6 PIXEL covers (kamhit tualek phudphid ahanthai uayporn social), opaque webp 512px, registered as `hub/<id>` in `assets/art/index.js` (block HUB-COV). Shown by `hbCov()` in hub.js in the same 58px `.kn-pic` slot as สั่งชานม/คำบอกรัก (which keep 奶茶/爱). Not registered = old text tile.
 Word batch HUBV-NEW (14: 卧室 客厅 姑姑 舅舅 姥姥 邮局 餐厅 幼儿园 胳膊 肩膀 腰 斤 北 幸福) from /workspace/cn-images/hub-vocab via `add_pics.py --src … --tag HUBV-NEW --skip 姓,语文,年级,主要`. 姑姑/舅舅/姥姥 added to PIC_KIN (always captioned).
+
+## assets/art/hubw/ (ภาพคำในห้องคลังคำน่ารู้)
+7 food images (冬阴功汤 泰式炒河粉 青木瓜沙拉 芒果糯米饭 糯米饭 绿咖喱 红咖喱), opaque webp 640px (22–48 KB), registered as `hubw/<zh>` in `assets/art/index.js` (block HUB-WORD). Kept apart from `word/` so lesson picture steps are not affected. Room tiles and the big word card (`hbImg()` in hub.js) use `hubw/<zh>` first, then an existing `word/<zh>` image, otherwise the Chinese-character placeholder.

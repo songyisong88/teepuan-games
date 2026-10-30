@@ -58,9 +58,96 @@ SC.hubcol=p=>{const s=hbSet(p.c)||HB_SETS[0];const kc=hbKnownCh();const ok=s.ite
  const dock=s.browse?'':`<div class="dock">${ok.length?`<button class="pill press" style="height:56px" data-go="hubquiz" data-c="${s.id}">ฝึกคำที่เรียนแล้ว ${ok.length} คำ<small style="font-size:12px;font-weight:500;opacity:.85">ฟังแล้วเลือกความหมาย ${q} ข้อ</small></button>`:`<button class="pill press hb-off" style="height:56px" data-go="hubnone">ยังไม่มีคำที่เรียนแล้วในชุดนี้<small style="font-size:12px;font-weight:500;opacity:.85">เรียนบทเรียนต่อ คำจะเปิดให้ฝึกเอง</small></button>`}</div>`;
  return {title:s.t,noRefresh:true,body:`<div class="large">${s.t}</div><p class="cap" style="padding:8px 24px 0;line-height:1.55">${s.cap}</p>${prog}
  <div class="hb-chips" role="tablist">${chips.map(([k,t],i)=>`<button class="press${i?'':' on'}" data-hbf="${k}">${t}</button>`).join('')}</div>
- <div class="hb-grp" data-hbl>${s.items.map(it=>hbRow(it,kc)).join('')}</div><div style="height:${s.browse?40:120}px"></div>${dock}`,
- mount(el){el.addEventListener('click',e=>{const b=e.target.closest('[data-hbf]');if(!b)return;vib(6);el.querySelectorAll('[data-hbf]').forEach(x=>x.classList.toggle('on',x===b));const kc2=hbKnownCh();const list=hbFilter(s,b.dataset.hbf,kc2);
-  const g=el.querySelector('[data-hbl]');g.innerHTML=list.length?list.map(it=>hbRow(it,kc2)).join(''):`<div class="hb-empty">ยังไม่มีคำในกลุ่มนี้</div>`})},unmount(){stopAudio()}}};
+ <div class="hb-g3" data-hbl>${s.items.map(it=>hbTile(it,s)).join('')}</div><div style="height:${s.browse?40:120}px"></div>${dock}`,
+ mount(el){let list=s.items;el.addEventListener('click',e=>{const t=e.target.closest('[data-hbt]');if(t){vib(6);const k=list.findIndex(it=>it.i===+t.dataset.hbt);if(k>=0)hbOpen(s,list,k,t,el);return}
+  const b=e.target.closest('[data-hbf]');if(!b)return;vib(6);el.querySelectorAll('[data-hbf]').forEach(x=>x.classList.toggle('on',x===b));const kc2=hbKnownCh();list=hbFilter(s,b.dataset.hbf,kc2);
+  const g=el.querySelector('[data-hbl]');g.innerHTML=list.length?list.map(it=>hbTile(it,s)).join(''):`<div class="hb-empty">ยังไม่มีคำในกลุ่มนี้</div>`})},unmount(){hbClose(1);stopAudio()}}};
+/* ===== ห้องคำ: ไทล์กลม 3 คอลัมน์ (W3) · แตะแล้วการ์ดลอยมากลางจอและพลิกเป็นการ์ดคำใหญ่ (W1) · ซ้งอี้อนุมัติ 31 ต.ค. 2026
+   ภาพ: hubw/<คำ> ก่อน แล้ว word/<คำ> ที่มีอยู่ · ไม่มีภาพ = ตัวอักษรจีนบนพื้นสีของชุด
+   เก็บลงสมุด: nbSaveToggle เดิม (สมุดคำของฉัน) + ริบบิ้นแดงที่มุมภาพบนการ์ด · ลดการเคลื่อนไหว = ไม่พลิก ไม่บิน ริบบิ้นขึ้นทันที ===== */
+const hbImg=it=>{const A=window.ART_IDX||{};return A['hubw/'+it.zh]?artUrl('hubw',it.zh):A['word/'+it.zh]?artUrl('word',it.zh):''};
+const hbRM=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
+const hbAt=t=>String(t).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+const HB_I={x:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ l:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+ r:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>'};
+/* ภาพหรือตัวอักษรแทนภาพ (ภาพโหลดไม่ได้ = เหลือตัวอักษร) */
+const hbPh=(it,fs)=>{const lat=hbIsLatin(it.zh),src=hbImg(it);return `<span class="phz${lat?' lat':' zh'}" style="font-size:${fs}px">${it.zh}</span>${src?`<img src="${src}" alt="" decoding="async" draggable="false" onerror="this.remove()">`:''}`};
+function hbTile(it,s){const n=[...it.zh].length,lat=hbIsLatin(it.zh);const cf=lat?Math.min(30,Math.floor(58/(n*.62))):Math.min(34,Math.floor(62/n));const zf=lat?16:Math.min(17,Math.floor(96/n));
+ return `<div class="hb-t press" data-hbt="${it.i}" role="button" aria-label="${hbAt(it.zh+' '+it.th)}"><span class="cc" style="background:${s.bg}">${hbPh(it,cf)}</span><span class="z${lat?' lat':' zh'}" style="font-size:${zf}px">${it.zh}</span><span class="t">${it.th}</span></div>`}
+function hbBigHtml(o){const {s,list,k}=o;const it=list[k],N=list.length,kc=hbKnownCh(),lat=hbIsLatin(it.zh),n=[...it.zh].length;
+ const zf=lat?40:Math.min(40,Math.floor(250/n)),pf=lat?Math.min(72,Math.floor(280/(n*.62))):Math.min(76,Math.floor(280/n));
+ const nd=Math.min(5,N),on=N<=5?k:k<2?k:k>N-3?nd-(N-k):2;const parts=hbParts(it);
+ const tag=s.browse?'<span class="hb-tag lv">อ่านเล่น</span>':hbTag(it,kc);
+ return `<div class="top"><span class="cnt">คำที่ ${k+1} จาก ${N}</span><span class="dots" aria-hidden="true">${Array.from({length:nd},(_,j)=>`<i${j===on?' class="on"':''}></i>`).join('')}</span><button class="xb press" data-hbx aria-label="ปิด">${HB_I.x}</button></div>
+ <div class="hb-sc"><div class="ph"><span class="pic" style="background:${s.bg}">${hbPh(it,pf)}</span>${hbSaved(it)?'<i class="rib"></i>':''}</div>
+ <div class="hd"><div class="hw"><div class="hz${lat?' lat':' zh'}" style="font-size:${zf}px">${it.zh}</div><div class="py">${pyPlain(it.py)}</div></div><button class="say press" data-act="audio" data-t="${hbAt(hbKey(it))}" aria-label="ฟังเสียง">${HB_SPK}</button></div>
+ <div class="tr"><span class="th">${it.th}</span>${tag}<button class="slow" data-hbslow="${hbAt(hbKey(it))}">ฟังแบบช้า</button></div>
+ <div class="box"><h4>ใช้เมื่อไร</h4><p>${it.use}</p></div>
+ ${it.ex.length?`<div class="box"><h4>ตัวอย่างประโยค</h4>${it.ex.map(e=>`<div class="exr"><span class="tx"><b class="zh">${e.zh}</b><span class="p">${e.py}</span><small>${e.th}</small></span><button class="say press" data-act="audio" data-t="${hbAt(e.say)}" aria-label="ฟังประโยค">${HB_SPK}</button></div>`).join('')}</div>`:''}
+ ${parts.length?`<div class="box"><h4>คำในบทเรียนที่อยู่ในคำนี้</h4><div class="hb-wd">${parts.map(w=>`<span class="${hbHan(w.zh).every(c=>kc.has(c))?'':'no'}"><span class="zh">${w.zh}</span>${hbGloss(w.th)}</span>`).join('')}</div></div>`:''}
+ <div class="sp"></div></div>
+ <div class="ft"><button class="nv press${k?'':' dis'}" data-hbnav="-1" aria-label="คำก่อนหน้า">${HB_I.l}</button>${nbBtn(it.zh)}<button class="nv press${k<N-1?'':' dis'}" data-hbnav="1" aria-label="คำถัดไป">${HB_I.r}</button></div>`}
+let hbOv=null;
+const hbA=(el,k,o)=>el.animate?el.animate(k,Object.assign({fill:'both'},o)):{finished:Promise.resolve(),cancel(){}};
+const hbDone=a=>a&&a.finished?a.finished.catch(()=>{}):Promise.resolve();
+/* ไทล์ลอยจากตำแหน่งเดิมไปกลางการ์ด ขยาย 1.75 เท่า และหมุนรอบแกนตั้ง 90 องศา (ย้อนกลับได้) */
+function hbFlyTile(o,tile,back){const fr=$('#frame').getBoundingClientRect(),r=tile.getBoundingClientRect(),cr=o.card.getBoundingClientRect();
+ const f=tile.cloneNode(true);f.classList.add('fly');f.classList.remove('press');f.removeAttribute('data-hbt');f.style.visibility='visible';Object.assign(f.style,{left:(r.left-fr.left)+'px',top:(r.top-fr.top)+'px',width:r.width+'px',height:r.height+'px'});o.fly.appendChild(f);
+ const dx=(cr.left+cr.width/2)-(r.left+r.width/2),dy=(cr.top+cr.height/2)-(r.top+r.height/2);
+ const a={transform:'none',boxShadow:'0 4px 12px rgba(60,40,30,.06)'},b={transform:`translate(${dx}px,${dy}px) scale(1.75) rotateY(90deg)`,boxShadow:'0 40px 60px rgba(0,0,0,.25)'};
+ const an=hbA(f,back?[b,a]:[a,b],{duration:back?300:320,easing:back?'cubic-bezier(.22,.61,.36,1)':'cubic-bezier(.65,0,.35,1)'});return hbDone(an).then(()=>f)}
+function hbOpen(s,list,k,tile,scr){if(hbOv)return;stopAudio();const F=$('#frame');const rm=hbRM();
+ const ov=document.createElement('div');ov.className='hb-ov';ov.innerHTML=`<div class="hb-bd"></div><div class="hb-fly"></div><div class="hb-bc" role="dialog" aria-modal="true" aria-label="${hbAt(s.t)}"><div class="hb-in"></div></div>`;
+ const o=hbOv={s,list,k,ov,scr,bd:ov.querySelector('.hb-bd'),fly:ov.querySelector('.hb-fly'),card:ov.querySelector('.hb-bc'),inn:ov.querySelector('.hb-in'),busy:1};
+ o.inn.innerHTML=hbBigHtml(o);F.appendChild(ov);vib(8);
+ const fin=()=>{o.busy=0;o.card.style.visibility='';};
+ if(rm||!tile||!ov.animate){hbA(ov,[{opacity:0},{opacity:1}],{duration:rm?120:200,fill:'none'});fin()}
+ else{o.card.style.visibility='hidden';tile.style.visibility='hidden';hbA(o.bd,[{opacity:0},{opacity:1}],{duration:420,easing:'cubic-bezier(.215,.61,.355,1)',fill:'none'});
+  hbFlyTile(o,tile,false).then(f=>{f.remove();tile.style.visibility='';o.card.style.visibility='';
+   return hbDone(hbA(o.card,[{transform:'perspective(1400px) rotateY(-90deg) scale(.82)'},{transform:'perspective(1400px) rotateY(0deg) scale(1)'}],{duration:340,easing:'cubic-bezier(.215,.61,.355,1)',fill:'none'}))}).then(fin)}
+ hbBind(o)}
+function hbClose(instant){const o=hbOv;if(!o)return;hbOv=null;stopAudio();document.removeEventListener('keydown',o.key);
+ const ov=o.ov,gone=()=>ov.remove();if(instant===1||!ov.isConnected){gone();return}
+ o.busy=1;if(instant||hbRM()||!ov.animate){hbDone(hbA(ov,[{opacity:1},{opacity:0}],{duration:instant?160:140})).then(gone);return}
+ const it=o.list[o.k];const tile=o.scr&&o.scr.querySelector(`[data-hbt="${it.i}"]`);const sc=o.scr&&o.scr.querySelector('.scroller');
+ let vis=false;if(tile&&sc){const r=tile.getBoundingClientRect(),q=sc.getBoundingClientRect();vis=r.bottom>q.top+40&&r.top<q.bottom-120}
+ hbA(o.bd,[{opacity:1},{opacity:0}],{duration:vis?560:260,delay:vis?60:0,easing:'ease-out'});
+ if(!vis){hbDone(hbA(o.card,[{opacity:1,transform:'none'},{opacity:0,transform:'scale(.94)'}],{duration:220,easing:'cubic-bezier(.4,0,1,1)'})).then(gone);return}
+ hbDone(hbA(o.card,[{transform:'perspective(1400px) rotateY(0deg) scale(1)'},{transform:'perspective(1400px) rotateY(-90deg) scale(.82)'}],{duration:220,easing:'cubic-bezier(.55,.055,.675,.19)'})).then(()=>{o.card.style.visibility='hidden';tile.style.visibility='hidden';
+  return hbFlyTile(o,tile,true)}).then(()=>{tile.style.visibility='';gone()})}
+/* เปลี่ยนคำ: ปุ่ม ‹ › หรือปัดซ้าย/ขวา */
+function hbShow(o,k2,dir,from){if(k2<0||k2>=o.list.length||k2===o.k){if(from)hbA(o.inn,[{transform:`translateX(${from}px)`},{transform:'none'}],{duration:320,easing:'cubic-bezier(.2,.75,.3,1)',fill:'none'});return}
+ stopAudio();const put=()=>{o.k=k2;o.inn.innerHTML=hbBigHtml(o)};vib(6);
+ if(hbRM()||!o.inn.animate){put();return}
+ o.busy=1;hbDone(hbA(o.inn,[{transform:`translateX(${from||0}px)`,opacity:1},{transform:`translateX(${-dir*90}px)`,opacity:0}],{duration:150,easing:'cubic-bezier(.4,0,1,1)'})).then(()=>{put();
+  return hbDone(hbA(o.inn,[{transform:`translateX(${dir*90}px)`,opacity:0},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.75,.3,1)'}))}).then(()=>{o.busy=0;o.inn.getAnimations&&o.inn.getAnimations().forEach(a=>a.cancel())})}
+/* เก็บลงสมุด: ริบบิ้นแดงหล่นลงที่มุมภาพ ปุ่มเด้ง ประกายเล็ก ๆ · นำออก: ริบบิ้นยกออก */
+function hbSaveFx(o,btn){const it=o.list[o.k];const on=nbSaveToggle(it.zh,{py:it.py,th:it.th},'คลัง'+o.s.t,null);
+ const nb=document.createElement('div');nb.innerHTML=nbBtn(it.zh);const b2=nb.firstChild;btn.replaceWith(b2);const ph=o.inn.querySelector('.ph');const rm=hbRM();let rib=ph.querySelector('.rib');
+ if(on){if(!rib){rib=document.createElement('i');rib.className='rib';ph.appendChild(rib)}
+  if(!rm){hbA(rib,[{transform:'translateY(-60px)'},{transform:'none'}],{duration:440,easing:'cubic-bezier(.34,1.56,.64,1)',fill:'none'});
+   hbA(b2,[{transform:'scale(.95)'},{transform:'scale(1.06)',offset:.45},{transform:'none'}],{duration:420,easing:'ease-out',fill:'none'});
+   for(let j=0;j<7;j++){const a=-Math.PI*(j/6),d=document.createElement('i');d.className='spk';d.style.background=j%2?'#C8102E':'#E8A33D';ph.appendChild(d);
+    hbDone(hbA(d,[{transform:'translate(0,0)',opacity:1},{transform:`translate(${-Math.cos(a)*54}px,${-Math.sin(a)*54*.6}px)`,opacity:0}],{duration:620,delay:160,easing:'cubic-bezier(.215,.61,.355,1)'})).then(()=>d.remove())}}}
+ else if(rib){if(rm)rib.remove();else hbDone(hbA(rib,[{transform:'none',opacity:1},{transform:'translateY(-60px)',opacity:0}],{duration:240,easing:'cubic-bezier(.4,0,1,1)'})).then(()=>rib.remove())}}
+function hbBind(o){const c=o.card;
+ o.ov.addEventListener('click',e=>{if(!hbOv||hbOv!==o)return;if(e.target===o.bd){hbClose();return}const t=e.target.closest('[data-hbx],[data-hbnav],[data-nbsave],[data-hbslow]');if(!t||o.busy&&!t.dataset.hbslow)return;
+  if(t.dataset.hbx!==undefined){vib(6);hbClose();return}
+  if(t.dataset.hbslow!==undefined){vib(6);t.classList.add('playing');lbPlay(t.dataset.hbslow,.7,()=>t.classList.remove('playing'));return}
+  if(t.dataset.hbnav){const d=+t.dataset.hbnav;hbShow(o,o.k+d,d);return}
+  hbSaveFx(o,t)});
+ o.key=e=>{if(hbOv!==o)return;if(e.key==='Escape')hbClose();else if(e.key==='ArrowRight')hbShow(o,o.k+1,1);else if(e.key==='ArrowLeft')hbShow(o,o.k-1,-1)};document.addEventListener('keydown',o.key);
+ /* ลากลงเพื่อปิดเหมือนชีทอื่นในแอป */
+ if(typeof sheetDrag==='function')sheetDrag(c,{bd:o.bd,active:()=>hbOv===o&&!o.busy,dismiss:()=>{if(hbOv===o)hbClose(true)}});
+ /* ปัดซ้าย/ขวา: การ์ดตามนิ้ว ปล่อยแล้วเปลี่ยนคำ */
+ let g=null;c.addEventListener('touchstart',e=>{g=null;if(o.busy||e.touches.length!==1)return;const t=e.touches[0];g={x:t.clientX,y:t.clientY,m:null,dx:0,t:performance.now()}},{passive:true});
+ c.addEventListener('touchmove',e=>{if(!g)return;const t=e.touches[0],dx=t.clientX-g.x,dy=t.clientY-g.y;
+  if(!g.m){if(Math.abs(dx)<8&&Math.abs(dy)<8)return;if(Math.abs(dx)>Math.abs(dy)*1.2)g.m='x';else{g=null;return}}
+  if(e.cancelable)e.preventDefault();const edge=(dx>0&&o.k===0)||(dx<0&&o.k>=o.list.length-1);g.dx=edge?dx*.28:dx;o.inn.style.transform=`translateX(${g.dx}px)`},{passive:false});
+ const end=()=>{if(!g||g.m!=='x'){g=null;return}const q=g;g=null;o.inn.style.transform='';const v=Math.abs(q.dx)/Math.max(1,performance.now()-q.t);const dir=q.dx<0?1:-1;
+  if(Math.abs(q.dx)>70||(v>.5&&Math.abs(q.dx)>24))hbShow(o,o.k+dir,dir,q.dx);else hbShow(o,o.k,0,q.dx)};
+ c.addEventListener('touchend',end,{passive:true});c.addEventListener('touchcancel',end,{passive:true})}
 /* ===== หน้า C: รายละเอียดคำ (ปัดซ้าย/ขวาเพื่อเปลี่ยนคำ) ===== */
 function hbWordBody(s,i,kc){const it=s.items[i];const N=s.items.length;const len=[...it.zh].length,lat=hbIsLatin(it.zh);const fs=lat?54:len<=2?64:len<=3?56:len<=4?48:len<=6?38:30;
  const parts=hbParts(it);

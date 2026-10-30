@@ -122,7 +122,7 @@ SC.shrun=({l})=>{const Ls=lessonBy(l);const sents=Ls.sents.map(parseSent);const 
    <div class="shrep"><div id="shdots" aria-label="จำนวนรอบพูดตาม"></div><button class="pill sm ghost press" data-s="rep" style="width:auto;padding:0 22px">พูดตามแล้ว +1</button></div>
    <div class="cap center" style="margin-top:14px">คุณพูดชัดแค่ไหน? (ประเมินเอง)</div><div class="shrate" id="shrate"><button data-r="1" class="press">😕 ยังไม่ชัด</button><button data-r="2" class="press">🙂 พอได้</button><button data-r="3" class="press">😄 ชัดแล้ว</button></div>
    <div class="dock"><button class="pill row1 press" data-s="next" disabled id="shnext">ประโยคถัดไป</button></div>`;view=view;paint();dots()}
-  function paint(){const s=sents[i];$('#shzh',stage).innerHTML=view?s.full:'<span class="cap">ฟังแล้วพูดตาม ไม่ต้องดูตัวอักษร</span>';$('#shpy',stage).textContent=view===2?s.pyAll:'';$$('#shseg button',stage).forEach(b=>b.classList.toggle('on',+b.dataset.v===view))}
+  function paint(){const s=sents[i];$('#shzh',stage).innerHTML=view?s.full:'<span class="cap">ฟังแล้วพูดตาม ไม่ต้องดูตัวอักษร</span>';$('#shpy',stage).textContent=view===2?pyPlain(s.pyAll):'';$$('#shseg button',stage).forEach(b=>b.classList.toggle('on',+b.dataset.v===view))}
   function dots(){$('#shdots',stage).innerHTML=Array.from({length:GOAL},(_,k)=>`<i class="${k<reps?'on':''}"></i>`).join('')+(reps>GOAL?`<span class="cap">+${reps-GOAL}</span>`:'');chk()}
   function chk(){$('#shnext',stage).disabled=!(reps>=1&&rating)}
   function play(rate){const s=sents[i],ring=$('#shring',stage),msg=$('#shmsg',stage);clearTimeout(cd);ring.classList.remove('go');msg.textContent=rate<1?'ฟังช้า…':'ฟังปกติ…';ring.classList.add('listen');

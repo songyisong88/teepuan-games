@@ -32,8 +32,10 @@ function hbWeekPool(){const lists=HB_ORDER.map(id=>{const s=hbSet(id);if(!s)retu
 function hbWeek(){const pool=hbWeekPool();if(!pool.length)return null;const wk=d=>Math.floor((d+3)/7);const w0=wk(Math.floor(Date.UTC(2026,9,26)/864e5));const n=pool.length;return pool[(((wk(today())-w0)%n)+n)%n]}
 const hbZt=(t,bg,fs,extra)=>`<span class="zh hb-zt" style="background:${bg};${fs?`font-size:${fs}px;`:''}${extra||''}">${t}</span>`;
 const hbPic=id=>`<span class="kn-pic">${art('word',id,id,'kn-art zh')}</span>`;
-const HB_VIS={hit:()=>hbZt('没事','#C8102E',26),num:()=>`<span class="kn-row">${hbZt('520','#E0457B',22)}${hbZt('88','#3D6FB6',22,'margin-left:6px')}</span>`,net:()=>hbZt('yyds','#7B5CC4',24,'font-family:Inter,sans-serif'),
- tea:()=>hbPic('奶茶'),love:()=>hbPic('爱'),food:()=>hbPic('米饭'),bless:()=>hbPic('红包'),tone:()=>`<span class="kn-row">${hbZt('问','#3D6FB6',26)}${hbZt('吻','#C8102E',26,'margin-left:6px')}</span>`};
+/* ปกชุด: ภาพจาก PIXEL (assets/art/hub/) ในช่องเดิมขนาดเดิม · ถ้าไม่มีภาพใช้ป้ายตัวอักษรเดิม */
+const hbCov=(f,fb)=>()=>window.ART_IDX&&ART_IDX['hub/'+f]?`<span class="kn-pic">${art('hub',f,'','kn-art')}</span>`:fb();
+const HB_VIS={hit:hbCov('kamhit',()=>hbZt('没事','#C8102E',26)),num:hbCov('tualek',()=>`<span class="kn-row">${hbZt('520','#E0457B',22)}${hbZt('88','#3D6FB6',22,'margin-left:6px')}</span>`),net:hbCov('social',()=>hbZt('yyds','#7B5CC4',24,'font-family:Inter,sans-serif')),
+ tea:()=>hbPic('奶茶'),love:()=>hbPic('爱'),food:hbCov('ahanthai',()=>hbPic('米饭')),bless:hbCov('uayporn',()=>hbPic('红包')),tone:hbCov('phudphid',()=>`<span class="kn-row">${hbZt('问','#3D6FB6',26)}${hbZt('吻','#C8102E',26,'margin-left:6px')}</span>`)};
 const hbIsLatin=t=>!hbHan(t).length;
 function hbHubHtml(){const w=hbWeek();let feat='';
  if(w){const s=hbSet(w.s);const big=w.zh,len=[...big].length,lat=hbIsLatin(big);const fs=lat?40:len<=4?40:len<=6?32:26;

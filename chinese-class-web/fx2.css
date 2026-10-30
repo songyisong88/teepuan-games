@@ -1,0 +1,20 @@
+/* fx2.css — แอนิเมชันรอบที่ 2 (ดู fx2.js) */
+#fx2{position:absolute;inset:0;pointer-events:none;z-index:950;overflow:hidden}
+.x2-rw{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.x2-rw>i{position:absolute;border-radius:50%;background:rgba(255,255,255,.38);pointer-events:none}
+.pill.ghost .x2-rw>i,.hg-qa .x2-rw>i{background:rgba(200,16,46,.16)}
+.x2-cx{position:absolute;overflow:hidden;box-shadow:0 10px 30px rgba(60,40,30,.18)}
+.x2-cx .x2-cxc{display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:14px}
+.x2-rays{position:absolute;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(232,182,74,.45) 0 8deg,transparent 8deg 22deg);-webkit-mask:radial-gradient(circle,#000 22%,transparent 70%);mask:radial-gradient(circle,#000 22%,transparent 70%)}
+.x2-coin{position:absolute;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE9A8,#E8B64A 55%,#B9862A);box-shadow:0 1px 3px rgba(120,80,10,.4),inset 0 0 0 2px rgba(255,255,255,.35)}
+.lbtk{position:relative;isolation:isolate}
+.x2-kp{position:absolute;z-index:-1;border-radius:12px;background:rgba(232,182,74,.32);box-shadow:inset 0 -2px 0 rgba(200,140,30,.55);opacity:0;pointer-events:none;transition:left .22s cubic-bezier(.2,.8,.2,1),top .22s cubic-bezier(.2,.8,.2,1),width .22s cubic-bezier(.2,.8,.2,1),height .22s,opacity .2s}
+.lbt{transition:translate .2s cubic-bezier(.2,.8,.2,1)}
+.lbt.x2-kw .zh{color:var(--red)}
+.lbbook .lbs{transition:background-color .35s var(--ease),opacity .3s}
+.lbbook.x2-kdim .lbs:not(.x2-kon){opacity:.4}
+.x2-up{position:absolute;right:86px;top:50%;margin-top:-11px;height:22px;padding:0 9px;border-radius:11px;background:#2E8B57;color:#fff;font-size:12px;font-weight:700;line-height:22px;white-space:nowrap;pointer-events:none}
+.x2-shine{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:inherit}
+.x2-shine::after{content:'';position:absolute;top:0;bottom:0;width:40%;left:-50%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent);animation:x2sw .7s ease-out forwards}
+@keyframes x2sw{to{left:120%}}
+@media (prefers-reduced-motion:reduce){.x2-kp,.lbt,.lbbook .lbs{transition:none}}

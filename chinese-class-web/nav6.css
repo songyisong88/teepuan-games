@@ -1,0 +1,73 @@
+/* เมนูล่าง 6 ปุ่ม G3 "สติกเกอร์" + หน้า ห้องเกม / ฝึกฝน (nav6.js) */
+#tabbar.n6bar{padding:0 0 var(--sb);background-color:#FFF8EE;background-image:radial-gradient(rgba(150,110,70,.10) 1px,transparent 1.4px);background-size:12px 12px;border-top:1.5px dashed rgba(120,90,60,.22);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;justify-content:space-around;align-items:flex-start}
+#n6defs{position:absolute;width:0;height:0;overflow:hidden}
+#tabbar.n6bar .tab{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:7px 0 0;height:var(--tab);color:#8C837C;background:none;border:0;overflow:visible;
+ --ia:var(--c);--ib:var(--c2);--iw:#fff;--ik:var(--cd);--ie:#2A2140}
+#tabbar.n6bar .tab svg{stroke:none;width:auto;height:auto}
+#tabbar.n6bar .tab.on{color:var(--cd)}
+#tabbar.n6bar .stw{position:relative;width:34px;height:34px;display:flex;align-items:center;justify-content:center;z-index:2}
+#tabbar.n6bar svg.ti{width:30px;height:30px;overflow:visible;filter:url(#n6stk) saturate(.8);opacity:.9;transform:rotate(var(--rot)) scale(.86);transition:transform .3s cubic-bezier(.22,1,.36,1),opacity .3s}
+#tabbar.n6bar .tab.on svg.ti{filter:url(#n6stk);opacity:1;transform:scale(1.1)}
+#tabbar.n6bar svg.ti .a{fill:var(--ia)}#tabbar.n6bar svg.ti .b{fill:var(--ib)}#tabbar.n6bar svg.ti .w{fill:var(--iw)}#tabbar.n6bar svg.ti .e{fill:var(--ie)}
+#tabbar.n6bar svg.ti .k{fill:none;stroke:var(--ik);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#tabbar.n6bar svg.ti .r{fill:none;stroke:var(--ia);stroke-width:2.4;stroke-linecap:round}
+#tabbar.n6bar svg.ti .wl{fill:none;stroke:var(--iw);stroke-width:1.4;stroke-linecap:round}
+#tabbar.n6bar .pap{position:absolute;left:50%;top:5px;width:44px;height:38px;margin-left:-22px;border-radius:14px;background:var(--c2);transform:rotate(-5deg);opacity:0;z-index:1;pointer-events:none}
+#tabbar.n6bar .tab.on .pap{opacity:1}
+#tabbar.n6bar .ms{position:absolute;left:-7px;top:-4px;z-index:5;transform:rotate(-10deg);line-height:0;pointer-events:none}
+#tabbar.n6bar .ms svg{filter:url(#n6stk)}
+#tabbar.n6bar .zl{position:absolute;left:50%;top:22px;width:3px;height:8px;margin:-4px -1.5px;border-radius:2px;background:var(--c);opacity:0;z-index:3;pointer-events:none}
+#tabbar.n6bar .lbl{display:block;font-size:11px;line-height:1.35;margin-top:4px;white-space:nowrap;letter-spacing:0;font-weight:500;z-index:2}
+#tabbar.n6bar .tab.on .lbl{color:var(--cd);font-weight:700}
+#tabbar.n6bar .n6b{position:absolute;left:calc(50% + 13px);top:1px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font-weight:700;font-size:11px;line-height:18px;text-align:center;box-shadow:0 0 0 2px #FFF8EE;z-index:6}
+#tabbar.n6bar .n6b.dot{min-width:10px;width:10px;height:10px;padding:0;top:4px;left:calc(50% + 15px)}
+#tabbar.n6bar .n6b[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){#tabbar.n6bar svg.ti,#tabbar.n6bar .pap{transition:none}}
+
+/* หน้าห้องเกม */
+.n6sub{padding:2px 20px 12px}
+.n6hero{position:relative;overflow:hidden;margin:2px 16px 0;border-radius:22px;color:#fff;padding:14px 16px;min-height:150px;box-shadow:0 8px 20px rgba(124,43,217,.28)}
+.n6hero::before{content:'';position:absolute;right:-40px;top:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(rgba(255,255,255,.22),transparent 65%);pointer-events:none}
+.n6hero .k{font-size:12.5px;font-weight:600;opacity:.92;position:relative}
+.n6hero .t{font-size:23px;font-weight:700;line-height:1.3;margin-top:2px;position:relative;max-width:62%}
+.n6hero .d{font-size:12.5px;line-height:1.5;opacity:.95;margin-top:2px;position:relative;max-width:60%}
+.n6hero .ft{display:flex;align-items:center;gap:10px;margin-top:12px;position:relative;z-index:2}
+.n6btn{display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.14)}
+.n6hero .best{font-size:11.5px;opacity:.92}
+.n6hz{position:absolute;right:4px;top:6px;pointer-events:none}
+.n6hzi{position:absolute;right:14px;top:18px;width:96px;height:96px;pointer-events:none}
+.n6hzc{position:absolute;inset:0;border-radius:30px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;transform:rotate(-8deg);box-shadow:inset 0 -5px 0 rgba(0,0,0,.12)}
+.n6hzi .s1{position:absolute;left:-8px;top:-4px}.n6hzi .s2{position:absolute;right:-4px;bottom:6px}
+.n6sec{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:22px 20px 10px}
+.n6sec b{font-size:17px;font-weight:700;white-space:nowrap}
+.n6sec i{font-style:normal;font-size:12px;color:var(--sub);text-align:right}
+.n6g5{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:0 10px}
+.n6gm{display:flex;flex-direction:column;align-items:center;gap:6px;padding:2px 0;min-width:0}
+.n6gt{position:relative;width:58px;height:58px;border-radius:19px;display:flex;align-items:center;justify-content:center;flex:none}
+.n6gt.sm{width:44px;height:44px;border-radius:14px}
+.n6gt .gl{position:absolute;left:7px;top:5px;width:24px;height:9px;border-radius:50%;background:rgba(255,255,255,.4);transform:rotate(-12deg)}
+.n6gt.sm .gl{left:5px;top:4px;width:18px;height:7px}
+.n6gt svg{position:relative}
+.n6gm .gn{font-size:12.5px;font-weight:700;line-height:1.3;text-align:center;min-height:33px}
+.n6gm.lk .n6gt,.n6gc.lk .n6gt{filter:grayscale(.55) opacity(.7)}
+.n6lk{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;border-radius:50%;background:#6B625B;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--bg)}
+.n6g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.card.n6gc{margin:0;display:flex;align-items:center;gap:8px;padding:10px 6px 10px 10px;border-radius:18px;text-align:left;min-width:0}
+.n6gc .gx{min-width:0;flex:1}.n6gc .gx b{display:block;font-size:13.5px;font-weight:700;line-height:1.35}.n6gc .gx small{display:block;font-size:11px;letter-spacing:-.15px;color:var(--sub);line-height:1.4;margin-top:1px}
+.n6krow{display:flex;gap:10px;padding:2px 16px 8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}.n6krow::-webkit-scrollbar{display:none}
+.card.n6kg{flex:0 0 196px;scroll-snap-align:start;margin:0;display:flex;align-items:center;gap:10px;padding:10px;border-radius:18px;text-align:left;min-width:0}
+.n6kg b{display:block;font-size:13.5px;font-weight:700;line-height:1.35}.n6kg small{display:block;font-size:11px;color:var(--sub);line-height:1.4}
+.n6zc{width:34px;height:34px;border-radius:10px;color:#fff;font-size:19px;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700}
+/* หน้าฝึกฝน */
+.n6pr{padding-top:13px;padding-bottom:13px;min-height:76px}.n6pr .ic{width:44px;height:44px;border-radius:13px}
+.n6pr .tx b{line-height:1.4}.n6pr .tx small{line-height:1.45}
+.n6pill{display:inline-block;margin-left:6px;padding:1px 9px;border-radius:9px;background:#F1ECE5;color:var(--sub2);font-size:12.5px;font-weight:600;vertical-align:1px}
+.n6bar2{display:block;height:5px;border-radius:3px;background:#EFE9E1;margin-top:6px;overflow:hidden;max-width:180px}.n6bar2 i{display:block;height:100%;background:#E0862B;border-radius:3px}
+.n6rl{flex:none;display:flex}
+.n6pr+.n6pr{border-top:.5px solid var(--line)}
+/* วันนี้: หีบรางวัล */
+.card.n6chest{display:flex;align-items:center;gap:12px;padding:12px 14px;text-align:left;width:calc(100% - 40px)}
+.n6chest .ic{width:44px;height:44px;border-radius:13px}
+.n6chest .tx{flex:1;min-width:0}.n6chest .tx b{display:block;font-size:15px;font-weight:700}.n6chest .tx small{display:block;font-size:12.5px;color:var(--sub);line-height:1.45}
+.n6open{flex:none;background:#14A85A;color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:6px 12px}
+.n6hero.lk .t{font-size:20px;max-width:68%}

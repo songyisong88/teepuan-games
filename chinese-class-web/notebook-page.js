@@ -83,7 +83,7 @@ function n4Wire(el,box,paint){let busy=false;
   const c=t.closest('.cd');if(!c)return;const zh=c.dataset.z;
   if(a==='say'){e.stopPropagation();speak(nbInfo(zh).say||zh,t);return}
   if(a==='done'){learn(zh,c);return}if(a==='back'){back(zh,c,el.dataset.out==='1');return}
-  if(a==='open'){wordSheet(zh,x=>{if(x==='done')learn(zh,c);else if(x==='back')back(zh,c,el.dataset.out==='1');else if(x==='del')del(zh)})}};
+  if(a==='open'){if(typeof hbOpen==='function'&&!(typeof hbOv!=='undefined'&&hbOv)){try{nbBig(el,c,paint);return}catch(err){}}wordSheet(zh,x=>{if(x==='done')learn(zh,c);else if(x==='back')back(zh,c,el.dataset.out==='1');else if(x==='del')del(zh)})}};
  box.addEventListener('click',e=>{const t=e.target.closest('[data-n4]');if(t)onAct(t,e)});
  el.addEventListener('click',e=>{if(box.contains(e.target))return;const t=e.target.closest('[data-n4]');if(t)onAct(t,e)});
  box.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.cd[data-n4=open]')){e.preventDefault();onAct(e.target,e)}})}
@@ -92,6 +92,7 @@ SC.notebook=p=>({title:'สมุดคำของฉัน',body:`<div class="
  mount(el){const box=el.querySelector('[data-nbb]');setTimeout(()=>box.classList.remove('enter'),1800);
   const dk=()=>{const d=el.querySelector('[data-nbdock]');if(d){d.innerHTML=nb4Dock();d.style.display=d.innerHTML?'':'none'}};dk();
   const paint=()=>{flipPaint(box,nb4Body());dk()};el._n4paint=paint;n4Wire(el,box,paint)},
+ unmount(){if(typeof hbClose==='function')try{hbClose(1)}catch(e){}},
  refresh(el){if(el&&el._n4paint){el._n4paint();return true}}});
 /* ---------- หน้ารายการตามตัวกรอง (คำศัพท์ทั้งหมด · คำที่จำแล้ว · วันนี้ · เมื่อวาน) ---------- */
 const NBF={all:['คำศัพท์ทั้งหมด','คำทั้งหมดในสมุด',()=>nbAll(),'ยังไม่มีคำในสมุด'],done:['คำที่จำแล้ว','คำที่กด “จำได้แล้ว”',()=>nbLearned(),'ยังไม่มีคำที่จำได้แล้ว เมื่อจำคำไหนได้ กด “จำได้แล้ว” ที่การ์ดคำ'],
@@ -101,8 +102,22 @@ function nbListBody(f){const F=NBF[f]||NBF.all;const zs=F[2]();const ws=zs.map(w
 SC.nblist=p=>{const f=NBF[p.f]?p.f:'all';return {title:NBF[f][0],body:`<div class="nb4 enter" data-nbb>${nbListBody(f)}</div>`,
  mount(el){const box=el.querySelector('[data-nbb]');setTimeout(()=>box.classList.remove('enter'),1800);if(f==='done')el.dataset.out='1';if(f==='all')el.dataset.keep='1';
   const paint=()=>flipPaint(box,nbListBody(f));el._n4paint=paint;n4Wire(el,box,paint)},
+ unmount(){if(typeof hbClose==='function')try{hbClose(1)}catch(e){}},
  refresh(el){if(el&&el._n4paint){el._n4paint();return true}}}};
 
+/* แตะการ์ดคำในสมุด = เปิดการ์ดคำใหญ่ W1 แบบเดียวกับห้องคำ (ใช้ hbOpen ใน hub.js) · ปัดซ้าย/ขวาไล่คำในหมวดเดียวกัน
+   คำนอกคลัง (บทเรียน/เรื่องอ่าน) ใส่ข้อมูลเท่าที่มี ส่วนที่ไม่มีข้อมูลจะไม่แสดง · ปุ่มล่างบอกสถานะในสมุด */
+function nbItem(zh){const h=hubItem(zh);if(h)return Object.assign({},h.it,{bg:h.s.bg,browse:!!h.s.browse});const i=nbInfo(zh);
+ return {zh,py:i.py||'',th:i.th||'',use:'',ex:i.ex?[{zh:i.ex,py:i.exPy||'',th:i.exTh||'',say:i.ex}]:[],say:i.say||zh,lw:zh,i:-1,bg:TINT[hsh(zh)%TINT.length]}}
+function nbBigBtn(it){const zh=it.zh;if(nbHas(zh)&&isDone(NB()[zh]))return `<button class="pill sm press nb-saved nb-dn" data-nbsave="${esc(zh)}" aria-pressed="true">${CK}จำได้แล้ว</button>`;return nbBtn(zh)}
+function nbBig(el,c,paint){const sec=c.closest('.track,.grid')||c.parentNode;const cs=[...sec.querySelectorAll('.cd[data-z]')];const zs=cs.map(x=>x.dataset.z);const k=Math.max(0,zs.indexOf(c.dataset.z));
+ let dirty=false;const S0={t:'สมุดคำ',bg:TINT[0],from:c,
+  tag:(it,kc)=>it.s!=null?(it.browse?'<span class="hb-tag lv">อ่านเล่น</span>':hbTag(it,kc)):((l=>l?`<span class="hb-tag lv">ระดับ ${l}</span>`:'')(hbLv(it))),
+  btn:nbBigBtn,src:it=>(nbInfo(it.zh).src||''),
+  tileOf:it=>{const t=[...el.querySelectorAll('.cd[data-z]')].find(x=>x.dataset.z===it.zh&&sec.contains(x))||null;if(!t)return null;const sc=el.querySelector('.scroller')||el;const r=t.getBoundingClientRect(),q=sc.getBoundingClientRect();return r.bottom>q.top+20&&r.top<q.bottom-60&&r.right>0&&r.left<innerWidth?t:null},
+  onClose:()=>{const now=nbAll().join()+'|'+nbLearned().join();if(now!==snap)paint()}};
+ const snap=nbAll().join()+'|'+nbLearned().join();
+ hbOpen(S0,zs.map(nbItem),k,null,el)}
 /* แถบเลิกทำ */
 function snack(host,html,undo){host.querySelectorAll('.nb-snack').forEach(s=>s.remove());const d=document.createElement('div');d.className='nb-snack';d.setAttribute('role','status');d.innerHTML=`<span>${html}</span>${undo?'<button class="press" data-snk>เลิกทำ</button>':''}`;host.appendChild(d);
  if(d.animate)d.animate([{transform:'translateY(16px)',opacity:0},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.32,.72,0,1)'});

@@ -78,16 +78,16 @@ function hbTile(it,s){const n=[...it.zh].length,lat=hbIsLatin(it.zh);const cf=la
 function hbBigHtml(o){const {s,list,k}=o;const it=list[k],N=list.length,kc=hbKnownCh(),lat=hbIsLatin(it.zh),n=[...it.zh].length;
  const zf=lat?40:Math.min(40,Math.floor(250/n)),pf=lat?Math.min(72,Math.floor(280/(n*.62))):Math.min(76,Math.floor(280/n));
  const nd=Math.min(5,N),on=N<=5?k:k<2?k:k>N-3?nd-(N-k):2;const parts=hbParts(it);
- const tag=s.browse?'<span class="hb-tag lv">อ่านเล่น</span>':hbTag(it,kc);
+ const tag=s.tag?s.tag(it,kc):s.browse?'<span class="hb-tag lv">อ่านเล่น</span>':hbTag(it,kc);const bg=it.bg||s.bg;
  return `<div class="top"><span class="cnt">คำที่ ${k+1} จาก ${N}</span><span class="dots" aria-hidden="true">${Array.from({length:nd},(_,j)=>`<i${j===on?' class="on"':''}></i>`).join('')}</span><button class="xb press" data-hbx aria-label="ปิด">${HB_I.x}</button></div>
- <div class="hb-sc"><div class="ph"><span class="pic" style="background:${s.bg}">${hbPh(it,pf)}</span>${hbSaved(it)?'<i class="rib"></i>':''}</div>
+ <div class="hb-sc"><div class="ph"><span class="pic" style="background:${bg}">${hbPh(it,pf)}</span>${hbSaved(it)?'<i class="rib"></i>':''}</div>
  <div class="hd"><div class="hw"><div class="hz${lat?' lat':' zh'}" style="font-size:${zf}px">${it.zh}</div><div class="py">${pyPlain(it.py)}</div></div><button class="say press" data-act="audio" data-t="${hbAt(hbKey(it))}" aria-label="ฟังเสียง">${HB_SPK}</button></div>
  <div class="tr"><span class="th">${it.th}</span>${tag}<button class="slow" data-hbslow="${hbAt(hbKey(it))}">ฟังแบบช้า</button></div>
- <div class="box"><h4>ใช้เมื่อไร</h4><p>${it.use}</p></div>
- ${it.ex.length?`<div class="box"><h4>ตัวอย่างประโยค</h4>${it.ex.map(e=>`<div class="exr">${typeof alTx==='function'?alTx(e.zh,e.py,e.th):`<span class="tx"><b class="zh">${e.zh}</b><span class="p">${e.py}</span><small>${e.th}</small></span>`}<button class="say press" data-act="audio" data-t="${hbAt(e.say)}" aria-label="ฟังประโยค">${HB_SPK}</button></div>`).join('')}</div>`:''}
+ ${it.use?`<div class="box"><h4>ใช้เมื่อไร</h4><p>${it.use}</p></div>`:''}
+ ${it.ex&&it.ex.length?`<div class="box"><h4>ตัวอย่างประโยค</h4>${it.ex.map(e=>`<div class="exr">${typeof alTx==='function'?alTx(e.zh,e.py,e.th):`<span class="tx"><b class="zh">${e.zh}</b><span class="p">${e.py}</span><small>${e.th}</small></span>`}<button class="say press" data-act="audio" data-t="${hbAt(e.say)}" aria-label="ฟังประโยค">${HB_SPK}</button></div>`).join('')}</div>`:''}
  ${parts.length?`<div class="box"><h4>คำในบทเรียนที่อยู่ในคำนี้</h4><div class="hb-wd">${parts.map(w=>`<span class="${hbHan(w.zh).every(c=>kc.has(c))?'':'no'}"><span class="zh">${w.zh}</span>${hbGloss(w.th)}</span>`).join('')}</div></div>`:''}
  <div class="sp"></div></div>
- <div class="ft"><button class="nv press${k?'':' dis'}" data-hbnav="-1" aria-label="คำก่อนหน้า">${HB_I.l}</button>${nbBtn(it.zh)}<button class="nv press${k<N-1?'':' dis'}" data-hbnav="1" aria-label="คำถัดไป">${HB_I.r}</button></div>`}
+ <div class="ft"><button class="nv press${k?'':' dis'}" data-hbnav="-1" aria-label="คำก่อนหน้า">${HB_I.l}</button>${s.btn?s.btn(it):nbBtn(it.zh)}<button class="nv press${k<N-1?'':' dis'}" data-hbnav="1" aria-label="คำถัดไป">${HB_I.r}</button></div>`}
 /* เปิดการ์ดคำ/เปลี่ยนคำ = อ่านออกเสียงทันที (เรียกในจังหวะแตะ เพื่อให้ iOS ยอมเล่น) · ถูกบล็อก = เงียบ */
 function hbAutoSay(root,it){try{const b=root&&root.querySelector('[data-act="audio"]');speak(b?b.dataset.t:hbKey(it),b||null)}catch(e){}}
 /* กล่องภาพการ์ดใหญ่: ใช้สีขอบภาพเป็นพื้นกล่อง ให้ภาพกับกล่องเป็นผืนเดียว */
@@ -107,13 +107,20 @@ function hbOpen(s,list,k,tile,scr){if(hbOv)return;stopAudio();const F=$('#frame'
  const o=hbOv={s,list,k,ov,scr,bd:ov.querySelector('.hb-bd'),fly:ov.querySelector('.hb-fly'),card:ov.querySelector('.hb-bc'),inn:ov.querySelector('.hb-in'),busy:1};
  o.inn.innerHTML=hbBigHtml(o);F.appendChild(ov);hbPicBg(o.inn);vib(8);hbAutoSay(o.inn,o.list[o.k]);
  const fin=()=>{o.busy=0;o.card.style.visibility='';};
- if(rm||!tile||!ov.animate){hbA(ov,[{opacity:0},{opacity:1}],{duration:rm?120:200,fill:'none'});fin()}
+ if(!rm&&s.from&&ov.animate){hbA(o.bd,[{opacity:0},{opacity:1}],{duration:360,easing:'ease-out',fill:'none'});hbDone(hbA(o.card,hbZoom(o,s.from),{duration:420,easing:'cubic-bezier(.2,.85,.25,1)',fill:'none'})).then(fin)}
+ else if(rm||!tile||!ov.animate){hbA(ov,[{opacity:0},{opacity:1}],{duration:rm?120:200,fill:'none'});fin()}
  else{o.card.style.visibility='hidden';tile.style.visibility='hidden';hbA(o.bd,[{opacity:0},{opacity:1}],{duration:420,easing:'cubic-bezier(.215,.61,.355,1)',fill:'none'});
   hbFlyTile(o,tile,false).then(f=>{f.remove();tile.style.visibility='';o.card.style.visibility='';
    return hbDone(hbA(o.card,[{transform:'perspective(1400px) rotateY(-90deg) scale(.82)'},{transform:'perspective(1400px) rotateY(0deg) scale(1)'}],{duration:340,easing:'cubic-bezier(.215,.61,.355,1)',fill:'none'}))}).then(fin)}
  hbBind(o)}
+/* การ์ดใหญ่ขยายออกจากการ์ดเล็กที่แตะ (ใช้กับหน้าที่ไม่ใช่ห้องคำ เช่น สมุดคำ) */
+function hbZoom(o,el){const r=el.getBoundingClientRect(),c=o.card.getBoundingClientRect();const sc=Math.max(.15,r.width/Math.max(1,c.width));
+ return [{transform:`translate(${(r.left+r.width/2)-(c.left+c.width/2)}px,${(r.top+r.height/2)-(c.top+c.height/2)}px) scale(${sc})`,opacity:.35},{transform:'none',opacity:1}]}
 function hbClose(instant){const o=hbOv;if(!o)return;hbOv=null;stopAudio();document.removeEventListener('keydown',o.key);
+ try{o.s.onClose&&o.s.onClose(o.list[o.k])}catch(e){}
  const ov=o.ov,gone=()=>ov.remove();if(instant===1||!ov.isConnected){gone();return}
+ if(o.s.tileOf&&!instant&&!hbRM()&&ov.animate){const t=o.s.tileOf(o.list[o.k]);o.busy=1;hbA(o.bd,[{opacity:1},{opacity:0}],{duration:320,easing:'ease-out'});
+  hbDone(hbA(o.card,t?hbZoom(o,t).reverse():[{opacity:1,transform:'none'},{opacity:0,transform:'scale(.94)'}],{duration:t?320:220,easing:'cubic-bezier(.4,0,.6,1)'})).then(gone);return}
  o.busy=1;if(instant||hbRM()||!ov.animate){hbDone(hbA(ov,[{opacity:1},{opacity:0}],{duration:instant?160:140})).then(gone);return}
  const it=o.list[o.k];const tile=o.scr&&o.scr.querySelector(`[data-hbt="${it.i}"]`);const sc=o.scr&&o.scr.querySelector('.scroller');
  let vis=false;if(tile&&sc){const r=tile.getBoundingClientRect(),q=sc.getBoundingClientRect();vis=r.bottom>q.top+40&&r.top<q.bottom-120}
@@ -128,8 +135,8 @@ function hbShow(o,k2,dir,from){if(k2<0||k2>=o.list.length||k2===o.k){if(from)hbA
  o.busy=1;hbDone(hbA(o.inn,[{transform:`translateX(${from||0}px)`,opacity:1},{transform:`translateX(${-dir*90}px)`,opacity:0}],{duration:150,easing:'cubic-bezier(.4,0,1,1)'})).then(()=>{put();
   return hbDone(hbA(o.inn,[{transform:`translateX(${dir*90}px)`,opacity:0},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.75,.3,1)'}))}).then(()=>{o.busy=0;o.inn.getAnimations&&o.inn.getAnimations().forEach(a=>a.cancel())})}
 /* เก็บลงสมุด: ริบบิ้นแดงหล่นลงที่มุมภาพ ปุ่มเด้ง ประกายเล็ก ๆ · นำออก: ริบบิ้นยกออก */
-function hbSaveFx(o,btn){const it=o.list[o.k];const on=nbSaveToggle(it.zh,{py:it.py,th:it.th},'คลัง'+o.s.t,null);
- const nb=document.createElement('div');nb.innerHTML=nbBtn(it.zh);const b2=nb.firstChild;btn.replaceWith(b2);const ph=o.inn.querySelector('.ph');const rm=hbRM();let rib=ph.querySelector('.rib');
+function hbSaveFx(o,btn){const it=o.list[o.k];const on=nbSaveToggle(it.zh,{py:it.py,th:it.th},o.s.src?o.s.src(it):'คลัง'+o.s.t,null);
+ const nb=document.createElement('div');nb.innerHTML=o.s.btn?o.s.btn(it):nbBtn(it.zh);const b2=nb.firstChild;btn.replaceWith(b2);const ph=o.inn.querySelector('.ph');const rm=hbRM();let rib=ph.querySelector('.rib');
  if(on){if(!rib){rib=document.createElement('i');rib.className='rib';ph.appendChild(rib)}
   if(!rm){hbA(rib,[{transform:'translateY(-60px)'},{transform:'none'}],{duration:440,easing:'cubic-bezier(.34,1.56,.64,1)',fill:'none'});
    hbA(b2,[{transform:'scale(.95)'},{transform:'scale(1.06)',offset:.45},{transform:'none'}],{duration:420,easing:'ease-out',fill:'none'});

@@ -179,3 +179,6 @@
 .nbsw-dock .nsb.ok{background:#2E8B57;color:#fff;box-shadow:0 6px 16px rgba(46,139,87,.35),inset 0 0 0 4px #2E8B57,inset 0 0 0 5.5px rgba(255,255,255,.5)}
 .nbsw-dock .hint{font-size:14.5px;white-space:nowrap;font-weight:600;color:var(--sub);text-align:center;line-height:1.55}
 @media (prefers-reduced-motion:reduce){.nb4.enter *,.nb4.enter{animation:none!important}}
+/* การ์ดคำใหญ่ที่เปิดจากสมุด: คำที่จำได้แล้ว */
+.hb-ov .pill.nb-saved.nb-dn{background:#2E8B57 !important;color:#fff !important;box-shadow:none !important}
+.hb-ov .pill.nb-dn svg{width:18px;height:18px}

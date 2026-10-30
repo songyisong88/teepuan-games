@@ -1,4 +1,4 @@
-// สร้าง data/align.js จาก tools/align/hub.txt (คลังคำ) + tools/align/lessons.txt (บทเรียนระดับ 1–2) · ตรวจทุกคู่ก่อนเขียน: ข้อมูลผิด = หยุด ไม่เขียนไฟล์
+// สร้าง data/align.js จาก tools/align/hub.txt (คลังคำ) + tools/align/lessons.txt (บทเรียนระดับ 1–2) + tools/align/lessons3.txt (บทเรียนระดับ 3 ขึ้นไป) · ตรวจทุกคู่ก่อนเขียน: ข้อมูลผิด = หยุด ไม่เขียนไฟล์
 // ใช้: node tools/align/build.js [--check]
 const fs=require('fs'),path=require('path'),vm=require('vm');
 const ROOT=path.join(__dirname,'..','..');const {alResolve,alFind}=require(path.join(ROOT,'align.js'));
@@ -6,10 +6,10 @@ const load=files=>{const ctx={console};ctx.window=ctx;vm.createContext(ctx);for(
 const pyPlain=s=>String(s||'').replace(/\|/g,'');
 // คลังคำ: HUB_SETS[].items[4] = [[zh,py,th],...]
 const H=load(['data/hub.js']);const hub=[];for(const s of H.window.HUB_SETS)for(const it of s.items)for(const e of (it[4]||[]))hub.push({set:s.id,w:it[0],zh:e[0],py:e[1],th:e[2]});
-// บทเรียนระดับ 1–2: LESSONS[].words[] ที่มี ex (พินอินที่แสดงจริง = ตัด | ออก)
-const L=load(['data/common.js','data/hsk1.js','data/hsk2.js','data/hsk2x.js']);const LS=vm.runInContext('LESSONS',L),CH=vm.runInContext('CHAPTERS',L);
-const les=[];for(const l of LS){const lv=(CH.find(c=>c.id===l.chapter)||{lv:1}).lv;if(lv>2)continue;for(const w of l.words)if(w.ex)les.push({lv,w:w.zh,zh:w.ex,py:pyPlain(w.exPy),th:w.exTh})}
-const SRC=[{name:'คลังคำ',file:'hub.txt',list:hub},{name:'บทเรียน 1–2',file:'lessons.txt',list:les}];
+// บทเรียน: LESSONS[].words[] ที่มี ex (พินอินที่แสดงจริง = ตัด | ออก) · ระดับ 1–2 → lessons.txt · ระดับ ≥3 → lessons3.txt
+const L=load(['data/common.js','data/hsk1.js','data/hsk2.js','data/hsk2x.js','data/hsk3.js','data/hsk4.js','data/hsk5.js']);const LS=vm.runInContext('LESSONS',L),CH=vm.runInContext('CHAPTERS',L);
+const les=[],les3=[];for(const l of LS){const lv=(CH.find(c=>c.id===l.chapter)||{lv:1}).lv;for(const w of l.words)if(w.ex)(lv>2?les3:les).push({lv,w:w.zh,zh:w.ex,py:pyPlain(w.exPy),th:w.exTh})}
+const SRC=[{name:'คลังคำ',file:'hub.txt',list:hub},{name:'บทเรียน 1–2',file:'lessons.txt',list:les},{name:'บทเรียน 3+',file:'lessons3.txt',list:les3}];
 const out={},errs=[],warn=[],rec=[];let seg=null;try{seg=new Intl.Segmenter('th',{granularity:'word'})}catch(e){}
 const thBounds=t=>{const b=new Set([0,t.length]);if(seg)for(const x of seg.segment(t)){b.add(x.index);b.add(x.index+x.segment.length)}return b};
 const add=(zh,spec)=>{(out[zh]=out[zh]||[]);if(!out[zh].includes(spec))out[zh].push(spec)};

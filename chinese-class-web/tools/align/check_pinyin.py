@@ -12,6 +12,7 @@ for e in d:
     import itertools
     from pypinyin import pinyin
     opts=pinyin(z,style=Style.NORMAL,heteronym=True)
+    opts=[sorted(set(o)|set(pinyin(ch,style=Style.NORMAL,heteronym=True)[0])) for ch,o in zip(z,opts)]  # รวมเสียงอ่านรายตัว (คำวลีบางคำ pypinyin ให้เสียงเดียว เช่น 不得了)
     opts=[o+['r'] if ch=='儿' and i>0 else o for i,(ch,o) in enumerate(zip(z,opts))]  #儿化音 (r) หรือ 儿 เต็มพยางค์ (ér)
     for combo in itertools.islice(itertools.product(*opts),200):cands.add(norm(''.join(combo)))
     if norm(p).replace('v','u') not in {c.replace('v','u') for c in cands}:

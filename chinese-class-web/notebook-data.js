@@ -48,8 +48,11 @@ function nbMigrate(){if(typeof HB_SETS==='undefined'||!S.srs)return;const nb=NB(
  if(n){S.nbMig=(S.nbMig||0)+n;save()}}
 try{nbMigrate()}catch(e){}
 window.nbBtn=(zh,cls)=>{const on=nbHas(zh);return `<button class="pill sm press ${on?'nb-saved':''} ${cls||''}" data-nbsave="${esc(zh)}" aria-pressed="${on}">${on?BMF+'อยู่ในสมุดแล้ว':BM+'เก็บลงสมุด'}</button>`};
-window.nbSaveToggle=(zh,info,src)=>{const on=nbToggle(zh,info,src);vib(on?12:8);toast(on?'เก็บลงสมุดแล้ว':'นำออกจากสมุดแล้ว');return on};
-window.nbBtnClick=(btn,info,src)=>{const zh=btn.dataset.nbsave;nbSaveToggle(zh,info,src);btn.outerHTML=nbBtn(zh,[...btn.classList].filter(c=>!/^(pill|sm|press|nb-saved)$/.test(c)).join(' '))};
+window.nbSaveToggle=(zh,info,src,btn)=>{const on=nbToggle(zh,info,src);vib(on?12:8);
+ /* A07 เก็บคำลงสมุด (fx.js) แทนข้อความเดิม · การนำออกยังใช้ข้อความเดิม */
+ let fx=false;if(on&&btn&&window.FX)try{fx=FX.save(btn,zh,nbLearning().length)}catch(e){fx=false}
+ if(!fx)toast(on?'เก็บลงสมุดแล้ว':'นำออกจากสมุดแล้ว');return on};
+window.nbBtnClick=(btn,info,src)=>{const zh=btn.dataset.nbsave;nbSaveToggle(zh,info,src,btn);btn.outerHTML=nbBtn(zh,[...btn.classList].filter(c=>!/^(pill|sm|press|nb-saved)$/.test(c)).join(' '))};
 /* ให้ไฟล์หน้าสมุด (แบบใดก็ได้) ใช้ฟังก์ชันข้อมูลชุดเดียวกัน */
 window.NBX={BM,BMF,CK,XX,RE,SPKI,esc,NB,stamp,isOn,isDone,srsOf,isDue,hubItem,nbInfo,nbWord,pyTxt,nbLearn,nbRelearn,nbAll,nbLearning,nbLearned,nbPool,nbMigrate,nbHas:window.nbHas,nbDoneHas:window.nbDoneHas,nbAdd:window.nbAdd,nbRemove:window.nbRemove,nbToggle:window.nbToggle,nbStats:window.nbStats};
 })();

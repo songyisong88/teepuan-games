@@ -68,7 +68,7 @@ SC.path=()=>{const n=curLv(),L=levelBy(n),i=lvInfo(n),cur=nextUnit(),rv=reviewWo
  ${ROW(L.bg,L.em,'เปลี่ยนระดับ',`ตอนนี้ ${L.name} · ${L.th} · ${LVSTAT(n)}`,undefined,'data-go="levels"')}
  ${ROW('#EAF1FB','🧭','ทดสอบวัดระดับ',S.placeRes?`ผลล่าสุด ≈ ${S.placeRes.est?'ระดับ '+S.placeRes.est:'ก่อนระดับ 1'} · ทำใหม่ได้`:'ไม่แน่ใจว่าควรเริ่มตรงไหน? ลอง 12–20 ข้อ',undefined,'data-go="placement"')}
  ${ROW('#E7F8EE','🎒','ห้องเรียนของฉัน',CLASSMATES.filter(cmUnlocked).length+'/'+CLASSMATES.length+' ตัวละคร',undefined,'data-go="classroom"')}</div>${DEMO}</div>`,
- mount(el){const c=$('.lc-node.cur,.l1row.cur',el),sc=$('.scroller',el);if(c&&!sc.scrollTop){setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.42;if(y>120)sc.scrollTo({top:y,behavior:'smooth'})},260)}
+ mount(el){const c=$('.lc-node.cur,.l1row.cur',el),sc=$('.scroller',el);/* A05 ปลดล็อกบทถัดไป (fx.js) */const fxU=!!(window.FX&&FX.mapUnlock(el));if(c&&!sc.scrollTop&&!fxU){setTimeout(()=>{const y=c.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-sc.clientHeight*.42;if(y>120)sc.scrollTo({top:y,behavior:'smooth'})},260)}
   el.addEventListener('click',e=>{const b=e.target.closest('[data-lcm]');if(b){vib(8);toast('ผ่านภารกิจตอน “'+b.dataset.lcm+'” แล้ว')}})}}};
 
 /* ----- ทดสอบวัดระดับ: ปรับระดับตามคำตอบ (2 ถูกขึ้น / 1 ผิดลง) ----- */

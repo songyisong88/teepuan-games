@@ -57,7 +57,7 @@ function badgeCheck(){if(!S.badges)S.badges={};const fresh=[];
    <div class="cap" style="color:var(--red);font-weight:700">ได้เหรียญตราใหม่${fresh.length>1?` (+อีก ${fresh.length-1})`:''}</div>
    <div class="h2">${b.em} ${b.n}</div><p style="color:var(--sub2);margin:6px 0 4px;font-size:15px">${b.d}</p><p style="font-size:15px;font-weight:600;margin:0 0 14px">รางวัล +${b.big?25:10} 🪙</p>
    <div style="display:flex;gap:10px;justify-content:center"><button class="pill sm ghost press" id="bsh" style="flex:1">แชร์ลง LINE</button><button class="pill sm press" data-act="closesheet" style="flex:1">ตกลง</button></div></div>`,
-   {onMount:sh=>{$('#bsh',sh).onclick=()=>{closeSheet(true);shareSheet('badge',{b})}},onClose:()=>{confetti(60);refresh()}})}
+   {onMount:sh=>{/* A08 เหรียญตราใหม่ (fx.js) */if(window.FX)try{FX.badge(sh)}catch(e){}$('#bsh',sh).onclick=()=>{closeSheet(true);shareSheet('badge',{b})}},onClose:()=>{if(!window.FX)confetti(60);refresh()}})}
  else toast(`ได้เหรียญตรา: ${fresh[0].n}${fresh.length>1?` และอีก ${fresh.length-1}`:''}`)}
 let _bt=0;function badgeSoon(){clearTimeout(_bt);_bt=setTimeout(()=>{try{badgeCheck()}catch(e){console.error(e)}},1500)}
 function badgeTile(b){const got=badgeGot(b.id),[c,g]=b.t(),p=Math.min(1,c/g);

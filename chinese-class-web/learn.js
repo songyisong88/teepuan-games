@@ -115,6 +115,7 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
    else{stage.innerHTML=tag+m+qHtml(q);const a=$('[data-auto]',stage);if(a)setTimeout(()=>speak(a.dataset.t||q.w.zh,a),350)}}
   stage.classList.remove('fade-in');void stage.offsetWidth;stage.classList.add('fade-in');$('.scroller',el).scrollTop=0}
  let ended=false;function next(){if(ended)return;i++;if(i>=steps.length){ended=true;pg.style.width='100%';setTimeout(()=>cb({correct,total:qTotal,wrong,log,reasked}),250)}else show()}
+ let fxWait=0;
  function resolve(ok,q,btn){if(locked)return;locked=true;const retry=!!cur.retry;
   if(!retry){log.push(ok);if(ok)correct++;if(!place){if(ok)S.qOk++;S.qAll++;bumpCnt(ok?'qok':'qbad',1);if(ok&&(q.pic||q.pics))bumpCnt('pic',1);if(ok&&q.w)srsGrade(q.w,true,1)}}
   if(ok){run++;vib(12);if(review&&q.w)fixMistake(q.w);if(!retry&&!place)floatXp('+10 XP',btn)}else{run=0;vib([30,40,30]);if(q.w&&!place)addMistake(q.w);wrong.push(q.w?q.w.zh:(q.lbl||'ประโยค'));
@@ -125,9 +126,12 @@ function session(el,steps,cb,{review=false,place=false}={}){let i=0,correct=0,ru
   const pose=ok?(run>=3?'thumbs':'correct'):'wrong';
   fb.innerHTML=`<div class="grabber"></div><div class="fh"><div class="t"><b style="color:${ok?'var(--ok)':'var(--warn)'}">${q.plain?(ok?(run>=3?`ถูกต้อง · ติดต่อกัน ${run} ข้อ`:'ถูกต้อง'):'ยังไม่ถูก'):ok?(run>=3?`ติดต่อกัน ${run} ข้อแล้ว`:'ถูกต้อง'):'ยังไม่ถูก'}</b><small>${ok?`ทำได้ดี${retry||place||q.plain?'':' · +10 XP'}`:(q.fbNo&&!retry?q.fbNo:(retry?'ลองอีกครั้งในรอบหน้า':MASCOT_NAME+'จะพาทวนข้อนี้อีกรอบ'))}</small></div><div style="width:84px;height:84px">${M(pose)}</div></div>${rev}
   <button class="pill row1 press ${ok?'ok':'warn'}" style="height:52px;border-radius:26px;margin-top:14px" data-sa="next">ต่อไป</button>`;
-  setTimeout(()=>fb.classList.add('show'),250)}
+  const fbD=ok?250:Math.max(250,fxWait);fxWait=0;setTimeout(()=>fb.classList.add('show'),fbD)}
  function answer(btn){if(locked)return;const q=cur.q,k=+btn.dataset.i,ok=k===q.ans;q.picked=k;const os=$$('.opt',stage);
-  os.forEach((o,j)=>{o.setAttribute('aria-disabled','true');o.tabIndex=-1;if(j===q.ans){o.classList.add('ok');$('.k',o).innerHTML=CHECK}else if(j===k)o.classList.add('bad');else o.classList.add('dim')});resolve(ok,q,btn)}
+  os.forEach((o,j)=>{o.setAttribute('aria-disabled','true');o.tabIndex=-1;if(j===q.ans){o.classList.add('ok');$('.k',o).innerHTML=CHECK}else if(j===k)o.classList.add('bad');else o.classList.add('dim')});
+  /* A02 ตอบผิด (fx.js): ส้ม+สั่นเบา ๆ แล้วชี้ข้อที่ถูก · แผ่นเฉลยขึ้นตามหลังเอฟเฟกต์ */
+  if(!ok&&window.FX)try{fxWait=FX.wrong(btn,os[q.ans])||0}catch(e){fxWait=0}
+  resolve(ok,q,btn)}
  /* เรียงคำ */
  let ordState=[];
  function ordHtml(q){return `<div class="center"><div class="cap" style="font-size:14px">เรียงคำให้เป็นประโยค</div><div style="font-size:23px;font-weight:700;margin:10px 20px 4px">${q.s.th}</div></div><div class="ordans" id="oa"></div><div class="ordpool" id="op">${q.sh.map(ix=>`<button class="chipw press" data-ox="${ix}"><span class="zh">${strip(q.s.zh[ix])||q.s.zh[ix]}</span><small>${pyPlain(strip(q.s.py[ix]||''))}</small></button>`).join('')}</div>`}
@@ -158,10 +162,11 @@ SC.lesson=({uid})=>{const u=unitBy(uid);
  mount(el){session(el,unitSteps(u),res=>finishUnit(u,res))}}};
 function finishUnit(u,res){const first=!unitDone(u.id);const ratio=res.correct/Math.max(1,res.total);const stars=ratio>=.9?3:ratio>=.65?2:1;const L=lessonBy(u.lesson);
  let xp=6+Math.round(res.correct*1.4)+(ratio>=.9?4:0),coins=5+res.correct*2;if(!first){xp=Math.round(xp/2);coins=Math.round(coins/2)}
- const wasLessonDone=isDone(L.id);if(first)S.parts.push(u.id);S.stars[u.id]=Math.max(S.stars[u.id]||0,stars);
+ const wasLessonDone=isDone(L.id),partsBefore=S.parts.slice();if(first)S.parts.push(u.id);S.stars[u.id]=Math.max(S.stars[u.id]||0,stars);
  const wasFirstToday=S.lastDay!==today();xp=evX(xp);coins=evC(coins);addCoins(coins,true);addXp(xp,null,true);save();bumpCnt('unit',1);
  const newCm=!wasLessonDone&&isDone(L.id)?CLASSMATES.find(c=>c.by==='lesson:'+L.id):null;if(newCm&&!S.seenCm.includes(newCm.id)){S.seenCm.push(newCm.id);save()}
  const nu=nextUnit();/* จบทุกตอนของระดับนี้แล้ว: ปุ่มเริ่มระดับถัดไป (ไม่แสดงที่ระดับสุดท้าย) */const nlu=!nu&&u.lv===curLv()&&curLv()<LV_MAX?(lvUnits(curLv()+1)[0]||null):null;buddyTick();
+ /* A05: จำไว้เล่นปลดล็อกบนแผนที่ครั้งถัดไป (เฉพาะจบบทครั้งแรกแล้วบทถัดไปเป็นอีกบท) */if(window.FX)FX.noteUnlock(first&&nu&&nu.lesson!==u.lesson&&isDone(L.id)?u:null,nu,partsBefore);
  replace('complete',{u,L,res,xp,coins,stars,first,newWords:first?u.words.length:0,streakNew:wasFirstToday,newCm,nu,nlu,evMul:eventXpNote()})}
 SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,nlu,evMul})=>({nav:'<header class="nav"></header>',noRefresh:true,
  body:`<div class="center" style="padding:calc(var(--st) + 24px) 20px 0"><div class="pop" style="width:240px;height:220px;margin:0 auto">${M(stars>=3?'levelup':'cheer')}</div>
@@ -178,11 +183,11 @@ SC.complete=({u,L,res,xp,coins,stars,first,newWords,streakNew,newCm,nu,nlu,evMul
  <div class="pad mt16"><button class="pill sm linebtn row1 press" data-act="sharedone">ท้าเพื่อนใน LINE ด้วยผลนี้</button></div>
  <p class="cap center mt12"><span class="demo">ตัวอย่างทดลอง</span></p>`,
  extra:`<div class="dock">${nlu?`<button class="pill press" data-act="finishgo" data-to="nextlv" data-lv="${nlu.lv}" data-u="${nlu.id}"><b>เริ่มระดับถัดไป</b><small>ระดับ ${nlu.lv} · ${uTxt(nlu)} · ${(lessonBy(nlu.lesson)||{}).th||''}</small></button><div style="display:flex;gap:10px;margin-top:12px"><button class="pill sm ghost press" style="flex:1" data-act="finishgo" data-to="games">เล่นเกมคำใหม่</button><button class="pill sm ghost press" style="flex:1" data-act="finishgo" data-to="home">กลับหน้าหลัก</button></div>`:nu&&first?`<button class="pill press" data-act="finishgo" data-to="next" data-u="${nu.id}"><b>${nu.v3?'เรียนบทถัดไป':'เรียนรอบถัดไป'}</b><small>${uTxt(nu)}</small></button>`:`<button class="pill press" data-act="finishgo" data-to="games"><b>เล่นเกมคำใหม่</b><small>ใช้คำที่เพิ่งเรียนเก็บเหรียญ</small></button>`}${nlu?'':'<button class="pill sm ghost press mt12" data-act="finishgo" data-to="home">กลับหน้าหลัก</button>'}</div>`,
- mount(el){confetti(newCm?150:110);vib([20,30,20,30,40]);if(newCm)setTimeout(()=>speak(newCm.say,null,''),900);
+ mount(el){/* A04 จบบท (fx.js) แทนพลุเดิม · ถ้าไม่มี fx.js ใช้พลุเดิม */if(!window.FX)confetti(newCm?150:110);else FX.complete(el);vib([20,30,20,30,40]);if(newCm)setTimeout(()=>speak(newCm.say,null,''),900);
   /* เว้นที่ใต้เนื้อหาให้พ้นปุ่มด้านล่าง และเลื่อนให้การ์ดเพื่อนใหม่อยู่เหนือปุ่มทั้งใบ */
   const sc=$('.scroller',el),dk=$('.dock',el);if(sc&&dk){sc.style.paddingBottom=(dk.offsetHeight+20)+'px';const cr=$('.cmreveal',el);if(cr)setTimeout(()=>{const pb=$('.pill',dk)||dk,d=cr.getBoundingClientRect().bottom-(pb.getBoundingClientRect().top-16);if(d>0)sc.scrollBy({top:d,behavior:'smooth'})},700)}
   const b=$('[data-act=sharedone]',el);if(b)b.onclick=()=>shareSheet('result',{kind:'unit',text:`จบ ${L.th}${u.v3?'':' รอบ '+(u.part+1)} ได้ ${stars} ดาว`,stars,L,u,cm:newCm})}});
-document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}if(to==='nextlv'){setLevel(+t.dataset.lv,undefined,true);mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act=finishgo]');if(!t)return;const to=t.dataset.to;vib(8);if(window.FX&&(to==='next'||to==='nextlv'))FX.dropUnlock();if(to==='next'){mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}if(to==='nextlv'){setLevel(+t.dataset.lv,undefined,true);mountRoot('book',false);setTimeout(()=>push('lesson',{uid:t.dataset.u}),30);return}mountRoot(to==='games'?'game':to==='path'?'book':'home')});
 
 /* ----- ทบทวน ----- */
 /* แยกรายการ: บทนี้ (บทที่กำลังเรียน) กับ บทก่อนหน้า · ถ้าไม่มีคำของบทนี้ แสดงเฉพาะบทก่อนหน้า */

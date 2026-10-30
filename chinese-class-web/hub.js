@@ -79,7 +79,7 @@ SC.hubword=p=>{const s=hbSet(p.c)||HB_SETS[0];let i=Math.max(0,Math.min(s.items.
   el.addEventListener('click',e=>{const t=e.target.closest('[data-hbnav],[data-nbsave],[data-hbslow]');if(!t)return;vib(6);
    if(t.dataset.hbslow!==undefined){t.classList.add('playing');lbPlay(t.dataset.hbslow,.7,()=>t.classList.remove('playing'));return}
    if(t.dataset.hbnav){const d=+t.dataset.hbnav;show(i+d,d);return}
-   const it=s.items[i];nbSaveToggle(it.zh,{py:it.py,th:it.th},'คลัง'+s.t);el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i)});
+   const it=s.items[i];nbSaveToggle(it.zh,{py:it.py,th:it.th},'คลัง'+s.t,t);el.querySelector('[data-hbd]').innerHTML=hbWordDock(s,i)});
   let x0=null,y0=0;sc.addEventListener('touchstart',e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY},{passive:true});
   sc.addEventListener('touchend',e=>{if(x0===null)return;const t=e.changedTouches[0];const dx=t.clientX-x0,dy=t.clientY-y0;if(x0<28){x0=null;return}x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)show(i+(dx<0?1:-1),dx<0?1:-1)},{passive:true})},
  unmount(){stopAudio()}}};

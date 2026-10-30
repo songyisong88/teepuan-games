@@ -19,7 +19,7 @@ const gloss=t=>{try{return (typeof hbGloss==='function'&&hbGloss(t))||t||''}catc
 const dayStart=k=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-k);return d.getTime()};
 const ageOf=t=>!t||t<1e11?9:t>=dayStart(0)?0:t>=dayStart(1)?1:2;
 /* ขนาดตัวอักษรตามจำนวนตัว · จำกัดด้วยความกว้างการ์ด (cqw) กันล้นการ์ด */
-const zsz=(zh,g)=>{const n=[...zh].length;const b=(g?{1:24,2:23,3:21,4:19,5:16.5}:{1:30,2:29,3:27,4:25,5:22})[Math.min(n,5)];return `font-size:${b}px;font-size:min(${b}px,calc(${g?86:88}cqw / ${Math.max(n,1)}))`};
+const zsz=(zh,g)=>{const n=[...zh].length;const b=(g===1?{1:24,2:23,3:21,4:19,5:16.5}:{1:22,2:21,3:19,4:17.5,5:15.5})[Math.min(n,5)];return `font-size:${b}px;font-size:min(${b}px,calc(86cqw / ${Math.max(n,1)}))`};
 const psz=(py,g)=>{const n=py.length;return g?(n>13?9.5:n>10?10.5:11):(n>14?11.5:12.5)};
 const tsz=(th,g)=>{const n=th.replace(/[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/g,'').length;return g?(n>11?11:n>8?12:13):(n>11?13.5:15)};
 const wd=zh=>{const i=nbInfo(zh),e=NB()[zh]||{};return {zh,py:String(pyTxt(i.py)||'').normalize('NFC'),th:gloss(i.th),thFull:i.th||'',say:i.say||zh,done:isDone(e),due:isDue(zh),t:e.t||0}};
@@ -42,10 +42,12 @@ function nb4Body(){const A=nbAll(),L=nbLearning(),D=nbLearned(),P=nbPool();if(!A
  ${td.length?row(td):note('วันนี้ยังไม่ได้เก็บคำใหม่ เก็บคำได้จากคลังคำน่ารู้และเรื่องอ่าน')}
  ${yd.length?`<div class="gh"><b>เมื่อวาน</b><span>${N('yd',yd.length)} คำ</span><button class="more" data-n4="list" data-f="yest">ดูทั้งหมด ›</button></div>${row(yd)}`:''}
  <div class="gh"><b>คำศัพท์ทั้งหมด</b><span>${N('ln',L.length)} คำที่ยังไม่ได้จำ</span></div>
- ${L.length?`<div class="grid">${W.map((w,i)=>card4(w,1,i)).join('')}</div>`:note('จำได้ครบทุกคำแล้ว คำทั้งหมดอยู่ใน “คำที่จำแล้ว”')}
+ ${L.length?`<div class="grid">${W.map((w,i)=>card4(w,2,i)).join('')}</div>`:note('จำได้ครบทุกคำแล้ว คำทั้งหมดอยู่ใน “คำที่จำแล้ว”')}
  <div class="n4sp"></div>`}
-function nb4Dock(){if(!nbLearning().length)return '';
- return `<button class="go press" data-n4="all" aria-label="ทบทวนคำศัพท์ที่ยังไม่ได้จำทั้งหมด"><b>ทบทวนคำศัพท์</b></button>`}
+const I4R='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="15" rx="2.5"/><path d="M8 3h10.5A2.5 2.5 0 0 1 21 5.5V17"/></svg>';
+/* ปุ่มกลมลอยขวาล่าง (M2): ทบทวนแบบสุ่มปัดการ์ดทุกคำที่ยังไม่ได้จำ · ตัวเลข = จำนวนคำที่ยังไม่ได้จำ */
+function nb4Dock(){const n=nbLearning().length;if(!n)return '';
+ return `<button class="go press" data-n4="all" aria-label="ทบทวนคำศัพท์ที่ยังไม่ได้จำทั้งหมด ${n} คำ">${I4R}<b>ทบทวน</b><span class="nbc" data-k="fab">${n}</span></button>`}
 const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* วาดใหม่แบบ FLIP: การ์ดที่เหลือเลื่อนเข้าที่ · ตัวเลขที่เปลี่ยนเล่นแอนิเมชันสลับ */
 function flipPaint(root,html){const old=new Map(),nums={};

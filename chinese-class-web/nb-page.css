@@ -106,17 +106,46 @@
 .nb4 .stamp{position:absolute;left:50%;top:38%;width:110px;height:110px;margin:-55px;border-radius:50%;border:4px double #C8102E;color:#C8102E;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;transform:rotate(-14deg);background:rgba(255,255,255,.55);z-index:12;pointer-events:none}
 .nb4 .grid .stamp{width:84px;height:84px;margin:-42px;font-size:13.5px}
 .nb4 .cd.going{z-index:20;pointer-events:none}
-.nb4 .n4sp{height:calc(var(--tab) + 120px)}.nb4 .n4sp.sm{height:calc(var(--tab) + 30px)}
+.nb4 .n4sp{height:calc(var(--tab) + var(--sb) + 106px)}.nb4 .n4sp.sm{height:calc(var(--tab) + 30px)}
+/* ===== ขนาดกะทัดรัด M2 (ซ้งอี้เลือก 31 ต.ค. 2026): การ์ดเหลืองเล็กลง · การ์ดคำในแถวเห็นราว 3 ใบครึ่ง · ตารางคำศัพท์ทั้งหมดขนาดเท่าการ์ดในแถว ===== */
+.nb4 .today{height:96px;padding:11px 15px;margin-top:10px}
+.nb4 .today>b{font-size:18.5px}.nb4 .today>small{font-size:13px}
+.nb4 .today .pg{margin-top:8px;height:10px;width:150px}.nb4 .today .pl{font-size:12px;margin-top:3px}
+.nb4 .deck{transform:scale(.74);transform-origin:100% 0;top:8px;right:12px}
+.nb4 .duo{margin-top:12px;gap:10px}.nb4 .db{height:54px}.nb4 .db .ic{width:32px;height:32px;border-radius:10px}.nb4 .db .ic svg{width:18px;height:18px}
+.screen[data-name=notebook] .nb4 .gh{padding:16px 18px 8px}.screen[data-name=notebook] .nb4 .gh b{font-size:18px}
+.nb4 .row{scroll-padding:0 16px;padding:18px 0 12px;margin-top:-16px}
+.nb4 .row .track{gap:8px;padding:0 16px}
+.nb4 .row .cd,.screen[data-name=notebook] .nb4 .grid .cd{height:172px;padding:6px}
+.nb4 .row .cd{width:96px}
+.nb4 .row .ph,.screen[data-name=notebook] .nb4 .grid .ph{height:72px}
+.nb4 .row .tp,.screen[data-name=notebook] .nb4 .grid .tp{width:36px;height:12px;margin-left:-18px;top:-6px}
+.nb4 .row .tag,.screen[data-name=notebook] .nb4 .grid .tag{left:9px;top:9px;font-size:9px;padding:0 4px;border-radius:6px;line-height:1.55}
+.nb4 .row .spk,.screen[data-name=notebook] .nb4 .grid .spk{right:9px;top:9px;width:22px;height:22px}
+.nb4 .row .spk svg,.screen[data-name=notebook] .nb4 .grid .spk svg{width:12px;height:12px}
+.nb4 .row .spk::before,.screen[data-name=notebook] .nb4 .grid .spk::before{inset:-10px}
+.nb4 .row .cd>.zh,.screen[data-name=notebook] .nb4 .grid .cd>.zh{margin-top:4px}
+.nb4 .row .p,.screen[data-name=notebook] .nb4 .grid .p{font-size:9.5px!important}
+.nb4 .row .t,.screen[data-name=notebook] .nb4 .grid .t{font-size:11.5px!important}
+.nb4 .row .k,.screen[data-name=notebook] .nb4 .grid .k{left:6px;right:6px;bottom:6px;height:25px;border-radius:8px;font-size:11px;gap:3px}
+.nb4 .row .k svg,.screen[data-name=notebook] .nb4 .grid .k svg{width:11px;height:11px}
+.nb4 .row .nb-zt .zh,.screen[data-name=notebook] .nb4 .grid .nb-zt .zh{font-size:22px}
+.screen[data-name=notebook] .nb4 .grid{grid-template-columns:repeat(3,minmax(0,104px));justify-content:center;gap:10px 12px;padding:6px 16px 0}
+.screen[data-name=notebook] .nb4 .grid .stamp,.nb4 .row .stamp{width:72px;height:72px;margin:-36px;font-size:12px;border-width:3px}
 .nb4.enter .today{animation:n4drop .6s var(--sp) .05s both}
 @keyframes n4drop{from{opacity:0;transform:translateY(-30px) rotate(-6deg)}to{transform:rotate(-.8deg)}}
 .nb4.enter .deck .dc{animation:n4deal .5s var(--e) calc(.3s + var(--i)*.1s) both}@keyframes n4deal{from{opacity:0;transform:translateX(60px) rotate(20deg)}}
 .nb4.enter .duo,.nb4.enter .gh{animation:n4f .5s ease .25s both}@keyframes n4f{from{opacity:0;transform:translateY(12px)}}
 .nb4.enter .gh b{animation:n4ul .6s ease .45s both}@keyframes n4ul{from{border-bottom-color:transparent}}
 .nb4.enter .cd{animation:n4card .55s var(--e) calc(.4s + min(var(--i),8)*.06s) both}@keyframes n4card{from{opacity:0;translate:0 -24px;rotate:-5deg}}
-/* ปุ่มเริ่มทบทวนลอยเหนือเมนูล่าง */
-.dock.nb4d{bottom:calc(var(--tab) + var(--sb));padding:10px 20px 12px;background:linear-gradient(to top,#FBF6EC 55%,rgba(251,246,236,0))}
-.dock.nb4d .go{width:100%;height:60px;border:0;border-radius:14px;background:#C8102E;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;box-shadow:0 6px 14px rgba(200,16,46,.25),inset 0 0 0 4px #C8102E,inset 0 0 0 5.5px rgba(255,255,255,.55)}
-.dock.nb4d .go b{font-size:18.5px;font-weight:800;line-height:1.3}.dock.nb4d .go small{font-size:12.5px;font-weight:600;opacity:.92}
+/* ปุ่มทบทวนแบบปุ่มกลมลอยขวาล่าง เหนือเมนูล่าง (M2 ซ้งอี้เลือก 31 ต.ค. 2026) */
+.dock.nb4d{left:auto;right:16px;width:auto;bottom:calc(var(--tab) + var(--sb) + 14px);padding:0;background:none;overflow:visible;pointer-events:none}
+.dock.nb4d .go{pointer-events:auto;position:relative;width:72px;height:72px;border:0;border-radius:50%;padding:0;gap:1px;background:#C8102E;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;overflow:visible;box-shadow:0 8px 18px rgba(200,16,46,.35),inset 0 0 0 3px #C8102E,inset 0 0 0 4.5px rgba(255,255,255,.55);animation:n4fab .5s cubic-bezier(.34,1.56,.64,1) .5s both}
+.dock.nb4d .go svg{width:24px;height:24px}
+.dock.nb4d .go b{font-size:12.5px;font-weight:800;line-height:1.2}
+.dock.nb4d .go .nbc{position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:#fff;color:#C8102E;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 6px;box-shadow:0 2px 5px rgba(0,0,0,.18)}
+@keyframes n4fab{from{opacity:0;transform:scale(.3) rotate(-20deg)}}
+@media (prefers-reduced-motion:reduce){.dock.nb4d .go{animation:none}}
 .screen[data-name=notebook] .nb-snack,.screen[data-name=nblist] .nb-snack{bottom:calc(var(--tab) + var(--sb) + 92px)}
 .screen[data-name=nblist] .nb-snack{bottom:calc(var(--tab) + var(--sb) + 14px)}
 /* ===== หน้าทบทวนแบบปัดการ์ด (ธีมสมุดกระดาษ) ===== */

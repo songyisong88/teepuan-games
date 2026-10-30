@@ -85,7 +85,7 @@ const HG_SEG=['#FBE3E0','#FDF0DA','#EEF7F1','#E8F1FB','#F6F1FB','#FFF6E4'];
 function hgWheelSvg(ws){const C=88,R=88,pt=a=>[C+R*Math.sin(a*Math.PI/180),C-R*Math.cos(a*Math.PI/180)].map(v=>v.toFixed(1));let seg='',defs='';
  ws.forEach((w,i)=>{const a0=i*60-30,a1=i*60+30,p0=pt(a0),p1=pt(a1),cx=(C+56*Math.sin(i*Math.PI/3)).toFixed(1),cy=(C-56*Math.cos(i*Math.PI/3)).toFixed(1);
   defs+=`<clipPath id="hgc${i}"><circle cx="${cx}" cy="${cy}" r="21"/></clipPath>`;
-  seg+=`<path d="M${C} ${C}L${p0[0]} ${p0[1]}A${R} ${R} 0 0 1 ${p1[0]} ${p1[1]}Z" fill="${HG_SEG[i%6]}" stroke="#fff" stroke-width="3"/><circle cx="${cx}" cy="${cy}" r="23" fill="#fff"/><image href="assets/art/word/${encodeURIComponent(w.zh)}.webp" x="${cx-21}" y="${cy-21}" width="42" height="42" clip-path="url(#hgc${i})" preserveAspectRatio="xMidYMid slice"/>`});
+  seg+=`<path d="M${C} ${C}L${p0[0]} ${p0[1]}A${R} ${R} 0 0 1 ${p1[0]} ${p1[1]}Z" fill="${HG_SEG[i%6]}" stroke="#fff" stroke-width="3"/><circle cx="${cx}" cy="${cy}" r="23" fill="#fff"/><image href="${artUrl('word',w.zh)}" x="${cx-21}" y="${cy-21}" width="42" height="42" clip-path="url(#hgc${i})" preserveAspectRatio="xMidYMid slice"/>`});
  let dots='';for(let i=0;i<12;i++){const a=i*30*Math.PI/180;dots+=`<circle cx="${(C+84*Math.sin(a)).toFixed(1)}" cy="${(C-84*Math.cos(a)).toFixed(1)}" r="2.2" fill="#F2C14E"/>`}
  return `<svg width="176" height="176" viewBox="0 0 176 176" aria-hidden="true"><defs>${defs}</defs><circle cx="88" cy="88" r="88" fill="#C8102E"/><g>${seg}</g>${dots}</svg>`}
 const hgWord=w=>`${picHas(w)?art('word',w.zh,'','hg-rpic',w.th):''}<div class="hg-rz zh">${w.zh}</div><div class="hg-rpy">${(w.py||'').replace(/\|/g,'')}</div><div class="hg-rth">${w.th}</div>`;
@@ -125,7 +125,7 @@ function hgStories(){const LB=(window.LABS&&LABS.stories||[]).filter(s=>s.k!=='a
  const cv=s=>typeof lbCover==='function'?lbCover(s).ratio>=(typeof LB_UNLOCK==='number'?LB_UNLOCK:.6):true,open=L.filter(cv),ev=(open.length?open:L)[Math.floor(hgWeek()/7)%(open.length||L.length)];
  const list=[ev,...L.filter(s=>s!==ev)].slice(0,5),used=new Set();
  return `<div class="hg-shelf">${list.map((s,i)=>{const c=hgCover(s,used);used.add(c);const o=cv(s),m=Math.max(2,Math.round(s.s.length/3));
-  return `<button class="hg-story press${o?'':' lk'}" data-go="hgstory" data-id="${s.id}" data-o="${o?1:0}">${c&&ART_IDX['word/'+c]?`<img src="assets/art/word/${encodeURIComponent(c)}.webp" alt="" loading="lazy" decoding="async" draggable="false">`:''}${i===0?'<span class="ribbon" style="background:'+hgEvent().r+'">เรื่องประจำกิจกรรม</span>':''}<span class="ov"><b>${s.th}</b><small>ระดับ ${s.lv} · ${o?'อ่าน '+m+' นาที':'ต้องรู้คำมากขึ้นก่อน'}</small></span></button>`}).join('')}</div>`}
+  return `<button class="hg-story press${o?'':' lk'}" data-go="hgstory" data-id="${s.id}" data-o="${o?1:0}">${c&&ART_IDX['word/'+c]?`<img src="${artUrl('word',c)}" alt="" loading="lazy" decoding="async" draggable="false">`:''}${i===0?'<span class="ribbon" style="background:'+hgEvent().r+'">เรื่องประจำกิจกรรม</span>':''}<span class="ov"><b>${s.th}</b><small>ระดับ ${s.lv} · ${o?'อ่าน '+m+' นาที':'ต้องรู้คำมากขึ้นก่อน'}</small></span></button>`}).join('')}</div>`}
 Object.assign(window.GOX=window.GOX||{},{
  hgsay:el=>speak(el.dataset.z,el),
  hgrev:()=>{closeSheet();push('review')},

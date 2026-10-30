@@ -8,16 +8,16 @@ function strs(o,acc){if(typeof o==='string')acc.add(o);else if(Array.isArray(o))
 const hexOf=c=>c.codePointAt(0).toString(16);
 function packLv(lv){const L=LESSONS.filter(l=>l.lv===lv);const a=new Set(),p=new Set(),s=new Set();
  L.forEach(l=>{strs(l,new Set()).forEach(t=>audioOf(t).forEach(u=>a.add(u)));if(window.ART_IDX&&ART_IDX['lesson/'+l.id])p.add('assets/art/lesson/'+encodeURIComponent(l.id)+'.webp');
-  l.words.forEach(w=>{if(window.ART_IDX&&ART_IDX['word/'+w.zh])p.add('assets/art/word/'+encodeURIComponent(w.zh)+'.webp');
+  l.words.forEach(w=>{if(window.ART_IDX&&ART_IDX['word/'+w.zh])p.add(artUrl('word',w.zh));
    if(typeof stkHan==='function'&&typeof STK_SET!=='undefined')stkHan(w.zh).forEach(c=>{if(STK_SET.has(c))s.add('data/stroke/'+hexOf(c)+'.json')})})});
  /* นิทาน/บทความของระดับนี้ (ห้องฝึกพิเศษ): เสียงประโยค+คำ และรูปปกบทความ */
- ((window.LABS&&LABS.stories)||[]).filter(x=>x.lv===lv).forEach(x=>{x.s.forEach(z=>audioOf(z.z).forEach(u=>a.add(u)));Object.keys(x.d||{}).forEach(t=>audioOf(t).forEach(u=>a.add(u)));if(x.pic&&window.ART_IDX&&ART_IDX['word/'+x.pic])p.add('assets/art/word/'+encodeURIComponent(x.pic)+'.webp')});
+ ((window.LABS&&LABS.stories)||[]).filter(x=>x.lv===lv).forEach(x=>{x.s.forEach(z=>audioOf(z.z).forEach(u=>a.add(u)));Object.keys(x.d||{}).forEach(t=>audioOf(t).forEach(u=>a.add(u)));if(x.pic&&window.ART_IDX&&ART_IDX['word/'+x.pic])p.add(artUrl('word',x.pic))});
  return {a:[...a],p:[...p],s:[...s]}}
 function packs(){const P=[];[1,2,3,4,5].forEach(lv=>{if(!LESSONS.some(l=>l.lv===lv))return;const k=packLv(lv);const urls=[...k.a,...k.p,...k.s];
   P.push({id:'lv'+lv,em:'📘',t:'แพ็กระดับ '+lv,sub:`เสียง ${k.a.length.toLocaleString('en-US')} · รูป ${k.p.length} · ลำดับขีด ${k.s.length.toLocaleString('en-US')} ไฟล์`,urls,kb:Math.round(k.a.length*AVG.a+k.p.length*AVG.p+k.s.length*AVG.s),est:true})});
  const O=window.OFF_IDX||{};
  if(O.cjkFonts&&O.cjkFonts.length)P.push({id:'font',em:'🔤',t:'ฟอนต์ตัวจีน (Noto Serif SC)',sub:'ให้ตัวจีนแสดงด้วยฟอนต์ของแอปเมื่อออฟไลน์ · '+O.cjkFonts.length+' ไฟล์',urls:O.cjkFonts,kb:O.cjkKB});
- if(typeof RAD_PIC!=='undefined'&&window.ART_IDX){const urls=[...new Set(Object.values(RAD_PIC).map(p=>[p[2]||'word',p[0]]).filter(([k,z])=>ART_IDX[k+'/'+z]).map(([k,z])=>'assets/art/'+k+'/'+encodeURIComponent(z)+'.webp'))];if(urls.length)P.push({id:'radpic',em:'🖼️',t:'รูปประกอบตัวข้าง',sub:'อักษรข้าง · รูป '+urls.length+' ไฟล์',urls,kb:Math.round(urls.length*AVG.p),est:true})}
+ if(typeof RAD_PIC!=='undefined'&&window.ART_IDX){const urls=[...new Set(Object.values(RAD_PIC).map(p=>[p[2]||'word',p[0]]).filter(([k,z])=>ART_IDX[k+'/'+z]).map(([k,z])=>artUrl(k,z)))];if(urls.length)P.push({id:'radpic',em:'🖼️',t:'รูปประกอบตัวข้าง',sub:'อักษรข้าง · รูป '+urls.length+' ไฟล์',urls,kb:Math.round(urls.length*AVG.p),est:true})}
  if(typeof PR_SY!=='undefined'){const a=new Set();PR_SY.forEach(s=>audioOf(s.c).forEach(u=>a.add(u)));const urls=[...(O.pinroom||[]),...a];P.push({id:'pin',em:'🔊',t:'ห้องพินอิน',sub:`เสียง ${a.size} · รูป ${(O.pinroom||[]).length} ไฟล์`,urls,kb:Math.round((O.pinroomKB||0)+a.size*AVG.a),est:true})}
  return P}
 const fmt=kb=>kb>=1024?(kb/1024).toFixed(kb>=10240?0:1)+' MB':Math.max(1,Math.round(kb))+' KB';

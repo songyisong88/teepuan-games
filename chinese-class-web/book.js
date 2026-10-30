@@ -114,7 +114,7 @@ SC.booklist=()=>{const L=lastG();const cur=L?L.g:'';const curT=L&&L.t||'';const 
 /* ===================== 3. หน้าบท ===================== */
 let vPlay=null;/* {g,i} คำที่กำลังเล่น */
 function picv(z){const on=window.ART_IDX&&ART_IDX['word/'+z];
- if(on)return `<span class="bk-pic" style="width:48px;height:48px;border-radius:12px"><img src="assets/art/word/${encodeURIComponent(z)}.webp" alt="" loading="lazy" decoding="async" draggable="false" onerror="this.parentNode.classList.add('bk-tile');this.parentNode.innerHTML='<span class=&quot;bk-zh&quot;>${z.charAt(0)}</span>'"></span>`;
+ if(on)return `<span class="bk-pic" style="width:48px;height:48px;border-radius:12px"><img src="${artUrl('word',z)}" alt="" loading="lazy" decoding="async" draggable="false" onerror="this.parentNode.classList.add('bk-tile');this.parentNode.innerHTML='<span class=&quot;bk-zh&quot;>${z.charAt(0)}</span>'"></span>`;
  return `<span class="bk-pic bk-tile${[...z].length>2?' bk-long':''}"><span class="bk-zh">${esc([...z].length>3?[...z].slice(0,3).join(''):z)}</span></span>`}
 function chBody(G){const st=stat(G),L=lastG(),pos=P().pos;const nW=gWords(G).length,nT=G.tr.length;
  let head,img='wave',sm=[];

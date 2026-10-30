@@ -38,7 +38,7 @@ window.PIC_TYPE_X=Object.assign(window.PIC_TYPE_X||{},{"请问": "ph", "不好�
 /* /L24-NEW */
 
 /* HUBV-NEW · ภาพใหม่จาก PIXEL (14 คำ, 0 ฉาก) — tools/pic-build/add_pics.py */
-Object.assign(ART_IDX,{"word/卧室": 1, "word/客厅": 1, "word/姑姑": 1, "word/舅舅": 1, "word/姥姥": 1, "word/邮局": 1, "word/餐厅": 1, "word/幼儿园": 1, "word/胳膊": 1, "word/肩膀": 1, "word/腰": 1, "word/斤": 1, "word/北": 1, "word/幸福": 1});
+Object.assign(ART_IDX,{"word/卧室": 1, "word/客厅": 1, "word/姑姑": "姑姑-v2", "word/舅舅": "舅舅-v2", "word/姥姥": 1, "word/邮局": 1, "word/餐厅": 1, "word/幼儿园": 1, "word/胳膊": 1, "word/肩膀": 1, "word/腰": 1, "word/斤": 1, "word/北": 1, "word/幸福": 1});
 window.PIC_TYPE_X=Object.assign(window.PIC_TYPE_X||{},{"卧室": "n", "客厅": "n", "姑姑": "x", "舅舅": "x", "姥姥": "x", "邮局": "n", "餐厅": "n", "幼儿园": "n", "胳膊": "x", "肩膀": "x", "腰": "x", "斤": "x", "北": "x", "幸福": "x"});
 /* /HUBV-NEW */
 

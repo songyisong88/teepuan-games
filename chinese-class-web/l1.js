@@ -15,7 +15,7 @@ document.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;c
 window.pyTapSent=(zhH,pyH,cls)=>`<div class="pyt-s${cls?' '+cls:''}" data-pyt role="button" tabindex="0" aria-pressed="false">${zhH}<div class="pyx">${pyH}</div><div class="pyt-exh">แตะประโยคเพื่อดูพินอิน</div></div>`;
 const L1NUM={'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10};
 const L1GRP={cal:['今天','明天','昨天','星期','年','月','日'],clk:['点','分钟'],sun:['上午','中午','下午'],pos:['上','下','前面','后面']};
-const l1Img=z=>`assets/art/word/${encodeURIComponent(z)}.webp`;
+const l1Img=z=>artUrl('word',z);
 const l1Has=z=>!!(window.ART_IDX&&ART_IDX['word/'+z]);
 const l1Grp=w=>w.zh in L1NUM?'num':Object.keys(L1GRP).find(g=>L1GRP[g].includes(w.zh))||picT(w);
 const l1PicOk=w=>picHas(w)||w.zh in L1NUM||Object.values(L1GRP).some(a=>a.includes(w.zh));

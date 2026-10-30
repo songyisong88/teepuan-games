@@ -78,8 +78,8 @@ function cardHtml(w,n,t){const pc=picCard(w);const thH=`<div style="font-size:27
  <button class="audio lg press" aria-label="ฟังเสียง ${w.zh}" data-act="audio" data-t="${w.zh}">${SPK}<span>ฟังเสียง</span></button>
  <div class="hint"><span class="hb">อ่านแบบไทย</span><b>${w.h}</b><span class="cap">(ใกล้เคียง · ฟังเสียงจริงอีกที)</span></div>${stkBtn(w.zh)}</div>
  <div class="mnemo"><span class="mi">💡</span><span><b>ตัวช่วยจำ:</b> ${String(w.mn||"").replace(/^ตัวช่วยจำ:\s*/,"")}</span></div>
- <div class="card exc" style="margin-top:16px"><div style="position:absolute;right:6px;top:-70px;width:78px;height:78px">${M('teach')}</div>
- <div class="zh" style="font-size:22px;line-height:1.35">${zhHtml(w.ex,w.exPy)}</div><div style="font-size:13.5px;margin-top:3px;font-weight:500">${pyHtml(w.exPy)}</div><div style="font-size:15.5px;margin-top:5px;color:var(--sub2)">${w.exTh}</div>
+ ${(A=>`<div class="card exc${A.on?' al-on':''}" style="margin-top:16px"><div style="position:absolute;right:6px;top:-70px;width:78px;height:78px">${M('teach')}</div>
+ <div class="zh" style="font-size:22px;line-height:1.35">${A.z}</div><div style="font-size:13.5px;margin-top:3px;font-weight:500">${A.p}</div><div style="font-size:15.5px;margin-top:5px;color:var(--sub2)">${A.t}</div>`)(typeof alEx==='function'?alEx(w.ex,w.exPy,w.exTh):{on:false,z:zhHtml(w.ex,w.exPy),p:pyHtml(w.exPy),t:w.exTh})}
  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">${spkBtn(w.ex,'','ฟังประโยค')}<button class="cap press" data-sa="rep" data-z="${w.zh}">แจ้งข้อผิด</button></div></div>`}
 function storyHtml(L,u){const ch=CHAPTERS.find(c=>c.id===L.chapter);const cm=CLASSMATES.find(c=>c.by==='lesson:'+L.id);
  return `<div class="center"><div class="cap" style="letter-spacing:1px">${ch.emoji} ${ch.id===1200?'':'ตอน '+(ch.ep||ch.id)+' · '}${ch.th}</div><div style="width:230px;height:230px;margin:6px auto 0" class="pop">${M('story')}</div>

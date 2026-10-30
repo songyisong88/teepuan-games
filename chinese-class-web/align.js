@@ -17,16 +17,38 @@ function alResolve(zh,py,th,spec){if(!spec||typeof spec!=='string')return null;c
  for(const k of ['z','p','t']){const s=R.map(r=>r[k]).sort((x,y)=>x[0]-y[0]);for(let i=1;i<s.length;i++)if(s[i][0]<s[i-1][1])return null}
  R.sort((x,y)=>x.z[0]-y.z[0]);const gk=[];R.forEach((r,i)=>{let g=gk.indexOf(r.key);if(g<0){g=gk.length;gk.push(r.key)}r.g=g;r.i=i});
  if(gk.length<2)return null;return R}
+function alTag(r,k){return `<span class="al" data-l="${k}" data-i="${r.i}" style="--al:${AL_BG[r.g%6]};--alh:${AL_HI[r.g%6]};--alf:${AL_FG[r.g%6]}">`}
 function alWrap(line,R,k){const s=R.map(r=>({a:r[k][0],b:r[k][1],r})).sort((x,y)=>x.a-y.a);let o='',at=0;
- for(const x of s){o+=line.slice(at,x.a)+`<span class="al" data-i="${x.r.i}" style="--al:${AL_BG[x.r.g%6]};--alh:${AL_HI[x.r.g%6]};--alf:${AL_FG[x.r.g%6]}">${line.slice(x.a,x.b)}</span>`;at=x.b}
+ for(const x of s){o+=line.slice(at,x.a)+alTag(x.r,k)+line.slice(x.a,x.b)+'</span>';at=x.b}
  return o+line.slice(at)}
+/* ใส่สีลงใน markup สีวรรณยุกต์เดิม (zhHtml / pyHtml: <span class="tN">..</span> เรียงแบน ไม่ซ้อน) โดยไม่แตะตัวอักษรหรือ class เดิม
+   ถ้าขอบสีตกกลางช่วงวรรณยุกต์ จะปิดแล้วเปิด span วรรณยุกต์เดิมซ้ำ (สีตัวอักษรเหมือนเดิมทุกตัว) · ข้อความไม่ตรงบรรทัดจริง = คืน null */
+function alWrapHtml(html,line,R,k){const st=new Map(),en=new Map();R.forEach(r=>{st.set(r[k][0],r);en.set(r[k][1],r)});
+ let o='',pos=0,tone=null,te=false,open=false,txt='';const re=/<\/span>|<span\b[^>]*>|[\s\S]/g;let m;
+ while((m=re.exec(html))){const t=m[0];
+  if(t==='</span>'){if(!tone)return null;if(te)o+='</span>';tone=null;te=false;continue}
+  if(t.length>1){if(tone)return null;tone=t;te=false;continue}
+  if(t==='<'||t==='&')return null;
+  const e=open&&en.has(pos),b=st.has(pos);
+  if(e||b){if(te){o+='</span>';te=false}if(e){o+='</span>';open=false}if(b){o+=alTag(st.get(pos),k);open=true}}
+  if(tone&&!te){o+=tone;te=true}o+=t;txt+=t;pos+=t.length}
+ if(tone)return null;if(open&&en.has(pos)){o+='</span>';open=false}
+ return open||txt!==line?null:o}
+/* คืนข้อมูลคู่สีของประโยค (ALIGN[zh] เป็นข้อความเดียว หรือหลายชุดเมื่อประโยคเดียวกันมีคำแปล/พินอินต่างกันในแต่ละที่) */
+function alGet(zh,py,th){const A=G.ALIGN&&G.ALIGN[zh];if(!A)return null;for(const s of (Array.isArray(A)?A:[A])){const R=alResolve(zh,py,th,s);if(R)return R}return null}
 /* ข้อความประโยค 3 บรรทัด (ใช้แทน markup เดิมของ .tx) */
-function alTx(zh,py,th){const R=G.ALIGN&&alResolve(zh,py,th,G.ALIGN[zh]);
+function alTx(zh,py,th){const R=alGet(zh,py,th);
  if(!R)return `<span class="tx"><b class="zh">${zh}</b><span class="p">${py}</span><small>${th}</small></span>`;
  return `<span class="tx al-on"><b class="zh">${alWrap(zh,R,'z')}</b><span class="p">${alWrap(py,R,'p')}</span><small>${alWrap(th,R,'t')}</small></span>`}
 
+/* บทเรียน (มีสีวรรณยุกต์): zhHtml/pyHtml เดิม + สีคู่คำ · ไม่มีข้อมูล = markup เดิมทุกตัวอักษร */
+function alEx(zh,pyRaw,th){const zH=zhHtml(zh,pyRaw),pH=pyHtml(pyRaw),no={on:false,z:zH,p:pH,t:th};const py=String(pyRaw||'').replace(/\|/g,'');
+ const R=alGet(zh,py,th);if(!R)return no;const z=alWrapHtml(zH,zh,R,'z'),p=alWrapHtml(pH,py,R,'p');if(z==null||p==null)return no;return {on:true,z,p,t:alWrap(th,R,'t')}}
+/* ข้อความล้วน (สมุดคำ): คืน null เมื่อไม่มีข้อมูล หรือมีอักขระที่ต้อง escape — ผู้เรียกแสดงแบบเดิม */
+function alLines(zh,py,th){if([zh,py,th].some(x=>typeof x!=='string'||/[&<>"]/.test(x)))return null;const R=alGet(zh,py,th);if(!R)return null;return {z:alWrap(zh,R,'z'),p:alWrap(py,R,'p'),t:alWrap(th,R,'t')}}
+
 /* ---- สีไล่ตามเสียง: เวลาของแต่ละคำประมาณจากจำนวนพยางค์พินอิน (+ช่วงหยุดที่เครื่องหมายวรรคตอน) ---- */
-function alTimes(tx){const p=tx.querySelector('.p');if(!p)return null;const parts=[];let pos=0;const cut=[];
+function alTimes(tx){const a=tx.querySelector('.al[data-l="p"]'),p=a?a.parentElement:tx.querySelector('.p');if(!p)return null;const parts=[];let pos=0;const cut=[];
  p.childNodes.forEach(n=>{const t=n.textContent;if(n.nodeType===1&&n.classList.contains('al'))cut.push({i:+n.dataset.i,a:pos,b:pos+t.length});parts.push(t);pos+=t.length});
  const line=parts.join('');const w=new Array(line.length+1).fill(0);let acc=0;
  for(let i=0;i<line.length;i++){w[i]=acc;const ch=line[i];
@@ -48,7 +70,7 @@ function alFollow(tx){alStop();const T=alTimes(tx);if(!T)return;const t0=perform
   run.raf=requestAnimationFrame(tick)};
  run.raf=requestAnimationFrame(tick)}
 if(typeof document!=='undefined')document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-act="audio"]');if(!b)return;
- const row=b.closest('.exr,.hb-ex');const tx=row&&row.querySelector('.tx.al-on');if(tx)setTimeout(()=>alFollow(tx),0);else alStop()});
-G.alTx=alTx;G.alResolve=alResolve;G.alFollow=alFollow;G.alStop=alStop;
-if(typeof module!=='undefined')module.exports={alResolve,alFind,alTx};
+ const row=b.closest('.exr,.hb-ex,.exc,.l1nwex');const tx=row&&(row.matches('.al-on')?row:row.querySelector('.al-on'));if(tx)setTimeout(()=>alFollow(tx),0);else alStop()});
+G.alTx=alTx;G.alEx=alEx;G.alLines=alLines;G.alResolve=alResolve;G.alFollow=alFollow;G.alStop=alStop;
+if(typeof module!=='undefined')module.exports={alResolve,alFind,alTx,alWrapHtml,alWrap};
 })(typeof window!=='undefined'?window:globalThis);

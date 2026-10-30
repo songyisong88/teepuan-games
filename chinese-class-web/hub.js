@@ -90,6 +90,8 @@ function hbBigHtml(o){const {s,list,k}=o;const it=list[k],N=list.length,kc=hbKno
  <div class="ft"><button class="nv press${k?'':' dis'}" data-hbnav="-1" aria-label="คำก่อนหน้า">${HB_I.l}</button>${nbBtn(it.zh)}<button class="nv press${k<N-1?'':' dis'}" data-hbnav="1" aria-label="คำถัดไป">${HB_I.r}</button></div>`}
 /* เปิดการ์ดคำ/เปลี่ยนคำ = อ่านออกเสียงทันที (เรียกในจังหวะแตะ เพื่อให้ iOS ยอมเล่น) · ถูกบล็อก = เงียบ */
 function hbAutoSay(root,it){try{const b=root&&root.querySelector('[data-act="audio"]');speak(b?b.dataset.t:hbKey(it),b||null)}catch(e){}}
+/* กล่องภาพการ์ดใหญ่: ใช้สีขอบภาพเป็นพื้นกล่อง ให้ภาพกับกล่องเป็นผืนเดียว */
+function hbPicBg(root){const im=root&&root.querySelector('.pic img');if(!im)return;const go=()=>{try{const c=document.createElement('canvas');c.width=c.height=1;const x=c.getContext('2d');x.drawImage(im,0,0,4,4,0,0,1,1);const d=x.getImageData(0,0,1,1).data;im.parentNode.style.background=`rgb(${d[0]},${d[1]},${d[2]})`}catch(e){}};im.complete&&im.naturalWidth?go():im.addEventListener('load',go,{once:true})}
 function hbMarkSay(root){const b=root&&root.querySelector('[data-act="audio"]');if(b)b.classList.add('playing')}
 let hbOv=null;
 const hbA=(el,k,o)=>el.animate?el.animate(k,Object.assign({fill:'both'},o)):{finished:Promise.resolve(),cancel(){}};
@@ -103,7 +105,7 @@ function hbFlyTile(o,tile,back){const fr=$('#frame').getBoundingClientRect(),r=t
 function hbOpen(s,list,k,tile,scr){if(hbOv)return;stopAudio();const F=$('#frame');const rm=hbRM();
  const ov=document.createElement('div');ov.className='hb-ov';ov.innerHTML=`<div class="hb-bd"></div><div class="hb-fly"></div><div class="hb-bc" role="dialog" aria-modal="true" aria-label="${hbAt(s.t)}"><div class="hb-in"></div></div>`;
  const o=hbOv={s,list,k,ov,scr,bd:ov.querySelector('.hb-bd'),fly:ov.querySelector('.hb-fly'),card:ov.querySelector('.hb-bc'),inn:ov.querySelector('.hb-in'),busy:1};
- o.inn.innerHTML=hbBigHtml(o);F.appendChild(ov);vib(8);hbAutoSay(o.inn,o.list[o.k]);
+ o.inn.innerHTML=hbBigHtml(o);F.appendChild(ov);hbPicBg(o.inn);vib(8);hbAutoSay(o.inn,o.list[o.k]);
  const fin=()=>{o.busy=0;o.card.style.visibility='';};
  if(rm||!tile||!ov.animate){hbA(ov,[{opacity:0},{opacity:1}],{duration:rm?120:200,fill:'none'});fin()}
  else{o.card.style.visibility='hidden';tile.style.visibility='hidden';hbA(o.bd,[{opacity:0},{opacity:1}],{duration:420,easing:'cubic-bezier(.215,.61,.355,1)',fill:'none'});
@@ -121,7 +123,7 @@ function hbClose(instant){const o=hbOv;if(!o)return;hbOv=null;stopAudio();docume
   return hbFlyTile(o,tile,true)}).then(()=>{tile.style.visibility='';gone()})}
 /* เปลี่ยนคำ: ปุ่ม ‹ › หรือปัดซ้าย/ขวา */
 function hbShow(o,k2,dir,from){if(k2<0||k2>=o.list.length||k2===o.k){if(from)hbA(o.inn,[{transform:`translateX(${from}px)`},{transform:'none'}],{duration:320,easing:'cubic-bezier(.2,.75,.3,1)',fill:'none'});return}
- hbAutoSay(null,o.list[k2]);const put=()=>{o.k=k2;o.inn.innerHTML=hbBigHtml(o);hbMarkSay(o.inn)};vib(6);
+ hbAutoSay(null,o.list[k2]);const put=()=>{o.k=k2;o.inn.innerHTML=hbBigHtml(o);hbMarkSay(o.inn);hbPicBg(o.inn)};vib(6);
  if(hbRM()||!o.inn.animate){put();return}
  o.busy=1;hbDone(hbA(o.inn,[{transform:`translateX(${from||0}px)`,opacity:1},{transform:`translateX(${-dir*90}px)`,opacity:0}],{duration:150,easing:'cubic-bezier(.4,0,1,1)'})).then(()=>{put();
   return hbDone(hbA(o.inn,[{transform:`translateX(${dir*90}px)`,opacity:0},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.75,.3,1)'}))}).then(()=>{o.busy=0;o.inn.getAnimations&&o.inn.getAnimations().forEach(a=>a.cancel())})}

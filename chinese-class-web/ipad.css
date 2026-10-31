@@ -1,0 +1,70 @@
+/* iPad / แท็บเล็ต (ซ้งอี้อนุมัติ 31 ต.ค. 2026: เลือกแบบต่อหน้าจากภาพตัวอย่าง)
+   หน้าแรก = P4 ภาพคู่ข้อความ · บทเรียน = P5 คอลัมน์กว้าง · ห้องคำศัพท์ = P3 สองช่อง · สมุดคำ = P1 ขยายเต็มจอ
+   แผนที่ = แบบ P1 · หน้าคำศัพท์ = การ์ดเดิมกว้างขึ้นแบบ P5 · หน้าอื่น = หน้าเดิมในคอลัมน์กลาง · แถบเมนูล่างเดิม
+   ทุกกฎอยู่ใน (min-width:700px) and (pointer:coarse) เท่านั้น — มือถือและคอมพิวเตอร์ไม่เปลี่ยน */
+/* ช่องซ้ายของห้องคำศัพท์ ซ่อนไว้นอกจอแท็บเล็ต */
+.ipl{display:none}
+@media (min-width:700px) and (pointer:coarse){
+ :root{--ipc:760px;--ipm:0px;--lp:300px}
+ body{display:block;background:var(--bg)}
+ #frame{width:100%;max-width:none;height:100vh;height:100dvh;border-radius:0;box-shadow:none;margin:0}
+ /* แถบเมนูล่าง: เต็มความกว้าง ปุ่มอยู่กลาง */
+ #tabbar.n6bar{justify-content:center}
+ #tabbar.n6bar .tab{flex:0 1 120px}
+ /* ค่าเริ่มต้นทุกหน้า: เนื้อหาเดิมในคอลัมน์กลาง */
+ .scroller{padding-left:max(var(--ipm),calc((100% - var(--ipc)) / 2));padding-right:max(var(--ipm),calc((100% - var(--ipc)) / 2))}
+ .screen>.dock,.scroller .dock{left:max(0px,calc((100% - var(--ipc)) / 2))!important;right:max(0px,calc((100% - var(--ipc)) / 2))!important}
+ .seshnav{padding-left:max(18px,calc((100% - var(--ipc)) / 2));padding-right:max(18px,calc((100% - var(--ipc)) / 2))}
+
+ /* ---- หน้าแรก (P4): การ์ดสองคอลัมน์ ---- */
+ .screen[data-name=home]{--ipc:100%;--ipm:24px}
+ .screen[data-name=home] .scroller{padding-bottom:calc(var(--tab) + var(--sb) + 40px)}
+ .ipcols{column-count:2;column-gap:22px}
+ .ipcols>*{break-inside:avoid;max-width:none!important;margin-left:0!important;margin-right:0!important;width:auto!important}
+ .ipcols>.hg-event{column-span:all;margin-bottom:14px!important}
+ .screen[data-name=home] .scroller>.hg-hello{margin-left:0!important;margin-right:0!important}
+
+ /* ---- บทเรียน (P5): คอลัมน์กว้าง การ์ดใหญ่ขึ้น ---- */
+ .screen[data-name=lesson]{--ipc:860px;--ipm:28px}
+ .screen[data-name=lesson] .l1snd{zoom:1.25}
+ /* ปุ่มรอง (ghost) ไม่ยืดเต็มคอลัมน์ */
+ .screen[data-name=lesson] .l1snd .pill.ghost{width:auto;max-width:100%;display:inline-flex;padding:0 26px;margin-left:auto;margin-right:auto}
+
+ /* ---- หน้าคำศัพท์: การ์ดเดิม กว้างขึ้นและอยู่กลาง (แบบ P5) ---- */
+ .screen[data-name=hubword]{--ipc:860px;--ipm:28px}
+ .screen[data-name=hubword] .hb-card{zoom:1.15}
+
+ /* ---- ห้องคำศัพท์ (P3): รายการคลังคำซ้าย กริดคำขวา ---- */
+ .screen[data-name=hubcol]{--ipc:680px}
+ .screen[data-name=hubcol]>.nav,.screen[data-name=hubcol]>.scroller{left:var(--lp)}
+ .screen[data-name=hubcol] .scroller{padding-left:max(0px,calc((100% - var(--lp) - var(--ipc)) / 2));padding-right:max(0px,calc((100% - var(--lp) - var(--ipc)) / 2))}
+ .screen[data-name=hubcol]>.dock{left:calc(var(--lp) + max(0px,calc((100% - var(--lp) - var(--ipc)) / 2)))!important}
+ .ipl{display:block;position:absolute;left:0;top:0;bottom:0;width:var(--lp);z-index:7;background:var(--bg);border-right:1.5px dashed rgba(120,90,60,.25);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:calc(var(--st) + 60px) 0 calc(var(--sb) + 30px)}
+ .ipl::-webkit-scrollbar{display:none}
+ .ipl h2{font-size:24px;font-weight:700;margin:0 18px;line-height:1.3}
+ .ipl>small{display:block;margin:4px 18px 0;color:var(--sub);font-size:13px;line-height:1.5}
+ .ipl .hb-grp{margin:12px 12px 0}
+ .ipl .hb-row{padding:10px 12px;gap:10px}
+ .ipl .hb-row .z{min-width:52px;height:44px;font-size:18px!important}
+ .ipl .hb-row .tx b{font-size:15px}
+ .ipl .hb-row .tx small{font-size:12px}
+ .ipl .hb-row.on{background:#FBF1EC;box-shadow:inset 4px 0 0 var(--red)}
+ .screen[data-name=hubcol] .hb-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+ /* ---- สมุดคำ (P1): หน้าเดิมขยายเต็มจอ ---- */
+ .screen[data-name=notebook]{--ipc:100%;zoom:1.3;inset:auto;left:0;top:0;width:calc(100vw / 1.3);height:calc(100vh / 1.3);height:calc(100dvh / 1.3)}
+ .screen[data-name=notebook] .nb4 .grid{grid-template-columns:repeat(5,minmax(0,104px))}
+
+ /* ---- แผนที่บทเรียน (แบบ P1): ขยายเต็มจอ ---- */
+ .screen[data-name=path]{--ipc:100%;zoom:1.3;inset:auto;left:0;top:0;width:calc(100vw / 1.3);height:calc(100vh / 1.3);height:calc(100dvh / 1.3)}
+}
+@media (min-width:1000px) and (pointer:coarse){
+ :root{--lp:340px;--ipc:820px}
+ .screen[data-name=lesson],.screen[data-name=hubword]{--ipc:1040px}
+ .screen[data-name=hubcol]{--ipc:760px}
+ .screen[data-name=hubcol] .hb-g3{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .ipcols{column-count:3}
+ .screen[data-name=notebook]{zoom:1.12;width:calc(100vw / 1.12);height:calc(100vh / 1.12);height:calc(100dvh / 1.12)}
+ .screen[data-name=notebook] .nb4 .grid{grid-template-columns:repeat(8,minmax(0,104px))}
+ .screen[data-name=path]{zoom:1.12;width:calc(100vw / 1.12);height:calc(100vh / 1.12);height:calc(100dvh / 1.12)}
+}

@@ -54,8 +54,8 @@ Object.assign(ART_IDX,{"word/一件事": 1, "word/两本书": 1, "word/三本汉
 Object.assign(ART_IDX,{"hub/kamhit": 1, "hub/tualek": 1, "hub/phudphid": 1, "hub/ahanthai": 1, "hub/uayporn": 1, "hub/social": 1});
 /* /HUB-COV */
 
-/* HUB-WORD · ภาพคำในห้องอาหารไทยในภาษาจีน (7 ภาพ, assets/art/hubw/, hub.js hbImg) */
-Object.assign(ART_IDX,{"hubw/冬阴功汤": 1, "hubw/泰式炒河粉": 1, "hubw/青木瓜沙拉": 1, "hubw/芒果糯米饭": 1, "hubw/糯米饭": 1, "hubw/绿咖喱": 1, "hubw/红咖喱": 1});
+/* HUB-WORD · ภาพคำในห้องอาหารไทยในภาษาจีน (24 ภาพ, assets/art/hubw/, hub.js hbImg) */
+Object.assign(ART_IDX,{"hubw/冬阴功汤": 1, "hubw/泰式炒河粉": 1, "hubw/青木瓜沙拉": 1, "hubw/芒果糯米饭": 1, "hubw/糯米饭": 1, "hubw/绿咖喱": 1, "hubw/红咖喱": 1, "hubw/咖喱蟹": 1, "hubw/泰式炒饭": 1, "hubw/打抛猪肉饭": 1, "hubw/海南鸡饭": 1, "hubw/猪脚饭": 1, "hubw/船面": 1, "hubw/烤鸡": 1, "hubw/沙爹": 1, "hubw/春卷": 1, "hubw/泰式奶茶": 1, "hubw/椰子水": 1, "hubw/榴莲": 1, "hubw/山竹": 1, "hubw/不要辣": 1, "hubw/微辣": 1, "hubw/不要香菜": 1, "hubw/鱼露": 1});
 /* /HUB-WORD */
 
 /* HUB-WORD · ภาพคำในห้องคำวัยรุ่นจีนฮิตโซเชียล (50 ภาพ, assets/art/hubw/teen01-50) และภาพปก hub/teen */
@@ -64,3 +64,6 @@ Object.assign(ART_IDX,{"hub/teen": 1});
 
 /* ร้านชานม (บท 3002) วาดใหม่ 31 ต.ค. 2026: ใช้ไฟล์ -v2 (ชื่อใหม่ กันเครื่องที่เคยเปิดแอปค้างรูปเก่าในแคช) */
 Object.assign(ART_IDX,{"word/可乐":"可乐-v2","word/啤酒":"啤酒-v2","word/珍珠":"珍珠-v2","word/糖":"糖-v2","word/外带":"外带-v2","scene/l3-p2":"l3-p2-v2"});
+
+/* ปกห้องอาหารไทยในภาษาจีน วาดใหม่ 31 ต.ค. 2026: ใช้ไฟล์ hub/ahanthai-v2 (ชื่อใหม่ กันเครื่องที่เคยเปิดแอปค้างรูปปกเก่าในแคช) */
+Object.assign(ART_IDX,{"hub/ahanthai":"ahanthai-v2"});

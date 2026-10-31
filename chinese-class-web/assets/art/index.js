@@ -67,3 +67,10 @@ Object.assign(ART_IDX,{"word/可乐":"可乐-v2","word/啤酒":"啤酒-v2","word
 
 /* ปกห้องอาหารไทยในภาษาจีน วาดใหม่ 31 ต.ค. 2026: ใช้ไฟล์ hub/ahanthai-v2 (ชื่อใหม่ กันเครื่องที่เคยเปิดแอปค้างรูปปกเก่าในแคช) */
 Object.assign(ART_IDX,{"hub/ahanthai":"ahanthai-v2"});
+
+/* HUB-WORD · ภาพคำในห้องสั่งชานม (20 ภาพใหม่, assets/art/hubw/, hub.js hbImg · อีก 6 คำใช้ภาพ word/ เดิม: 奶茶 去冰 大杯 中杯 绿茶 吸管) */
+Object.assign(ART_IDX,{"hubw/珍珠奶茶": 1, "hubw/我要一杯奶茶": 1, "hubw/全糖": 1, "hubw/七分糖": 1, "hubw/半糖": 1, "hubw/三分糖": 1, "hubw/无糖": 1, "hubw/少冰": 1, "hubw/常温": 1, "hubw/热的": 1, "hubw/加珍珠": 1, "hubw/椰果": 1, "hubw/芋圆": 1, "hubw/奶盖": 1, "hubw/柠檬茶": 1, "hubw/抹茶": 1, "hubw/带走": 1, "hubw/在这儿喝": 1, "hubw/扫码": 1, "hubw/一共多少钱": 1});
+/* /HUB-WORD */
+
+/* ปกห้องสั่งชานม วาดใหม่ 31 ต.ค. 2026: ไฟล์ใหม่ hub/chanom (เดิมห้องนี้ใช้ภาพ word/奶茶 เป็นปก) */
+Object.assign(ART_IDX,{"hub/chanom": 1});

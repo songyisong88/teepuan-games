@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>ต้นแบบ · บท 0-6</title>
+</head><body>
+<script>
+const GG=w('哥哥','gēge','พี่ชาย'),KF=w('咖啡','kāfēi','กาแฟ'),HU=w('花','huā','ดอกไม้'),JI=w('鸡','jī','ไก่'),QQ=w('气球','qìqiú','ลูกโป่ง'),XG=w('西瓜','xīguā','แตงโม');
+const airPair=(a,b)=>pair({n:'',title:'ถือกระดาษไว้หน้าปาก',text:'แตะฟังทั้งสองเสียง แล้วดูกระดาษ',items:[{air:0,py:a[0],zh:a[1],sub:'ไม่มีลม กระดาษนิ่ง',k:a[2]},{air:1,py:b[0],zh:b[1],sub:'มีลม กระดาษปลิว',k:b[2]}]});
+LESSON({no:6,goal:{do:'อ่าน <span class="gz">哥哥喝咖啡</span> ได้',sub:'พยัญชนะ 6 ตัว · ใช้โคนลิ้น และเสียงยิ้ม',min:6},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "พี่ชาย"',pic:GG,cards:[GG.k,KF.k],ans:0,fb:'เสียง A คือ <b>gēge</b> <span class="zh">哥哥</span> = พี่ชาย · เสียง B คือ <b>kāfēi</b> <span class="zh">咖啡</span> = กาแฟ'}),
+ teach({title:'สองกลุ่ม สองท่าปาก',text:'g k h ใช้โคนลิ้นยกขึ้น · j q x ฉีกปากยิ้ม แตะเพื่อฟัง',
+  html:`<div class="mpair">${[['back','g k h','ge1-f','โคนลิ้นยกขึ้น'],['smile','j q x','ji1-fs','ยิ้ม ลิ้นแตะฟันล่าง']].map(([m,l,k,s])=>`<button class="press" data-play="${k}">${mouth(m,'big')}<span class="py" style="font-size:24px">${l}</span><small>${s}</small></button>`).join('')}</div>`}),
+ word({n:'คู่ที่ 1 · g',w:GG,py:'[g]ēge',aid:{air:0},hint:'เหมือน <b>"ก"</b> ไม่มีลม',sk:'ge1-f',sl:'g'}),
+ word({n:'คู่ที่ 1 · k',w:KF,py:'[k]āfēi',aid:{air:1},hint:'เหมือน <b>"ค"</b> มีลมพุ่งออกมา',sk:'ke1-f',sl:'k'}),
+ airPair(['g','哥','ge1-f'],['k','咖','ke1-f']),
+ rec({n:'คู่ที่ 1',ws:[GG,KF]}),
+ word({n:'เสียง h',w:HU,py:'[h]uā',aid:{mouth:'back',cap:'โคนลิ้นยกขึ้น ลมขูดผ่านลำคอ'},hint:'คล้าย <b>"ฮ"</b> แต่ขูดลมที่ลำคอให้หนักกว่า',sk:'he1-fs',sl:'h'}),
+ mouthQ({tag:'ลองเอง · รูปปาก',k:'he1-fs',opts:[['f','f'],['back','h']],ans:1,fb:'เสียง <b>h</b> โคนลิ้นยกขึ้น ลมขูดลำคอ'}),
+ rec({n:'เสียง h',w:HU}),
+ ask({rv:5,q:'ฟังแล้วเลือก เสียงนี้มีลมหรือไม่',k:'po1-f',opts:['b · ไม่มีลม','p · มีลม'],ans:1,fb:'<b>pō</b> มีลมพุ่งออกมา'}),
+ word({n:'คู่ที่ 2 · j',w:JI,py:'[j]ī',aid:{mouth:'smile'},hint:'เหมือน <b>"จ"</b> แต่ฉีกปากยิ้ม',sk:'ji1-fs',sl:'j'}),
+ word({n:'คู่ที่ 2 · q',w:QQ,py:'[q]ìqiú',aid:{air:1,cap:'ยิ้ม และมีลมพุ่งออกมา'},hint:'เหมือน <b>"ช"</b> ยิ้มและมีลม · ไม่อ่านว่า <b>"คิว"</b>',sk:'qi1-f',sl:'q'}),
+ airPair(['j','鸡','ji1-fs'],['q','气','qi1-f']),
+ rec({n:'คู่ที่ 2',ws:[JI,QQ]}),
+ word({n:'เสียง x',w:XG,py:'[x]īguā',aid:{mouth:'smile'},hint:'เหมือน <b>"ซ"</b> ยิ้มกว้าง · ไม่อ่านว่า <b>"เอ็กซ์"</b>',sk:'xi1-fs',sl:'x'}),
+ ask({tag:'ลองเอง · ฟังให้ต่าง',q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'xi1-fs',opts:['j','q','x'],ans:2,fb:'<b>x</b> เหมือน "ซ" ยิ้มกว้าง'}),
+ rec({n:'เสียง x',w:XG}),
+ ask({tag:'ตรวจ · 6 เสียง',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:QQ.k,opts:[{img:JI.img},{img:QQ.img},{img:XG.img}],ans:1,fb:'<b>qìqiú</b> <span class="zh">气球</span> = ลูกโป่ง'}),
+ ask({rv:4,q:'ฟังเสียง แล้วเลือกภาพ',k:'w:女孩',opts:[{img:ART('女孩')},{img:ART('兔子')}],ans:0,fb:'<b>nǚhái</b> <span class="zh">女孩</span> = เด็กผู้หญิง'}),
+ ask({rv:2,q:'ฟังแล้วเลือกเส้นเสียงที่ได้ยิน',k:'ma3',opts:[{tone:4,lab:'mà'},{tone:3,lab:'mǎ'}],ans:1,fb:'<b class="t3">mǎ</b> <span class="zh">马</span> = ม้า · เสียง 3 ลงแล้วขึ้น'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'ke1-f',opts:['gē','kē'],ans:1,fb:'<b>kē</b> มีลม'}),
+ ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกภาพ',k:XG.k,opts:[{img:HU.img},{img:XG.img},{img:KF.img}],ans:1,fb:'<b>xīguā</b> <span class="zh">西瓜</span> = แตงโม'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'qi1-f',opts:['jī','qī','xī'],ans:1,fb:'<b>qī</b> ยิ้มและมีลม'}),
+ ask({tag:QZ(4,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:HU.k,opts:['huā','kuā'],ans:0,fb:'<b>huā</b> <span class="zh">花</span> = ดอกไม้'}),
+ fin({title:'อ่านประโยคของคุณ',pics:[GG,KF],chips:[{zh:'哥哥',py:'gēge',th:'พี่ชาย',k:GG.k},{zh:'喝',py:'hē',th:'ดื่ม',k:'w:喝'},{zh:'咖啡',py:'kāfēi',th:'กาแฟ',k:KF.k}],th:'พี่ชายดื่มกาแฟ',note:'แตะแต่ละคำเพื่อฟัง · g ไม่มีลม · k มีลม',k:'g:L06'})]});
+
+</script>
+</body></html>

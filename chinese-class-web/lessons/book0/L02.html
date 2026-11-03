@@ -70,10 +70,10 @@
 <script>
 /* 4 คำจริง: เรียนวรรณยุกต์ผ่านความหมาย */
 const W=[null,
- {zh:'妈',py:'mā',th:'แม่',img:'../../assets/art/word/妈妈.webp',hint:'พูดคำว่า <b>"มา"</b> แต่ยกเสียงให้สูงกว่าปกติ แล้วค้างไว้ยาว ๆ',ty:'สูง เรียบ ค้างไว้'},
- {zh:'麻',py:'má',th:'ป่าน',img:'art/ma2.webp',hint:'เหมือนตอนถามว่า <b>"หา?"</b> เสียงไต่ขึ้นจากกลางไปสูง',ty:'ไต่ขึ้น'},
- {zh:'马',py:'mǎ',th:'ม้า',img:'../../assets/art/word/马.webp',hint:'เหมือนตอนลังเลว่า <b>"เอ่อ..."</b> กดเสียงต่ำลงก่อน แล้วยกขึ้นนิดตอนท้าย',ty:'ลงต่ำ แล้วยกขึ้น'},
- {zh:'骂',py:'mà',th:'ดุ',img:'art/ma4.webp',hint:'เหมือนตอนปฏิเสธหนัก ๆ ว่า <b>"ไม่!"</b> เริ่มสูงแล้วตกลงเร็ว',ty:'ตกลงเร็ว'}];
+ {zh:'妈',py:'mā',th:'แม่',img:'../../assets/art/word/妈妈.webp',hint:'พูดคำว่า <b>"มา"</b> แต่ยกเสียงให้สูงกว่าปกติ แล้วค้างไว้ยาว ๆ',ty:'สูง เรียบ ค้างไว้ · 55'},
+ {zh:'麻',py:'má',th:'ป่าน',img:'art/ma2.webp',hint:'ใกล้เคียงตอนถามว่า <b>"หา?"</b> เสียงไต่ขึ้นจากกลางไปสูง',ty:'ไต่ขึ้น · 35'},
+ {zh:'马',py:'mǎ',th:'ม้า',img:'../../assets/art/word/马.webp',hint:'ใกล้เคียงตอนลังเลว่า <b>"เอ่อ..."</b> กดเสียงต่ำลงก่อน แล้วยกขึ้นนิดตอนท้าย<br><small>ถ้าเสียง 3 อยู่หน้าเสียงอื่น มักกดต่ำอย่างเดียว ไม่ยกขึ้น</small>',ty:'ลงต่ำ แล้วยกขึ้น · 214'},
+ {zh:'骂',py:'mà',th:'ดุ',img:'art/ma4.webp',hint:'ใกล้เคียงตอนปฏิเสธหนัก ๆ ว่า <b>"ไม่!"</b> เริ่มสูงแล้วตกลงเร็ว',ty:'ตกลงเร็ว · 51'}];
 const MIC=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>`;
 const pic=(t,c='mpic')=>`<div class="${c}"><img src="${W[t].img}" alt="${W[t].th}" draggable="false"></div>`;
 const tag=(t,s)=>`<div class="center"><div class="cap">คำที่ ${t}/4 · ${s}</div></div>`;
@@ -179,7 +179,7 @@ const lessonFor=t=>[word(t),trace(t),rec(t)];
 start([hook,reveal,
  ...lessonFor(1),
  ...lessonFor(2),qPic({t:2,opts:[1,2],tag:'ตรวจ · 2 คำ'}),
- rv({q:'ฟังแล้วเลือกพินอินที่ได้ยิน',k:'zhongwen-m',opts:['Zhōngwén','hànzì','pīnyīn'],ans:0,fb:'<b>Zhōngwén</b> <span class="zh">中文</span> = ภาษาจีน'}),
+ rv({q:'ฟังแล้วเลือกพินอินที่ได้ยิน',k:'hanzi-f',opts:['hànzì','pīnyīn','nǐ hǎo'],ans:0,fb:'<b>hànzì</b> <span class="zh">汉字</span> = ตัวจีน'}),
  ...lessonFor(3),qPic({t:3,opts:[2,3,1],tag:'ตรวจ · 3 คำ'}),
  rv({q:'ข้อใดเขียนพินอินครบพร้อมวรรณยุกต์',opts:['ma','mǎ','m'],ans:1,fb:'<b>mǎ</b> มีครบทั้งพยัญชนะ สระ และเครื่องหมายวรรณยุกต์'}),
  ...lessonFor(4),qPic({t:4,opts:[1,4,3,2],tag:'ตรวจ · ครบ 4 คำ'}),

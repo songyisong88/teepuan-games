@@ -21,7 +21,7 @@ const MO={a:{w:34,h:26,tt:1,tg:'low',lab:'อ้าปากกว้าง'},o:
  i:{w:42,h:7,tt:1,bt:1,lab:'ฉีกปากยิ้ม'},u:{w:11,h:10,rd:2,lab:'ห่อปากยื่น'},v:{w:11,h:9,rd:2,tg:'hi',lab:'อี + ห่อปาก'},
  m:{w:40,h:0,lab:'ปิดปาก'},f:{w:34,h:9,tt:1,bite:1,lab:'ฟันบนแตะริมฝีปากล่าง'},tip:{w:30,h:12,tt:1,tg:'tip',lab:'ปลายลิ้นแตะหลังฟันบน'},
  back:{w:28,h:16,tt:1,tg:'back',lab:'โคนลิ้นยกขึ้น'},smile:{w:40,h:8,tt:1,bt:1,tg:'flat',lab:'ยิ้ม ลิ้นแตะฟันล่าง'},
- curl:{w:24,h:14,rd:1,tt:1,tg:'curl',lab:'ม้วนปลายลิ้นขึ้น'},flat:{w:38,h:5,tt:1,bt:1,lab:'ฟันชิด ลิ้นแบน'}};
+ curl:{w:24,h:14,rd:1,tt:1,tg:'curl',lab:'ยกปลายลิ้นขึ้น'},flat:{w:38,h:5,tt:1,bt:1,lab:'ฟันชิด ลิ้นจ่อหลังฟันบน'}};
 let MID=0;
 function mouth(m,cls='mouth',size=120){const o=MO[m],id='mc'+(++MID),c=60,cy=45;
  if(!o.h)return `<svg class="${cls}" viewBox="0 0 120 90" width="${size}"><ellipse cx="60" cy="45" rx="46" ry="13" fill="#E79A93"/><path d="M18 45 Q60 50 102 45" stroke="#9C4A46" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;

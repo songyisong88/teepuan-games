@@ -11,7 +11,7 @@ const MA=w('马','mǎ','ม้า'),MI=w('米','mǐ','ข้าวสาร'),GG
 const T=['พยัญชนะ','สระ','วรรณยุกต์'];
 LESSON({no:9,goal:{do:'อ่าน <span class="gz">谢谢老师</span> ได้',sub:'ต่อ พยัญชนะ + สระ + วรรณยุกต์ เป็นพยางค์',min:6},steps:[
  hook({q:'m + a + เสียง 3<br>ฟังแล้วเลือก เสียงใดถูกต้อง',show:partsH(['m','a',3]),cards:['ma3','ma1'],ans:0,fb:'m + a + เสียง 3 = <b class="t3">mǎ</b> <span class="zh">马</span> = ม้า'}),
- teach({title:'พยางค์จีน = 3 ชิ้น',text:'พยัญชนะ + สระ + วรรณยุกต์ ต่อกันเป็นเสียงเดียว เหมือนการสะกดคำภาษาไทย',html:`${partsH(['m','a',3])}<div class="center" style="margin-top:12px"><button class="mbtn2 press" style="margin:0 auto" data-play="ma3">${SPK}ฟัง mǎ</button></div>`,note:'บทนี้ลองต่อเองทีละคำ'}),
+ teach({title:'พยางค์ส่วนใหญ่ = 3 ชิ้น',text:'พยัญชนะ + สระ + วรรณยุกต์ ต่อกันเป็นเสียงเดียว · บางพยางค์ไม่มีพยัญชนะ เช่น è',html:`${partsH(['m','a',3])}<div class="center" style="margin-top:12px"><button class="mbtn2 press" style="margin:0 auto" data-play="ma3">${SPK}ฟัง mǎ</button></div>`,note:'บทนี้ลองต่อเองทีละคำ'}),
  word({n:'คำที่ 1/5',w:MA,py:'mǎ',aid:{parts:['m','a',3]},hcap:'วิธีต่อเสียง',hint:'<b>"ม"</b> + <b>"อา"</b> + เสียง 3 ลงแล้วขึ้น'}),
  build({n:'คำที่ 1/5',w:MA,syl:[['m','a',3]],extra:['b',1],res:'mǎ'}),
  word({n:'คำที่ 2/5',w:MI,py:'mǐ',aid:{parts:['m','i',3]},hcap:'วิธีต่อเสียง',hint:'<b>"ม"</b> + <b>"อี"</b> + เสียง 3'}),
@@ -32,7 +32,7 @@ LESSON({no:9,goal:{do:'อ่าน <span class="gz">谢谢老师</span> ได�
  ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:MI.k,opts:['mǐ','mǎ'],ans:0,fb:'<b>mǐ</b> <span class="zh">米</span>'}),
  ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกภาพ',k:GG.k,opts:[{img:GG.img},{img:LV.img}],ans:0,fb:'<b>gēge</b> <span class="zh">哥哥</span>'}),
  ask({tag:QZ(4,4),q:'q + i + เสียง 1 อ่านว่าอะไร',show:partsH(['q','i',1]),opts:[{img:QI.img},{img:MI.img}],ans:0,fb:'<b>qī</b> <span class="zh">七</span> = เจ็ด'}),
- fin({title:'อ่านประโยคของคุณ',pics:[XX,LS],chips:[{zh:'谢谢',py:'xièxie',th:'ขอบคุณ',k:XX.k},{zh:'老师',py:'lǎoshī',th:'ครู',k:LS.k}],th:'ขอบคุณครับ/ค่ะ คุณครู',note:'ทุกพยางค์ต่อจาก 3 ชิ้นเหมือนกัน · แตะเพื่อฟัง',k:'g:L09'})]});
+ fin({title:'อ่านประโยคของคุณ',pics:[XX,LS],chips:[{zh:'谢谢',py:'xièxie',th:'ขอบคุณ',k:XX.k},{zh:'老师',py:'lǎoshī',th:'ครู',k:LS.k}],th:'ขอบคุณครับ/ค่ะ คุณครู',note:'พยางค์ส่วนใหญ่ต่อจาก 3 ชิ้นแบบนี้ · แตะเพื่อฟัง',k:'g:L09'})]});
 
 </script>
 </body></html>

@@ -7,8 +7,8 @@
 <title>เหล่าซือลามา · บท 0-11</title>
 </head><body>
 <script>
-const CHUAN=w('船','chuán','เรือ'),CHUANG=w('床','chuáng','เตียง'),SHAN=w('山','shān','ภูเขา'),YANG=w('羊','yáng','แพะ'),MEN=w('门','mén','ประตู'),DENG=w('灯','dēng','โคมไฟ'),XIN=w('信','xìn','จดหมาย'),XX=w('星星','xīngxing','ดวงดาว'),LONG=w('龙','lóng','มังกร'),WO=w('我','wǒ','ฉัน'),CC=w('长城','Chángchéng','กำแพงเมืองจีน');
-const NP=(a,b,t)=>pair({n:'',title:t||'-n กับ -ng ต่างกันที่ลิ้น',text:'แตะฟังทั้งสองคำ แล้วดูทางเดินของเสียง',items:[{nasal:'n',py:a[0],zh:a[1],sub:'-n ปลายลิ้นแตะฟันบน',k:a[2]},{nasal:'ng',py:b[0],zh:b[1],sub:'-ng โคนลิ้นยกปิด',k:b[2]}]});
+const CHUAN=w('船','chuán','เรือ'),CHUANG=w('床','chuáng','เตียง'),SHAN=w('山','shān','ภูเขา'),YANG=w('羊','yáng','แกะ'),MEN=w('门','mén','ประตู'),DENG=w('灯','dēng','โคมไฟ'),XIN=w('信','xìn','จดหมาย'),XX=w('星星','xīngxing','ดวงดาว'),LONG=w('龙','lóng','มังกร'),WO=w('我','wǒ','ฉัน'),CC=w('长城','Chángchéng','กำแพงเมืองจีน');
+const NP=(a,b,t)=>pair({n:'',title:t||'-n กับ -ng ต่างกันที่ลิ้น',text:'แตะฟังทั้งสองคำ แล้วดูทางเดินของเสียง',items:[{nasal:'n',py:a[0],zh:a[1],sub:'-n ปลายลิ้นแตะปุ่มเหงือก',k:a[2]},{nasal:'ng',py:b[0],zh:b[1],sub:'-ng โคนลิ้นยกปิด',k:b[2]}]});
 LESSON({no:11,goal:{do:'อ่าน <span class="gz">我们去长城</span> ได้',sub:'เสียงนาสิก -n กับ -ng',min:7},steps:[
  hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "เรือ"',pic:CHUAN,cards:[CHUAN.k,CHUANG.k],ans:0,fb:'เสียง A คือ <b>chuán</b> <span class="zh">船</span> = เรือ · เสียง B คือ <b>chuáng</b> <span class="zh">床</span> = เตียง · ต่างกันแค่ตัวสะกด'}),
  teach({title:'ตัวสะกด -n กับ -ng',text:'-n เหมือนตัวสะกด <b>"น"</b> · -ng เหมือนตัวสะกด <b>"ง"</b> ภาษาไทยมีทั้งสองเสียง จึงฝึกได้ง่าย',html:`<div class="mpair">${[['n','-n','an1-f','เหมือน "น"'],['ng','-ng','w:羊','เหมือน "ง"']].map(([n,l,k,s])=>`<button class="press" data-play="${k}">${nasSvg(n)}<span class="py">${l}</span><small>${s}</small></button>`).join('')}</div>`,note:'บทนี้แบ่งเป็น 2 ช่วง'}),
@@ -26,7 +26,7 @@ LESSON({no:11,goal:{do:'อ่าน <span class="gz">我们去长城</span> ไ
  word({n:'ช่วงที่ 2 · in',w:XIN,py:'x[ìn]',aid:{nasal:'n'},hint:'เหมือน <b>"อิน"</b> ในภาษาไทย',sk:'xin1-f',sl:'xīn'}),
  word({n:'ช่วงที่ 2 · ing',w:XX,py:'x[īng]x[ing]',aid:{nasal:'ng'},hint:'เหมือน <b>"อิง"</b> ในภาษาไทย',sk:'xing1-f',sl:'xīng'}),
  NP(['xīn','心','xin1-f'],['xīng','星','xing1-f']),
- word({n:'ช่วงที่ 2 · ong',w:LONG,py:'l[óng]',aid:{nasal:'ng'},hint:'เหมือน <b>"โอง"</b> ห่อปากกลม'}),
+ word({n:'ช่วงที่ 2 · ong',w:LONG,py:'l[óng]',aid:{nasal:'ng'},hint:'ใกล้เคียง <b>"อง"</b> หรือ <b>"อุง"</b> ห่อปากกลม'}),
  build({n:'ช่วงที่ 2 · ลองต่อ',w:CHUAN,syl:[['ch','u','a','n',2]],labs:['พยัญชนะ','สระ','สระ','ตัวสะกด','วรรณยุกต์'],extra:['ng','zh'],res:'chuán'}),
  rec({n:'ช่วงที่ 2',ws:[XIN,XX,LONG]}),
  ask({tag:'ตรวจ · ช่วงที่ 2',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:CHUANG.k,opts:[{img:CHUAN.img},{img:CHUANG.img}],ans:1,fb:'<b>chuáng</b> <span class="zh">床</span> = เตียง · ตัวสะกด -ng'}),

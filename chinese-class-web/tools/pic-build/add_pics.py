@@ -17,7 +17,7 @@ SKIP_LLAMA=set()
 # --skip 姓,语文 : คำที่ PIXEL ข้าม/ไม่ใช้ภาพ (ดู SKIPPED.md) → ไม่ลงทะเบียน แสดงเป็นการ์ดตัวอักษร
 SKIP_ZH=set(x for x in opt('--skip','').split(',') if x)
 skipped=[]
-TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n','measure':'mw'}
+TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n','measure':'mw','verb':'v','noun':'n','adjective':'a','adj':'a','adverb':'adv','preposition':'prep','position':'loc','interjection':'intj'}  # ชนิดคำ → รหัสใน PIC_TYPE (piclearn.js picDist เลือกตัวหลอกหมวดเดียวกันก่อน ไม่พอค่อยเติมหมวดอื่น)
 def conv(src,dst,size=512):
   im=Image.open(src).convert('RGB')
   if im.width!=im.height:

@@ -17,7 +17,7 @@ SKIP_LLAMA=set()
 # --skip 姓,语文 : คำที่ PIXEL ข้าม/ไม่ใช้ภาพ (ดู SKIPPED.md) → ไม่ลงทะเบียน แสดงเป็นการ์ดตัวอักษร
 SKIP_ZH=set(x for x in opt('--skip','').split(',') if x)
 skipped=[]
-TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n'}
+TYPE={'phrase':'ph','pronoun':'pr','number':'num','time':'t','place':'n','measure':'mw'}
 def conv(src,dst,size=512):
   im=Image.open(src).convert('RGB')
   if im.width!=im.height:

@@ -38,6 +38,7 @@
 .nb4 .zh{font-family:var(--zh,inherit)}
 .nb4 .large{font-weight:700}
 .nb4 button{font-family:inherit;color:inherit}
+.nb4 .nb-empty .pill{color:#fff} /* ปุ่มแดงในหน้าสมุดว่าง: ตัวอักษรขาวเหมือนปุ่ม .pill หลัก (.nb4 button ด้านบนทำให้สีเข้ม) */
 .nb4 .today{display:block;width:calc(100% - 36px);text-align:left;margin:14px 18px 0;border:0;padding:15px 16px;position:relative;height:126px;background:#FFE07A;border-radius:6px 6px 22px 6px;box-shadow:0 8px 16px rgba(120,90,20,.18);color:#4A3200;transform:rotate(-.8deg)}
 .nb4 .today.press:active{transform:rotate(-.8deg) scale(.98)}
 .nb4 .today::before{content:"";position:absolute;left:50%;top:-10px;width:90px;height:22px;margin-left:-45px;background:rgba(255,255,255,.55);transform:rotate(-3deg);box-shadow:0 1px 2px rgba(0,0,0,.06)}

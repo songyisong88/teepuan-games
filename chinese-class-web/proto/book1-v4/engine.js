@@ -103,7 +103,7 @@ function part(o){return {kind:'teach',btn:'เริ่มช่วงนี้'
  <div class="chips">${o.chips.map(c=>`<span>${c}</span>`).join('')}</div><p>${o.note||''}</p><div class="road">${[...Array(o.of>1?o.of:0)].map((_,i)=>`<i class="${i<o.no?'on':''}"></i>`).join('')}</div></div>`}}
 /* หน้า ก · คำจริง + ภาพ + ภาพช่วย + เทียบเสียงไทย (ข้อความเท่านั้น) */
 function word(o){const x=o.w,long=x.zh.length>2;return {kind:'teach',html:()=>`${tag(o.n,o.cap||'ฟังคำจริง')}
- <div class="mword">${pic(x)}<div><div class="zh ${long?'sm':''}">${x.zh}</div><div class="py ${long||x.py.length>7?'sm':''}">${(o.py||x.py).replace(/\[(.+?)\]/g,'<span class="hl">$1</span>')}</div><div class="mn">= ${x.th}</div></div></div>
+ <div class="mword">${pic(x,"mpic",1)}<div><div class="zh ${long?'sm':''}">${x.zh}</div><div class="py ${long||x.py.length>7?'sm':''}">${(o.py||x.py).replace(/\[(.+?)\]/g,'<span class="hl">$1</span>')}</div><div class="mn">= ${x.th}</div></div></div>
  ${aidHtml(o.aid)}${o.hint?`<div class="mhint"><span class="cap">${o.hcap||'เทียบเสียงไทย · ลองพูดเบา ๆ'}</span><br>${o.hint}</div>`:''}
  <div class="mbtns">${o.sk?`<button class="mbtn2 press" data-play="${o.sk}">${SPK}เสียง ${o.sl}</button>`:''}<button class="mbtn2 press" data-play="${x.k}">${SPK}ฟังคำ</button></div>`,
  onPlay:b=>{bump(b);const k=b.dataset.play;animAid($('#stage'),play(k),k)},

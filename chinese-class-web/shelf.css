@@ -1,0 +1,90 @@
+/* ชั้นหนังสือ C2 v3 (แท็บบทเรียน) */
+.bsf{font-family:'IBM Plex Sans Thai',Inter,sans-serif;color:#27211E}
+.bsf button,.bs-ohdw button,.bs-allh button{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bs-bk{position:relative;flex:none}
+.bs-cov{display:block;object-fit:cover;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 10px 22px -10px rgba(60,35,20,.45),0 2px 5px rgba(60,35,20,.12);background:#EFE6DA}
+.bs-sp{position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(255,255,255,.12) 60%,rgba(0,0,0,0));pointer-events:none}
+.bs-seal{position:absolute;writing-mode:vertical-rl;text-orientation:upright;color:#FFF8EE;pointer-events:none}
+.bs-bub{position:absolute;white-space:nowrap;background:rgba(255,252,247,.94);pointer-events:none;text-align:left}
+.bs-tail{position:absolute;background:rgba(255,252,247,.94);transform:rotate(45deg)}
+.bs-lk{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.16)}
+.bs-chk{position:absolute;right:7px;top:7px;width:26px;height:26px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.16)}
+.bs-sec{font-size:15px;font-weight:700;color:#27211E;margin:0}
+.bs-ttl{font-size:15px;font-weight:700;line-height:1.3;white-space:nowrap}
+.bs-mt{font-size:12.5px;color:var(--sub);line-height:1.35;white-space:nowrap}
+.bs-b{font-weight:700}.bs-t12{font-size:12px}
+.bs-clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bs-zht{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-top:1px}
+.bs-pl{display:flex;align-items:center;gap:10px}.bs-pl .n{font:700 12px Inter}
+.bs-pbar{display:block;border-radius:9px;overflow:hidden;background:#ECE3D8}.bs-pbar s{display:block;height:100%;border-radius:9px;text-decoration:none}
+.bsf .bs-cta{height:44px;border-radius:14px;background:var(--red);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 0 #8A0B20;width:100%;text-align:center}
+.bsf .bs-cta2{height:40px;border-radius:12px;border:1.5px solid #E2D8CC;background:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;text-align:center}
+.bs-soon{height:52px;border-radius:14px;border:1.5px dashed #DCD1C4;display:flex;align-items:center;gap:10px;padding:0 14px;color:#8C8077;font-size:13.5px}
+.bs-hero{background:#fff;border-radius:22px;padding:16px;box-shadow:0 8px 24px -12px rgba(60,35,20,.3);cursor:pointer}
+.bs-hdesc{margin-top:12px;padding-top:11px;border-top:1px solid #F0E8DE}
+.bs-hrow{display:flex;align-items:baseline;justify-content:space-between}
+.bsf .bs-all{font-size:12.5px;color:var(--sub);padding:4px 0 4px 12px}
+.bs-row{display:flex;gap:14px;padding:14px 20px 4px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scroll-padding:0 20px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.bs-row::-webkit-scrollbar{display:none}
+.bs-ri{flex:none;scroll-snap-align:start;display:block}
+.bs-ri .bs-ttl{font-size:13.5px;margin-top:8px}
+.bs-short{font-size:12px;color:#5A4E46;overflow:hidden;text-overflow:ellipsis}
+.bs-more{padding-top:6px}
+.bs-says{display:flex;gap:8px}
+.bs-say{flex:1;min-width:0;background:#fff;border-radius:12px;padding:8px 10px;box-shadow:0 2px 8px -4px rgba(60,35,20,.18)}
+.bs-say .z{font:600 15px 'Noto Serif SC',serif;color:#27211E}.bs-say .p{font:500 11px Inter;color:var(--sub);margin-top:1px}.bs-say .t{font-size:12px;color:#5A4E46;margin-top:1px}
+.bs-back{position:absolute;left:16px;top:calc(var(--st) + 10px);width:38px;height:38px;border-radius:50%;background:#fff!important;box-shadow:0 2px 8px rgba(0,0,0,.16);display:flex;align-items:center;justify-content:center;z-index:3}
+/* เปิดเล่ม */
+.screen.bs-open{background:linear-gradient(var(--bs-soft),#FAF7F2 210px) #FAF7F2}
+.bs-ohdw{position:absolute;left:0;right:0;top:0;height:calc(var(--st) + 216px);z-index:2;background:linear-gradient(var(--bs-soft),#FAF7F2 210px);pointer-events:none}
+.bs-ohdw>*{pointer-events:auto}
+.bs-ohd{position:absolute;left:20px;right:20px;top:calc(var(--st) + 60px);display:flex;gap:16px;align-items:flex-end}
+.bs-odiv{position:absolute;left:20px;right:20px;top:calc(var(--st) + 206px);border-top:1px solid #EAE1D5}
+.screen.bs-open .scroller{padding-top:calc(var(--st) + 216px);z-index:1}
+.bs-open .bsf{padding:0 20px}
+.bs-intro{padding:4px 0 14px;border-bottom:1px solid #EAE1D5;margin-bottom:4px}
+.bs-urow{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 0;border-bottom:1px solid #EFE7DC;width:100%}
+.bs-urow .no,.bs-end .no{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font:700 13px Inter}
+.bs-urow b{flex:1;font-size:14.5px;font-weight:600;min-width:0}
+.bs-urow .c{font-size:12.5px;color:var(--sub);white-space:nowrap}
+.bs-ulock{color:#9A8E85}
+.bs-uls{padding:4px 0 6px 4px;border-bottom:1px solid #EFE7DC}
+.bs-ucard{background:#fff;border-radius:18px;padding:12px 14px 14px;margin:8px 0;box-shadow:0 6px 20px -8px rgba(60,35,20,.25);border:1.5px solid}
+.bs-uch{display:flex;gap:10px;align-items:flex-start}
+.bs-uch .n{width:30px;height:30px;border-radius:50%;color:#fff;font:700 13px Inter;display:flex;align-items:center;justify-content:center;flex:none}
+.bs-lrow{display:flex;align-items:flex-start;gap:10px;min-height:38px;padding:6px 0;font-size:14px;line-height:1.35;width:100%}
+.bs-lrow .d{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font:700 11.5px Inter;margin-top:-1px}
+.bs-lrow .nm{flex:1;min-width:0}.bs-lrow .r{font-size:12px;color:var(--sub);white-space:nowrap;font-weight:400}
+.bs-end{margin:14px 0 10px;border-radius:16px;border:1.5px dashed #DCD1C4;padding:12px 14px;display:flex;gap:12px;align-items:center}
+.bs-end .no{background:#F3EDE4}
+/* หนังสือทั้งชุด */
+.bs-allh{position:absolute;left:0;right:0;top:0;height:calc(var(--st) + 60px);background:var(--bg);z-index:2}
+.bs-allh h1{position:absolute;left:70px;top:calc(var(--st) + 15px);margin:0;font-size:19px;font-weight:700;line-height:38px;color:#27211E}
+.screen.bs-allp .scroller{padding-top:calc(var(--st) + 66px)}
+.bs-grid{display:grid;grid-template-columns:repeat(3,104px);justify-content:space-between;row-gap:22px}
+/* แผ่นเล่มล็อก */
+.bs-sh{padding:2px 22px 8px}
+.bs-shp{font-size:14px;line-height:1.55;margin:14px 0 6px;color:#4A3F38}
+.bs-way{display:flex;gap:12px;padding:12px 0;border-top:1px solid #EFE7DC;align-items:flex-start}
+.bs-way .n{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+/* จบเล่ม */
+.screen.bs-donep{background:linear-gradient(var(--bs-soft),#FAF7F2 340px) #FAF7F2}
+.bs-dchk{position:absolute;right:-12px;bottom:-12px;width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.bs-nextc{margin:22px 20px 0;background:#fff;border-radius:18px;padding:12px;display:flex;gap:14px;align-items:center;box-shadow:0 6px 20px -10px rgba(60,35,20,.3)}
+/* ปกบินตอนเปิดเล่ม */
+.bs-fly{position:absolute!important;z-index:60;transform-origin:0 0;pointer-events:none;margin:0}
+/* iPad 820×1180 */
+@media (min-width:700px) and (pointer:coarse){
+ .screen[data-name=path].bs-root{zoom:1;inset:0;width:auto;height:auto;--ipc:100%}
+ .screen[data-name=path].bs-root .scroller{padding-left:0;padding-right:0}
+ .bs-ip{padding:18px 48px 0}
+ .bs-hero-ip{display:flex;gap:30px;border-radius:26px;padding:26px}
+ .bs-iprow{display:flex;justify-content:space-between;margin-top:16px}
+ .bs-iprow .bs-ri .bs-ttl{font-size:15px}
+ .bs-ip .bs-mt,.bs-ip .bs-pl .n{font-size:14px}
+ .bs-ip .bs-short,.bs-ip .bs-ri .bs-mt{font-size:13px}
+ .bs-col{max-width:760px;margin:0 auto}
+ .bs-ohd,.bs-odiv{left:max(20px,calc(50% - 360px));right:max(20px,calc(50% - 360px))}
+ .bs-allh h1{left:max(70px,calc(50% - 330px))}
+ .bs-back{left:max(16px,calc(50% - 380px))}
+}

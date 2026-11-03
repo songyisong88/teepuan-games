@@ -137,12 +137,99 @@ function unitsList(I){const k=I.k,l=BC[k],U=I.U,ci=I.ci<0?U.length:I.ci;let out=
  const nx=k<5?`เปิดเล่ม${BT[k+1]}`:'ปิดท้ายทั้งชุด';
  out+=`<div class="bs-end"><span class="no">${ic('target','#A99C90',16)}</span><div style="flex:1"><div class="bs-b" style="font-size:14.5px;color:#6E625A">ด่านปิดเล่ม</div><div class="bs-mt" style="white-space:normal">ทบทวนรวมทั้งเล่ม ไม่จับเวลา ผ่านแล้ว${nx}</div></div></div>`;
  return out}
-SC.shelfbook=({k})=>{const I=info(k),l=BC[k];
- return {title:'',nav:'',noRefresh:false,
- extra:`<div class="bs-ohdw"><button class="bs-back press" data-act="back" aria-label="กลับ">${BACKSV}</button><div class="bs-ohd">${book(k,96,128,8)}
-<div style="flex:1;min-width:0"><div class="bs-mt" style="color:${l.d};font-weight:700">${sub(k)}</div><div class="bs-b" style="font-size:22px;line-height:1.3">${BT[k]}</div>${zht(k)}<div class="bs-mt">${meta(I)} · ${I.n} บท</div><div style="margin-top:8px">${pctline(I.pct,l)}</div></div></div><div class="bs-odiv"></div></div><div class="bs-fade"></div>`,
- body:`<div class="bsf bs-col"><div class="bs-intro"><div class="bs-clamp2" style="font-size:13.5px;line-height:1.5;color:#4A3F38">${dsc(k)}</div><div class="bs-mt" style="margin:9px 0 6px;font-weight:700;color:${l.d}">เมื่อจบเล่มนี้ คุณจะพูดได้ เช่น</div>${says(k)}</div>${unitsList(I)}</div>`,
- mount(el){el.classList.add('bs-open');el.style.setProperty('--bs-soft',l.soft)}}};
+/* ---------- เปิดเล่ม: การ์ดเรียงห้าใบ + แถบเส้นทางบท — ซ้งอี้อนุมัติ 3 พ.ย. 2026 (proto/opened-book/04-coverflow + แถบเส้นทางจากแบบที่ 4)
+   ข้อมูลบท/สถานะมาจาก LESSONS / UNITS / unitDone / unitOpen / S.stars เดิม · ปุ่มเริ่มทำงานเหมือนหน้าเดิม (start / unitSheet)
+   ภาพการ์ด: ภาพคำศัพท์ที่เป็นสิ่งของ/คน/ตัวเลข (ไม่มีลามา ไม่มีโคม) หรือการ์ดตัวอักษรจีน · โหลดเฉพาะการ์ดใกล้ ๆ */
+const OI={star:'<path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z" fill="currentColor"/>',
+crown:'<path d="M3.5 8.5l4.6 3.6L12 5.5l3.9 6.6 4.6-3.6-1.8 10H5.3z" fill="currentColor"/>',
+lock:'<rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="currentColor"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5" fill="none" stroke="currentColor" stroke-width="2.4"/>',
+clock:'<circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+ear:'<path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+mic:'<rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0012 0M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+game:'<rect x="3" y="7" width="18" height="11" rx="5" fill="currentColor"/><path d="M8 10.5v4M6 12.5h4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.5" cy="11.5" r="1.2" fill="#fff"/><circle cx="17.5" cy="13.8" r="1.2" fill="#fff"/>'};
+const oi=(n,s)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" aria-hidden="true" style="flex:none">${OI[n]}</svg>`;
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+/* เล่ม 0 (บทเสียง ไม่มีคำศัพท์): เลือกภาพสิ่งของที่สื่อถึงเสียงของบท */
+const OB_P0={1001:'书',1004:'爸爸',1005:'可乐',1006:'狮子',1007:'鱼',1008:'嘴',1009:'鼻子',1002:'耳朵',1010:'妈妈',1003:'耳机'};
+const OB_OK={n:1,num:1,pr:1,t:1,loc:1,mw:1};
+const OB_NO=new Set(['大','灯','节日','鞭炮','红包','月饼','蜡烛','春节','饭馆','这','那','习惯','爱好','梦','办法','为什么','动作','信心','幸福','功夫','掌声','秘密','兴趣','自己','烦恼','明星']);
+function obPic(L){const A=window.ART_IDX||{},T=Object.assign({},window.PIC_TYPE_X||{},window.PIC_TYPE||{}),ok=z=>z&&A['word/'+z]&&!OB_NO.has(z);
+ const p=OB_P0[L.id];if(p&&ok(p))return p;for(const w of L.words||[])if(ok(w.zh)&&OB_OK[T[w.zh]])return w.zh;return null}
+function obData(k){const I=info(k),A=[],secs=[],cl=curL(I);
+ I.U.forEach((u,ui)=>{secs.push({a:A.length,b:A.length+u.ls.length,th:u.ch.th,dn:u.nd>=u.ls.length});u.ls.forEach((L,j)=>A.push({L,ui,done:!!u.done[j]}))});
+ const cur=cl?A.findIndex(x=>x.L===cl):-1;
+ A.forEach((x,i)=>{const us=lUnits(x.L);x.st=x.done?'done':i===cur?'cur':(us[0]&&unitOpen(us[0].id))?'open':'lock';
+  if(x.done){const s=us.map(u=>S.stars[u.id]||0);x.stars=Math.max(1,Math.min(3,Math.min.apply(null,s.length?s:[1])))}});
+ return {I,A,secs,cur,d:A.filter(x=>x.done).length}}
+function obTxt(L){const g=L.kind==='gate',ws=L.words||[],zf=s=>`<span class="zh">${esc(s)}</span>`;let ti=L.th,py='',pyc='';
+ if(g){ti='ด่านทบทวน';py=esc(L.th.replace(/^ด่านทบทวน\s*[:：]?\s*/,'')||'ทบทวนทั้งหน่วย');pyc=' pt'}
+ else if(L.kind==='snd'){const lat=(L.th.match(/[A-Za-zÀ-ɏ·\-\s]+$/)||[''])[0].trim().replace(/^·\s*/,'');ti=L.th.slice(0,L.th.length-(L.th.match(/[A-Za-zÀ-ɏ·\-\s]+$/)||[''])[0].length).trim();
+  if(!ti)ti=/^声母/.test(L.zh)?'พยัญชนะ':L.zh;if(lat&&lat!==ti){py=esc(lat);pyc=lat.length>12?' sm':''}else{py=zf(L.zh.replace(/\s*\d+$/,''));pyc=' z'}}
+ else{const p=ws.slice(0,2).map(w=>String(w.py||'').replace(/\|/g,'')).filter(Boolean).join(' · ');if(p){py=esc(p);pyc=p.length>14?' sm':''}else{py=zf(L.zh);pyc=' z'}}
+ return {ti,py,pyc}}
+function obCard(D,i,k){const x=D.A[i],L=x.L,T=D.A.length,g=L.kind==='gate',ws=L.words||[],t=obTxt(L),pz=g?null:obPic(L);
+ const badge=x.st==='done'?[0,1,2].map(j=>`<span style="color:${j<x.stars?'#E9A23B':'#E6DDD3'};display:flex">${oi('star',11)}</span>`).join(''):x.st==='lock'?oi('lock',13):'';
+ const pic=g?`<div class="ob-boss">${oi('crown',46)}<span>ด่านทบทวน</span></div>`:pz?`<img src="${artUrl('word',pz)}" alt="" loading="lazy" decoding="async">`:`<div class="ob-ph" style="background:${BC[k].soft};color:${BC[k].d}"><span class="zh">${esc(String(L.zh||'').replace(/\s*\d+$/,'').slice(0,3))}</span></div>`;
+ const pre=i?`จบบทที่ ${i} เพื่อเปิด`:'จบเล่มก่อนหน้าเพื่อเปิด';
+ const bottom=x.st==='lock'?`<div class="ob-lm">${oi('lock',12)} ${pre}</div>`:(L.kind==='lex'&&ws.length)?`<span class="ob-chip">พูดได้ <span class="zh">${esc(ws.slice(0,2).map(w=>w.zh).join(' '))}</span></span>`:'';
+ const hear=!g&&x.st!=='lock'?`<button class="ob-hear press" aria-label="ฟังเสียง">${oi('ear',15)}</button>`:'';
+ const el=document.createElement('div');el.className=`ob-cd ${x.st}${g?' boss':''}`;el.dataset.i=i;
+ el.innerHTML=`<div class="ob-pic">${pic}<span class="ob-no">${i+1}</span>${badge?`<span class="ob-st">${badge}</span>`:''}</div>
+<div class="ob-k">บทที่ ${i+1} จาก ${T} · 5 นาที</div><div class="ob-ti">${esc(t.ti)}</div><div class="ob-py${t.pyc}">${t.py}</div><div class="ob-ln">${esc(L.can||'')}</div>
+<div class="ob-rw">${bottom}${hear}</div>`;
+ const h=el.querySelector('.ob-hear');if(h)h.addEventListener('click',e=>{e.stopPropagation();
+  if(L.kind==='lex'&&ws.length){const it=ws.slice(0,2).map(w=>({t:w.zh,r:''}));try{bumpCnt('audio',1)}catch(_){}h.classList.remove('playing');void h.offsetWidth;h.classList.add('playing');speakSeq(it)}
+  else speak(String(L.zh||'').replace(/\s*\d+$/,''),h)});
+ return el}
+function obMount(scr,k){const root=scr.querySelector('.ob');if(!root)return;const old=scr.__ob;if(old){cancelAnimationFrame(old.anim);try{old.ro&&old.ro.disconnect()}catch(_){}}
+ const D=obData(k),A=D.A,T=A.length,l=BC[k],RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ let pos=old&&old.k===k&&old.d===D.d?Math.max(0,Math.min(T-1,Math.round(old.pos))):(D.cur>=0?D.cur:T-1);
+ const gates=A.map((x,i)=>x.L.kind==='gate'?i:-1).filter(i=>i>=0);
+ const ng=gates.find(i=>i>=Math.max(0,D.cur))!=null?gates.find(i=>i>=Math.max(0,D.cur)):gates[gates.length-1];
+ const wide=T>14;
+ const strip=A.map((x,i)=>{const g=x.L.kind==='gate',c=x.st==='done'?'done':x.st==='cur'?'cur':'';return `<button class="ob-t ${c}${g?' sp':''}${i>98?' n3':''}" data-i="${i}" aria-label="บทที่ ${i+1}">${g?oi('crown',13):i+1}</button>`}).join('')+`<button class="ob-t sp end${D.d>=T?' done':''}" data-i="${T-1}" data-end="1" aria-label="ด่านปิดเล่ม">${oi('star',13)}</button>`;
+ const secs=D.secs.length>1?`<div class="ob-secs${D.secs.length>4?' many':''}">${D.secs.map((s,j)=>`<button class="ob-sc press${s.dn?' dn':''}" data-a="${s.a}"><b>หน่วยที่ ${j+1}</b><span>${esc(s.th)}</span></button>`).join('')}</div>`:'';
+ root.innerHTML=`<div class="ob-top"><button class="ob-bk press" data-act="back" aria-label="กลับ">${BACKSV}</button><div class="ob-tt"><b><span class="zh">${BZ[k][0]}</span> ${BT[k]}</b><small>${k===0?'เล่ม 0':'ระดับ '+k} · เรียนแล้ว ${D.d} จาก ${T} บท</small></div></div>
+<div class="ob-tl${wide?' wide':''}"><div class="ob-tli"><i class="ob-bar"></i>${strip}</div></div>
+<div class="ob-cap"><span>${gates.length?`ด่านทบทวนที่บทที่ ${ng+1}`:''}</span><span>ด่านปิดเล่มหลังบทที่ ${T}</span></div>
+${secs}<div class="ob-stage"></div><div class="ob-hint">ปัดซ้ายขวา หรือแตะการ์ดข้างๆ เพื่อดูบทอื่น</div><div class="ob-dots"></div>
+<div class="ob-meta"><span>${oi('clock',15)} 5 นาที</span><span>${oi('ear',15)} ฟัง</span><span>${oi('mic',15)} พูด</span><span>${oi('game',15)} เกม</span></div>
+<button class="ob-go press"></button>`;
+ const st=root.querySelector('.ob-stage'),tl=root.querySelector('.ob-tl'),tbs=[...tl.querySelectorAll('.ob-t')],dots=root.querySelector('.ob-dots'),go=root.querySelector('.ob-go'),scs=[...root.querySelectorAll('.ob-sc')],sw=root.querySelector('.ob-secs');
+ const S0={k,d:D.d,pos,anim:0};scr.__ob=S0;const cards=new Map();let last=-1,moved=false,topPx=14;
+ const card=i=>{let el=cards.get(i);if(!el){el=obCard(D,i,k);el.style.top=topPx+'px';el.addEventListener('click',()=>{if(moved)return;if(Math.round(S0.pos)!==i)goTo(i)});st.appendChild(el);cards.set(i,el)}return el};
+ const place=()=>{const c=cards.get(Math.round(S0.pos))||card(Math.max(0,Math.min(T-1,Math.round(S0.pos))));topPx=Math.max(6,(st.clientHeight-c.offsetHeight)/2);cards.forEach(e=>e.style.top=topPx+'px')};
+ const into=(box,el)=>{if(!box||!el)return;const b=box.getBoundingClientRect(),r=el.getBoundingClientRect();if(r.left<b.left+8||r.right>b.right-8){const x=box.scrollLeft+(r.left-b.left)-(b.width-r.width)/2;box.scrollTo({left:x,behavior:RM?'auto':'smooth'})}};
+ function layout(){const p=S0.pos,lo=Math.floor(p-2.8),hi=Math.ceil(p+2.8);
+  cards.forEach((el,i)=>{if(i<lo-1||i>hi+1){el.remove();cards.delete(i)}});
+  for(let i=Math.max(0,lo);i<=Math.min(T-1,hi);i++){const el=card(i),o=i-p,a=Math.abs(o);
+   if(a>2.7){el.style.visibility='hidden';continue}el.style.visibility='visible';
+   const sg=Math.sign(o),x=a<=1?o*80:sg*(80+(a-1)*62),sc=a<=1?1-a*.25:Math.max(.3,.75-(a-1)*.2);
+   el.style.transform=`translateX(${x}px) translateY(${a*8}px) rotate(${o*2.5}deg) scale(${sc})`;el.style.zIndex=100-Math.round(a*10);
+   el.style.opacity=a<1?1-a*.08:a<=2?.92-(a-1)*.22:Math.max(0,.7-(a-2)*1.2);el.classList.toggle('side',a>.5);el.style.filter=a>.5?`saturate(${1-Math.min(a,2)*.2})`:'none'}
+  const c=Math.max(0,Math.min(T-1,Math.round(p)));if(c===last)return;last=c;
+  tbs.forEach((b,i)=>b.classList.toggle('vw',i===c&&!b.dataset.end));into(tl,tbs[c]);
+  const W=T>20?15:T,s0=Math.max(0,Math.min(T-W,c-(W>>1)));let dh='';for(let i=s0;i<s0+W;i++){const e=(T>W)&&((i===s0&&s0>0)||(i===s0+W-1&&s0+W<T));dh+=`<i class="${A[i].done?'d':''}${i===c?' on':''}${e?' e':''}"></i>`}dots.innerHTML=dh;
+  const si=D.secs.findIndex(s=>c>=s.a&&c<s.b);scs.forEach((b,j)=>b.classList.toggle('on',j===si));if(sw)into(sw,scs[si]);
+  const x=A[c],n=c+1,g=x.L.kind==='gate';go.className='ob-go press'+(x.st==='done'?' rv':x.st==='lock'?' lk':'');go.dataset.i=c;
+  go.textContent=x.st==='done'?`ทบทวนบทที่ ${n}`:x.st==='lock'?(D.cur>=0?`จบบทที่ ${D.cur+1} ก่อนเพื่อเปิดบทนี้`:'บทนี้ยังไม่เปิด'):g?`เริ่มด่านทบทวน บทที่ ${n}`:`เริ่มบทที่ ${n}`}
+ function goTo(t){t=Math.max(0,Math.min(T-1,t));cancelAnimationFrame(S0.anim);const s=S0.pos,t0=performance.now(),dur=RM?1:340;
+  (function f(nw){const q=Math.min(1,(nw-t0)/dur),e=1-Math.pow(1-q,3);S0.pos=s+(t-s)*e;layout();if(q<1)S0.anim=requestAnimationFrame(f)})(t0)}
+ let sx=null,sp=0,lx=0,lt=0,v=0,pid=null;
+ st.addEventListener('pointerdown',e=>{const fr=$('#frame').getBoundingClientRect();if(e.clientX-fr.left<28)return;sx=e.clientX;sp=S0.pos;lx=e.clientX;lt=performance.now();v=0;moved=false;pid=e.pointerId;cancelAnimationFrame(S0.anim)});
+ st.addEventListener('pointermove',e=>{if(sx===null||e.pointerId!==pid)return;const dx=e.clientX-sx;if(!moved&&Math.abs(dx)>6){moved=true;try{st.setPointerCapture(pid)}catch(_){}}if(!moved)return;
+  const n=performance.now();v=(e.clientX-lx)/Math.max(1,n-lt);lx=e.clientX;lt=n;S0.pos=Math.max(-.4,Math.min(T-.6,sp-dx/110));layout()});
+ const up=()=>{if(sx===null)return;sx=null;if(!moved)return;goTo(Math.round(S0.pos-v*1.2));setTimeout(()=>moved=false,0)};
+ st.addEventListener('pointerup',up);st.addEventListener('pointercancel',up);
+ tbs.forEach(b=>b.addEventListener('click',()=>{if(b.dataset.end)toast('ด่านปิดเล่ม: ทบทวนรวมทั้งเล่ม ไม่จับเวลา');goTo(+b.dataset.i)}));
+ scs.forEach(b=>b.addEventListener('click',()=>goTo(+b.dataset.a)));
+ go.addEventListener('click',()=>{const x=A[+go.dataset.i];if(!x)return;try{vib(6)}catch(_){}
+  if(x.st==='cur')return start(k);if(x.st==='lock')return toast('เรียนบทก่อนหน้าให้จบก่อน');const u=lUid(x.L);if(u)unitSheet(u)});
+ layout();place();layout();try{const ro=new ResizeObserver(()=>{if(scr.__ob===S0)place()});ro.observe(st);S0.ro=ro}catch(_){}if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(scr.__ob===S0)place()});
+ S0.place=place;tl.scrollLeft=0;into(tl,tbs[Math.round(S0.pos)])}
+SC.shelfbook=({k})=>({title:'',nav:'',body:'',extra:`<div class="ob" style="--bs-soft:${BC[k].soft}"></div>`,
+ mount(el){el.classList.add('ob-open');obMount(el,k)},onShow(el){obMount(el,k)},
+ unmount(){}});
 
 /* ---------- หนังสือทั้งชุด ---------- */
 SC.shelfall=()=>{const cb=curBook();let nd=0;const cells=[0,1,2,3,4,5].map(k=>{const st=bstate(k,cb),I=info(k);if(st==='done')nd++;
@@ -180,6 +267,8 @@ function start(k){const I=info(k);let L=curL(I);if(!L){if(k<5&&I.complete)return
 function openNext(k){const lv=bkLv(k);if(lv!==curLv())setLevel(lv,undefined,true);mountRoot('book',false);setTimeout(()=>openBook(k,null),60)}
 function openBook(k,src){const s=push('shelfbook',{k});if(!s||!src||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  try{const el=s.el,prev=stack[stack.length-2],fr=$('#frame').getBoundingClientRect();const a=src.getBoundingClientRect();
+  /* หน้าเปิดเล่มแบบการ์ด (3 พ.ย. 2026) ไม่มีปกเล่มในหัวหน้า → ใช้การเลื่อนเข้าแบบปกติ ไม่บินปก */
+  if(!el.querySelector('.bs-ohd .bs-bk'))return;
   el.style.transition='none';el.style.transform='none';if(prev){prev.el.style.transition='none';prev.el.style.transform='none'}
   const tgt=el.querySelector('.bs-ohd .bs-bk');const b=tgt.getBoundingClientRect();
   const fly=src.cloneNode(true);fly.classList.add('bs-fly');fly.style.left=(a.left-fr.left)+'px';fly.style.top=(a.top-fr.top)+'px';$('#frame').appendChild(fly);tgt.style.visibility='hidden';

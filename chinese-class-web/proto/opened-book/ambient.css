@@ -1,0 +1,17 @@
+/* ambient life layer: sits between background and path */
+.amb{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.amb>*{position:absolute;pointer-events:none}
+.amb svg{display:block;overflow:visible}
+.amb .cloud{animation:cdrift var(--d,80s) ease-in-out infinite alternate}
+@keyframes cdrift{from{transform:translateX(calc(var(--dx,40px) * -1))}to{transform:translateX(var(--dx,40px))}}
+.amb .sway{transform-origin:var(--ox,0) 50%;animation:sway var(--d,6s) ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(calc(var(--a,3deg) * -1))}to{transform:rotate(var(--a,3deg))}}
+.amb .tw{animation:tw var(--d,3.6s) ease-in-out infinite;opacity:.15}
+@keyframes tw{0%,100%{opacity:.12;transform:scale(.6)}50%{opacity:.85;transform:scale(1)}}
+.amb .wing{transform-origin:50% 100%;animation:flap .55s ease-in-out infinite alternate}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.35)}}
+.amb .shim{animation:shim 2.8s linear infinite}
+@keyframes shim{to{stroke-dashoffset:-48}}
+.amb .halo{animation:halo 7s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes halo{50%{transform:scale(1.12);opacity:.35}}
+@media (prefers-reduced-motion:reduce){.amb *{animation:none!important}.amb .bird,.amb .petal{display:none}}

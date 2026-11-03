@@ -1,6 +1,7 @@
 <!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>第一步 ก้าวแรก · แบบ A2 ไล่สีพีช</title><meta name="robots" content="noindex">
 <link rel="stylesheet" href="../map.css">
+<link rel="stylesheet" href="../ambient.css">
 <style>
 :root{--accent:#d9402b;--accent-dark:#8f2414;--accent-grad:linear-gradient(180deg,#ef5a3c,#c8341f);--glow:rgba(255,230,150,.95);--sec-bg:linear-gradient(180deg,#b6402c,#8f2414)}
 .mist{position:absolute;left:-20%;width:140%;height:150px;pointer-events:none;z-index:2;
@@ -36,5 +37,15 @@ window.THEME={
    <path class="prog" d="${d}" fill="none" stroke="#f5b82e" stroke-width="${7*k}" stroke-linecap="round" style="filter:drop-shadow(0 0 4px rgba(255,200,60,.9))"/>`,
 };
 </script>
+<script>window.AMB={
+  clouds:{kind:'soft',fill:'#FFFFFF',op:.75,at:[[.05,230],[.62,470],[.10,860],[.64,1230]],scale:[1,.8,.9,.75]},
+  grass:{color:'#E0AE95',op:.55,at:[[.07,1440],[.93,1370],[.90,945],[.06,965],[.94,1775]]},
+  birds:{color:'#8A6E5E',op:.5},
+  petals:{max:4,every:3400,op:.75,colors:['#F2A6A0','#F7C1B2','#E98C8A']},
+  halo:[.70,150,46],
+  stream:[{y:1420,h:200,w:7,base:'#F3E2D4',d:'M392,1430 C372,1470 360,1500 368,1540 C374,1572 356,1596 338,1612'}],
+  twinkle:{at:[.5,240],color:'#E7A24C',n:3}
+};</script>
 <script src="../map.js"></script>
+<script src="../ambient.js"></script>
 </body></html>

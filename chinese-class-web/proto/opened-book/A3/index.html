@@ -1,6 +1,7 @@
 <!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>第一步 ก้าวแรก · แบบ A3 ลายหมึกขอบ</title><meta name="robots" content="noindex">
 <link rel="stylesheet" href="../map.css">
+<link rel="stylesheet" href="../ambient.css">
 <style>
 :root{--accent:#d9402b;--accent-dark:#8f2414;--accent-grad:linear-gradient(180deg,#ef5a3c,#c8341f);--glow:rgba(255,230,150,.95);--sec-bg:linear-gradient(180deg,#b6402c,#8f2414)}
 .mist{position:absolute;left:-20%;width:140%;height:150px;pointer-events:none;z-index:2;
@@ -36,5 +37,13 @@ window.THEME={
    <path class="prog" d="${d}" fill="none" stroke="#f5b82e" stroke-width="${7*k}" stroke-linecap="round" style="filter:drop-shadow(0 0 4px rgba(255,200,60,.9))"/>`,
 };
 </script>
+<script>window.AMB={
+  clouds:{kind:'xiang',stroke:'#C8102E',op:.22,at:[[.66,360],[.06,700],[.70,1100],[.08,1520]]},
+  leaves:{color:'#5A514B',op:.22,at:[['r',560,6],['l',930,5],['r',1300,6],['l',1700,5]]},
+  birds:{color:'#5A514B',op:.5},
+  petals:{max:3,every:4200,op:.7,colors:['#D9465A','#E8848A','#F2A6A0']},
+  twinkle:{at:[.5,240],color:'#D9A23A',n:3}
+};</script>
 <script src="../map.js"></script>
+<script src="../ambient.js"></script>
 </body></html>

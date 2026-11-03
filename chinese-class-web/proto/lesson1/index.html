@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>ต้นแบบบทที่ 1 · 第一步 ก้าวแรก</title>
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<style>
+:root{--bg:#FAF7F2;--card:#fff;--ink:#27211E;--mut:#7A6F68;--red:#C8102E;--redsoft:#FBF1EC;--line:#EADFD4;--green:#2E8B57;--greensoft:#EAF6EF;--gold:#D9A21B}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#EFE8DF}
+body{font-family:'IBM Plex Sans Thai','Inter',system-ui,sans-serif;color:var(--ink);font-size:16px;line-height:1.5}
+.zh{font-family:'Noto Serif SC','Songti SC',serif}
+.py{font-family:'Inter',system-ui,sans-serif}
+#app{max-width:480px;margin:0 auto;min-height:100%;background:var(--bg);display:flex;flex-direction:column;position:relative}
+header{display:flex;align-items:center;gap:10px;padding:12px 16px 6px}
+.x{border:0;background:none;font-size:22px;color:var(--mut);width:32px;height:32px;cursor:pointer;line-height:1}
+.bar{flex:1;height:8px;background:var(--line);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);border-radius:8px;transition:width .3s}
+.stepn{font-size:13px;color:var(--red);font-weight:600;min-width:44px;text-align:right}
+.proto{font-size:11px;color:var(--mut);text-align:center;padding:0 16px}
+main{flex:1;padding:8px 18px 12px;display:flex;flex-direction:column;gap:12px}
+footer{padding:10px 18px calc(16px + env(safe-area-inset-bottom));position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 30%)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font:inherit;font-weight:700;font-size:17px;color:#fff;background:var(--red);cursor:pointer}
+.btn:disabled{background:#E8A9B2;cursor:default}
+.btn.g{background:var(--green)}
+.btn.o{background:#fff;color:var(--red);border:1.5px solid var(--red)}
+.btn+.btn{margin-top:8px}
+.kick{font-size:13px;color:var(--mut);text-align:center;margin:0}
+h1{font-size:22px;margin:0;text-align:center;line-height:1.35}
+h2{font-size:17px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.tip{background:#FFF8EC;border:1px dashed #E9C98F;border-radius:12px;padding:10px 12px;font-size:14px}
+.ok{background:var(--greensoft);border:1px solid #BFE3CD;color:#1F6B42;border-radius:12px;padding:10px 12px;font-size:14px}
+.bad{background:var(--redsoft);border:1px solid #F0C5CB;color:#9A1026;border-radius:12px;padding:10px 12px;font-size:14px}
+.hide{display:none!important}
+.lama{display:block;margin:0 auto;height:120px}
+.row{display:flex;gap:10px;align-items:center}
+.spk{width:52px;height:52px;border-radius:50%;border:0;background:var(--red);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.spk svg{width:24px;height:24px}
+.spk.s{width:38px;height:38px;background:var(--redsoft);color:var(--red)}
+.spk.s svg{width:18px;height:18px}
+.spk.play{animation:pulse .8s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+@keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.pop{animation:pop .3s ease-out}
+/* book */
+.bookhd{display:flex;gap:14px;align-items:center}
+.cover{width:76px;height:100px;border-radius:8px;background:var(--red);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset -6px 0 0 rgba(0,0,0,.12)}
+.cover b{font-size:24px;font-family:'Noto Serif SC',serif;line-height:1.1}
+.cover small{font-size:11px}
+.les{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.les .n{width:34px;height:34px;border-radius:50%;background:var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--mut);flex:none}
+.les.cur{border:2px solid var(--red)}
+.les.cur .n{background:var(--red);color:#fff}
+.les.done .n{background:var(--green);color:#fff}
+.les .t{flex:1}
+.les .t small{display:block;color:var(--mut);font-size:12px}
+.lock{color:var(--mut);font-size:12px}
+/* path */
+.path{display:flex;justify-content:space-between;align-items:center;position:relative;padding:10px 6px}
+.path:before{content:"";position:absolute;left:30px;right:30px;top:38px;border-top:3px dotted #D9C9B8}
+.stg{position:relative;text-align:center;width:31%;font-size:13px}
+.stg .c{width:56px;height:56px;border-radius:50%;margin:0 auto 6px;background:#fff;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:var(--mut)}
+.stg.on .c{border-color:var(--red);color:var(--red)}
+/* big word */
+.big{font-size:84px;text-align:center;line-height:1.1;margin:4px 0}
+.rowsel{display:flex;flex-direction:column;gap:10px}
+.rbtn{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--line);background:#fff;border-radius:14px;cursor:pointer;font:inherit;text-align:left;width:100%}
+.rbtn .w{font-size:34px;min-width:120px}
+.rbtn .w.py{font-size:30px;color:var(--red);font-weight:600}
+.rbtn .d{font-size:14px;color:var(--mut)}
+.rbtn.seen{border-color:#BFE3CD;background:#F7FCF9}
+.rbtn.right{border-color:var(--green);background:var(--greensoft)}
+.rbtn.wrong{border-color:var(--red);background:var(--redsoft)}
+/* tones */
+.tones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tone{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px;text-align:center;cursor:pointer;font:inherit;position:relative}
+.tone.heard{border-color:#BFE3CD}
+.tone.act{border-color:var(--red);background:var(--redsoft)}
+.tone svg{width:100%;height:46px}
+.tone .s{font-size:28px;color:var(--red);font-weight:600}
+.tone .e{font-weight:700}
+.tone small{display:block;color:var(--mut);font-size:12px;line-height:1.35}
+.tone .chk{position:absolute;top:6px;right:8px;color:var(--green);font-weight:700;font-size:14px}
+.chips{display:flex;gap:6px;justify-content:center}
+.chip{border:1px solid var(--line);background:#fff;border-radius:10px;padding:4px 6px;text-align:center;font-size:11px;color:var(--mut);width:23%}
+.chip svg{width:100%;height:22px}
+.chip.on{border-color:var(--red);color:var(--red)}
+.pad{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;touch-action:none}
+.pad canvas{display:block;width:100%;height:240px;touch-action:none}
+.pad .hd{position:absolute;left:12px;top:10px;display:flex;gap:8px;align-items:center;font-weight:600}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots i{width:28px;height:6px;border-radius:4px;background:var(--line)}
+.dots i.d{background:var(--green)}.dots i.c{background:var(--red)}
+/* pictures */
+.pics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pic{background:#fff;border:2px solid var(--line);border-radius:16px;padding:8px;cursor:pointer;font:inherit;text-align:center}
+.pic img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px;background:#FFF9F0}
+.pic .s{font-size:24px;color:var(--red);font-weight:600}
+.pic.right{border-color:var(--green);background:var(--greensoft)}
+.pic.wrong{border-color:var(--red);background:var(--redsoft)}
+/* build */
+.syls{display:flex;gap:14px;justify-content:center}
+.syl{text-align:center}
+.syl .zh{font-size:36px}
+.slots{display:flex;gap:6px;margin-top:6px}
+.slot{width:52px;height:52px;border:2px dashed #D9C9B8;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;background:#fff;cursor:pointer}
+.slot.f{border-style:solid}
+.slot small{font-size:10px}
+.lbl{font-size:11px;color:var(--mut);width:52px;text-align:center}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:60px}
+.tile{min-width:56px;height:52px;padding:0 10px;border:0;border-radius:12px;font:inherit;font-size:24px;font-weight:600;color:#fff;cursor:pointer}
+.tile.used{visibility:hidden}
+.c-i{background:#3D7CC9}.c-f{background:#D98324}.c-t{background:#C8102E}
+.slot.c-i,.slot.c-f,.slot.c-t{color:#fff;border-color:transparent}
+/* speak */
+.mic{width:76px;height:76px;border-radius:50%;border:0;background:var(--red);color:#fff;margin:0 auto;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mic svg{width:34px;height:34px}
+.mic.rec{animation:pulse .6s infinite;background:#9A1026}
+.leg{display:flex;gap:14px;justify-content:center;font-size:12px;color:var(--mut)}
+.leg i{display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:4px;vertical-align:middle}
+/* comic */
+.comic{position:relative;border-radius:16px;overflow:hidden;border:2px solid var(--ink);height:300px;background:linear-gradient(#F6EAD8 0 62%,#E5D3BA 62%)}
+.gate{position:absolute;left:8%;right:8%;top:19%;height:52%;border:10px solid #A0522D;border-bottom:0;border-radius:10px 10px 0 0}
+.gate:before{content:"";position:absolute;left:-26px;right:-26px;top:-24px;height:16px;background:#8B3A1E;border-radius:6px}
+.gate span{position:absolute;left:50%;top:-50px;transform:translateX(-50%);background:#fff;border:2px solid #8B3A1E;border-radius:6px;padding:0 10px;font-size:13px;font-weight:700;white-space:nowrap}
+.friend{position:absolute;left:4%;bottom:8px;height:190px;mix-blend-mode:multiply}
+.me{position:absolute;right:8%;bottom:10px;width:84px;height:150px}
+.me .hd{width:54px;height:54px;border-radius:50%;background:#F2C9A0;margin:0 auto;border:2px solid var(--ink)}
+.me .bd{width:84px;height:92px;border-radius:28px 28px 8px 8px;background:#3D7CC9;margin-top:4px;border:2px solid var(--ink)}
+.me small{position:absolute;bottom:-2px;left:0;right:0;text-align:center;color:#fff;font-size:12px;font-weight:700;bottom:30px}
+.bub{position:absolute;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:6px 12px;font-size:22px}
+.bub.f{left:26%;top:18%}
+.bub.m{right:4%;top:29%;min-width:110px;min-height:46px;text-align:center;border-style:dashed;color:var(--mut);font-size:14px;display:flex;align-items:center;justify-content:center}
+.bub.m.f2{border-style:solid;color:var(--ink);font-size:22px}
+/* reward */
+.stars{display:flex;justify-content:center;gap:8px}
+.stars svg{width:44px;height:44px}
+.list{display:flex;flex-direction:column;gap:8px}
+.li{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:15px}
+.li b{color:var(--green)}
+.sticker{margin:0 auto;border:3px solid var(--gold);border-radius:16px;background:#fff;padding:8px 22px;text-align:center}
+.sticker .zh{font-size:44px;line-height:1.2}
+.grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;width:120px;flex:none}
+.grid i{aspect-ratio:1;background:#EFE7DE;border-radius:2px}
+.grid i.on{background:var(--gold)}
+main[data-step="10"] .lama{height:84px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="hd"><button class="x" id="xbtn" aria-label="กลับสู่หนังสือ">&times;</button><div class="bar"><i id="barfill"></i></div><div class="stepn" id="stepn"></div></header>
+  <div class="proto">หน้าต้นแบบทดลอง ไม่บันทึกความคืบหน้า และไม่เชื่อมกับแอปจริง</div>
+  <main id="main"></main>
+  <footer id="ft"></footer>
+</div>
+<script>
+(function(){
+'use strict';
+var R='../../';
+var AUD={'你好':'440ee085','你':'5630b886','好':'27e4fe4c','妈':'e3918a99','麻':'433ea221','马':'7d39044e','骂':'63437068'};
+var TONES=[
+ {n:1,s:'mā',zh:'妈',ex:'"อ้าาา"',th:'คล้ายเสียง ปา',hand:'มือเลื่อนตรงไปข้างหน้า ระดับเดียวกันตลอด',d:'M10 14 L90 14',mean:'แม่'},
+ {n:2,s:'má',zh:'麻',ex:'"ห๊ะ?!"',th:'คล้ายเสียง ป๋า',hand:'มือยกขึ้นจากกลางไปสูง',d:'M10 34 L90 8',mean:'ป่าน'},
+ {n:3,s:'mǎ',zh:'马',ex:'"เอ่อ…"',th:'คล้ายเสียง ป่า',hand:'มือลดลงต่ำ แล้วยกขึ้นเล็กน้อย',d:'M10 22 Q40 52 62 38 T90 14',mean:'ม้า'},
+ {n:4,s:'mà',zh:'骂',ex:'"ไม่!"',th:'คล้ายเสียง ป้า',hand:'มือฟันลงจากสูงไปต่ำอย่างเร็ว',d:'M10 6 L90 40',mean:'ดุ'}
+];
+var SPK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+var MIC='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg>';
+var STAR='<svg viewBox="0 0 24 24"><path fill="#D9A21B" d="M12 2l3 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.7 21.4l1.5-7.1L1.8 9.4 9 8.6z"/></svg>';
+var main=document.getElementById('main'),ft=document.getElementById('ft');
+var S={step:1,done:false};
+var cur=null;
+function $(s,r){return (r||main).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||main).querySelectorAll(s))}
+function img(p,cls,alt){return '<img class="'+(cls||'')+'" src="'+R+p+'" alt="'+(alt||'')+'">'}
+function play(word,btn){
+  try{if(cur){cur.pause();cur=null}}catch(e){}
+  var h=AUD[word];
+  if(btn){btn.classList.add('play')}
+  var stop=function(){if(btn)btn.classList.remove('play')};
+  if(!h){tts(word,stop);return}
+  var a=new Audio(R+'audio/'+h+'.mp3');cur=a;
+  a.onended=stop;a.onerror=function(){stop();tts(word,stop)};
+  var p=a.play();if(p&&p.catch)p.catch(function(){stop();tts(word,stop)});
+}
+function tts(t,cb){try{var u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=.8;u.onend=cb;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){cb&&cb()}}
+function toneSvg(t,w){return '<svg viewBox="0 0 100 50" preserveAspectRatio="none"><path d="'+t.d+'" fill="none" stroke="#C8102E" stroke-width="'+(w||5)+'" stroke-linecap="round"/></svg>'}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function foot(html){ft.innerHTML=html}
+function next(){go(S.step+1)}
+function stage(n){return n<=2?'ก่อนเริ่ม':n<=5?'ด่าน 1':n<=8?'ด่าน 2':n<=11?'ด่าน 3':'จบบท'}
+function go(n){
+  S.step=Math.max(1,Math.min(13,n));
+  try{if(cur)cur.pause()}catch(e){}
+  stopRec();
+  document.getElementById('barfill').style.width=((S.step-1)/12*100)+'%';
+  document.getElementById('stepn').textContent=S.step+'/13';
+  var hdr=document.getElementById('hd');hdr.style.visibility=(S.step===1||S.step===13)?'hidden':'visible';
+  main.innerHTML='';foot('');
+  main.setAttribute('data-step',S.step);
+  STEPS[S.step]();
+  window.scrollTo(0,0);
+}
+document.getElementById('xbtn').onclick=function(){go(1)};
+
+function bookPage(after){
+  var L=[['เสียงแรก และคำว่า 你好','ด่าน 3 ด่าน · ประมาณ 5 นาที'],['พยัญชนะต้น','ชื่อชั่วคราว'],['สระ','ชื่อชั่วคราว'],['วรรณยุกต์และการอ่านพยางค์','ชื่อชั่วคราว']];
+  var h='<div class="bookhd"><div class="cover"><b>第一步</b><small>ก้าวแรก</small></div><div><p class="kick" style="text-align:left">หนังสือเล่มที่ 0</p><h1 style="text-align:left">ก้าวแรก</h1><div style="font-size:14px;color:var(--mut)">หน่วย 1 เสียงและพินอิน</div></div></div>';
+  h+='<div class="list">';
+  L.forEach(function(l,i){
+    var cls='les',right='';
+    if(i===0){cls+=after?' done':' cur';right=after?'<span style="color:var(--green);font-weight:700">เรียนแล้ว</span>':''}
+    else if(i===1&&after){cls+=' cur';right='<span style="color:var(--red);font-weight:700;font-size:13px">พร้อมเรียน</span>'}
+    else right='<span class="lock">ยังไม่เปิด</span>';
+    var num=(i===0&&after)?'&#10003;':(i+1);
+    h+='<div class="'+cls+'"><div class="n">'+num+'</div><div class="t">บทที่ '+(i+1)+' '+l[0]+'<small>'+l[1]+'</small></div>'+right+'</div>';
+  });
+  return h+'</div>';
+}
+var STEPS={
+1:function(){
+  main.innerHTML=bookPage(false)+'<div class="tip">เริ่มที่บทที่ 1 ได้ทันที ไม่ต้องมีพื้นฐานภาษาจีน</div>';
+  foot('<button class="btn" id="go">เริ่มบทที่ 1</button>');
+  $('#go',ft).onclick=next;
+},
+2:function(){
+  main.innerHTML='<p class="kick">บทที่ 1</p><h1>เสียงแรก และคำว่า <span class="zh">你好</span></h1>'+img('assets/mascot/wave.webp','lama','ลามา')+
+  '<div class="path"><div class="stg on"><div class="c">1</div>รู้จักภาษาจีน</div><div class="stg on"><div class="c">2</div>เสียงสูงต่ำ 4 เสียง</div><div class="stg on"><div class="c">3</div>คำแรก <span class="zh">你好</span></div></div>'+
+  '<div class="card" style="text-align:center"><div style="font-size:14px;color:var(--mut)">ใช้เวลาประมาณ 5 นาที</div><h2>จบบทนี้ คุณจะพูด <span class="zh">你好</span> ได้</h2></div>';
+  foot('<button class="btn" id="go">เริ่มด่าน 1</button>');$('#go',ft).onclick=next;
+},
+3:function(){
+  main.innerHTML='<p class="kick">ด่าน 1 · รู้จักภาษาจีน</p><h1>ฟังคำแรกของคุณ</h1>'+img('assets/art/word/你好.webp','lama','ลามาโบกมือทักทาย')+
+  '<div class="big zh">你好</div><div class="row" style="justify-content:center"><button class="spk" id="sp" aria-label="ฟังเสียง">'+SPK+'</button></div>'+
+  '<p class="kick" id="hint">แตะปุ่มเพื่อฟังเสียง</p><div class="ok hide" id="mean" style="text-align:center"><b>你好</b> แปลว่า <b>สวัสดี</b></div>';
+  foot('<button class="btn" id="go" disabled>ต่อไป</button>');
+  $('#sp').onclick=function(){play('你好',this);$('#mean').classList.remove('hide');$('#hint').textContent='ฟังซ้ำได้ตามต้องการ';$('#go',ft).disabled=false};
+  $('#go',ft).onclick=next;
+},
+4:function(){
+  main.innerHTML='<p class="kick">ด่าน 1 · รู้จักภาษาจีน</p><h1>คำเดียวกัน เขียนได้สองแถว</h1><p class="kick">แตะทีละแถวเพื่อดูว่าแต่ละแถวมีไว้ทำอะไร</p>'+
+  '<div class="rowsel"><button class="rbtn" data-k="zh"><span class="w zh">你好</span><span class="d" id="dzh">แตะเพื่อดู</span></button>'+
+  '<button class="rbtn" data-k="py"><span class="w py">nǐ hǎo</span><span class="d" id="dpy">แตะเพื่อดู</span></button></div>'+
+  '<div class="tip">พินอินเขียนด้วยอักษรโรมัน เครื่องหมายบนสระบอกเสียงสูงต่ำ</div>';
+  foot('<button class="btn" id="go" disabled>ต่อไป</button>');
+  var seen={};
+  $$('.rbtn').forEach(function(b){b.onclick=function(){var k=b.dataset.k;seen[k]=1;b.classList.add('seen');
+    if(k==='zh')$('#dzh').innerHTML='<b style="color:var(--ink)">ตัวจีน</b><br>บอกความหมาย';else{$('#dpy').innerHTML='<b style="color:var(--ink)">พินอิน</b><br>บอกวิธีอ่าน';play('你好')}
+    if(seen.zh&&seen.py)$('#go',ft).disabled=false}});
+  $('#go',ft).onclick=next;
+},
+5:function(){
+  main.innerHTML='<p class="kick">ด่าน 1 · ทายท้ายด่าน</p><h1>แถวไหนบอกวิธีอ่าน</h1>'+
+  '<div class="rowsel" style="margin-top:12px"><button class="rbtn" data-a="0"><span class="w zh">你好</span></button><button class="rbtn" data-a="1"><span class="w py">nǐ hǎo</span></button></div><div id="fb"></div>';
+  foot('<button class="btn g hide" id="go">ผ่านด่าน 1 ไปด่าน 2</button>');
+  $$('.rbtn').forEach(function(b){b.onclick=function(){
+    if(b.dataset.a==='1'){b.classList.add('right');$('#fb').innerHTML='<div class="ok pop">ถูกต้อง พินอินบอกวิธีอ่าน ส่วนตัวจีนบอกความหมาย</div>';$('#go',ft).classList.remove('hide');play('你好');$$('.rbtn').forEach(function(x){x.disabled=true})}
+    else{b.classList.add('wrong');$('#fb').innerHTML='<div class="bad pop">ยังไม่ใช่ ตัวจีนบอกความหมาย ลองเลือกอีกแถวหนึ่ง</div>'}}});
+  $('#go',ft).onclick=next;
+},
+6:function(){
+  var h='<p class="kick">ด่าน 2 · เสียงสูงต่ำ 4 เสียง</p><h1>รู้จัก 4 เสียง</h1><p class="kick">แตะฟังทีละเสียง แล้วทำท่ามือตาม</p><div class="tones">';
+  TONES.forEach(function(t,i){h+='<button class="tone" data-i="'+i+'"><span class="chk hide">&#10003;</span><div style="font-size:12px;color:var(--mut)">เสียง '+t.n+'</div>'+toneSvg(t)+'<div class="s py">'+t.s+'</div><div class="e">'+t.ex+'</div><small>'+t.th+'</small></button>'});
+  h+='</div><div class="tip" id="hand">แตะการ์ดเพื่อฟังเสียงและดูท่ามือ</div>';
+  main.innerHTML=h;
+  foot('<button class="btn" id="go" disabled>ฟังให้ครบ 4 เสียง</button>');
+  var heard={};
+  $$('.tone').forEach(function(b){b.onclick=function(){var t=TONES[+b.dataset.i];
+    $$('.tone').forEach(function(x){x.classList.remove('act')});b.classList.add('act','heard');$('.chk',b).classList.remove('hide');
+    play(t.zh);heard[t.n]=1;
+    $('#hand').innerHTML='<b>เสียง '+t.n+' <span class="py">'+t.s+'</span></b> ท่ามือ: '+t.hand+'<br>นึกถึงคำอุทาน '+t.ex+' ('+t.th+')';
+    var n=Object.keys(heard).length;var g=$('#go',ft);if(n===4){g.disabled=false;g.textContent='ต่อไป'}else g.textContent='ฟังแล้ว '+n+' จาก 4 เสียง'}});
+  $('#go',ft).onclick=next;
+},
+7:function(){
+  var order=shuffle([0,1,2,3]),k=0,ok=0;
+  var chips='<div class="chips">'+TONES.map(function(t){return '<div class="chip">เสียง '+t.n+toneSvg(t,7)+'<span class="py">'+t.s+'</span></div>'}).join('')+'</div>';
+  main.innerHTML='<p class="kick">ด่าน 2 · เสียงสูงต่ำ 4 เสียง</p><h1>ฟังแล้วลากนิ้วตามเสียง</h1>'+chips+
+  '<div class="pad" id="pad"><div class="hd"><button class="spk s" id="sp" aria-label="ฟังอีกครั้ง">'+SPK+'</button><span id="q">ฟังเสียง</span></div><canvas id="cv"></canvas></div>'+
+  '<div class="dots" id="dots"><i></i><i></i><i></i><i></i></div><div id="fb"><div class="tip">ฟังเสียง แล้วลากนิ้วจากซ้ายไปขวาตามระดับเสียงที่ได้ยิน</div></div>';
+  foot('<button class="btn" id="go" disabled>ลากเส้นให้ครบ 4 ข้อ</button>');
+  var cv=$('#cv'),ctx=cv.getContext('2d'),W,H,pts=[],drawing=false,locked=false;
+  function size(){var r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);redraw()}
+  function guide(t,col,dash){ // map tone path (100x50) to canvas
+    var p=new Path2D();var m=new DOMMatrix([ (W-60)/100,0,0,(H-90)/50,30,60]);p.addPath(new Path2D(t.d),m);
+    ctx.save();ctx.setLineDash(dash?[2,12]:[]);ctx.lineCap='round';ctx.strokeStyle=col;ctx.lineWidth=dash?10:6;ctx.stroke(p);ctx.restore()}
+  function redraw(show){ctx.clearRect(0,0,W,H);ctx.strokeStyle='#F0E7DD';ctx.lineWidth=1;for(var i=1;i<5;i++){var y=60+(H-90)*i/5;ctx.beginPath();ctx.moveTo(20,y);ctx.lineTo(W-20,y);ctx.stroke()}
+    if(show)guide(TONES[order[k]],'#C9B8A6',true);
+    if(pts.length>1){ctx.strokeStyle='#C8102E';ctx.lineWidth=8;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);pts.forEach(function(p){ctx.lineTo(p[0],p[1])});ctx.stroke()}}
+  function pos(e){var r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]}
+  cv.addEventListener('pointerdown',function(e){if(locked)return;drawing=true;pts=[pos(e)];try{cv.setPointerCapture(e.pointerId)}catch(_){}redraw(false);e.preventDefault()});
+  cv.addEventListener('pointermove',function(e){if(!drawing)return;pts.push(pos(e));redraw(false)});
+  function up(){if(!drawing)return;drawing=false;judge()}
+  cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+  function classify(p){if(p.length<4)return 0;var xs=p.map(function(a){return a[0]}),hs=p.map(function(a){return -a[1]/H});
+    var span=Math.max.apply(0,xs)-Math.min.apply(0,xs);if(span<W*.3)return 0;
+    var s=hs[0],e=hs[hs.length-1],mn=Math.min.apply(0,hs),mx=Math.max.apply(0,hs),mi=hs.indexOf(mn)/hs.length;
+    if(mx-mn<.13)return 1;
+    if(mn<s-.1&&mn<e-.08&&mi>.15&&mi<.9)return 3;
+    if(e-s>.12)return 2;if(s-e>.12)return 4;return 0}
+  function judge(){var t=TONES[order[k]],c=classify(pts);var fb=$('#fb');
+    if(c===t.n){locked=true;ok++;$$('#dots i')[k].className='d';fb.innerHTML='<div class="ok pop">ถูกต้อง นี่คือเสียง '+t.n+' <b class="py">'+t.s+'</b> '+t.ex+'</div>';$$('.chip')[t.n-1].classList.add('on');
+      setTimeout(function(){k++;if(k<4){locked=false;pts=[];redraw();ask()}else{$('#q').textContent='ครบ 4 ข้อแล้ว';var g=$('#go',ft);g.disabled=false;g.className='btn g';g.textContent='ต่อไป'}},1100)}
+    else{fb.innerHTML='<div class="bad pop">'+(c?'เส้นที่ลากเป็นเสียง '+c+' ':'ยังจับเส้นไม่ได้ ')+'ลองฟังอีกครั้ง แล้วลากตามเส้นจุดที่แสดง</div>';setTimeout(function(){pts=[];redraw(true)},500)}}
+  function ask(){var t=TONES[order[k]];$$('#dots i')[k].className='c';$('#q').textContent='ข้อ '+(k+1)+' จาก 4';play(t.zh,$('#sp'));$('#fb').innerHTML='<div class="tip">ฟังแล้วลากนิ้วตามเสียง ขยับมือตามไปด้วย</div>'}
+  $('#sp').onclick=function(){play(TONES[order[k<4?k:3]].zh,this)};
+  window.__proto7={order:order,cv:cv,size:function(){return [W,H]}};
+  size();window.addEventListener('resize',size);
+  setTimeout(ask,300);
+  $('#go',ft).onclick=next;
+},
+8:function(){
+  var rounds=shuffle(['马','妈']),k=0;
+  main.innerHTML='<p class="kick">ด่าน 2 · เสียงสูงต่ำ 4 เสียง</p><h1>เสียงเปลี่ยน ความหมายเปลี่ยน</h1><div class="row" style="justify-content:center"><button class="spk" id="sp" aria-label="ฟังเสียง">'+SPK+'</button><span id="q" style="font-weight:600">ฟังแล้วแตะภาพที่ตรงกับเสียง</span></div>'+
+  '<div class="pics"><button class="pic" data-z="妈">'+img('assets/art/word/妈妈.webp','','แม่')+'<div class="s"><span class="zh">妈</span> <span class="py">mā</span></div><div>แม่</div></button>'+
+  '<button class="pic" data-z="马">'+img('assets/art/word/马.webp','','ม้า')+'<div class="s"><span class="zh">马</span> <span class="py">mǎ</span></div><div>ม้า</div></button></div><div id="fb"></div>';
+  foot('<button class="btn g hide" id="go">ผ่านด่าน 2 ไปด่าน 3</button>');
+  function ask(){$$('.pic').forEach(function(p){p.className='pic'});$('#q').textContent='ข้อ '+(k+1)+' จาก 2 · ฟังแล้วแตะภาพ';play(rounds[k],$('#sp'))}
+  $('#sp').onclick=function(){play(rounds[k<2?k:1],this)};
+  $$('.pic').forEach(function(p){p.onclick=function(){if(k>=2)return;
+    if(p.dataset.z===rounds[k]){p.classList.add('right');k++;
+      if(k<2){$('#fb').innerHTML='<div class="ok pop">ถูกต้อง</div>';setTimeout(ask,900)}
+      else{$('#fb').innerHTML='<div class="ok pop">ถูกต้องทั้งสองข้อ พยางค์ <b class="py">ma</b> เหมือนกัน แต่เสียงต่างกัน ความหมายจึงต่างกัน เรียกแม่ด้วยเสียง 3 จะกลายเป็นเรียกม้า</div>';$('#go',ft).classList.remove('hide')}}
+    else{p.classList.add('wrong');$('#fb').innerHTML='<div class="bad pop">ยังไม่ใช่ ฟังอีกครั้ง เสียง 1 ระดับเดียวกันตลอด ส่วนเสียง 3 ลดลงแล้วขึ้น</div>';play(rounds[k])}}});
+  setTimeout(ask,300);$('#go',ft).onclick=next;
+},
+9:function(){
+  var target=[['n','i','ˇ'],['h','ao','ˇ']],cls=['c-i','c-f','c-t'],lab=['พยัญชนะ','สระ','วรรณยุกต์'];
+  var tiles=shuffle([['n',0],['i',1],['ˇ',2],['h',0],['ao',1],['ˇ',2],['m',0],['a',1]]);
+  var fill=[[null,null,null],[null,null,null]];
+  function syl(i,zh){return '<div class="syl"><div class="zh">'+zh+'</div><div class="slots">'+[0,1,2].map(function(j){return '<div class="slot" data-s="'+i+'" data-j="'+j+'"></div>'}).join('')+'</div><div class="slots">'+lab.map(function(l){return '<div class="lbl">'+l+'</div>'}).join('')+'</div></div>'}
+  main.innerHTML='<p class="kick">ด่าน 3 · คำแรก 你好</p><h1>ต่อชิ้นพินอินของ <span class="zh">你好</span></h1><p class="kick">แตะชิ้นสีเพื่อวางลงช่อง สีเดียวกันอยู่ในช่องเดียวกัน แตะช่องเพื่อนำชิ้นออก</p>'+
+  '<div class="card"><div class="syls">'+syl(0,'你')+syl(1,'好')+'</div></div><div class="tiles">'+tiles.map(function(t,i){return '<button class="tile '+cls[t[1]]+'" data-i="'+i+'">'+t[0]+'</button>'}).join('')+'</div><div id="fb"><div class="tip">หนึ่งพยางค์มี 3 ส่วน คือ พยัญชนะต้น สระ และวรรณยุกต์</div></div>';
+  foot('<button class="btn hide" id="go">ต่อไป</button>');
+  function render(){$$('.slot').forEach(function(sl){var v=fill[sl.dataset.s][sl.dataset.j];sl.className='slot'+(v!=null?' f '+cls[sl.dataset.j]:'');sl.textContent=v!=null?tiles[v][0]:''});
+    $$('.tile').forEach(function(t){var used=fill[0].concat(fill[1]).indexOf(+t.dataset.i)>=0;t.classList.toggle('used',used)})}
+  $$('.tile').forEach(function(t){t.onclick=function(){var tp=tiles[+t.dataset.i][1];for(var s=0;s<2;s++){if(fill[s][tp]==null){fill[s][tp]=+t.dataset.i;break}}render();check()}});
+  $$('.slot').forEach(function(sl){sl.onclick=function(){fill[sl.dataset.s][sl.dataset.j]=null;render()}});
+  function check(){var full=fill.every(function(r){return r.every(function(v){return v!=null})});if(!full)return;
+    var good=fill.every(function(r,s){return r.every(function(v,j){return tiles[v][0]===target[s][j]})});
+    if(good){$('#fb').innerHTML='<div class="ok pop"><b class="py">n + i + ˇ = nǐ</b> แปลว่า คุณ<br><b class="py">h + ao + ˇ = hǎo</b> แปลว่า ดี<br>รวมกันเป็น <b class="zh">你好</b> <b class="py">nǐ hǎo</b> สวัสดี</div>';$$('.tile').forEach(function(t){t.disabled=true});$$('.slot').forEach(function(s){s.onclick=null});
+      play('你');setTimeout(function(){play('好')},1300);setTimeout(function(){play('你好')},2600);$('#go',ft).classList.remove('hide')}
+    else $('#fb').innerHTML='<div class="bad pop">ยังไม่ถูก ฟังเสียง nǐ กับ hǎo แล้วลองใหม่ แตะช่องที่ผิดเพื่อนำชิ้นออก</div>'}
+  render();$('#go',ft).onclick=next;
+},
+10:function(){
+  main.innerHTML='<p class="kick">ด่าน 3 · คำแรก 你好</p><h1>พูดตามลามา</h1>'+img('assets/mascot/speaking.webp','lama','ลามาถือไมค์')+
+  '<div class="card" style="text-align:center"><div class="zh" style="font-size:40px">你好</div><div class="py" style="font-size:20px">เขียน <b style="color:var(--red)">nǐ hǎo</b> แต่อ่าน <b style="color:var(--red)">ní hǎo</b></div><div style="font-size:13px;color:var(--mut)">เสียง 3 สองตัวอยู่ติดกัน ตัวแรกออกเสียงเป็นเสียง 2</div><button class="spk s" id="sp" style="margin-top:6px" aria-label="ฟังลามา">'+SPK+'</button></div>'+
+  '<div class="pad"><canvas id="pc" style="height:120px"></canvas></div><div class="leg"><span><i style="background:#C9B8A6"></i>เส้นเสียงของลามา</span><span><i style="background:#C8102E"></i>เส้นเสียงของคุณ</span></div>'+
+  '<button class="mic" id="mic" aria-label="กดเพื่อพูด">'+MIC+'</button><p class="kick" id="mst">กดไมค์ แล้วพูด 你好 (ไมค์ไม่บังคับ)</p><div id="fb"></div>';
+  foot('<button class="btn o" id="tap">พูดแล้ว (ไม่ใช้ไมค์)</button><button class="btn hide" id="go">ต่อไป</button>');
+  var pc=$('#pc');drawPitch(pc,[]);
+  $('#sp').onclick=function(){play('你好',this)};
+  setTimeout(function(){play('你好',$('#sp'))},300);
+  function pass(msg){$('#fb').innerHTML='<div class="ok pop">'+msg+'</div>';$('#tap',ft).classList.add('hide');$('#go',ft).classList.remove('hide')}
+  $('#tap',ft).onclick=function(){drawPitch(pc,null,true);pass('ดีมาก ลองฟังลามาอีกครั้งแล้วเทียบกับเสียงของคุณ เสียงแรกขึ้น เสียงที่สองลงแล้วขึ้น')};
+  $('#mic').onclick=function(){var b=this;if(REC.on)return;
+    record(1800,function(st){$('#mst').textContent=st;b.classList.toggle('rec',st==='กำลังฟัง… พูด 你好')},function(arr){b.classList.remove('rec');
+      if(!arr){$('#mst').textContent='ใช้ไมค์ไม่ได้ในเครื่องนี้ แตะปุ่ม "พูดแล้ว" ด้านล่างแทนได้';return}
+      drawPitch(pc,arr);var n=arr.filter(function(v){return v!=null}).length;
+      if(n<5){$('#mst').textContent='ยังไม่ได้ยินเสียง ลองพูดดังขึ้นอีกนิด';return}
+      $('#mst').textContent='ได้ยินเสียงของคุณแล้ว';pass('ดีมาก เทียบเส้นสีแดงกับเส้นของลามา ถ้ายังไม่ตรง กดไมค์พูดซ้ำได้')})};
+  $('#go',ft).onclick=next;
+},
+11:function(){
+  main.innerHTML='<p class="kick">ด่าน 3 · ใช้จริง</p><h1>เพื่อนทักคุณที่ประตูโรงเรียน</h1>'+
+  '<div class="comic"><div class="gate"><span>โรงเรียน</span></div>'+img('assets/art/word/你好.webp','friend','เพื่อนลามา')+
+  '<div class="bub f zh pop">你好！</div><div class="bub m" id="mb">คำตอบของคุณ</div><div class="me"><div class="hd"></div><div class="bd"></div><small>คุณ</small></div></div>'+
+  '<p class="kick" id="mst">พูด 你好！ ตอบเพื่อน</p><div id="fb"></div>';
+  foot('<button class="btn" id="mic">กดไมค์แล้วพูดตอบ</button><button class="btn o" id="tap">แตะเพื่อตอบ (ไม่ใช้ไมค์)</button><button class="btn g hide" id="go">ไปหน้าจบบท</button>');
+  setTimeout(function(){play('你好')},300);
+  function done(){var m=$('#mb');m.className='bub m f2 zh pop';m.textContent='你好！';$('#fb').innerHTML='<div class="ok pop">เยี่ยม คุณทักทายเพื่อนเป็นภาษาจีนได้แล้ว</div>';
+    ['#mic','#tap'].forEach(function(s){$(s,ft).classList.add('hide')});$('#go',ft).classList.remove('hide')}
+  $('#tap',ft).onclick=function(){play('你好');done()};
+  $('#mic',ft).onclick=function(){var b=this;if(REC.on)return;record(1500,function(st){$('#mst').textContent=st},function(arr){
+    if(!arr){$('#mst').textContent='ใช้ไมค์ไม่ได้ในเครื่องนี้ แตะปุ่ม "แตะเพื่อตอบ" แทนได้';return}
+    if(arr.filter(function(v){return v!=null}).length<5){$('#mst').textContent='ยังไม่ได้ยินเสียง ลองพูดอีกครั้ง';return}done()})};
+  $('#go',ft).onclick=next;
+},
+12:function(){
+  var g='';for(var i=0;i<32;i++)g+='<i'+(i===0?' class="on"':'')+'></i>';
+  main.innerHTML='<p class="kick">จบบทที่ 1 แล้ว</p>'+img('assets/mascot/celebrate.webp','lama','ลามาดีใจ')+'<div class="stars">'+STAR+STAR+STAR+'</div><h1>วันนี้คุณทำได้ 3 อย่าง</h1>'+
+  '<div class="list"><div class="li"><b>&#10003;</b><span>รู้ว่าตัวจีนบอกความหมาย ส่วนพินอินบอกวิธีอ่าน</span></div><div class="li"><b>&#10003;</b><span>ฟังและแยกวรรณยุกต์ 4 เสียงได้</span></div><div class="li"><b>&#10003;</b><span>พูด <span class="zh">你好</span> ได้ถูกเสียง และใช้ทักทายได้</span></div></div>'+
+  '<div class="row"><div class="sticker pop"><div style="font-size:11px;color:var(--mut)">สติกเกอร์ใหม่</div><div class="zh">你好</div><div class="py" style="color:var(--red)">nǐ hǎo</div><div style="font-size:12px">สวัสดี</div></div><div class="card" style="flex:1;display:flex;gap:10px;align-items:center;padding:10px"><div class="grid">'+g+'</div><div style="font-size:13px">ตารางพินอินสว่างช่องแรกแล้ว</div></div></div>';
+  foot('<button class="btn g" id="go">กลับสู่หนังสือ</button>');
+  setTimeout(function(){play('你好')},400);$('#go',ft).onclick=next;
+},
+13:function(){
+  main.innerHTML=bookPage(true)+'<div class="ok">จบบทที่ 1 แล้ว บทที่ 2 พร้อมให้เรียน</div><div class="tip">หน้านี้เป็นต้นแบบของบทที่ 1 เท่านั้น บทที่ 2 ยังไม่ได้สร้าง</div>';
+  foot('<button class="btn" id="l2" disabled>เรียนบทที่ 2 (ยังไม่มีในต้นแบบ)</button><button class="btn o" id="again">เล่นบทที่ 1 อีกครั้ง</button>');
+  $('#again',ft).onclick=function(){go(1)};
+}
+};
+/* ---- pitch (mic optional) ---- */
+var REC={on:false,stream:null,ctx:null,timer:null};
+function stopRec(){try{if(REC.timer)clearInterval(REC.timer);if(REC.stream)REC.stream.getTracks().forEach(function(t){t.stop()});if(REC.ctx)REC.ctx.close()}catch(e){}REC.on=false;REC.stream=REC.ctx=REC.timer=null}
+function record(ms,status,cb){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!(window.AudioContext||window.webkitAudioContext)){cb(null);return}
+  status('กำลังขอใช้ไมค์…');REC.on=true;
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){
+    var AC=window.AudioContext||window.webkitAudioContext,ac=new AC(),src=ac.createMediaStreamSource(st),an=ac.createAnalyser();an.fftSize=2048;src.connect(an);
+    REC.stream=st;REC.ctx=ac;var buf=new Float32Array(an.fftSize),out=[],t0=Date.now();status('กำลังฟัง… พูด 你好');
+    REC.timer=setInterval(function(){an.getFloatTimeDomainData(buf);out.push(pitch(buf,ac.sampleRate));if(Date.now()-t0>ms){stopRec();status('');cb(out)}},40);
+  }).catch(function(){stopRec();cb(null)});
+}
+function pitch(b,sr){var n=b.length,rms=0;for(var i=0;i<n;i++)rms+=b[i]*b[i];rms=Math.sqrt(rms/n);if(rms<.015)return null;
+  var minL=Math.floor(sr/400),maxL=Math.floor(sr/75),best=0,bl=-1;
+  for(var l=minL;l<=maxL;l++){var c=0;for(var j=0;j<n-l;j++)c+=b[j]*b[j+l];if(c>best){best=c;bl=l}}
+  return bl>0?12*Math.log2(sr/bl/100):null}
+function drawPitch(cv,arr,demo){var r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1,W=r.width,H=r.height;cv.width=W*d;cv.height=H*d;var c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,W,H);
+  // model: ní (rising) + hǎo (dip-rise)
+  c.save();c.setLineDash([2,10]);c.lineCap='round';c.strokeStyle='#C9B8A6';c.lineWidth=8;c.beginPath();c.moveTo(W*.08,H*.6);c.lineTo(W*.42,H*.22);c.moveTo(W*.55,H*.5);c.quadraticCurveTo(W*.72,H*.98,W*.92,H*.3);c.stroke();c.restore();
+  c.fillStyle='#7A6F68';c.font='13px Inter,sans-serif';c.fillText('ní',W*.22,H*.95);c.fillText('hǎo',W*.7,H*.2);
+  var pts=[];
+  if(demo){c.strokeStyle='#C8102E';c.lineWidth=5;c.lineCap='round';c.beginPath();c.moveTo(W*.1,H*.58);c.lineTo(W*.4,H*.27);c.moveTo(W*.56,H*.52);c.quadraticCurveTo(W*.72,H*.9,W*.9,H*.36);c.stroke();return}
+  if(!arr||!arr.length)return;var v=arr.filter(function(x){return x!=null});if(!v.length)return;var mn=Math.min.apply(0,v),mx=Math.max.apply(0,v),rg=Math.max(mx-mn,4);
+  c.strokeStyle='#C8102E';c.lineWidth=5;c.lineCap='round';c.beginPath();var pen=false;
+  arr.forEach(function(x,i){if(x==null){pen=false;return}var X=W*.06+W*.88*i/(arr.length-1),Y=H*.88-(x-mn)/rg*H*.76;if(pen)c.lineTo(X,Y);else c.moveTo(X,Y);pen=true});c.stroke()}
+/* ---- keep the app's offline copy intact: this page sits inside the app's service-worker scope,
+   which stores any "…/" page it loads as the app's offline index.html. Put the real app page back. ---- */
+function repairShell(){try{if(!('caches' in window)||!navigator.serviceWorker||!navigator.serviceWorker.controller)return;
+  var appIdx=new URL(R+'index.html',location.href).href;
+  caches.keys().then(function(ks){ks.forEach(function(k){caches.open(k).then(function(c){c.match(appIdx,{ignoreSearch:true}).then(function(h){
+    if(!h)return;h.clone().text().then(function(t){if(t.indexOf('ต้นแบบบทที่ 1')<0)return;fetch(appIdx,{cache:'no-cache'}).then(function(res){if(res.ok)c.put(appIdx,res)})})})})})})}catch(e){}}
+setTimeout(repairShell,2500);setTimeout(repairShell,8000);
+var m=/[?&]step=(\d+)/.exec(location.search);go(m?+m[1]:1);
+window.__proto={go:go,state:S};
+})();
+</script>
+</body>
+</html>

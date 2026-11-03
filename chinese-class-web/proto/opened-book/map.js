@@ -1,6 +1,6 @@
 (function(){
 const T = window.THEME, B = window.BOOK;
-const ART = '../../../assets/art/l1/';
+const ART = '../img/llama/';
 const POSE = {idle:'t20-present', move:'e03-excited', done:'t05-thumbsup', lock:'e08-thinking', boss:'t19-pointcorner', fin:'t06-trophy', hello:'t12-hello'};
 Object.values(POSE).forEach(p=>{const i=new Image(); i.src=ART+p+'.webp';});
 const STAR = '<svg viewBox="0 0 24 24"><path d="M12 1.8l3 6.4 7 .8-5.2 4.8 1.4 6.9L12 17.2l-6.2 3.5 1.4-6.9L2 9l7-.8z" fill="#ffd34d" stroke="#c98a0b" stroke-width="1.3" stroke-linejoin="round"/></svg>';

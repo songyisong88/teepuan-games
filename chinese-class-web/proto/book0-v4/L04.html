@@ -7,7 +7,7 @@
 <title>ต้นแบบ · บท 0-4</title>
 </head><body>
 <script>
-const MI=w('米','mǐ','ข้าวสาร'),TU=w('兔子','tùzi','กระต่าย'),NV=w('女孩','nǚhái','เด็กผู้หญิง'),LV=w('绿','lǜ','สีเขียว');
+const MI=w('米','mǐ','ข้าวสาร',{img:'art/mi-rice.webp'}),TU=w('兔子','tùzi','กระต่าย'),NV=w('女孩','nǚhái','เด็กผู้หญิง'),LV=w('绿','lǜ','สีเขียว');
 const MC=(list)=>`<div class="mcards3">${list.map(([m,l,k,s])=>`<button class="press" data-play="${k}">${mouth(m,'',84)}<span class="py">${l}</span><small>${s}</small></button>`).join('')}</div>`;
 LESSON({no:4,goal:{do:'อ่าน <span class="gz">女孩和兔子</span> ได้',sub:'สระ i u ü และวิธีทำเสียง ü',min:5},steps:[
  hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "กระต่าย"',pic:TU,cards:[MI.k,TU.k],ans:1,fb:'เสียง A คือ <b>mǐ</b> <span class="zh">米</span> = ข้าวสาร · เสียง B คือ <b>tùzi</b> <span class="zh">兔子</span> = กระต่าย'}),

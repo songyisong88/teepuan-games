@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>สาธิตบทที่ 17 · เลข 0–10 และถามราคา</title>
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png"><link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="demo.css">
+<style>
+.scene{position:relative;height:250px;border-radius:16px;overflow:hidden;border:1.5px solid var(--ink);background:linear-gradient(#F6EAD8 0 68%,#E8D8C1 68%)}
+.scene .seller{position:absolute;left:4%;bottom:4px;height:220px;animation:rise .5s ease-out both}
+.scene .basket{position:absolute;right:6%;bottom:10px;width:120px;animation:rise .6s ease-out both}
+.scene .apple{position:absolute;right:16%;top:16%;width:96px;opacity:0;transform:scale(.4);transition:all .5s cubic-bezier(.3,1.5,.6,1)}
+.scene .apple.on{opacity:1;transform:scale(1)}
+.scene .q{position:absolute;right:20%;top:20%;width:64px;height:64px;border-radius:50%;background:#fff;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--sub);font-weight:700;transition:opacity .3s}
+.readc{text-align:center}
+.readc .py{font-family:Inter,sans-serif;font-size:38px;font-weight:700;color:var(--red);letter-spacing:.5px}
+.readc .py span{display:inline-block;transition:color .2s,transform .2s}
+.readc .py span.hl{color:var(--ink);transform:translateY(-4px)}
+.ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.nbtn{border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px 2px 4px;cursor:pointer;text-align:center;animation:rise .35s ease-out both;transition:border-color .2s,background .2s}
+.nbtn b{display:block;font-family:Inter,sans-serif;font-size:22px;color:var(--ink)}
+.nbtn .zh{font-size:20px;display:block;line-height:1.2}
+.nbtn small{display:block;font-size:12px;color:var(--red);font-family:Inter,sans-serif;font-weight:600}
+.nbtn.on{border-color:var(--ok);background:var(--oksoft)}
+.nbtn.play{border-color:var(--red);background:var(--redsoft)}
+.vsel{display:flex;gap:6px;justify-content:center}
+.vsel button{border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:5px 14px;font-size:13px;cursor:pointer;color:var(--sub)}
+.vsel button.on{border-color:var(--red);color:var(--red);background:var(--redsoft);font-weight:600}
+.rhyme{display:flex;flex-wrap:nowrap;justify-content:center;gap:0 1px;font-size:22px}
+.rhyme span{padding:0 3px;border-radius:6px;transition:background .15s,color .15s}
+.rhyme span.hl{background:var(--red);color:#fff}
+.hands{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.hbtn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:4px 2px;cursor:pointer;text-align:center;animation:rise .35s ease-out both}
+.hbtn svg{width:100%;height:auto;display:block}
+.hbtn b{font-family:Inter,sans-serif;font-size:16px}
+.hbtn.on{border-color:var(--ok);background:var(--oksoft)}
+.hbtn.cur{border-color:var(--red)}
+.hbig{display:flex;gap:12px;align-items:center}
+.hbig svg{width:118px;height:auto;flex:none;animation:pop .35s ease-out both}
+.hbig .t{font-size:14.5px;line-height:1.5}
+.hbig .t .zh{font-size:30px;color:var(--ink)}
+.opt svg{width:72px;height:auto;display:block;margin:0 auto}
+.opts.three{grid-template-columns:repeat(3,1fr)}
+.timer{height:6px;background:var(--line);border-radius:4px;overflow:hidden}.timer i{display:block;height:100%;background:var(--gold);width:100%}
+.sec{font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.comic .basket{position:absolute;left:36%;bottom:8px;width:74px}
+.comic .tag{right:auto;left:40%;top:auto;bottom:70px;font-size:18px}
+.tag.bump{animation:good .5s ease}
+.nbook{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.nbook div{background:#F3ECE4;border-radius:10px;padding:4px 0;text-align:center;color:#B9ACA0;transition:all .4s}
+.nbook div .zh{font-size:20px;display:block}
+.nbook div small{font-family:Inter,sans-serif;font-size:11px}
+.nbook div.on{background:var(--redsoft);color:var(--red)}
+</style>
+</head><body>
+<script src="audio.js"></script><script src="demo.js"></script>
+<script>
+(function(){
+var h=B0.h,R=B0.R;
+var N=[{d:0,zh:'零',py:'líng',th:'ศูนย์'},{d:1,zh:'一',py:'yī',th:'หนึ่ง'},{d:2,zh:'二',py:'èr',th:'สอง'},{d:3,zh:'三',py:'sān',th:'สาม'},{d:4,zh:'四',py:'sì',th:'สี่'},{d:5,zh:'五',py:'wǔ',th:'ห้า'},{d:6,zh:'六',py:'liù',th:'หก'},{d:7,zh:'七',py:'qī',th:'เจ็ด'},{d:8,zh:'八',py:'bā',th:'แปด'},{d:9,zh:'九',py:'jiǔ',th:'เก้า'},{d:10,zh:'十',py:'shí',th:'สิบ'}];
+/* Chinese hand-number gestures, drawn in code */
+var SK='#F2C9A5',ST='#A8714B';
+function fing(x,up){return up?'<rect x="'+(x-5.5)+'" y="12" width="11" height="44" rx="5.5" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>':'<rect x="'+(x-5.5)+'" y="44" width="11" height="15" rx="5.5" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>'}
+function thumb(up){return up?'<rect x="-6" y="0" width="12" height="34" rx="6" transform="translate(28 82) rotate(-58)" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>':'<rect x="30" y="66" width="30" height="12" rx="6" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>'}
+var palm='<rect x="24" y="48" width="54" height="56" rx="16" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>';
+var FX=[33,45,57,69];
+function hand(n){var o='<svg viewBox="0 0 100 112">',f=[0,0,0,0],t=0;
+ if(n===10){return o+'<rect x="20" y="70" width="26" height="34" rx="10" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/><rect x="54" y="70" width="26" height="34" rx="10" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>'+
+  '<rect x="44.5" y="14" width="11" height="62" rx="5.5" fill="'+SK+'" stroke="'+ST+'" stroke-width="2" transform="rotate(-24 50 60)"/><rect x="44.5" y="14" width="11" height="62" rx="5.5" fill="'+SK+'" stroke="'+ST+'" stroke-width="2" transform="rotate(24 50 60)"/></svg>'}
+ if(n===7){var P=function(d){return '<path d="'+d+'" fill="none" stroke="'+ST+'" stroke-width="13" stroke-linecap="round"/><path d="'+d+'" fill="none" stroke="'+SK+'" stroke-width="9" stroke-linecap="round"/>'};
+  return o+'<path d="M30 104 Q24 70 36 54 L64 54 Q76 70 70 104 Z" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>'+P('M66 56 Q64 34 52 20')+P('M58 54 Q58 32 51 18')+P('M42 54 Q42 32 49 18')+P('M34 58 Q36 34 48 20')+P('M30 80 Q26 50 47 22')+'<circle cx="50" cy="19" r="5" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/></svg>'}
+ if(n===9){return o+palm+fing(45,0)+fing(57,0)+fing(69,0)+thumb(0)+'<path d="M33 54 L33 26 Q33 14 43 18 L45 30" fill="none" stroke="'+ST+'" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M33 54 L33 26 Q33 14 43 18 L45 30" fill="none" stroke="'+SK+'" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
+ if(n>=1&&n<=4)for(var i=0;i<n;i++)f[i]=1;
+ if(n===3)f=[0,1,1,1];
+ if(n===5){f=[1,1,1,1];t=1}
+ if(n===6){f=[0,0,0,1];t=1}
+ if(n===8){f=[1,0,0,0];t=1}
+ return o+palm+FX.map(function(x,i){return fing(x,f[i])}).join('')+thumb(t)+(n===3?'<circle cx="33" cy="50" r="7" fill="'+SK+'" stroke="'+ST+'" stroke-width="2"/>':'')+'</svg>'}
+var HD={0:'กำมือ',1:'ชูนิ้วชี้',2:'ชูนิ้วชี้และนิ้วกลาง',3:'ชูนิ้วกลาง นาง ก้อย',4:'ชูสี่นิ้ว พับนิ้วโป้ง',5:'กางทั้งห้านิ้ว',6:'ชูนิ้วโป้งกับนิ้วก้อย คล้ายท่าโทรศัพท์',7:'จีบปลายนิ้วทั้งห้าเข้าหากัน',8:'กางนิ้วโป้งกับนิ้วชี้ เป็นรูปตัว L',9:'งอนิ้วชี้เป็นตะขอ',10:'ไขว้นิ้วชี้สองมือเป็นรูป 十 หรือกำมือ'};
+function oT(zh,py,th,ok){return {ok:ok,html:'<span class="zh" style="font-size:26px">'+zh+'</span><span class="py" style="font-size:17px">'+py+'</span><small>'+th+'</small>'}}
+
+B0.run({title:'บทที่ 17 เลข 0–10 และถามราคา',steps:[
+{stage:'ก่อนเริ่ม',name:'ทวนสั้น · บทที่ 16',ins:'ฟังคำ แล้วแตะความหมายที่ถูกต้อง',
+ guide:'ก่อนเริ่ม ทวนคำทักทายจากบทที่แล้ว 2 ข้อ',guideImg:'assets/mascot/wave.webp',
+ render:B0.pick([
+  {play:'谢谢',ask:'คำนี้แปลว่าอะไร',opts:[{ok:1,html:'<span class="py" style="font-size:18px">ขอบคุณ</span>'},{ok:0,html:'<span class="py" style="font-size:18px">ลาก่อน</span>'}],explain:{ok:'xièxie 谢谢 ขอบคุณ วันนี้จะได้ใช้ตอนจบการซื้อของ',bad:'ที่ได้ยินคือ xièxie 谢谢 แปลว่า ขอบคุณ'}},
+  {play:'再见',ask:'คำนี้แปลว่าอะไร',opts:[{ok:0,html:'<span class="py" style="font-size:18px">สวัสดี</span>'},{ok:1,html:'<span class="py" style="font-size:18px">ลาก่อน</span>'}],explain:{ok:'zàijiàn 再见 ลาก่อน',bad:'ที่ได้ยินคือ zàijiàn 再见 แปลว่า ลาก่อน'}}])},
+{stage:'ก่อนเริ่ม',name:'เรื่องเปิดบท · ตลาดผลไม้',ins:'อ่านพินอินออกเสียงเองก่อน แล้วแตะเปิดภาพเพื่อตรวจคำตอบ',
+ render:function(m,a){
+  var sc=a.add('<div class="scene fadein"><img class="seller" src="'+R+'assets/art/word/售货员.webp" alt="แม่ค้า"><img class="basket" src="'+R+'assets/art/word/水果.webp" alt="ตะกร้าผลไม้"><div class="q">?</div><img class="apple" src="'+R+'assets/art/word/苹果.webp" alt="แอปเปิล"></div>');
+  a.add('<div class="card fadein" style="font-size:14.5px">คุณมาถึงร้านผลไม้ในจีน อยากซื้อผลไม้ชนิดหนึ่ง ชื่อของมันเขียนเป็นพินอินว่า</div>');
+  var rc=a.add('<div class="card readc"><div class="py"><span>píng</span><span>guǒ</span></div><p class="note" style="margin-top:4px">ลองอ่านออกเสียงเองก่อน píng เสียง 2 ขึ้น guǒ เสียง 3 ต่ำ</p></div>');
+  var rv=a.add('<button class="btn o" type="button">อ่านแล้ว เปิดภาพและฟังเฉลย</button>');
+  rv.onclick=function(){rv.remove();sc.querySelector('.q').style.opacity=0;sc.querySelector('.apple').classList.add('on');
+   var sp=rc.querySelectorAll('.py span');sp[0].classList.add('hl');setTimeout(function(){sp[0].classList.remove('hl');sp[1].classList.add('hl')},380);setTimeout(function(){sp[1].classList.remove('hl')},900);
+   B0.play('苹果','f');
+   setTimeout(function(){a.fb('<b>苹果 píngguǒ</b> แอปเปิล ถ้าอ่านเองได้ตรงกับเสียงเฉลย แปลว่าคุณอ่านพินอินเป็นแล้ว วันนี้เราจะนับเลขและถามว่าแอปเปิล <b>ราคาเท่าไร</b>','ok');
+    var row=a.add('<div style="display:flex;flex-direction:column;align-items:center;gap:6px"></div>');row.appendChild(B0.vbtn('苹果','f','ฟัง 苹果 อีกครั้ง'));row.appendChild(B0.vbtn('苹果多少钱？','f','苹果多少钱？ แอปเปิลราคาเท่าไร'));a.done()},700)};
+ }},
+{stage:'ด่าน 1 · ฟังและดู',name:'ฟังเลข 0–10',ins:'แตะตัวเลขทุกตัวเพื่อฟังเสียง ครบ 11 ตัวแล้วไปต่อได้',
+ guide:'<b>ด่าน 1</b> ฟังเลข 0 ถึง 10 แล้วลองร้องเพลงนับเลขสั้นๆ',guideImg:'assets/mascot/listening.webp',
+ render:function(m,a){
+  var v='f',left=11;
+  var vs=a.add('<div class="vsel"><button type="button" class="on" data-v="f">เสียงผู้หญิง</button><button type="button" data-v="m">เสียงผู้ชาย</button></div>');
+  [].forEach.call(vs.children,function(b){b.onclick=function(){v=b.dataset.v;[].forEach.call(vs.children,function(c){c.classList.toggle('on',c===b)})}});
+  var g=a.add('<div class="ngrid"></div>');
+  N.forEach(function(n,k){var b=h('<button class="nbtn" type="button" style="animation-delay:'+(k*40)+'ms"><b>'+n.d+'</b><span class="zh">'+n.zh+'</span><small>'+n.py+'</small></button>');g.appendChild(b);
+   b.onclick=function(){b.classList.add('play');B0.play(n.zh,v,null,function(){b.classList.remove('play')});if(!b.classList.contains('on')){b.classList.add('on');left--;if(!left){a.fb('ครบ 11 ตัวแล้ว สังเกต 四 sì (สี่) กับ 十 shí (สิบ) ต่างกันที่ลิ้นม้วนและเสียงวรรณยุกต์','tip');a.done()}}}});
+  var rh=a.add('<div class="card" style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="font-size:13.5px;color:var(--sub)">เพลงนับเลขของเด็กจีน · ขึ้นภูเขาไปจับเสือ</div><div class="rhyme zh">'+'一二三四五，上山打老虎'.split('').map(function(c){return '<span>'+c+'</span>'}).join('')+'</div><div class="py" style="font-size:13px;color:var(--sub);font-family:Inter,sans-serif">yī èr sān sì wǔ, shàng shān dǎ lǎohǔ</div></div>');
+  var rb=B0.vbtn('一二三四五，上山打老虎。','f','ฟังเพลง แล้วร้องตาม');rh.appendChild(rb);
+  var T=[.21,.42,.63,.84,1.05,1.54,1.78,2.01,2.24,2.47];
+  rb.addEventListener('click',function(){var sp=rh.querySelectorAll('.rhyme span'),k=0,ix=[0,1,2,3,4,5,6,7,8,9,10,11];
+   [].forEach.call(sp,function(s){s.classList.remove('hl')});
+   T.forEach(function(t,i){var j=i<5?i:i+1;setTimeout(function(){[].forEach.call(sp,function(s){s.classList.remove('hl')});if(sp[j])sp[j].classList.add('hl')},t*1000)});
+   setTimeout(function(){[].forEach.call(sp,function(s){s.classList.remove('hl')})},2800)});
+ }},
+{stage:'ด่าน 1 · ฟังและดู',name:'ท่ามือนับเลขแบบจีน',ins:'แตะท่ามือ 6 ถึง 10 ทีละท่า ดูวิธีทำ แล้วทำตามพร้อมพูด',
+ render:function(m,a){
+  a.add('<div class="card fadein" style="font-size:14px">เลข 1 ถึง 5 นับนิ้วคล้ายคนไทย แต่ <b>6 ถึง 10 ใช้มือเดียว</b> ทำท่าเฉพาะ คนจีนใช้ท่านี้ตอนต่อราคาในตลาด</div>');
+  var big=a.add('<div class="card hbig"><div class="t" style="color:var(--sub)">แตะท่ามือด้านล่าง</div></div>');
+  var g=a.add('<div class="hands"></div>'),left=5;
+  [6,7,8,9,10].forEach(function(d,k){var n=N[d];var b=h('<button class="hbtn" type="button" style="animation-delay:'+(k*60)+'ms">'+hand(d)+'<b>'+d+'</b></button>');g.appendChild(b);
+   b.onclick=function(){[].forEach.call(g.children,function(c){c.classList.remove('cur')});b.classList.add('cur');
+    big.innerHTML=hand(d)+'<div class="t"><span class="zh">'+n.zh+'</span> <b style="color:var(--red);font-family:Inter,sans-serif">'+n.py+'</b> · '+n.th+'<br>'+HD[d]+'</div>';
+    B0.play(n.zh,'f');if(!b.classList.contains('on')){b.classList.add('on');left--;if(!left){a.fb('ครบ 5 ท่าแล้ว ลองทำท่ามือ 6 ถึง 10 ตามลำดับพร้อมพูดออกเสียงอีกรอบ','tip');a.done()}}}});
+  var r5=a.add('<div class="hands" style="opacity:.75"></div>');
+  [1,2,3,4,5].forEach(function(d){var b=h('<button class="hbtn" type="button">'+hand(d)+'<b>'+d+'</b></button>');r5.appendChild(b);b.onclick=function(){B0.play(N[d].zh,'f')}});
+  a.add('<p class="note">แถวล่าง 1 ถึง 5 แตะฟังได้ ไม่บังคับ</p>');
+ }},
+{stage:'ด่าน 2 · ฝึกหูและมือ',name:'ฟังแยกคู่',ins:'ฟังเสียง แล้วแตะเลขที่ได้ยิน',
+ guide:'<b>ด่าน 2</b> แยกเลขที่เสียงคล้ายกัน แล้วแข่งจับเลขให้ทัน',guideImg:'assets/mascot/think.webp',
+ render:B0.pick([
+  {play:'四',opts:[oT('四','sì','สี่ · ลิ้นแบน',1),oT('十','shí','สิบ · ลิ้นม้วน',0)],explain:{ok:'sì เสียง 4 ลง ลิ้นแบน',bad:'ที่ได้ยินคือ sì 四 (สี่) ลิ้นไม่ม้วน เสียงลง'}},
+  {play:'七',opts:[oT('一','yī','หนึ่ง',0),oT('七','qī','เจ็ด',1)],explain:{ok:'qī มีลมพ่นออกมาตอนต้น',bad:'ที่ได้ยินคือ qī 七 (เจ็ด) มีลมพ่นตอนต้น'}},
+  {play:'九',opts:[oT('九','jiǔ','เก้า · เสียง 3',1),oT('六','liù','หก · เสียง 4',0)],explain:{ok:'jiǔ เสียง 3 ต่ำแล้วขึ้น',bad:'ที่ได้ยินคือ jiǔ 九 (เก้า) เสียงต่ำแล้วขึ้น'}},
+  {play:'十',opts:[oT('四','sì','สี่ · ลิ้นแบน',0),oT('十','shí','สิบ · ลิ้นม้วน',1)],explain:{ok:'shí ลิ้นม้วน เสียง 2 ขึ้น',bad:'ที่ได้ยินคือ shí 十 (สิบ) ลิ้นม้วน เสียงขึ้น'}}])},
+{stage:'ด่าน 2 · ฝึกหูและมือ',name:'เกมจับเลขให้ทัน',ins:'ฟังเลข แล้วแตะท่ามือหรือตัวเลขที่ตรงกันภายใน 6 วินาที',
+ render:function(m,a){
+  var box=a.add('<div style="display:flex;flex-direction:column;gap:12px"></div>');
+  var pool=[6,7,8,9,10,4,1,0],order=B0.shuffle(pool.slice()),ri=0,right=0,tm=null;
+  function round(){var d=order[ri],done=false,useHand=ri%2===0;box.innerHTML='';
+   var hd=h('<div class="sec"><span>รอบ '+(ri+1)+'/8 · '+(useHand?'แตะท่ามือ':'แตะตัวเลข')+'</span><span style="color:var(--ok)">ถูก '+right+'</span></div>');box.appendChild(hd);
+   var tb=h('<div class="timer"><i></i></div>');box.appendChild(tb);
+   var row=h('<div class="row jc"></div>');var sp=B0.spk(N[d].zh,ri%2?'m':'f','big');row.appendChild(sp);row.appendChild(h('<span style="font-size:13px;color:var(--sub)">แตะเพื่อฟังซ้ำ</span>'));box.appendChild(row);
+   var cand=useHand?[6,7,8,9,10]:[0,1,2,3,4,5,6,7,8,9,10];var ops=[d];
+   cand=B0.shuffle(cand.filter(function(x){return x!==d}));
+   if(d===4&&!useHand)cand.unshift(10);if(d===10&&!useHand)cand.unshift(4);if(d===1&&!useHand)cand.unshift(7);
+   ops.push(cand[0],cand[1]);ops=B0.shuffle(ops);
+   var g=h('<div class="opts three"></div>');box.appendChild(g);
+   ops.forEach(function(x,k){var b=h('<button class="opt" type="button" data-ok="'+(x===d?1:0)+'" style="animation-delay:'+(k*60)+'ms">'+(useHand?hand(x):'<span class="py" style="font-size:34px;color:var(--ink);font-family:Inter,sans-serif">'+x+'</span>')+'</button>');g.appendChild(b);b.onclick=function(){end(x===d,b)}});
+   var res=h('<div></div>');box.appendChild(res);
+   var t0=Date.now(),lim=6000;setTimeout(function(){sp.click();t0=Date.now();tm=setInterval(function(){var p=1-(Date.now()-t0)/lim;tb.firstChild.style.width=Math.max(0,p*100)+'%';if(p<=0)end(false,null,1)},100)},300);
+   function end(ok,b,late){if(done)return;done=true;clearInterval(tm);a.mark(ok);B0.sfx(ok);if(ok)right++;hd.lastChild.textContent='ถูก '+right;
+    [].forEach.call(g.children,function(c){c.disabled=true;if(c.dataset.ok==='1')c.classList.add('right');else if(c!==b)c.classList.add('dim')});if(b&&!ok)b.classList.add('wrong');
+    var n=N[d];a.fb((ok?'<b>ถูกต้อง</b> ':late?'<b>หมดเวลา</b> ':'<b>ยังไม่ใช่</b> ')+n.zh+' '+n.py+' = '+d+(d>=6?' · '+HD[d]:''),ok?'ok':'bad',res);
+    var nb=h('<button class="btn o sm" type="button" style="display:block;margin:8px auto 0">'+(ri<7?'รอบต่อไป':'จบเกม')+'</button>');res.appendChild(nb);
+    nb.onclick=function(){if(ri<7){ri++;round()}else{box.innerHTML='';box.appendChild(h('<div class="card center fadein"><div style="font-size:15px">จับเลขได้ถูก</div><div style="font-size:44px;font-weight:700;color:var(--red);font-family:Inter,sans-serif">'+right+'/8</div><p class="note">'+(right>=6?'หูไวมาก พร้อมไปตลาดแล้ว':'ลองฟังเลขในด่าน 1 อีกรอบได้ แล้วไปต่อ')+'</p></div>'));a.done()}}}
+  }
+  round();
+ }},
+{stage:'ด่าน 3 · พูดจริง',name:'พูดแล้วเทียบ',ins:'ฟังต้นแบบ กดไมโครโฟน แล้วพูดตาม เทียบเส้นเสียงของคุณกับต้นแบบ',
+ guide:'<b>ด่าน 3</b> ฝึกถามราคาและต่อราคา แล้วไปซื้อแอปเปิลจริง',guideImg:'assets/mascot/speaking.webp',
+ render:B0.speak([
+  {say:'多少钱？',zh:'多少钱？',py:'duōshao qián?',th:'ราคาเท่าไร',tip:'duō สูงคงที่ shao เบาและสั้น qián ขึ้นท้ายเหมือนถาม'},
+  {say:'太贵了！',zh:'太贵了！',py:'tài guì le!',th:'แพงเกินไป',tip:'tài กับ guì เสียง 4 ลงหนักทั้งคู่ le เบาสั้น'}])},
+{stage:'ด่าน 3 · พูดจริง',name:'การ์ตูนซื้อแอปเปิล',ins:'ฟังแม่ค้า แล้วแตะประโยคที่ควรพูดต่อ',
+ render:function(m,a){
+  var c=a.add('<div class="comic"><img class="who" src="'+R+'assets/art/word/售货员.webp" alt="แม่ค้า"><img class="basket" src="'+R+'assets/art/word/苹果.webp" alt="แอปเปิล"><div class="tag" style="opacity:0">¥ ?</div><div class="sb l zh" style="font-size:19px">你好！<small>nǐ hǎo · สวัสดีค่ะ</small></div><div class="me"><div class="hd"></div><div class="bd">คุณ</div></div><div class="sb r wait">…</div></div>');
+  var sbl=c.querySelector('.sb.l'),sbr=c.querySelector('.sb.r'),tag=c.querySelector('.tag');
+  var last={t:'你好！'};setTimeout(function(){B0.play('你好！','f')},500);
+  var rp=h('<button class="vbtn" type="button" style="align-self:center">'+B0.SPK+'<span>ฟังแม่ค้าอีกครั้ง</span></button>');m.appendChild(rp);rp.onclick=function(){B0.play(last.t,'f',rp)};
+  var dots=a.add('<div class="dots"><i class="c"></i><i></i><i></i></div>');
+  var g=a.add('<div class="opts"></div>'),si=0;
+  var SC=[
+   {opts:[{zh:'多少钱？',py:'duōshao qián?',th:'ราคาเท่าไร',ok:1},{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน'}],bad:'ยังไม่ได้ซื้อเลย ถามราคาก่อน',
+    reply:function(){sbl.innerHTML='十块。<small>shí kuài · สิบหยวนค่ะ</small>';last.t='十块。';tag.style.opacity=1;tag.innerHTML='¥10';tag.classList.add('bump');B0.play('十块。','f')},ok:'<b>ถูกต้อง</b> แม่ค้าตอบว่า 十块 shí kuài สิบหยวน · 块 kuài คือหน่วยเงินที่พูดกันทั่วไป'},
+   {opts:[{zh:'好，谢谢！',py:'hǎo, xièxie!',th:'ตกลง ขอบคุณ'},{zh:'太贵了！',py:'tài guì le!',th:'แพงเกินไป',ok:1}],bad:'ลองต่อราคาก่อน ในตลาดจีนต่อราคาได้',
+    reply:function(){sbl.innerHTML='八块。<small>bā kuài · แปดหยวนค่ะ</small>';last.t='八块。';tag.classList.remove('bump');void tag.offsetWidth;tag.innerHTML='<s>¥10</s>¥8';tag.classList.add('bump');B0.play('八块。','f')},ok:'<b>ต่อได้แล้ว</b> แม่ค้าลดเหลือ 八块 bā kuài แปดหยวน · ทำท่ามือ 8 ให้แม่ค้าดูได้ด้วย'},
+   {opts:[{zh:'好，谢谢！',py:'hǎo, xièxie!',th:'ตกลง ขอบคุณ',ok:1},{zh:'多少钱？',py:'duōshao qián?',th:'ราคาเท่าไร'}],bad:'แม่ค้าบอกราคาแล้ว ตอบตกลงและขอบคุณ',
+    reply:function(){sbl.innerHTML='再见！<small>zàijiàn · ลาก่อนค่ะ</small>';last.t='再见！';B0.play('再见！','f')},ok:'<b>ซื้อสำเร็จ</b> คุณถามราคา ต่อราคา และขอบคุณเป็นภาษาจีนได้ครบ'}];
+  function show(){var S=SC[si],first=true;g.innerHTML='';
+   S.opts.forEach(function(o,k){var b=h('<button class="opt" type="button" data-ok="'+(o.ok?1:0)+'" style="animation-delay:'+(k*80)+'ms"><span class="zh" style="font-size:24px">'+o.zh+'</span><span class="py" style="font-size:15px">'+o.py+'</span><small>'+o.th+'</small></button>');g.appendChild(b);
+    b.onclick=function(){if(g.dataset.busy)return;if(first){a.mark(!!o.ok);first=false}B0.sfx(!!o.ok);
+     if(!o.ok){b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');a.fb('<b>ยังไม่ใช่</b> '+S.bad,'bad');return}
+     g.dataset.busy=1;b.classList.add('right');sbr.className='sb r zh';sbr.style.fontSize='19px';sbr.innerHTML=o.zh+'<small>'+o.py+'</small>';
+     B0.play(o.zh,'m',null,function(){setTimeout(function(){S.reply();a.fb(S.ok,'ok');dots.children[si].className='d';
+      if(si<SC.length-1){var nb=h('<button class="btn o sm" type="button" style="display:block;margin:0 auto">พูดต่อ</button>');g.innerHTML='';g.appendChild(nb);g.style.gridTemplateColumns='1fr';nb.onclick=function(){g.style.gridTemplateColumns='';delete g.dataset.busy;si++;dots.children[si].className='c';sbr.className='sb r wait';sbr.style.fontSize='';sbr.textContent='…';show()}}
+      else{g.innerHTML='';a.done()}},250)})}});
+  }
+  show();
+ }},
+{stage:'จบบท',name:'รางวัล',ins:'ดูสิ่งที่ได้ในบทนี้ แล้วกดกลับหน้ารวมบทเรียน',
+ render:B0.reward({learned:['นับเลข 0 ถึง 10 ทั้งพูดและท่ามือแบบจีน','แยก 四 sì กับ 十 shí ได้','ถามราคา 多少钱？ ต่อราคา 太贵了！ และขอบคุณได้'],
+  extra:function(m,a){var ch=a.add('<div class="card"><div style="font-size:13.5px;color:var(--sub);margin-bottom:6px">สมุดสะสมเลขของคุณ · ครบ 0 ถึง 10</div><div class="nbook">'+N.map(function(n){return '<div><span class="zh">'+n.zh+'</span><small>'+n.d+'</small></div>'}).join('')+'</div></div>');
+   [].forEach.call(ch.querySelectorAll('.nbook div'),function(d,i){setTimeout(function(){d.classList.add('on')},1300+i*140)})}})}
+]});
+})();
+</script></body></html>

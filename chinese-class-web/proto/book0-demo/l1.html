@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>สาธิตบทที่ 1 · พินอินและ 4 เสียง</title>
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png"><link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="demo.css">
+</head><body>
+<script src="audio.js"></script><script src="demo.js"></script>
+<script>
+(function(){
+var h=B0.h,R=B0.R;
+var T=[
+ {n:1,py:'mā',zh:'妈',th:'แม่',name:'เสียง 1 สูงเรียบ',ex:'อ้าาา',hand:'มือเลื่อนตรงไปข้างหน้า ระดับสูงเท่าเดิมตลอด',d:'M20 24 L280 24',m:'M8 6 L92 6'},
+ {n:2,py:'má',zh:'麻',th:'ป่าน',name:'เสียง 2 ขึ้น',ex:'ห๊ะ?!',hand:'มือยกขึ้นจากระดับกลางไปสูง เหมือนถามด้วยความแปลกใจ',d:'M20 84 L280 24',m:'M8 26 L92 6'},
+ {n:3,py:'mǎ',zh:'马',th:'ม้า',name:'เสียง 3 ลงแล้วขึ้น',ex:'เอ่อ…',hand:'มือลดลงต่ำสุด แล้วยกขึ้นเล็กน้อย',d:'M20 108 Q120 186 280 54',m:'M8 18 Q40 44 92 10'},
+ {n:4,py:'mà',zh:'骂',th:'ดุ',name:'เสียง 4 ลงเร็ว',ex:'ไม่!',hand:'มือฟันลงจากสูงไปต่ำอย่างเร็ว',d:'M20 24 L280 140',m:'M8 6 L92 34'}];
+function mini(t,w){return '<svg class="tc" viewBox="0 0 100 40" preserveAspectRatio="none" style="width:100%;height:'+(w||30)+'px"><path d="'+t.m+'" fill="none" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/></svg>'}
+var tpl={1:[],2:[],3:[],4:[]};for(var i=0;i<40;i++){var x=i/39;tpl[1].push(3);tpl[2].push(-2+5*x);tpl[3].push(-1-7*Math.sin(Math.PI*Math.min(1,x*1.25))*(x<.8?1:.6)+(x>.8?3*(x-.8)/.2:0));tpl[4].push(4-9*x)}
+var tplNiHao=[];for(i=0;i<40;i++){var x=i/39;tplNiHao.push(x<.5?(-2+5*x*2):(x<.85?-1-6*Math.sin(Math.PI*(x-.5)/.7):-1))}
+
+B0.run({title:'บทที่ 1 พินอินและ 4 เสียง',steps:[
+{stage:'ก่อนเริ่ม',name:'ทวนสั้น · สิ่งที่คุณรู้อยู่แล้ว',ins:'อ่านโจทย์ แล้วแตะคำไทยที่ถูกต้อง',
+ guide:'สวัสดี ฉันคือลามา ก่อนเริ่ม ลองดูว่า<b>ภาษาไทยของคุณ</b>มีเสียงสูงต่ำอยู่แล้ว',guideImg:'assets/mascot/wave.webp',
+ render:B0.pick([
+  {ask:'คำไหนออกเสียง<b>จัตวา</b> (เสียงขึ้นสูง)',opts:[{html:'<span style="font-size:30px">ปา</span>'},{html:'<span style="font-size:30px">ป่า</span>'},{html:'<span style="font-size:30px">ป้า</span>'},{html:'<span style="font-size:30px">ป๋า</span>',ok:1}],explain:{ok:'ป๋า เสียงขึ้นสูง คล้ายเสียง 2 ของภาษาจีน',bad:'คำที่ถูกคือ ป๋า เสียงขึ้นสูง คล้ายเสียง 2 ของภาษาจีน'}},
+  {ask:'คำไหนออกเสียง<b>สามัญ</b> (ระดับเดียวตลอด)',opts:[{html:'<span style="font-size:30px">ปา</span>',ok:1},{html:'<span style="font-size:30px">ป่า</span>'},{html:'<span style="font-size:30px">ป้า</span>'},{html:'<span style="font-size:30px">ป๋า</span>'}],explain:{ok:'คนไทยแยกเสียงสูงต่ำได้อยู่แล้ว ภาษาจีนมี 4 เสียง จึงเรียนได้เร็ว',bad:'คำที่ถูกคือ ปา เสียงระดับเดียว ภาษาจีนก็มีเสียงแบบนี้'}}
+ ],{keepOrder:1})},
+{stage:'ก่อนเริ่ม',name:'เรื่องเปิดบท',ins:'แตะภาพทั้งสองเพื่อฟัง แล้วสังเกตว่าเสียงต่างกันอย่างไร',
+ render:function(m,a){
+  a.add('<div class="card fadein" style="font-size:14.5px">ตัวอักษรละตินที่เขียนกำกับคำจีนเรียกว่า <b>พินอิน</b> บอกวิธีอ่าน ขีดเล็กด้านบนบอก<b>เสียงสูงต่ำ</b></div>');
+  var g=a.add('<div class="opts"></div>'),heard={};
+  [{w:'妈',py:'mā',th:'แม่',img:'assets/art/word/妈妈.webp'},{w:'马',py:'mǎ',th:'ม้า',img:'assets/art/word/马.webp'}].forEach(function(c,k){
+   var b=h('<button class="opt" type="button" style="animation-delay:'+(k*120)+'ms"><img src="'+R+c.img+'" alt=""><span class="py">'+c.py+'</span><span class="zh" style="font-size:26px">'+c.w+'</span><small>'+c.th+'</small></button>');g.appendChild(b);
+   b.onclick=function(){B0.play(c.w,'f',b);heard[c.w]=1;b.classList.add('right');if(heard['妈']&&heard['马']){a.fb('<b>สังเกตได้ไหม</b> ma เหมือนกัน แต่เสียงต่างกัน ความหมายจึงต่างกัน คือ <b>แม่</b> กับ <b>ม้า</b> บทนี้คุณจะแยก 4 เสียงนี้ให้ได้','tip');a.done()}}});
+ }},
+{stage:'ด่าน 1 · ฟังและดู',name:'ฟังก่อน',ins:'แตะปุ่มเสียงของทุกการ์ด ฟังให้ครบทั้ง 4 เสียง',
+ guide:'<b>ด่าน 1</b> ฟังเสียง ma ทั้ง 4 แบบ จากเสียงผู้หญิงและผู้ชาย แล้วดูท่ามือ',guideImg:'assets/mascot/listening.webp',
+ render:B0.listen(T.map(function(t){return {top:mini(t),py:t.py,zh:t.zh,th:t.name+' · '+t.th,say:t.zh}}),{after:'ครบ 4 เสียงแล้ว เสียงต่างกันที่ระดับสูงต่ำ ไม่ใช่ที่ตัวอักษร'})},
+{stage:'ด่าน 1 · ฟังและดู',name:'ท่ามือ 4 เสียง',ins:'แตะทีละเสียง ดูจุดเลื่อนตามเส้น แล้วยกมือทำท่าตามพร้อมพูด',
+ render:function(m,a){
+  var pad=a.add('<div class="pad fadein"><svg viewBox="0 0 300 160" style="display:block;width:100%;height:auto">'+[1,2,3,4,5].map(function(l){var y=24+(5-l)*29;return '<line x1="14" x2="290" y1="'+y+'" y2="'+y+'" stroke="#EFE6DC" stroke-dasharray="4 5"/><text x="4" y="'+(y+4)+'" font-size="9" fill="#B9ACA0">'+l+'</text>'}).join('')+'<path id="tp" d="" fill="none" stroke="#C8102E" stroke-width="7" stroke-linecap="round"/><circle id="hd" r="11" fill="#fff" stroke="#C8102E" stroke-width="3" cx="-30" cy="-30"/><circle id="hd2" r="4" fill="#C8102E" cx="-30" cy="-30"/></svg></div>');
+  var cap=a.add('<div class="card center" style="min-height:92px"><div style="color:var(--sub);font-size:14px">เลือกเสียงด้านล่างเพื่อเริ่ม</div></div>');
+  var g=a.add('<div class="opts" style="grid-template-columns:repeat(4,1fr);gap:6px"></div>'),seen={},n=0;
+  var tp=pad.querySelector('#tp'),hd=pad.querySelector('#hd'),hd2=pad.querySelector('#hd2'),raf;
+  T.forEach(function(t,k){var b=h('<button class="opt" type="button" style="padding:8px 2px;animation-delay:'+(k*60)+'ms">'+mini(t,22)+'<span class="py" style="font-size:19px">'+t.py+'</span><small>เสียง '+t.n+'</small></button>');g.appendChild(b);
+   b.onclick=function(){[].forEach.call(g.children,function(c){c.style.borderColor=''});b.style.borderColor='var(--red)';
+    tp.setAttribute('d',t.d);var L=tp.getTotalLength();tp.style.transition='none';tp.style.strokeDasharray=L;tp.style.strokeDashoffset=L;tp.getBoundingClientRect();
+    tp.style.transition='stroke-dashoffset .9s ease';tp.style.strokeDashoffset=0;cancelAnimationFrame(raf);var t0=performance.now();
+    (function step(now){var p=Math.min(1,(now-t0)/900);var pt=tp.getPointAtLength(L*p);hd.setAttribute('cx',pt.x);hd.setAttribute('cy',pt.y);hd2.setAttribute('cx',pt.x);hd2.setAttribute('cy',pt.y);if(p<1)raf=requestAnimationFrame(step)})(t0);
+    B0.play(t.zh,k%2?'m':'f');
+    cap.innerHTML='<div class="fadein"><b style="color:var(--red)">'+t.name+'</b> · '+t.py+' '+t.zh+' ('+t.th+')<div style="font-size:14.5px;margin-top:4px">ท่ามือ: '+t.hand+'</div><div style="font-size:14px;color:var(--sub)">เสียงไทยที่คล้าย: "'+t.ex+'"</div></div>';
+    if(!seen[t.n]){seen[t.n]=1;n++;b.classList.add('right');if(n===4){a.done()}}
+   }});
+ }},
+{stage:'ด่าน 2 · ฝึกหูและมือ',name:'ฟังแยกเสียง',ins:'ฟังเสียง แล้วแตะคำที่ได้ยิน',
+ guide:'<b>ด่าน 2</b> ฝึกหูแยกเสียงทีละคู่ แล้วใช้นิ้ววาดเส้นเสียงที่ได้ยิน',guideImg:'assets/mascot/think.webp',
+ render:(function(){function o(t,ok){return {ok:ok,html:mini(t,26)+'<span class="py">'+t.py+'</span><span class="zh" style="font-size:24px">'+t.zh+'</span><small>'+t.th+'</small>'}}
+  var P=[[0,2],[1,3],[2,1],[3,0]];
+  return B0.pick(P.map(function(p){var t=T[p[0]],u=T[p[1]];return {play:t.zh,ask:'แตะคำที่ได้ยิน',opts:[o(t,1),o(u,0)],explain:{ok:t.py+' คือ'+t.name,bad:'ที่ได้ยินคือ '+t.py+' ('+t.name+') ไม่ใช่ '+u.py+' ('+u.name+')'}}}))})()},
+{stage:'ด่าน 2 · ฝึกหูและมือ',name:'เกมวาดเส้นเสียง',ins:'ฟังเสียง แล้วใช้นิ้ววาดเส้นเสียงในกรอบจากซ้ายไปขวา',
+ render:function(m,a){
+  var order=B0.shuffle([0,1,2,3]);order.push(Math.floor(Math.random()*4));var r=0;
+  var dots=a.add('<div class="dots">'+order.map(function(){return '<i></i>'}).join('')+'</div>');
+  var top=a.add('<div class="row jc"></div>');var sp=h('<button class="spk" type="button" aria-label="ฟังอีกครั้ง">'+B0.SPK+'</button>');top.appendChild(sp);top.appendChild(h('<span style="font-size:14px;color:var(--sub)">ฟังอีกครั้ง</span>'));
+  var pad=a.add('<div class="pad"><canvas style="height:220px"></canvas></div>');var cv=pad.querySelector('canvas');var area=a.add('<div></div>');
+  var pts=[],drawing=false,answered=false,W,H,g;
+  function setup(){var d=window.devicePixelRatio||1;W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;g=cv.getContext('2d');g.scale(d,d);grid()}
+  function lv(l){return 20+(5-l)*(H-40)/4}
+  function grid(){g.clearRect(0,0,W,H);g.setLineDash([4,5]);g.strokeStyle='#EFE6DC';g.lineWidth=1;g.fillStyle='#B9ACA0';g.font='11px Inter';for(var l=1;l<=5;l++){g.beginPath();g.moveTo(22,lv(l));g.lineTo(W-10,lv(l));g.stroke();g.fillText(l,8,lv(l)+4)}g.setLineDash([])}
+  function model(t){var sx=(W-40)/260,sy=(H-40)/116;var p=new Path2D();var d=T[t].d.match(/[\d.]+/g).map(Number);
+   function X(v){return 26+(v-20)*sx}function Y(v){return 20+(v-24)*sy}
+   if(T[t].n===3){p.moveTo(X(d[0]),Y(d[1]));p.quadraticCurveTo(X(d[2]),Y(d[3]),X(d[4]),Y(d[5]))}else{p.moveTo(X(d[0]),Y(d[1]));p.lineTo(X(d[2]),Y(d[3]))}
+   g.save();g.strokeStyle='rgba(46,139,87,.55)';g.lineWidth=10;g.lineCap='round';g.stroke(p);g.restore()}
+  function line(){g.strokeStyle='#C8102E';g.lineWidth=5;g.lineCap='round';g.lineJoin='round';g.beginPath();pts.forEach(function(p,i){i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])});g.stroke()}
+  function classify(){var xs=pts.map(function(p){return p[0]}),ys=pts.map(function(p){return p[1]});var span=Math.max.apply(0,xs)-Math.min.apply(0,xs);if(span<W*.3)return 0;
+   var y0=ys.slice(0,3).reduce(function(s,v){return s+v},0)/Math.min(3,ys.length),y1=ys.slice(-3).reduce(function(s,v){return s+v},0)/Math.min(3,ys.length),ymax=Math.max.apply(0,ys),u=H-40;
+   var iMax=ys.indexOf(ymax),dip=ymax-Math.max(y0,y1);
+   if(dip>u*.14&&iMax>ys.length*.15&&iMax<ys.length*.9)return 3;var rise=y0-y1;if(Math.abs(rise)<u*.16)return 1;return rise>0?2:4}
+  function pos(e){var b=cv.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top]}
+  cv.addEventListener('pointerdown',function(e){if(answered)return;drawing=true;pts=[pos(e)];grid();try{cv.setPointerCapture(e.pointerId)}catch(x){}});
+  cv.addEventListener('pointermove',function(e){if(!drawing)return;pts.push(pos(e));grid();line()});
+  cv.addEventListener('pointerup',function(){if(!drawing)return;drawing=false;judge()});
+  function judge(){var t=order[r],c=classify();if(!c){a.fb('ลากนิ้วให้ยาวจากด้านซ้ายไปด้านขวาของกรอบ','tip',area);return}
+   answered=true;var ok=c===T[t].n;a.mark(ok);B0.sfx(ok);model(t);line();dots.children[r].className=ok?'d':'x';
+   a.fb(ok?'<b>ถูกต้อง</b> '+T[t].py+' คือ'+T[t].name+' ทำท่ามือตามอีกครั้ง':'<b>ยังไม่ใช่</b> คุณวาด'+T[c-1].name+' แต่ที่ได้ยินคือ '+T[t].py+' '+T[t].name+' (เส้นสีเขียว)',ok?'ok':'bad',area);
+   var nb=h('<button class="btn o sm" type="button" style="display:block;margin:8px auto 0">'+(r<order.length-1?'รอบต่อไป':'ครบ 5 รอบแล้ว')+'</button>');area.appendChild(nb);
+   if(r<order.length-1)nb.onclick=function(){r++;round()};else{nb.disabled=true;nb.style.opacity=.6;a.done()}}
+  function round(){answered=false;area.innerHTML='';pts=[];grid();dots.children[r].className='c';var v=r%2?'m':'f';sp.onclick=function(){B0.play(T[order[r]].zh,v,sp)};setTimeout(function(){sp.click()},300)}
+  setup();round();cv.__judge=function(p){pts=p;judge()};
+ }},
+{stage:'ด่าน 3 · พูดจริง',name:'พูดแล้วเทียบ',ins:'ฟังต้นแบบ กดไมโครโฟน แล้วพูดตาม เทียบเส้นเสียงของคุณกับต้นแบบ',
+ guide:'<b>ด่าน 3</b> พูดด้วยเสียงของคุณเอง แล้วใช้ 你好 ทักเพื่อน',guideImg:'assets/mascot/speaking.webp',
+ render:B0.speak([
+  {say:'马',zh:'马',py:'mǎ',th:'ม้า · เสียง 3 ลงต่ำแล้วขึ้น',tpl:tpl[3]},
+  {say:'你好',zh:'你好',py:'nǐ hǎo',th:'สวัสดี',tip:'เสียง 3 สองพยางค์ติดกัน พยางค์แรกเปลี่ยนเป็นเสียง 2 จึงอ่านว่า <b>ní hǎo</b>',tpl:tplNiHao}])},
+{stage:'ด่าน 3 · พูดจริง',name:'การ์ตูนพูดตอบ',ins:'ฟังเพื่อนทักทาย แล้วแตะคำตอบที่เหมาะสม',
+ render:function(m,a){
+  var c=a.add('<div class="comic"><img class="who" src="'+R+'assets/art/word/女孩.webp" alt="เพื่อน"><div class="sb l zh">你好！<small>nǐ hǎo · สวัสดี</small></div><div class="me"><div class="hd"></div><div class="bd">คุณ</div></div><div class="sb r wait">…</div></div>');
+  setTimeout(function(){B0.play('你好！','f')},500);
+  var rp=h('<button class="vbtn" type="button" style="align-self:center">'+B0.SPK+'<span>ฟังเพื่อนอีกครั้ง</span></button>');m.appendChild(rp);rp.onclick=function(){B0.play('你好！','f',rp)};
+  var g=a.add('<div class="opts"></div>'),first=true;
+  [{zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',ok:1},{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน'}].forEach(function(o,k){var b=h('<button class="opt" type="button" data-ok="'+(o.ok?1:0)+'" style="animation-delay:'+(k*80)+'ms"><span class="zh" style="font-size:28px">'+o.zh+'</span><span class="py" style="font-size:17px">'+o.py+'</span><small>'+o.th+'</small></button>');g.appendChild(b);
+   b.onclick=function(){if(g.dataset.done)return;if(first){a.mark(!!o.ok);first=false}B0.sfx(!!o.ok);
+    if(o.ok){g.dataset.done=1;b.classList.add('right');var r=c.querySelector('.sb.r');r.className='sb r zh';r.innerHTML='你好！<small>nǐ hǎo</small>';B0.play('你好！','m');a.fb('<b>ถูกต้อง</b> เพื่อนทักว่า 你好 คุณก็ตอบว่า 你好 กลับไป','ok');a.done()}
+    else{b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');a.fb('<b>ยังไม่ใช่</b> 再见 ใช้ตอนบอกลา ตอนทักทายให้ตอบว่า 你好 ลองอีกครั้ง','bad')}}});
+ }},
+{stage:'จบบท',name:'รางวัล',ins:'ดูสิ่งที่ได้ในบทนี้ แล้วกดกลับหน้ารวมบทเรียน',
+ render:B0.reward({learned:['รู้ว่าพินอินบอกวิธีอ่าน และขีดด้านบนบอกเสียง','แยก 4 เสียงด้วยหู และทำท่ามือตามได้','พูด 你好 (ní hǎo) และทักทายเพื่อนได้'],
+  extra:function(m,a){var ch=a.add('<div class="card"><div style="font-size:13.5px;color:var(--sub);margin-bottom:6px">ตารางพินอินของคุณ · ช่องใหม่สว่างขึ้น</div><div class="chart" style="grid-template-columns:repeat(4,1fr)">'+T.map(function(t){return '<div class="py">'+t.py+'</div>'}).join('')+'</div></div>');
+   [].forEach.call(ch.querySelectorAll('.chart div'),function(d,i){setTimeout(function(){d.classList.add('on')},1300+i*220)})}})}
+]});
+})();
+</script></body></html>

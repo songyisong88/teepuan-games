@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>สาธิตบทที่ 8 · zh ch sh r ลิ้นม้วน</title>
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png"><link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="demo.css">
+<style>
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.team button{border:0;background:none;padding:0;cursor:pointer;text-align:center}
+.team .tile{width:100%;height:64px;font-size:28px;transition:transform .35s}
+.team button.on .tile{animation:curl .6s ease}
+.team small{display:block;font-size:12px;color:var(--sub);margin-top:4px}
+.team button.on small{color:var(--ok);font-weight:600}
+@keyframes curl{30%{transform:translateY(-8px) rotate(-8deg)}60%{transform:translateY(-4px) rotate(5deg)}}
+.mouth{display:block;width:100%;height:auto}
+.mouth .tg{transition:opacity .45s}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px;cursor:pointer;font-size:14px}
+.seg button.on{border-color:var(--red);background:var(--redsoft)}
+.seg b{display:block;font-family:Inter,sans-serif;font-size:20px;color:var(--red)}
+.slots{display:flex;gap:8px;justify-content:center;align-items:center}
+.slotx{width:64px;height:58px;border:2px dashed #D9C9B8;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;font-size:26px;font-weight:600;background:#fff;transition:all .25s}
+.slotx.f{border-style:solid;color:#fff}
+.tray{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.tray button{border:0;cursor:pointer}
+.tray .tile{height:48px;min-width:52px;font-size:22px}
+.tbtn{background:#fff!important;border:2px solid var(--line)!important;border-radius:12px;width:64px;height:48px;display:inline-flex;align-items:center;justify-content:center;flex-direction:column}
+.tbtn svg{width:40px;height:16px}.tbtn small{font-size:11px;color:var(--sub)}
+.timer{height:6px;background:var(--line);border-radius:4px;overflow:hidden}.timer i{display:block;height:100%;background:var(--gold);width:100%}
+.sec{font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+</style>
+</head><body>
+<script src="audio.js"></script><script src="demo.js"></script>
+<script>
+(function(){
+var h=B0.h,R=B0.R;
+var CV={1:'M8 6 L92 6',2:'M8 26 L92 6',3:'M8 18 Q40 44 92 10',4:'M8 6 L92 34'};
+function mini(n,hh){return '<svg viewBox="0 0 100 40" preserveAspectRatio="none" style="width:100%;height:'+(hh||16)+'px"><path d="'+CV[n]+'" fill="none" stroke="#C8102E" stroke-width="5" stroke-linecap="round"/></svg>'}
+function tplT(n){var o=[];for(var i=0;i<40;i++){var x=i/39;o.push(n===4?4-9*x:n===2?-2+5*x:n===1?3:-1-5*Math.sin(Math.PI*x))}return o}
+var SYL=[{ini:'zh',py:'zhī',zh:'知',th:'รู้'},{ini:'ch',py:'chī',zh:'吃',th:'กิน'},{ini:'sh',py:'shī',zh:'诗',th:'กลอน'},{ini:'r',py:'rì',zh:'日',th:'วัน / ดวงอาทิตย์'}];
+function o(py,zh,th,ok){return {ok:ok,html:'<span class="py">'+py+'</span><span class="zh" style="font-size:26px">'+zh+'</span><small>'+th+'</small>'}}
+// tongue diagram: side view, lips at left
+function mouthSvg(){return '<svg class="mouth" viewBox="0 0 300 150">'+
+ '<path d="M30 40 Q60 22 120 26 Q170 22 210 34 Q250 46 280 70" fill="none" stroke="#6B625B" stroke-width="4" stroke-linecap="round"/>'+
+ '<text x="150" y="16" font-size="11" fill="#6B625B" text-anchor="middle" font-family="IBM Plex Sans Thai">เพดานปาก</text>'+
+ '<path d="M36 40 L36 56 L48 56 L48 38" fill="#fff" stroke="#6B625B" stroke-width="2"/>'+
+ '<text x="42" y="74" font-size="10" fill="#6B625B" text-anchor="middle" font-family="IBM Plex Sans Thai">ฟัน</text>'+
+ '<path d="M20 118 Q120 140 280 120" fill="none" stroke="#6B625B" stroke-width="4" stroke-linecap="round"/>'+
+ '<g class="tg" id="flat"><path d="M52 104 Q60 82 100 84 Q170 80 230 96 Q262 106 280 118 L280 124 Q160 132 52 112 Z" fill="#E8828F" stroke="#B5384B" stroke-width="2"/></g>'+
+ '<g class="tg" id="curl" style="opacity:0"><path d="M86 112 Q78 90 84 66 Q88 44 104 44 Q112 52 104 62 Q100 78 118 84 Q170 82 230 96 Q262 106 280 118 L280 124 Q160 132 86 116 Z" fill="#E8828F" stroke="#B5384B" stroke-width="2"/><circle cx="100" cy="40" r="7" fill="none" stroke="#C8102E" stroke-width="2" stroke-dasharray="3 3"/></g>'+
+ '<text id="cap" x="150" y="146" font-size="12" fill="#C8102E" text-anchor="middle" font-family="IBM Plex Sans Thai" font-weight="600">ลิ้นแบน ปลายลิ้นอยู่ด้านล่าง</text></svg>'}
+
+B0.run({title:'บทที่ 8 zh ch sh r ลิ้นม้วน',steps:[
+{stage:'ก่อนเริ่ม',name:'ทวนสั้น · บทที่ 7',ins:'ฟังเสียง แล้วแตะคำที่ได้ยิน',
+ guide:'ก่อนเริ่ม ทวนเสียง <b>j q x</b> จากบทที่แล้ว 2 ข้อ',guideImg:'assets/mascot/wave.webp',
+ render:B0.pick([
+  {play:'七',ask:'แตะคำที่ได้ยิน',opts:[o('qī','七','เจ็ด',1),o('yī','一','หนึ่ง',0)],explain:{ok:'qī ลิ้นแบน ปลายลิ้นแตะฟันล่าง',bad:'ที่ได้ยินคือ qī 七 (เจ็ด)'}},
+  {play:'谢谢',ask:'แตะคำที่ได้ยิน',opts:[o('xièxie','谢谢','ขอบคุณ',1),o('bàba','爸爸','พ่อ',0)],explain:{ok:'x ลิ้นแบนเช่นกัน วันนี้จะเรียนเสียงที่ต้องม้วนลิ้น',bad:'ที่ได้ยินคือ xièxie 谢谢 (ขอบคุณ)'}}])},
+{stage:'ก่อนเริ่ม',name:'เรื่องเปิดบท · ทีมลิ้นม้วน',ins:'แตะตัวอักษรทั้ง 4 ตัว ฟังว่าแต่ละตัวออกเสียงอย่างไร',
+ render:function(m,a){
+  a.add('<div class="card fadein" style="font-size:14.5px">พบกับ <b>ทีมลิ้นม้วน</b> ทั้ง 4 ตัวนี้ต้อง<b>ม้วนปลายลิ้นขึ้น</b>ก่อนออกเสียง ซึ่งภาษาไทยไม่มี จบบทนี้คุณจะพูดว่า <span class="zh">是</span> ใช่ <span class="zh">十</span> สิบ และ <span class="zh">吃</span> กิน ได้</div>');
+  var t=a.add('<div class="team"></div>'),n=0;
+  SYL.forEach(function(s,k){var b=h('<button type="button" class="fadein" style="animation-delay:'+(k*90)+'ms"><span class="tile t-i">'+s.ini+'</span><small>'+s.py+'</small></button>');t.appendChild(b);
+   b.onclick=function(){b.classList.remove('on');void b.offsetWidth;b.classList.add('on');B0.play(s.zh,'s');if(!b.dataset.d){b.dataset.d=1;n++;if(n===4){a.fb('ได้ยินไหม ทั้ง 4 เสียงมีเสียงลมผ่านลิ้นที่ม้วนขึ้น ฟังคล้ายเสียงที่ "ทึบ" กว่าภาษาไทย','tip');a.done()}}}});
+  a.add('<p class="note">เสียงที่ได้ยินเป็นเสียงช้า เพื่อให้ฟังลิ้นได้ชัด</p>');
+ }},
+{stage:'ด่าน 1 · ฟังและดู',name:'ฟังก่อน',ins:'แตะปุ่มเสียงของทุกการ์ด ฟังให้ครบทั้ง 4 คำ',
+ guide:'<b>ด่าน 1</b> ฟังเสียงลิ้นม้วนจากเสียงผู้หญิงและผู้ชาย แล้วดูว่าลิ้นอยู่ตรงไหน',guideImg:'assets/mascot/listening.webp',
+ render:B0.listen(SYL.map(function(s){return {top:'<span class="tile t-i" style="height:30px;min-width:40px;font-size:17px">'+s.ini+'</span> <span class="tile t-f" style="height:30px;min-width:30px;font-size:17px">i</span>',py:s.py,zh:s.zh,th:s.th,say:s.zh}}),{after:'ครบ 4 คำแล้ว สังเกตว่า i หลังลิ้นม้วนไม่ได้อ่านว่า "อี" แต่เป็นเสียงอือที่ลิ้นยังม้วนอยู่'})},
+{stage:'ด่าน 1 · ฟังและดู',name:'ภาพลิ้นและปาก',ins:'แตะลิ้นแบนและลิ้นม้วน ดูตำแหน่งลิ้น แล้วฟังเสียงช้า',
+ render:function(m,a){
+  a.add('<div class="row fadein" style="align-items:center"><img src="'+R+'assets/pinroom/pose-curl-zhchshr.webp" alt="ลามาม้วนลิ้น" style="width:96px;height:96px;object-fit:contain"><div style="font-size:14px">ปลายลิ้นม้วนขึ้นไปใกล้เพดานด้านหลังฟันบน แต่ไม่แตะสนิท ลมจึงเสียดออกมาเป็นเสียง sh</div></div>');
+  var pad=a.add('<div class="pad">'+mouthSvg()+'</div>');
+  var seg=a.add('<div class="seg"><button type="button" data-k="flat"><b>xī</b>ลิ้นแบน แบบ ซี</button><button type="button" data-k="curl"><b>shī</b>ลิ้นม้วน</button></div>');
+  var sl=h('<button class="vbtn" type="button" style="align-self:center">'+B0.SPK+'<span>ฟัง shī แบบช้า</span></button>');m.appendChild(sl);
+  var got={};function chk(){if(got.flat&&got.curl&&got.slow&&!got.d){got.d=1;a.fb('เคล็ดลับ: พูด "ซี" ค้างไว้ แล้วค่อยๆ ม้วนปลายลิ้นขึ้นไปด้านหลัง เสียงจะเปลี่ยนเป็น shī','tip');a.done()}}
+  [].forEach.call(seg.children,function(b){b.onclick=function(){[].forEach.call(seg.children,function(c){c.classList.toggle('on',c===b)});var k=b.dataset.k;
+   pad.querySelector('#flat').style.opacity=k==='flat'?1:0;pad.querySelector('#curl').style.opacity=k==='curl'?1:0;
+   pad.querySelector('#cap').textContent=k==='flat'?'ลิ้นแบน ปลายลิ้นอยู่ด้านล่าง (xī)':'ลิ้นม้วน ปลายลิ้นยกขึ้นไปด้านหลัง (shī)';
+   B0.play(k==='flat'?'西':'诗','f');got[k]=1;chk()}});
+  sl.onclick=function(){seg.children[1].click();setTimeout(function(){B0.play('诗','s',sl)},900);got.slow=1;chk()};
+ }},
+{stage:'ด่าน 2 · ฝึกหูและปาก',name:'ฟังแยกคู่',ins:'ฟังเสียง แล้วแตะคำที่ได้ยิน',
+ guide:'<b>ด่าน 2</b> แยกเสียงลิ้นม้วนออกจากลิ้นแบน แล้วต่อเสียงเป็นคำ',guideImg:'assets/mascot/think.webp',
+ render:B0.pick([
+  {play:'吃',opts:[o('chī','吃','กิน · ลิ้นม้วน',1),o('qī','七','เจ็ด · ลิ้นแบน',0)],explain:{ok:'chī ม้วนลิ้น ส่วน qī ลิ้นแบน',bad:'ที่ได้ยินคือ chī 吃 เสียงลิ้นม้วน'}},
+  {play:'习',opts:[o('shí','十','สิบ · ลิ้นม้วน',0),o('xí','习','เรียน · ลิ้นแบน',1)],explain:{ok:'xí ลิ้นแบน เสียงคล้าย "ซี"',bad:'ที่ได้ยินคือ xí 习 ลิ้นแบน'}},
+  {play:'知',opts:[o('zhī','知','รู้ · ลิ้นม้วน',1),o('jī','鸡','ไก่ · ลิ้นแบน',0)],explain:{ok:'zhī ม้วนลิ้น เสียงทึบกว่า jī',bad:'ที่ได้ยินคือ zhī 知 เสียงลิ้นม้วน'}},
+  {play:'十',opts:[o('shí','十','สิบ · ลิ้นม้วน',1),o('xí','习','เรียน · ลิ้นแบน',0)],explain:{ok:'shí ม้วนลิ้น และเป็นเสียง 2 ขึ้น',bad:'ที่ได้ยินคือ shí 十 (สิบ)'}}])},
+{stage:'ด่าน 2 · ฝึกหูและปาก',name:'เกมต่อเสียงและจับเสียง',ins:'ฟังคำ แล้วแตะพยัญชนะและเสียงวรรณยุกต์ให้ครบ',
+ render:function(m,a){
+  var box=a.add('<div style="display:flex;flex-direction:column;gap:12px"></div>');
+  var BL=[{say:'是',ini:'sh',t:4,py:'shì',th:'ใช่'},{say:'十',ini:'sh',t:2,py:'shí',th:'สิบ'},{say:'吃',ini:'ch',t:1,py:'chī',th:'กิน'}],bi=0;
+  function blend(){var B=BL[bi];box.innerHTML='';
+   box.appendChild(h('<div class="sec"><span>ภาค 1 · ต่อเสียง '+(bi+1)+'/3</span><span class="pill">ต่อเสียง</span></div>'));
+   var hd=h('<div class="row jc"></div>');var sp=B0.spk(B.say,bi%2?'m':'f','');hd.appendChild(sp);hd.appendChild(h('<span style="font-size:14px;color:var(--sub)">ฟังคำนี้ แล้วต่อเสียงให้ตรง</span>'));box.appendChild(hd);setTimeout(function(){sp.click()},300);
+   var sl=h('<div class="slots"><div class="slotx" id="si">?</div><span style="font-size:22px;color:var(--sub)">+</span><div class="slotx f t-f">i</div><span style="font-size:22px;color:var(--sub)">+</span><div class="slotx" id="st" style="width:72px">?</div></div>');box.appendChild(sl);
+   var tr1=h('<div class="tray"></div>'),tr2=h('<div class="tray"></div>');box.appendChild(h('<div style="font-size:13px;color:var(--sub);text-align:center">พยัญชนะ</div>'));box.appendChild(tr1);box.appendChild(h('<div style="font-size:13px;color:var(--sub);text-align:center">เสียงวรรณยุกต์</div>'));box.appendChild(tr2);
+   var pick={};var res=h('<div></div>');box.appendChild(res);
+   ['zh','ch','sh','r'].forEach(function(x){var b=h('<button type="button" class="tile t-i" data-ini="'+x+'">'+x+'</button>');tr1.appendChild(b);b.onclick=function(){pick.i=x;var s=sl.querySelector('#si');s.textContent=x;s.className='slotx f t-i pop';check()}});
+   [1,2,3,4].forEach(function(n){var b=h('<button type="button" class="tbtn" data-t="'+n+'">'+mini(n)+'<small>เสียง '+n+'</small></button>');tr2.appendChild(b);b.onclick=function(){pick.t=n;var s=sl.querySelector('#st');s.innerHTML=mini(n,22);s.className='slotx f pop';s.style.background='var(--red)';s.querySelector('path').setAttribute('stroke','#fff');check()}});
+   function check(){if(!pick.i||!pick.t)return;var ok=pick.i===B.ini&&pick.t===B.t;a.mark(ok);B0.sfx(ok);[].forEach.call(box.querySelectorAll('.tray button'),function(b){b.disabled=true});
+    res.innerHTML='';a.fb(ok?'<b>ถูกต้อง</b> '+B.ini+' + i + เสียง '+B.t+' = <b>'+B.py+'</b> <span class="zh" style="font-size:20px">'+B.say+'</span> แปลว่า '+B.th:'<b>ยังไม่ใช่</b> คำนี้คือ '+B.ini+' + i + เสียง '+B.t+' = <b>'+B.py+'</b> <span class="zh" style="font-size:20px">'+B.say+'</span> ('+B.th+')',ok?'ok':'bad',res);
+    B0.play(B.say,'f');var nb=h('<button class="btn o sm" type="button" style="display:block;margin:8px auto 0">'+(bi<2?'คำต่อไป':'ไปภาค 2 จับเสียงเร็ว')+'</button>');res.appendChild(nb);nb.onclick=function(){if(bi<2){bi++;blend()}else catchGame()}}
+  }
+  var CT=[['吃','chī',['chī','qī','cī']],['十','shí',['shí','xí','sí']],['七','qī',['qī','chī','jī']],['日','rì',['rì','yì','lì']],['鸡','jī',['jī','zhī','qī']],['是','shì',['shì','sì','xì']]];
+  function catchGame(){var order=B0.shuffle(CT),ci=0,right=0,tm=null;
+   function round(){var C=order[ci];box.innerHTML='';clearInterval(tm);
+    box.appendChild(h('<div class="sec"><span>ภาค 2 · จับเสียงเร็ว '+(ci+1)+'/'+order.length+'</span><span class="pill">ถูก '+right+'</span></div>'));
+    var tb=h('<div class="timer"><i></i></div>');box.appendChild(tb);
+    var hd=h('<div class="row jc"></div>');var sp=B0.spk(C[0],ci%2?'m':'f','big');hd.appendChild(sp);box.appendChild(hd);setTimeout(function(){sp.click()},250);
+    var g=h('<div class="opts" style="grid-template-columns:repeat(3,1fr)"></div>');box.appendChild(g);var res=h('<div></div>');box.appendChild(res);var done=false;
+    function end(ok,b,why){if(done)return;done=true;clearInterval(tm);a.mark(ok);B0.sfx(ok);if(ok)right++;[].forEach.call(g.children,function(c){c.disabled=true;if(c.dataset.ok==='1')c.classList.add('right');else if(c!==b)c.classList.add('dim')});if(b&&!ok)b.classList.add('wrong');
+     a.fb(ok?'<b>ถูกต้อง</b> '+C[1]+' <span class="zh">'+C[0]+'</span>':'<b>'+(why||'ยังไม่ใช่')+'</b> ที่ได้ยินคือ '+C[1]+' <span class="zh">'+C[0]+'</span>',ok?'ok':'bad',res);
+     var nb=h('<button class="btn o sm" type="button" style="display:block;margin:8px auto 0">'+(ci<order.length-1?'รอบต่อไป':'จบเกม')+'</button>');res.appendChild(nb);
+     nb.onclick=function(){if(ci<order.length-1){ci++;round()}else{box.innerHTML='';box.appendChild(h('<div class="card center fadein"><div style="font-size:15px">จับเสียงได้ถูก</div><div style="font-size:40px;font-weight:700;color:var(--red);font-family:Inter">'+right+'/'+order.length+'</div><div style="font-size:14px;color:var(--sub)">ต่อเสียงครบ 3 คำ และจับเสียงลิ้นม้วนครบ 6 รอบ</div></div>'));a.done()}}}
+    B0.shuffle(C[2]).forEach(function(p,k){var b=h('<button class="opt" type="button" data-ok="'+(p===C[1]?1:0)+'" style="animation-delay:'+(k*60)+'ms"><span class="py">'+p+'</span></button>');g.appendChild(b);b.onclick=function(){end(p===C[1],b)}});
+    var t0=Date.now(),bar=tb.querySelector('i');tm=setInterval(function(){var p=1-(Date.now()-t0)/7000;bar.style.width=Math.max(0,p*100)+'%';if(p<=0)end(false,null,'หมดเวลา')},80);
+   }
+   round();
+  }
+  blend();
+ }},
+{stage:'ด่าน 3 · พูดจริง',name:'พูดแล้วเทียบ',ins:'ฟังต้นแบบ กดไมโครโฟน แล้วพูดตาม เทียบเส้นเสียงของคุณกับต้นแบบ',
+ guide:'<b>ด่าน 3</b> พูด 是 กับ 十 ด้วยลิ้นม้วน แล้วใช้ตอบคำถามจริง',guideImg:'assets/mascot/speaking.webp',
+ render:B0.speak([
+  {say:'是',zh:'是',py:'shì',th:'ใช่ · เสียง 4 ลงเร็ว',tip:'ม้วนปลายลิ้นขึ้นก่อน แล้วพูดเสียงลงสั้นและหนักแน่น',tpl:tplT(4)},
+  {say:'十',zh:'十',py:'shí',th:'สิบ · เสียง 2 ขึ้น',tip:'ลิ้นม้วนเหมือนเดิม แต่เสียงขึ้นเหมือนถาม "ห๊ะ?"',tpl:tplT(2)}])},
+{stage:'ด่าน 3 · พูดจริง',name:'การ์ตูนพูดตอบ',ins:'ฟังคำถามของเพื่อน แล้วแตะคำตอบที่ถูกต้อง',
+ render:function(m,a){
+  var c=a.add('<div class="comic"><img class="who" src="'+R+'assets/art/word/男孩.webp" alt="เพื่อน"><div class="sb l zh" style="font-size:19px">你是泰国人吗？<small>nǐ shì Tàiguó rén ma? · คุณเป็นคนไทยใช่ไหม</small></div><div class="me"><div class="hd"></div><div class="bd">คุณ</div></div><div class="sb r wait">…</div></div>');
+  setTimeout(function(){B0.play('你是泰国人吗？','m')},500);
+  var rp=h('<button class="vbtn" type="button" style="align-self:center">'+B0.SPK+'<span>ฟังเพื่อนอีกครั้ง</span></button>');m.appendChild(rp);rp.onclick=function(){B0.play('你是泰国人吗？','m',rp)};
+  var g=a.add('<div class="opts"></div>'),first=true;
+  [{zh:'十！',py:'shí!',th:'สิบ'},{zh:'是！',py:'shì!',th:'ใช่',ok:1}].forEach(function(o,k){var b=h('<button class="opt" type="button" data-ok="'+(o.ok?1:0)+'" style="animation-delay:'+(k*80)+'ms"><span class="zh" style="font-size:28px">'+o.zh+'</span><span class="py" style="font-size:17px">'+o.py+'</span><small>'+o.th+'</small></button>');g.appendChild(b);
+   b.onclick=function(){if(g.dataset.done)return;if(first){a.mark(!!o.ok);first=false}B0.sfx(!!o.ok);B0.play(o.zh,'f');
+    if(o.ok){g.dataset.done=1;b.classList.add('right');var r=c.querySelector('.sb.r');r.className='sb r zh';r.innerHTML='是！<small>shì · ใช่</small>';a.fb('<b>ถูกต้อง</b> 是 shì เสียง 4 แปลว่า ใช่ ถ้าอยากพูดเต็มประโยค ฟังด้านล่าง','ok');
+     var full=h('<button class="vbtn" type="button" style="align-self:center">'+B0.SPK+'<span class="zh">是，我是泰国人。</span>&nbsp;ใช่ ฉันเป็นคนไทย</button>');m.appendChild(full);full.onclick=function(){B0.play('是，我是泰国人。','f',full)};a.done()}
+    else{b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');a.fb('<b>ยังไม่ใช่</b> 十 shí เสียงขึ้น แปลว่า "สิบ" ถ้าตอบแบบนี้เพื่อนจะงง ลองอีกครั้ง','bad')}}});
+ }},
+{stage:'จบบท',name:'รางวัล',ins:'ดูสิ่งที่ได้ในบทนี้ แล้วกดกลับหน้ารวมบทเรียน',
+ render:B0.reward({learned:['ม้วนลิ้นออกเสียง zh ch sh r ได้','แยกเสียงลิ้นม้วนกับลิ้นแบน (chī กับ qī)','พูด 是 (ใช่) และ 十 (สิบ) ได้ถูกเสียง'],
+  extra:function(m,a){var ch=a.add('<div class="card"><div style="font-size:13.5px;color:var(--sub);margin-bottom:6px">ตารางพินอินของคุณ · แถวลิ้นม้วนสว่างขึ้น</div><div class="chart" style="grid-template-columns:repeat(4,1fr)">'+['zhi','chi','shi','ri'].map(function(t){return '<div class="py">'+t+'</div>'}).join('')+'</div></div>');
+   [].forEach.call(ch.querySelectorAll('.chart div'),function(d,i){setTimeout(function(){d.classList.add('on')},1300+i*220)})}})}
+]});
+})();
+</script></body></html>

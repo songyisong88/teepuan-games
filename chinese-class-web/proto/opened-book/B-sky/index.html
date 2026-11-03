@@ -1,0 +1,40 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>第一步 ก้าวแรก · แบบ B เกาะลอยฟ้า</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="../map.css">
+<style>
+:root{--accent:#7a5cd6;--accent-dark:#4b3497;--accent-grad:linear-gradient(180deg,#9479ec,#6a4cc8);--glow:rgba(255,240,180,.95);--sec-bg:linear-gradient(180deg,#8c72e0,#5e44b8)}
+.app{background:#f3d9e6}
+.isl{position:absolute;left:50%;top:18px;width:132px;margin-left:-66px;pointer-events:none;filter:drop-shadow(0 10px 12px rgba(80,50,120,.25))}
+.node.big .isl{width:170px;margin-left:-85px;top:24px}
+.node .tag{top:calc(100% + 34px)}
+.cloud{position:absolute;pointer-events:none;z-index:8;width:180px;height:70px;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 60%,rgba(255,255,255,.85),rgba(255,255,255,0) 68%);filter:blur(2px);animation:cl 46s linear infinite alternate}
+@keyframes cl{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+</style></head><body>
+<div class="app">
+  <div class="scroller"><div class="map"></div></div>
+  <div class="hdr">
+    <div class="row">
+      <div class="back"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="#3a2c1e" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="cover" src="../../../assets/art/books/b0.webp" alt="">
+      <div class="t"><div class="zh">第一步<span>ก้าวแรก</span></div><div class="sub">เล่ม 0 · พินอินทีละขั้น</div></div>
+    </div>
+    <div class="prog"><div class="bar"><div class="fill"></div></div><div class="n">3/17 บท</div></div>
+  </div>
+  <div class="foot"><button class="cta"><b>เริ่มบทที่ 4</b><small>ราว 5 นาที</small></button></div>
+</div>
+
+<script src="../data.js"></script>
+<script>
+window.THEME={
+  bg:'../img/sky.webp', parallax:true, mapH:2050, move:'hop', hopH:64, tension:.24, secOff0:96,
+  pts:[[.50,1910],[.74,1800],[.40,1700],[.22,1586],[.52,1484],[.78,1378],[.56,1270],[.26,1170],[.40,1060],[.68,940],[.72,812],[.42,712],[.20,604],[.48,500],[.76,398],[.54,292],[.36,170]],
+  under:(L,st)=>`<img class="isl" src="../img/island.webp" alt="">`,
+  pathSvg:(d,k)=>`
+   <path class="prog" d="${d}" fill="none" stroke="#ffd56a" stroke-width="${6*k}" stroke-linecap="round" style="filter:drop-shadow(0 0 5px rgba(255,210,90,.95))"/>
+   <path class="measure" d="${d}" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="${6*k}" stroke-linecap="round" stroke-dasharray="0.1 ${14*k}"/>`,
+  decor:(m,P,k)=>{ [[-40,1650],[230,1240],[-60,820],[240,460]].forEach(([x,y],i)=>{const c=document.createElement('div');c.className='cloud';c.style.left=(x*k)+'px';c.style.top=(y*k)+'px';c.style.animationDelay=(-i*11)+'s';m.appendChild(c);}); }
+};
+</script>
+<script src="../map.js"></script>
+</body></html>

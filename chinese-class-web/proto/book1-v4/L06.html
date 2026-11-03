@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 1-6 ยินดีที่ได้รู้จัก</title>
+</head><body>
+<script>
+/* บท 1-6 (ซ้งอี้ 4 พ.ย. 2026): ยินดีที่ได้รู้จัก · กิจกรรมเฉพาะบท: ใครมาจากไหน (ฟังแล้วแตะแผนที่) และบัตรข้อมูล ถูกหรือไม่ถูก */
+const RS=w('认识','rènshi','รู้จัก'),GX=w('高兴','gāoxìng','ดีใจ'),ZG=w('中国','Zhōngguó','ประเทศจีน'),TG=w('泰国','Tàiguó','ประเทศไทย'),REN=w('人','rén','คน');
+const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),MAN=REN.img;
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const NP={zg:(k,who)=>S('我是中国人。','wǒ shì Zhōngguó rén.','ฉันเป็นคนจีน',k,who),tg:(k,who)=>S('我是泰国人。','wǒ shì Tàiguó rén.','ฉันเป็นคนไทย',k,who),
+ hgx:S('很高兴认识你！','hěn gāoxìng rènshi nǐ!','ยินดีที่ได้รู้จัก','hgxrsn-m','f'),rsn:S('认识你很高兴！','rènshi nǐ hěn gāoxìng!','ยินดีที่ได้รู้จักเช่นกัน','rsnhgx-f','me')};
+const D=[{sit:'เพื่อนพาเพื่อนชาวจีนมาให้รู้จัก',img:ZG.img},S('他是中国人。','tā shì Zhōngguó rén.','เขาเป็นคนจีน','tszgr-g','g'),
+ S('我叫王明，我是中国人。','wǒ jiào Wáng Míng, wǒ shì Zhōngguó rén.','ฉันชื่อหวังหมิง ฉันเป็นคนจีน','wjwmzgr-m','f'),
+ S('我叫玛莉，我是泰国人。','wǒ jiào Mǎlì, wǒ shì Tàiguó rén.','ฉันชื่อมะลิ ฉันเป็นคนไทย','wjmltgr-f','me'),NP.hgx,NP.rsn];
+const BINS=[{img:ZG.img,zh:'中国',py:'Zhōngguó',th:'ประเทศจีน'},{img:TG.img,zh:'泰国',py:'Tàiguó',th:'ประเทศไทย'}];
+const it=(img,k,b)=>Object.assign({img,bin:b},b?NP.tg(k):NP.zg(k));
+const TQ=i=>`แบบทดสอบ ${i}/5 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/3 · ไม่มีตัวช่วยภาษาไทย`;
+const card=(n,py,c)=>`<b class="zh">${n}</b><span class="py">${py}</span><span>สัญชาติ <span class="zh">${c}人</span></span>`;
+const R={rsn:{zh:'认识你很高兴！',py:'rènshi nǐ hěn gāoxìng!',th:'ยินดีที่ได้รู้จักเช่นกัน',k:'rsnhgx-f'},mgx:{zh:'没关系！',py:'méi guānxi!',th:'ไม่เป็นไร',k:'mgx-f'},zj:{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-f'},
+ bkq:{zh:'不客气！',py:'bú kèqi!',th:'ไม่เป็นไร (ยินดี)',k:'bkq-f'},dbq:{zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-f'},
+ tg:NP.tg('wstgr-f'),zg:NP.zg('wszgr-f'),ttg:S('他是泰国人。','tā shì Tàiguó rén.','เขาเป็นคนไทย','tstgr-f')};
+LESSON({no:6,goal:{do:'แนะนำตัวว่ามาจากประเทศไหน และบอกว่ายินดีที่ได้รู้จัก',sub:'ใช้ <span class="gz">中国人 泰国人</span> และ <span class="gz">很高兴认识你</span>',min:8},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:SC('l4-p3'),cap:'สถานการณ์ของบทนี้',title:'เพื่อนใหม่จากประเทศจีน',line:NP.hgx,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะแนะนำตัวว่าเป็นคนไทย และตอบเพื่อนใหม่ได้'}),
+ vgrid({title:'5 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[RS,GX,ZG,TG,REN]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['认识','高兴','中国','泰国','人'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
+ wcard({no:1,of:5,cap:'ใช้กับคน',w:RS,aid:{parts:['rèn',4,'shi',0],cap:'เสียง 4 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เริ่น ซื่อ"</b> · r ม้วนลิ้น ไม่ใช่ ล',sk:'rs-fs',
+  use:'แปลว่ารู้จัก ใช้กับคน เช่น ตอนพบเพื่อนใหม่ครั้งแรก',ex:[NP.rsn,NP.hgx]}),
+ syl({n:'คำที่ 1/5',w:RS,chars:[{zh:'认',py:'rèn',t:4,k:'g:ren4'},{zh:'识',py:'shi',t:0}],done:'rèn + shi เบา = rènshi'}),
+ wcard({no:2,of:5,cap:'ความรู้สึก',w:GX,aid:{parts:['gāo',1,'xìng',4],cap:'เสียง 1 · เสียง 4'},hint:'คล้าย <b>"กาว ซิ่ง"</b>',sk:'gx-fs',
+  use:'แปลว่าดีใจ มักพูดคู่กับ 很 hěn ที่แปลว่ามาก',ex:[NP.hgx,S('我很高兴。','wǒ hěn gāoxìng.','ฉันดีใจมาก','wohgx-g')]}),
+ rec({n:'คำที่ 1–2/5',ws:[RS,GX]}),
+ wcard({no:3,of:5,cap:'ประเทศ',w:ZG,aid:{parts:['Zhōng',1,'guó',2],cap:'เสียง 1 · เสียง 2'},hint:'คล้าย <b>"จง กั๋ว"</b> · zh ม้วนลิ้น',sk:'zg-fs',
+  use:'ประเทศจีน เติม 人 ข้างหลังเป็นคนจีน',ex:[NP.zg('wszgr-m'),S('他是中国人。','tā shì Zhōngguó rén.','เขาเป็นคนจีน','tszgr-g')]}),
+ wcard({no:4,of:5,cap:'ประเทศ',w:TG,aid:{parts:['Tài',4,'guó',2],cap:'เสียง 4 · เสียง 2'},hint:'คล้าย <b>"ไท่ กั๋ว"</b>',sk:'tg-fs',
+  use:'ประเทศไทย เติม 人 ข้างหลังเป็นคนไทย',ex:[NP.tg('wstgr-f'),S('她是泰国人。','tā shì Tàiguó rén.','เธอเป็นคนไทย','tstgr-m')]}),
+ wcard({no:5,of:5,cap:'คำว่าคน',w:REN,aid:{parts:['rén',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"เหริน"</b> · r ม้วนลิ้น',sk:'ren-fs',
+  use:'แปลว่าคน วางหลังชื่อประเทศ เพื่อบอกว่าเป็นคนชาติไหน',ex:[S('中国人','Zhōngguó rén','คนจีน','zgr-f'),S('泰国人','Tàiguó rén','คนไทย','w:泰国人')]}),
+ rec({n:'คำที่ 3–5/5',ws:[ZG,TG,REN]}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ประเทศ + 人','ใครมาจากไหน'],note:'ฝึกแนะนำตัวกับเพื่อนใหม่'}),
+ dialog({cap:'เทคนิค 1/4 · บทสนทนา',title:'รู้จักเพื่อนใหม่',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'บทนี้ใช้ 叫 และ 是 จากบทก่อนด้วย'}),
+ talk({cap:'เทคนิค 2/4 · บอกสัญชาติ',title:'ประเทศ + 人 = คนชาตินั้น',text:'วาง 人 ไว้หลังชื่อประเทศ',lines:[NP.zg('wszgr-m','f'),NP.tg('wstgr-f','me')],
+  chips:[{zh:'中国人',py:'Zhōngguó rén',th:'คนจีน',k:'zgr-f'},{zh:'泰国人',py:'Tàiguó rén',th:'คนไทย',k:'w:泰国人'}],tip:'ลำดับคำกลับกับภาษาไทย · คนไทย = <span class="zh">泰国人</span> (ไทย + คน)'}),
+ sortmap({tag:'เทคนิค 3/4 · ใครมาจากไหน',bins:BINS,items:[it(BOY,'wszgr-m',0),it(GIRL,'wstgr-g',1),it(MAN,'wszgr-t',0),it(STU,'wstgr-f',1)]}),
+ tips({cap:'เทคนิค 4/4 · ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
+  {h:'คนไทย ไม่ใช่ 人泰国',bad:'人泰国',good:'泰国人',k:'w:泰国人'},
+  {h:'认识 พยางค์ที่สองเบา',bad:'rèn shí',good:'rènshi',k:RS.k},
+  {h:'人 ม้วนลิ้น r',bad:'lén',good:'rén',k:REN.k},
+  {h:'ตอบ 很高兴认识你',bad:'谢谢！',good:'认识你很高兴！',k:'rsnhgx-f',note:'พูด 很高兴认识你 กลับก็ได้'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ถูกหรือไม่ถูก','ใครมาจากไหน','ตอบในบทสนทนา'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ tf({tag:TQ(1),k:'wjwmzgr-m',img:BOY,card:card('王明','Wáng Míng','中国'),ans:0,fb:'เขาพูดว่า <span class="zh">我叫王明，我是中国人。</span> ตรงกับบัตร'}),
+ ask({rv:8,q:'ฟัง 中 แล้วเลือกพยัญชนะตัวแรก',k:'g:zhong1',opts:['z','zh'],ans:1,fb:'<b>zh</b>ōng · ม้วนลิ้นขึ้น'}),
+ sortmap({tag:TQ(2),bins:BINS,items:[it(BOY,'wstgr-m',1),it(GIRL,'wszgr-g',0),it(STU,'wstgr-f',1),it(MAN,'wszgr-t',0)]}),
+ tf({tag:TQ(3),k:'wjlntgr-g',img:GIRL,card:card('李娜','Lǐ Nà','中国'),ans:1,fb:'เธอพูดว่า <span class="zh">我叫李娜，我是泰国人。</span> เธอเป็นคนไทย ไม่ตรงกับบัตร'}),
+ ask({tag:TQ(4),q:'ฟังเสียง แล้วเลือกความหมาย',k:GX.k,opts:['ดีใจ','รู้จัก','คน'],ans:0,fb:'<span class="zh">高兴</span> <b>gāoxìng</b> = ดีใจ'}),
+ ask({rv:2,q:'ฟังพยางค์ 泰 tài แล้วเลือกเส้นเสียง',k:'g:tai4',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:1,fb:'<b class="t4">tài</b> <span class="zh">泰</span> · เสียง 4 ตกเร็ว'}),
+ reply({tag:TQ(5),q:'เพื่อนใหม่พูดกับคุณ คุณจะตอบว่าอะไร',line:NP.hgx,opts:[R.rsn,R.mgx,R.zj],ans:0,why:'ตอบว่ายินดีที่ได้รู้จักเช่นกัน'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'งานพบเพื่อนต่างชาติ',chips:['ใครมาจากไหน','แนะนำตัว','ตอบเพื่อนใหม่'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 3 ข้อ'}),
+ sortmap({tag:MQ(1),noTh:1,bins:BINS,items:[it(MAN,'wstgr-t',1),it(BOY,'wszgr-m',0),it(GIRL,'wstgr-g',1)]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนบอกว่าเป็นคนจีน คุณเป็นคนไทย คุณจะพูดว่าอะไร',line:NP.zg('wszgr-m','f'),opts:[R.tg,R.zg,R.ttg],ans:0}),
+ reply({tag:MQ(3),noTh:1,q:'เพื่อนใหม่พูดกับคุณ',line:NP.hgx,opts:[R.bkq,R.rsn,R.dbq],ans:1}),
+ /* 5 · จบบท */
+ fin({title:'แนะนำตัวกับเพื่อนใหม่ได้แล้ว',html:dlgH(D,{noTh:1}),chips:[RS,GX,ZG,TG,REN].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})).concat([{zh:'很高兴认识你',py:'hěn gāoxìng rènshi nǐ',th:'ยินดีที่ได้รู้จัก',k:'w:很高兴认识你'}]),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg6',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

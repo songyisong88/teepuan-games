@@ -102,7 +102,7 @@ SC.booklist=()=>{const L=lastG();const cur=L?L.g:'';const curT=L&&L.t||'';const 
    let sm=[pg?`หน้า ${pg}`:'',st.all&&!isCur?'ฟังครบแล้ว':''].filter(Boolean).join(' · ');if(isCur)sm=`กำลังฟัง${curT?` · แทร็ก ${curT}`:''}${pg?' · หน้า '+pg:''}`;
    rows+=`<button class="bk-ch ${cls} press" data-go="bkch" data-g="${G.g}"><span class="bk-no">${st.all&&!isCur?I.check('#fff',16):c.n}</span><div class="bk-tx"><b>บทที่ ${c.n} ${zhw(c.t)}</b><small>${sm}</small></div>${I.chev()}</button>`});
   if(p.story)rows+=`<button class="bk-ch bk-ex${cur==='s'+p.n?' bk-cur':''} press" data-go="bkch" data-g="s${p.n}"><span class="bk-no">${I.book(17)}</span><div class="bk-tx"><b>นิทานน้องลามา: ${zhw(p.story.zh)}</b><small>${p.story.p?`หน้า ${p.story.p} · `:''}เสียงอ่านนิทาน</small></div>${I.chev()}</button>`;
-  if(p.quiz)rows+=`<button class="bk-ch bk-ex${cur==='q'+p.n?' bk-cur':''} press" data-go="bkch" data-g="q${p.n}"><span class="bk-no">${I.pen(17)}</span><div class="bk-tx"><b>แบบทดสอบย่อยภาค ${p.n}</b><small>${[p.quiz.p?'หน้า '+p.quiz.p:'',group('q'+p.n).tr.length?'โจทย์ฟัง':'แทร็กกำลังจัดทำ'].filter(Boolean).join(' · ')}</small></div>${I.chev()}</button>`;
+  if(p.quiz)rows+=`<button class="bk-ch bk-ex${cur==='q'+p.n?' bk-cur':''} press" data-go="bkch" data-g="q${p.n}"><span class="bk-no">${I.pen(17)}</span><div class="bk-tx"><b>แบบทดสอบย่อยภาค ${p.n}</b><small>${[p.quiz.p?'หน้า '+p.quiz.p:'',group('q'+p.n).tr.length?'โจทย์ฟัง':'ข้อสอบอ่าน-เขียน'].filter(Boolean).join(' · ')}</small></div>${I.chev()}</button>`;
   rows+='</div>'});
  return {title:'เลือกบท',nav:hdr('เลือกบท',`ห้องเรียนคู่หนังสือ · ${CHS().length||32} บท`,`<button class="bk-rt press" data-go="bkqr">${I.qr(17)} สแกน</button>`),
   body:`<div class="bk-root bk-lst"><div class="bk-jump">${B().parts.map(p=>`<button class="bk-p${p.n===curPart?' bk-on':''} press" data-go="bkjump" data-p="${p.n}">ภาค<b>${p.n}</b></button>`).join('')}</div>${rows}</div>`,
@@ -133,7 +133,7 @@ function chBody(G){const st=stat(G),L=lastG(),pos=P().pos;const nW=gWords(G).len
  if(G.kind==='ch'&&!W.length&&(G.c.topic||G.c.goal))h+=`<div class="bk-card bk-dlg"><div class="bk-tx"><b>${pyw(G.c.topic||'')}</b>${G.c.goal?`<small>${pyw(G.c.goal)}</small>`:''}</div></div>`;
  if(G.kind==='quiz'&&G.p.quiz.fmt)h+=`<div class="bk-card bk-dlg"><div class="bk-tx"><b>รูปแบบข้อสอบ</b><small>${esc(G.p.quiz.fmt)}</small></div></div>`;
  /* แทร็ก */
- if(G.kind!=='story'||nT){h+=`<div class="bk-sh"><h3>${I.pen(20)} ${G.kind==='story'?'แทร็กนิทาน':'แบบฝึกหัดฟัง'}</h3>${nT?`<button class="bk-all press" data-go="bkplay" data-g="${G.g}" data-t="${G.tr[0].id}">${I.play(13)} เริ่มที่ ${G.tr[0].id}</button>`:''}</div>`;
+ if(G.kind!=='story'||nT){h+=`<div class="bk-sh"><h3>${I.pen(20)} ${G.kind==='story'?'แทร็กนิทาน':G.kind==='quiz'&&!nT?'วิธีทำแบบทดสอบ':'แบบฝึกหัดฟัง'}</h3>${nT?`<button class="bk-all press" data-go="bkplay" data-g="${G.g}" data-t="${G.tr[0].id}">${I.play(13)} เริ่มที่ ${G.tr[0].id}</button>`:''}</div>`;
   if(nT){h+='<div class="bk-card bk-tl">';
    G.tr.forEach(t=>{const ok=st.ht.indexOf(t.id)>=0,cur=L&&L.g===G.g&&L.t===t.id,ps=pos[t.id];const cls=cur?'bk-cur':ok?'bk-ok':'';
     const s=cur&&ps?`ฟังค้างไว้ ${fmt(ps[0])} / ${fmt(ps[1])}`:ok?'ฟังแล้ว':(t.d?fmt(t.d):(t.pg?'หน้า '+t.pg:''));
@@ -142,6 +142,7 @@ function chBody(G){const st=stat(G),L=lastG(),pos=P().pos;const nW=gWords(G).len
    const pg=G.kind==='quiz'?G.p.quiz.p:(G.tr[G.tr.length-1].pg||(G.kind==='ch'?G.c.p1:''));
    h+=G.kind==='quiz'?`<div class="bk-note">${I.pen(18)}<div>ฟังทีละแทร็ก แล้ว<b>เขียนคำตอบลงในหนังสือ${pg?' หน้า '+pg:''}</b> เฉลยอยู่ในภาคผนวก ง</div></div>`
     :`<div class="bk-note">${I.pen(18)}<div>ฟังทีละแทร็ก แล้ว<b>เขียนคำตอบลงในหนังสือ${pg?' หน้า '+pg:''}</b> เฉลยอยู่ท้ายหน้าเดียวกัน</div></div>`}
+  else if(G.kind==='quiz')h+=`<div class="bk-note">${I.pen(18)}<div>แบบทดสอบย่อยภาคนี้เป็นข้อสอบอ่าน-เขียน ไม่มีโจทย์ฟัง กรุณา<b>ทำแบบทดสอบในหนังสือ${G.p.quiz.p?' หน้า '+G.p.quiz.p:''}</b> และตรวจคำตอบได้ที่ภาคผนวก ง</div></div>`
   else h+=`<div class="bk-note bk-wait">${I.pen(18)}<div>แทร็กแบบฝึกหัดของบทนี้กำลังจัดทำ</div></div>`}
  return h+'</div>'}
 SC.bookch=(p)=>{const G=group(p&&p.g)||group('c1');const rt=`<button class="bk-rt press" data-go="bklist">ทั้งหมด ${CHS().length||32} บท</button>`;

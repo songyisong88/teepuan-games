@@ -90,7 +90,7 @@ console.log('built for',cfg.BRAND_NAME);
  {const ls=d=>fs.existsSync(path.join(D,d))?fs.readdirSync(path.join(D,d)).sort():[];
   const assets=[...ih.matchAll(/(?:script src|link rel="stylesheet" href)="([^"?:]+\.(?:js|css)\?v=[0-9a-f]+)"/g)].map(m=>m[1]);
   const shell=['index.html','manifest.webmanifest','favicon.ico',...assets,...ls('assets/icons').map(f=>'assets/icons/'+f),...ls('fonts').filter(f=>/\.woff2$/.test(f)&&!/^H4ch/.test(f)).map(f=>'fonts/'+f),
-   ...ls('assets/mascot').filter(f=>/\.webp$/.test(f)).map(f=>'assets/mascot/'+f),...ls('assets/friends').filter(f=>/\.webp$/.test(f)).map(f=>'assets/friends/'+f),'vendor/hanzi-writer.min.js'].filter((f,i,a)=>a.indexOf(f)===i&&fs.existsSync(path.join(D,f.split('?')[0])));
+   ...ls('assets/mascot').filter(f=>/\.webp$/.test(f)).map(f=>'assets/mascot/'+f),...ls('assets/friends').filter(f=>/\.webp$/.test(f)).map(f=>'assets/friends/'+f),...ls('assets/art/books').filter(f=>/\.webp$/.test(f)).map(f=>'assets/art/books/'+f),'vendor/hanzi-writer.min.js'].filter((f,i,a)=>a.indexOf(f)===i&&fs.existsSync(path.join(D,f.split('?')[0])));
   let sw=rd('sw.js');const line=`/*shell*/const V='${v}',SHELL=${JSON.stringify(shell)};`;
   if(!/^\/\*shell\*\/.*$/m.test(sw))throw new Error('sw.js shell marker missing');sw=sw.replace(/^\/\*shell\*\/.*$/m,()=>line);wr('sw.js',sw);
   console.log('sw shell',shell.length,'files',Math.round(shell.reduce((t,f)=>t+fs.statSync(path.join(D,f.split('?')[0])).size,0)/1024),'KB')}console.log('version',v)}

@@ -32,9 +32,47 @@ def base(s): return ''.join(c for c in unicodedata.normalize('NFD',s.lower()) if
 FP=set('脏长片场只处便觉假地了得背干差切炸倒缝还拧钉儿谁都着重行为都发调率校数传曲没会将量')
 def readings(c):
     return {r for r in sum(pinyin(c,style=Style.TONE,heteronym=True),[])}
+# v3 lessons write example/dialog pinyin by WORD (lǎoshī hǎo!) instead of syllable|syllable,
+# so split each joined word into syllables against the full set of valid pinyin syllables.
+from pypinyin.constants import PINYIN_DICT
+VALID=set()
+for _v in PINYIN_DICT.values():
+    for _r in _v.split(','): VALID.add(''.join(c for c in unicodedata.normalize('NFD',_r.lower()) if not unicodedata.combining(c)).replace('ü','v'))
+VALID-={'n','m','ng','hm','hng','r'}   # interjection-only readings would mis-split erhua (nǎr)
+def _b(c): return ''.join(x for x in unicodedata.normalize('NFD',c.lower()) if not unicodedata.combining(x)).replace('ü','v') or c
+def _segs(tok):
+    tok=unicodedata.normalize('NFC',tok);out=[]
+    def go(i,acc):
+        if len(out)>8: return
+        if i==len(tok): out.append(list(acc));return
+        for j in range(min(len(tok),i+7),i,-1):
+            piece=tok[i:j];b=''.join(_b(c) for c in piece)
+            if b in VALID or (b.endswith('r') and len(b)>1 and b[:-1] in VALID): go(j,acc+[piece])
+    go(0,[]);return out or [[tok]]
+def syl_n(py,n):
+    toks=[t for t in re.split(r"[| '’]",re.sub(r'[,.!?:;，。！？：；“”‘…\"()（）]','',py)) if t]
+    opts=[_segs(t) for t in toks]
+    best=None
+    def go(k,acc):
+        nonlocal best
+        if best is not None: return
+        if k==len(opts):
+            if len(acc)==n: best=list(acc)
+            return
+        for o in sorted(opts[k],key=len):
+            if len(acc)+len(o)<=n: go(k+1,acc+o)
+    go(0,[]);return best
 def toneck(zh,py,l,ctx):
     zc=HAN.findall(zh);sy=syl(py)
-    if len(zc)!=len(sy): E(l,f'{ctx} syllable count {len(zc)}!={len(sy)}: {zh} / {py}');return
+    if len(zc)!=len(sy):
+        sy=syl_n(py,len(zc))
+        if sy is None and '儿' in zc[1:]:   # erhua: 哪儿 = nǎr (one syllable)
+            zc2=[c for k,c in enumerate(zc) if not(c=='儿' and k>0)];s2=syl_n(py,len(zc2))
+            if s2 is not None:
+                drop=[k-1-n for n,k in enumerate([k for k,c in enumerate(zc) if c=='儿' and k>0])]
+                s2=[x[:-1] if k in drop and x.lower().endswith('r') else x for k,x in enumerate(s2)]
+                zc,sy=zc2,s2
+        if sy is None: E(l,f'{ctx} syllable count {len(zc)}!={len(syl(py))}: {zh} / {py}');return
     exp=pinyin(''.join(zc),style=Style.TONE,heteronym=False)
     for c,e,s in zip(zc,exp,sy):
         e=e[0];s=s.lower()
@@ -70,7 +108,7 @@ for L in LS:
     if L['chapter'] not in CH: E(tag,'unknown chapter')
     if V3:
         if not(2<=len(L['words'])<=8): E(tag,f'v3 words={len(L["words"])}')
-        if len(L['dlg']) not in (0,4): E(tag,f'v3 dlg={len(L["dlg"])}')
+        if len(L['dlg']) not in (0,2,4): E(tag,f'v3 dlg={len(L["dlg"])}')   # v3 lex lessons use a 2-line call-and-reply (rq.p=0)
     elif len(L['words'])!=16: E(tag,f'words={len(L["words"])} (need 16)')
     if V3: pass
     elif len(L['sents'])!=6: E(tag,f'sents={len(L["sents"])} (need 6)')
@@ -95,7 +133,7 @@ for L in LS:
         if len(han(w['ex']))<3: W(tag,f'very short example: {w["ex"]}')
         if not haveaudio(w['zh']): E(tag,f'no audio for word {w["zh"]}')
         if not haveaudio(w['ex']): E(tag,f'no audio for example {w["ex"]}')
-        seen_ex[w['ex']].append(i)
+        if i not in seen_ex[w['ex']]: seen_ex[w['ex']].append(i)   # v3 words in one lesson may share one example
         # difficulty
         hl=HL.get(w['zh'])
         if hl is None:

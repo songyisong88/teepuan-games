@@ -145,7 +145,8 @@ function chBody(G){const st=stat(G),L=lastG(),pos=P().pos;const nW=gWords(G).len
   else if(G.kind==='quiz')h+=`<div class="bk-note">${I.pen(18)}<div>แบบทดสอบย่อยภาคนี้เป็นข้อสอบอ่าน-เขียน ไม่มีโจทย์ฟัง กรุณา<b>ทำแบบทดสอบในหนังสือ${G.p.quiz.p?' หน้า '+G.p.quiz.p:''}</b> และตรวจคำตอบได้ที่ภาคผนวก ง</div></div>`
   else h+=`<div class="bk-note bk-wait">${I.pen(18)}<div>แทร็กแบบฝึกหัดของบทนี้กำลังจัดทำ</div></div>`}
  return h+'</div>'}
-SC.bookch=(p)=>{const G=group(p&&p.g)||group('c1');const rt=`<button class="bk-rt press" data-go="bklist">ทั้งหมด ${CHS().length||32} บท</button>`;
+SC.bookch=(p)=>{const G=group(p&&p.g)||group('c1');
+ if(G.kind==='quiz'&&window.BQ&&BQ.has(G.g))return BQ.screen(G,p); /* แบบทดสอบเล่นในเว็บ (bookquiz.js) */const rt=`<button class="bk-rt press" data-go="bklist">ทั้งหมด ${CHS().length||32} บท</button>`;
  const t=G.kind==='ch'?`บทที่ ${G.c.n}`:G.kind==='story'?'นิทานน้องลามา':`แบบทดสอบย่อยภาค ${G.p.n}`;
  return {title:t,nav:hdr(t,`ห้องเรียนคู่หนังสือ · ภาค ${G.part}`,rt),body:chBody(G),
   mount(){},unmount(){if(vPlay){vPlay=null;stopAudio()}}}};
@@ -225,5 +226,5 @@ Object.assign(window.GOX=window.GOX||{},{
  bkdot(el){goTrack(el.dataset.t)},
  bkans(el){const open=!el.classList.contains('bk-open');el.classList.toggle('bk-open',open);el.setAttribute('aria-expanded',open);el.innerHTML=open?el.dataset.open:el.dataset.closed}});
 /* ลิงก์ตรง ?go=book&ch=9 */
-window.bookDeepLink=function(ch){const G=group(ch);return ()=>{mountRoot('know',false);push('bookhome');if(G)setTimeout(()=>push('bookch',{g:G.g}),NAV_MS+40)}};
+window.bookDeepLink=function(ch){const G=group(ch);return ()=>{mountRoot('know',false);push('bookhome');if(G)setTimeout(()=>push('bookch',G.kind==='quiz'?{g:G.g,qr:1}:{g:G.g}),NAV_MS+40)}};
 })();

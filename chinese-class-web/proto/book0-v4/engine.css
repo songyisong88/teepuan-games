@@ -174,3 +174,10 @@
 .plist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 22px 0}
 .plist span{font-size:13.5px;padding:6px 10px;border-radius:12px;background:#F6F1EA;color:var(--sub2);text-align:center}
 .plist span.on{background:#E7F2EB;color:var(--ok);font-weight:700}
+
+.mscene2 .v4fig{min-width:0}
+.mscene2.one{grid-template-columns:min(170px,46vw);justify-content:center}
+.opt.ptile .v4lab{flex:none;font-size:12.5px;padding:1px 9px;margin-top:2px}
+.opt.ptile .plab+.v4lab{margin-top:0}
+.opt.ptile:has(.plab) .plab{position:static;transform:none;box-shadow:none;background:none;color:var(--ink);font-size:14px;padding:0}
+.mcards3 .c .v4lab{font-size:12px;padding:1px 8px;margin-top:2px}

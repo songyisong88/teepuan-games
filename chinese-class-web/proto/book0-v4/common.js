@@ -18,7 +18,7 @@ const TONE=[null,
  {n:1,py:'mā',zh:'妈',th:'แม่',nm:'เสียง 1',ds:'ระดับสูง',long:'สูงเรียบ ยาว ๆ เหมือนร้องโน้ตสูงค้างไว้',p:'M14 22 L86 22'},
  {n:2,py:'má',zh:'麻',th:'ป่าน',nm:'เสียง 2',ds:'ขึ้น',long:'เริ่มกลาง ๆ แล้วไต่ขึ้นสูง เหมือนตอนถามด้วยความสงสัย',p:'M14 56 L86 20'},
  {n:3,py:'mǎ',zh:'马',th:'ม้า',nm:'เสียง 3',ds:'ลงแล้วขึ้น',long:'กดต่ำลงก่อน แล้วค่อยยกขึ้นเล็กน้อยตอนท้าย',p:'M14 52 L44 82 L86 30'},
- {n:4,py:'mà',zh:'骂',th:'ด่า',nm:'เสียง 4',ds:'ตกเร็ว',long:'เริ่มสูงแล้วตกลงเร็ว ๆ สั้น ๆ หนักแน่น',p:'M14 18 L86 84'}];
+ {n:4,py:'mà',zh:'骂',th:'ดุ',nm:'เสียง 4',ds:'ตกเร็ว',long:'เริ่มสูงแล้วตกลงเร็ว ๆ สั้น ๆ หนักแน่น',p:'M14 18 L86 84'}];
 const RULE=[18,34,50,66,82].map(y=>`<line x1="8" y1="${y}" x2="92" y2="${y}" stroke="#EFE7DC" stroke-width="1.4"/>`).join('');
 /* เส้นเสียงแบบเดียวกับแอป (l1Contour) + เส้นนำทาง/จุดเคลื่อนที่สำหรับภาพเคลื่อนไหว */
 function contour(t,o={}){const T=TONE[t];
@@ -91,5 +91,5 @@ const LLAMA_ART=['一起','不客气','你好','再见','去','吃','喝','快',
 function oneLlama(st){const im=[...st.querySelectorAll('img')].filter(i=>LLAMA_ART.some(n=>decodeURIComponent(i.getAttribute('src')||'').endsWith('/'+n+'.webp')));
  if(!im.length)return;const qm=document.getElementById('qm');if(qm)qm.remove();if(im.length<2)return;
  const grp=im[0].closest('.mcards3');if(grp){grp.querySelectorAll('img').forEach(i=>i.style.display='none');grp.classList.add('nopic')}
- else im.slice(1).forEach(i=>{const b=i.closest('.mpic')||i;b.style.display='none'})}
+ else im.slice(1).forEach(i=>{const b=i.closest('.v4fig')||i.closest('.mpic')||i;b.style.display='none'})}
 function hasLlama(st){return [...st.querySelectorAll('img')].some(i=>i.offsetWidth&&LLAMA_ART.some(n=>decodeURIComponent(i.getAttribute('src')||'').endsWith('/'+n+'.webp')))}

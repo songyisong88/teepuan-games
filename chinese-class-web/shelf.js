@@ -150,7 +150,7 @@ game:'<rect x="3" y="7" width="18" height="11" rx="5" fill="currentColor"/><path
 const oi=(n,s)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" aria-hidden="true" style="flex:none">${OI[n]}</svg>`;
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 /* เล่ม 0 (บทเสียง ไม่มีคำศัพท์): เลือกภาพสิ่งของที่สื่อถึงเสียงของบท */
-const OB_P0={1001:'书',1004:'爸爸',1005:'可乐',1006:'狮子',1007:'鱼',1008:'嘴',1009:'鼻子',1002:'耳朵',1010:'妈妈',1003:'耳机'};
+const OB_P0={1001:'熊猫',1004:'马',1005:'可乐',1006:'兔子',1007:'爸爸',1008:'咖啡',1009:'竹子',1002:'厕所',1010:'老师',1094:'猫',1095:'长城',1096:'老虎',1003:'火锅'};
 const OB_OK={n:1,num:1,pr:1,t:1,loc:1,mw:1};
 const OB_NO=new Set(['大','灯','节日','鞭炮','红包','月饼','蜡烛','春节','饭馆','这','那','习惯','爱好','梦','办法','为什么','动作','信心','幸福','功夫','掌声','秘密','兴趣','自己','烦恼','明星']);
 function obPic(L){const A=window.ART_IDX||{},T=Object.assign({},window.PIC_TYPE_X||{},window.PIC_TYPE||{}),ok=z=>z&&A['word/'+z]&&!OB_NO.has(z);

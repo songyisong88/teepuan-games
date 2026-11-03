@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-13</title>
+</head><body>
+<script>
+const HG=w('火锅','huǒguō','หม้อไฟ'),HC=w('火车','huǒchē','รถไฟ'),MT=w('面条','miàntiáo','บะหมี่'),JZ=w('饺子','jiǎozi','เกี๊ยว'),BQ=w('冰淇淋','bīngqílín','ไอศกรีม'),DT=w('地铁','dìtiě','รถไฟใต้ดิน'),JC=w('机场','jīchǎng','สนามบิน'),CK=w('出口','chūkǒu','ทางออก'),RK=w('入口','rùkǒu','ทางเข้า'),CS=w('厕所','cèsuǒ','ห้องน้ำ');
+const S5=['พยัญชนะ','สระ','สระ','ตัวสะกด','วรรณยุกต์'];
+LESSON({no:13,goal:{do:'อ่านป้ายจีน 4 ป้ายที่สนามบินได้',sub:'อ่านพยางค์ที่ไม่เคยเห็นด้วยตัวเอง',min:7},steps:[
+ hook({q:'อ่านพินอินนี้ด้วยตัวเอง<br>แล้วเลือกเสียงที่ตรงกัน',show:'<div class="v4big" style="margin-top:6px">huǒguō</div>',cards:[HG.k,HC.k],ans:0,fb:'<b>huǒguō</b> <span class="zh">火锅</span> = หม้อไฟ · เสียง B คือ huǒchē รถไฟ'}),
+ teach({title:'อ่านคำใหม่ใน 3 ขั้น',text:'ใช้ได้กับทุกคำที่ไม่เคยเห็น',html:`<div class="mlist"><div><b>1</b>แยกพยางค์</div><div><b>2</b>ต่อ พยัญชนะ + สระ ในแต่ละพยางค์</div><div><b>3</b>ใส่วรรณยุกต์ตามเครื่องหมาย</div></div>`,note:'บทนี้ลองกับคำใหม่ 4 คำ แล้วปิดเล่มด้วยป้ายจริง'}),
+ build({n:'คำที่ 1/4',w:HG,syl:[['h','u','o',3],['g','u','o',1]],labs:['พยัญชนะ','สระ','สระ','วรรณยุกต์'],extra:['k'],res:'huǒguō',prompt:'ต่อทีละพยางค์'}),
+ rec({n:'คำที่ 1/4',w:HG}),
+ word({n:'คำที่ 2/4',w:MT,py:'miàntiáo',aid:{parts:['m','ian',4]},hcap:'3 ขั้น',hint:'<b>mi-àn</b> + <b>ti-áo</b> · สระผสม ian และ iao'}),
+ build({n:'คำที่ 2/4',w:MT,syl:[['m','ian',4],['t','iao',2]],extra:['ang','d'],res:'miàntiáo',prompt:'ต่อทีละพยางค์'}),
+ word({n:'คำที่ 3/4',w:JZ,py:'jiǎozi',aid:{parts:['j','iao',3]},hcap:'3 ขั้น',hint:'<b>jiǎo</b> + <b>zi</b> พยางค์หลังอ่านเบา · zi ลิ้นแบน'}),
+ build({n:'คำที่ 3/4',w:JZ,syl:[['j','iao',3],['z','i',0]],extra:['q','zh'],res:'jiǎozi',prompt:'ต่อทีละพยางค์ · พยางค์หลังอ่านเบา'}),
+ rec({n:'คำที่ 2–3',ws:[MT,JZ]}),
+ word({n:'คำที่ 4/4',w:BQ,py:'bīngqílín',aid:{parts:['b','ing',1]},hcap:'3 ขั้น',hint:'3 พยางค์ <b>bīng</b> + <b>qí</b> + <b>lín</b> · -ng กับ -n'}),
+ rec({n:'คำที่ 4/4',w:BQ}),
+ ask({rv:11,q:'ฟังเสียง แล้วเลือกพินอิน',k:'w:灯',opts:['dēng','dēn'],ans:0,fb:'<b>dēng</b> ตัวสะกด -ng'}),
+ ask({rv:5,q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'po1-f',opts:['b','p'],ans:1,fb:'<b>p</b> มีลม'}),
+ part({lab:'ด่านปิดเล่ม',no:1,of:1,title:'อ่านป้ายจริงที่สนามบิน',chips:['ทางออก','รถไฟใต้ดิน','ห้องน้ำ','สนามบิน'],note:'4 ป้าย ไม่มีตัวช่วยภาษาไทย'}),
+ ask({tag:'ด่านปิดเล่ม 1/4',q:'ฟังเสียง แล้วเลือกป้าย',k:'chukou-m',opts:[{sign:'入口',py:'rùkǒu',col:'g'},{sign:'出口',py:'chūkǒu',col:'g'}],ans:1,fb:'<b>chūkǒu</b> <span class="zh">出口</span> = ทางออก'}),
+ ask({tag:'ด่านปิดเล่ม 2/4',q:'ป้ายนี้พาไปที่ใด',show:'<div class="center"><span class="sign d big"><span class="zh">地铁</span><span class="py">dìtiě</span></span></div>',opts:[{img:DT.img},{img:JC.img},{img:HC.img}],ans:0,fb:'<b>dìtiě</b> <span class="zh">地铁</span> = รถไฟใต้ดิน'}),
+ ask({tag:'ด่านปิดเล่ม 3/4',q:'ฟังเสียง แล้วเลือกป้าย',k:'cesuo-m',opts:[{sign:'厕所',py:'cèsuǒ',col:'b'},{sign:'地铁',py:'dìtiě',col:'d'}],ans:0,fb:'<b>cèsuǒ</b> <span class="zh">厕所</span> = ห้องน้ำ'}),
+ ask({tag:'ด่านปิดเล่ม 4/4',q:'ป้ายนี้หมายถึงที่ใด',show:'<div class="center"><span class="sign o big"><span class="zh">机场</span><span class="py">jīchǎng</span></span></div>',opts:[{img:CS.img},{img:JC.img},{img:DT.img}],ans:1,fb:'<b>jīchǎng</b> <span class="zh">机场</span> = สนามบิน'}),
+ ask({tag:QZ(1,3),q:'ฟังเสียง แล้วเลือกพินอิน',k:MT.k,opts:['miàntiáo','miàntáo'],ans:0,fb:'<b>miàntiáo</b>'}),
+ ask({tag:QZ(2,3),q:'ฟังเสียง แล้วเลือกภาพ',k:JZ.k,opts:[{img:HG.img},{img:JZ.img},{img:BQ.img}],ans:1,fb:'<b>jiǎozi</b> <span class="zh">饺子</span>'}),
+ ask({tag:QZ(3,3),q:'ฟังเสียง แล้วเลือกพินอิน',k:BQ.k,opts:['bīngqílín','bīnqílíng'],ans:0,fb:'<b>bīngqílín</b>'}),
+ fin({title:'อ่านป้ายจีนได้ 4 ป้าย',signs:[{zh:'出口',py:'chūkǒu',col:'g',k:'chukou-f'},{zh:'厕所',py:'cèsuǒ',col:'b',k:CS.k},{zh:'地铁',py:'dìtiě',col:'d',k:DT.k},{zh:'机场',py:'jīchǎng',col:'o',k:JC.k}],th:'ทางออก · ห้องน้ำ · รถไฟใต้ดิน · สนามบิน',note:'จบเล่ม 0 แล้ว คุณอ่านพินอินได้ด้วยตัวเอง · แตะป้ายเพื่อฟัง',btn:'จบเล่ม 0'})]});
+
+</script>
+</body></html>

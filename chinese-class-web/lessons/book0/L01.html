@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-1</title>
+</head><body>
+<script>
+const XM=w('熊猫','xióngmāo','แพนด้า'),NH=w('你好','nǐ hǎo','สวัสดี'),MA=w('马','mǎ','ม้า'),MM=w('妈妈','māma','แม่');
+const cards3=(show)=>`<div class="mcards3">${[XM,MA,MM].map(x=>`<button class="press" data-play="${x.k}"><img src="${x.img}" alt=""><span class="zh">${x.zh}</span>${show?`<span class="py">${x.py}</span>`:''}<small>${x.th}</small></button>`).join('')}</div>`;
+/* การ์ดคำ: แตะให้ครบ 4 ส่วน */
+const PARTS=[['zh','ตัวจีน'],['py','พินอิน (วิธีอ่าน)'],['mn','ความหมาย'],['au','ปุ่มฟังเสียง']];
+const cardStep=teach({cap:'ลองเอง',title:'การ์ดคำ 1 ใบ มี 4 ส่วน',text:'แตะแต่ละส่วนบนการ์ดให้ครบ',lock:true,
+ html:`<div class="wcard">${pic(NH)}<div><div><span class="zh" data-part="0">你好</span></div><div><span class="py" data-part="1">nǐ hǎo</span></div><div><span class="mn" data-part="2">= สวัสดี</span></div></div><button class="audio" data-part="3" aria-label="ฟังเสียง">${SPK}</button></div>
+ <div class="plist">${PARTS.map((p,i)=>`<span data-pl="${i}">${p[1]}</span>`).join('')}</div><div class="center"><div class="v4ok v4need" style="margin-top:12px">แตะให้ครบทั้ง 4 ส่วน</div></div>`,
+ init:st=>{const seen=new Set();$('.wcard',st).addEventListener('click',e=>{const b=e.target.closest('[data-part]');if(!b)return;const i=+b.dataset.part;b.classList.add('on');$(`[data-pl="${i}"]`,st).classList.add('on');if(i===3||i===1){bump(b);play(NH.k)}seen.add(i);
+  if(seen.size===4){const ok=$('.v4ok',st);ok.classList.add('on');ok.textContent='ครบแล้ว ต่อไปคุณจะเห็นการ์ดแบบนี้ทุกบท';unlock()}})},
+ solve:async()=>{for(const b of $$('#stage [data-part]')){b.click();await wait(80)}},
+ demo:async d=>{if(d==='done')await E.steps[E.i].solve();if(d==='half'){$$('#stage [data-part]')[0].click();$$('#stage [data-part]')[1].click()}}});
+LESSON({no:1,goal:{do:'อ่านการ์ดคำ <span class="gz">你好</span> ได้',sub:'รู้จักตัวจีน พินอิน และวรรณยุกต์',min:4},steps:[
+ hook({q:'ฟังคำนี้ แล้วนับดู<br>ได้ยินกี่พยางค์',pic:XM,k:XM.k,opts:['1 พยางค์','2 พยางค์','3 พยางค์'],ans:1,
+  fb:'<span class="zh">熊猫</span> <b>xióngmāo</b> = แพนด้า · มีตัวจีน 2 ตัว จึงอ่าน 2 พยางค์'}),
+ split({n:'',title:'ตัวจีน 1 ตัว อ่าน 1 พยางค์',text:'แตะตัวจีนทีละตัว แล้วฟังเสียงของแต่ละตัว',w:XM,chars:[{zh:'熊',py:'xióng',k:'xiong2-f'},{zh:'猫',py:'māo',k:'w:猫'}],done:'ตัวจีน 2 ตัว = 2 พยางค์'}),
+ teach({cap:'ส่วนที่ 1',title:'ตัวจีน เรียกว่า <span class="zh">汉字</span> hànzì',text:'ตัวจีนแต่ละตัวมีความหมาย แต่ดูตัวอย่างเดียวยังอ่านออกเสียงไม่ได้',html:cards3(false),auto:['hanzi-f'],note:'แตะการ์ดเพื่อฟังเสียง'}),
+ teach({cap:'ส่วนที่ 2',title:'พินอิน <span class="zh">拼音</span> pīnyīn',text:'ตัวอักษรโรมันที่บอกวิธีอ่านตัวจีน เห็นพินอินแล้วอ่านออกเสียงได้ทันที',html:cards3(true),auto:['pinyin-f'],note:'แตะการ์ดเพื่อฟังเสียง แล้วดูพินอินไปด้วย'}),
+ ask({tag:'ตรวจ · พินอิน',q:'ข้อใดคือพินอิน',big:1,opts:['熊猫','xióngmāo'],ans:1,fb:'<b>xióngmāo</b> คือพินอิน · <span class="zh">熊猫</span> คือตัวจีน'}),
+ teach({cap:'ส่วนที่ 3',title:'เครื่องหมายบนสระ คือวรรณยุกต์',text:'ตัวอักษรเหมือนกัน แต่ระดับเสียงต่างกัน ความหมายก็ต่างกัน',
+  html:`<div class="mrev2">${[[1,'mā','妈','แม่','../../assets/art/word/妈妈.webp'],[3,'mǎ','马','ม้า',MA.img]].map(([t,py,zh,th,img])=>`<button class="v4card press tc${t}" data-play="ma${t}"><div class="mpic"><img src="${img}" alt=""></div><span><b class="py t${t}">${py}</b> <span class="zh">${zh}</span></span>${contour(t)}<span style="font-size:15px;font-weight:600">${th}</span></button>`).join('')}</div>`,note:'บทที่ 2 จะฝึกครบทั้ง 4 เสียง'}),
+ ask({tag:'ลองเอง · วรรณยุกต์',q:'ส่วนใดของ mā คือเครื่องหมายวรรณยุกต์',big:1,show:'<div class="v4big" style="margin-top:6px">mā</div>',opts:['m','a','ˉ'],ans:2,fb:'ขีด <b>ˉ</b> บนตัว a คือวรรณยุกต์ · m คือพยัญชนะ a คือสระ'}),
+ cardStep,
+ rec({n:'',w:NH}),
+ ask({tag:'ตรวจ · การ์ดคำ',q:'ฟังเสียง แล้วเลือกการ์ดที่ได้ยิน',k:NH.k,opts:[{img:MM.img,lab:'māma'},{img:NH.img,lab:'nǐ hǎo'},{img:MA.img,lab:'mǎ'}],ans:1,fb:'<span class="zh">你好</span> <b>nǐ hǎo</b> = สวัสดี'}),
+ ask({tag:QZ(1,3),q:'ฟังเสียง แล้วนับพยางค์',k:'w:熊猫',opts:['1','2','3'],ans:1,fb:'<span class="zh">熊猫</span> xióngmāo มี 2 พยางค์'}),
+ ask({tag:QZ(2,3),q:'ข้อใดคือพินอิน',opts:['你好','nǐ hǎo','妈妈'],ans:1,fb:'<b>nǐ hǎo</b> คือพินอินของ <span class="zh">你好</span>'}),
+ ask({tag:QZ(3,3),q:'ฟังเสียง แล้วเลือกพินอิน',k:'ma3',opts:['mā','mǎ'],ans:1,fb:'<b class="t3">mǎ</b> <span class="zh">马</span> = ม้า'}),
+ fin({title:'อ่านการ์ดคำแรกของคุณ',html:`<div class="wcard" style="margin-top:10px">${pic(NH)}<div><div class="zh">你好</div><div class="py">nǐ hǎo</div><div class="mn">= สวัสดี</div></div></div>`,
+  chips:[{zh:'你',py:'nǐ',th:'คุณ',k:'w:你'},{zh:'好',py:'hǎo',th:'ดี',k:'w:好'}],th:'สวัสดี',note:'แตะแต่ละตัวเพื่อฟัง · ตัวจีน 2 ตัว อ่าน 2 พยางค์',k:NH.k,kl:'ฟังทั้งคำ'})]});
+
+</script>
+</body></html>

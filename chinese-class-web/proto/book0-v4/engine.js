@@ -1,9 +1,13 @@
 /* เครื่องมือบทเรียนเล่ม 0 (v4) · ขยายจากวิธีสอนใน L02 (mine.html) · ใช้ CSS/ส่วนประกอบเดิมของแอป */
 const TITLES=[null,'ภาษาจีนคืออะไร','วรรณยุกต์ 4 เสียง','สระ a o e','สระ i u ü','b p m f · d t n l','g k h · j q x','zh ch sh r','z c s','ต่อเสียงเป็นพยางค์','สระผสม','เสียงขึ้นจมูก -n / -ng','กติกาพิเศษ','อ่านพยางค์ที่ไม่เคยเห็น'];
 const ART=zh=>`../../assets/art/word/${zh}.webp`;
-const w=(zh,py,th,o={})=>Object.assign({zh,py,th,img:ART(zh),k:'w:'+zh},o);
+/* คำแปลไทยใต้ภาพ (ซ้งอี้ขอ 4 พ.ย. 2026) · ดึงจากคำที่ประกาศด้วย w() + คำที่ใช้ภาพอย่างเดียว */
+const THL={'八':'แปด','饿':'หิว','兔子':'กระต่าย','女孩':'เด็กผู้หญิง','大象':'ช้าง','太阳':'พระอาทิตย์','西瓜':'แตงโม','鸡':'ไก่','十':'สิบ','四':'สี่','牛':'วัว','鸟':'นก','妈妈':'แม่','马':'ม้า'};
+const w=(zh,py,th,o={})=>{const x=Object.assign({zh,py,th,img:ART(zh),k:'w:'+zh},o);if(th&&!THL[x.img])THL[x.img]=th;return x};
+const thOf=x=>{if(!x)return '';if(typeof x==='object'&&x.th)return x.th;const u=typeof x==='string'?x:x.img;if(!u)return '';if(THL[u])return THL[u];const m=decodeURIComponent(u).match(/\/word\/([^/]+)\.webp$/);return m&&THL[m[1]]||''};
+const thLab=x=>{const t=thOf(x);return t?`<span class="v4lab">${t}</span>`:''};
 const MIC=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>`;
-const pic=(x,c='mpic')=>`<div class="${c}"><img src="${x.img||x}" alt="${x.th||''}" draggable="false"></div>`;
+const pic=(x,c='mpic',lab)=>{const d=`<div class="${c}"><img src="${x.img||x}" alt="${thOf(x)}" draggable="false"></div>`;return lab&&thOf(x)?`<div class="v4fig">${d}${thLab(x)}</div>`:d};
 const tag=(n,s)=>`<div class="center"><div class="cap">${n?n+' · ':''}${s}</div></div>`;
 const QZ=(i,n)=>`ทดสอบท้ายบท ${i}/${n} · ไม่มีตัวช่วยภาษาไทย`;
 const RV=n=>`ทบทวนบท 0-${n} · ${TITLES[n]}`;
@@ -70,23 +74,23 @@ function animAid(st,ms,k){if(!st)return;const a=$('.maid',st)||st;
 /* เปิดบท: เป้าหมาย + คำถามเดาให้ชนะภายใน 30 วินาที */
 function goalBar(){const g=G.goal;return `<div class="mgoal"><div><b>จบบทนี้ คุณจะ${g.do}</b><small>${g.sub}</small></div><span class="tm">ประมาณ ${g.min} นาที</span></div>`}
 function hook(o){const cards=o.cards;return {kind:'q',ans:o.ans,auto:cards?cards[0]:o.k,
- html:()=>`${goalBar()}<div class="center"><div class="mhook">${o.q}</div>${o.pic?pic(o.pic):''}${o.k?`<button class="audio press" style="width:76px;height:76px;margin-top:10px" data-play="${o.k}">${SPK}</button>`:''}${o.show?o.show:''}</div>
+ html:()=>`${goalBar()}<div class="center"><div class="mhook">${o.q}</div>${o.pic?pic(o.pic,'mpic',!(thOf(o.pic)&&String(o.q).includes(thOf(o.pic)))):''}${o.k?`<button class="audio press" style="width:76px;height:76px;margin-top:10px" data-play="${o.k}">${SPK}</button>`:''}${o.show?o.show:''}</div>
  ${cards?`<div class="msnd">${cards.map((k,i)=>`<div class="v4card"><span class="k">เสียง ${'AB'[i]}</span><button class="audio press" data-play="${k}">${SPK}</button></div>`).join('')}</div>
  <div class="pgrid v4two mab">${cards.map((k,i)=>`<button class="opt press" data-i="${i}">เสียง ${'AB'[i]}</button>`).join('')}</div>`:optsHtml(o)}`,
  show:st=>{if(quiet())return;setTimeout(async()=>{const i0=E.i;if(cards){const b=$$('.msnd .audio',st);bump(b[0]);await wait(play(cards[0])+250);if(E.i!==i0)return;bump(b[1]);play(cards[1])}else if(o.k){bump($('[data-play]',st));play(o.k)}},500)},
  fb:()=>o.fb,solve:()=>answer(o.ans),demo:async d=>{if(d==='ok')answer(o.ans);if(d==='bad')answer(o.ans?0:1);await wait(500)}}}
-function optsHtml(o){const n=o.opts.length,cl=n===2?'v4two':n===3?'v4three':'';
+function optsHtml(o){const nt=o.noTh,n=o.opts.length,cl=n===2?'v4two':n===3?'v4three':'';
  return `<div class="pgrid ${cl}">${o.opts.map((x,i)=>{
   if(typeof x==='string')return `<button class="opt mtxt press" data-i="${i}">${x}</button>`;
   if(x.mouth)return `<button class="opt mmo press" data-i="${i}"><span class="k">${'ABCD'[i]}</span>${mouth(x.mouth,'')}${x.lab?`<span class="l1tl">${x.lab}</span>`:''}</button>`;
   if(x.tone!=null)return `<button class="opt ptile press tc${x.tone}" data-i="${i}"><span class="k">${'ABCD'[i]}</span>${contour(x.tone,{cls:'pic-t'})}<span class="l1tl">${x.lab||''}</span></button>`;
   if(x.sign)return `<button class="opt msg press" data-i="${i}"><span class="sign ${x.col||'g'}"><span class="zh">${x.sign}</span>${x.py?`<span class="py">${x.py}</span>`:''}</span></button>`;
-  return `<button class="opt ptile press" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="pic-t"><img src="${x.img}" alt=""></span>${x.lab?`<span class="plab">${x.lab}</span>`:''}</button>`}).join('')}</div>`}
+  return `<button class="opt ptile press" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="pic-t"><img src="${x.img}" alt=""></span>${x.lab?`<span class="plab">${x.lab}</span>`:''}${nt?'':thLab(x.img)}</button>`}).join('')}</div>`}
 /* คำถามทั่วไป: ข้อความ / ภาพ / รูปปาก / เส้นเสียง / ป้าย · ตอบผิด = เฉลยแล้วทำข้อเดิม */
-function ask(o){return {kind:'q',ans:o.ans,auto:o.k,
+function ask(o){if(o.noTh==null)o.noTh=/ไม่มีตัวช่วยภาษาไทย|ด่านปิดเล่ม/.test(o.tag||'');return {kind:'q',ans:o.ans,auto:o.k,
  html:()=>`<div class="qm" id="qm">${mas('think')}</div><div class="center">${o.rv?`<span class="mrevtag">${RV(o.rv)}</span>`:`<div class="cap v4tag">${o.tag||''}</div>`}
   <div class="${o.rv||o.big?'mhook':'cap'}" style="${o.rv||o.big?'font-size:18px':'font-size:14px;margin-top:2px'}">${o.q}</div>
-  ${o.pic?pic(o.pic):''}${o.show||''}${o.k?`<button class="audio press" style="width:${o.pic?70:84}px;height:${o.pic?70:84}px;margin-top:10px" data-play="${o.k}">${SPK}</button>${o.pic?'':'<div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div>'}`:''}</div>
+  ${o.pic?pic(o.pic,'mpic',!o.noTh):''}${o.show||''}${o.k?`<button class="audio press" style="width:${o.pic?70:84}px;height:${o.pic?70:84}px;margin-top:10px" data-play="${o.k}">${SPK}</button>${o.pic?'':'<div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div>'}`:''}</div>
   ${optsHtml(o)}${o.rv?'<p class="mrevnote">คำถามทบทวนจากบทก่อน จะแทรกมาเป็นระยะ เพื่อไม่ให้ลืม</p>':''}`,
  show:st=>{if(o.k)setTimeout(()=>{if(!quiet()&&E.steps[E.i].auto===o.k&&here(st)){bump($('[data-play]',st));play(o.k)}},450)},
  fb:()=>o.fb,solve:()=>answer(o.ans),demo:async d=>{if(d==='ok')answer(o.ans);if(d==='bad')answer(o.ans===0?1:0);await wait(600)}}}
@@ -141,7 +145,7 @@ function build(o){const S=o.syl,labs=o.labs||['พยัญชนะ','สระ
   if(d==='done'){await E.steps[E.i].solve();await wait(200)}}}}
 /* ขั้น ข · ลงมือ: แตะตัวจีนทีละตัว */
 function split(o){return {kind:'teach',lock:true,html:()=>`${tag(o.n,'ลองเอง')}<div class="center l1snd"><div class="large" style="padding:2px 0 0;font-size:22px">${o.title}</div><p class="l1p v4fit">${o.text}</p></div>
- ${o.w?`<div class="center">${pic(o.w)}</div>`:''}<div class="msplit">${o.chars.map((c,i)=>`<button class="press" data-cc="${i}"><span class="zh">${c.zh}</span><span class="py q">?</span></button>`).join('')}</div>
+ ${o.w?`<div class="center">${pic(o.w,'mpic',1)}</div>`:''}<div class="msplit">${o.chars.map((c,i)=>`<button class="press" data-cc="${i}"><span class="zh">${c.zh}</span><span class="py q">?</span></button>`).join('')}</div>
  <div class="center"><div class="v4ok v4need" style="margin-top:12px">แตะให้ครบทุกตัว</div></div>`,
  show:st=>{const seen=new Set();$('.msplit',st).addEventListener('click',async e=>{const b=e.target.closest('[data-cc]');if(!b)return;const i=+b.dataset.cc,c=o.chars[i];bump(b);play(c.k);
   const p=$('.py',b);p.textContent=c.py;p.classList.remove('q');b.classList.add('done');seen.add(i);
@@ -159,7 +163,7 @@ function recStop(st){$('.hold',st).classList.remove('on');if(REC.mr&&REC.mr.stat
 function playMe(){return new Promise(r=>{if(!REC.url)return r();const a=new Audio(REC.url);a.onended=r;a.onerror=r;a.play().catch(r)})}
 function rec(o){const ws=o.ws||[o.w],keys=o.keys||ws.map(x=>x.k);return {kind:'teach',html:()=>`${tag(o.n,'อัดเสียงแล้วฟังเทียบ')}
  ${ws.length===1?`<div class="mword" style="justify-content:center">${pic(ws[0])}<div><div class="zh ${ws[0].zh.length>2?'sm':''}">${ws[0].zh}</div><div class="py ${ws[0].py.length>7?'sm':''}">${ws[0].py}</div><div class="mn">= ${ws[0].th}</div></div></div>`
- :`<div class="mcards3">${ws.map(x=>`<div class="c"><img src="${x.img}" alt=""><span class="zh">${x.zh}</span><span class="py">${x.py}</span></div>`).join('')}</div>`}
+ :`<div class="mcards3">${ws.map(x=>`<div class="c"><img src="${x.img}" alt=""><span class="zh">${x.zh}</span><span class="py">${x.py}</span>${thLab(x)}</div>`).join('')}</div>`}
  <div class="mrec"><button class="hold" aria-label="กดค้างเพื่ออัดเสียง">${MIC}<span>กดค้าง<br>แล้วพูด</span></button><div class="st">กดปุ่มค้างไว้ พูดว่า ${o.say||ws.map(x=>x.py).join(' · ')} แล้วปล่อย</div></div>
  <div class="mcmp"><button class="me off" data-r="me">${SPK}เสียงของคุณ</button><button class="cn off" data-r="cn">${SPK}เสียงจีน</button><button class="alt off" data-r="alt">ฟังสลับกัน 2 รอบ</button></div>`,
  show:st=>{const h=$('.hold',st);h.addEventListener('pointerdown',e=>{e.preventDefault();recStart(st)});['pointerup','pointerleave','pointercancel'].forEach(ev=>h.addEventListener(ev,()=>recStop(st)));
@@ -170,7 +174,7 @@ function rec(o){const ws=o.ws||[o.w],keys=o.keys||ws.map(x=>x.k);return {kind:'t
  demo:async d=>{if(d==='done'){const st=$('#stage');recUI(st,'ready','อัดเสียงแล้ว ลองฟังเทียบกัน');$('.cn',st).classList.add('playing')}await wait(200)}}}
 /* ตอนจบ: ส่งมอบเป้าหมายของบท */
 function fin(o){return {kind:'teach',btn:o.btn||'จบบทเรียน',html:()=>`<div class="center l1snd"><div class="cap">เป้าหมายของบทนี้</div><div class="large" style="padding:2px 0 0;font-size:24px">${o.title}</div></div>
- ${o.scene?`<div class="mscene"><img src="${o.scene}" alt=""></div>`:''}${o.pics?`<div class="mscene2">${o.pics.map(p=>pic(p)).join('')}</div>`:''}
+ ${o.scene?`<div class="mscene"><img src="${o.scene}" alt=""></div>`:''}${o.pics?`<div class="mscene2 ${o.pics.length===1?'one':''}">${o.pics.map(p=>pic(p,'mpic',1)).join('')}</div>`:''}
  ${o.html||''}${o.signs?`<div class="signs">${o.signs.map(s=>`<button class="sign ${s.col} press" data-play="${s.k}"><span class="zh">${s.zh}</span><span class="py">${s.py}</span></button>`).join('')}</div>`:''}
  ${o.chips?`<div class="msent ${o.chips.length>3?'wrap':''}">${o.chips.map(c=>`<button class="press ${c.t?'tc'+c.t:''} ${o.chips.length>3?'mx':''}" data-play="${c.k}"><span class="zh">${c.zh}</span><span class="py">${c.py}</span><small>${c.th}</small></button>`).join('')}</div>`:''}
  <div class="center">${o.th?`<div class="mth">${o.th}</div>`:''}<p class="mrevnote" style="margin-top:4px">${o.note||'แตะแต่ละคำเพื่อฟัง'}</p>

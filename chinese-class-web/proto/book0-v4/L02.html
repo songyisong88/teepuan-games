@@ -92,7 +92,7 @@ const reveal={kind:'teach',html:()=>`<div class="center l1snd"><div class="large
  <p class="l1p v4fit">ตัวอักษร m กับ a เหมือนกันทุกตัว ต่างกันแค่ระดับเสียงสูงต่ำ ซึ่งเรียกว่า วรรณยุกต์</p></div>
  <div class="mrev2">${[1,3].map(t=>`<button class="v4card press tc${t}" data-play="ma${t}">${pic(t)}<span><b class="py t${t}">${W[t].py}</b> <span class="zh">${W[t].zh}</span></span>${contour(t)}<span style="font-size:15px;font-weight:600">${W[t].th}</span></button>`).join('')}</div>
  <p class="mrevnote">ภาษาจีนมี 4 เสียง บทนี้เรียนผ่าน 4 คำ</p>
- <div class="m4row">${[1,2,3,4].map(t=>`<div class="c tc${t} ${t===1||t===3?'':'q'}"><img src="${W[t].img}" alt=""><b class="t${t}">${t===1||t===3?W[t].py:'?'}</b></div>`).join('')}</div>`};
+ <div class="m4row">${[1,2,3,4].map(t=>`<div class="c tc${t} ${t===1||t===3?'':'q'}"><img src="${W[t].img}" alt=""><b class="t${t}">${t===1||t===3?W[t].py:'?'}</b>${t===1||t===3?`<span class="v4lab">${W[t].th}</span>`:''}</div>`).join('')}</div>`};
 
 /* ขั้น ก · คำ + ภาพ + เส้นเสียง + เทียบเสียงไทย (ข้อความเท่านั้น) */
 const word=t=>({kind:'teach',html:()=>`${tag(t,'ฟังคำจริง')}
@@ -152,7 +152,7 @@ const rec=t=>({kind:'teach',btn:'ต่อไป',html:()=>`${tag(t,'อัด�
 const qPic=o=>({kind:'q',ans:o.opts.indexOf(o.t),auto:`ma${o.t}`,
  html:()=>`<div class="qm" id="qm">${mas('think')}</div><div class="center"><div class="cap v4tag">${o.tag}</div><div class="cap" style="font-size:14px;margin-top:2px">ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย</div>
   <button class="audio press" style="width:84px;height:84px;margin-top:10px" data-play="ma${o.t}">${SPK}</button><div class="cap mt12">แตะเพื่อฟังอีกครั้ง</div></div>
-  <div class="pgrid ${o.opts.length===3?'v4three':'v4two'}">${o.opts.map((t,i)=>`<button class="opt ptile press" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="pic-t"><img src="${W[t].img}" alt=""></span>${o.lab?`<span class="plab">${W[t].th}</span>`:''}</button>`).join('')}</div>`,
+  <div class="pgrid ${o.opts.length===3?'v4three':'v4two'}">${o.opts.map((t,i)=>`<button class="opt ptile press" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="pic-t"><img src="${W[t].img}" alt=""></span>${o.lab?`<span class="plab">${W[t].th}</span>`:/ไม่มีตัวช่วยภาษาไทย/.test(o.tag)?'':`<span class="v4lab">${W[t].th}</span>`}</button>`).join('')}</div>`,
  show:st=>{setTimeout(()=>{if(!TOPW.__quiet&&SHOT==null&&E.steps[E.i].auto===`ma${o.t}`){bump($('[data-play]',st));play(`ma${o.t}`)}},450)},
  fb:()=>`<b class="t${o.t}">${W[o.t].py}</b> <span class="zh">${W[o.t].zh}</span> = ${W[o.t].th} · เสียง ${o.t} ${W[o.t].ty}`,
  demo:async d=>{if(d==='ok')answer(o.opts.indexOf(o.t));if(d==='bad')answer(o.opts.indexOf(o.t)===0?1:0);await wait(600)}});

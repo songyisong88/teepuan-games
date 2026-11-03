@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-5</title>
+</head><body>
+<script>
+const BB=w('爸爸','bàba','พ่อ'),PT=w('葡萄','pútáo','องุ่น'),MAO=w('猫','māo','แมว'),FJ=w('飞机','fēijī','เครื่องบิน'),DX=w('大象','dàxiàng','ช้าง'),TY=w('太阳','tàiyáng','พระอาทิตย์'),NI=w('牛','niú','วัว'),LH=w('老虎','lǎohǔ','เสือ');
+const airPair=(a,b)=>pair({n:'',title:'ถือกระดาษไว้หน้าปาก',text:'แตะฟังทั้งสองเสียง แล้วดูกระดาษ',items:[{air:0,py:a[0],zh:a[1],sub:'ไม่มีลม กระดาษนิ่ง',k:a[2]},{air:1,py:b[0],zh:b[1],sub:'มีลม กระดาษปลิว',k:b[2]}]});
+LESSON({no:5,goal:{do:'อ่าน <span class="gz">爸爸怕大猫</span> ได้',sub:'พยัญชนะ 8 ตัว · สังเกตเสียงที่มีลม',min:6},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "พ่อ"',pic:BB,cards:[BB.k,PT.k],ans:0,fb:'เสียง A คือ <b>bàba</b> <span class="zh">爸爸</span> = พ่อ · เสียง B คือ <b>pútáo</b> <span class="zh">葡萄</span> = องุ่น'}),
+ teach({title:'เคล็ดลับ: กระดาษหน้าปาก',text:'จีนมีคู่เสียงที่ต่างกันแค่ "ลม" · b เหมือน ป ไม่มีลม · p เหมือน พ มีลมพุ่งออกมา',
+  html:`<div class="mpair">${[[0,'b','bo1-f','ไม่มีลม'],[1,'p','po1-f','มีลม']].map(([a,l,k,s])=>`<button class="press" data-play="${k}">${airSvg(a,1)}<span class="py">${l}</span><small>${s}</small></button>`).join('')}</div>`,note:'แตะเพื่อฟัง · เตรียมกระดาษหรือฝ่ามือไว้หน้าปาก'}),
+ word({n:'คู่ที่ 1 · b',w:BB,py:'[b]àba',aid:{air:0},hint:'เหมือน <b>"ป"</b> ไม่มีลมออกมา',sk:'bo1-f',sl:'b'}),
+ word({n:'คู่ที่ 1 · p',w:PT,py:'[p]útáo',aid:{air:1},hint:'เหมือน <b>"พ"</b> มีลมพุ่งออกมาแรง',sk:'po1-f',sl:'p'}),
+ airPair(['b','爸','bo1-f'],['p','葡','po1-f']),
+ rec({n:'คู่ที่ 1',ws:[BB,PT]}),
+ word({n:'คู่ที่ 2 · m',w:MAO,py:'[m]āo',aid:{mouth:'m'},hint:'เหมือน <b>"ม"</b> ปิดปากแล้วปล่อยเสียงทางจมูก',sk:'mo1-f',sl:'m'}),
+ word({n:'คู่ที่ 2 · f',w:FJ,py:'[f]ēijī',aid:{mouth:'f'},hint:'เหมือน <b>"ฟ"</b> ฟันบนแตะริมฝีปากล่าง',sk:'fo2-f',sl:'f'}),
+ mouthQ({tag:'ลองเอง · รูปปาก',k:'fo2-f',opts:[['m','m'],['f','f']],ans:1,fb:'เสียง <b>f</b> ฟันบนแตะริมฝีปากล่าง'}),
+ rec({n:'คู่ที่ 2',ws:[MAO,FJ]}),
+ ask({tag:'ตรวจ · 4 เสียงแรก',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:FJ.k,opts:[{img:MAO.img},{img:FJ.img},{img:PT.img}],ans:1,fb:'<b>fēijī</b> <span class="zh">飞机</span> = เครื่องบิน'}),
+ ask({rv:4,q:'ฟังแล้วเลือกพินอินที่ได้ยิน',k:'v3-fs',opts:['ǔ','ǚ'],ans:1,fb:'<b>ǚ</b> พูด "อี" แล้วห่อปาก'}),
+ word({n:'คู่ที่ 3 · d',w:DX,py:'[d]àxiàng',aid:{air:0},hint:'เหมือน <b>"ต"</b> ไม่มีลม',sk:'de2-f',sl:'d'}),
+ word({n:'คู่ที่ 3 · t',w:TY,py:'[t]àiyáng',aid:{air:1},hint:'เหมือน <b>"ท"</b> มีลมพุ่งออกมา',sk:'te4-f',sl:'t'}),
+ airPair(['d','大','de2-f'],['t','太','te4-f']),
+ rec({n:'คู่ที่ 3',ws:[DX,TY]}),
+ word({n:'คู่ที่ 4 · n',w:NI,py:'[n]iú',aid:{mouth:'tip',cap:'ปลายลิ้นแตะหลังฟันบน เสียงออกจมูก'},hint:'เหมือน <b>"น"</b> ในภาษาไทย',sk:'ne4-f',sl:'n'}),
+ word({n:'คู่ที่ 4 · l',w:LH,py:'[l]ǎohǔ',aid:{mouth:'tip',cap:'ปลายลิ้นแตะหลังฟันบน เสียงออกข้างลิ้น'},hint:'เหมือน <b>"ล"</b> ในภาษาไทย',sk:'le4-f',sl:'l'}),
+ ask({tag:'ลองเอง · ฟังให้ต่าง',q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'le4-f',opts:['n','l'],ans:1,fb:'<b>l</b> เหมือน "ล"'}),
+ rec({n:'คู่ที่ 4',ws:[NI,LH]}),
+ ask({tag:'ตรวจ · ครบ 8 เสียง',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:TY.k,opts:[{img:DX.img},{img:TY.img},{img:NI.img}],ans:1,fb:'<b>tàiyáng</b> <span class="zh">太阳</span> = พระอาทิตย์'}),
+ ask({rv:3,q:'ฟังเสียง แล้วเลือกภาพ',k:'w:饿',opts:[{img:ART('八')},{img:ART('饿')}],ans:1,fb:'<b>è</b> <span class="zh">饿</span> = หิว'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'po1-f',opts:['bō','pō'],ans:1,fb:'<b>pō</b> มีลม'}),
+ ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกภาพ',k:DX.k,opts:[{img:TY.img},{img:LH.img},{img:DX.img}],ans:2,fb:'<b>dàxiàng</b> <span class="zh">大象</span> = ช้าง'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'te4-f',opts:['dè','tè'],ans:1,fb:'<b>tè</b> มีลม'}),
+ ask({tag:QZ(4,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:LH.k,opts:['lǎohǔ','nǎohǔ'],ans:0,fb:'<b>lǎohǔ</b> <span class="zh">老虎</span> = เสือ'}),
+ fin({title:'อ่านประโยคของคุณ',pics:[BB,MAO],chips:[{zh:'爸爸',py:'bàba',th:'พ่อ',k:BB.k},{zh:'怕',py:'pà',th:'กลัว',k:'g:pa'},{zh:'大',py:'dà',th:'ใหญ่',k:'w:大'},{zh:'猫',py:'māo',th:'แมว',k:MAO.k}],th:'พ่อกลัวแมวตัวใหญ่',note:'แตะแต่ละคำเพื่อฟัง · b กับ d ไม่มีลม · p มีลม',k:'g:L05'})]});
+
+</script>
+</body></html>

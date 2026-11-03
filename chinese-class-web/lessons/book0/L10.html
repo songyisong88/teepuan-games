@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-10</title>
+</head><body>
+<script>
+const BAI=w('白','bái','สีขาว'),BZ=w('杯子','bēizi','แก้วน้ำ'),MAO=w('猫','māo','แมว'),GOU=w('狗','gǒu','สุนัข'),JIA=w('家','jiā','บ้าน'),XIE=w('鞋','xié','รองเท้า'),HUA=w('花','huā','ดอกไม้'),HUO=w('火','huǒ','ไฟ'),XUE=w('雪','xuě','หิมะ'),NIAO=w('鸟','niǎo','นก'),NIU=w('牛','niú','วัว'),KUAI=w('快','kuài','เร็ว'),SHUI=w('水','shuǐ','น้ำ'),MA=w('马','mǎ','ม้า'),YU=w('鱼','yú','ปลา');
+const L4=['พยัญชนะ','สระ','สระ','วรรณยุกต์'],L5=['พยัญชนะ','สระ','สระ','สระ','วรรณยุกต์'];
+const G2=(a,b)=>({glide:[a,b]});
+LESSON({no:10,goal:{do:'อ่าน <span class="gz">小猫爱吃鱼</span> ได้',sub:'สระผสม · เลื่อนจากสระหนึ่งไปอีกสระอย่างต่อเนื่อง',min:8},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "แมว"',pic:MAO,cards:[MAO.k,MA.k],ans:0,fb:'เสียง A คือ <b>māo</b> <span class="zh">猫</span> = แมว (สระผสม ao) · เสียง B คือ <b>mǎ</b> <span class="zh">马</span> = ม้า'}),
+ teach({title:'สระผสม = เลื่อนเสียง',text:'สระ 2–3 ตัวรวมเป็นเสียงเดียว เลื่อนปากต่อเนื่อง ไม่หยุดกลางคำ',html:`${glide(['a','o'])}<div class="center" style="margin-top:12px"><button class="mbtn2 press" style="margin:0 auto" data-play="${MAO.k}">${SPK}ฟัง māo</button></div>`,note:'บทนี้แบ่งเป็น 3 ช่วงสั้น ๆ'}),
+ part({no:1,of:3,title:'สระผสมที่ขึ้นต้นด้วย a e o',chips:['ai','ei','ao','ou'],note:'4 คำ ประมาณ 2 นาที'}),
+ word({n:'ช่วงที่ 1 · ai',w:BAI,py:'b[ái]',aid:G2('a','i'),hint:'เหมือน <b>"ไอ"</b> ในภาษาไทย',sk:'ai4-f',sl:'ai'}),
+ build({n:'ช่วงที่ 1 · ai',w:BAI,syl:[['b','a','i',2]],labs:L4,extra:['p'],res:'bái'}),
+ word({n:'ช่วงที่ 1 · ei',w:BZ,py:'b[ēi]zi',aid:G2('e','i'),hint:'เหมือน <b>"เอย"</b> ในภาษาไทย',sk:'wei1-f',sl:'ei'}),
+ word({n:'ช่วงที่ 1 · ao',w:MAO,py:'m[āo]',aid:G2('a','o'),hint:'เหมือน <b>"เอา"</b> ในภาษาไทย'}),
+ build({n:'ช่วงที่ 1 · ao',w:MAO,syl:[['m','a','o',1]],labs:L4,extra:['u',3],res:'māo'}),
+ word({n:'ช่วงที่ 1 · ou',w:GOU,py:'g[ǒu]',aid:G2('o','u'),hint:'เหมือน <b>"โอว"</b> ในภาษาไทย',sk:'ou1-f',sl:'ou'}),
+ rec({n:'ช่วงที่ 1',ws:[BAI,MAO,GOU]}),
+ ask({tag:'ตรวจ · ช่วงที่ 1',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:GOU.k,opts:[{img:MAO.img},{img:GOU.img},{img:BZ.img}],ans:1,fb:'<b>gǒu</b> <span class="zh">狗</span> = สุนัข'}),
+ ask({rv:9,q:'m + i + เสียง 3 อ่านว่าอะไร',show:partsH(['m','i',3]),opts:['mǐ','mǎ'],ans:0,fb:'<b>mǐ</b> <span class="zh">米</span> = ข้าวสาร'}),
+ part({no:2,of:3,title:'สระผสมที่ขึ้นต้นด้วย i u ü',chips:['ia','ie','ua','uo','üe'],note:'5 คำ ประมาณ 2 นาที'}),
+ word({n:'ช่วงที่ 2 · ia',w:JIA,py:'j[iā]',aid:G2('i','a'),hint:'เหมือน <b>"เอีย"</b> เลื่อนเร็วเป็น <b>"เจีย"</b>',sk:'ya1-f',sl:'ia'}),
+ word({n:'ช่วงที่ 2 · ie',w:XIE,py:'x[ié]',aid:G2('i','e'),hint:'เหมือน <b>"เอีย"</b> ปลายเสียงเป็น <b>"เอ"</b>',sk:'xie2-f',sl:'xié'}),
+ build({n:'ช่วงที่ 2 · ie',w:XIE,syl:[['x','i','e',2]],labs:L4,extra:['a',4],res:'xié'}),
+ word({n:'ช่วงที่ 2 · ua',w:HUA,py:'h[uā]',aid:G2('u','a'),hint:'เหมือน <b>"อัว"</b> ปลายเป็น <b>"อา"</b> คล้าย <b>"ฮวา"</b>',sk:'wa1-f',sl:'ua'}),
+ word({n:'ช่วงที่ 2 · uo',w:HUO,py:'h[uǒ]',aid:G2('u','o'),hint:'เหมือน <b>"อัว"</b> ในภาษาไทย คล้าย <b>"ฮั่ว"</b>',sk:'guo1-f',sl:'guō'}),
+ build({n:'ช่วงที่ 2 · uo',w:HUO,syl:[['h','u','o',3]],labs:L4,extra:['a',1],res:'huǒ'}),
+ word({n:'ช่วงที่ 2 · üe',w:XUE,py:'x[uě]',aid:G2('ü','e'),hint:'เริ่มที่ <b>ü</b> แล้วเลื่อนไป <b>"เอ"</b> · หลัง x เขียนเป็น u แต่ยังอ่าน ü',sk:'yue4-f',sl:'üe'}),
+ rec({n:'ช่วงที่ 2',ws:[JIA,HUA,HUO]}),
+ ask({tag:'ตรวจ · ช่วงที่ 2',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:XUE.k,opts:[{img:XIE.img},{img:HUO.img},{img:XUE.img}],ans:2,fb:'<b>xuě</b> <span class="zh">雪</span> = หิมะ'}),
+ ask({rv:7,q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'w:书',opts:['sh','x'],ans:0,fb:'<b>shū</b> <span class="zh">书</span> ม้วนลิ้น'}),
+ part({no:3,of:3,title:'สระผสม 3 ตัว และตำแหน่งวรรณยุกต์',chips:['iao','iu','uai','ui'],note:'4 คำ และกติกา 1 ข้อ'}),
+ word({n:'ช่วงที่ 3 · iao',w:NIAO,py:'n[iǎo]',aid:{glide:['i','a','o']},hint:'เหมือน <b>"เอียว"</b> ในภาษาไทย คล้าย <b>"เนี่ยว"</b>',sk:'niao3-f',sl:'niǎo'}),
+ build({n:'ช่วงที่ 3 · iao',w:NIAO,syl:[['n','i','a','o',3]],labs:L5,extra:['l'],res:'niǎo'}),
+ word({n:'ช่วงที่ 3 · iu',w:NIU,py:'n[iú]',aid:{glide:['i','o','u']},hint:'เขียน iu แต่อ่าน <b>"อิว"</b> มีเสียง o แทรกเบา ๆ คล้าย <b>"เนียว"</b>',sk:'you1-f',sl:'iu'}),
+ word({n:'ช่วงที่ 3 · uai',w:KUAI,py:'k[uài]',aid:{glide:['u','a','i']},hint:'เหมือน <b>"อวาย"</b> คล้าย <b>"ไคว่"</b>',sk:'wai4-f',sl:'uai'}),
+ word({n:'ช่วงที่ 3 · ui',w:SHUI,py:'sh[uǐ]',aid:{glide:['u','e','i']},hint:'เขียน ui แต่อ่าน <b>"อุย"</b> มีเสียง e แทรกเบา ๆ คล้าย <b>"เชวย"</b>',sk:'wei1-f',sl:'ui'}),
+ rec({n:'ช่วงที่ 3',ws:[NIAO,KUAI,SHUI]}),
+ teach({cap:'กติกา',title:'วรรณยุกต์วางบนสระไหน',text:'ดูตามลำดับ <b>a</b> ก่อน ถ้าไม่มีดู <b>o</b> หรือ <b>e</b> · ส่วน iu และ ui วางบนตัวหลัง',html:`<div class="rule"><span><b>a</b> → b<b class="hl">ái</b> · n<b>iǎ</b>o</span><span><b>o / e</b> → g<b>ǒ</b>u · x<b>ié</b></span><span><b>iu / ui</b> → n<b>iú</b> · sh<b>uǐ</b></span></div>`}),
+ ask({tag:'ลองเอง · กติกา',q:'g + ao + เสียง 3 เขียนอย่างไร',big:1,opts:['gǎo','gaǒ'],ans:0,fb:'มี <b>a</b> วางบน a เสมอ · <b>gǎo</b>'}),
+ ask({tag:'ตรวจ · ช่วงที่ 3',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:SHUI.k,opts:[{img:NIAO.img},{img:SHUI.img},{img:NIU.img}],ans:1,fb:'<b>shuǐ</b> <span class="zh">水</span> = น้ำ'}),
+ ask({rv:6,q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'qi1-f',opts:['j','q'],ans:1,fb:'<b>q</b> ยิ้มและมีลม'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:BAI.k,opts:['bái','béi','báo'],ans:0,fb:'<b>bái</b> <span class="zh">白</span>'}),
+ ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกภาพ',k:HUA.k,opts:[{img:HUO.img},{img:HUA.img}],ans:1,fb:'<b>huā</b> <span class="zh">花</span>'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:NIAO.k,opts:['niú','niǎo'],ans:1,fb:'<b>niǎo</b> <span class="zh">鸟</span>'}),
+ ask({tag:QZ(4,4),q:'h + uo + เสียง 3 เขียนอย่างไร',big:1,opts:['hǔo','huǒ'],ans:1,fb:'<b>huǒ</b> วางบน o'}),
+ fin({title:'อ่านประโยคของคุณ',pics:[MAO,YU],chips:[{zh:'小猫',py:'xiǎomāo',th:'ลูกแมว',k:'g:xiaomao'},{zh:'爱',py:'ài',th:'ชอบ',k:'ai4-f'},{zh:'吃',py:'chī',th:'กิน',k:'w:吃'},{zh:'鱼',py:'yú',th:'ปลา',k:YU.k}],th:'ลูกแมวชอบกินปลา',note:'xiǎo มีสระผสม iao · māo มี ao · ài มี ai',k:'g:L10'})]});
+
+</script>
+</body></html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-8</title>
+</head><body>
+<script>
+const ZI=w('字','zì','ตัวอักษร'),CO=w('草','cǎo','หญ้า'),SI=w('四','sì','สี่'),SHI=w('十','shí','สิบ'),ZH=w('纸','zhǐ','กระดาษ'),CS=w('厕所','cèsuǒ','ห้องน้ำ');
+LESSON({no:8,goal:{do:'อ่านป้าย <span class="gz">厕所</span> ห้องน้ำ ได้',sub:'เสียงลิ้นแบน z c s',min:5},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "สี่"',pic:SI,cards:[SI.k,SHI.k],ans:0,fb:'เสียง A คือ <b>sì</b> <span class="zh">四</span> = สี่ · เสียง B คือ <b>shí</b> <span class="zh">十</span> = สิบ'}),
+ teach({title:'ลิ้นแบน ไม่ม้วน',text:'z c s วางปลายลิ้นแตะหลังฟันล่าง ตรงข้ามกับ zh ch sh ที่ม้วนลิ้น',html:`<div class="mpair">${[['flat','z c s','si1-f','ลิ้นแบน'],['curl','zh ch sh','shi1-fs','ม้วนลิ้น']].map(([m,l,k,s])=>`<button class="press" data-play="${k}">${mouth(m,'big')}<span class="py" style="font-size:22px">${l}</span><small>${s}</small></button>`).join('')}</div>`}),
+ word({n:'คู่ที่ 1 · z',w:ZI,py:'[z]ì',aid:{mouth:'flat'},hint:'คล้าย <b>"จ"</b> ผสม <b>"ซ"</b> ลิ้นแบน ไม่มีลม',sk:'zi1-f',sl:'z'}),
+ word({n:'คู่ที่ 1 · c',w:CO,py:'[c]ǎo',aid:{air:1,cap:'ลิ้นแบน และมีลมพุ่งออกมา'},hint:'คล้าย <b>"ช"</b> ผสม <b>"ซ"</b> มีลม · ไม่อ่านว่า <b>"ค"</b>',sk:'ci2-f',sl:'c'}),
+ pair({n:'',title:'ถือกระดาษไว้หน้าปาก',text:'แตะฟังทั้งสองเสียง แล้วดูกระดาษ',items:[{air:0,py:'z',zh:'字',sub:'ไม่มีลม',k:'zi1-f'},{air:1,py:'c',zh:'草',sub:'มีลม',k:'ci2-f'}]}),
+ rec({n:'คู่ที่ 1',ws:[ZI,CO]}),
+ word({n:'เสียง s',w:SI,py:'[s]ì',aid:{mouth:'flat'},hint:'เหมือน <b>"ซ"</b> ในภาษาไทย ลิ้นแบน',sk:'si1-f',sl:'s'}),
+ pair({n:'',title:'ลิ้นแบน กับ ม้วนลิ้น',text:'แตะฟังทั้งสองคำ แล้วสังเกตท่าลิ้น',items:[{mouth:'flat',py:'sì',zh:'四',sub:'สี่ · ลิ้นแบน',k:SI.k},{mouth:'curl',py:'shí',zh:'十',sub:'สิบ · ม้วนลิ้น',k:SHI.k}]}),
+ rec({n:'เสียง s',ws:[SI,SHI]}),
+ ask({tag:'ลองเอง · ฟังให้ต่าง',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:ZH.k,opts:[{img:ZI.img,lab:'zì'},{img:ZH.img,lab:'zhǐ'}],ans:1,fb:'<b>zhǐ</b> <span class="zh">纸</span> = กระดาษ · ม้วนลิ้น'}),
+ ask({rv:7,q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'chi1-fs',opts:['c','ch'],ans:1,fb:'<b>ch</b> ม้วนลิ้น มีลม'}),
+ ask({tag:'ตรวจ · 3 เสียง',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:CO.k,opts:[{img:ZI.img},{img:CO.img},{img:SI.img}],ans:1,fb:'<b>cǎo</b> <span class="zh">草</span> = หญ้า'}),
+ ask({rv:6,q:'ฟังเสียง แล้วเลือกภาพ',k:'w:西瓜',opts:[{img:ART('鸡')},{img:ART('西瓜')}],ans:1,fb:'<b>xīguā</b> <span class="zh">西瓜</span> = แตงโม'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'zi1-f',opts:['zī','zhī'],ans:0,fb:'<b>zī</b> ลิ้นแบน'}),
+ ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกภาพ',k:SHI.k,opts:[{img:SI.img},{img:SHI.img}],ans:1,fb:'<b>shí</b> <span class="zh">十</span> = สิบ'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'ci2-f',opts:['cí','chí','zí'],ans:0,fb:'<b>cí</b> ลิ้นแบน มีลม'}),
+ ask({tag:QZ(4,4),q:'ฟังเสียง แล้วเลือกป้าย',k:CS.k,opts:[{sign:'厕所',py:'cèsuǒ',col:'b'},{sign:'出口',py:'chūkǒu',col:'g'}],ans:0,fb:'<b>cèsuǒ</b> <span class="zh">厕所</span> = ห้องน้ำ'}),
+ fin({title:'อ่านป้ายนี้ได้แล้ว',pics:[CS],signs:[{zh:'厕所',py:'cèsuǒ',col:'b',k:CS.k}],chips:[{zh:'厕',py:'cè',th:'c ลิ้นแบน มีลม',k:'ce4-f'},{zh:'所',py:'suǒ',th:'s ลิ้นแบน',k:'w:所'}],th:'ห้องน้ำ',note:'เห็นป้ายนี้ที่สนามบินหรือห้างในจีน · แตะเพื่อฟัง',k:CS.k,kl:'ฟังทั้งคำ'})]});
+
+</script>
+</body></html>

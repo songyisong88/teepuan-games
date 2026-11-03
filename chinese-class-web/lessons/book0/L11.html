@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-11</title>
+</head><body>
+<script>
+const CHUAN=w('船','chuán','เรือ'),CHUANG=w('床','chuáng','เตียง'),SHAN=w('山','shān','ภูเขา'),YANG=w('羊','yáng','แพะ'),MEN=w('门','mén','ประตู'),DENG=w('灯','dēng','โคมไฟ'),XIN=w('信','xìn','จดหมาย'),XX=w('星星','xīngxing','ดวงดาว'),LONG=w('龙','lóng','มังกร'),WO=w('我','wǒ','ฉัน'),CC=w('长城','Chángchéng','กำแพงเมืองจีน');
+const NP=(a,b,t)=>pair({n:'',title:t||'-n กับ -ng ต่างกันที่ลิ้น',text:'แตะฟังทั้งสองคำ แล้วดูทางเดินของเสียง',items:[{nasal:'n',py:a[0],zh:a[1],sub:'-n ปลายลิ้นแตะฟันบน',k:a[2]},{nasal:'ng',py:b[0],zh:b[1],sub:'-ng โคนลิ้นยกปิด',k:b[2]}]});
+LESSON({no:11,goal:{do:'อ่าน <span class="gz">我们去长城</span> ได้',sub:'เสียงนาสิก -n กับ -ng',min:7},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "เรือ"',pic:CHUAN,cards:[CHUAN.k,CHUANG.k],ans:0,fb:'เสียง A คือ <b>chuán</b> <span class="zh">船</span> = เรือ · เสียง B คือ <b>chuáng</b> <span class="zh">床</span> = เตียง · ต่างกันแค่ตัวสะกด'}),
+ teach({title:'ตัวสะกด -n กับ -ng',text:'-n เหมือนตัวสะกด <b>"น"</b> · -ng เหมือนตัวสะกด <b>"ง"</b> ภาษาไทยมีทั้งสองเสียง จึงฝึกได้ง่าย',html:`<div class="mpair">${[['n','-n','an1-f','เหมือน "น"'],['ng','-ng','w:羊','เหมือน "ง"']].map(([n,l,k,s])=>`<button class="press" data-play="${k}">${nasSvg(n)}<span class="py">${l}</span><small>${s}</small></button>`).join('')}</div>`,note:'บทนี้แบ่งเป็น 2 ช่วง'}),
+ part({no:1,of:2,title:'an ang · en eng',chips:['an','ang','en','eng'],note:'4 คำ'}),
+ word({n:'ช่วงที่ 1 · an',w:SHAN,py:'sh[ān]',aid:{nasal:'n'},hint:'เหมือน <b>"อัน"</b> ในภาษาไทย',sk:'an1-f',sl:'an'}),
+ word({n:'ช่วงที่ 1 · ang',w:YANG,py:'y[áng]',aid:{nasal:'ng'},hint:'เหมือน <b>"อัง"</b> ในภาษาไทย อ้าปากกว้าง'}),
+ NP(['shān','山',SHAN.k],['yáng','羊',YANG.k]),
+ word({n:'ช่วงที่ 1 · en',w:MEN,py:'m[én]',aid:{nasal:'n'},hint:'เหมือน <b>"เอิน"</b> ในภาษาไทย',sk:'en1-f',sl:'en'}),
+ word({n:'ช่วงที่ 1 · eng',w:DENG,py:'d[ēng]',aid:{nasal:'ng'},hint:'เหมือน <b>"เอิง"</b> ในภาษาไทย'}),
+ NP(['mén','门',MEN.k],['dēng','灯',DENG.k]),
+ rec({n:'ช่วงที่ 1',ws:[SHAN,YANG,DENG]}),
+ ask({tag:'ตรวจ · ช่วงที่ 1',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:DENG.k,opts:[{img:MEN.img},{img:DENG.img},{img:SHAN.img}],ans:1,fb:'<b>dēng</b> <span class="zh">灯</span> = โคมไฟ'}),
+ ask({rv:10,q:'ฟังเสียง แล้วเลือกพินอิน',k:'w:猫',opts:['māo','mōu'],ans:0,fb:'<b>māo</b> สระผสม ao'}),
+ part({no:2,of:2,title:'in ing · ong และคำยาว',chips:['in','ing','ong'],note:'3 คำ และลองต่อคำ'}),
+ word({n:'ช่วงที่ 2 · in',w:XIN,py:'x[ìn]',aid:{nasal:'n'},hint:'เหมือน <b>"อิน"</b> ในภาษาไทย',sk:'xin1-f',sl:'xīn'}),
+ word({n:'ช่วงที่ 2 · ing',w:XX,py:'x[īng]x[ing]',aid:{nasal:'ng'},hint:'เหมือน <b>"อิง"</b> ในภาษาไทย',sk:'xing1-f',sl:'xīng'}),
+ NP(['xīn','心','xin1-f'],['xīng','星','xing1-f']),
+ word({n:'ช่วงที่ 2 · ong',w:LONG,py:'l[óng]',aid:{nasal:'ng'},hint:'เหมือน <b>"โอง"</b> ห่อปากกลม'}),
+ build({n:'ช่วงที่ 2 · ลองต่อ',w:CHUAN,syl:[['ch','u','a','n',2]],labs:['พยัญชนะ','สระ','สระ','ตัวสะกด','วรรณยุกต์'],extra:['ng','zh'],res:'chuán'}),
+ rec({n:'ช่วงที่ 2',ws:[XIN,XX,LONG]}),
+ ask({tag:'ตรวจ · ช่วงที่ 2',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:CHUANG.k,opts:[{img:CHUAN.img},{img:CHUANG.img}],ans:1,fb:'<b>chuáng</b> <span class="zh">床</span> = เตียง · ตัวสะกด -ng'}),
+ ask({rv:9,q:'q + i + เสียง 1 อ่านว่าอะไร',show:partsH(['q','i',1]),opts:['qī','jī'],ans:0,fb:'<b>qī</b> <span class="zh">七</span>'}),
+ ask({rv:8,q:'ฟังเสียง แล้วเลือกภาพ',k:'w:四',opts:[{img:ART('四')},{img:ART('十')}],ans:0,fb:'<b>sì</b> <span class="zh">四</span> = สี่'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:SHAN.k,opts:['shān','shāng'],ans:0,fb:'<b>shān</b> <span class="zh">山</span>'}),
+ ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกภาพ',k:LONG.k,opts:[{img:LONG.img},{img:YANG.img},{img:XX.img}],ans:0,fb:'<b>lóng</b> <span class="zh">龙</span>'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:MEN.k,opts:['méng','mén'],ans:1,fb:'<b>mén</b> <span class="zh">门</span>'}),
+ ask({tag:QZ(4,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'xing1-f',opts:['xīn','xīng'],ans:1,fb:'<b>xīng</b>'}),
+ fin({title:'อ่านประโยคของคุณ',pics:[w('我们','wǒmen','พวกเรา'),CC],chips:[{zh:'我们',py:'wǒmen',th:'พวกเรา',k:'w:我们'},{zh:'去',py:'qù',th:'ไป',k:'w:去'},{zh:'长城',py:'Chángchéng',th:'กำแพงเมืองจีน',k:CC.k}],th:'พวกเราไปกำแพงเมืองจีน',note:'men ลงท้าย -n · cháng chéng ลงท้าย -ng',k:'g:L11'})]});
+
+</script>
+</body></html>

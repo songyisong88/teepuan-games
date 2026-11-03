@@ -192,7 +192,7 @@ const l1LockMount=n=>(stage,dock)=>{const nb=$('[data-sa=next]',dock),seen=new S
 const l1TileStep=(cap,title,keys,note)=>({k:'h',lock:true,btn:'ต่อไป',mount:l1LockMount(keys.length),html:`<div class="center l1snd"><div class="cap">${cap}</div><div class="large" style="padding:4px 0 0">${title}</div>${l1Tiles(keys)}${note?`<p class="l1p">${note}</p>`:''}<p class="cap l1cnt">แตะทุกช่องเพื่อฟัง · 0/${keys.length}</p></div>`});
 const l1Intro=(L,body)=>({k:'h',btn:'เริ่มเรียน',html:`<div class="center l1snd"><div class="l1code">${L.code}</div><div class="large" style="padding:6px 0 0">${L.th}</div>${body}</div>`});
 const l1Know=(q,opts,reveal,lbl)=>l1PyQ(`<div class="cap" style="font-size:15px;margin:0 16px">${q}</div>`,opts,0,l1Txt(reveal),lbl);
-const L1_SKIP=`<button class="pill sm ghost press mt16" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบท้ายตอน</button>`;
+const L1_SKIP=`<button class="pill sm ghost press mt16" data-l1go="1003a">เคยเรียนพินอินแล้ว · ข้ามไปบทสุดท้าย</button>`;
 function l1SndSteps(u,L){const st=[],Q=q=>q&&st.push({k:'q',q}),QA=a=>a.forEach(Q);
  if(L.id===1001){ /* 0-1 พินอินคืออะไร */
   st.push({k:'h',say:'你好',btn:'ต่อไป',html:`<div class="center l1snd"><div class="l1code">0-1</div><div class="large" style="padding:6px 0 0">พินอินคืออะไร</div>
@@ -324,8 +324,8 @@ function l1GateSteps(u,L){const ch=l1Ch(L),pool=l1Taught(L),st=[],Q=q=>q&&st.pus
 /* ---------- จบบท / ไม่ผ่าน ---------- */
 window.l1DoneStrip=L=>{const ws=L.kind==='gate'?l1SceneWords(L):L.words;if(!ws.length)return '';return `<div class="l1thumbs mt12">${ws.map(w=>`<div class="l1th">${l1Show(w,'pic-mini')}<span class="zh">${w.zh}</span></div>`).join('')}</div>`};
 {const _fu=finishUnit;finishUnit=function(u,res){const L=lessonBy(u.lesson);if(!L||!L.v3)return _fu(u,res);const r=res.correct/Math.max(1,res.total);
- if((L.kind==='gate'||L.id===1003)&&r<.7){replace('l1retry',{u,L,res});return}
- if(L.id===1003)L1_SEC0().forEach(id=>{if(unitBy(id)&&!unitDone(id)){S.parts.push(id);S.stars[id]=Math.max(S.stars[id]||0,2)}});
+ if((L.kind==='gate'||(L.id===1003&&!L.v4))&&r<.7){replace('l1retry',{u,L,res});return}
+ if(L.id===1003)L1_SEC0().forEach(id=>{if(id!==u.id&&unitBy(id)&&!unitDone(id)){S.parts.push(id);S.stars[id]=Math.max(S.stars[id]||0,2)}});
  return _fu(u,res)}}
 SC.l1retry=({u,L,res})=>({nav:'<header class="nav"></header>',noRefresh:true,
  body:`<div class="center" style="padding:calc(var(--st) + 24px) 20px 0"><div style="width:200px;height:190px;margin:0 auto">${M('think')}</div><div class="cap mt8">${lnoTxt(L)}</div><div class="large" style="padding:2px 0">ยังไม่ผ่าน</div>
@@ -336,11 +336,24 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
  if(t.closest('.stage'))replace('lesson',{uid:id});else{try{closeSheet()}catch(x){}setTimeout(()=>push('lesson',{uid:id}),120)}});
 
 /* ---------- แผ่นรายละเอียดบท ---------- */
-const L1SND={1001:'รู้ว่าพินอินคืออะไร และพยางค์หนึ่งมีพยัญชนะต้น สระ วรรณยุกต์',1004:'พยัญชนะต้นกลุ่มริมฝีปาก b p m f และกลุ่มปลายลิ้น d t n l',1005:'พยัญชนะต้นกลุ่มโคนลิ้น g k h และกลุ่มลิ้นแบน j q x',1006:'พยัญชนะต้นกลุ่มม้วนลิ้น zh ch sh r กลุ่มลิ้นตรง z c s และ y w',1007:'สระเดี่ยว a o e i u ü และ er',1008:'สระผสม ai ei ao ou · ia ie iao iu · ua uo uai ui üe',1009:'สระเสียงขึ้นจมูก an en in ün · ang eng ing ong และ ian uan iang uang iong',1002:'วรรณยุกต์ 4 เสียงและเสียงเบา',1010:'ประกอบพยางค์ ตำแหน่งวรรณยุกต์ กฎ y w และ ü',1003:'ทดสอบฟังเสียง 12 ข้อ ผ่าน 70% แล้วนับว่าจบตอนที่ 0'};
+const L1SND={1001:'รู้จักตัวจีน พินอิน และวรรณยุกต์ แล้วอ่านการ์ดคำแรกได้',1004:'เรียนวรรณยุกต์ 4 เสียงผ่าน 4 คำจริง',1005:'สระ 3 ตัวแรก a o e ผ่านคำจริง',1006:'สระ i u ü และวิธีทำเสียง ü',1007:'พยัญชนะ 8 ตัว b p m f · d t n l สังเกตเสียงที่มีลม',1008:'พยัญชนะ 6 ตัว g k h · j q x ใช้โคนลิ้น และเสียงยิ้ม',1009:'เสียงม้วนลิ้น zh ch sh r',1002:'เสียงลิ้นแบน z c s เทียบกับเสียงม้วนลิ้น',1010:'ต่อพยัญชนะ + สระ + วรรณยุกต์ เป็นพยางค์',1094:'สระผสม เลื่อนจากสระหนึ่งไปอีกสระอย่างต่อเนื่อง',1095:'เสียงขึ้นจมูก -n กับ -ng',1096:'กติกาการเขียนและเสียงที่เปลี่ยนในคำจริง',1003:'อ่านพยางค์ที่ไม่เคยเห็นด้วยตัวเอง แล้วผ่านด่านปิดเล่ม · จบบทนี้นับว่าจบเล่ม 0'};
 {const _us=unitSheet;unitSheet=function(id){const u=unitBy(id),L=u&&lessonBy(u.lesson);if(!L||!L.v3)return _us(id);const done=unitDone(id),open=unitOpen(id);
  openSheet(`<div style="padding:0 20px"><div class="cap">${lnoTxt(L)}</div><div style="font-size:24px;font-weight:700">${L.th} <span class="zh" style="font-weight:400">${L.zh}</span></div>${L.can?`<div class="cap mt8">เป้าหมาย: ${L.can}</div>`:''}
  ${L.words.length?`<div class="l1sw">${L.words.map(w=>`<div class="l1swi">${l1Show(w,'pic-mini')}<span class="zh">${w.zh}</span><small>${pyHtml(w.py)}</small><small>${open?w.th:'?'}</small></div>`).join('')}</div>`:`<p class="cap mt12" style="font-size:14px">${L.kind==='gate'?'ทบทวนคำทั้งตอนจากภาพ · ผ่านเมื่อตอบถูก 70% ขึ้นไป':L1SND[L.id]||''}</p>`}
  ${open?`<button class="pill row1 press mt16" id="ls">${done?'เรียนอีกครั้ง':'เริ่มเรียน'}</button>`:`<div class="banner mt16" style="background:#F2ECE4;color:var(--sub2);text-align:center">เรียนบทก่อนหน้าให้จบก่อน</div>`}
- ${L.id===1001&&!unitDone('1003a')?`<button class="pill sm ghost press mt12" data-l1go="1003a">เคยเรียนพินอินแล้ว · ไปทดสอบท้ายตอน</button>`:''}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}}
+ ${L.id===1001&&!unitDone('1003a')?`<button class="pill sm ghost press mt12" data-l1go="1003a">เคยเรียนพินอินแล้ว · ข้ามไปบทสุดท้าย</button>`:''}</div>`,{onMount:sh=>{const b=$('#ls',sh);if(b)b.onclick=()=>{closeSheet();setTimeout(()=>push('lesson',{uid:id}),120)}}})}}
 
 /* แผนที่ระดับ 1: ใช้แผนที่ซิกแซกแบบ C ร่วมกับทุกระดับ (lcMap ใน levels.js รองรับบท v3 ด่านทบทวน และเพื่อนในห้อง) */
+
+/* ---------- เล่ม 0 第一步: บทวิธีสอน v4 (หน้า lessons/book0/LNN.html เปิดในกรอบเต็มจอของหน้าบทเรียน) ----------
+   บทตอบผิดแล้วทำข้อเดิมจนถูก ดาวจึงคิดจากข้อที่ตอบถูกตั้งแต่ครั้งแรก · ปุ่มปิด = ถามก่อนออกแบบเดิม · จบบท = หน้าจบบทเดิมของแอป */
+function b0Inset(v){const d=document.createElement('div');d.style.cssText='position:absolute;visibility:hidden;padding-top:var('+v+')';document.body.appendChild(d);const r=getComputedStyle(d).paddingTop;d.remove();return r}
+{const _sl=SC.lesson;SC.lesson=a=>{const u=unitBy(a.uid),L=u&&lessonBy(u.lesson);if(!L||!L.v4)return _sl(a);let on=null;
+ return {nav:'',body:'',extra:`<iframe class="b0fr" src="lessons/book0/${L.v4}.html?app=1&v=${window.APP_VER||''}" title="${L.code} ${L.th}" allow="microphone; autoplay" style="position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg);z-index:5"></iframe>`,noRefresh:true,
+  unmount(){if(on)window.removeEventListener('message',on);on=null},
+  mount(el){try{stopAudio()}catch(e){}const fr=el.querySelector('.b0fr');
+   fr.addEventListener('load',()=>{try{const de=fr.contentDocument.documentElement;de.style.setProperty('--st',b0Inset('--st'));de.style.setProperty('--sb',b0Inset('--sb'))}catch(e){}});
+   on=e=>{const m=e.data;if(!m||!m.b0||e.source!==fr.contentWindow)return;
+    if(m.t==='quit')quitSheet();
+    else if(m.t==='done'){window.removeEventListener('message',on);on=null;finishUnit(u,{correct:+m.correct||0,total:Math.max(1,+m.total||0),wrong:[]})}};
+   window.addEventListener('message',on)}}}}

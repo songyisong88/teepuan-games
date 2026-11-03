@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-4</title>
+</head><body>
+<script>
+const MI=w('米','mǐ','ข้าวสาร'),TU=w('兔子','tùzi','กระต่าย'),NV=w('女孩','nǚhái','เด็กผู้หญิง'),LV=w('绿','lǜ','สีเขียว');
+const MC=(list)=>`<div class="mcards3">${list.map(([m,l,k,s])=>`<button class="press" data-play="${k}">${mouth(m,'',84)}<span class="py">${l}</span><small>${s}</small></button>`).join('')}</div>`;
+LESSON({no:4,goal:{do:'อ่าน <span class="gz">女孩和兔子</span> ได้',sub:'สระ i u ü และวิธีทำเสียง ü',min:5},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "กระต่าย"',pic:TU,cards:[MI.k,TU.k],ans:1,fb:'เสียง A คือ <b>mǐ</b> <span class="zh">米</span> = ข้าวสาร · เสียง B คือ <b>tùzi</b> <span class="zh">兔子</span> = กระต่าย'}),
+ teach({title:'อี · อู · และเสียงใหม่ ü',text:'สองเสียงแรกมีในภาษาไทย เสียงที่สามไม่มี แตะเพื่อฟัง',html:MC([['i','i','i1-f','ฉีกปากยิ้ม'],['u','u','u1-f','ห่อปากยื่น'],['v','ü','v1-f','อี + ห่อปาก']])}),
+ word({n:'คำที่ 1/4',w:MI,py:'m[ǐ]',aid:{mouth:'i'},hint:'เหมือน <b>"อี"</b> ในภาษาไทย ฉีกปากยิ้ม',sk:'i3-f',sl:'i'}),
+ mouthQ({tag:'ลองเอง · รูปปาก',k:'i1-f',opts:[['u','u'],['i','i']],ans:1,fb:'เสียง <b>i</b> ฉีกปากยิ้ม เหมือน "อี"'}),
+ rec({n:'คำที่ 1/4',w:MI}),
+ word({n:'คำที่ 2/4',w:TU,py:'t[ù]zi',aid:{mouth:'u'},hint:'เหมือน <b>"อู"</b> ห่อปากแล้วยื่นออกไปข้างหน้า',sk:'u1-f',sl:'u'}),
+ mouthQ({tag:'ลองเอง · รูปปาก',k:'u1-f',opts:[['i','i'],['u','u'],['e','e']],ans:1,fb:'เสียง <b>u</b> ห่อปากยื่น เหมือน "อู"'}),
+ rec({n:'คำที่ 2/4',w:TU}),
+ ask({rv:3,q:'ฟังแล้วเลือกพินอินที่ได้ยิน',k:'e1-f',opts:['ē','ā','ō'],ans:0,fb:'<b>ē</b> เสียง "เออ" ดึงลงลำคอ'}),
+ word({n:'คำที่ 3/4',w:NV,py:'n[ǚ]hái',aid:{mouth:'v'},hint:'ไม่มีในภาษาไทย พูด <b>"อี"</b> ค้างไว้ แล้วห่อปากกลมโดยไม่ขยับลิ้น',sk:'v3-fs',sl:'ü'}),
+ pair({n:'',title:'u กับ ü ต่างกันที่ลิ้น',text:'ปากห่อเหมือนกัน แต่ ü วางลิ้นแบบ "อี" · แตะฟังทั้งสองเสียง',items:[{mouth:'u',py:'u',sub:'ลิ้นอยู่ด้านหลัง เสียง "อู"',k:'u1-f'},{mouth:'v',py:'ü',sub:'ลิ้นแบบ "อี" แล้วห่อปาก',k:'v1-f'}]}),
+ word({n:'คำที่ 4/4',w:LV,py:'l[ǜ]',aid:{mouth:'v'},hint:'สระเดียวกับ <span class="zh">女</span> พูด <b>"อี"</b> แล้วห่อปาก'}),
+ rec({n:'คำที่ 3–4',ws:[NV,LV]}),
+ ask({tag:'ตรวจ · 3 สระ',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:NV.k,opts:[{img:TU.img},{img:NV.img},{img:MI.img}],ans:1,fb:'<b>nǚhái</b> <span class="zh">女孩</span> = เด็กผู้หญิง'}),
+ ask({rv:2,q:'ฟังแล้วเลือกเส้นเสียงที่ได้ยิน',k:'ma2',opts:[{tone:3,lab:'mǎ'},{tone:2,lab:'má'}],ans:1,fb:'<b class="t2">má</b> <span class="zh">麻</span> = ป่าน · เสียง 2 ไต่ขึ้น'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'v1-f',opts:['u','ü','i'],ans:1,fb:'เสียง <b>ü</b>'}),
+ mouthQ({tag:QZ(2,4),k:'i1-f',opts:[['v',''],['i',''],['u','']],ans:1,fb:'เสียง <b>i</b> ฉีกปากยิ้ม'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกภาพ',k:LV.k,opts:[{img:LV.img},{img:TU.img}],ans:0,fb:'<b>lǜ</b> <span class="zh">绿</span> = สีเขียว'}),
+ ask({tag:QZ(4,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'u4-fs',opts:['ù','ǜ'],ans:0,fb:'<b>ù</b> สระ u เสียง 4'}),
+ fin({title:'อ่านประโยคของคุณ',pics:[NV,TU],chips:[{zh:'女孩',py:'nǚhái',th:'เด็กผู้หญิง',k:NV.k},{zh:'和',py:'hé',th:'และ',k:'w:和'},{zh:'兔子',py:'tùzi',th:'กระต่าย',k:TU.k}],th:'เด็กผู้หญิงกับกระต่าย',note:'แตะแต่ละคำเพื่อฟัง · 子 อ่านเบา ๆ',k:'g:L04'})]});
+
+</script>
+</body></html>

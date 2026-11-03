@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script>
+<title>เหล่าซือลามา · บท 0-7</title>
+</head><body>
+<script>
+const ZU=w('猪','zhū','หมู'),CA=w('茶','chá','ชา'),SH=w('书','shū','หนังสือ'),RE=w('热','rè','ร้อน'),XM=w('熊猫','xióngmāo','แพนด้า'),ZZ=w('竹子','zhúzi','ไม้ไผ่');
+LESSON({no:7,goal:{do:'อ่าน <span class="gz">熊猫吃竹子</span> ได้',sub:'เสียงม้วนลิ้น zh ch sh r',min:5},steps:[
+ hook({q:'ฟัง 2 เสียงนี้<br>เสียงใดแปลว่า "หมู"',pic:ZU,cards:[ZU.k,CA.k],ans:0,fb:'เสียง A คือ <b>zhū</b> <span class="zh">猪</span> = หมู · เสียง B คือ <b>chá</b> <span class="zh">茶</span> = ชา'}),
+ teach({title:'ม้วนปลายลิ้นขึ้น',text:'4 เสียงนี้ใช้ท่าลิ้นเดียวกัน ม้วนปลายลิ้นขึ้นแตะเพดานด้านหลังฟัน',html:`<div class="center">${mouth('curl','big',150)}</div><p class="sub center">แตะรูปปากเพื่อฟัง zh ch sh r</p>`,init:st=>{const m=$('svg',st);if(m){m.style.cursor='pointer';m.addEventListener('click',()=>seq(['zhi1-f','chi1-fs','shi1-fs','ri4-fs'],st))}}}),
+ word({n:'คู่ที่ 1 · zh',w:ZU,py:'[zh]ū',aid:{mouth:'curl'},hint:'ม้วนลิ้นแล้วพูด <b>"จ"</b> ไม่มีลม',sk:'zhi1-f',sl:'zh'}),
+ word({n:'คู่ที่ 1 · ch',w:CA,py:'[ch]á',aid:{air:1,cap:'ม้วนลิ้น และมีลมพุ่งออกมา'},hint:'ม้วนลิ้นแล้วพูด <b>"ช"</b> มีลม',sk:'chi1-fs',sl:'ch'}),
+ pair({n:'',title:'ถือกระดาษไว้หน้าปาก',text:'แตะฟังทั้งสองเสียง แล้วดูกระดาษ',items:[{air:0,py:'zh',zh:'猪',sub:'ไม่มีลม',k:'zhi1-f'},{air:1,py:'ch',zh:'茶',sub:'มีลม',k:'chi1-fs'}]}),
+ rec({n:'คู่ที่ 1',ws:[ZU,CA]}),
+ ask({rv:6,q:'ฟังเสียง แล้วเลือกพยัญชนะ',k:'xi1-fs',opts:['x','sh'],ans:0,fb:'<b>x</b> ยิ้มกว้าง ไม่ม้วนลิ้น'}),
+ word({n:'คู่ที่ 2 · sh',w:SH,py:'[sh]ū',aid:{mouth:'curl'},hint:'ม้วนลิ้นแล้วพูด <b>"ช"</b> แบบลมไหลยาว ไม่หยุด',sk:'shi1-fs',sl:'sh'}),
+ word({n:'คู่ที่ 2 · r',w:RE,py:'[r]è',aid:{mouth:'curl'},hint:'ม้วนลิ้นค้างไว้ แล้วเปล่งเสียงคล้าย <b>"ร"</b> ปนเสียง <b>"ย"</b> · ลิ้นไม่สั่นรัว',sk:'ri4-fs',sl:'r'}),
+ mouthQ({tag:'ลองเอง · ท่าลิ้น',k:'shi1-fs',opts:[['smile','ยิ้ม'],['curl','ม้วนลิ้น']],ans:1,fb:'<b>sh</b> ม้วนลิ้น'}),
+ rec({n:'คู่ที่ 2',ws:[SH,RE]}),
+ ask({tag:'ตรวจ · 4 เสียง',q:'ฟังเสียง แล้วเลือกภาพที่ตรงกับความหมาย',k:SH.k,opts:[{img:ZU.img},{img:CA.img},{img:SH.img}],ans:2,fb:'<b>shū</b> <span class="zh">书</span> = หนังสือ'}),
+ ask({rv:5,q:'ฟังเสียง แล้วเลือกภาพ',k:'w:太阳',opts:[{img:ART('大象')},{img:ART('太阳')}],ans:1,fb:'<b>tàiyáng</b> <span class="zh">太阳</span> = พระอาทิตย์'}),
+ ask({tag:QZ(1,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'chi1-fs',opts:['zhī','chī'],ans:1,fb:'<b>chī</b> มีลม'}),
+ ask({tag:QZ(2,4),q:'ฟังเสียง แล้วเลือกภาพ',k:RE.k,opts:[{img:RE.img},{img:SH.img},{img:CA.img}],ans:0,fb:'<b>rè</b> <span class="zh">热</span> = ร้อน'}),
+ ask({tag:QZ(3,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'w:猪',opts:['zhū','jū','chū'],ans:0,fb:'<b>zhū</b> <span class="zh">猪</span> = หมู'}),
+ ask({tag:QZ(4,4),q:'ฟังเสียง แล้วเลือกพินอิน',k:'shi1-fs',opts:['xī','shī'],ans:1,fb:'<b>shī</b> ม้วนลิ้น'}),
+ fin({title:'อ่านประโยคของคุณ',pics:[XM,ZZ],chips:[{zh:'熊猫',py:'xióngmāo',th:'แพนด้า',k:XM.k},{zh:'吃',py:'chī',th:'กิน',k:'w:吃'},{zh:'竹子',py:'zhúzi',th:'ไม้ไผ่',k:ZZ.k}],th:'แพนด้ากินไม้ไผ่',note:'แตะแต่ละคำเพื่อฟัง · ch และ zh ม้วนลิ้นทั้งคู่',k:'g:L07'})]});
+
+</script>
+</body></html>

@@ -112,7 +112,7 @@ const HSPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 /* ไทล์คำแบบห้องคำ (W3): วงกลมภาพ + จีน + ไทย */
 function hbT(x,i,img,bg,fb){const n=[...x.zh].length;return `<button class="hb-t press" data-vc="${i}"><span class="cc" style="background:${bg||BGS[i%BGS.length]}"><span class="phz zh" style="font-size:${Math.min(34,Math.floor(62/n))}px">${x.zh}</span>${img?`<img src="${img}" alt="" data-rm${fb?` data-fb="${fb}"`:''} draggable="false">`:''}</span><span class="z zh" style="font-size:${Math.min(17,Math.floor(96/n))}px">${x.zh}</span><span class="t">${x.th}</span><i class="ck"></i></button>`}
 /* ลามาไม่เกิน 1 ตัวต่อหน้า: ภาพลามาตัวที่ 2 เป็นต้นไปใช้ภาพแบบไม่มีลามา (-v2) */
-function vItems(items){let ll=0;return items.map(it=>{const x=it.w||it;let img=it.img||x.img;if(!it.img&&isLl(img)&&ll++)img=A2(x.zh);return {x,img,fb:it.fb}})}
+function vItems(items){let ll=0;return items.map(it=>{const x=it.w||it,own=it.w?it.img:null;let img=own||x.img;if(!own&&isLl(img)&&ll++)img=A2(x.zh);return {x,img,fb:it.fb}})}
 /* หน้าคำศัพท์ใหม่ของบท: ไทล์ W3 · แตะฟังให้ครบ */
 function vgrid(o){const its=vItems(o.items);return {kind:'teach',lock:true,html:()=>`${tag('',o.cap||'คำศัพท์ใหม่ของบทนี้')}<div class="center"><div class="large" style="padding:2px 0 0;font-size:22px">${o.title}</div><p class="l1p v4fit">${o.text||'แตะการ์ดเพื่อฟังเสียงทีละคำ'}</p></div>
  <div class="hb-g3 mvg">${its.map(({x,img,fb},i)=>hbT(x,i,img,null,fb)).join('')}</div>

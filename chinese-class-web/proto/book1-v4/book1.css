@@ -1,0 +1,31 @@
+/* เล่ม 1 · ฉากและบทสนทนา (ต่อยอดจาก .dlgwrap ของแอป) */
+.msc1{margin-top:10px}.msc1 img{aspect-ratio:3/2;object-fit:cover}
+.mdlg{gap:10px;margin:12px 16px 0}
+.mdlg .dav{width:44px;height:44px;padding:0;background:#FFF8EC}
+.mdlg .dav img{object-fit:cover;object-position:50% 6%;transform:scale(1.75);transform-origin:50% 4%}
+.mdl{display:flex;flex-direction:column;gap:2px;min-width:0;max-width:calc(100% - 56px)}
+.dl.f .mdl{align-items:flex-end}
+.mwho{font-size:11.5px;font-weight:700;color:var(--sub2);padding:0 6px}
+.mdl .dbub{max-width:100%;transition:box-shadow .2s,transform .2s}
+.mdl .dbub.on{box-shadow:0 0 0 2.5px var(--red),0 6px 16px rgba(200,16,46,.15);transform:scale(1.03)}
+.mdl .dz{font-size:22px}.mdl .dp{font-size:13.5px;font-weight:600;color:var(--ink)}
+.dl.sit{justify-content:center}
+.msit{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:999px;background:#F6F1EA;font-size:13px;font-weight:600;color:var(--sub2)}
+.msit img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.msit:not(:has(img)){padding:5px 14px}
+.mqb{min-width:64px;align-items:center;border:1.5px dashed #D9C9B8!important;background:#FFFDF9!important;box-shadow:none!important}
+.mqb .dz{color:#C9BBAA}
+.mqb.okb{border:1.5px solid var(--ok)!important;background:var(--oksoft)!important;align-items:flex-start}.mqb.okb .dz{color:var(--ink)}
+.mreply{display:flex;flex-direction:column;gap:10px;margin:16px 18px 0}
+.mreply .opt{display:flex;align-items:baseline;gap:10px;padding:12px 16px;border-radius:20px 20px 6px 20px;background:#fff;border:1.5px solid #EDE4D8;box-shadow:0 2px 0 #EDE4D8;text-align:left;min-height:58px}
+.mreply .opt .zh{font-size:24px;line-height:1.2}.mreply .opt .py{font-size:15px;font-weight:700}
+.mreply .opt .th{margin-left:auto;font-size:13.5px;color:var(--sub2)}
+.mreply .opt.ok{background:var(--oksoft);border-color:var(--ok);box-shadow:0 2px 0 var(--ok)}
+.mreply .opt.bad{background:var(--warnsoft);border-color:var(--warn);box-shadow:0 2px 0 var(--warn)}
+.mreply .opt.dim{opacity:.45}
+.msyl{display:flex;justify-content:center;gap:12px;margin:14px 18px 0}
+.msyl button{width:112px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px 8px;border-radius:18px;background:#fff;border:1.5px solid #EDE4D8;box-shadow:0 3px 0 #EDE4D8}
+.msyl button.done{border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.msyl .zh{font-size:40px;line-height:1.1}.msyl .py{font-size:20px;font-weight:700;min-height:26px}.msyl .py.q{color:#C9BBAA}
+.msyl .ct{width:78px;height:50px;display:flex;align-items:center;justify-content:center}.msyl .ct svg{width:78px;height:50px}
+.msyl .ct small{font-size:13px;color:var(--sub2);opacity:0}.msyl button.done .ct small{opacity:1}

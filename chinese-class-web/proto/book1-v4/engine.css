@@ -1,0 +1,183 @@
+.mgoal{margin:6px 18px 0;padding:10px 14px;border-radius:16px;background:#fff;border:1.5px solid #EDE4D8;display:flex;align-items:center;gap:10px;text-align:left}
+.mgoal b{font-size:15px;color:var(--ink)}.mgoal .zh{font-size:20px;color:var(--red)}
+.mgoal small{display:block;font-size:12.5px;color:var(--sub2);margin-top:1px}
+.mgoal .tm{margin-left:auto;flex:none;font-size:12.5px;font-weight:600;color:var(--sub2);background:#F6F1EA;border-radius:999px;padding:4px 10px}
+.mhook{font-size:19px;font-weight:700;margin:14px 20px 0;line-height:1.4}
+.mpic{width:min(150px,40vw);height:min(150px,40vw);border-radius:22px;overflow:hidden;margin:10px auto 0;background:#FFF8EC;box-shadow:0 0 0 1px #EADFCF,0 6px 18px rgba(120,80,40,.12)}
+.mpic img{width:100%;height:100%;object-fit:cover;display:block}
+.msnd{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 20px 0}
+.msnd .v4card{padding:12px 8px}
+.msnd .k{font-size:15px;font-weight:700;color:var(--sub2)}
+.msnd .audio{width:64px;height:64px}
+.pgrid.mab .opt{aspect-ratio:auto;height:64px;font-size:22px;font-weight:700}
+.mrev2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 18px 0}
+.mrev2 .v4card{padding:10px 8px 12px}
+.mrev2 .mpic{width:100%;height:auto;aspect-ratio:1/1;margin:0}
+.mrev2 .py{font-size:28px;font-weight:700;line-height:1.1}.mrev2 .zh{font-size:24px}
+.mrev2 .l1ct{width:64px;height:44px}
+.m4row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 18px 0}
+.m4row .c{background:#fff;border:1.5px solid #EDE4D8;border-radius:14px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12.5px}
+.m4row .c img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.m4row .c.q img{filter:blur(5px) grayscale(.5);opacity:.55}
+.m4row .c b{font-size:17px}
+.mword{display:flex;align-items:center;gap:14px;margin:8px 20px 0;text-align:left}
+.mword .mpic{margin:0;flex:none;width:118px;height:118px}
+.mword .zh{font-size:46px;line-height:1}
+.mword .py{font-size:40px;font-weight:700;line-height:1.1}
+.mword .mn{font-size:17px;font-weight:600}
+.mword .l1tbig{margin:0}
+.mtb .l1tbig{width:min(250px,64vw);height:min(150px,38vw);margin:10px auto 0}
+.mhint{margin:12px 22px 0;padding:10px 14px;border-radius:14px;background:#F6F1EA;font-size:14.5px;line-height:1.5;text-align:left}
+.mhint b{font-size:16px}
+.mrec{display:flex;flex-direction:column;align-items:center;margin-top:14px}
+.mrec .hold{width:112px;height:112px;border-radius:50%;border:0;background:var(--red);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:600 13px/1.25 inherit;box-shadow:0 6px 18px rgba(200,16,46,.25);touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .15s}
+.mrec .hold svg{width:34px;height:34px}
+.mrec .hold.on{transform:scale(1.1);box-shadow:0 0 0 12px rgba(200,16,46,.15),0 6px 18px rgba(200,16,46,.25)}
+.mrec .st{font-size:13.5px;color:var(--sub2);margin-top:10px;min-height:20px}
+.mcmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 18px 0}
+.mcmp button{display:flex;align-items:center;gap:8px;justify-content:center;height:54px;border-radius:16px;background:#fff;border:1.5px solid #EDE4D8;font:600 15px inherit;color:var(--ink)}
+.mcmp button svg{width:22px;height:22px}
+.mcmp button.me{color:#3A64A8}.mcmp button.cn{color:var(--red)}
+.mcmp button.off{opacity:.35;pointer-events:none}
+.mcmp button.playing{border-color:currentColor;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
+.mcmp .alt{grid-column:1/3;height:48px;background:#F6F1EA;border-color:#F6F1EA}
+.mrevtag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#EEF3FA;color:#3A64A8;font-size:12.5px;font-weight:700}
+.mrevnote{margin:10px 22px 0;font-size:13px;color:var(--sub2);text-align:center;line-height:1.45}
+.pgrid .opt.mtxt{aspect-ratio:auto;height:72px;font-size:22px;font-weight:700}
+.mscene{width:calc(100% - 32px);margin:8px 16px 0;border-radius:22px;overflow:hidden;box-shadow:0 0 0 1px #EADFCF,0 6px 18px rgba(120,80,40,.12)}
+.mscene img{width:100%;display:block}
+.msent{display:flex;justify-content:center;gap:8px;margin:14px 12px 0}
+.msent button{display:flex;flex-direction:column;align-items:center;padding:8px 10px;border-radius:16px;background:#fff;border:1.5px solid #EDE4D8;min-width:62px}
+.msent .zh{font-size:34px;line-height:1.1}.msent .py{font-size:16px;font-weight:700}
+.msent small{font-size:11.5px;color:var(--sub2)}
+.mth{font-size:20px;font-weight:700;margin-top:10px}
+.mpt{display:flex;flex-direction:column;align-items:center;gap:4px}
+.ptile .mpt img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px}
+.mgoal b{white-space:normal;font-size:14.5px;line-height:1.35}.mgoal>div{min-width:0;flex:1}
+.msnd .v4card{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pgrid.mab .opt,.pgrid .opt.mtxt{background:#fff;border:1.5px solid #EDE4D8;border-radius:18px;box-shadow:0 2px 0 #EDE4D8}
+.mrev2 .v4card{display:flex;flex-direction:column;align-items:center;gap:4px}
+.mrev2 .l1ct{display:block;width:84px;height:48px;margin:0 auto}
+/* ---------- เพิ่มสำหรับ 13 บท (ใช้สี ฟอนต์ การ์ดเดิมของแอป) ---------- */
+.mgoal .gz{font-size:18px;color:var(--red);white-space:nowrap}
+.hl{color:var(--red);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.mword .py.sm{font-size:30px}
+.mword .zh.sm{font-size:36px}
+.maid{margin:12px 20px 0;padding:10px 12px 8px;border-radius:18px;background:#fff;border:1.5px solid #EDE4D8;display:flex;flex-direction:column;align-items:center;gap:4px}
+.maid .cap{font-size:12.5px}
+.maid svg.mth2{width:150px;height:96px}
+.mbtns{display:flex;justify-content:center;gap:12px;margin-top:12px}
+.mbtns .audio.lg{min-width:0}
+.mbtn2{display:flex;align-items:center;gap:8px;height:52px;padding:0 18px;border-radius:26px;background:#fff;border:1.5px solid #EDE4D8;font:600 15px inherit;color:var(--ink)}
+.mbtn2 svg{width:22px;height:22px;color:var(--red)}
+.mbtn2.playing{border-color:var(--red)}
+/* ปาก */
+.mouth{display:block;margin:0 auto}
+.mlab{font-size:13px;font-weight:600;color:var(--sub2)}
+.pgrid .opt.mmo{aspect-ratio:auto;padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.pgrid .opt.mmo svg{width:100%;max-width:120px;height:auto}
+.pgrid .opt.mmo .l1tl{font-size:22px}
+/* กระดาษกับลม */
+.air .strip{transform-box:fill-box;transform-origin:50% 0;transition:transform .2s}
+.air.go.puff .strip{animation:flap 1.1s var(--ease)}
+.air.go.nopuff .strip{animation:flap0 .8s var(--ease)}
+.air .wind{opacity:0}
+.air.go.puff .wind{animation:wind 1s ease-out}
+@keyframes flap{0%{transform:rotate(0)}18%{transform:rotate(-48deg)}45%{transform:rotate(-20deg)}70%{transform:rotate(-8deg)}100%{transform:rotate(0)}}
+@keyframes flap0{0%,100%{transform:rotate(0)}40%{transform:rotate(-3deg)}}
+@keyframes wind{0%{opacity:0;transform:translateX(-8px)}25%{opacity:1}100%{opacity:0;transform:translateX(22px)}}
+.air.still.puff .strip{transform:rotate(-40deg)}.air.still.puff .wind{opacity:1}
+/* จมูก n / ng */
+.nas .flow{opacity:.25}.nas.go .flow{animation:nflow 1.2s ease-out}
+@keyframes nflow{0%{opacity:.2}30%{opacity:1}100%{opacity:.25}}
+/* คู่เสียงให้แตะ */
+.mpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 18px 0}
+.mpair button{background:#fff;border:1.5px solid #EDE4D8;border-radius:20px;padding:10px 6px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;color:var(--ink)}
+.mpair button.done{border-color:#BFD9C9;box-shadow:0 0 0 3px #E7F2EB}
+.mpair button svg.big{width:100%;max-width:140px;height:auto}
+.mpair .py{font-size:30px;font-weight:700;line-height:1.1}
+.mpair .zh{font-size:22px}
+.mpair small{font-size:12.5px;color:var(--sub2);line-height:1.35}
+.mpair .chk{font-size:12px;font-weight:700;color:var(--ok);min-height:16px}
+/* ต่อพยางค์ */
+.bslots{display:flex;justify-content:center;gap:8px;margin:14px 12px 0;flex-wrap:wrap}
+.bsyl{display:flex;gap:6px;padding:6px;border-radius:18px;background:#F6F1EA}
+.bsyl.cur{box-shadow:0 0 0 2px #E8D9C6}
+.bslot{min-width:56px;height:60px;border-radius:14px;border:2px dashed #D8CBB9;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;background:#fff;padding:0 6px}
+.bslot.f{border-style:solid;border-color:#EDE4D8}
+.bslot .l1ct{width:42px;height:30px}
+.btiles{display:flex;justify-content:center;gap:10px;margin:16px 14px 0;flex-wrap:wrap}
+.btile{min-width:64px;height:58px;border-radius:16px;background:#fff;border:1.5px solid #EDE4D8;box-shadow:0 2px 0 #EDE4D8;font:700 24px inherit;color:var(--ink);display:flex;align-items:center;justify-content:center;padding:0 10px}
+.btile .l1ct{width:46px;height:32px}
+.btile.used{opacity:.25;pointer-events:none}
+.btile.no{animation:shake .4s}.btile.hint{box-shadow:0 0 0 3px #F3C9A9}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.bres{margin-top:12px;min-height:60px}
+.bres .py{font-size:40px;font-weight:700}
+.blab{font-size:11.5px;color:var(--sub2);text-align:center;margin-top:2px}
+/* สระเลื่อน */
+.glide{display:flex;align-items:center;justify-content:center;gap:6px}
+.glide b{font-size:30px;padding:2px 10px;border-radius:12px;transition:background .2s,color .2s}
+.glide b.on{background:#FBE6DF;color:var(--red)}
+.glide i{font-style:normal;color:#C9BBAA;font-size:20px}
+.parts{display:flex;align-items:center;justify-content:center;gap:6px;font-size:28px;font-weight:700}
+.parts span{background:#F6F1EA;border-radius:12px;padding:2px 12px;min-width:40px;text-align:center}
+.parts i{font-style:normal;color:#C9BBAA;font-size:20px}
+.parts .l1ct{width:40px;height:28px}
+.rule{display:flex;align-items:center;justify-content:center;gap:12px;font-size:32px;font-weight:700}
+.rule s{color:#B8A998;text-decoration-thickness:2px}
+.rule i{font-style:normal;color:#C9BBAA;font-size:22px}
+/* แตะตัวจีนทีละตัว */
+.msplit{display:flex;justify-content:center;gap:14px;margin-top:14px}
+.msplit button{width:104px;padding:10px 0 12px;border-radius:20px;background:#fff;border:1.5px solid #EDE4D8;display:flex;flex-direction:column;align-items:center;font:inherit;color:var(--ink)}
+.msplit .zh{font-size:50px;line-height:1.1}
+.msplit .py{font-size:22px;font-weight:700;min-height:28px}
+.msplit button.done{border-color:#BFD9C9;box-shadow:0 0 0 3px #E7F2EB}
+.msplit .py.q{color:#D8CBB9}
+/* ช่วงของบท */
+.mpart{margin:40px 22px 0;text-align:center}
+.mpart .n{display:inline-block;padding:4px 14px;border-radius:999px;background:#F6F1EA;font-size:13px;font-weight:700;color:var(--sub2)}
+.mpart h2{font-size:26px;margin:12px 0 4px}
+.mpart .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.mpart .chips span{background:#fff;border:1.5px solid #EDE4D8;border-radius:12px;padding:6px 12px;font-size:20px;font-weight:700}
+.mpart .road{display:flex;justify-content:center;gap:8px;margin-top:22px}
+.mpart .road i{width:46px;height:8px;border-radius:4px;background:#EDE4D8}
+.mpart .road i.on{background:var(--red)}
+.mpart p{font-size:15px;line-height:1.55;color:var(--sub2);margin-top:12px}
+/* ฉากท้ายบทแบบ 2 ภาพ */
+.mscene2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 18px 0}
+.mscene2 .mpic{width:100%;height:auto;aspect-ratio:1/1;margin:0}
+.msent.wrap{flex-wrap:wrap}
+.msent button.mx{min-width:54px;padding:8px 8px}
+/* ป้าย */
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 18px 0}
+.sign{border-radius:12px;padding:10px 6px 8px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;font:inherit;box-shadow:inset 0 0 0 3px rgba(255,255,255,.55),0 3px 0 rgba(0,0,0,.12)}
+.sign .zh{font-size:30px;line-height:1.1}.sign .py{font-size:16px;font-weight:700;letter-spacing:.3px}
+.sign.g{background:#2E7D55}.sign.b{background:#2F5E9E}.sign.d{background:#4B4F58}.sign.o{background:#B5612A}
+.sign.big .zh{font-size:44px}.sign.big .py{font-size:22px}
+.pgrid .opt.msg{aspect-ratio:auto;padding:6px;background:#fff}
+.pgrid .opt.msg .sign{width:100%}
+.mlist{margin:12px 22px 0;text-align:left;display:flex;flex-direction:column;gap:8px}
+.mlist div{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1.5px solid #EDE4D8;border-radius:14px;padding:8px 12px;font-size:14.5px;line-height:1.45}
+.mlist b.n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.mcards3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 16px 0}
+.mcards3 button,.mcards3 div.c{background:#fff;border:1.5px solid #EDE4D8;border-radius:16px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;color:var(--ink)}
+.mcards3 img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px}
+.mcards3 .zh{font-size:24px}.mcards3 .py{font-size:16px;font-weight:700}.mcards3 small{font-size:12px;color:var(--sub2)}
+.mcards3 svg{width:84px;height:60px}
+.wcard{margin:14px 22px 0;background:#fff;border:1.5px solid #EDE4D8;border-radius:22px;padding:14px;display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;text-align:left;position:relative}
+.wcard .mpic{width:110px;height:110px;margin:0}
+.wcard .zh{font-size:40px;line-height:1.1}.wcard .py{font-size:22px;font-weight:700}.wcard .mn{font-size:16px}
+.wcard [data-part]{border-radius:10px;padding:0 4px;transition:box-shadow .2s,background .2s;cursor:pointer;display:inline-block}
+.wcard [data-part].on{background:#FBE6DF;box-shadow:0 0 0 2px #F3C9A9}
+.wcard .audio{width:46px;height:46px;position:absolute;right:12px;bottom:12px}
+.plist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 22px 0}
+.plist span{font-size:13.5px;padding:6px 10px;border-radius:12px;background:#F6F1EA;color:var(--sub2);text-align:center}
+.plist span.on{background:#E7F2EB;color:var(--ok);font-weight:700}
+
+.mscene2 .v4fig{min-width:0}
+.mscene2.one{grid-template-columns:min(170px,46vw);justify-content:center}
+.opt.ptile .v4lab{flex:none;font-size:12.5px;padding:1px 9px;margin-top:2px}
+.opt.ptile .plab+.v4lab{margin-top:0}
+.opt.ptile:has(.plab) .plab{position:static;transform:none;box-shadow:none;background:none;color:var(--ink);font-size:14px;padding:0}
+.mcards3 .c .v4lab{font-size:12px;padding:1px 8px;margin-top:2px}

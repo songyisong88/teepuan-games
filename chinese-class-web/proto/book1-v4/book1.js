@@ -66,7 +66,7 @@ function use(o){const x=o.w;return {kind:'teach',html:()=>`${tag(o.n,'ใช้�
  onPlay:b=>{$$('#stage .dbub').forEach(y=>y.classList.remove('on'));b.classList.add('on');const ms=play(b.dataset.play);setTimeout(()=>b.classList.remove('on'),ms+200)}}}
 /* เทียบ 2 แบบ: การ์ดซ้าย-ขวา แตะฟัง */
 function cmp(o){return {kind:'teach',html:()=>`${tag(o.n,o.cap||'เทคนิคการใช้')}<div class="center"><div class="large" style="padding:2px 0 0;font-size:22px">${o.title}</div>${o.text?`<p class="l1p v4fit">${o.text}</p>`:''}</div>
- <div class="mcmp2">${[o.a,o.b].map(c=>`<button class="press" data-play="${c.k}"><span class="who">${c.who}</span><span class="vi"><img src="${c.img}" alt=""></span><span class="zh">${c.zh}</span><span class="py">${c.py}</span><span class="v4lab">${c.th}</span><span class="vs">${SPK}</span></button>`).join('')}</div>
+ <div class="mcmp2">${[o.a,o.b].map(c=>`<button class="press" data-play="${c.k}"><span class="who">${c.who}</span><span class="vi"><img src="${c.img}" alt=""></span><span class="zh">${c.zhb||c.zh}</span><span class="py">${c.py}</span><span class="v4lab">${c.th}</span><span class="vs">${SPK}</span></button>`).join('')}</div>
  ${o.tip?`<div class="mhint mtip">${o.tip}</div>`:''}${o.chips?`<div class="mtchips">${o.chips.map(c=>`<button class="press" data-play="${c.k}"><span class="zh">${c.zh}</span><span class="py">${c.py}</span><small>${c.th}</small></button>`).join('')}</div>`:''}`,
  onPlay:b=>{$$('#stage .mcmp2 button,#stage .mtchips button').forEach(y=>y.classList.remove('on'));b.classList.add('on');const ms=play(b.dataset.play);setTimeout(()=>b.classList.remove('on'),ms+200)},
  show:st=>{const i0=E.i;if(!quiet())setTimeout(()=>{if(here(st)&&E.i===i0)seq([o.a.k,o.b.k],st,450)},600)},

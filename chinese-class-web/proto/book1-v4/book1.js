@@ -168,7 +168,7 @@ function point(o){const C=o.cards,R=o.rounds,noTh=!!o.noTh;return {kind:'teach',
  <div class="mpt">${C.map((c,i)=>`<button class="press" data-pc="${i}"><img src="${c.img}" alt="">${noTh?'':`<span class="v4lab">${c.th}</span>`}</button>`).join('')}</div>
  <div class="center"><div class="mmfb"></div><div class="v4ok v4need" style="margin-top:6px">ทำให้ครบ ${R.length} รอบ</div></div>`,
  show:st=>{let r=0,busy=0;const i0=E.i;const ok=()=>E.i===i0&&here(st);
-  const draw=()=>{const x=R[r];$('.mpq .big',st).textContent=x.zh;$$('.mpq .dots i',st).forEach((d,j)=>d.classList.toggle('on',j<r));$$('.mpt button',st).forEach(b=>b.classList.remove('ok','bad','ans'));fbBox(st,'');if(!quiet())setTimeout(()=>{if(ok())play(x.k)},300)};
+  const draw=()=>{const x=R[r],bg=$('.mpq .big',st);bg.textContent=x.zh;bg.style.fontSize=Math.min(56,Math.floor(250/[...x.zh].length))+'px';$$('.mpq .dots i',st).forEach((d,j)=>d.classList.toggle('on',j<r));$$('.mpt button',st).forEach(b=>b.classList.remove('ok','bad','ans'));fbBox(st,'');if(!quiet())setTimeout(()=>{if(ok())play(x.k)},300)};
   draw();$('[data-pp]',st).addEventListener('click',e=>{bump(e.currentTarget);play(R[r].k)});
   $('.mpt',st).addEventListener('click',async e=>{const b=e.target.closest('[data-pc]');if(!b||busy)return;const x=R[r],i=+b.dataset.pc;busy=1;
    if(i===x.ans){b.classList.add('ok');fbBox(st,`ถูกต้อง · <span class="zh">${x.zh}</span> ${x.py}${noTh?'':' = '+C[x.ans].th}`);await wait(900);if(!ok())return;

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 5-2 ไปอย่างไร</title>
+</head><body>
+<script>
+/* บท 5-2 หน่วย 5 ในเมือง: ไปอย่างไร · คำใหม่ 怎么 出租车 开 前面 后面 住 · ทบทวนเล่ม 0: 飞机
+   ทบทวนจากบทก่อน: 去 坐 医院 在 商店 你 哪儿 我 北京 爸爸 · กิจกรรมเฉพาะบท: ข้างหน้าหรือข้างหลัง ฟังแล้วแยกสถานที่ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};WHO.d={n:'คนขับแท็กซี่',img:ART('司机')};
+const ZM=w('怎么','zěnme','อย่างไร'),CZC=w('出租车','chūzūchē','แท็กซี่'),KAI=w('开','kāi','ขับ เปิด'),QM=w('前面','qiánmiàn','ข้างหน้า'),HM=w('后面','hòumiàn','ข้างหลัง'),ZHU=w('住','zhù','อาศัยอยู่ พัก');
+const FJ=w('飞机','fēijī','เครื่องบิน'),BJ=w('北京','Běijīng','ปักกิ่ง');
+const YY=A2('医院'),SD=A2('商店'),XX=A2('学校'),HOME=A2('家');THL[YY]='โรงพยาบาล';THL[SD]='ร้านค้า';THL[XX]='โรงเรียน';THL[HOME]='บ้าน';
+const DRV=ART('司机');THL[DRV]='คนขับแท็กซี่';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ nqn:S('你去哪儿？','nǐ qù nǎr?','คุณไปไหน','b18-nqn-t'),wqyy:S('我去医院。','wǒ qù yīyuàn.','ฉันไปโรงพยาบาล','b18-wqyy-f'),
+ hyzq:S('好。医院在前面，商店在后面。','hǎo. yīyuàn zài qiánmiàn, shāngdiàn zài hòumiàn.','ได้ โรงพยาบาลอยู่ข้างหน้า ร้านค้าอยู่ข้างหลัง','b18-hyzq-t'),
+ nzzn:S('你住在哪儿？','nǐ zhù zài nǎr?','คุณอาศัยอยู่ที่ไหน','b18-nzzn-t'),wzbj:S('我住在北京。','wǒ zhù zài Běijīng.','ฉันอาศัยอยู่ที่ปักกิ่ง','b18-wzbj-f'),
+ nzqx:S('你怎么去学校？','nǐ zěnme qù xuéxiào?','คุณไปโรงเรียนอย่างไร','b18-nzqx-t'),zcbk:S('坐出租车去！我爸爸开出租车。','zuò chūzūchē qù! wǒ bàba kāi chūzūchē.','นั่งแท็กซี่ไป พ่อของฉันขับแท็กซี่','b18-zcbk-f'),
+ zmq:S('怎么去？','zěnme qù?','ไปอย่างไร','b18-zmq-g'),zczc:S('坐出租车去。','zuò chūzūchē qù.','นั่งแท็กซี่ไป','b18-zczc-f'),
+ nzmb:S('你怎么去北京？','nǐ zěnme qù Běijīng?','คุณไปปักกิ่งอย่างไร','b18-nzmb-g'),zfjq:S('坐飞机去。','zuò fēijī qù.','นั่งเครื่องบินไป','b18-zfjq-f'),
+ nzmq:S('你怎么去？','nǐ zěnme qù?','คุณไปอย่างไร','b18-nzmq-g'),
+ yyqm:S('医院在前面。','yīyuàn zài qiánmiàn.','โรงพยาบาลอยู่ข้างหน้า','b18-yyqm-f'),sdhm:S('商店在后面。','shāngdiàn zài hòumiàn.','ร้านค้าอยู่ข้างหลัง','b18-sdhm-f'),
+ nzbj:S('你住在北京吗？','nǐ zhù zài Běijīng ma?','คุณอาศัยอยู่ที่ปักกิ่งไหม','b18-nzbj-g'),
+ bbkc:S('我爸爸开出租车。','wǒ bàba kāi chūzūchē.','พ่อของฉันขับแท็กซี่','b18-bbkc-f'),nbls:S('你爸爸是老师吗？','nǐ bàba shì lǎoshī ma?','พ่อของคุณเป็นครูไหม','b18-nbls-g'),
+ bsbk:S('不是。我爸爸开出租车。','bú shì. wǒ bàba kāi chūzūchē.','ไม่ใช่ พ่อของฉันขับแท็กซี่','b18-bsbk-f'),
+ qczc:S('去出租车。','qù chūzūchē.','ไปแท็กซี่','b18-qczc-f'),czhm:S('出租车在后面。','chūzūchē zài hòumiàn.','แท็กซี่อยู่ข้างหลัง','b18-czhm-f'),
+ wzib:S('我在住北京。','wǒ zài zhù Běijīng.','เรียงคำผิด','b18-wzib-f'),wsbj:S('我是北京。','wǒ shì Běijīng.','ฉันเป็นปักกิ่ง','b18-wsbj-f'),
+ /* กิจกรรมเฉพาะบท */
+ s1:S('医院在前面。','yīyuàn zài qiánmiàn.','โรงพยาบาลอยู่ข้างหน้า','b18-yyqm-t'),s2:S('商店在后面。','shāngdiàn zài hòumiàn.','ร้านค้าอยู่ข้างหลัง','b18-sdhm-t'),
+ s3:S('学校在后面。','xuéxiào zài hòumiàn.','โรงเรียนอยู่ข้างหลัง','b18-xxhm-g'),s4:S('出租车在前面。','chūzūchē zài qiánmiàn.','แท็กซี่อยู่ข้างหน้า','b18-czqm-m'),
+ s5:S('我家在前面。','wǒ jiā zài qiánmiàn.','บ้านของฉันอยู่ข้างหน้า','b18-wjqm-f'),
+ m1:S('我家在后面。','wǒ jiā zài hòumiàn.','บ้านของฉันอยู่ข้างหลัง','b18-wjhm-g'),m2:S('学校在前面。','xuéxiào zài qiánmiàn.','โรงเรียนอยู่ข้างหน้า','b18-xxqm-t'),m3:S('医院在后面。','yīyuàn zài hòumiàn.','โรงพยาบาลอยู่ข้างหลัง','b18-yyhm-m'),
+ /* ชิปคำ */
+ zmq2:S('怎么去','zěnme qù','ไปอย่างไร','b18-zmq2-t'),zczq:S('坐出租车','zuò chūzūchē','นั่งแท็กซี่','b18-zczq-t'),zfj:S('坐飞机','zuò fēijī','นั่งเครื่องบิน','b18-zfj-t'),
+ zzbj:S('住在北京','zhù zài Běijīng','อาศัยอยู่ที่ปักกิ่ง','b18-zzbj-t'),zzn:S('住在哪儿','zhù zài nǎr','อาศัยอยู่ที่ไหน','b18-zzn-t'),
+ kczc:S('开出租车','kāi chūzūchē','ขับแท็กซี่','b18-kczc-t'),zqm:S('在前面','zài qiánmiàn','อยู่ข้างหน้า','b18-zqm-t'),zhm:S('在后面','zài hòumiàn','อยู่ข้างหลัง','b18-zhm-t')};
+const L={nqn:{...X.nqn,who:'d'},wqyy:{...X.wqyy,who:'me'},hyzq:{...X.hyzq,who:'d'},nzzn:{...X.nzzn,who:'d'},wzbj:{...X.wzbj,who:'me'},nzqx:{...X.nzqx,who:'d'},zcbk:{...X.zcbk,who:'me'}};
+const D=[{sit:'คุณขึ้นแท็กซี่เพื่อไปหาเพื่อนที่โรงพยาบาล',img:CZC.img},L.nqn,L.wqyy,L.hyzq,{sit:'ระหว่างทาง คนขับชวนคุย',img:DRV},L.nzzn,L.wzbj,L.nzqx,L.zcbk];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const BINS=[{img:QM.img,zh:'前面',py:'qiánmiàn',th:'ข้างหน้า'},{img:HM.img,zh:'后面',py:'hòumiàn',th:'ข้างหลัง'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:18,code:'บท 5-2',goal:{do:'ถามและบอกว่าเดินทางไปอย่างไร อาศัยอยู่ที่ไหน และสถานที่อยู่ข้างหน้าหรือข้างหลัง',sub:'ใช้ <span class="gz">怎么去 · 坐出租车去 · 在前面 · 住在北京</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:CZC.img,cap:'สถานการณ์ของบทนี้',title:'ไปอย่างไร',line:{...X.nzqx,who:'d'},note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกว่าไปอย่างไร และบอกทางข้างหน้าข้างหลังได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZM,CZC,KAI,QM,HM,ZHU]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['怎么','出租车','开','前面','后面','住'],note:'ใช้คำจากเล่ม 0 飞机 ร่วมด้วย'}),
+ wcard({no:1,of:6,cap:'คำถาม',w:ZM,aid:{parts:['zěn',3,'me',0],cap:'เสียง 3 + เสียงเบา'},hint:'คล้าย <b>"เจิ่น เมอ"</b> · me อ่านเบาและสั้น',sk:'fs:怎么',
+  use:'แปลว่าอย่างไร ใช้ถามวิธีทำ · วางไว้หน้ากริยา เช่น 怎么去',ex:[X.zmq,X.nzmb]}),
+ syl({n:'คำที่ 1/6',w:ZM,chars:[{zh:'怎',py:'zěn',t:3,k:'sy:怎'},{zh:'么',py:'me',t:0,k:'sy:么'}],done:'zěn + me = zěnme'}),
+ wcard({no:2,of:6,cap:'การเดินทาง',w:CZC,aid:{parts:['chū',1,'zū',1,'chē',1],cap:'เสียง 1 ทั้งสามพยางค์'},hint:'คล้าย <b>"ชู จู เชอ"</b> · 出 ch พ่นลม 租 z ไม่พ่นลม',sk:'fs:出租车',
+  use:'แปลว่าแท็กซี่ · 出租 ให้เช่า + 车 รถ · นั่งแท็กซี่ใช้ 坐出租车',ex:[X.zczc,X.bbkc]}),
+ syl({n:'คำที่ 2/6',w:CZC,chars:[{zh:'出',py:'chū',t:1,k:'sy:出'},{zh:'租',py:'zū',t:1,k:'sy:租'},{zh:'车',py:'chē',t:1,k:'sy:车'}],done:'chū + zū + chē = chūzūchē'}),
+ rec({n:'คำที่ 1–2/6',ws:[ZM,CZC]}),
+ use({n:'คำที่ 1–2/6',w:ZM,when:[{img:CZC.img,t:'นั่งแท็กซี่ไปโรงพยาบาล'},{img:FJ.img,t:'นั่งเครื่องบินไปปักกิ่ง'}],lines:[{...X.nzmb,who:'g'},{...X.zfjq,who:'me'}],tip:'ถามวิธีไป <span class="zh">怎么去？</span> · ตอบ <span class="zh">坐</span> + ยานพาหนะ + <span class="zh">去</span>'}),
+ wcard({no:3,of:6,cap:'กริยา',w:KAI,aid:{parts:['kāi',1],cap:'เสียง 1 ระดับสูง'},hint:'คล้าย <b>"คาย"</b> · k พ่นลม',sk:'fs:开',
+  use:'แปลว่าขับ (รถ) หรือเปิด · คนขับใช้ 开 คนนั่งใช้ 坐',ex:[X.bbkc,X.bsbk]}),
+ wcard({no:4,of:6,cap:'ทิศทาง',w:QM,aid:{parts:['qián',2,'miàn',4],cap:'เสียง 2 + เสียง 4'},hint:'คล้าย <b>"เชียน เมี่ยน"</b> · q ยิ้มกว้างแล้วพ่นลม',sk:'fs:前面',
+  use:'แปลว่าข้างหน้า · สถานที่ + 在前面 = อยู่ข้างหน้า',ex:[X.yyqm,X.s4]}),
+ syl({n:'คำที่ 4/6',w:QM,chars:[{zh:'前',py:'qián',t:2,k:'sy:前'},{zh:'面',py:'miàn',t:4,k:'sy:面'}],done:'qián + miàn = qiánmiàn'}),
+ rec({n:'คำที่ 3–4/6',ws:[KAI,QM]}),
+ use({n:'คำที่ 3–4/6',w:QM,when:[{img:DRV,t:'คนขับบอกว่าถึงไหนแล้ว'},{img:YY,t:'โรงพยาบาลอยู่ข้างหน้า'}],lines:[{...X.nbls,who:'g'},{...X.bsbk,who:'me'},{...X.yyqm,who:'me'}],tip:'<span class="zh">开出租车</span> ขับแท็กซี่ · <span class="zh">在前面</span> อยู่ข้างหน้า'}),
+ wcard({no:5,of:6,cap:'ทิศทาง',w:HM,aid:{parts:['hòu',4,'miàn',4],cap:'เสียง 4 + เสียง 4'},hint:'คล้าย <b>"โฮ่ว เมี่ยน"</b>',sk:'fs:后面',
+  use:'แปลว่าข้างหลัง · ตรงข้ามกับ 前面',ex:[X.sdhm,X.czhm]}),
+ syl({n:'คำที่ 5/6',w:HM,chars:[{zh:'后',py:'hòu',t:4,k:'sy:后'},{zh:'面',py:'miàn',t:4,k:'sy:面'}],done:'hòu + miàn = hòumiàn'}),
+ wcard({no:6,of:6,cap:'กริยา',w:ZHU,aid:{parts:['zhù',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"จู้"</b> · zh ม้วนลิ้น ไม่พ่นลม',sk:'fs:住',
+  use:'แปลว่าอาศัยอยู่ พัก · ปกติพูด 住在 + สถานที่',ex:[X.wzbj,X.nzzn]}),
+ rec({n:'คำที่ 5–6/6',ws:[HM,ZHU]}),
+ use({n:'คำที่ 5–6/6',w:ZHU,when:[{img:BJ.img,t:'บอกว่าบ้านอยู่เมืองไหน'},{img:HOME,t:'บอกว่าบ้านอยู่ข้างหน้าหรือข้างหลัง'}],lines:[{...X.nzzn,who:'d'},{...X.wzbj,who:'me'},{...X.sdhm,who:'me'}],tip:'<span class="zh">住在</span> + เมือง · ไม่พูด <span class="zh">在住</span>'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','怎么去','住在','ข้างหน้า ข้างหลัง','开出租车','ข้อควรระวัง'],note:'ฝึกคุยกับคนขับแท็กซี่ระหว่างทาง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในแท็กซี่',title:'ไปอย่างไร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'คนขับถาม 你住在哪儿 ตอบด้วย 我住在 + เมือง'}),
+ talk({cap:'เทคนิค 2/6 · 怎么去',title:'ถามวิธีเดินทาง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.zmq,who:'g'},{...X.zczc,who:'me'},{...X.nzmb,who:'g'},{...X.zfjq,who:'me'}],
+  chips:[X.zmq2,X.zczq,X.zfj],tip:'<span class="zh">怎么</span> อยู่หน้ากริยา · ตอบ <span class="zh">坐</span> + ยานพาหนะ + <span class="zh">去</span>'}),
+ talk({cap:'เทคนิค 3/6 · 住在',title:'อาศัยอยู่ที่ไหน',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nzzn,who:'d'},{...X.wzbj,who:'me'},{...X.nzbj,who:'g'}],
+  chips:[X.zzbj,X.zzn],tip:'ถามด้วย <span class="zh">哪儿</span> หรือถามว่าใช่ไหมด้วย <span class="zh">吗</span>'}),
+ sortmap({tag:'เทคนิค 4/6 · ข้างหน้า ข้างหลัง',q:'ฟังคนขับบอกทาง แล้วแตะว่าสถานที่อยู่ข้างหน้าหรือข้างหลัง',bins:BINS,done:'บอกทางครบแล้ว',
+  items:[it(YY,X.s1,0),it(SD,X.s2,1),it(XX,X.s3,1),it(CZC.img,X.s4,0),it(HOME,X.s5,0)]}),
+ talk({cap:'เทคนิค 5/6 · 开出租车',title:'ขับกับนั่ง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nbls,who:'g'},{...X.bsbk,who:'me'}],
+  chips:[X.kczc,X.zczq],tip:'คนขับใช้ <span class="zh">开</span> · คนนั่งใช้ <span class="zh">坐</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'怎么 อยู่หน้ากริยา',bad:'你去怎么？',good:'你怎么去？',k:'b18-nzmq-g'},
+  {h:'住 อยู่หน้า 在',bad:'我在住北京。',good:'我住在北京。',k:'b18-wzbj-f'},
+  {h:'在 อยู่หน้า 前面',bad:'医院前面在。',good:'医院在前面。',k:'b18-yyqm-f'},
+  {h:'นั่งแท็กซี่ไปใช้ 坐…去',bad:'我去出租车。',good:'坐出租车去。',k:'b18-zczc-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:出租车',opts:['แท็กซี่','เครื่องบิน','ร้านค้า'],ans:0,fb:'<span class="zh">出租车</span> <b>chūzūchē</b> = แท็กซี่'}),
+ ask({rv:7,q:'ฟัง 出 chū แล้วเลือกพยัญชนะตัวแรก',k:'sy:出',opts:['ch','zh','sh'],ans:0,fb:'<b>ch</b>ū · ม้วนลิ้นแล้วพ่นลม'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b18-zfjq-f',opts:[{img:FJ.img},{img:CZC.img},{img:BJ.img}],ans:0,fb:'<span class="zh">坐飞机去。</span> = นั่งเครื่องบินไป'}),
+ blank({tag:TQ(3),s:'你住_哪儿？',th:'คุณอาศัยอยู่ที่ไหน',opts:['在','是','去'],ans:0,k:'b18-nzzn-t',fb:'<span class="zh">你住在哪儿？</span>'}),
+ ask({rv:6,q:'ฟัง 前 qián แล้วเลือกพยัญชนะตัวแรก',k:'sy:前',opts:['q','ch','x'],ans:0,fb:'<b>q</b>ián · ยิ้มกว้างแล้วพ่นลม'}),
+ reply({tag:TQ(4),q:'เพื่อนถามว่าไปอย่างไร คุณจะนั่งแท็กซี่ไป',line:{...X.zmq,who:'g'},opts:[X.zczc,X.qczc,X.czhm],ans:0,why:'ตอบวิธีไปด้วย 坐 + ยานพาหนะ + 去'}),
+ order({tag:TQ(5),th:'โรงพยาบาลอยู่ข้างหน้า',tiles:[tl('医院','yīyuàn'),tl('在','zài'),tl('前面','qiánmiàn'),tl('后面','hòumiàn')],ans:[0,1,2],end:'。',k:'b18-yyqm-f'}),
+ ask({rv:2,q:'ฟัง 飞 แล้วเลือกเสียงวรรณยุกต์',k:'sy:飞',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b>fēi</b> · เสียง 1 ระดับสูง'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b18-bbkc-f',opts:['พ่อของฉันขับแท็กซี่','พ่อของฉันนั่งแท็กซี่','พ่อของฉันอยู่ข้างหลัง'],ans:0,fb:'<span class="zh">我爸爸开出租车。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'บอกทางเอง',chips:['ข้างหน้า ข้างหลัง','ตอบคนขับ','เติมคำ','ฟังแล้วเลือกภาพ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ sortmap({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะว่าอยู่ข้างหน้าหรือข้างหลัง',bins:BINS,done:'บอกทางครบแล้ว',items:[it(HOME,X.m1,1),it(XX,X.m2,0),it(YY,X.m3,1)]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณอาศัยอยู่ที่ปักกิ่ง คนขับถามว่า',line:{...X.nzzn,who:'d'},opts:[X.wzbj,X.wzib,X.wsbj],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'你_去学校？',opts:['怎么','哪儿','什么'],ans:0,k:'b18-nzqx-t',fb:'<span class="zh">你怎么去学校？</span>'}),
+ ask({tag:MQ(4),q:'ฟังประโยค แล้วเลือกภาพ',k:'b18-zczc-f',opts:[{img:FJ.img},{img:CZC.img},{img:BJ.img}],ans:1,fb:'<span class="zh">坐出租车去。</span>'}),
+ /* 5 · จบบท */
+ fin({title:'บอกทางได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZM,CZC,KAI,QM,HM,ZHU].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L18',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

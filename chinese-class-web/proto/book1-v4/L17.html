@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 5-1 ไปไหน อยู่ไหน</title>
+</head><body>
+<script>
+/* บท 5-1 หน่วย 5 ในเมือง: ไปไหน อยู่ไหน · คำใหม่ 学校 医院 医生 商店 哪儿 在 来 回 · ทบทวนเล่ม 0: 去
+   ทบทวนจากบทก่อน: 你 我 妈妈 是 她 家 吗 不 · กิจกรรมเฉพาะบท: ใครไปไหน ฟังแล้วแตะสถานที่ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const XX={...w('学校','xuéxiào','โรงเรียน'),img:A2('学校')},YY={...w('医院','yīyuàn','โรงพยาบาล'),img:A2('医院')},YS=w('医生','yīshēng','หมอ แพทย์'),
+ SD={...w('商店','shāngdiàn','ร้านค้า'),img:A2('商店')},NAR=w('哪儿','nǎr','ที่ไหน'),ZAI=w('在','zài','อยู่ (ที่)'),LAI=w('来','lái','มา'),HUI=w('回','huí','กลับ');
+THL[XX.img]='โรงเรียน';THL[YY.img]='โรงพยาบาล';THL[SD.img]='ร้านค้า';
+const HOME=A2('家');THL[HOME]='บ้าน';
+const FR=ART('朋友'),TEACHER=ART('老师'),STU=ART('学生'),MAP=ART('地图');THL[MAP]='แผนที่';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ nqn:S('你去哪儿？','nǐ qù nǎr?','คุณไปไหน','b17-nqn-g'),wqsd:S('我去商店。','wǒ qù shāngdiàn.','ฉันไปร้านค้า','b17-wqsd-f'),
+ wqsn:S('我去商店。你去哪儿？','wǒ qù shāngdiàn. nǐ qù nǎr?','ฉันไปร้านค้า คุณไปไหน','b17-wqsn-f'),wqyy:S('我去医院。','wǒ qù yīyuàn.','ฉันไปโรงพยาบาล','b17-wqyy-g'),
+ mmys2:S('我妈妈是医生，她在医院。','wǒ māma shì yīshēng, tā zài yīyuàn.','แม่ของฉันเป็นหมอ เธออยู่ที่โรงพยาบาล','b17-mmys2-g'),
+ nlwj:S('你来我家吗？','nǐ lái wǒ jiā ma?','คุณมาบ้านฉันไหม','b17-nlwj-f'),bwhj:S('不，我回家。','bù, wǒ huí jiā.','ไม่ ฉันกลับบ้าน','b17-bwhj-g'),
+ wqxx:S('我去学校。','wǒ qù xuéxiào.','ฉันไปโรงเรียน','b17-wqxx-f'),nzn:S('你在哪儿？','nǐ zài nǎr?','คุณอยู่ที่ไหน','b17-nzn-g'),wzxx:S('我在学校。','wǒ zài xuéxiào.','ฉันอยู่ที่โรงเรียน','b17-wzxx-f'),
+ mmys:S('我妈妈是医生。','wǒ māma shì yīshēng.','แม่ของฉันเป็นหมอ','b17-mmys-f'),tzyy:S('她在医院。','tā zài yīyuàn.','เธออยู่ที่โรงพยาบาล','b17-tzyy-f'),
+ yszy:S('医生在医院。','yīshēng zài yīyuàn.','หมออยู่ที่โรงพยาบาล','b17-yszy-t'),sdzn:S('商店在哪儿？','shāngdiàn zài nǎr?','ร้านค้าอยู่ที่ไหน','b17-sdzn-g'),
+ nlxx:S('你来学校吗？','nǐ lái xuéxiào ma?','คุณมาโรงเรียนไหม','b17-nlxx-t'),wll:S('我来了！','wǒ lái le!','ฉันมาแล้ว','b17-wll-f'),whj:S('我回家。','wǒ huí jiā.','ฉันกลับบ้าน','b17-whj-f'),
+ wzyy:S('我在医院。','wǒ zài yīyuàn.','ฉันอยู่ที่โรงพยาบาล','b17-wzyy-f'),wsxx:S('我是学校。','wǒ shì xuéxiào.','ฉันเป็นโรงเรียน','b17-wsxx-f'),wzn:S('我在哪儿。','wǒ zài nǎr.','ฉันอยู่ที่ไหน','b17-wzn-f'),
+ wsys:S('我是医生。','wǒ shì yīshēng.','ฉันเป็นหมอ','b17-wsys-f'),
+ /* กิจกรรมเฉพาะบท: ใครไปไหน */
+ p1:S('我去学校。','wǒ qù xuéxiào.','ฉันไปโรงเรียน','b17-wqxx-m'),p2:S('妈妈在医院。','māma zài yīyuàn.','แม่อยู่ที่โรงพยาบาล','b17-mmzy-g'),
+ p3:S('我去商店。','wǒ qù shāngdiàn.','ฉันไปร้านค้า','b17-wqsd-t'),p4:S('我回家。','wǒ huí jiā.','ฉันกลับบ้าน','b17-whj-m'),
+ q1:S('我在医院。','wǒ zài yīyuàn.','ฉันอยู่ที่โรงพยาบาล','b17-wzyy-t'),q2:S('我们去学校。','wǒmen qù xuéxiào.','พวกเราไปโรงเรียน','b17-wmqx-g'),q3:S('你来商店吗？','nǐ lái shāngdiàn ma?','คุณมาร้านค้าไหม','b17-nlsd-f'),
+ /* ชิปคำ */
+ qxx:S('去学校','qù xuéxiào','ไปโรงเรียน','b17-qxx-t'),qyy:S('去医院','qù yīyuàn','ไปโรงพยาบาล','b17-qyy-t'),qsd:S('去商店','qù shāngdiàn','ไปร้านค้า','b17-qsd-t'),qn:S('去哪儿','qù nǎr','ไปไหน','b17-qn-t'),
+ zxx:S('在学校','zài xuéxiào','อยู่ที่โรงเรียน','b17-zxx-t'),zj:S('在家','zài jiā','อยู่บ้าน','b17-zj-t'),zn:S('在哪儿','zài nǎr','อยู่ที่ไหน','b17-zn-t'),
+ lwj:S('来我家','lái wǒ jiā','มาบ้านฉัน','b17-lwj-t'),hj:S('回家','huí jiā','กลับบ้าน','b17-hj-t'),hxx:S('回学校','huí xuéxiào','กลับโรงเรียน','b17-hxx-t')};
+const L={nqn:{...X.nqn,who:'g'},wqsn:{...X.wqsn,who:'me'},wqyy:{...X.wqyy,who:'g'},mmys2:{...X.mmys2,who:'g'},nlwj:{...X.nlwj,who:'me'},bwhj:{...X.bwhj,who:'g'}};
+const D=[{sit:'เช้าวันเสาร์ คุณเจอเพื่อนระหว่างทาง',img:FR},L.nqn,L.wqsn,L.wqyy,L.mmys2,{sit:'ตอนบ่าย คุณเจอเพื่อนอีกครั้งแล้วชวนมาบ้าน',img:HOME},L.nlwj,L.bwhj];
+const PC=[{img:XX.img,th:'โรงเรียน'},{img:YY.img,th:'โรงพยาบาล'},{img:SD.img,th:'ร้านค้า'},{img:HOME,th:'บ้าน'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:17,code:'บท 5-1',goal:{do:'ถามและบอกว่าจะไปไหน อยู่ที่ไหน มาหรือกลับ',sub:'ใช้ <span class="gz">你去哪儿 · 我在学校 · 我回家</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:FR,cap:'สถานการณ์ของบทนี้',title:'ไปไหน อยู่ไหน',line:L.nqn,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะถามเพื่อนว่าไปไหน และบอกว่าตัวเองอยู่ที่ไหนได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[XX,YY,YS,SD,NAR,ZAI,LAI,HUI]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['学校','医院','医生','商店','哪儿','在','来','回'],note:'ใช้คำจากเล่ม 0 去 ร่วมด้วย'}),
+ wcard({no:1,of:8,cap:'สถานที่',w:XX,aid:{parts:['xué',2,'xiào',4],cap:'เสียง 2 + เสียง 4'},hint:'คล้าย <b>"เสวีย เซี่ยว"</b> · x ออกเสียงคล้าย ซ ยิ้มกว้าง',sk:'fs:学校',
+  use:'แปลว่าโรงเรียน · 学 เรียน + 校 สถานศึกษา',ex:[X.wqxx,X.wzxx]}),
+ syl({n:'คำที่ 1/8',w:XX,chars:[{zh:'学',py:'xué',t:2,k:'sy:学'},{zh:'校',py:'xiào',t:4,k:'sy:校'}],done:'xué + xiào = xuéxiào'}),
+ wcard({no:2,of:8,cap:'สถานที่',w:YY,aid:{parts:['yī',1,'yuàn',4],cap:'เสียง 1 + เสียง 4'},hint:'คล้าย <b>"อี ยฺเวี่ยน"</b> · yuàn ห่อปากแบบ ü',sk:'fs:医院',
+  use:'แปลว่าโรงพยาบาล · 医 รักษา + 院 สถานที่',ex:[X.wqyy,X.tzyy]}),
+ syl({n:'คำที่ 2/8',w:YY,chars:[{zh:'医',py:'yī',t:1,k:'sy:医'},{zh:'院',py:'yuàn',t:4,k:'sy:院'}],done:'yī + yuàn = yīyuàn'}),
+ rec({n:'คำที่ 1–2/8',ws:[XX,YY]}),
+ use({n:'คำที่ 1–2/8',w:XX,when:[{img:STU,t:'เด็กนักเรียนไปโรงเรียน'},{img:YS.img,t:'หมอทำงานที่โรงพยาบาล'}],lines:[{...X.nqn,who:'g'},{...X.wqxx,who:'me'}],tip:'บอกว่าไปไหน ใช้ <span class="zh">去</span> + สถานที่ · <span class="zh">去学校</span> <span class="zh">去医院</span>'}),
+ wcard({no:3,of:8,cap:'อาชีพ',w:YS,aid:{parts:['yī',1,'shēng',1],cap:'เสียง 1 + เสียง 1'},hint:'คล้าย <b>"อี เซิง"</b> · ลงท้าย ng',sk:'fs:医生',
+  use:'แปลว่าหมอ แพทย์ · 医 รักษา + 生 คน · หมอทำงานที่ 医院',ex:[X.mmys,X.yszy]}),
+ syl({n:'คำที่ 3/8',w:YS,chars:[{zh:'医',py:'yī',t:1,k:'sy:医'},{zh:'生',py:'shēng',t:1,k:'sy:生'}],done:'yī + shēng = yīshēng'}),
+ wcard({no:4,of:8,cap:'สถานที่',w:SD,aid:{parts:['shāng',1,'diàn',4],cap:'เสียง 1 + เสียง 4'},hint:'คล้าย <b>"ซาง เตี้ยน"</b> · sh ม้วนลิ้น',sk:'fs:商店',
+  use:'แปลว่าร้านค้า · 店 ร้าน เหมือนใน 饭店',ex:[X.wqsd,X.sdzn]}),
+ syl({n:'คำที่ 4/8',w:SD,chars:[{zh:'商',py:'shāng',t:1,k:'sy:商'},{zh:'店',py:'diàn',t:4,k:'sy:店'}],done:'shāng + diàn = shāngdiàn'}),
+ rec({n:'คำที่ 3–4/8',ws:[YS,SD]}),
+ wcard({no:5,of:8,cap:'คำถาม',w:NAR,aid:{parts:['nǎr',3],cap:'เสียง 3 พยางค์เดียว'},hint:'คล้าย <b>"หน่าร์"</b> · 儿 ทำให้ม้วนลิ้นท้ายคำ ไม่อ่านแยกเป็นอีกพยางค์',sk:'fs:哪儿',
+  use:'แปลว่าที่ไหน ใช้ถามสถานที่ · วางไว้ตรงตำแหน่งของคำตอบ',ex:[X.nqn,X.sdzn]}),
+ wcard({no:6,of:8,cap:'บอกตำแหน่ง',w:ZAI,aid:{parts:['zài',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"จ้าย"</b> · z คือเสียง ts ไม่พ่นลม',sk:'fs:在',
+  use:'แปลว่าอยู่ที่ · คน + 在 + สถานที่',ex:[X.wzxx,X.tzyy]}),
+ rec({n:'คำที่ 5–6/8',ws:[NAR,ZAI]}),
+ use({n:'คำที่ 5–6/8',w:ZAI,when:[{img:MAP,t:'ถามว่าอีกฝ่ายอยู่ที่ไหน'},{img:YS.img,t:'บอกว่าคนอยู่ที่ไหน'}],lines:[{...X.nzn,who:'g'},{...X.wzxx,who:'me'}],tip:'ถาม <span class="zh">你在哪儿？</span> · ตอบเอาสถานที่ใส่แทน <span class="zh">哪儿</span>'}),
+ wcard({no:7,of:8,cap:'การเคลื่อนที่',w:LAI,aid:{parts:['lái',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"ไหล"</b>',sk:'fs:来',
+  use:'แปลว่ามา เดินทางเข้ามาหาผู้พูด',ex:[X.nlwj,X.wll]}),
+ wcard({no:8,of:8,cap:'การเคลื่อนที่',w:HUI,aid:{parts:['huí',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"ฮุย"</b> เสียงขึ้น',sk:'fs:回',
+  use:'แปลว่ากลับ กลับไปที่เดิม · 回家 กลับบ้าน',ex:[X.whj,X.bwhj]}),
+ rec({n:'คำที่ 7–8/8',ws:[LAI,HUI]}),
+ use({n:'คำที่ 7–8/8',w:HUI,when:[{img:HOME,t:'เลิกเรียนแล้วกลับบ้าน'},{img:FR,t:'ชวนเพื่อนมาบ้าน'}],lines:[{...X.nlwj,who:'me'},{...X.bwhj,who:'g'}],tip:'<span class="zh">来</span> มาหาผู้พูด · <span class="zh">去</span> ไปจากผู้พูด · <span class="zh">回</span> กลับที่เดิม'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','去 + สถานที่','在 + สถานที่','ใครไปไหน','来 กับ 回','ข้อควรระวัง'],note:'ฝึกถามทางกับเพื่อนที่เจอกันระหว่างทาง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาระหว่างทาง',title:'ไปไหน อยู่ไหน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถาม 你去哪儿 ตอบด้วย 我去 + สถานที่'}),
+ talk({cap:'เทคนิค 2/6 · 去 + สถานที่',title:'บอกว่าจะไปไหน',text:'แตะแต่ละคำเพื่อฟัง',lines:[L.nqn,{...X.wqxx,who:'me'},L.wqyy],
+  chips:[X.qxx,X.qyy,X.qsd,X.qn],tip:'คำถามกับคำตอบเรียงเหมือนกัน · เอาสถานที่ใส่แทน <span class="zh">哪儿</span>'}),
+ talk({cap:'เทคนิค 3/6 · 在 + สถานที่',title:'บอกว่าอยู่ที่ไหน',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nzn,who:'g'},{...X.wzxx,who:'me'},{...X.yszy,who:'t'}],
+  chips:[X.zxx,X.zj,X.zn],tip:'คน + <span class="zh">在</span> + สถานที่ · ไม่ใช้ <span class="zh">是</span> บอกตำแหน่ง'}),
+ point({tag:'เทคนิค 4/6 · ใครไปไหน',q:'ฟังแต่ละคนบอกว่าไปไหนหรืออยู่ที่ไหน แล้วแตะสถานที่ที่ตรงกัน',this:'คือที่นี่',cards:PC,rounds:[
+  {zh:X.p1.zh,k:X.p1.k,ans:0},{zh:X.p2.zh,k:X.p2.k,ans:1,why:'在医院 = อยู่ที่โรงพยาบาล'},{zh:X.p3.zh,k:X.p3.k,ans:2},{zh:X.p4.zh,k:X.p4.k,ans:3,why:'回家 = กลับบ้าน'}]}),
+ talk({cap:'เทคนิค 5/6 · 来 กับ 回',title:'มาหรือกลับ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nlxx,who:'t'},{...X.wll,who:'me'},{...X.whj,who:'me'}],
+  chips:[X.lwj,X.hj,X.hxx],tip:'<span class="zh">来</span> เคลื่อนเข้าหาผู้พูด · <span class="zh">回</span> กลับไปที่ของตัวเอง เช่น บ้าน โรงเรียน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'哪儿 อยู่ตำแหน่งเดียวกับคำตอบ',bad:'哪儿你去？',good:'你去哪儿？',k:'b17-nqn-g'},
+  {h:'บอกตำแหน่งใช้ 在 ไม่ใช้ 是',bad:'我是学校。',good:'我在学校。',k:'b17-wzxx-f'},
+  {h:'กลับบ้านใช้ 回 อย่างเดียว',bad:'我去回家。',good:'我回家。',k:'b17-whj-f'},
+  {h:'มี 哪儿 แล้วไม่ต้องใส่ 吗',bad:'你去哪儿吗？',good:'你去哪儿？',k:'b17-nqn-g'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:医院',opts:['โรงพยาบาล','โรงเรียน','ร้านค้า'],ans:0,fb:'<span class="zh">医院</span> <b>yīyuàn</b> = โรงพยาบาล'}),
+ ask({rv:6,q:'ฟัง 学 xué แล้วเลือกพยัญชนะตัวแรก',k:'sy:学',opts:['x','sh','s'],ans:0,fb:'<b>x</b>ué · x ยิ้มกว้าง ลิ้นแตะฟันล่าง'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b17-mmys-f',opts:[{img:YS.img},{img:TEACHER},{img:STU}],ans:0,fb:'<span class="zh">我妈妈是医生。</span> = แม่ของฉันเป็นหมอ'}),
+ blank({tag:TQ(3),s:'你_哪儿？',th:'คุณอยู่ที่ไหน',opts:['在','是','来'],ans:0,k:'b17-nzn-g',fb:'<span class="zh">你在哪儿？</span>'}),
+ ask({rv:11,q:'ฟัง 生 shēng แล้วเลือกเสียงท้าย',k:'sy:生',opts:['-n','-ng'],ans:1,fb:'shē<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
+ reply({tag:TQ(4),q:'เพื่อนถามว่าไปไหน คุณจะไปโรงเรียน',line:{...X.nqn,who:'g'},opts:[X.wqxx,X.wsxx,X.wzn],ans:0,why:'ตอบด้วย 我去 + สถานที่'}),
+ order({tag:TQ(5),th:'แม่ของฉันเป็นหมอ',tiles:[tl('我','wǒ'),tl('妈妈','māma'),tl('是','shì'),tl('医生','yīshēng'),tl('在','zài')],ans:[0,1,2,3],end:'。',k:'b17-mmys-f'}),
+ ask({rv:2,q:'ฟัง 来 แล้วเลือกเสียงวรรณยุกต์',k:'w:来',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b>lái</b> · เสียง 2 ขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b17-bwhj-g',opts:['ไม่ ฉันกลับบ้าน','ไม่ ฉันมาบ้านคุณ','ไม่ ฉันอยู่ที่โรงเรียน'],ans:0,fb:'<span class="zh">不，我回家。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ถามทางเอง',chips:['ใครไปไหน','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะสถานที่',this:'คือที่นี่',cards:PC,rounds:[{zh:X.q1.zh,k:X.q1.k,ans:1},{zh:X.q2.zh,k:X.q2.k,ans:0},{zh:X.q3.zh,k:X.q3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณอยู่ที่โรงพยาบาล เพื่อนถามว่า',line:{...X.nzn,who:'g'},opts:[X.wzyy,X.wqxx,X.wsys],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我妈妈是_，她在医院。',opts:['医生','学校','商店'],ans:0,k:'b17-mmys2-g',fb:'<span class="zh">我妈妈是医生，她在医院。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('你','nǐ'),tl('去','qù'),tl('哪儿','nǎr'),tl('在','zài')],ans:[0,1,2],end:'？',k:'b17-nqn-g'}),
+ /* 5 · จบบท */
+ fin({title:'ถามว่าไปไหนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[XX,YY,YS,SD,NAR,ZAI,LAI,HUI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L17',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

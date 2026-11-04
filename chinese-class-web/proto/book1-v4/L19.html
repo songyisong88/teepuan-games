@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 5-3 ซื้อเสื้อผ้า</title>
+</head><body>
+<script>
+/* บท 5-3 หน่วย 5 ในเมือง: ซื้อเสื้อผ้า · คำใหม่ 衣服 漂亮 看 看见 打电话 喂 · ไม่มีคำทบทวนเล่ม 0
+   ทบทวนจากบทก่อน: 你 这 些 很 在 哪儿 我 商店 了 想 · กิจกรรมเฉพาะบท: โทรหาเพื่อนที่หลงกัน (เรื่องเป็นภาพ) */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const YF=w('衣服','yīfu','เสื้อผ้า'),PL=w('漂亮','piàoliang','สวย'),KAN=w('看','kàn','ดู มอง'),KJ=w('看见','kànjiàn','เห็น มองเห็น'),
+ DDH=w('打电话','dǎ diànhuà','โทรศัพท์ (หา)'),WEI=w('喂','wèi','ฮัลโหล');
+const PHONE=ART('手机');THL[PHONE]='โทรศัพท์มือถือ';
+const SDI=A2('商店');THL[SDI]='ร้านค้า';
+const FR=ART('朋友'),XXI=A2('学校');THL[XXI]='โรงเรียน';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const op=x=>({...x,who:'me'});
+const X={
+ nkzx:S('你看！这些衣服很漂亮。','nǐ kàn! zhèxiē yīfu hěn piàoliang.','ดูสิ เสื้อผ้าพวกนี้สวยมาก','b19-nkzx-f'),
+ hplwx:S('很漂亮！我想买。','hěn piàoliang! wǒ xiǎng mǎi.','สวยมาก ฉันอยากซื้อ','b19-hplwx-g'),
+ wnzn:S('喂，你在哪儿？','wèi, nǐ zài nǎr?','ฮัลโหล คุณอยู่ที่ไหน','b19-wnzn-f'),
+ wzsdn:S('我在商店。你在哪儿？','wǒ zài shāngdiàn. nǐ zài nǎr?','ฉันอยู่ที่ร้านค้า คุณอยู่ที่ไหน','b19-wzsdn-g'),
+ wkjnl:S('我看见你了！','wǒ kànjiàn nǐ le!','ฉันเห็นคุณแล้ว','b19-wkjnl-f'),
+ wxddh:S('我想打电话。','wǒ xiǎng dǎ diànhuà.','ฉันอยากโทรศัพท์','b19-wxddh-f'),
+ zxyf:S('这些衣服很漂亮。','zhèxiē yīfu hěn piàoliang.','เสื้อผ้าพวกนี้สวยมาก','b19-zxyf-f'),
+ tpl:S('她很漂亮。','tā hěn piàoliang.','เธอสวยมาก','b19-tpl-f'),
+ wkyf:S('我看衣服。','wǒ kàn yīfu.','ฉันดูเสื้อผ้า','b19-wkyf-f'),
+ nkjwlm:S('你看见我了吗？','nǐ kànjiàn wǒ le ma?','คุณเห็นฉันหรือยัง','b19-nkjwlm-g'),
+ mmddh:S('妈妈打电话。','māma dǎ diànhuà.','แม่โทรศัพท์','b19-mmddh-f'),
+ wnh:S('喂，你好！','wèi, nǐ hǎo!','ฮัลโหล สวัสดี','b19-wnh-f'),
+ wzsd:S('我在商店。','wǒ zài shāngdiàn.','ฉันอยู่ที่ร้านค้า','b19-wzsd-f'),
+ wzxx:S('我在学校。','wǒ zài xuéxiào.','ฉันอยู่ที่โรงเรียน','b19-wzxx-f'),
+ wqsd:S('我去商店。','wǒ qù shāngdiàn.','ฉันไปร้านค้า','b19-wqsd-f'),
+ wssd:S('我是商店。','wǒ shì shāngdiàn.','ฉันเป็นร้านค้า','b19-wssd-f'),
+ nkjb:S('你看见！这些衣服很漂亮。','nǐ kànjiàn! zhèxiē yīfu hěn piàoliang.','ชวนดูใช้ 看见 ไม่ได้','b19-nkjb-f'),
+ zxgm:S('这些衣服贵吗？','zhèxiē yīfu guì ma?','เสื้อผ้าพวกนี้แพงไหม','b19-zxgm-f'),
+ wnqn:S('喂，你去哪儿？','wèi, nǐ qù nǎr?','ฮัลโหล คุณไปไหน','b19-wnqn-f'),
+ wkjsd:S('我看见商店。','wǒ kànjiàn shāngdiàn.','ฉันเห็นร้านค้า','b19-wkjsd-f'),
+ wddh:S('我打电话。','wǒ dǎ diànhuà.','ฉันโทรศัพท์','b19-wddh-f'),
+ wknl:S('我看你。','wǒ kàn nǐ.','ฉันมองคุณ','b19-wknl-f'),
+ wddhl:S('我打电话了！','wǒ dǎ diànhuà le!','ฉันโทรแล้ว','b19-wddhl-f'),
+ nhm:S('你好吗？你在哪儿？','nǐ hǎo ma? nǐ zài nǎr?','คุณสบายดีไหม คุณอยู่ที่ไหน','b19-nhm-f'),
+ /* ภารกิจ */
+ m1:S('喂，你在哪儿？','wèi, nǐ zài nǎr?','ฮัลโหล คุณอยู่ที่ไหน','b19-wnzn-g'),
+ /* ชิปคำ */
+ kyf:S('看衣服','kàn yīfu','ดูเสื้อผ้า','b19-kyf-t'),kjn:S('看见你','kànjiàn nǐ','เห็นคุณ','b19-kjn-t'),kjl:S('看见了','kànjiàn le','เห็นแล้ว','b19-kjl-t'),
+ ddh:S('打电话','dǎ diànhuà','โทรศัพท์','b19-ddh-t'),wnh2:S('喂，你好','wèi, nǐ hǎo','ฮัลโหล สวัสดี','b19-wnh-t'),wzn2:S('喂，你在哪儿','wèi, nǐ zài nǎr','ฮัลโหล คุณอยู่ที่ไหน','b19-wzn-t'),
+ hpl:S('很漂亮','hěn piàoliang','สวยมาก','b19-hpl-t'),yfhpl:S('衣服很漂亮','yīfu hěn piàoliang','เสื้อผ้าสวยมาก','b19-yfhpl-t'),tpl2:S('太漂亮了','tài piàoliang le','สวยจังเลย','b19-tpll-t')};
+const L={nkzx:{...X.nkzx,who:'me'},hplwx:{...X.hplwx,who:'g'},wnzn:{...X.wnzn,who:'me'},wzsdn:{...X.wzsdn,who:'g'},wkjnl:{...X.wkjnl,who:'me'}};
+const D=[{sit:'คุณกับเพื่อนเดินดูเสื้อผ้าในห้าง',img:YF.img},L.nkzx,L.hplwx,{sit:'สักพักคุณหาเพื่อนไม่เจอ จึงโทรหาเพื่อน',img:PHONE},L.wnzn,L.wzsdn,L.wkjnl];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:19,code:'บท 5-3',goal:{do:'ชวนเพื่อนดูเสื้อผ้า และโทรถามว่าเพื่อนอยู่ที่ไหน',sub:'ใช้ <span class="gz">你看 · 很漂亮 · 喂，你在哪儿 · 我看见你了</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:YF.img,cap:'สถานการณ์ของบทนี้',title:'ซื้อเสื้อผ้า',line:L.nkzx,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะชวนเพื่อนดูเสื้อผ้า และโทรหาเพื่อนที่หลงกันได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[YF,PL,KAN,KJ,DDH,WEI]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['衣服','漂亮','看','看见','打电话','喂'],note:'ใช้คำจากบทก่อน 这些 很 在 哪儿 商店 ร่วมด้วย'}),
+ wcard({no:1,of:6,cap:'สิ่งของ',w:YF,aid:{parts:['yī',1,'fu',0],cap:'เสียง 1 + เสียงเบา'},hint:'คล้าย <b>"อี ฟุ"</b> · 服 อ่านเบาและสั้น',sk:'fs:衣服',
+  use:'แปลว่าเสื้อผ้า ใช้เรียกเสื้อ กางเกง รวม ๆ กัน',ex:[X.wkyf,X.zxyf]}),
+ syl({n:'คำที่ 1/6',w:YF,chars:[{zh:'衣',py:'yī',t:1,k:'sy:衣'},{zh:'服',py:'fu',t:0}],done:'yī + fu เบา = yīfu'}),
+ wcard({no:2,of:6,cap:'ลักษณะ',w:PL,aid:{parts:['piào',4,'liang',0],cap:'เสียง 4 + เสียงเบา'},hint:'คล้าย <b>"เพี่ยว เลียง"</b> · p พ่นลม · 亮 อ่านเบา',sk:'fs:漂亮',
+  use:'แปลว่าสวย ใช้กับคน เสื้อผ้า หรือสิ่งของ · มักมี 很 นำหน้า',ex:[X.zxyf,X.tpl]}),
+ syl({n:'คำที่ 2/6',w:PL,chars:[{zh:'漂',py:'piào',t:4,k:'sy:票'},{zh:'亮',py:'liang',t:0}],done:'piào + liang เบา = piàoliang'}),
+ rec({n:'คำที่ 1–2/6',ws:[YF,PL]}),
+ use({n:'คำที่ 1–2/6',w:YF,when:[{img:SDI,t:'เดินดูเสื้อผ้าในร้าน'},{img:FR,t:'ชมว่าเพื่อนแต่งตัวสวย'}],lines:[{...X.nkzx,who:'me'},{...X.hplwx,who:'g'}],tip:'ชมว่าสวย ใช้ <span class="zh">很漂亮</span> · <span class="zh">衣服很漂亮</span>'}),
+ wcard({no:3,of:6,cap:'การกระทำ',w:KAN,aid:{parts:['kàn',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ค่าน"</b> · k พ่นลม',sk:'fs:看',
+  use:'แปลว่าดู มอง เป็นการตั้งใจมอง · 你看！ ใช้ชวนให้อีกฝ่ายดู',ex:[X.wkyf,X.nkzx]}),
+ wcard({no:4,of:6,cap:'การกระทำ',w:KJ,aid:{parts:['kàn',4,'jiàn',4],cap:'เสียง 4 + เสียง 4'},hint:'คล้าย <b>"ค่าน เจี้ยน"</b> · j ไม่พ่นลม',sk:'fs:看见',
+  use:'แปลว่าเห็น มองเห็นแล้ว · 看 คือมอง 看见 คือมองแล้วเห็น',ex:[X.wkjnl,X.nkjwlm]}),
+ syl({n:'คำที่ 4/6',w:KJ,chars:[{zh:'看',py:'kàn',t:4,k:'sy:看'},{zh:'见',py:'jiàn',t:4,k:'sy:见'}],done:'kàn + jiàn = kànjiàn'}),
+ rec({n:'คำที่ 3–4/6',ws:[KAN,KJ]}),
+ use({n:'คำที่ 3–4/6',w:KJ,when:[{img:YF.img,t:'ชวนเพื่อนดูเสื้อผ้า ใช้ 看'},{img:FR,t:'หาเพื่อนเจอแล้ว ใช้ 看见'}],lines:[{...X.nkzx,who:'me'},{...X.wkjnl,who:'me'}],tip:'<span class="zh">看</span> = มอง · <span class="zh">看见</span> = มองแล้วเห็น มักตามด้วย <span class="zh">了</span>'}),
+ wcard({no:5,of:6,cap:'การกระทำ',w:DDH,aid:{parts:['dǎ',3,'diàn',4,'huà',4],cap:'เสียง 3 + เสียง 4 + เสียง 4'},hint:'คล้าย <b>"ต่า เตี้ยน ฮว่า"</b>',sk:'fs:打电话',
+  use:'แปลว่าโทรศัพท์ · 打 ตี กด + 电话 โทรศัพท์',ex:[X.wxddh,X.mmddh]}),
+ syl({n:'คำที่ 5/6',w:DDH,chars:[{zh:'打',py:'dǎ',t:3,k:'sy:打'},{zh:'电',py:'diàn',t:4,k:'sy:电'},{zh:'话',py:'huà',t:4,k:'sy:话'}],done:'dǎ + diàn + huà = dǎ diànhuà'}),
+ wcard({no:6,of:6,cap:'คำทักทาย',w:WEI,aid:{parts:['wèi',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"เว่ย"</b>',sk:'fs:喂',
+  use:'แปลว่าฮัลโหล ใช้ตอนเริ่มคุยโทรศัพท์',ex:[X.wnzn,X.wnh]}),
+ rec({n:'คำที่ 5–6/6',ws:[DDH,WEI]}),
+ use({n:'คำที่ 5–6/6',w:WEI,when:[{img:PHONE,t:'รับหรือโทรศัพท์ พูด 喂 ก่อน'},{img:SDI,t:'หาเพื่อนไม่เจอในห้าง'}],lines:[{...X.wnzn,who:'me'},{...X.wzsdn,who:'g'}],tip:'<span class="zh">喂</span> ใช้ในโทรศัพท์ · เจอหน้ากันใช้ <span class="zh">你好</span>'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','看 กับ 看见','โทรศัพท์','โทรหาเพื่อน','很漂亮','ข้อควรระวัง'],note:'ฝึกเดินดูเสื้อผ้า แล้วโทรหาเพื่อนที่หลงกัน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในห้าง',title:'ดูเสื้อผ้า แล้วโทรหาเพื่อน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ในโทรศัพท์เริ่มด้วย 喂 · เจอเพื่อนแล้วพูด 我看见你了'}),
+ talk({cap:'เทคนิค 2/6 · 看 กับ 看见',title:'มอง กับ เห็น',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.wkyf,who:'me'},{...X.nkjwlm,who:'g'},{...X.wkjnl,who:'me'}],
+  chips:[X.kyf,X.kjn,X.kjl],tip:'<span class="zh">看</span> คือการมอง · <span class="zh">看见</span> คือมองแล้วเห็นจริง'}),
+ talk({cap:'เทคนิค 3/6 · โทรศัพท์',title:'喂 · 打电话',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.wxddh,who:'me'},{...X.wnh,who:'me'},{...X.wnzn,who:'me'}],
+  chips:[X.ddh,X.wnh2,X.wzn2],tip:'โทรติดแล้วพูด <span class="zh">喂</span> ก่อน แล้วค่อยถามต่อ'}),
+ story({tag:'เทคนิค 4/6 · โทรหาเพื่อนที่หลงกัน',q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
+  {img:YF.img,sit:'คุณเห็นเสื้อผ้าสวย อยากชวนเพื่อนดู',opts:[op(X.nkzx),op(X.nkjb),op(X.zxgm)],ans:0,why:'ชวนให้ดูใช้ 你看'},
+  {img:PHONE,sit:'คุณหาเพื่อนไม่เจอ จึงโทรหา เพื่อนรับสายแล้ว',opts:[op(X.wnzn),op(X.wxddh),op(X.wkyf)],ans:0,why:'เริ่มด้วย 喂 แล้วถามว่าอยู่ที่ไหน'},
+  {img:SDI,sit:'เพื่อนบอกว่าอยู่ที่ร้านค้า แล้วถามคุณกลับ คุณก็อยู่ที่ร้านค้า',line:L.wzsdn,opts:[op(X.wzsd),op(X.wqsd),op(X.wssd)],ans:0,why:'บอกตำแหน่งใช้ 在'},
+  {img:FR,sit:'คุณหันไปแล้วเห็นเพื่อนยืนอยู่',opts:[op(X.wkjnl),op(X.wknl),op(X.wddhl)],ans:0,why:'เห็นแล้วใช้ 看见…了'}]}),
+ talk({cap:'เทคนิค 5/6 · 很漂亮',title:'ชมว่าสวย',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.zxyf,who:'me'},{...X.tpl,who:'g'}],
+  chips:[X.hpl,X.yfhpl,X.tpl2],tip:'สิ่งที่ชม + <span class="zh">很漂亮</span> · ชมมาก ๆ ใช้ <span class="zh">太漂亮了</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'很 อยู่หน้า 漂亮',bad:'衣服漂亮很。',good:'衣服很漂亮。',k:'b19-yfhpl-t'},
+  {h:'โทรศัพท์ต้องมี 打',bad:'我想电话。',good:'我想打电话。',k:'b19-wxddh-f'},
+  {h:'ชวนให้ดูใช้ 看 ไม่ใช้ 看见',bad:'你看见！',good:'你看！',k:'b19-nkzx-f'},
+  {h:'ในโทรศัพท์เริ่มด้วย 喂',bad:'你好吗？你在哪儿？',good:'喂，你在哪儿？',k:'b19-wnzn-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:衣服',opts:['เสื้อผ้า','สวย','โทรศัพท์'],ans:0,fb:'<span class="zh">衣服</span> <b>yīfu</b> = เสื้อผ้า'}),
+ ask({rv:5,q:'ฟัง 服 fú แล้วเลือกพยัญชนะตัวแรก',k:'sy:服',opts:['f','h','p'],ans:0,fb:'<b>f</b>ú · ฟันบนแตะริมฝีปากล่าง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:打电话',opts:[{img:DDH.img},{img:YF.img},{img:SDI}],ans:0,fb:'<span class="zh">打电话</span> = โทรศัพท์'}),
+ blank({tag:TQ(3),s:'你_！这些衣服很漂亮。',th:'ดูสิ เสื้อผ้าพวกนี้สวยมาก',opts:['看','看见','喂'],ans:0,k:'b19-nkzx-f',fb:'<span class="zh">你看！这些衣服很漂亮。</span>'}),
+ ask({rv:11,q:'ฟัง 亮 liàng แล้วเลือกเสียงท้าย',k:'sy:亮',opts:['-n','-ng'],ans:1,fb:'lià<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
+ reply({tag:TQ(4),q:'เพื่อนโทรมาถาม คุณอยู่ที่ร้านค้า',line:{...X.m1,who:'g'},opts:[X.wzsd,X.wkjsd,X.wddh],ans:0,why:'บอกตำแหน่งใช้ 我在 + สถานที่'}),
+ order({tag:TQ(5),th:'เสื้อผ้าพวกนี้สวยมาก',tiles:[tl('这些','zhèxiē'),tl('衣服','yīfu'),tl('很','hěn'),tl('漂亮','piàoliang'),tl('看','kàn')],ans:[0,1,2,3],end:'。',k:'b19-zxyf-f'}),
+ ask({rv:2,q:'ฟัง 看 แล้วเลือกเสียงวรรณยุกต์',k:'w:看',opts:[{tone:4,lab:'เสียง 4'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'<b>kàn</b> · เสียง 4 ลงหนัก'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b19-wkjnl-f',opts:['ฉันเห็นคุณแล้ว','ฉันโทรหาคุณแล้ว','ฉันดูเสื้อผ้า'],ans:0,fb:'<span class="zh">我看见你了！</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'โทรหาเพื่อนเอง',chips:['เรื่องเป็นภาพ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ story({tag:MQ(1),noTh:1,q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
+  {img:PHONE,sit:'โทรหาเพื่อน เพื่อนรับสายแล้ว',opts:[op(X.wnzn),op(X.nkzx),op(X.wkjnl)],ans:0},
+  {img:FR,sit:'เห็นเพื่อนแล้ว',opts:[op(X.wkjnl),op(X.wnzn),op(X.wxddh)],ans:0},
+  {img:YF.img,sit:'ชวนเพื่อนดูเสื้อผ้าสวย',opts:[op(X.nkzx),op(X.nkjb),op(X.wddh)],ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณอยู่ที่โรงเรียน เพื่อนโทรมาถามว่า',line:{...X.m1,who:'g'},opts:[X.wzxx,X.wqsd,X.wkjsd],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我_见你了！',opts:['看','打','在'],ans:0,k:'b19-wkjnl-f',fb:'<span class="zh">我看见你了！</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('想','xiǎng'),tl('打','dǎ'),tl('电话','diànhuà'),tl('看','kàn')],ans:[0,1,2,3],end:'。',k:'b19-wxddh-f'}),
+ /* 5 · จบบท */
+ fin({title:'โทรหาเพื่อนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[YF,PL,KAN,KJ,DDH,WEI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L19',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

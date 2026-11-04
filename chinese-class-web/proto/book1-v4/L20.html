@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 5</title>
+</head><body>
+<script>
+/* ทบทวนหน่วยที่ 5 ในเมือง: ทวนคำเล่ม 0 + คำทั้ง 3 บท → บทสนทนาโทรนัดเพื่อน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};WHO.d={n:'คนขับแท็กซี่',img:ART('司机')};
+const QU=w('去','qù','ไป'),FJ=w('飞机','fēijī','เครื่องบิน');
+const XX={...w('学校','xuéxiào','โรงเรียน'),img:A2('学校')},YY={...w('医院','yīyuàn','โรงพยาบาล'),img:A2('医院')},YS=w('医生','yīshēng','หมอ แพทย์'),
+ SD={...w('商店','shāngdiàn','ร้านค้า'),img:A2('商店')},NAR=w('哪儿','nǎr','ที่ไหน'),ZAI=w('在','zài','อยู่ (ที่)'),LAI=w('来','lái','มา'),HUI=w('回','huí','กลับ');
+THL[XX.img]='โรงเรียน';THL[YY.img]='โรงพยาบาล';THL[SD.img]='ร้านค้า';
+const ZM=w('怎么','zěnme','อย่างไร'),CZC=w('出租车','chūzūchē','แท็กซี่'),KAI=w('开','kāi','ขับ เปิด'),QM=w('前面','qiánmiàn','ข้างหน้า'),HM=w('后面','hòumiàn','ข้างหลัง'),ZHU=w('住','zhù','อาศัยอยู่ พัก');
+const YF=w('衣服','yīfu','เสื้อผ้า'),PL=w('漂亮','piàoliang','สวย'),KAN=w('看','kàn','ดู มอง'),KJ=w('看见','kànjiàn','เห็น มองเห็น'),DDH=w('打电话','dǎ diànhuà','โทรศัพท์ (หา)'),WEI=w('喂','wèi','ฮัลโหล');
+const HOME=A2('家');THL[HOME]='บ้าน';
+const PHONE=ART('手机');THL[PHONE]='โทรศัพท์มือถือ';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const L={g1:S('喂，你在哪儿？','wèi, nǐ zài nǎr?','ฮัลโหล คุณอยู่ที่ไหน','b19-wnzn-g','g'),
+ me1:S('我在商店。你在哪儿？','wǒ zài shāngdiàn. nǐ zài nǎr?','ฉันอยู่ที่ร้านค้า คุณอยู่ที่ไหน','b20-wzsdn-f','me'),
+ g2:S('我在医院，医院在商店后面。','wǒ zài yīyuàn, yīyuàn zài shāngdiàn hòumiàn.','ฉันอยู่ที่โรงพยาบาล โรงพยาบาลอยู่ข้างหลังร้านค้า','b20-wzyh-g','g'),
+ me2:S('好！我坐出租车去。','hǎo! wǒ zuò chūzūchē qù.','ได้ ฉันนั่งแท็กซี่ไป','b20-wzcq-f','me'),
+ me3:S('我看见你了！','wǒ kànjiàn nǐ le!','ฉันเห็นคุณแล้ว','b19-wkjnl-f','me'),
+ g3:S('你来了！','nǐ lái le!','คุณมาแล้ว','b20-nll-g','g'),
+ dq:S('你去哪儿？','nǐ qù nǎr?','คุณไปไหน','b18-nqn-t','d')};
+const O={wnzn:S('喂，你在哪儿？','wèi, nǐ zài nǎr?','ฮัลโหล คุณอยู่ที่ไหน','b19-wnzn-f'),wxddh:S('我想打电话。','wǒ xiǎng dǎ diànhuà.','ฉันอยากโทรศัพท์','b19-wxddh-f'),
+ wkyf:S('我看衣服。','wǒ kàn yīfu.','ฉันดูเสื้อผ้า','b19-wkyf-f'),wkjnl:S('我看见你了！','wǒ kànjiàn nǐ le!','ฉันเห็นคุณแล้ว','b19-wkjnl-f'),
+ wknl:S('我看你。','wǒ kàn nǐ.','ฉันมองคุณ','b19-wknl-f'),wddhl:S('我打电话了！','wǒ dǎ diànhuà le!','ฉันโทรแล้ว','b19-wddhl-f'),
+ wqyy:S('我去医院。','wǒ qù yīyuàn.','ฉันไปโรงพยาบาล','b18-wqyy-f'),wzyy:S('我在医院。','wǒ zài yīyuàn.','ฉันอยู่ที่โรงพยาบาล','b17-wzyy-f'),
+ wsyy:S('我是医院。','wǒ shì yīyuàn.','ฉันเป็นโรงพยาบาล','b20-wsyy-f'),wsys:S('我是医生。','wǒ shì yīshēng.','ฉันเป็นหมอ','b17-wsys-f')};
+const R_=[S('我去学校。','wǒ qù xuéxiào.','ฉันไปโรงเรียน','b17-wqxx-m'),S('妈妈在医院。','māma zài yīyuàn.','แม่อยู่ที่โรงพยาบาล','b17-mmzy-g'),
+ S('我去商店。','wǒ qù shāngdiàn.','ฉันไปร้านค้า','b17-wqsd-t'),S('我回家。','wǒ huí jiā.','ฉันกลับบ้าน','b17-whj-m'),
+ S('医院在前面。','yīyuàn zài qiánmiàn.','โรงพยาบาลอยู่ข้างหน้า','b18-yyqm-t'),S('商店在后面。','shāngdiàn zài hòumiàn.','ร้านค้าอยู่ข้างหลัง','b18-sdhm-t'),
+ S('学校在后面。','xuéxiào zài hòumiàn.','โรงเรียนอยู่ข้างหลัง','b18-xxhm-g'),
+ S('你怎么去学校？','nǐ zěnme qù xuéxiào?','คุณไปโรงเรียนอย่างไร','b18-nzqx-t'),S('我爸爸开出租车。','wǒ bàba kāi chūzūchē.','พ่อของฉันขับแท็กซี่','b18-bbkc-f'),
+ S('你住在哪儿？','nǐ zhù zài nǎr?','คุณอาศัยอยู่ที่ไหน','b18-nzzn-t'),S('这些衣服很漂亮。','zhèxiē yīfu hěn piàoliang.','เสื้อผ้าพวกนี้สวยมาก','b19-zxyf-f'),
+ S('你怎么去北京？','nǐ zěnme qù Běijīng?','คุณไปปักกิ่งอย่างไร','b18-nzmb-g'),S('我住在北京。','wǒ zhù zài Běijīng.','ฉันอาศัยอยู่ที่ปักกิ่ง','b18-wzbj-f')];
+const D=[{sit:'วันเสาร์ เพื่อนโทรหาคุณระหว่างที่คุณอยู่ในร้านค้า',img:PHONE},L.g1,L.me1,L.g2,L.me2,{sit:'ถึงโรงพยาบาลแล้ว คุณมองหาเพื่อน',img:YY.img},L.me3,L.g3];
+const PC=[{img:XX.img,th:'โรงเรียน'},{img:YY.img,th:'โรงพยาบาล'},{img:SD.img,th:'ร้านค้า'},{img:HOME,th:'บ้าน'}];
+const BINS=[{img:QM.img,zh:'前面',py:'qiánmiàn',th:'ข้างหน้า'},{img:HM.img,zh:'后面',py:'hòumiàn',th:'ข้างหลัง'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),op=x=>({...x,who:'me'});
+LESSON({no:20,code:'ทบทวนหน่วย 5',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 5 บอกว่าไปไหน อยู่ที่ไหน ไปอย่างไร และโทรหาเพื่อน',sub:'去哪儿 · 在 · 怎么去 · 前面 后面 · 喂',min:8},steps:[
+ intro({scene:PHONE,cap:'บททบทวน',title:'โทรนัดเพื่อนในเมือง',line:L.g1,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 5-1 ถึง 5-3 และคำจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 5',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[QU,FJ]},{lab:'5-1 ไปไหน อยู่ไหน',items:[XX,YY,YS,SD,NAR,ZAI,LAI,HUI]},{lab:'5-2 ไปอย่างไร',items:[ZM,CZC,KAI,QM,HM,ZHU]},{lab:'5-3 ซื้อเสื้อผ้า',items:[YF,PL,KAN,KJ,DDH,WEI]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'โทรนัดเพื่อนในเมือง',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ใครไปไหน','ข้างหน้า ข้างหลัง','โทรหาเพื่อน','เติมคำ','ตอบคนขับ','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[XX,YS,CZC,QM,YF]}),
+ point({tag:TQ(2),q:'ฟังแต่ละคนบอกว่าไปไหนหรืออยู่ที่ไหน แล้วแตะสถานที่ที่ตรงกัน',this:'คือที่นี่',cards:PC,rounds:[
+  {zh:R_[1].zh,k:R_[1].k,ans:1,why:'在医院 = อยู่ที่โรงพยาบาล'},{zh:R_[0].zh,k:R_[0].k,ans:0},{zh:R_[3].zh,k:R_[3].k,ans:3,why:'回家 = กลับบ้าน'}]}),
+ ask({rv:7,q:'ฟัง 住 zhù แล้วเลือกพยัญชนะตัวแรก',k:'sy:住',opts:['zh','z','j'],ans:0,fb:'<b>zh</b>ù · ม้วนลิ้นขึ้น ไม่พ่นลม'}),
+ sortmap({tag:TQ(3),q:'ฟังแต่ละประโยค แล้วแตะว่าสถานที่อยู่ข้างหน้าหรือข้างหลัง',bins:BINS,done:'แยกครบทุกที่แล้ว',items:[it(YY.img,R_[4],0),it(SD.img,R_[5],1),it(XX.img,R_[6],1)]}),
+ story({tag:TQ(4),q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
+  {img:PHONE,sit:'คุณโทรหาเพื่อน เพื่อนรับสายแล้ว',opts:[op(O.wnzn),op(O.wxddh),op(O.wkyf)],ans:0,why:'เริ่มด้วย 喂 แล้วถามว่าอยู่ที่ไหน'},
+  {img:ART('朋友'),sit:'คุณหันไปแล้วเห็นเพื่อนยืนอยู่',opts:[op(O.wkjnl),op(O.wknl),op(O.wddhl)],ans:0,why:'เห็นแล้วใช้ 看见…了'}]}),
+ blank({tag:TQ(5),s:'你_去学校？',th:'คุณไปโรงเรียนอย่างไร',opts:['怎么','哪儿','什么'],ans:0,k:'b18-nzqx-t',fb:'<span class="zh">你怎么去学校？</span>'}),
+ ask({rv:2,q:'ฟัง 回 แล้วเลือกเสียงวรรณยุกต์',k:'w:回',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<b>huí</b> · เสียง 2 ขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b18-bbkc-f',opts:[{img:CZC.img},{img:YF.img},{img:PHONE}],ans:0,fb:'<span class="zh">我爸爸开出租车。</span> = พ่อของฉันขับแท็กซี่'}),
+ reply({tag:TQ(7),q:'คนขับแท็กซี่ถามว่าไปไหน คุณจะไปโรงพยาบาล',line:L.dq,opts:[O.wqyy,O.wzyy,O.wsyy],ans:0,why:'บอกว่าจะไปไหน ใช้ 我去 + สถานที่'}),
+ ask({rv:11,q:'ฟัง 院 yuàn แล้วเลือกเสียงท้าย',k:'sy:院',opts:['-n','-ng'],ans:0,fb:'yuà<b>n</b> · ลงท้าย -n ปลายลิ้นแตะเหงือก'}),
+ lineup({tag:TQ(8),sit:'เพื่อนโทรมาถามว่าคุณอยู่ที่ไหน',lines:[L.g1,L.me1,L.g2]}),
+ ask({tag:TQ(9),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b18-nzzn-t',opts:['คุณอาศัยอยู่ที่ไหน','คุณไปไหน','คุณไปอย่างไร'],ans:0,fb:'<span class="zh">你住在哪儿？</span>'}),
+ ask({tag:TQ(10),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:漂亮',opts:['สวย','เสื้อผ้า','ดู มอง'],ans:0,fb:'<span class="zh">漂亮</span> <b>piàoliang</b> = สวย'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'เที่ยวในเมืองเอง',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'คุณอยู่ที่โรงพยาบาล เพื่อนโทรมาถามว่า',line:L.g1,opts:[O.wzyy,O.wsyy,O.wsys],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'b19-zxyf-f',opts:[{img:CZC.img},{img:YF.img},{img:PHONE}],ans:1,fb:'<span class="zh">这些衣服很漂亮。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('你','nǐ'),tl('怎么','zěnme'),tl('去','qù'),tl('北京','Běijīng'),tl('哪儿','nǎr')],ans:[0,1,2,3],end:'？',k:'b18-nzmb-g'}),
+ blank({tag:MQ(4),noTh:1,s:'我_在北京。',opts:['住','开','看'],ans:0,k:'b18-wzbj-f',fb:'<span class="zh">我住在北京。</span>'}),
+ fin({title:'จบหน่วยที่ 5 แล้ว',html:dlgH(D,{noTh:1}),chips:[NAR,ZAI,HUI,ZM,CZC,QM,HM,KJ,DDH,WEI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L20',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

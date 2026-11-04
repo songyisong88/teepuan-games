@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 4</title>
+</head><body>
+<script>
+/* ทบทวนหน่วยที่ 4 สั่งอาหาร: ทวนคำเล่ม 0 + คำทั้ง 2 บท → บทสนทนาในร้านอาหาร → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};WHO.w={n:'พนักงาน',img:ART('服务员')};
+const CHI=w('吃','chī','กิน'),HEw=w('喝','hē','ดื่ม'),AI=w('爱','ài','รัก ชอบมาก'),SHUI=w('水','shuǐ','น้ำ'),CHA=w('茶','chá','ชา');
+const MF=w('米饭','mǐfàn','ข้าวสวย'),CAI=w('菜','cài','กับข้าว ผัก'),SG=w('水果','shuǐguǒ','ผลไม้'),PG=w('苹果','píngguǒ','แอปเปิล'),HC=w('好吃','hǎochī','อร่อย'),
+ FD={...w('饭店','fàndiàn','ร้านอาหาร'),img:A2('饭店')};THL[FD.img]='ร้านอาหาร';
+const XH=w('喜欢','xǐhuan','ชอบ'),ZMY=w('怎么样','zěnmeyàng','เป็นอย่างไร'),YDR=w('一点儿','yìdiǎnr','นิดหน่อย'),NENG=w('能','néng','สามารถ ได้'),
+ XS=w('先生','xiānsheng','คุณ (ผู้ชาย) นาย'),XJ=w('小姐','xiǎojie','คุณ (ผู้หญิง) นางสาว');
+const SVC=ART('服务员'),BOY=ART('男孩'),GIRL=ART('女孩'),TEACHER=ART('老师'),TEA=ART('茶');THL[SVC]='พนักงานร้านอาหาร';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const L={xsnc:S('先生，您想吃什么？','xiānsheng, nín xiǎng chī shénme?','คุณผู้ชาย อยากทานอะไรครับ','b15-xsnc-m','w'),
+ wxmc:S('我想吃米饭和菜。','wǒ xiǎng chī mǐfàn hé cài.','ฉันอยากทานข้าวสวยกับกับข้าว','b16-wxmc-f','me'),
+ nxh:S('您想喝什么？','nín xiǎng hē shénme?','อยากดื่มอะไรครับ','b16-nxh-m','w'),
+ wnhc:S('我能喝一点儿茶吗？','wǒ néng hē yìdiǎnr chá ma?','ขอดื่มชาสักหน่อยได้ไหม','b16-wnhc-f','me'),
+ nqhc:S('能！请喝茶。','néng! qǐng hē chá.','ได้ เชิญดื่มชา','b16-nqhc-m','w'),
+ zgzm:S('这个菜怎么样？','zhège cài zěnmeyàng?','กับข้าวจานนี้เป็นอย่างไร','b15-zgzm-g','g'),
+ hhxh:S('很好吃！我很喜欢。','hěn hǎochī! wǒ hěn xǐhuan.','อร่อยมาก ฉันชอบมาก','b15-hhxh-f','me'),
+ wacf:S('我爱吃这个饭店的菜。','wǒ ài chī zhège fàndiàn de cài.','ฉันชอบกับข้าวของร้านนี้มาก','b16-wacf-g','g'),
+ mfzm:S('米饭怎么样？','mǐfàn zěnmeyàng?','ข้าวสวยเป็นอย่างไร','b15-mfzm-g','g'),
+ xjnh:S('小姐，您想喝什么？','xiǎojie, nín xiǎng hē shénme?','คุณผู้หญิง อยากดื่มอะไรครับ','b15-xjnh-m','w')};
+const O={hhc:S('很好吃！','hěn hǎochī!','อร่อยมาก','b15-hhc-f'),wsmf:S('我是米饭。','wǒ shì mǐfàn.','ฉันเป็นข้าวสวย','b16-wsmf-f'),mfsg:S('米饭是水果。','mǐfàn shì shuǐguǒ.','ข้าวสวยเป็นผลไม้','b16-mfsg-f'),
+ wxhy:S('我想喝一点儿水。','wǒ xiǎng hē yìdiǎnr shuǐ.','ฉันอยากดื่มน้ำนิดหน่อย','b16-wxhy-f'),wxcy:S('我想吃一点儿水。','wǒ xiǎng chī yìdiǎnr shuǐ.','ใช้กริยาผิด','b16-wxcy-f'),
+ whxs:S('我喝想水。','wǒ hē xiǎng shuǐ.','เรียงคำผิด','b16-whxs-f'),
+ xjnc2:S('小姐，您想吃什么？','xiǎojie, nín xiǎng chī shénme?','คุณผู้หญิง อยากทานอะไร','b15-xjnc2-m'),
+ nqhs:S('能！请喝水。','néng! qǐng hē shuǐ.','ได้ เชิญดื่มน้ำ','b15-nqhs-m'),wbnc:S('我不能吃。','wǒ bù néng chī.','ฉันกินไม่ได้','b15-wbnc-m'),
+ xjws:S('我能喝一点儿水吗？','wǒ néng hē yìdiǎnr shuǐ ma?','ขอดื่มน้ำสักหน่อยได้ไหม','b15-wnhs2-f')};
+const R_=[S('我想吃米饭。','wǒ xiǎng chī mǐfàn.','ฉันอยากกินข้าวสวย','b14-wxcm-m'),S('我想吃苹果。','wǒ xiǎng chī píngguǒ.','ฉันอยากกินแอปเปิล','b14-wxcp-g'),S('这个菜很好吃。','zhège cài hěn hǎochī.','กับข้าวจานนี้อร่อยมาก','b14-zgch-t'),
+ S('我喜欢吃苹果。','wǒ xǐhuan chī píngguǒ.','ฉันชอบกินแอปเปิล','b15-wxcp-f'),S('这个菜很好吃。','zhège cài hěn hǎochī.','กับข้าวจานนี้อร่อยมาก','b14-zgch-g'),
+ S('我爱吃米饭。','wǒ ài chī mǐfàn.','ฉันชอบกินข้าวสวยมาก','b15-wacm-g'),S('我能吃一点儿苹果吗？','wǒ néng chī yìdiǎnr píngguǒ ma?','ขอกินแอปเปิลสักหน่อยได้ไหม','b15-wnyp-g'),
+ S('我爱吃苹果。','wǒ ài chī píngguǒ.','ฉันชอบกินแอปเปิลมาก','b15-wacp-f'),S('你喜欢喝茶吗？','nǐ xǐhuan hē chá ma?','คุณชอบดื่มชาไหม','b15-nxhc-g')];
+const D=[{sit:'คุณกับเพื่อนไปทานข้าวที่ร้านอาหาร พนักงานมารับออร์เดอร์',img:SVC},L.xsnc,L.wxmc,L.nxh,L.wnhc,L.nqhc,{sit:'อาหารมาแล้ว เพื่อนถามความเห็นของคุณ',img:CAI.img},L.zgzm,L.hhxh,L.wacf];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),op=x=>({...x,who:'w'});
+const BINS=[{img:MF.img,zh:'米饭',py:'mǐfàn',th:'ข้าวสวย'},{img:CAI.img,zh:'菜',py:'cài',th:'กับข้าว'},{img:SG.img,zh:'水果',py:'shuǐguǒ',th:'ผลไม้'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+LESSON({no:16,code:'ทบทวนหน่วย 4',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 4 สั่งอาหาร ขอของนิดหน่อย และบอกว่าชอบอาหารไหม',sub:'想吃 · 很好吃 · 喜欢 · 怎么样 · 能…吗',min:8},steps:[
+ intro({scene:SVC,cap:'บททบทวน',title:'ทานข้าวที่ร้านอาหาร',line:L.xsnc,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 4-1 ถึง 4-2 และคำจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 4',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[CHI,HEw,AI,SHUI,CHA]},{lab:'4-1 กินอะไรดี',items:[MF,CAI,SG,PG,HC,FD]},{lab:'4-2 ชอบไหม อร่อยไหม',items:[XH,ZMY,YDR,NENG,XS,XJ]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'ทานข้าวที่ร้านอาหาร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','สั่งอาหารให้ทุกคน','เป็นพนักงาน','เติมคำ','เรียงคำ','ตอบพนักงาน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[MF,PG,HC,ZMY,XJ]}),
+ sortmap({tag:TQ(2),q:'ฟังแต่ละคนบอกว่าอยากกินอะไร แล้วแตะจานที่ตรงกัน',bins:BINS,done:'สั่งอาหารครบทุกคนแล้ว',items:[it(BOY,R_[0],0),it(GIRL,R_[1],2),it(TEACHER,R_[2],1)]}),
+ ask({rv:5,q:'ฟัง 饭 fàn แล้วเลือกพยัญชนะตัวแรก',k:'sy:饭',opts:['f','h','b'],ans:0,fb:'<b>f</b>àn · ฟันบนแตะริมฝีปากล่าง'}),
+ story({tag:TQ(3),q:'คุณเป็นพนักงาน ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
+  {img:XS.img,sit:'ลูกค้าผู้ชายนั่งลง คุณถามว่าอยากทานอะไร',opts:[op(L.xsnc),op(O.xjnc2)],ans:0,why:'ลูกค้าผู้ชายเรียกว่า 先生'},
+  {img:XJ.img,sit:'ลูกค้าผู้หญิงขอดื่มน้ำ',line:{...O.xjws,who:'g'},opts:[op(O.nqhs),op(O.wbnc)],ans:0,why:'ตอบว่าได้ ใช้ 能'}]}),
+ blank({tag:TQ(4),s:'我_吃苹果。',th:'ฉันชอบกินแอปเปิล',opts:['喜欢','怎么样','一点儿'],ans:0,k:'b15-wxcp-f',fb:'<span class="zh">我喜欢吃苹果。</span>'}),
+ order({tag:TQ(5),th:'กับข้าวจานนี้อร่อยมาก',tiles:[tl('这','zhè'),tl('个','ge'),tl('菜','cài'),tl('很','hěn'),tl('好吃','hǎochī'),tl('是','shì')],ans:[0,1,2,3,4],end:'。',k:'b14-zgch-g'}),
+ ask({rv:12,q:'ฟัง 一点儿 แล้วเลือกว่า 一 ออกเสียงอะไร',k:'w:一点儿',opts:[{tone:4,lab:'เสียง 4'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'<span class="zh">一</span> หน้าเสียง 3 อ่านเป็นเสียง 4 · <b>yì</b>diǎnr'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b15-wacm-g',opts:[{img:MF.img},{img:PG.img},{img:TEA}],ans:0,fb:'<span class="zh">我爱吃米饭。</span> = ฉันชอบกินข้าวสวยมาก'}),
+ reply({tag:TQ(7),q:'พนักงานถามว่าอยากดื่มอะไร คุณอยากดื่มน้ำนิดหน่อย',line:L.xjnh,opts:[O.wxhy,O.wxcy,O.whxs],ans:0,why:'ดื่มใช้ 喝 · 一点儿 อยู่หน้า 水'}),
+ ask({rv:11,q:'ฟัง 店 diàn แล้วเลือกเสียงท้าย',k:'sy:店',opts:['-n','-ng'],ans:0,fb:'dià<b>n</b> · ลงท้าย -n ปลายลิ้นแตะเหงือก'}),
+ lineup({tag:TQ(8),sit:'พนักงานมาที่โต๊ะ ถามว่าอยากทานและดื่มอะไร',lines:[L.xsnc,L.wxmc,L.nxh]}),
+ ask({tag:TQ(9),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b15-wnyp-g',opts:['ขอกินแอปเปิลสักหน่อยได้ไหม','ชอบกินแอปเปิลไหม','แอปเปิลอร่อยไหม'],ans:0,fb:'<span class="zh">我能吃一点儿苹果吗？</span>'}),
+ ask({tag:TQ(10),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:先生',opts:['คุณผู้ชาย','คุณผู้หญิง','คุณครู'],ans:0,fb:'<span class="zh">先生</span> <b>xiānsheng</b> = คุณผู้ชาย'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'ทานข้าวกับเพื่อนเอง',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'คุณชิมข้าวสวยแล้วชอบ เพื่อนถามว่า',line:L.mfzm,opts:[O.hhc,O.wsmf,O.mfsg],ans:0}),
+ ask({tag:MQ(2),q:'ฟังประโยค แล้วเลือกภาพ',k:'b15-wacp-f',opts:[{img:CAI.img},{img:PG.img},{img:MF.img}],ans:1,fb:'<span class="zh">我爱吃苹果。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('你','nǐ'),tl('喜欢','xǐhuan'),tl('喝','hē'),tl('茶','chá'),tl('吗','ma'),tl('吃','chī')],ans:[0,1,2,3,4],end:'？',k:'b15-nxhc-g'}),
+ blank({tag:MQ(4),noTh:1,s:'先生，您想_什么？',opts:['吃','能','很'],ans:0,k:'b15-xsnc-m',fb:'<span class="zh">先生，您想吃什么？</span>'}),
+ fin({title:'จบหน่วยที่ 4 แล้ว',html:dlgH(D,{noTh:1}),chips:[MF,CAI,PG,HC,XH,ZMY,YDR,NENG].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L16',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

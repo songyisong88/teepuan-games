@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 4-2 ชอบไหม อร่อยไหม</title>
+</head><body>
+<script>
+/* บท 4-2 หน่วย 4 สั่งอาหาร: ชอบไหม อร่อยไหม · คำใหม่ 喜欢 怎么样 一点儿 能 先生 小姐 · ทบทวนเล่ม 0: 爱
+   ทบทวนจากบทก่อน: 我 吃 苹果 这 个 菜 很 好吃 您 想 什么 喝 水 吗 · กิจกรรมเฉพาะบท: เป็นพนักงานร้านอาหาร เรื่องเล่า 4 ภาพ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};WHO.w={n:'พนักงาน',img:ART('服务员')};WHO.xs={n:'ลูกค้าผู้ชาย',img:ART('先生')};WHO.xj={n:'ลูกค้าผู้หญิง',img:ART('小姐')};
+const XH=w('喜欢','xǐhuan','ชอบ'),ZMY=w('怎么样','zěnmeyàng','เป็นอย่างไร'),YDR=w('一点儿','yìdiǎnr','นิดหน่อย'),NENG=w('能','néng','สามารถ ได้'),
+ XS=w('先生','xiānsheng','คุณ (ผู้ชาย) นาย'),XJ=w('小姐','xiǎojie','คุณ (ผู้หญิง) นางสาว');
+const SVC=ART('服务员'),MENU=ART('菜单'),TEA=ART('茶'),WATER=ART('水'),CAI=ART('菜'),PG=ART('苹果'),MF=ART('米饭'),SG=ART('水果'),TEACHER=ART('老师');
+THL[SVC]='พนักงานร้านอาหาร';THL[MENU]='เมนูอาหาร';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ xjnc:S('小姐，您想吃什么？','xiǎojie, nín xiǎng chī shénme?','คุณผู้หญิง อยากทานอะไรครับ','b15-xjnc-m'),
+ xsnc:S('先生，您想吃什么？','xiānsheng, nín xiǎng chī shénme?','คุณผู้ชาย อยากทานอะไรครับ','b15-xsnc-m'),
+ xjnh:S('小姐，您想喝什么？','xiǎojie, nín xiǎng hē shénme?','คุณผู้หญิง อยากดื่มอะไรครับ','b15-xjnh-m'),
+ wxmc:S('我想吃米饭和菜。','wǒ xiǎng chī mǐfàn hé cài.','ฉันอยากทานข้าวสวยกับกับข้าว','b15-wxmc-g'),
+ wnhs:S('我能喝一点儿水吗？','wǒ néng hē yìdiǎnr shuǐ ma?','ขอดื่มน้ำสักหน่อยได้ไหม','b15-wnhs-f'),
+ nqhs:S('能！请喝水。','néng! qǐng hē shuǐ.','ได้ เชิญดื่มน้ำ','b15-nqhs-m'),
+ zgzm:S('这个菜怎么样？','zhège cài zěnmeyàng?','กับข้าวจานนี้เป็นอย่างไร','b15-zgzm-g'),
+ hhxh:S('很好吃！我很喜欢。','hěn hǎochī! wǒ hěn xǐhuan.','อร่อยมาก ฉันชอบมาก','b15-hhxh-f'),
+ wacm:S('我爱吃米饭。','wǒ ài chī mǐfàn.','ฉันชอบกินข้าวสวยมาก','b15-wacm-g'),
+ wxcp:S('我喜欢吃苹果。','wǒ xǐhuan chī píngguǒ.','ฉันชอบกินแอปเปิล','b15-wxcp-f'),
+ nxhc:S('你喜欢喝茶吗？','nǐ xǐhuan hē chá ma?','คุณชอบดื่มชาไหม','b15-nxhc-g'),xh:S('喜欢！','xǐhuan!','ชอบ','b15-xh-f'),
+ nxcp:S('你喜欢吃苹果吗？','nǐ xǐhuan chī píngguǒ ma?','คุณชอบกินแอปเปิลไหม','b15-nxcp-g'),
+ wacp:S('我爱吃苹果。','wǒ ài chī píngguǒ.','ฉันชอบกินแอปเปิลมาก','b15-wacp-f'),
+ mfzm:S('米饭怎么样？','mǐfàn zěnmeyàng?','ข้าวสวยเป็นอย่างไร','b15-mfzm-g'),hhc:S('很好吃！','hěn hǎochī!','อร่อยมาก','b15-hhc-f'),
+ wnyp:S('我能吃一点儿苹果吗？','wǒ néng chī yìdiǎnr píngguǒ ma?','ขอกินแอปเปิลสักหน่อยได้ไหม','b15-wnyp-g'),neng:S('能。','néng.','ได้','b15-neng-f'),
+ xsnh:S('先生，您好！','xiānsheng, nín hǎo!','สวัสดีครับคุณผู้ชาย','b15-xsnh-m'),xjnh2:S('小姐，您好！','xiǎojie, nín hǎo!','สวัสดีครับคุณผู้หญิง','b15-xjnh2-m'),
+ /* ชิปคำ */
+ xhc:S('喜欢吃','xǐhuan chī','ชอบกิน','b15-xhc-t'),xhh:S('喜欢喝','xǐhuan hē','ชอบดื่ม','b15-xhh-t'),bxh:S('不喜欢','bù xǐhuan','ไม่ชอบ','b15-bxh-t'),ac:S('爱吃','ài chī','ชอบกินมาก','b15-ac-t'),
+ zmy2:S('怎么样？','zěnmeyàng?','เป็นอย่างไร','b15-zmy2-t'),zgzm2:S('这个菜怎么样','zhège cài zěnmeyàng','กับข้าวจานนี้เป็นอย่างไร','b15-zgzm2-t'),
+ hydr:S('喝一点儿水','hē yìdiǎnr shuǐ','ดื่มน้ำนิดหน่อย','b15-hydr-t'),cydr:S('吃一点儿','chī yìdiǎnr','กินนิดหน่อย','b15-cydr-t'),nm:S('能…吗？','néng… ma?','…ได้ไหม','b15-nm-t'),
+ /* เรื่องเล่า */
+ xj_ws:S('我能喝一点儿水吗？','wǒ néng hē yìdiǎnr shuǐ ma?','ขอดื่มน้ำสักหน่อยได้ไหม','b15-wnhs2-f'),
+ xs_zm:S('先生，这个菜怎么样？','xiānsheng, zhège cài zěnmeyàng?','คุณผู้ชาย กับข้าวจานนี้เป็นอย่างไรครับ','b15-xszm-m'),
+ xs_hh:S('很好吃！','hěn hǎochī!','อร่อยมาก','b15-hhc-t'),
+ xj_xp:S('我很喜欢吃苹果。','wǒ hěn xǐhuan chī píngguǒ.','ฉันชอบกินแอปเปิลมาก','b15-whxp-f'),
+ qcp:S('好，请吃苹果。','hǎo, qǐng chī píngguǒ.','ได้ครับ เชิญทานแอปเปิล','b15-qcp-m'),
+ xjhc:S('小姐，您喜欢喝茶吗？','xiǎojie, nín xǐhuan hē chá ma?','คุณผู้หญิง ชอบดื่มชาไหมครับ','b15-xjhc-m'),xh2:S('喜欢！','xǐhuan!','ชอบ','b15-xh2-f'),
+ qhc:S('请喝茶。','qǐng hē chá.','เชิญดื่มชา','b15-qhc-m'),
+ xslw:S('先生，您想喝什么？','xiānsheng, nín xiǎng hē shénme?','คุณผู้ชาย อยากดื่มอะไรครับ','b15-xsnh2-m'),
+ wxsg:S('我喜欢吃水果。','wǒ xǐhuan chī shuǐguǒ.','ฉันชอบกินผลไม้','b15-wxsg-t')};
+const L={xjnc:{...X.xjnc,who:'w'},wxmc:{...X.wxmc,who:'g'},wnhs:{...X.wnhs,who:'me'},nqhs:{...X.nqhs,who:'w'},zgzm:{...X.zgzm,who:'g'},hhxh:{...X.hhxh,who:'me'},wacm:{...X.wacm,who:'g'}};
+const D=[{sit:'คุณกับเพื่อนนั่งในร้านอาหาร พนักงานมารับออร์เดอร์',img:SVC},L.xjnc,L.wxmc,L.wnhs,L.nqhs,{sit:'อาหารมาแล้ว เพื่อนถามความเห็นของคุณ',img:CAI},L.zgzm,L.hhxh,L.wacm];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),op=x=>({...x,who:'w'});
+LESSON({no:15,code:'บท 4-2',goal:{do:'คุยกับพนักงานร้านอาหาร ขอของนิดหน่อย และบอกเพื่อนว่าชอบอาหารไหม',sub:'ใช้ <span class="gz">喜欢 · 怎么样 · 一点儿 · 能…吗</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:SVC,cap:'สถานการณ์ของบทนี้',title:'ชอบไหม อร่อยไหม',line:L.xjnc,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะคุยกับพนักงานร้านอาหาร และบอกว่าชอบอาหารไหมได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[XH,ZMY,YDR,NENG,XS,XJ]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['喜欢','怎么样','一点儿','能','先生','小姐'],note:'ใช้คำจากเล่ม 0 爱 ร่วมด้วย'}),
+ wcard({no:1,of:6,cap:'ความรู้สึก',w:XH,aid:{parts:['xǐ',3,'huan',0],cap:'เสียง 3 + เสียงเบา'},hint:'คล้าย <b>"สี่ ฮวน"</b> · huan อ่านเบาและสั้น',sk:'fs:喜欢',
+  use:'แปลว่าชอบ · วางหน้าสิ่งที่ชอบหรือกริยา เช่น 喜欢吃 ชอบกิน · ถ้าชอบมากใช้ 爱',ex:[X.wxcp,X.nxhc]}),
+ syl({n:'คำที่ 1/6',w:XH,chars:[{zh:'喜',py:'xǐ',t:3,k:'sy:喜'},{zh:'欢',py:'huan',t:0}],done:'xǐ + huan เบา = xǐhuan'}),
+ wcard({no:2,of:6,cap:'คำถาม',w:ZMY,aid:{parts:['zěn',3,'me',0,'yàng',4],cap:'เสียง 3 + เบา + เสียง 4'},hint:'คล้าย <b>"เจิ่น เมอ ย่าง"</b> · me อ่านเบา',sk:'fs:怎么样',
+  use:'แปลว่าเป็นอย่างไร · วางท้ายประโยคเพื่อถามความเห็น เช่น 这个菜怎么样？',ex:[X.zgzm,X.mfzm]}),
+ syl({n:'คำที่ 2/6',w:ZMY,chars:[{zh:'怎',py:'zěn',t:3,k:'sy:怎'},{zh:'么',py:'me',t:0},{zh:'样',py:'yàng',t:4,k:'sy:样'}],done:'zěn + me เบา + yàng = zěnmeyàng'}),
+ rec({n:'คำที่ 1–2/6',ws:[XH,ZMY]}),
+ use({n:'คำที่ 1–2/6',w:ZMY,when:[{img:CAI,t:'อยากรู้ว่ากับข้าวเป็นอย่างไร'},{img:PG,t:'ถามว่าเพื่อนชอบไหม'}],lines:[{...X.zgzm,who:'g'},{...X.hhxh,who:'me'},{...X.nxcp,who:'g'},{...X.xh,who:'me'}],tip:'ถามความเห็นใช้ <span class="zh">怎么样？</span> · ตอบได้เลย เช่น <span class="zh">很好吃</span>'}),
+ wcard({no:3,of:6,cap:'ปริมาณ',w:YDR,aid:{parts:['yì',4,'diǎnr',3],cap:'เสียง 4 + เสียง 3'},hint:'คล้าย <b>"อี้ เตี่ยร์"</b> · 儿 ทำให้ท้ายคำม้วนลิ้น · 一 หน้าเสียง 3 อ่านเป็นเสียง 4',sk:'fs:一点儿',
+  use:'แปลว่านิดหน่อย · วางหน้าของ เช่น 一点儿水 น้ำนิดหน่อย หรือหลังกริยา เช่น 喝一点儿',ex:[X.wnhs,X.wnyp]}),
+ syl({n:'คำที่ 3/6',w:YDR,chars:[{zh:'一',py:'yì',t:4,k:'sy:意'},{zh:'点儿',py:'diǎnr',t:3,k:'sy:点儿'}],done:'yì + diǎnr = yìdiǎnr'}),
+ wcard({no:4,of:6,cap:'ขออนุญาต',w:NENG,aid:{parts:['néng',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"เหนิง"</b> · ลงท้าย ng',sk:'fs:能',
+  use:'แปลว่าได้ สามารถ · ขออนุญาตใช้ 我能…吗？ ตอบว่าได้ใช้ 能',ex:[X.wnhs,X.nqhs]}),
+ rec({n:'คำที่ 3–4/6',ws:[YDR,NENG]}),
+ use({n:'คำที่ 3–4/6',w:YDR,when:[{img:WATER,t:'อยากดื่มน้ำสักหน่อย'},{img:PG,t:'อยากชิมแอปเปิลนิดหน่อย'}],lines:[{...X.wnhs,who:'me'},{...X.nqhs,who:'w'},{...X.wnyp,who:'g'},{...X.neng,who:'me'}],tip:'<span class="zh">我能</span> + กริยา + <span class="zh">吗？</span> = ขอ…ได้ไหม · ใส่ <span class="zh">一点儿</span> ให้ฟังสุภาพขึ้น'}),
+ wcard({no:5,of:6,cap:'คำเรียกคน',w:XS,aid:{parts:['xiān',1,'sheng',0],cap:'เสียง 1 + เสียงเบา'},hint:'คล้าย <b>"เซียน เซิง"</b> · sheng อ่านเบา',sk:'fs:先生',
+  use:'ใช้เรียกผู้ชายอย่างสุภาพ แปลว่าคุณ หรือนาย · พนักงานเรียกลูกค้าผู้ชายว่า 先生 · 王先生 คุณหวัง',ex:[X.xsnc,X.xsnh]}),
+ syl({n:'คำที่ 5/6',w:XS,chars:[{zh:'先',py:'xiān',t:1,k:'sy:先'},{zh:'生',py:'sheng',t:0}],done:'xiān + sheng เบา = xiānsheng'}),
+ wcard({no:6,of:6,cap:'คำเรียกคน',w:XJ,aid:{parts:['xiǎo',3,'jie',0],cap:'เสียง 3 + เสียงเบา'},hint:'คล้าย <b>"เสี่ยว เจีย"</b> · jie อ่านเบา',sk:'fs:小姐',
+  use:'ใช้เรียกผู้หญิงอย่างสุภาพ แปลว่าคุณ หรือนางสาว · พนักงานเรียกลูกค้าผู้หญิงว่า 小姐',ex:[X.xjnc,X.xjnh2]}),
+ syl({n:'คำที่ 6/6',w:XJ,chars:[{zh:'小',py:'xiǎo',t:3,k:'sy:小'},{zh:'姐',py:'jie',t:0}],done:'xiǎo + jie เบา = xiǎojie'}),
+ rec({n:'คำที่ 5–6/6',ws:[XS,XJ]}),
+ use({n:'คำที่ 5–6/6',w:XS,when:[{img:XS.img,t:'พนักงานเรียกลูกค้าผู้ชาย'},{img:XJ.img,t:'พนักงานเรียกลูกค้าผู้หญิง'}],lines:[{...X.xsnc,who:'w'},{...X.xjnh,who:'w'}],tip:'คำเรียกวางหน้าประโยค แล้วตามด้วย <span class="zh">您</span> ให้สุภาพ'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','喜欢 และ 爱','怎么样','能 + 一点儿','เป็นพนักงาน','ข้อควรระวัง'],note:'ฝึกคุยในร้านอาหาร'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในร้านอาหาร',title:'ชอบไหม อร่อยไหม',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'พนักงานเรียกลูกค้าว่า 小姐 先生 · เพื่อนถามความเห็นด้วย 怎么样'}),
+ talk({cap:'เทคนิค 2/6 · 喜欢 และ 爱',title:'ชอบ และชอบมาก',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nxhc,who:'g'},{...X.xh,who:'me'},{...X.wacp,who:'me'}],
+  chips:[X.xhc,X.xhh,X.bxh,X.ac],tip:'<span class="zh">爱吃</span> ชอบกินมาก แรงกว่า <span class="zh">喜欢吃</span> · ไม่ชอบพูด <span class="zh">不喜欢</span>'}),
+ talk({cap:'เทคนิค 3/6 · 怎么样',title:'ถามความเห็น',text:'สิ่งที่อยากรู้ + 怎么样？',lines:[{...X.zgzm,who:'g'},{...X.hhc,who:'me'},{...X.mfzm,who:'g'}],
+  chips:[X.zmy2,X.zgzm2],tip:'<span class="zh">怎么样</span> อยู่ท้ายประโยคเสมอ ไม่ต้องมี <span class="zh">吗</span>'}),
+ talk({cap:'เทคนิค 4/6 · 能 + 一点儿',title:'ขออย่างสุภาพ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.wnhs,who:'me'},{...X.nqhs,who:'w'},{...X.wnyp,who:'g'}],
+  chips:[X.hydr,X.cydr,X.nm],tip:'ตอบว่าได้ ใช้ <span class="zh">能</span> คำเดียวก็พอ'}),
+ story({tag:'เทคนิค 5/6 · เป็นพนักงานร้านอาหาร',q:'คุณเป็นพนักงาน ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
+  {img:XS.img,sit:'ลูกค้าผู้ชายนั่งลง คุณถามว่าอยากทานอะไร',opts:[op(X.xsnc),op(S('小姐，您想吃什么？','xiǎojie, nín xiǎng chī shénme?','คุณผู้หญิง อยากทานอะไร','b15-xjnc2-m')),op(S('先生，您是什么？','xiānsheng, nín shì shénme?','คุณผู้ชายคืออะไร','b15-xsns-m'))],ans:0,why:'ลูกค้าผู้ชายเรียกว่า 先生'},
+  {img:XJ.img,sit:'ลูกค้าผู้หญิงขอดื่มน้ำ',line:{...X.xj_ws,who:'xj'},opts:[op(X.nqhs),op(S('我不能吃。','wǒ bù néng chī.','ฉันกินไม่ได้','b15-wbnc-m')),op(S('我喜欢水。','wǒ xǐhuan shuǐ.','ฉันชอบน้ำ','b15-wxs-m'))],ans:0,why:'ตอบว่าได้ ใช้ 能 แล้วเชิญดื่ม'},
+  {img:CAI,sit:'ลูกค้าผู้ชายทานกับข้าวแล้ว คุณถามความเห็น',opts:[op(X.xs_zm),op(S('先生，这个菜是什么？','xiānsheng, zhège cài shì shénme?','กับข้าวจานนี้คืออะไร','b15-xszs-m')),op(S('先生，您能吃吗？','xiānsheng, nín néng chī ma?','คุณทานได้ไหม','b15-xsnn-m'))],ans:0,why:'ถามความเห็นใช้ 怎么样'},
+  {img:PG,sit:'ลูกค้าผู้หญิงบอกว่าชอบแอปเปิล คุณยกแอปเปิลมาให้',line:{...X.xj_xp,who:'xj'},opts:[op(X.qcp),op(S('好，请喝苹果。','hǎo, qǐng hē píngguǒ.','เชิญดื่มแอปเปิล','b15-qhp-m')),op(S('我不喜欢苹果。','wǒ bù xǐhuan píngguǒ.','ฉันไม่ชอบแอปเปิล','b15-wbxp-m'))],ans:0,why:'แอปเปิลเป็นของกิน ใช้ 请吃'}]}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'怎么样 ไม่ต้องมี 吗',bad:'这个菜怎么样吗？',good:'这个菜怎么样？',k:'b15-zgzm-g'},
+  {h:'一点儿 อยู่หน้าของ',bad:'我能喝水一点儿吗？',good:'我能喝一点儿水吗？',k:'b15-wnhs-f'},
+  {h:'喜欢 อยู่หน้ากริยา',bad:'我吃喜欢苹果。',good:'我喜欢吃苹果。',k:'b15-wxcp-f'},
+  {h:'คำเรียกอยู่หน้าประโยค',bad:'您想吃什么，先生小姐？',good:'先生，您想吃什么？',k:'b15-xsnc-m'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:喜欢',opts:['ชอบ','อร่อย','สามารถ'],ans:0,fb:'<span class="zh">喜欢</span> <b>xǐhuan</b> = ชอบ'}),
+ ask({rv:10,q:'ฟัง 姐 jiě แล้วเลือกสระ',k:'sy:姐',opts:['ie','ei','ia'],ans:0,fb:'j<b>ie</b> · สระ i + ê'}),
+ ask({tag:TQ(2),noTh:1,q:'ฟังพนักงาน แล้วเลือกภาพลูกค้าที่ถูกเรียก',k:'b15-xsnc-m',opts:[{img:XS.img},{img:XJ.img},{img:TEACHER}],ans:0,fb:'<span class="zh">先生</span> = คุณผู้ชาย'}),
+ blank({tag:TQ(3),s:'这个菜_？',th:'กับข้าวจานนี้เป็นอย่างไร',opts:['怎么样','一点儿','喜欢'],ans:0,k:'b15-zgzm-g',fb:'<span class="zh">这个菜怎么样？</span>'}),
+ ask({rv:2,q:'ฟังพยางค์ 能 néng แล้วเลือกเส้นเสียง',k:'w:能',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t2">néng</b> <span class="zh">能</span> · เสียง 2 ขึ้น'}),
+ reply({tag:TQ(4),q:'เพื่อนถามว่าคุณชอบกินแอปเปิลไหม คุณชอบ',line:{...X.nxcp,who:'g'},opts:[X.xh,S('很好吃吗？','hěn hǎochī ma?','อร่อยมากไหม','b15-hhcm-f'),S('是苹果。','shì píngguǒ.','เป็นแอปเปิล','b15-spg-f')],ans:0,why:'ถาม 喜欢…吗 ตอบ 喜欢'}),
+ order({tag:TQ(5),th:'ขอดื่มน้ำสักหน่อยได้ไหม',tiles:[tl('我','wǒ'),tl('能','néng'),tl('喝','hē'),tl('一点儿','yìdiǎnr'),tl('水','shuǐ'),tl('吗','ma'),tl('很','hěn')],ans:[0,1,2,3,4,5],end:'？',k:'b15-wnhs-f'}),
+ ask({rv:6,q:'ฟัง 喜 xǐ แล้วเลือกพยัญชนะตัวแรก',k:'sy:喜',opts:['x','sh','s'],ans:0,fb:'<b>x</b>ǐ · ยิ้มกว้าง ลิ้นแตะฟันล่าง'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b15-xjnh-m',opts:['คุณผู้หญิง อยากดื่มอะไรครับ','คุณผู้ชาย อยากดื่มอะไรครับ','คุณผู้หญิง อยากทานอะไรครับ'],ans:0,fb:'<span class="zh">小姐，您想喝什么？</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เป็นพนักงานเอง',chips:['รับลูกค้า','ตอบเพื่อน','เติมคำ','ฟังแล้วเลือกภาพ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ story({tag:MQ(1),noTh:1,q:'คุณเป็นพนักงาน ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
+  {img:XS.img,sit:'ลูกค้าผู้ชายนั่งลง คุณถามว่าอยากดื่มอะไร',opts:[op(X.xslw),op(S('小姐，您想喝什么？','xiǎojie, nín xiǎng hē shénme?','','b15-xjnh3-m')),op(S('先生，您喝想什么？','xiānsheng, nín hē xiǎng shénme?','','b15-xshx-m'))],ans:0},
+  {img:XJ.img,sit:'คุณถามลูกค้าผู้หญิงว่าชอบดื่มชาไหม',opts:[op(X.xjhc),op(S('小姐，您喜欢喝茶怎么样？','xiǎojie, nín xǐhuan hē chá zěnmeyàng?','','b15-xjhz-m')),op(S('小姐，您是茶吗？','xiǎojie, nín shì chá ma?','','b15-xjsc-m'))],ans:0},
+  {img:TEA,sit:'ลูกค้าผู้หญิงตอบ แล้วคุณยกชาให้',line:{...X.xh2,who:'xj'},opts:[op(X.qhc),op(S('请吃茶。','qǐng chī chá.','','b15-qcc-m')),op(S('我喜欢茶。','wǒ xǐhuan chá.','','b15-wxc-m'))],ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณชิมกับข้าวแล้วชอบมาก เพื่อนถามว่า',line:{...X.zgzm,who:'g'},opts:[X.hhc,S('我能一点儿。','wǒ néng yìdiǎnr.','','b15-wnyd-f'),S('这是菜。','zhè shì cài.','','b15-zsc-f')],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我_喝一点儿水吗？',opts:['能','是','很'],ans:0,k:'b15-wnhs-f',fb:'<span class="zh">我能喝一点儿水吗？</span>'}),
+ ask({tag:MQ(4),q:'ฟังประโยค แล้วเลือกภาพ',k:'b15-wxsg-t',opts:[{img:SG},{img:MF},{img:CAI}],ans:0,fb:'<span class="zh">我喜欢吃水果。</span>'}),
+ /* 5 · จบบท */
+ fin({title:'คุยในร้านอาหารได้แล้ว',html:dlgH(D,{noTh:1}),chips:[XH,ZMY,YDR,NENG,XS,XJ].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L15',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

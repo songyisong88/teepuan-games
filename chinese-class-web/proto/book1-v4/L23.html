@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 6</title>
+</head><body>
+<script>
+/* ทบทวนหน่วยที่ 6 วันและเวลา: ทวนคำเล่ม 0 + คำทั้ง 2 บท → บทสนทนาโทรนัดเพื่อน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const SV=s=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#FBF5EA"/>${s}</svg>`);
+const FF='font-family="Noto Sans SC,Noto Sans CJK SC,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif"';
+const CALD=(m,d,th)=>{const u=SV(`<rect x="86" y="70" width="340" height="372" rx="34" fill="#fff" stroke="#D9C7B0" stroke-width="8"/><path d="M86 104a34 34 0 0 1 34-34h272a34 34 0 0 1 34 34v76H86z" fill="#D9473B"/><circle cx="176" cy="66" r="14" fill="#8C6A4E"/><circle cx="336" cy="66" r="14" fill="#8C6A4E"/><text x="256" y="152" text-anchor="middle" font-size="64" ${FF} fill="#fff" font-weight="700">${m}</text><text x="256" y="370" text-anchor="middle" font-size="170" ${FF} fill="#3C2E25" font-weight="700">${d}</text>`);THL[u]=th;return u};
+const CLK=(h,th)=>{const a=(h%12)*30*Math.PI/180,x=256+92*Math.sin(a),y=256-92*Math.cos(a);let t='';for(let i=0;i<12;i++){const b=i*30*Math.PI/180;t+=`<line x1="${256+150*Math.sin(b)}" y1="${256-150*Math.cos(b)}" x2="${256+170*Math.sin(b)}" y2="${256-170*Math.cos(b)}" stroke="#8C6A4E" stroke-width="${i%3?6:12}" stroke-linecap="round"/>`}
+ const u=SV(`<circle cx="256" cy="256" r="196" fill="#fff" stroke="#8C6A4E" stroke-width="14"/>${t}<line x1="256" y1="256" x2="256" y2="112" stroke="#3C2E25" stroke-width="12" stroke-linecap="round"/><line x1="256" y1="256" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#D9473B" stroke-width="18" stroke-linecap="round"/><circle cx="256" cy="256" r="16" fill="#3C2E25"/>`);THL[u]=th;return u};const C38=CALD('三月','8','วันที่ 8 มีนาคม'),C51=CALD('五月','1','วันที่ 1 พฤษภาคม'),K3=CLK(3,'3 นาฬิกา'),K8=CLK(8,'8 นาฬิกา');
+const RE=w('热','rè','ร้อน');
+const JT=w('今天','jīntiān','วันนี้'),MT=w('明天','míngtiān','พรุ่งนี้'),ZT=w('昨天','zuótiān','เมื่อวาน'),XQ=w('星期','xīngqī','สัปดาห์'),
+ TQW=w('天气','tiānqì','อากาศ'),LENG=w('冷','lěng','หนาว'),XY=w('下雨','xià yǔ','ฝนตก');
+const YUE=w('月','yuè','เดือน'),HAO=w('号','hào','วันที่ (ภาษาพูด)'),RI=w('日','rì','วันที่ (ภาษาเขียน)'),NIAN=w('年','nián','ปี'),
+ XZ=w('现在','xiànzài','ตอนนี้'),DIAN=w('点','diǎn','นาฬิกา (บอกเวลา)'),FZ=w('分钟','fēnzhōng','นาที'),SH=w('时候','shíhou','เวลา ตอนที่');
+const SUN=ART('太阳');THL[SUN]='ร้อน แดดจัด';
+const PHONE=ART('手机');THL[PHONE]='โทรศัพท์มือถือ';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const L={g1:S('喂，你明天什么时候来？','wèi, nǐ míngtiān shénme shíhou lái?','ฮัลโหล พรุ่งนี้คุณจะมาเมื่อไร','b23-g1-g','g'),
+ me1:S('明天三点。','míngtiān sān diǎn.','พรุ่งนี้ 3 นาฬิกา','b22-mtsd-f','me'),
+ g2:S('明天天气怎么样？','míngtiān tiānqì zěnmeyàng?','พรุ่งนี้อากาศเป็นอย่างไร','b21-mttq-g','g'),
+ me2:S('明天下雨，很冷。','míngtiān xià yǔ, hěn lěng.','พรุ่งนี้ฝนตก หนาวมาก','b23-me2-f','me'),
+ g3:S('今天天气很好。你现在来吗？','jīntiān tiānqì hěn hǎo. nǐ xiànzài lái ma?','วันนี้อากาศดีมาก คุณมาตอนนี้ไหม','b23-g3-g','g'),
+ me3:S('好！坐出租车十分钟。','hǎo! zuò chūzūchē shí fēnzhōng.','ได้ นั่งแท็กซี่สิบนาที','b23-me3-f','me'),
+ mtxj:S('明天星期几？','míngtiān xīngqī jǐ?','พรุ่งนี้วันอะไร','b23-mtxj-g','g'),
+ nsms:S('你什么时候来？','nǐ shénme shíhou lái?','คุณจะมาเมื่อไร','b22-nsms-g','g'),
+ jttqz:S('今天天气怎么样？','jīntiān tiānqì zěnmeyàng?','วันนี้อากาศเป็นอย่างไร','b21-jttqz-g','g')};
+const O={jthr:S('今天很热。','jīntiān hěn rè.','วันนี้ร้อนมาก','b21-jthr-f'),jthl:S('今天很冷。','jīntiān hěn lěng.','วันนี้หนาวมาก','b21-jthl-f'),
+ jtx3:S('今天星期三。','jīntiān xīngqīsān.','วันนี้วันพุธ','b21-jtx3-f'),mtx2:S('明天星期二。','míngtiān xīngqī\'èr.','พรุ่งนี้วันอังคาร','b21-mtx2-f'),
+ ztxt:S('昨天星期天。','zuótiān xīngqītiān.','เมื่อวานวันอาทิตย์','b21-ztxt-f'),jtx1:S('今天星期一。','jīntiān xīngqīyī.','วันนี้วันจันทร์','b21-jtx1-f')};
+const R_=[S('昨天很冷。','zuótiān hěn lěng.','เมื่อวานหนาวมาก','b21-ztlm-f'),S('今天很热。','jīntiān hěn rè.','วันนี้ร้อนมาก','b21-jthr-f'),S('下雨了！','xià yǔ le!','ฝนตกแล้ว','b21-xyl-f'),
+ S('今天三月八号。','jīntiān sānyuè bā hào.','วันนี้วันที่ 8 มีนาคม','b22-jt38-f'),S('现在八点。','xiànzài bā diǎn.','ตอนนี้ 8 นาฬิกา','b22-xzbd-f'),S('我五月一号来。','wǒ wǔyuè yī hào lái.','ฉันจะมาวันที่ 1 พฤษภาคม','b22-w51-f'),
+ S('今天星期几？','jīntiān xīngqī jǐ?','วันนี้วันอะไร','b21-jtxqj-f'),S('现在几点？','xiànzài jǐ diǎn?','ตอนนี้กี่โมง','b22-xzjd-g'),
+ S('坐出租车十分钟。','zuò chūzūchē shí fēnzhōng.','นั่งแท็กซี่ 10 นาที','b22-zcz-f'),S('我八点来。','wǒ bā diǎn lái.','ฉันจะมา 8 นาฬิกา','b22-wbd-f'),
+ S('二〇二六年三月八日','èr líng èr liù nián sānyuè bā rì','วันที่ 8 มีนาคม ค.ศ. 2026','b22-nian-f')];
+const D=[{sit:'เพื่อนโทรมานัดไปเที่ยวด้วยกัน',img:PHONE},L.g1,L.me1,L.g2,L.me2,L.g3,L.me3];
+const WC=[{img:LENG.img,th:'หนาว'},{img:SUN,th:'ร้อน'},{img:XY.img,th:'ฝนตก'}];
+const PC=[{img:C38,th:'วันที่ 8 มีนาคม'},{img:C51,th:'วันที่ 1 พฤษภาคม'},{img:K3,th:'3 นาฬิกา'},{img:K8,th:'8 นาฬิกา'}];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:23,code:'ทบทวนหน่วย 6',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 6 ถามวัน วันที่ เวลา และบอกอากาศเพื่อนัดเพื่อน',sub:'星期几 · 天气怎么样 · 几月几号 · 几点 · 什么时候',min:8},steps:[
+ intro({scene:C38,cap:'บททบทวน',title:'นัดเพื่อนตามวันและอากาศ',line:L.g1,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 6-1 ถึง 6-2 และคำจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 6',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[RE]},{lab:'6-1 วันนี้ พรุ่งนี้ อากาศ',items:[JT,MT,ZT,XQ,TQW,LENG,XY]},{lab:'6-2 วันที่เท่าไร กี่โมง',items:[YUE,HAO,RI,NIAN,XZ,DIAN,FZ,SH]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'นัดเพื่อนตามวันและอากาศ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','พยากรณ์อากาศ','ปฏิทินและนาฬิกา','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[XY,TQW,YUE,DIAN,FZ]}),
+ point({tag:TQ(2),q:'ฟังพยากรณ์อากาศ แล้วแตะภาพอากาศที่ตรงกัน',this:'คืออากาศนี้',cards:WC,rounds:[
+  {zh:R_[1].zh,k:R_[1].k,ans:1},{zh:R_[0].zh,k:R_[0].k,ans:0},{zh:R_[2].zh,k:R_[2].k,ans:2}]}),
+ ask({rv:4,q:'ฟัง 雨 yǔ แล้วเลือกสระ',k:'sy:雨',opts:['u','ü'],ans:1,fb:'y<b>ǔ</b> · หลัง y เขียน u แต่ออกเสียง ü ห่อปาก'}),
+ point({tag:TQ(3),q:'ฟังวันที่หรือเวลา แล้วแตะปฏิทินหรือนาฬิกาที่ตรงกัน',this:'คืออันนี้',cards:PC,rounds:[
+  {zh:R_[3].zh,k:R_[3].k,ans:0},{zh:R_[4].zh,k:R_[4].k,ans:3},{zh:R_[5].zh,k:R_[5].k,ans:1}]}),
+ blank({tag:TQ(4),s:'今天星期_？',th:'วันนี้วันอะไร',opts:['几','什么','吗'],ans:0,k:'b21-jtxqj-f',fb:'<span class="zh">今天星期几？</span>'}),
+ reply({tag:TQ(5),q:'เพื่อนถามเรื่องอากาศ วันนี้ร้อนมาก',line:L.jttqz,opts:[O.jthr,O.jthl,O.jtx3],ans:0,why:'ร้อนใช้ 热 · หนาวใช้ 冷'}),
+ ask({rv:2,q:'ฟัง 点 แล้วเลือกเสียงวรรณยุกต์',k:'w:点',opts:[{tone:3,lab:'เสียง 3'},{tone:2,lab:'เสียง 2'}],ans:0,fb:'<b>diǎn</b> · เสียง 3 ลงแล้วขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b21-xyl-f',opts:[{img:XY.img},{img:SUN},{img:K3}],ans:0,fb:'<span class="zh">下雨了！</span> = ฝนตกแล้ว'}),
+ blank({tag:TQ(7),s:'现在几_？',th:'ตอนนี้กี่โมง',opts:['点','号','月'],ans:0,k:'b22-xzjd-g',fb:'<span class="zh">现在几点？</span>'}),
+ ask({rv:11,q:'ฟัง 星 xīng แล้วเลือกเสียงท้าย',k:'sy:星',opts:['-n','-ng'],ans:1,fb:'xī<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
+ lineup({tag:TQ(8),sit:'เพื่อนโทรมานัดไปเที่ยว',lines:[L.g1,L.me1,L.g2]}),
+ ask({tag:TQ(9),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b22-zcz-f',opts:['นั่งแท็กซี่ 10 นาที','นั่งแท็กซี่ 10 นาฬิกา','ขับแท็กซี่ 10 ปี'],ans:0,fb:'<span class="zh">坐出租车十分钟。</span>'}),
+ ask({tag:TQ(10),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:时候',opts:['เวลา ตอนที่','นาที','ปี'],ans:0,fb:'<span class="zh">时候</span> <b>shíhou</b> = เวลา ตอนที่'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'นัดเพื่อนเอง',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'พรุ่งนี้วันอังคาร เพื่อนถามว่า',line:L.mtxj,opts:[O.mtx2,O.ztxt,O.jtx1],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'b22-wbd-f',opts:[{img:K3},{img:K8},{img:C38}],ans:1,fb:'<span class="zh">我八点来。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('明天','míngtiān'),tl('天气','tiānqì'),tl('怎么样','zěnmeyàng'),tl('几','jǐ')],ans:[0,1,2],end:'？',k:'b21-mttq-g'}),
+ blank({tag:MQ(4),noTh:1,s:'二〇二六年三月八_',opts:['日','点','分钟'],ans:0,k:'b22-nian-f',fb:'<span class="zh">二〇二六年三月八日</span>'}),
+ fin({title:'จบหน่วยที่ 6 แล้ว',html:dlgH(D,{noTh:1}),chips:[XQ,TQW,LENG,XY,YUE,HAO,XZ,DIAN,FZ,SH].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L23',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

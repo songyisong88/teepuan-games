@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 6-2 วันที่เท่าไร กี่โมง</title>
+</head><body>
+<script>
+/* บท 6-2 หน่วย 6 วันและเวลา: วันที่เท่าไร กี่โมง · คำใหม่ 月 号 日 年 现在 点 分钟 时候 · ไม่มีคำทบทวนเล่ม 0
+   ทบทวนจากบทก่อน: 今天 明天 几 三 八 你 什么 来 坐 出租车 · กิจกรรมเฉพาะบท: นัดเพื่อนด้วยปฏิทินและนาฬิกา */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const YUE=w('月','yuè','เดือน'),HAO=w('号','hào','วันที่ (ภาษาพูด)'),RI=w('日','rì','วันที่ (ภาษาเขียน)'),NIAN=w('年','nián','ปี'),
+ XZ=w('现在','xiànzài','ตอนนี้'),DIAN=w('点','diǎn','นาฬิกา (บอกเวลา)'),FZ=w('分钟','fēnzhōng','นาที'),SH=w('时候','shíhou','เวลา ตอนที่');
+/* การ์ดปฏิทินและนาฬิกา วาดด้วย SVG ในบท */
+const SV=s=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#FBF5EA"/>${s}</svg>`);
+const FF='font-family="Noto Sans SC,Noto Sans CJK SC,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif"';
+const CALD=(m,d,th)=>{const u=SV(`<rect x="86" y="70" width="340" height="372" rx="34" fill="#fff" stroke="#D9C7B0" stroke-width="8"/><path d="M86 104a34 34 0 0 1 34-34h272a34 34 0 0 1 34 34v76H86z" fill="#D9473B"/><circle cx="176" cy="66" r="14" fill="#8C6A4E"/><circle cx="336" cy="66" r="14" fill="#8C6A4E"/><text x="256" y="152" text-anchor="middle" font-size="64" ${FF} fill="#fff" font-weight="700">${m}</text><text x="256" y="370" text-anchor="middle" font-size="170" ${FF} fill="#3C2E25" font-weight="700">${d}</text>`);THL[u]=th;return u};
+const CLK=(h,th)=>{const a=(h%12)*30*Math.PI/180,x=256+92*Math.sin(a),y=256-92*Math.cos(a);let t='';for(let i=0;i<12;i++){const b=i*30*Math.PI/180;t+=`<line x1="${256+150*Math.sin(b)}" y1="${256-150*Math.cos(b)}" x2="${256+170*Math.sin(b)}" y2="${256-170*Math.cos(b)}" stroke="#8C6A4E" stroke-width="${i%3?6:12}" stroke-linecap="round"/>`}
+ const u=SV(`<circle cx="256" cy="256" r="196" fill="#fff" stroke="#8C6A4E" stroke-width="14"/>${t}<line x1="256" y1="256" x2="256" y2="112" stroke="#3C2E25" stroke-width="12" stroke-linecap="round"/><line x1="256" y1="256" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#D9473B" stroke-width="18" stroke-linecap="round"/><circle cx="256" cy="256" r="16" fill="#3C2E25"/>`);THL[u]=th;return u};
+const C38=CALD('三月','8','วันที่ 8 มีนาคม'),C51=CALD('五月','1','วันที่ 1 พฤษภาคม'),K3=CLK(3,'3 นาฬิกา'),K8=CLK(8,'8 นาฬิกา');
+const CAL=ART('日历');THL[CAL]='ปฏิทิน';const TAXI=ART('出租车');THL[TAXI]='แท็กซี่';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const op=x=>({...x,who:'me'});
+const X={
+ jtjy:S('今天几月几号？','jīntiān jǐ yuè jǐ hào?','วันนี้วันที่เท่าไร','b22-jtjy-g'),
+ jt38:S('今天三月八号。','jīntiān sānyuè bā hào.','วันนี้วันที่ 8 มีนาคม','b22-jt38-f'),
+ xzjd:S('现在几点？','xiànzài jǐ diǎn?','ตอนนี้กี่โมง','b22-xzjd-g'),
+ xzsd:S('现在三点。','xiànzài sān diǎn.','ตอนนี้ 3 นาฬิกา','b22-xzsd-f'),
+ nsms:S('你什么时候来？','nǐ shénme shíhou lái?','คุณจะมาเมื่อไร','b22-nsms-g'),
+ mtsd:S('明天三点。','míngtiān sān diǎn.','พรุ่งนี้ 3 นาฬิกา','b22-mtsd-f'),
+ mtjy:S('明天几月几号？','míngtiān jǐ yuè jǐ hào?','พรุ่งนี้วันที่เท่าไร','b22-mtjy-g'),
+ mt38:S('明天三月八号。','míngtiān sānyuè bā hào.','พรุ่งนี้วันที่ 8 มีนาคม','b22-mt38-f'),
+ zcz:S('坐出租车十分钟。','zuò chūzūchē shí fēnzhōng.','นั่งแท็กซี่ 10 นาที','b22-zcz-f'),
+ r38:S('三月八日','sānyuè bā rì','วันที่ 8 มีนาคม (ภาษาเขียน)','b22-r38-f'),
+ h38:S('三月八号','sānyuè bā hào','วันที่ 8 มีนาคม (ภาษาพูด)','b22-h38-f'),
+ nian:S('二〇二六年三月八日','èr líng èr liù nián sānyuè bā rì','วันที่ 8 มีนาคม ค.ศ. 2026','b22-nian-f'),
+ jnjd:S('你几点来？','nǐ jǐ diǎn lái?','คุณจะมากี่โมง','b22-jnjd-g'),
+ wbd:S('我八点来。','wǒ bā diǎn lái.','ฉันจะมา 8 นาฬิกา','b22-wbd-f'),
+ w51:S('我五月一号来。','wǒ wǔyuè yī hào lái.','ฉันจะมาวันที่ 1 พฤษภาคม','b22-w51-f'),
+ wmbq:S('我们八点去。','wǒmen bā diǎn qù.','พวกเราไป 8 นาฬิกา','b22-wmbq-f'),
+ wfz:S('五分钟！','wǔ fēnzhōng!','ห้านาที','b22-wfz-f'),
+ xzbd:S('现在八点。','xiànzài bā diǎn.','ตอนนี้ 8 นาฬิกา','b22-xzbd-f'),
+ xzbh:S('现在八号。','xiànzài bā hào.','ตอนนี้วันที่ 8','b22-xzbh-f'),
+ bfz:S('八分钟。','bā fēnzhōng.','แปดนาที','b22-bfz-f'),
+ sfz:S('十分钟。','shí fēnzhōng.','สิบนาที','b22-sfz-f'),
+ /* ภารกิจ */
+ m1:S('现在八点。','xiànzài bā diǎn.','ตอนนี้ 8 นาฬิกา','b22-m1-t'),
+ m2:S('今天五月一号。','jīntiān wǔyuè yī hào.','วันนี้วันที่ 1 พฤษภาคม','b22-m2-t'),
+ m3:S('我三月八号来。','wǒ sānyuè bā hào lái.','ฉันจะมาวันที่ 8 มีนาคม','b22-m3-t'),
+ m4:S('明天三点。','míngtiān sān diǎn.','พรุ่งนี้ 3 นาฬิกา','b22-m4-t'),
+ /* ชิปคำ */
+ y1:S('一月','yīyuè','มกราคม','b22-y1-t'),y3:S('三月','sānyuè','มีนาคม','b22-y3-t'),y12:S('十二月','shí\'èryuè','ธันวาคม','b22-y12-t'),
+ h8:S('八号','bā hào','วันที่ 8','b22-h8-t'),sd:S('三点','sān diǎn','3 นาฬิกา','b22-sd-t'),bd:S('八点','bā diǎn','8 นาฬิกา','b22-bd-t'),
+ sfz2:S('十分钟','shí fēnzhōng','10 นาที','b22-sfz-t'),smsh:S('什么时候','shénme shíhou','เมื่อไร','b22-smsh-t')};
+const L={nsms:{...X.nsms,who:'g'},mtsd:{...X.mtsd,who:'me'},mtjy:{...X.mtjy,who:'g'},mt38:{...X.mt38,who:'me'},xzjd:{...X.xzjd,who:'g'},xzsd:{...X.xzsd,who:'me'},zcz:{...X.zcz,who:'me'}};
+const D=[{sit:'เพื่อนชวนไปเที่ยวบ้าน และถามว่าจะมาเมื่อไร',img:C38},L.nsms,L.mtsd,L.mtjy,L.mt38,{sit:'วันรุ่งขึ้น เพื่อนโทรมาถามระหว่างที่คุณนั่งแท็กซี่',img:K3},L.xzjd,L.xzsd,L.zcz];
+const PC=[{img:C38,th:'วันที่ 8 มีนาคม'},{img:C51,th:'วันที่ 1 พฤษภาคม'},{img:K3,th:'3 นาฬิกา'},{img:K8,th:'8 นาฬิกา'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:22,code:'บท 6-2',goal:{do:'ถามและบอกวันที่ เวลา แล้วนัดเวลาไปหาเพื่อน',sub:'ใช้ <span class="gz">几月几号 · 现在几点 · 什么时候 · 十分钟</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:C38,cap:'สถานการณ์ของบทนี้',title:'วันที่เท่าไร กี่โมง',line:L.nsms,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกวันที่ เวลา และนัดเพื่อนได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[YUE,HAO,RI,NIAN,XZ,DIAN,FZ,SH]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['月','号','日','年','现在','点','分钟','时候'],note:'ใช้คำจากบทก่อน 今天 明天 几 และตัวเลข ร่วมด้วย'}),
+ wcard({no:1,of:8,cap:'เวลา',w:YUE,aid:{parts:['yuè',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"เยว่"</b> · yue ห่อปาก',sk:'fs:月',
+  use:'แปลว่าเดือน · ตัวเลข + 月 = ชื่อเดือน เช่น 三月 มีนาคม · ถามเดือนใช้ 几月',ex:[X.jt38,X.y3]}),
+ wcard({no:2,of:8,cap:'เวลา',w:HAO,aid:{parts:['hào',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ฮ่าว"</b>',sk:'fs:号',
+  use:'แปลว่าวันที่ ใช้ในภาษาพูด · เดือนมาก่อนวันที่ เช่น 三月八号',ex:[X.jt38,X.jtjy]}),
+ rec({n:'คำที่ 1–2/8',ws:[YUE,HAO]}),
+ use({n:'คำที่ 1–2/8',w:HAO,when:[{img:C38,t:'บอกวันที่จากปฏิทิน'},{img:CAL,t:'ถามว่าวันนี้วันที่เท่าไร'}],lines:[{...X.jtjy,who:'g'},{...X.jt38,who:'me'}],tip:'เรียงจากใหญ่ไปเล็ก · เดือน + วันที่ · <span class="zh">三月八号</span>'}),
+ wcard({no:3,of:8,cap:'เวลา',w:RI,aid:{parts:['rì',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ยรื่อ"</b> · r ม้วนลิ้น',sk:'fs:日',
+  use:'แปลว่าวันที่ ใช้ในภาษาเขียน เช่น บนปฏิทินหรือเอกสาร · 三月八日 = 三月八号',ex:[X.r38,X.nian]}),
+ wcard({no:4,of:8,cap:'เวลา',w:NIAN,aid:{parts:['nián',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"เหนียน"</b>',sk:'fs:年',
+  use:'แปลว่าปี · อ่านปีทีละตัวเลข แล้วตามด้วย 年 · ปีมาก่อนเดือนและวันที่',ex:[X.nian]}),
+ rec({n:'คำที่ 3–4/8',ws:[RI,NIAN]}),
+ use({n:'คำที่ 3–4/8',w:RI,when:[{img:C38,t:'พูดกับเพื่อนใช้ 号'},{img:CAL,t:'เขียนวันที่ในเอกสารใช้ 日'}],lines:[{...X.h38,who:'me'},{...X.r38,who:'me'},{...X.nian,who:'t'}],tip:'ปี + เดือน + วันที่ · <span class="zh">二〇二六年三月八日</span>'}),
+ wcard({no:5,of:8,cap:'เวลา',w:XZ,aid:{parts:['xiàn',4,'zài',4],cap:'เสียง 4 + เสียง 4'},hint:'คล้าย <b>"เซี่ยน ไจ้"</b> · z ไม่พ่นลม',sk:'fs:现在',
+  use:'แปลว่าตอนนี้ · วางไว้ต้นประโยค · ถามเวลาใช้ 现在几点',ex:[X.xzjd,X.xzsd]}),
+ syl({n:'คำที่ 5/8',w:XZ,chars:[{zh:'现',py:'xiàn',t:4,k:'sy:现'},{zh:'在',py:'zài',t:4,k:'sy:在'}],done:'xiàn + zài = xiànzài'}),
+ wcard({no:6,of:8,cap:'เวลา',w:DIAN,aid:{parts:['diǎn',3],cap:'เสียง 3 ลงแล้วขึ้น'},hint:'คล้าย <b>"เตี๋ยน"</b> · d ไม่พ่นลม',sk:'fs:点',
+  use:'ใช้บอกเวลาเป็นชั่วโมง · ตัวเลข + 点 เช่น 三点 3 นาฬิกา · ถามใช้ 几点',ex:[X.xzsd,X.wbd]}),
+ rec({n:'คำที่ 5–6/8',ws:[XZ,DIAN]}),
+ use({n:'คำที่ 5–6/8',w:DIAN,when:[{img:K3,t:'ดูนาฬิกาแล้วบอกเวลา'},{img:K8,t:'บอกว่าจะมากี่โมง'}],lines:[{...X.xzjd,who:'g'},{...X.xzsd,who:'me'},{...X.wbd,who:'me'}],tip:'<span class="zh">几点</span> ถามเวลา · ตอบ ตัวเลข + <span class="zh">点</span>'}),
+ wcard({no:7,of:8,cap:'เวลา',w:FZ,aid:{parts:['fēn',1,'zhōng',1],cap:'เสียง 1 + เสียง 1'},hint:'คล้าย <b>"เฟิน จง"</b> · zh ม้วนลิ้น',sk:'fs:分钟',
+  use:'แปลว่านาที ใช้บอกว่านานเท่าไร · ตัวเลข + 分钟 เช่น 十分钟 10 นาที',ex:[X.zcz,X.wfz]}),
+ syl({n:'คำที่ 7/8',w:FZ,chars:[{zh:'分',py:'fēn',t:1,k:'sy:分'},{zh:'钟',py:'zhōng',t:1,k:'sy:钟'}],done:'fēn + zhōng = fēnzhōng'}),
+ wcard({no:8,of:8,cap:'เวลา',w:SH,aid:{parts:['shí',2,'hou',0],cap:'เสียง 2 + เสียงเบา'},hint:'คล้าย <b>"สือ โฮว"</b> · 候 อ่านเบา',sk:'fs:时候',
+  use:'แปลว่าเวลา ตอนที่ · 什么时候 = เมื่อไร ใช้ถามเวลานัด',ex:[X.nsms,X.mtsd]}),
+ syl({n:'คำที่ 8/8',w:SH,chars:[{zh:'时',py:'shí',t:2,k:'sy:时'},{zh:'候',py:'hou',t:0}],done:'shí + hou เบา = shíhou'}),
+ rec({n:'คำที่ 7–8/8',ws:[FZ,SH]}),
+ use({n:'คำที่ 7–8/8',w:SH,when:[{img:C38,t:'ถามเพื่อนว่าจะมาเมื่อไร'},{img:TAXI,t:'บอกว่าอีกกี่นาทีจะถึง'}],lines:[{...X.nsms,who:'g'},{...X.mtsd,who:'me'},{...X.zcz,who:'me'}],tip:'<span class="zh">什么时候</span> ถามเมื่อไร · <span class="zh">分钟</span> บอกว่านานกี่นาที'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','几月几号','号 กับ 日','ปฏิทินและนาฬิกา','什么时候','ข้อควรระวัง'],note:'ฝึกถามวันที่ เวลา แล้วนัดไปหาเพื่อน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนานัดเวลา',title:'ไปหาเพื่อนกี่โมง',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามวันที่ใช้ 几月几号 · ถามเวลาใช้ 几点 · ถามเมื่อไรใช้ 什么时候'}),
+ talk({cap:'เทคนิค 2/6 · 几月几号',title:'เดือนและวันที่',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.jtjy,who:'g'},{...X.jt38,who:'me'}],
+  chips:[X.y1,X.y3,X.y12,X.h8],tip:'ตัวเลข 1–12 + <span class="zh">月</span> = ชื่อเดือน · ตัวเลข + <span class="zh">号</span> = วันที่'}),
+ cmp({cap:'เทคนิค 3/6 · 号 กับ 日',title:'พูด กับ เขียน',text:'วันเดียวกัน แต่ใช้คำต่างกัน',a:{who:'พูด',img:C38,zh:'三月八号',py:'sānyuè bā hào',th:'วันที่ 8 มีนาคม',k:'b22-h38-f'},b:{who:'เขียน',img:CAL,zh:'三月八日',py:'sānyuè bā rì',th:'วันที่ 8 มีนาคม',k:'b22-r38-f'},
+  tip:'พูดกับเพื่อนใช้ <span class="zh">号</span> · เขียนในเอกสารใช้ <span class="zh">日</span>'}),
+ point({tag:'เทคนิค 4/6 · นัดเพื่อนด้วยปฏิทินและนาฬิกา',q:'ฟังเพื่อนบอกวันหรือเวลา แล้วแตะปฏิทินหรือนาฬิกาที่ตรงกัน',this:'คืออันนี้',cards:PC,rounds:[
+  {zh:X.jt38.zh,k:X.jt38.k,ans:0},{zh:X.xzsd.zh,k:X.xzsd.k,ans:2},{zh:X.w51.zh,k:X.w51.k,ans:1},{zh:X.wmbq.zh,k:X.wmbq.k,ans:3}]}),
+ talk({cap:'เทคนิค 5/6 · 什么时候',title:'ถามเมื่อไร กี่โมง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nsms,who:'g'},{...X.mtsd,who:'me'},{...X.jnjd,who:'g'},{...X.wbd,who:'me'}],
+  chips:[X.smsh,X.sd,X.bd,X.sfz2],tip:'<span class="zh">什么时候</span> ถามกว้าง ๆ · <span class="zh">几点</span> ถามเวลาบนนาฬิกา'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'เดือนมาก่อนวันที่',bad:'八号三月。',good:'三月八号。',k:'b22-h38-f'},
+  {h:'现在 อยู่ต้นประโยค',bad:'几点现在？',good:'现在几点？',k:'b22-xzjd-g'},
+  {h:'บอกเวลาบนนาฬิกาใช้ 点 ไม่ใช้ 分钟',bad:'现在三分钟。',good:'现在三点。',k:'b22-xzsd-f'},
+  {h:'ถามเมื่อไรใช้ 什么时候',bad:'你几时候来？',good:'你什么时候来？',k:'b22-nsms-g'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:现在',opts:['ตอนนี้','พรุ่งนี้','นาที'],ans:0,fb:'<span class="zh">现在</span> <b>xiànzài</b> = ตอนนี้'}),
+ ask({rv:7,q:'ฟัง 钟 zhōng แล้วเลือกพยัญชนะตัวแรก',k:'sy:钟',opts:['zh','z','j'],ans:0,fb:'<b>zh</b>ōng · ม้วนลิ้นขึ้น ไม่พ่นลม'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b22-xzsd-f',opts:[{img:K3},{img:K8},{img:C38}],ans:0,fb:'<span class="zh">现在三点。</span> = ตอนนี้ 3 นาฬิกา'}),
+ blank({tag:TQ(3),s:'今天几月几_？',th:'วันนี้วันที่เท่าไร',opts:['号','点','年'],ans:0,k:'b22-jtjy-g',fb:'<span class="zh">今天几月几号？</span>'}),
+ ask({rv:2,q:'ฟัง 年 แล้วเลือกเสียงวรรณยุกต์',k:'w:年',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<b>nián</b> · เสียง 2 ขึ้น'}),
+ reply({tag:TQ(4),q:'เพื่อนถามว่าคุณจะมาเมื่อไร คุณจะมาพรุ่งนี้ 3 นาฬิกา',line:{...X.nsms,who:'g'},opts:[X.mtsd,X.xzsd,X.sfz],ans:0,why:'ตอบเวลานัด ใช้ 明天 + เวลา'}),
+ order({tag:TQ(5),th:'ตอนนี้กี่โมง',tiles:[tl('现在','xiànzài'),tl('几','jǐ'),tl('点','diǎn'),tl('号','hào')],ans:[0,1,2],end:'？',k:'b22-xzjd-g'}),
+ ask({rv:8,q:'ฟัง 在 zài แล้วเลือกพยัญชนะตัวแรก',k:'sy:在',opts:['z','zh','c'],ans:0,fb:'<b>z</b>ài · ลิ้นแตะหลังฟัน ไม่พ่นลม'}),
+ ask({tag:TQ(6),q:'ฟังแล้วเลือกความหมาย',k:'b22-nian-f',opts:['วันที่ 8 มีนาคม ค.ศ. 2026','วันที่ 3 สิงหาคม ค.ศ. 2026','8 นาฬิกา 3 นาที'],ans:0,fb:'<span class="zh">二〇二六年三月八日</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'นัดเพื่อนเอง',chips:['ปฏิทินและนาฬิกา','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะปฏิทินหรือนาฬิกา',this:'คืออันนี้',cards:PC,rounds:[{zh:X.m1.zh,k:X.m1.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1},{zh:X.m3.zh,k:X.m3.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'ตอนนี้ 8 นาฬิกา เพื่อนถามว่า',line:{...X.xzjd,who:'g'},opts:[X.xzbd,X.xzbh,X.bfz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'你什么_候来？',opts:['时','点','号'],ans:0,k:'b22-nsms-g',fb:'<span class="zh">你什么时候来？</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('今天','jīntiān'),tl('三月','sānyuè'),tl('八号','bā hào'),tl('点','diǎn')],ans:[0,1,2],end:'。',k:'b22-jt38-f'}),
+ /* 5 · จบบท */
+ fin({title:'นัดวันและเวลาได้แล้ว',html:dlgH(D,{noTh:1}),chips:[YUE,HAO,RI,NIAN,XZ,DIAN,FZ,SH].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L22',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

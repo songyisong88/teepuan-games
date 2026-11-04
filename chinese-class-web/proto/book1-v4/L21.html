@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 6-1 วันนี้ พรุ่งนี้ อากาศ</title>
+</head><body>
+<script>
+/* บท 6-1 หน่วย 6 วันและเวลา: วันนี้อากาศเป็นอย่างไร · คำใหม่ 今天 明天 昨天 星期 天气 冷 下雨 · คำทบทวนเล่ม 0: 热
+   ทบทวนจากบทก่อน: 几 一 怎么样 很 了 我们 · กิจกรรมเฉพาะบท: พยากรณ์อากาศ 3 วัน (ฟังแล้วแตะภาพอากาศ) */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const JT=w('今天','jīntiān','วันนี้'),MT=w('明天','míngtiān','พรุ่งนี้'),ZT=w('昨天','zuótiān','เมื่อวาน'),XQ=w('星期','xīngqī','สัปดาห์'),
+ TQW=w('天气','tiānqì','อากาศ'),LENG=w('冷','lěng','หนาว'),XY=w('下雨','xià yǔ','ฝนตก');
+const SUN=ART('太阳');THL[SUN]='ร้อน แดดจัด';
+const CAL=ART('日历');THL[CAL]='ปฏิทิน';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const op=x=>({...x,who:'me'});
+const X={
+ jtxqj:S('今天星期几？','jīntiān xīngqī jǐ?','วันนี้วันอะไร','b21-jtxqj-g'),
+ jtx1:S('今天星期一。','jīntiān xīngqīyī.','วันนี้วันจันทร์','b21-jtx1-f'),
+ mttq:S('明天天气怎么样？','míngtiān tiānqì zěnmeyàng?','พรุ่งนี้อากาศเป็นอย่างไร','b21-mttq-g'),
+ mtxy:S('明天下雨。','míngtiān xià yǔ.','พรุ่งนี้ฝนตก','b21-mtxy-f'),
+ ztlr:S('昨天很冷，今天很热。','zuótiān hěn lěng, jīntiān hěn rè.','เมื่อวานหนาวมาก วันนี้ร้อนมาก','b21-ztlr-g'),
+ wmjq:S('我们今天去！','wǒmen jīntiān qù!','พวกเราไปวันนี้เลย','b21-wmjq-f'),
+ mtx2:S('明天星期二。','míngtiān xīngqī\'èr.','พรุ่งนี้วันอังคาร','b21-mtx2-f'),
+ ztxt:S('昨天星期天。','zuótiān xīngqītiān.','เมื่อวานวันอาทิตย์','b21-ztxt-f'),
+ jttq:S('今天天气很好。','jīntiān tiānqì hěn hǎo.','วันนี้อากาศดีมาก','b21-jttq-f'),
+ jthl:S('今天很冷。','jīntiān hěn lěng.','วันนี้หนาวมาก','b21-jthl-f'),
+ jthr:S('今天很热。','jīntiān hěn rè.','วันนี้ร้อนมาก','b21-jthr-f'),
+ xyl:S('下雨了！','xià yǔ le!','ฝนตกแล้ว','b21-xyl-f'),
+ ztxy:S('昨天下雨。','zuótiān xià yǔ.','เมื่อวานฝนตก','b21-ztxy-f'),
+ ztlm:S('昨天很冷。','zuótiān hěn lěng.','เมื่อวานหนาวมาก','b21-ztlm-f'),
+ jttqz:S('今天天气怎么样？','jīntiān tiānqì zěnmeyàng?','วันนี้อากาศเป็นอย่างไร','b21-jttqz-g'),
+ jtx3:S('今天星期三。','jīntiān xīngqīsān.','วันนี้วันพุธ','b21-jtx3-f'),
+ mtx3:S('明天星期三。','míngtiān xīngqīsān.','พรุ่งนี้วันพุธ','b21-mtx3-f'),
+ jtxqj2:S('今天星期几？','jīntiān xīngqī jǐ?','วันนี้วันอะไร','b21-jtxqj-f'),
+ /* ภารกิจ */
+ m1:S('今天很冷。','jīntiān hěn lěng.','วันนี้หนาวมาก','b21-m1-t'),
+ m2:S('明天很热。','míngtiān hěn rè.','พรุ่งนี้ร้อนมาก','b21-m2-t'),
+ m3:S('昨天下雨了。','zuótiān xià yǔ le.','เมื่อวานฝนตก','b21-m3-t'),
+ /* ชิปคำ */
+ x1:S('星期一','xīngqīyī','วันจันทร์','b21-x1-t'),x2:S('星期二','xīngqī\'èr','วันอังคาร','b21-x2-t'),x3:S('星期三','xīngqīsān','วันพุธ','b21-x3-t'),
+ x6:S('星期六','xīngqīliù','วันเสาร์','b21-x6-t'),xt:S('星期天','xīngqītiān','วันอาทิตย์','b21-xt-t'),
+ hl:S('很冷','hěn lěng','หนาวมาก','b21-hl-t'),hr:S('很热','hěn rè','ร้อนมาก','b21-hr-t'),xy2:S('下雨了','xià yǔ le','ฝนตกแล้ว','b21-xy-t'),
+ tqzmy:S('天气怎么样','tiānqì zěnmeyàng','อากาศเป็นอย่างไร','b21-tqz-t')};
+const L={jtxqj:{...X.jtxqj,who:'g'},jtx1:{...X.jtx1,who:'me'},mttq:{...X.mttq,who:'g'},mtxy:{...X.mtxy,who:'me'},ztlr:{...X.ztlr,who:'g'},wmjq:{...X.wmjq,who:'me'}};
+const D=[{sit:'คุณกับเพื่อนอยากไปเที่ยวด้วยกัน กำลังเลือกวัน',img:CAL},L.jtxqj,L.jtx1,{sit:'ดูพยากรณ์อากาศ',img:TQW.img},L.mttq,L.mtxy,L.ztlr,L.wmjq];
+const WC=[{img:LENG.img,th:'หนาว'},{img:SUN,th:'ร้อน'},{img:XY.img,th:'ฝนตก'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:21,code:'บท 6-1',goal:{do:'ถามวันในสัปดาห์ และบอกว่าอากาศเป็นอย่างไร',sub:'ใช้ <span class="gz">今天星期几 · 天气怎么样 · 很冷 · 很热 · 下雨</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:TQW.img,cap:'สถานการณ์ของบทนี้',title:'วันนี้อากาศเป็นอย่างไร',line:L.mttq,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะถามวัน และบอกอากาศเพื่อนัดเที่ยวได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[JT,MT,ZT,XQ,TQW,LENG,XY]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['今天','明天','昨天','星期','天气','冷','下雨'],note:'ใช้คำจากบทก่อน 几 怎么样 很 และคำ 热 จากเล่ม 0 ร่วมด้วย'}),
+ wcard({no:1,of:7,cap:'เวลา',w:JT,aid:{parts:['jīn',1,'tiān',1],cap:'เสียง 1 + เสียง 1'},hint:'คล้าย <b>"จิน เทียน"</b> · เสียงสูงเรียบทั้งคู่',sk:'fs:今天',
+  use:'แปลว่าวันนี้ · วางไว้ต้นประโยค ก่อนบอกเรื่องที่เกิด',ex:[X.jtx1,X.jthr]}),
+ syl({n:'คำที่ 1/7',w:JT,chars:[{zh:'今',py:'jīn',t:1,k:'sy:今'},{zh:'天',py:'tiān',t:1,k:'sy:天'}],done:'jīn + tiān = jīntiān'}),
+ wcard({no:2,of:7,cap:'เวลา',w:MT,aid:{parts:['míng',2,'tiān',1],cap:'เสียง 2 + เสียง 1'},hint:'คล้าย <b>"หมิง เทียน"</b>',sk:'fs:明天',
+  use:'แปลว่าพรุ่งนี้ · ใช้บอกเรื่องที่จะเกิด',ex:[X.mtxy,X.mtx2]}),
+ syl({n:'คำที่ 2/7',w:MT,chars:[{zh:'明',py:'míng',t:2,k:'sy:明'},{zh:'天',py:'tiān',t:1,k:'sy:天'}],done:'míng + tiān = míngtiān'}),
+ rec({n:'คำที่ 1–2/7',ws:[JT,MT]}),
+ use({n:'คำที่ 1–2/7',w:JT,when:[{img:CAL,t:'บอกว่าวันนี้วันอะไร'},{img:XY.img,t:'บอกว่าพรุ่งนี้ฝนจะตก'}],lines:[{...X.jtx1,who:'me'},{...X.mtxy,who:'g'}],tip:'คำบอกเวลาอยู่ต้นประโยค · <span class="zh">今天</span> + เรื่อง · <span class="zh">明天</span> + เรื่อง'}),
+ wcard({no:3,of:7,cap:'เวลา',w:ZT,aid:{parts:['zuó',2,'tiān',1],cap:'เสียง 2 + เสียง 1'},hint:'คล้าย <b>"จั๋ว เทียน"</b> · z ไม่พ่นลม',sk:'fs:昨天',
+  use:'แปลว่าเมื่อวาน · ใช้เล่าเรื่องที่ผ่านไปแล้ว',ex:[X.ztxt,X.ztxy]}),
+ syl({n:'คำที่ 3/7',w:ZT,chars:[{zh:'昨',py:'zuó',t:2,k:'sy:昨'},{zh:'天',py:'tiān',t:1,k:'sy:天'}],done:'zuó + tiān = zuótiān'}),
+ wcard({no:4,of:7,cap:'เวลา',w:XQ,aid:{parts:['xīng',1,'qī',1],cap:'เสียง 1 + เสียง 1'},hint:'คล้าย <b>"ซิง ชี"</b> · q พ่นลม',sk:'fs:星期',
+  use:'แปลว่าสัปดาห์ · 星期 + ตัวเลข = วันในสัปดาห์ เช่น 星期一 วันจันทร์ · วันอาทิตย์คือ 星期天',ex:[X.jtx1,X.jtxqj2]}),
+ syl({n:'คำที่ 4/7',w:XQ,chars:[{zh:'星',py:'xīng',t:1,k:'sy:星'},{zh:'期',py:'qī',t:1,k:'sy:期'}],done:'xīng + qī = xīngqī'}),
+ rec({n:'คำที่ 3–4/7',ws:[ZT,XQ]}),
+ use({n:'คำที่ 3–4/7',w:XQ,when:[{img:CAL,t:'ถามว่าวันนี้วันอะไร'},{img:CAL,t:'บอกว่าเมื่อวานวันอาทิตย์'}],lines:[{...X.jtxqj,who:'g'},{...X.jtx1,who:'me'},{...X.ztxt,who:'me'}],tip:'ถามวันใช้ <span class="zh">星期几</span> · ตอบ <span class="zh">星期</span> + ตัวเลข 1–6 หรือ <span class="zh">星期天</span>'}),
+ wcard({no:5,of:7,cap:'ธรรมชาติ',w:TQW,aid:{parts:['tiān',1,'qì',4],cap:'เสียง 1 + เสียง 4'},hint:'คล้าย <b>"เทียน ชี่"</b> · q พ่นลม',sk:'fs:天气',
+  use:'แปลว่าอากาศ · ถามว่าอากาศเป็นอย่างไรใช้ 天气怎么样',ex:[X.mttq,X.jttq]}),
+ syl({n:'คำที่ 5/7',w:TQW,chars:[{zh:'天',py:'tiān',t:1,k:'sy:天'},{zh:'气',py:'qì',t:4,k:'sy:气'}],done:'tiān + qì = tiānqì'}),
+ wcard({no:6,of:7,cap:'อากาศ',w:LENG,aid:{parts:['lěng',3],cap:'เสียง 3 ลงแล้วขึ้น'},hint:'คล้าย <b>"เหลิ่ง"</b> · ลงท้าย -ng',sk:'fs:冷',
+  use:'แปลว่าหนาว · ตรงข้ามกับ 热 ร้อน · มักมี 很 นำหน้า',ex:[X.jthl,X.ztlr]}),
+ rec({n:'คำที่ 5–6/7',ws:[TQW,LENG]}),
+ use({n:'คำที่ 5–6/7',w:LENG,when:[{img:LENG.img,t:'อากาศหนาว ใช้ 很冷'},{img:SUN,t:'แดดร้อน ใช้ 很热'}],lines:[{...X.jttqz,who:'g'},{...X.jthl,who:'me'},{...X.ztlr,who:'g'}],tip:'<span class="zh">很冷</span> หนาวมาก · <span class="zh">很热</span> ร้อนมาก · ไม่ต้องใช้ <span class="zh">是</span>'}),
+ wcard({no:7,of:7,cap:'อากาศ',w:XY,aid:{parts:['xià',4,'yǔ',3],cap:'เสียง 4 + เสียง 3'},hint:'คล้าย <b>"เซี่ย หยวี่"</b> · yu ห่อปาก',sk:'fs:下雨',
+  use:'แปลว่าฝนตก · 下 ลงมา + 雨 ฝน · ฝนเริ่มตกแล้วพูด 下雨了',ex:[X.mtxy,X.xyl]}),
+ syl({n:'คำที่ 7/7',w:XY,chars:[{zh:'下',py:'xià',t:4,k:'sy:下'},{zh:'雨',py:'yǔ',t:3,k:'sy:雨'}],done:'xià + yǔ = xià yǔ'}),
+ rec({n:'คำที่ 7/7',ws:[XY]}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','星期几','หนาว กับ ร้อน','พยากรณ์อากาศ','天气怎么样','ข้อควรระวัง'],note:'ฝึกถามวัน แล้วดูอากาศเพื่อเลือกวันไปเที่ยว'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนานัดเที่ยว',title:'วันไหนอากาศดี',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามวันใช้ 星期几 · ถามอากาศใช้ 天气怎么样'}),
+ talk({cap:'เทคนิค 2/6 · 星期几',title:'วันในสัปดาห์',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.jtxqj,who:'g'},{...X.jtx1,who:'me'},{...X.mtx2,who:'me'},{...X.ztxt,who:'me'}],
+  chips:[X.x1,X.x2,X.x3,X.x6,X.xt],tip:'<span class="zh">星期</span> + 一 ถึง 六 = จันทร์ถึงเสาร์ · วันอาทิตย์คือ <span class="zh">星期天</span>'}),
+ cmp({cap:'เทคนิค 3/6 · หนาว กับ ร้อน',title:'冷 กับ 热',text:'ดูภาพ แล้วบอกว่าอากาศหนาวหรือร้อน',a:{who:'หนาว',img:LENG.img,zh:'今天很冷',py:'jīntiān hěn lěng',th:'วันนี้หนาวมาก',k:'b21-jthl-f'},b:{who:'ร้อน',img:SUN,zh:'今天很热',py:'jīntiān hěn rè',th:'วันนี้ร้อนมาก',k:'b21-jthr-f'},
+  tip:'<span class="zh">冷</span> lěng หนาว · <span class="zh">热</span> rè ร้อน · ทั้งคู่มี <span class="zh">很</span> นำหน้า'}),
+ point({tag:'เทคนิค 4/6 · พยากรณ์อากาศ 3 วัน',q:'ฟังพยากรณ์อากาศแต่ละวัน แล้วแตะภาพอากาศที่ตรงกัน',this:'คืออากาศนี้',cards:WC,rounds:[
+  {zh:X.ztlm.zh,k:X.ztlm.k,ans:0},{zh:X.jthr.zh,k:X.jthr.k,ans:1},{zh:X.mtxy.zh,k:X.mtxy.k,ans:2}]}),
+ talk({cap:'เทคนิค 5/6 · 天气怎么样',title:'ถามและบอกอากาศ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.jttqz,who:'g'},{...X.jttq,who:'me'},{...X.xyl,who:'g'}],
+  chips:[X.tqzmy,X.hl,X.hr,X.xy2],tip:'ถาม <span class="zh">天气怎么样？</span> · ตอบ <span class="zh">很冷</span> <span class="zh">很热</span> หรือ <span class="zh">下雨</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'มี 几 แล้วไม่ต้องมี 吗',bad:'今天星期几吗？',good:'今天星期几？',k:'b21-jtxqj-f'},
+  {h:'很 อยู่หน้า 冷',bad:'今天冷很。',good:'今天很冷。',k:'b21-jthl-f'},
+  {h:'คำบอกเวลาอยู่ต้นประโยค',bad:'下雨明天。',good:'明天下雨。',k:'b21-mtxy-f'},
+  {h:'ถามอากาศใช้ 怎么样',bad:'天气什么？',good:'今天天气怎么样？',k:'b21-jttqz-g'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:昨天',opts:['เมื่อวาน','วันนี้','พรุ่งนี้'],ans:0,fb:'<span class="zh">昨天</span> <b>zuótiān</b> = เมื่อวาน'}),
+ ask({rv:6,q:'ฟัง 气 qì แล้วเลือกพยัญชนะตัวแรก',k:'sy:气',opts:['q','j','x'],ans:0,fb:'<b>q</b>ì · พ่นลมแรง'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b21-mtxy-f',opts:[{img:XY.img},{img:SUN},{img:LENG.img}],ans:0,fb:'<span class="zh">明天下雨。</span> = พรุ่งนี้ฝนตก'}),
+ blank({tag:TQ(3),s:'今天星期_？',th:'วันนี้วันอะไร',opts:['几','什么','吗'],ans:0,k:'b21-jtxqj-f',fb:'<span class="zh">今天星期几？</span>'}),
+ ask({rv:11,q:'ฟัง 今 jīn แล้วเลือกเสียงท้าย',k:'sy:今',opts:['-n','-ng'],ans:0,fb:'jī<b>n</b> · ลงท้าย -n ลิ้นแตะปุ่มเหงือก'}),
+ reply({tag:TQ(4),q:'เพื่อนถามเรื่องอากาศ คุณรู้ว่าพรุ่งนี้ฝนจะตก',line:{...X.mttq,who:'g'},opts:[X.mtxy,X.mtx2,X.ztxy],ans:0,why:'ถามพรุ่งนี้ ตอบด้วย 明天 + อากาศ'}),
+ order({tag:TQ(5),th:'เมื่อวานหนาวมาก',tiles:[tl('昨天','zuótiān'),tl('很','hěn'),tl('冷','lěng'),tl('吗','ma')],ans:[0,1,2],end:'。',k:'b21-ztlm-f'}),
+ ask({rv:2,q:'ฟัง 冷 แล้วเลือกเสียงวรรณยุกต์',k:'w:冷',opts:[{tone:3,lab:'เสียง 3'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'<b>lěng</b> · เสียง 3 ลงแล้วขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b21-ztlr-g',opts:['เมื่อวานหนาวมาก วันนี้ร้อนมาก','เมื่อวานร้อนมาก วันนี้หนาวมาก','วันนี้หนาวมาก พรุ่งนี้ร้อนมาก'],ans:0,fb:'<span class="zh">昨天很冷，今天很热。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'บอกอากาศเอง',chips:['ภาพอากาศ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพอากาศ',this:'คืออากาศนี้',cards:WC,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:1},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'วันนี้วันพุธ เพื่อนถามว่า',line:{...X.jtxqj,who:'g'},opts:[X.jtx3,X.mtx3,X.jtxqj2],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'明天天气_？',opts:['怎么样','几','什么'],ans:0,k:'b21-mttq-g',fb:'<span class="zh">明天天气怎么样？</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('明天','míngtiān'),tl('下','xià'),tl('雨','yǔ'),tl('很','hěn')],ans:[0,1,2],end:'。',k:'b21-mtxy-f'}),
+ /* 5 · จบบท */
+ fin({title:'บอกวันและอากาศได้แล้ว',html:dlgH(D,{noTh:1}),chips:[JT,MT,ZT,XQ,TQW,LENG,XY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L21',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

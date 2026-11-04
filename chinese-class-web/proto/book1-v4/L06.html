@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 2-1 นับ 0 ถึง 10</title>
+</head><body>
+<script>
+/* บท 2-1 หน่วย 2 ตัวเลขและราคา (ตามแผนคำศัพท์ที่ซ้งอี้อนุมัติ): นับ 0 ถึง 10 · คำใหม่ 零 二 三 六 九 几 个
+   ทบทวนจากเล่ม 0: 一 四 五 七 八 十 · กิจกรรมเฉพาะบท: นับนิ้วกับน้อง (ฟังเลขแล้วแตะมือ) และนับคนในภาพ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const LING=w('零','líng','ศูนย์'),ER=w('二','èr','สอง'),SAN=w('三','sān','สาม'),LIU=w('六','liù','หก'),JIU=w('九','jiǔ','เก้า'),JI=w('几','jǐ','กี่'),GE=w('个','gè','อัน คน (คำลักษณนาม)');
+const YI=w('一','yī','หนึ่ง'),SI=w('四','sì','สี่'),WU=w('五','wǔ','ห้า'),QI=w('七','qī','เจ็ด'),BA=w('八','bā','แปด'),SHI=w('十','shí','สิบ');
+const IMG=n=>`img/${n}.webp`,lab=(n,t)=>{THL[IMG(n)]=t;return IMG(n)};
+const R3=lab('ren3','3 คน'),R5=lab('ren5','5 คน'),R6=lab('ren6','6 คน'),R9=lab('ren9','9 คน'),C3=lab('cup3','แก้ว 3 ใบ'),C6=lab('cup6','แก้ว 6 ใบ'),C9=lab('cup9','แก้ว 9 ใบ'),C4=lab('cup4','แก้ว 4 ใบ');
+const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),TCH=ART('老师'),CUP=ART('杯子');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ c10:S('一、二、三、四、五、六、七、八、九、十！','yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí!','หนึ่ง สอง สาม สี่ ห้า หก เจ็ด แปด เก้า สิบ','b6-c10-f'),
+ c03:S('零、一、二、三！','líng, yī, èr, sān!','ศูนย์ หนึ่ง สอง สาม','b6-c03-f'),
+ r108:S('一、零、八','yī líng bā','หนึ่ง ศูนย์ แปด (อ่านทีละตัว เช่นเลขห้อง)','b6-108-f'),
+ s12:S('十二','shí\'èr','สิบสอง','b6-12-f'),s20:S('二十','èrshí','ยี่สิบ','b6-20-f'),s99:S('九十九','jiǔshíjiǔ','เก้าสิบเก้า','b6-99-f'),s13:S('十三','shísān','สิบสาม','b6-13-f'),s16:S('十六','shíliù','สิบหก','b6-16-f'),
+ jgr:S('几个人？','jǐ ge rén?','กี่คน','b6-jgr-t'),jgrg:S('几个人？','jǐ ge rén?','กี่คน','b6-jgr-g'),jgbz:S('几个杯子？','jǐ ge bēizi?','แก้วกี่ใบ','b6-jgbz-g'),jgxs:S('几个学生？','jǐ ge xuésheng?','นักเรียนกี่คน','b6-jgxs-t'),
+ r3:S('三个人。','sān ge rén.','สามคน','b6-sgr-f'),r6:S('六个人。','liù ge rén.','หกคน','b6-lgr-f'),r9:S('九个人。','jiǔ ge rén.','เก้าคน','b6-jiugr-f'),r5:S('五个人。','wǔ ge rén.','ห้าคน','b6-wgr-f'),
+ b3:S('三个杯子。','sān ge bēizi.','แก้วสามใบ','b6-sgbz-f'),b6:S('六个杯子。','liù ge bēizi.','แก้วหกใบ','b6-lgbz-m'),b9:S('九个杯子。','jiǔ ge bēizi.','แก้วเก้าใบ','b6-jiugbz-m'),b4:S('四个杯子。','sì ge bēizi.','แก้วสี่ใบ','b6-sigbz-m'),
+ wm6:S('我们是六个人。','wǒmen shì liù ge rén.','พวกเรามีหกคน','b6-wm6-m'),hh:S('很好！','hěn hǎo!','ดีมาก','b6-hh-t'),
+ lsh:S('老师好！','lǎoshī hǎo!','สวัสดีครับ/ค่ะ คุณครู','lsh-f'),xx:S('谢谢！','xièxie!','ขอบคุณ','b6-xx-f'),dj:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','b6-djh-t')};
+const L={jgr:{...X.jgr,who:'t'},c16:{...S('一、二、三、四、五、六。','yī, èr, sān, sì, wǔ, liù.','หนึ่ง สอง สาม สี่ ห้า หก','b6-c16-f'),who:'me'},r6:{...X.r6,who:'me',k:'b6-lgr-f'},hh:{...X.hh,who:'t'},
+ jgbz:{...X.jgbz,who:'g'},b3:{...X.b3,who:'me'},jgrg:{...X.jgrg,who:'g'},r9:{...X.r9,who:'me'},wm6:{...X.wm6,who:'f'},c10:{...X.c10,who:'me'},c03:{...X.c03,who:'g',k:'b6-c03-g'}};
+const D=[{sit:'ครูให้นับเพื่อนในกลุ่มของคุณ',img:R6},L.jgr,L.c16,L.r6,L.hh,{sit:'เพื่อนชี้ไปที่แก้วบนโต๊ะ',img:C3},L.jgbz,L.b3];
+const HANDS=[{img:ART('二'),th:'สอง'},{img:ART('三'),th:'สาม'},{img:ART('六'),th:'หก'},{img:ART('九'),th:'เก้า'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:6,code:'บท 2-1',goal:{do:'นับเลข 0 ถึง 10 และถามว่ามีกี่คน กี่อัน',sub:'ใช้ <span class="gz">零 二 三 六 九</span> และ <span class="gz">几个人 · 三个人</span>',min:11},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:ART('五'),cap:'สถานการณ์ของบทนี้',title:'นับนิ้วกับน้อง นับคนในห้อง',line:{...X.c03,who:'g',k:'b6-c03-g'},note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะนับเลข 0 ถึง 10 ได้ ถามว่ากี่คน และตอบจำนวนได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[LING,ER,SAN,LIU,JIU,JI,GE]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['零','二','三','六','九','几','个'],note:'ตัวเลข 一 四 五 七 八 十 เรียนแล้วในเล่ม 0 บทนี้เติมตัวที่เหลือให้ครบ'}),
+ wcard({no:1,of:7,cap:'ตัวเลข 0',w:LING,aid:{parts:['líng',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"ลิ๋ง"</b> · ลงท้าย -ng เสียงขึ้นจมูก',sk:'fs:零',
+  use:'แปลว่าศูนย์ · อ่านเลขทีละตัว เช่นเลขห้อง เลขโทรศัพท์ ก็ใช้ 零',ex:[X.c03,X.r108]}),
+ wcard({no:2,of:7,cap:'ตัวเลข 2',w:ER,aid:{parts:['èr',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"เอ้อร์"</b> · ปลายเสียงม้วนลิ้นขึ้นเล็กน้อย',sk:'fs:二',
+  use:'แปลว่าสอง ใช้เวลานับเลข 一、二、三 และในเลขสองหลัก เช่น 十二 สิบสอง',ex:[X.c03,X.s12]}),
+ wcard({no:3,of:7,cap:'ตัวเลข 3',w:SAN,aid:{parts:['sān',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"ซาน"</b> · ลงท้าย -n ปลายลิ้นแตะเหงือก',sk:'fs:三',
+  use:'แปลว่าสาม · 三个人 = สามคน',ex:[X.r3,X.s13]}),
+ rec({n:'คำที่ 1–3/7',ws:[LING,ER,SAN]}),
+ wcard({no:4,of:7,cap:'ตัวเลข 6',w:LIU,aid:{parts:['liù',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ลิ่ว"</b>',sk:'fs:六',
+  use:'แปลว่าหก · 六个人 = หกคน',ex:[X.r6,X.s16]}),
+ wcard({no:5,of:7,cap:'ตัวเลข 9',w:JIU,aid:{parts:['jiǔ',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"จิ่ว"</b>',sk:'fs:九',
+  use:'แปลว่าเก้า · 九十九 = เก้าสิบเก้า',ex:[X.r9,X.s99]}),
+ use({n:'คำที่ 1–5/7',w:JIU,when:[{img:ART('十'),t:'นับนิ้วมือ'},{img:R6,t:'นับคนในห้อง'}],lines:[L.c10,L.c03],tip:'ตัวเลขครบ 0 ถึง 10 แล้ว · <span class="zh">零 一 二 三 四 五 六 七 八 九 十</span>'}),
+ rec({n:'คำที่ 4–5/7',ws:[LIU,JIU]}),
+ wcard({no:6,of:7,cap:'คำถาม',w:JI,aid:{parts:['jǐ',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"จี่"</b>',sk:'fs:几',
+  use:'แปลว่ากี่ ใช้ถามจำนวนที่ไม่มาก · ต้องมีคำลักษณนามตามหลัง เช่น 几个',ex:[X.jgr,X.jgbz]}),
+ wcard({no:7,of:7,cap:'คำลักษณนาม',w:GE,aid:{parts:['gè',4],cap:'เสียง 4 · ในประโยคมักอ่านเบาเป็น ge'},hint:'คล้าย <b>"เก้อ"</b>',sk:'fs:个',
+  use:'คำลักษณนามที่ใช้บ่อยที่สุด ใช้กับคนและสิ่งของหลายอย่าง · ตัวเลข + 个 + คำนาม',ex:[X.r3,X.b3]}),
+ use({n:'คำที่ 6–7/7',w:GE,when:[{img:R3,t:'ถามว่ามีกี่คน'},{img:C3,t:'ถามว่ามีกี่อัน'}],lines:[L.jgrg,{...X.r3,who:'me'}],tip:'ตอบโดยเอาตัวเลขมาแทน <span class="zh">几</span> · 几个人 → 三个人'}),
+ rec({n:'คำที่ 6–7/7',ws:[JI,GE],keys:['fs:几','fs:个','b6-jgr-t','b6-sgr-f']}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','นับ 0 ถึง 10','เลข 11 ถึง 99','นับนิ้วกับน้อง','几个','ข้อควรระวัง'],note:'ฝึกนับและถามจำนวนในห้องเรียน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในห้องเรียน',title:'มีกี่คน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามด้วย 几个 ตอบด้วย ตัวเลข + 个'}),
+ talk({cap:'เทคนิค 2/6 · นับ 0 ถึง 10',title:'นับให้ครบสิบ',text:'แตะแต่ละตัวเลขเพื่อฟัง แล้วนับตามทีละตัว',lines:[L.c10],
+  chips:[LING,YI,ER,SAN,SI,WU,LIU,QI,BA,JIU,SHI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),tip:'ตัวที่เรียนใหม่ในบทนี้คือ <span class="zh">零 二 三 六 九</span> ตัวอื่นเรียนแล้วในเล่ม 0'}),
+ talk({cap:'เทคนิค 3/6 · เลข 11 ถึง 99',title:'ต่อเลขเหมือนภาษาไทย',text:'สิบสอง = 十二 (สิบ + สอง) · ยี่สิบ = 二十 (สอง + สิบ) · เก้าสิบเก้า = 九十九',lines:[{...X.s12,who:'t',k:'b6-12-t'},{...X.s20,who:'t',k:'b6-20-t'},{...X.s99,who:'t',k:'b6-99-t'}],
+  chips:[X.s12,X.s20,X.s99,X.s16],tip:'ภาษาไทยใช้ "ยี่สิบ" แต่ภาษาจีนพูดตรง ๆ ว่า สองสิบ <span class="zh">二十</span>'}),
+ point({tag:'เทคนิค 4/6 · นับนิ้วกับน้อง',q:'ฟังตัวเลข แล้วแตะมือที่ชูนิ้วตรงกัน',this:'คือมือนี้',cards:HANDS,rounds:[{zh:'三',k:'w:三',ans:1},{zh:'九',k:'w:九',ans:3},{zh:'二',k:'w:二',ans:0},{zh:'六',k:'w:六',ans:2,why:'มือหนึ่งห้านิ้ว อีกมือหนึ่งนิ้ว'}]}),
+ talk({cap:'เทคนิค 5/6 · ถามว่ากี่คน กี่อัน',title:'几个？',text:'ถามด้วย 几个 + คำนาม แล้วตอบโดยเอาตัวเลขมาแทน 几',lines:[L.jgr,{...X.r9,who:'me'},L.jgbz,L.b3],
+  chips:[{zh:'几个人',py:'jǐ ge rén',th:'กี่คน',k:'b6-jgr-g'},{zh:'三个人',py:'sān ge rén',th:'สามคน',k:'b6-sgr-f'},{zh:'几个杯子',py:'jǐ ge bēizi',th:'แก้วกี่ใบ',k:'b6-jgbz-g'}],tip:'มี <span class="zh">几</span> แล้วเป็นคำถามอยู่แล้ว ไม่ต้องใส่ <span class="zh">吗</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ระหว่างตัวเลขกับคำนามต้องมี 个',bad:'三杯子。',good:'三个杯子。',k:'b6-sgbz-f'},
+  {h:'มี 几 แล้วไม่ต้องใส่ 吗',bad:'几个人吗？',good:'几个人？',k:'b6-jgr-g'},
+  {h:'ยี่สิบ คือ สองสิบ',bad:'ยี่สิบ = 十二',good:'ยี่สิบ = 二十',k:'b6-20-f'},
+  {h:'个 ในประโยคอ่านเบา',bad:'sān gè rén (เน้น gè)',good:'sān ge rén',k:'b6-sgr-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังตัวเลข','นับคน','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:六',opts:['หก','เก้า','สาม'],ans:0,fb:'<span class="zh">六</span> <b>liù</b> = หก'}),
+ ask({rv:2,q:'ฟังพยางค์ 九 jiǔ แล้วเลือกเส้นเสียง',k:'w:九',opts:[{tone:3,lab:'เสียง 3'},{tone:2,lab:'เสียง 2'}],ans:0,fb:'<b class="t3">jiǔ</b> <span class="zh">九</span> · เสียง 3 กดต่ำ'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b6-jiugr-f',opts:[{img:R9},{img:R6},{img:R3}],ans:0,fb:'<span class="zh">九个人</span> jiǔ ge rén = เก้าคน'}),
+ blank({tag:TQ(3),s:'_个人？',th:'กี่คน',opts:['几','吗','十'],ans:0,k:'b6-jgr-g',fb:'<span class="zh">几个人？</span> = กี่คน'}),
+ ask({rv:6,q:'ฟัง 九 jiǔ แล้วเลือกพยัญชนะตัวแรก',k:'w:九',opts:['j','q','x'],ans:0,fb:'<b>j</b>iǔ · คล้าย จ'}),
+ reply({tag:TQ(4),q:'เพื่อนถามถึงแก้วสามใบบนโต๊ะ',line:L.jgbz,opts:[X.b3,{...S('三杯子。','sān bēizi.','แก้วสาม','b6-sbz-f')},{...X.lsh}],ans:0,why:'ตัวเลข + 个 + คำนาม'}),
+ order({tag:TQ(5),th:'นักเรียนกี่คน',tiles:[tl('几','jǐ'),tl('个','ge'),tl('学生','xuésheng'),tl('吗','ma'),tl('十','shí')],ans:[0,1,2],end:'？',k:'b6-jgxs-t'}),
+ ask({rv:11,q:'ฟัง 三 sān แล้วเลือกเสียงท้าย',k:'w:三',opts:['-n','-ng'],ans:0,fb:'sā<b>n</b> · ลงท้าย -n ปลายลิ้นแตะเหงือก คล้าย น'}),
+ ask({tag:TQ(6),q:'ฟังตัวเลข แล้วเลือกให้ถูก',k:'b6-99-f',opts:['99','19','90'],ans:0,fb:'<span class="zh">九十九</span> jiǔshíjiǔ = 99'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'นับให้ถูก',chips:['นับนิ้ว','นับแก้ว','ตอบครู','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังตัวเลข แล้วแตะมือที่ตรงกัน',this:'คือมือนี้',cards:HANDS,rounds:[{zh:'六',k:'w:六',ans:2},{zh:'二',k:'w:二',ans:0},{zh:'九',k:'w:九',ans:3},{zh:'三',k:'w:三',ans:1}]}),
+ ask({tag:MQ(2),q:'ฟังประโยค แล้วเลือกภาพ',k:'b6-lgbz-m',opts:[{img:C9},{img:C6},{img:C4}],ans:1,fb:'<span class="zh">六个杯子</span> liù ge bēizi'}),
+ reply({tag:MQ(3),noTh:1,q:'ในกลุ่มของคุณมีห้าคน ครูถามว่า',line:L.jgr,opts:[X.r9,{...X.r5,k:'b6-wgr-f'},X.b4],ans:1}),
+ blank({tag:MQ(4),noTh:1,s:'九_人',opts:['个','几','吗'],ans:0,k:'b6-jiugr-f',fb:'<span class="zh">九个人</span>'}),
+ /* 5 · จบบท */
+ fin({title:'นับเลขและถามจำนวนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[LING,ER,SAN,LIU,JIU,JI,GE].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L06',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

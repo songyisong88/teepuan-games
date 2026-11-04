@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 2</title>
+</head><body>
+<script>
+/* ทบทวนหน่วยที่ 2 ตัวเลขและราคา: ทวนคำเล่ม 0 + คำทั้ง 3 บท → บทสนทนาที่ร้านค้า → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};WHO.s={n:'คนขาย',img:ART('人')};
+const YI=w('一','yī','หนึ่ง'),SI=w('四','sì','สี่'),WU=w('五','wǔ','ห้า'),QI=w('七','qī','เจ็ด'),BA=w('八','bā','แปด'),SHI=w('十','shí','สิบ'),SHUI=w('水','shuǐ','น้ำ');
+const LING=w('零','líng','ศูนย์'),ER=w('二','èr','สอง'),SAN=w('三','sān','สาม'),LIU=w('六','liù','หก'),JIU=w('九','jiǔ','เก้า'),JI=w('几','jǐ','กี่'),GE=w('个','gè','อัน คน (คำลักษณนาม)');
+const SUI=w('岁','suì','ขวบ ปี (อายุ)'),LIANG=w('两','liǎng','สอง (ใช้หน้าคำลักษณนาม)'),YOU=w('有','yǒu','มี'),MEIYOU=w('没有','méiyǒu','ไม่มี'),DUO=w('多','duō','มาก เยอะ'),SHAO=w('少','shǎo','น้อย');
+const DS=w('多少','duōshao','เท่าไร'),QIAN=w('钱','qián','เงิน'),KUAI=w('块','kuài','หยวน (ภาษาพูด)'),MAI=w('买','mǎi','ซื้อ'),GUI=w('贵','guì','แพง'),PY=w('便宜','piányi','ถูก (ราคา)'),TAI=w('太','tài','เกินไป'),LE=w('了','le','แล้ว (คำท้ายประโยค)');
+const IMG=n=>`img/${n}.webp`,lab=(n,t)=>{THL[IMG(n)]=t;return IMG(n)};
+const R9=lab('ren9','9 คน'),SH3=lab('tag-shui3','น้ำ 3 หยวน'),BZ6=lab('tag-beizi6','แก้ว 6 หยวน'),BZ10=lab('tag-beizi10','แก้ว 10 หยวน'),SU9=lab('tag-shu9','หนังสือ 9 หยวน'),SU50=lab('tag-shu50','หนังสือ 50 หยวน'),
+ CAT=lab('cat1','มีแมว'),NOCAT=lab('nocat','ไม่มีแมว');
+const BOY=ART('男孩'),GIRL=ART('女孩'),TCH=ART('老师');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const L={njs:S('你几岁？','nǐ jǐ suì?','คุณอายุกี่ขวบ','b7-njs-g','g'),wbsn:S('我八岁。你呢？','wǒ bā suì. nǐ ne?','ฉันอายุแปดขวบ แล้วคุณล่ะ','b7-wbsn-f','me'),wjs:S('我九岁。','wǒ jiǔ suì.','ฉันอายุเก้าขวบ','b7-wjs-g','g'),
+ rhd:S('人很多！','rén hěn duō!','คนเยอะมาก','b9-rhd-f','me'),
+ bdsq:S('杯子多少钱？','bēizi duōshao qián?','แก้วราคาเท่าไร','b9-bdsq-g','g'),k6:S('六块钱。','liù kuài qián.','หกหยวน','b8-k6-t','s'),hpwl:S('很便宜，我买两个。','hěn piányi, wǒ mǎi liǎng ge.','ถูกมาก ฉันซื้อสองใบ','b9-hpwl-g','g'),
+ shdsq:S('书多少钱？','shū duōshao qián?','หนังสือราคาเท่าไร','b8-shdsq-f','me'),k50:S('五十块钱。','wǔshí kuài qián.','ห้าสิบหยวน','b8-k50-t','s'),tgl:S('太贵了！','tài guì le!','แพงเกินไปแล้ว','b8-tgl-f','me'),
+ k3:S('三块钱。','sān kuài qián.','สามหยวน','b8-k3-t','s'),k9:S('九块钱。','jiǔ kuài qián.','เก้าหยวน','b8-k9-t','s'),ss9:S('书九块钱。','shū jiǔ kuài qián.','หนังสือเก้าหยวน','b9-ss9-t','s'),nyj:S('你有几个中国朋友？','nǐ yǒu jǐ ge Zhōngguó péngyou?','คุณมีเพื่อนชาวจีนกี่คน','b7-nyj-g','g'),rhs:S('人很少。','rén hěn shǎo.','คนน้อยมาก','b7-rhs-t','t'),k10:S('十块钱。','shí kuài qián.','สิบหยวน','b8-k10-t','s'),nmsm:S('你买什么？','nǐ mǎi shénme?','คุณจะซื้ออะไร','b8-nmsm-t','s'),
+ bdsqm:S('杯子多少钱？','bēizi duōshao qián?','แก้วราคาเท่าไร','b8-bdsq-f','me'),hpwlm:S('很便宜，我买两个。','hěn piányi, wǒ mǎi liǎng ge.','ถูกมาก ฉันซื้อสองใบ','b8-hpwl-f','me')};
+const D=[{sit:'หลังเลิกเรียน คุณกับเพื่อนใหม่ไปร้านค้าหน้าโรงเรียน',img:ART('岁')},L.njs,L.wbsn,L.wjs,{sit:'ในร้านมีคนเยอะ เพื่อนชอบแก้วใบหนึ่ง',img:BZ6},L.rhd,L.bdsq,L.k6,L.hpwl,{sit:'คุณถามราคาหนังสือ',img:SU50},L.shdsq,L.k50,L.tgl];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),op=x=>({...x,who:'me'});
+const O={sdsq:S('水多少钱？','shuǐ duōshao qián?','น้ำราคาเท่าไร','b8-sdsq-f'),sjs:S('水几岁？','shuǐ jǐ suì?','น้ำอายุกี่ขวบ','b8-sjs-f'),hpwm:S('很便宜，我买。','hěn piányi, wǒ mǎi.','ถูกมาก ฉันซื้อ','b8-hpwm-f'),
+ tgl:S('太贵了！','tài guì le!','แพงเกินไปแล้ว','b8-tgl-f'),hpy:S('很便宜！','hěn piányi!','ถูกมาก','b8-hpy-f'),wmyq:S('我没有钱。','wǒ méiyǒu qián.','ฉันไม่มีเงิน','b8-wmyq-f'),
+ wss:S('我十岁。','wǒ shí suì.','ฉันอายุสิบขวบ','b9-wss-f'),wsshi:S('我是十。','wǒ shì shí.','ฉันคือสิบ','b9-wsshi-f'),k10f:S('十块钱。','shí kuài qián.','สิบหยวน','b9-k10-f'),
+ wmbz:S('我买杯子。','wǒ mǎi bēizi.','ฉันซื้อแก้ว','b9-wmbz-f'),wybz:S('我有杯子。','wǒ yǒu bēizi.','ฉันมีแก้ว','b9-wybz-f'),bzhd:S('杯子很多。','bēizi hěn duō.','แก้วเยอะมาก','b9-bzhd-f'),wmlg:S('我买两个。','wǒ mǎi liǎng ge.','ฉันซื้อสองใบ','b8-wmlg-f')};
+const HANDS=[{img:ART('二'),th:'สอง'},{img:ART('三'),th:'สาม'},{img:ART('六'),th:'หก'},{img:ART('九'),th:'เก้า'}];
+const it=(img,zh,py,th,k,bin)=>({img,zh,py,th,k,bin});
+LESSON({no:9,code:'ทบทวนหน่วย 2',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 2 นับเลข บอกอายุ และซื้อของ',sub:'นับ 0 ถึง 10 ถามกี่คน บอกอายุ บอกว่ามีหรือไม่มี ถามราคา และบอกว่าแพงหรือถูก',min:8},steps:[
+ intro({scene:ART('买'),cap:'บททบทวน',title:'ไปร้านค้าหน้าโรงเรียนกับเพื่อนใหม่',line:L.bdsq,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 2-1 ถึง 2-3 และตัวเลขจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 2',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[YI,SI,WU,QI,BA,SHI,SHUI]},{lab:'2-1 นับ 0 ถึง 10',items:[LING,ER,SAN,LIU,JIU,JI,GE]},{lab:'2-2 อายุเท่าไร มีกี่คน',items:[SUI,LIANG,YOU,MEIYOU,DUO,SHAO]},
+  {lab:'2-3 ราคาเท่าไร',items:[DS,QIAN,KUAI,MAI,GUI,PY,TAI,LE]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'ที่ร้านค้าหน้าโรงเรียน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','นับนิ้ว','ซื้อของ','เติมคำ','เรียงคำ','ป้ายราคา','ใครมีแมว','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[JI,LIANG,MEIYOU,GUI,PY]}),
+ point({tag:TQ(2),q:'ฟังตัวเลข แล้วแตะมือที่ชูนิ้วตรงกัน',this:'คือมือนี้',cards:HANDS,rounds:[{zh:'九',k:'w:九',ans:3},{zh:'三',k:'w:三',ans:1},{zh:'六',k:'w:六',ans:2}]}),
+ story({tag:TQ(3),q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
+  {img:SH3,sit:'คุณอยากรู้ราคาน้ำ',opts:[op(O.sdsq),op(O.sjs)],ans:0,why:'ถามราคาใช้ 多少钱'},
+  {img:SH3,sit:'คนขายบอกว่าสามหยวน ถูกมาก คุณจะซื้อ',line:L.k3,opts:[op(O.hpwm),op(O.wmyq)],ans:0,why:'ราคาถูกพูดว่า 很便宜'},
+  {img:SU50,sit:'หนังสือราคาห้าสิบหยวน แพงเกินไป',line:L.k50,opts:[op(O.hpy),op(O.tgl)],ans:1,why:'แพงเกินไปพูดว่า 太贵了'}]}),
+ ask({rv:11,q:'ฟัง 零 líng แล้วเลือกเสียงท้าย',k:'w:零',opts:['-ng','-n'],ans:0,fb:'lí<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
+ blank({tag:TQ(4),s:'你有_个中国朋友？',th:'คุณมีเพื่อนชาวจีนกี่คน',opts:['几','多','两'],ans:0,k:'b7-nyj-g',fb:'<span class="zh">你有几个中国朋友？</span>'}),
+ order({tag:TQ(5),th:'แก้วราคาเท่าไร',tiles:[tl('杯子','bēizi'),tl('多少','duōshao'),tl('钱','qián'),tl('几','jǐ'),tl('是','shì')],ans:[0,1,2],end:'？',k:'b8-bdsq-f'}),
+ tf({tag:TQ(6),q:'ฟังประโยค แล้วดูป้าย ถูกหรือไม่ถูก',k:'b9-ss9-t',img:SU9,card:'<span class="zh">书</span> ¥9',ans:0,fb:'<span class="zh">书九块钱。</span> = หนังสือราคาเก้าหยวน ตรงกับป้าย'}),
+ sortmap({tag:TQ(7),q:'ฟังแต่ละคน แล้วแตะว่าเขามีแมวหรือไม่มี',bins:[{img:CAT,zh:'有猫',py:'yǒu māo',th:'มีแมว'},{img:NOCAT,zh:'没有猫',py:'méiyǒu māo',th:'ไม่มีแมว'}],
+  items:[it(GIRL,'我没有猫。','wǒ méiyǒu māo.','ฉันไม่มีแมว','b7-wmym-g',1),it(BOY,'我有猫。','wǒ yǒu māo.','ฉันมีแมว','b7-wym-m',0),it(TCH,'我没有猫。','wǒ méiyǒu māo.','ฉันไม่มีแมว','b7-wmym-t',1)]}),
+ ask({rv:6,q:'ฟัง 贵 guì แล้วเลือกพยัญชนะตัวแรก',k:'w:贵',opts:['g','k','h'],ans:0,fb:'<b>g</b>uì · g ไม่มีลมพ่น คล้าย ก'}),
+ reply({tag:TQ(8),q:'เพื่อนถามอายุ คุณอายุสิบขวบ',line:L.njs,opts:[O.wss,O.wsshi,O.k10f],ans:0,why:'บอกอายุด้วย ตัวเลข + 岁'}),
+ lineup({tag:TQ(9),sit:'คุณถามราคาแก้วที่ร้านค้า แล้วตัดสินใจซื้อ',lines:[L.bdsqm,L.k6,L.hpwlm]}),
+ ask({tag:TQ(10),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b7-rhs-t',opts:['คนน้อยมาก','คนเยอะมาก','สองคน'],ans:0,fb:'<span class="zh">人很少。</span> = คนน้อยมาก'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'ไปร้านค้าคนเดียว',chips:['บอกว่าซื้ออะไร','เรียงบทสนทนา','ฟังราคา','ตอบคนขาย'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'คุณอยากซื้อแก้ว คนขายถามว่า',line:L.nmsm,opts:[O.wmbz,O.wybz,O.bzhd],ans:0}),
+ lineup({tag:MQ(2),noTh:1,sit:'เพื่อนใหม่ถามอายุคุณ',lines:[L.njs,L.wbsn,L.wjs]}),
+ ask({tag:MQ(3),q:'ฟังราคา แล้วเลือกป้ายที่ตรงกัน',k:'b8-k10-t',opts:[{img:SH3},{img:BZ10},{img:SU50}],ans:1,fb:'<span class="zh">十块钱</span> shí kuài qián'}),
+ reply({tag:MQ(4),noTh:1,q:'หนังสือแพงเกินไปสำหรับคุณ คนขายบอกว่า',line:L.k50,opts:[O.tgl,O.hpy,O.wmlg],ans:0}),
+ fin({title:'จบหน่วยที่ 2 แล้ว',html:dlgH(D,{noTh:1}),chips:[JI,GE,SUI,LIANG,MEIYOU,DS,GUI,PY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L09',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

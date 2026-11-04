@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 2-2 อายุเท่าไร มีกี่คน</title>
+</head><body>
+<script>
+/* บท 2-2 หน่วย 2 ตัวเลขและราคา: อายุเท่าไร มีกี่คน · คำใหม่ 岁 两 有 没有 多 少
+   ทบทวนจากบทก่อน: 你 几 我 八 个 中国 朋友 人 很 · กิจกรรมเฉพาะบท: สำรวจเพื่อน ใครมีแมว ใครไม่มี (แยกกลุ่ม 有 / 没有) */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const SUI=w('岁','suì','ขวบ ปี (อายุ)'),LIANG=w('两','liǎng','สอง (ใช้หน้าคำลักษณนาม)'),YOU=w('有','yǒu','มี'),MEIYOU=w('没有','méiyǒu','ไม่มี'),DUO=w('多','duō','มาก เยอะ'),SHAO=w('少','shǎo','น้อย');
+const IMG=n=>`img/${n}.webp`,lab=(n,t)=>{THL[IMG(n)]=t;return IMG(n)};
+const R2=lab('ren2','2 คน'),R3=lab('ren3','3 คน'),R9=lab('ren9','9 คน'),C1=lab('cup1','แก้ว 1 ใบ'),C2=lab('cup2','แก้ว 2 ใบ'),C3=lab('cup3','แก้ว 3 ใบ'),C10=lab('cup10','แก้ว 10 ใบ'),
+ CAT=lab('cat1','มีแมว'),NOCAT=lab('nocat','ไม่มีแมว'),DOG=lab('dog1','มีสุนัข'),NODOG=lab('nodog','ไม่มีสุนัข');
+const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),TCH=ART('老师'),CAKE=ART('岁'),FR=ART('朋友');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ njs:S('你几岁？','nǐ jǐ suì?','คุณอายุกี่ขวบ','b7-njs-g'),wbs:S('我八岁。','wǒ bā suì.','ฉันอายุแปดขวบ','b7-wbs-f'),wbsn:S('我八岁。你呢？','wǒ bā suì. nǐ ne?','ฉันอายุแปดขวบ แล้วคุณล่ะ','b7-wbsn-f'),wjs:S('我九岁。','wǒ jiǔ suì.','ฉันอายุเก้าขวบ','b7-wjs-g'),
+ s7:S('七岁','qī suì','เจ็ดขวบ','b7-s7-f'),s8:S('八岁','bā suì','แปดขวบ','b7-s8-f'),s10:S('十岁','shí suì','สิบขวบ','b7-s10-f'),s12:S('十二岁','shí\'èr suì','สิบสองขวบ','b7-s12-f'),
+ lgr:S('两个人。','liǎng ge rén.','สองคน','b7-lgr-f'),lgbz:S('两个杯子。','liǎng ge bēizi.','แก้วสองใบ','b7-lgbz-f'),c123:S('一、二、三','yī, èr, sān','หนึ่ง สอง สาม','b7-c123-t'),lgrt:S('两个人','liǎng ge rén','สองคน','b7-lgr-t'),
+ nyj:S('你有几个中国朋友？','nǐ yǒu jǐ ge Zhōngguó péngyou?','คุณมีเพื่อนชาวจีนกี่คน','b7-nyj-m'),nyjg:S('你有几个中国朋友？','nǐ yǒu jǐ ge Zhōngguó péngyou?','คุณมีเพื่อนชาวจีนกี่คน','b7-nyj-g'),
+ wyl:S('我有两个。','wǒ yǒu liǎng ge.','ฉันมีสองคน','b7-wyl-f'),wyln:S('我有两个。你呢？','wǒ yǒu liǎng ge. nǐ ne?','ฉันมีสองคน แล้วคุณล่ะ','b7-wyln-f'),
+ wylz:S('我有两个中国朋友。','wǒ yǒu liǎng ge Zhōngguó péngyou.','ฉันมีเพื่อนชาวจีนสองคน','b7-wylz-f'),
+ wmy:S('我没有中国朋友。','wǒ méiyǒu Zhōngguó péngyou.','ฉันไม่มีเพื่อนชาวจีน','b7-wmy-m'),wmyf:S('我没有中国朋友。','wǒ méiyǒu Zhōngguó péngyou.','ฉันไม่มีเพื่อนชาวจีน','b7-wmy-f'),
+ wym:S('我有猫。','wǒ yǒu māo.','ฉันมีแมว','b7-wym-m'),wmym:S('我没有猫。','wǒ méiyǒu māo.','ฉันไม่มีแมว','b7-wmym-g'),nym:S('你有猫吗？','nǐ yǒu māo ma?','คุณมีแมวไหม','b7-nym-g'),
+ rhd:S('人很多。','rén hěn duō.','คนเยอะมาก','b7-rhd-t'),rhs:S('人很少。','rén hěn shǎo.','คนน้อยมาก','b7-rhs-t'),bzhd:S('杯子很多。','bēizi hěn duō.','แก้วเยอะมาก','b7-bzhd-t'),
+ rhsm:S('人很少。','rén hěn shǎo.','คนน้อยมาก','b7-rhs-m'),hh:S('很好！','hěn hǎo!','ดีมาก','b6-hh-t')};
+const L={njs:{...X.njs,who:'g'},wbsn:{...X.wbsn,who:'me'},wjs:{...X.wjs,who:'g'},nyj:{...X.nyj,who:'f'},wyln:{...X.wyln,who:'me'},wmy:{...X.wmy,who:'f'},
+ nym:{...X.nym,who:'g'},wmym:{...X.wmym,who:'g'},wym:{...X.wym,who:'f'},rhd:{...X.rhd,who:'t'},rhs:{...X.rhs,who:'t'},wbs:{...X.wbs,who:'me'},nyjg:{...X.nyjg,who:'g'},wyl:{...X.wyl,who:'me'}};
+const D=[{sit:'เพื่อนใหม่ถามอายุกันในห้องเรียน',img:CAKE},L.njs,L.wbsn,L.wjs,{sit:'คุยกันเรื่องเพื่อนชาวจีน',img:FR},L.nyj,L.wyln,L.wmy];
+const it=(img,zh,py,th,k,bin)=>({img,zh,py,th,k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:7,code:'บท 2-2',goal:{do:'ถามและบอกอายุ บอกว่ามีหรือไม่มี และบอกว่ามากหรือน้อย',sub:'ใช้ <span class="gz">你几岁 · 我有两个 · 我没有 · 很多 很少</span>',min:11},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:CAKE,cap:'สถานการณ์ของบทนี้',title:'ถามอายุน้อง ถามว่ามีเพื่อนกี่คน',line:L.njs,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกอายุ บอกว่ามีหรือไม่มี และใช้ 两 ได้ถูก'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[SUI,LIANG,YOU,MEIYOU,DUO,SHAO]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['岁','两','有','没有','多','少'],note:'ใช้ตัวเลขจากบทที่แล้วมาบอกอายุและจำนวน'}),
+ wcard({no:1,of:6,cap:'อายุ',w:SUI,aid:{parts:['suì',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ซุ่ย"</b> · s ไม่ม้วนลิ้น',sk:'fs:岁',
+  use:'ใช้บอกอายุ · ตัวเลข + 岁 เช่น 八岁 แปดขวบ · ไม่ต้องมี 个',ex:[X.njs,X.wbs]}),
+ wcard({no:2,of:6,cap:'ตัวเลข',w:LIANG,aid:{parts:['liǎng',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"เหลี่ยง"</b> · ลงท้าย -ng',sk:'fs:两',
+  use:'แปลว่าสอง ใช้หน้าคำลักษณนาม เช่น 两个人 สองคน · นับเลขยังใช้ 二',ex:[X.lgr,X.lgbz]}),
+ rec({n:'คำที่ 1–2/6',ws:[SUI,LIANG]}),
+ use({n:'คำที่ 1–2/6',w:LIANG,when:[{img:R2,t:'บอกว่ามีสองคน'},{img:C2,t:'บอกว่ามีสองใบ'}],lines:[{...X.lgr,who:'me'},{...X.lgbz,who:'me'}],tip:'二 ใช้นับเลข · 两 ใช้หน้า 个 · <span class="zh">两个人</span> ไม่พูดว่า 二个人'}),
+ wcard({no:3,of:6,cap:'คำกริยา',w:YOU,aid:{parts:['yǒu',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"โหย่ว"</b>',sk:'fs:有',
+  use:'แปลว่ามี · ฉัน + 有 + สิ่งที่มี เช่น 我有猫 ฉันมีแมว',ex:[X.wym,X.wylz]}),
+ wcard({no:4,of:6,cap:'ปฏิเสธ',w:MEIYOU,aid:{parts:['méi',2,'yǒu',3],cap:'เสียง 2 + เสียง 3'},hint:'คล้าย <b>"เหมย โหย่ว"</b>',sk:'fs:没有',
+  use:'แปลว่าไม่มี · ปฏิเสธ 有 ต้องใช้ 没 ไม่ใช้ 不',ex:[X.wmym,X.wmyf]}),
+ syl({n:'คำที่ 4/6',w:MEIYOU,chars:[{zh:'没',py:'méi',t:2,k:'g:mei2'},{zh:'有',py:'yǒu',t:3,k:'sy:有'}],done:'méi + yǒu = méiyǒu'}),
+ rec({n:'คำที่ 3–4/6',ws:[YOU,MEIYOU]}),
+ use({n:'คำที่ 3–4/6',w:MEIYOU,when:[{img:CAT,t:'บอกว่ามี'},{img:NOCAT,t:'บอกว่าไม่มี'}],lines:[L.nym,{...X.wym,who:'f'},{...X.wmym,who:'g'}],tip:'มี = <span class="zh">有</span> · ไม่มี = <span class="zh">没有</span> · ถามว่ามีไหม เติม <span class="zh">吗</span> ท้ายประโยค'}),
+ wcard({no:5,of:6,cap:'จำนวน',w:DUO,aid:{parts:['duō',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"ตัว"</b> เสียงสูงยาว',sk:'fs:多',
+  use:'แปลว่ามาก เยอะ · มักพูดว่า 很多 เช่น 人很多 คนเยอะมาก',ex:[X.rhd,X.bzhd]}),
+ wcard({no:6,of:6,cap:'จำนวน',w:SHAO,aid:{parts:['shǎo',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"ส่าว"</b> · sh ม้วนลิ้นขึ้น',sk:'fs:少',
+  use:'แปลว่าน้อย ตรงข้ามกับ 多 · 人很少 คนน้อยมาก',ex:[X.rhs,X.rhd]}),
+ use({n:'คำที่ 5–6/6',w:SHAO,when:[{img:R9,t:'คนเยอะ'},{img:R2,t:'คนน้อย'}],lines:[L.rhd,L.rhs],tip:'พูด <span class="zh">很多</span> <span class="zh">很少</span> เป็นคู่กับ 很 เสมอ'}),
+ rec({n:'คำที่ 5–6/6',ws:[DUO,SHAO]}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ถามอายุ','二 กับ 两','ใครมีแมว','多 กับ 少','ข้อควรระวัง'],note:'ฝึกถามตอบเรื่องอายุและสิ่งที่มี'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนากับเพื่อนใหม่',title:'อายุเท่าไร มีกี่คน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามกลับง่าย ๆ ด้วย 你呢？'}),
+ talk({cap:'เทคนิค 2/6 · ถามอายุ',title:'你几岁？',text:'ตอบด้วย ตัวเลข + 岁 แตะอายุแต่ละแบบเพื่อฟัง',lines:[L.njs,L.wbs],
+  chips:[X.s7,X.s8,X.s10,X.s12],tip:'ตอบอายุไม่ต้องมี <span class="zh">是</span> และไม่ต้องมี <span class="zh">个</span> · <span class="zh">我八岁。</span>'}),
+ cmp({cap:'เทคนิค 3/6 · 二 กับ 两',title:'สองแบบไหนดี',text:'ทั้งสองคำแปลว่าสอง แต่ใช้ต่างที่กัน',a:{who:'นับเลข',img:ART('二'),zh:'一、二、三',py:'yī, èr, sān',th:'หนึ่ง สอง สาม',k:'b7-c123-t'},b:{who:'หน้าคำลักษณนาม',img:R2,zh:'两个人',py:'liǎng ge rén',th:'สองคน',k:'b7-lgr-t'},
+  tip:'เลขหลายหลักยังใช้ 二 เช่น <span class="zh">十二岁</span> สิบสองขวบ'}),
+ sortmap({tag:'เทคนิค 4/6 · ใครมีแมว',q:'ฟังแต่ละคน แล้วแตะว่าเขามีแมวหรือไม่มี',bins:[{img:CAT,zh:'有猫',py:'yǒu māo',th:'มีแมว'},{img:NOCAT,zh:'没有猫',py:'méiyǒu māo',th:'ไม่มีแมว'}],
+  items:[it(BOY,'我有猫。','wǒ yǒu māo.','ฉันมีแมว','b7-wym-m',0),it(GIRL,'我没有猫。','wǒ méiyǒu māo.','ฉันไม่มีแมว','b7-wmym-g',1),it(STU,'我有猫。','wǒ yǒu māo.','ฉันมีแมว','b7-wym-f',0),it(TCH,'我没有猫。','wǒ méiyǒu māo.','ฉันไม่มีแมว','b7-wmym-t',1)]}),
+ talk({cap:'เทคนิค 5/6 · 多 กับ 少',title:'เยอะหรือน้อย',text:'สิ่งที่พูดถึง + 很多 / 很少',lines:[L.rhd,L.rhs,{...X.bzhd,who:'t'}],
+  chips:[{zh:'很多',py:'hěn duō',th:'เยอะมาก',k:'b7-hd-t'},{zh:'很少',py:'hěn shǎo',th:'น้อยมาก',k:'b7-hs-t'}],tip:'ไม่ต้องมี <span class="zh">是</span> · <span class="zh">人很多。</span> ไม่พูดว่า 人是多'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ไม่มี ใช้ 没有 ไม่ใช้ 不有',bad:'我不有猫。',good:'我没有猫。',k:'b7-wmym-g'},
+  {h:'หน้า 个 ใช้ 两',bad:'二个人。',good:'两个人。',k:'b7-lgr-f'},
+  {h:'บอกอายุไม่ต้องมี 是',bad:'我是八岁。',good:'我八岁。',k:'b7-wbs-f'},
+  {h:'มี 几 แล้วไม่ต้องใส่ 吗',bad:'你几岁吗？',good:'你几岁？',k:'b7-njs-g'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:岁',opts:['ขวบ ปี (อายุ)','สอง','มี'],ans:0,fb:'<span class="zh">岁</span> <b>suì</b> = ขวบ ปี (อายุ)'}),
+ ask({rv:8,q:'ฟัง 岁 suì แล้วเลือกพยัญชนะตัวแรก',k:'w:岁',opts:['s','sh','x'],ans:0,fb:'<b>s</b>uì · s ไม่ม้วนลิ้น'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b7-rhd-t',opts:[{img:R9},{img:R2}],ans:0,fb:'<span class="zh">人很多。</span> rén hěn duō = คนเยอะมาก'}),
+ blank({tag:TQ(3),s:'我_两个中国朋友。',th:'ฉันมีเพื่อนชาวจีนสองคน',opts:['有','是','几'],ans:0,k:'b7-wylz-f',fb:'<span class="zh">我有两个中国朋友。</span>'}),
+ ask({rv:11,q:'ฟัง 两 liǎng แล้วเลือกเสียงท้าย',k:'w:两',opts:['-ng','-n'],ans:0,fb:'liǎ<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
+ reply({tag:TQ(4),q:'เพื่อนถามอายุ คุณอายุแปดขวบ',line:L.njs,opts:[X.wbs,S('我八个。','wǒ bā ge.','ฉันแปดอัน','b7-wbg-f'),S('我是八。','wǒ shì bā.','ฉันคือแปด','b7-wsb-f')],ans:0,why:'บอกอายุด้วย ตัวเลข + 岁'}),
+ order({tag:TQ(5),th:'ฉันไม่มีเพื่อนชาวจีน',tiles:[tl('我','wǒ'),tl('没有','méiyǒu'),tl('中国','Zhōngguó'),tl('朋友','péngyou'),tl('不','bù'),tl('是','shì')],ans:[0,1,2,3],end:'。',k:'b7-wmy-f'}),
+ ask({rv:7,q:'ฟัง 少 shǎo แล้วเลือกพยัญชนะตัวแรก',k:'w:少',opts:['sh','s','x'],ans:0,fb:'<b>sh</b>ǎo · ม้วนลิ้นขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b7-lgbz-f',opts:[{img:C3},{img:C2},{img:C1}],ans:1,fb:'<span class="zh">两个杯子。</span> liǎng ge bēizi = แก้วสองใบ'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'สำรวจเพื่อน',chips:['ใครมีสุนัข','คนเยอะไหม','ตอบเพื่อน','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ sortmap({tag:MQ(1),noTh:1,q:'ฟังแต่ละคน แล้วแตะภาพที่ตรงกัน',bins:[{img:DOG,zh:'有狗',py:'yǒu gǒu',th:'มีสุนัข'},{img:NODOG,zh:'没有狗',py:'méiyǒu gǒu',th:'ไม่มีสุนัข'}],
+  items:[it(GIRL,'我没有狗。','wǒ méiyǒu gǒu.','ฉันไม่มีสุนัข','b7-wmyg-g',1),it(BOY,'我有狗。','wǒ yǒu gǒu.','ฉันมีสุนัข','b7-wyg-m',0),it(TCH,'我有狗。','wǒ yǒu gǒu.','ฉันมีสุนัข','b7-wyg-t',0)]}),
+ ask({tag:MQ(2),q:'ฟังประโยค แล้วเลือกภาพ',k:'b7-rhs-m',opts:[{img:R9},{img:R2}],ans:1,fb:'<span class="zh">人很少。</span> rén hěn shǎo'}),
+ reply({tag:MQ(3),noTh:1,q:'คุณมีเพื่อนชาวจีนสองคน เพื่อนถามว่า',line:L.nyjg,opts:[X.wyl,S('我有二个。','wǒ yǒu èr ge.','','b7-wye-f'),X.wmyf],ans:0}),
+ blank({tag:MQ(4),noTh:1,s:'你_岁？',opts:['几','两','多'],ans:0,k:'b7-njs-g',fb:'<span class="zh">你几岁？</span>'}),
+ /* 5 · จบบท */
+ fin({title:'บอกอายุ และบอกว่ามีหรือไม่มีได้แล้ว',html:dlgH(D,{noTh:1}),chips:[SUI,LIANG,YOU,MEIYOU,DUO,SHAO].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L07',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

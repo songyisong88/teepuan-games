@@ -87,7 +87,7 @@ async function tap(sel){const el=typeof sel==='string'?$(sel):sel;if(!el)return;
  clearTimeout(tap.h);tap.h=setTimeout(()=>{f.style.opacity=0},900)}
 
 /* owner rule: at most one llama per screen */
-const LLAMA_ART=['一起','不客气','你好','再见','明天见','早上好','对不起','没关系','叫','认识','高兴','好','去','吃','喝','快','热','谢谢','饿'];
+const LLAMA_ART=['一起','不客气','你好','再见','明天见','早上好','对不起','没关系','叫','认识','高兴','好','去','吃','喝','快','热','谢谢','饿','有','买','这','那','请','坐','想','小','大','好吃','喜欢','能','爱','哪儿','来','回','开','住','漂亮','看','看见','打电话','喂','冷','起床','睡觉','做','工作','学习','会','说','听','读','写','没'];
 /* เล่ม 1: ภาพฉากและมาสคอตก็มีลามะ นับรวมด้วย */
 const isLlama=i=>{const u=decodeURIComponent(i.getAttribute('src')||'');return /\/assets\/(mascot|art\/scene)\//.test(u)||LLAMA_ART.some(n=>u.endsWith('/'+n+'.webp'))};
 function oneLlama(st){const im=[...st.querySelectorAll('img')].filter(i=>isLlama(i)&&!i.closest('#qm'));

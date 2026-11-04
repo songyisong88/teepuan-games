@@ -50,7 +50,7 @@
 .mcmp2 button.on{box-shadow:0 0 0 2.5px var(--red),0 6px 16px rgba(200,16,46,.15);transform:scale(1.03)}
 .mcmp2 .who{font-size:13px;font-weight:700;color:var(--sub2);background:#F6F1EA;border-radius:999px;padding:3px 10px}
 .mcmp2 .zh{font-size:36px;line-height:1.1;margin-top:4px}.mcmp2 .py{font-size:17px;font-weight:700}
-.mtchips{display:flex;justify-content:center;gap:10px;margin:14px 18px 0}
+.mtchips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:14px 18px 0}
 .mtchips button{display:flex;flex-direction:column;align-items:center;padding:8px 14px;border-radius:16px;background:#fff;border:1.5px solid #EDE4D8;box-shadow:0 3px 0 #EDE4D8}
 .mtchips button.on{box-shadow:0 0 0 2.5px var(--red)}
 .mtchips .zh{font-size:24px}.mtchips .py{font-size:14px;font-weight:700}.mtchips small{font-size:12.5px;color:var(--sub2)}

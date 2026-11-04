@@ -173,7 +173,7 @@ function point(o){const C=o.cards,R=o.rounds,noTh=!!o.noTh;return {kind:'teach',
   $('.mpt',st).addEventListener('click',async e=>{const b=e.target.closest('[data-pc]');if(!b||busy)return;const x=R[r],i=+b.dataset.pc;busy=1;
    if(i===x.ans){b.classList.add('ok');fbBox(st,`ถูกต้อง · <span class="zh">${x.zh}</span> ${x.py}${noTh?'':' = '+C[x.ans].th}`);await wait(900);if(!ok())return;
     if(++r<R.length){draw();busy=0}else{$$('.mpq .dots i',st).forEach(d=>d.classList.add('on'));doneOk(st,o.done||'ครบทุกรอบแล้ว');busy=0}}
-   else{b.classList.add('bad');$(`.mpt [data-pc="${x.ans}"]`,st).classList.add('ans');fbBox(st,`ยังไม่ใช่ · <span class="zh">${x.zh}</span> คือคนนี้${x.why?' · '+x.why:''} ลองรอบเดิมอีกครั้ง`);await wait(1800);if(!ok())return;draw();busy=0}})},
+   else{b.classList.add('bad');$(`.mpt [data-pc="${x.ans}"]`,st).classList.add('ans');fbBox(st,`ยังไม่ใช่ · <span class="zh">${x.zh}</span> ${o.this||'คือคนนี้'}${x.why?' · '+x.why:''} ลองรอบเดิมอีกครั้ง`);await wait(1800);if(!ok())return;draw();busy=0}})},
  solve:async()=>{for(const x of R){$(`#stage .mpt [data-pc="${x.ans}"]`).click();await wait(1050)}},
  demo:async d=>{if(d==='half'||d==='done'){$(`#stage .mpt [data-pc="${R[0].ans}"]`).click();await wait(300)}if(d==='bad'){$(`#stage .mpt [data-pc="${(R[0].ans+1)%C.length}"]`).click();await wait(300)}await wait(200)}}}
 /* เรียงคำเป็นประโยค: แตะคำตามลำดับ · ผิด = ไฮไลต์คำที่ถูกแล้วแตะใหม่ */
@@ -220,15 +220,15 @@ function namecard(o){return {kind:'teach',lock:true,html:()=>`${tag(o.n,o.cap||'
 function sortmap(o){const I=o.items,B=o.bins,noTh=!!o.noTh;return {kind:'teach',lock:true,html:()=>`<div class="center"><div class="cap v4tag">${o.tag}</div><div class="cap" style="font-size:14px;margin-top:2px">${o.q||'ฟังแต่ละคนแนะนำตัว แล้วแตะประเทศของเขา'}</div></div>
  <div class="msrt"><div class="who"><span class="n"></span><img src="" alt=""><button class="audio press" data-sp="1">${SPK}</button><div class="said"></div></div>
  <div class="bins">${B.map((b,i)=>`<button class="press" data-bn="${i}"><img src="${b.img}" alt=""><span class="zh">${b.zh}</span><span class="py">${b.py}</span>${noTh?'':`<span class="v4lab">${b.th}</span>`}<span class="ppl"></span></button>`).join('')}</div></div>
- <div class="center"><div class="mmfb"></div><div class="v4ok v4need" style="margin-top:6px">ทำให้ครบ ${I.length} คน</div></div>`,
+ <div class="center"><div class="mmfb"></div><div class="v4ok v4need" style="margin-top:6px">ทำให้ครบ ${I.length} ${o.unit||'คน'}</div></div>`,
  show:st=>{let c=0,busy=0;const i0=E.i;const ok=()=>E.i===i0&&here(st);
-  const draw=()=>{const x=I[c];$('.msrt .who img',st).src=x.img;$('.msrt .n',st).textContent=`คนที่ ${c+1}/${I.length}`;$('.msrt .said',st).innerHTML='';$$('.bins button',st).forEach(b=>b.classList.remove('ok','bad','ans'));fbBox(st,'');if(!quiet())setTimeout(()=>{if(ok())play(x.k)},350)};
+  const draw=()=>{const x=I[c];$('.msrt .who img',st).src=x.img;$('.msrt .n',st).textContent=`${o.unit||'คน'}ที่ ${c+1}/${I.length}`;$('.msrt .said',st).innerHTML='';$$('.bins button',st).forEach(b=>b.classList.remove('ok','bad','ans'));fbBox(st,'');if(!quiet())setTimeout(()=>{if(ok())play(x.k)},350)};
   draw();$('[data-sp]',st).addEventListener('click',e=>{bump(e.currentTarget);play(I[c].k)});
   $('.bins',st).addEventListener('click',async e=>{const b=e.target.closest('[data-bn]');if(!b||busy)return;const x=I[c],i=+b.dataset.bn;busy=1;
    $('.msrt .said',st).innerHTML=`<span class="zh">${x.zh}</span><span class="py">${x.py}</span>${noTh?'':`<small>${x.th}</small>`}`;
    if(i===x.bin){b.classList.add('ok');$('.ppl',b).insertAdjacentHTML('beforeend',`<img src="${x.img}" alt="">`);fbBox(st,'ถูกต้อง');await wait(1000);if(!ok())return;
-    if(++c<I.length){draw();busy=0}else{doneOk(st,o.done||'ครบทุกคนแล้ว');busy=0}}
-   else{b.classList.add('bad');$(`.bins [data-bn="${x.bin}"]`,st).classList.add('ans');fbBox(st,`ยังไม่ใช่ · เขาพูดว่า <span class="zh">${x.zh}</span> ฟังอีกครั้งแล้วลองใหม่`);play(x.k);await wait(2000);if(!ok())return;draw();busy=0}})},
+    if(++c<I.length){draw();busy=0}else{doneOk(st,o.done||`ครบทุก${o.unit||'คน'}แล้ว`);busy=0}}
+   else{b.classList.add('bad');$(`.bins [data-bn="${x.bin}"]`,st).classList.add('ans');fbBox(st,`ยังไม่ใช่ · ${o.said||'เขาพูดว่า'} <span class="zh">${x.zh}</span> ฟังอีกครั้งแล้วลองใหม่`);play(x.k);await wait(2000);if(!ok())return;draw();busy=0}})},
  solve:async()=>{for(const x of I){$(`#stage .bins [data-bn="${x.bin}"]`).click();await wait(1150)}},
  demo:async d=>{if(d==='half'||d==='done'){$(`#stage .bins [data-bn="${I[0].bin}"]`).click();await wait(300)}if(d==='bad'){$(`#stage .bins [data-bn="${I[0].bin?0:1}"]`).click();await wait(300)}await wait(200)}}}
 /* ถูกหรือไม่ถูก: บัตรข้อมูลคน + ฟังประโยค */

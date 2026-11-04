@@ -10,7 +10,7 @@ const MIC=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wid
 const pic=(x,c='mpic',lab)=>{const d=`<div class="${c}"><img src="${x.img||x}" alt="${thOf(x)}" draggable="false"></div>`;return lab&&thOf(x)?`<div class="v4fig">${d}${thLab(x)}</div>`:d};
 const tag=(n,s)=>`<div class="center"><div class="cap">${n?n+' · ':''}${s}</div></div>`;
 const QZ=(i,n)=>`ทดสอบท้ายบท ${i}/${n} · ไม่มีตัวช่วยภาษาไทย`;
-const TITLES=[null,'ทักทาย ขอบคุณ บอกลา','ขอโทษ และไม่เป็นไร','ฉัน คุณ เขา เธอ','เพื่อนร่วมชั้นและเพื่อน','ชื่อของฉัน','ยินดีที่ได้รู้จัก','ทบทวนหน่วยที่ 1'];
+const TITLES=[null,'ทักทาย ขอโทษ บอกลา','ฉัน คุณ เขา เธอ','ชื่ออะไร','ยินดีที่ได้รู้จัก','ทบทวนหน่วยที่ 1'];
 const RV=n=>`ทบทวนเล่ม 0 · บท 0-${n} ${B0T[n]}`;
 let G=null;
 const quiet=()=>TOPW.__quiet||SHOT!=null;

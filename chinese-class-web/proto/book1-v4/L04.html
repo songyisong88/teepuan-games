@@ -4,67 +4,93 @@
 <link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
 <link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
 <script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
-<title>ต้นแบบ · บท 1-4 เพื่อนร่วมชั้นและเพื่อน</title>
+<title>ต้นแบบ · บท 1-4 ยินดีที่ได้รู้จัก</title>
 </head><body>
 <script>
-/* บท 1-4 (ซ้งอี้ 4 พ.ย. 2026): เพื่อนร่วมชั้นและเพื่อน · กิจกรรมเฉพาะบท: เรียงบทสนทนา (แตะฟองตามลำดับที่ควรพูด) และทักคนเดียว/หลายคน */
-const TX=w('同学','tóngxué','เพื่อนร่วมชั้น'),PY=w('朋友','péngyou','เพื่อน'),DJH=w('大家好','dàjiā hǎo','สวัสดีทุกคน');
-const DJ=w('大家','dàjiā','ทุกคน'),BOY=w('男孩','nánhái','เด็กผู้ชาย'),CLS=ART('教室'),TCH=w('老师','lǎoshī','ครู').img;
-const R={nh:{zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-f'},djh:{zh:'大家好！',py:'dàjiā hǎo!',th:'สวัสดีทุกคน',k:'djh-f'},lsh:{zh:'老师好！',py:'lǎoshī hǎo!',th:'สวัสดีคุณครู',k:'lsh-f'},
- zj:{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-f'},dbq:{zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-f'},txmh:{zh:'同学们好！',py:'tóngxuémen hǎo!',th:'สวัสดีนักเรียนทุกคน',k:'txmh-f'}};
-const L={txmh:{who:'t',zh:'同学们好！',py:'tóngxuémen hǎo!',th:'สวัสดีนักเรียนทุกคน',k:'txmh-t'},lsh:{who:'me',...R.lsh},tswpy:{who:'g',zh:'他是我朋友。',py:'tā shì wǒ péngyou.',th:'เขาเป็นเพื่อนของฉัน',k:'tswpy-g'},
- djhm:{who:'f',zh:'大家好！',py:'dàjiā hǎo!',th:'สวัสดีทุกคน',k:'djh-m'},nhme:{who:'me',...R.nh},nhg:{who:'g',zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-g'},nhtx:{who:'f',zh:'你好，同学！',py:'nǐ hǎo, tóngxué!',th:'สวัสดีเพื่อน',k:'nhtx-m'}};
-const D=[{sit:'ครูเข้าห้องเรียนตอนเช้า',img:CLS},L.txmh,L.lsh,{sit:'เพื่อนพาเพื่อนใหม่มาแนะนำ',img:PY.img},L.tswpy,L.djhm,L.nhme];
-const TQ=i=>`แบบทดสอบ ${i}/5 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/3 · ไม่มีตัวช่วยภาษาไทย`;
-const Z=(zh,th,noTh)=>`<span class="zh">${zh}</span>${noTh?'':` ${th}`}`;
-LESSON({no:4,goal:{do:'ทักทายเพื่อน ทั้งคนเดียวและหลายคนได้',sub:'ใช้ <span class="gz">同学 朋友 大家好</span> และเติม <span class="gz">们</span> เมื่อมีหลายคน',min:8},steps:[
+/* บท 1-4 หน่วย 1 ฉบับใหม่ (ซ้งอี้ อนุมัติแผนคำศัพท์ 4 พ.ย. 2026): ยินดีที่ได้รู้จัก · คำใหม่ 认识 高兴 很 人 中国 泰国 北京 哪
+   กิจกรรมเฉพาะบท: ใครมาจากไหน (ฟังแล้วแตะประเทศ) และบัตรข้อมูล ถูกหรือไม่ถูก */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const RS=w('认识','rènshi','รู้จัก'),GX=w('高兴','gāoxìng','ดีใจ'),HEN=w('很','hěn','มาก'),REN=w('人','rén','คน'),ZG=w('中国','Zhōngguó','ประเทศจีน'),TG=w('泰国','Tàiguó','ประเทศไทย'),BJ=w('北京','Běijīng','ปักกิ่ง'),NA=w('哪','nǎ','ไหน');
+const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),TCH=ART('老师'),MAN=REN.img;
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={zg:k=>S('我是中国人。','wǒ shì Zhōngguó rén.','ฉันเป็นคนจีน',k),tg:k=>S('我是泰国人。','wǒ shì Tàiguó rén.','ฉันเป็นคนไทย',k),bj:k=>S('我是北京人。','wǒ shì Běijīng rén.','ฉันเป็นคนปักกิ่ง',k),
+ hgx:S('很高兴认识你！','hěn gāoxìng rènshi nǐ!','ยินดีที่ได้รู้จัก','hgxrsn-f'),yhgx:S('我也很高兴认识你！','wǒ yě hěn gāoxìng rènshi nǐ!','ฉันก็ยินดีที่ได้รู้จักคุณ','wyhgxrsn-m'),
+ whgx:S('我很高兴。','wǒ hěn gāoxìng.','ฉันดีใจมาก','wohgx-g'),ngr:S('你是哪国人？','nǐ shì nǎ guó rén?','คุณเป็นคนประเทศไหน','nsngr-g'),tngr:S('他是哪国人？','tā shì nǎ guó rén?','เขาเป็นคนประเทศไหน','tsngr-f'),
+ tzg:S('他是中国人。','tā shì Zhōngguó rén.','เขาเป็นคนจีน','tszgr-g'),ttg:S('她是泰国人。','tā shì Tàiguó rén.','เธอเป็นคนไทย','tstgr-f'),tzgm:S('他是中国人吗？','tā shì Zhōngguó rén ma?','เขาเป็นคนจีนไหม','tszgrm-g'),
+ stbj:S('是，他是北京人。','shì, tā shì Běijīng rén.','ใช่ เขาเป็นคนปักกิ่ง','stsbjr-f'),zgbj:S('我是中国人，我是北京人。','wǒ shì Zhōngguó rén, wǒ shì Běijīng rén.','ฉันเป็นคนจีน ฉันเป็นคนปักกิ่ง','wszgrbjr-m'),
+ rsn:S('认识你很高兴！','rènshi nǐ hěn gāoxìng!','ยินดีที่ได้รู้จัก','rsnhgx-f'),dbq:S('对不起！','duìbuqǐ!','ขอโทษ','dbq-f'),zj:S('再见！','zàijiàn!','ลาก่อน','zaijian-s-f')};
+const L={ngr:{...X.ngr,who:'me',k:'nsngr-f'},zgbj:{...X.zgbj,who:'f'},hgx:{...X.hgx,who:'me'},yhgx:{...X.yhgx,who:'f'},ngrm:{...X.ngr,who:'f',k:'nsngr-m'},tg:{...X.tg('wstgr-f'),who:'me'},
+ ngrt:{...X.ngr,who:'t',k:'nsngr-t'},tzgm:{...X.tzgm,who:'g'},stbj:{...X.stbj,who:'me'},hgxm:{...X.hgx,who:'f',k:'hgxrsn-m'}};
+const D=[{sit:'หลังเลิกเรียน คุณเจอนักเรียนใหม่ในห้อง',img:BOY},L.ngr,L.zgbj,L.hgx,L.yhgx,{sit:'นักเรียนใหม่ถามคุณกลับ',img:ZG.img},L.ngrm,L.tg];
+const BINS=[{img:ZG.img,zh:'中国',py:'Zhōngguó',th:'ประเทศจีน'},{img:TG.img,zh:'泰国',py:'Tàiguó',th:'ประเทศไทย'}];
+const it=(img,k,b,bj)=>Object.assign({img,bin:b},bj?X.bj(k):b?X.tg(k):X.zg(k));
+const card=(n,py,c)=>`<b class="zh">${n}</b><span class="py">${py}</span><span>สัญชาติ <span class="zh">${c}人</span></span>`;
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:4,goal:{do:'บอกว่ายินดีที่ได้รู้จัก ถามและบอกว่าเป็นคนประเทศไหน',sub:'ใช้ <span class="gz">很高兴认识你</span> และ <span class="gz">你是哪国人 · 我是泰国人</span>',min:11},steps:[
  /* 1 · เปิดบท + คำศัพท์ใหม่ */
- intro({scene:SC('l1-p1'),cap:'สถานการณ์ของบทนี้',title:'เช้าวันแรกในห้องเรียน',line:L.txmh,note:'แตะฟองเพื่อฟังครูทักนักเรียนทั้งห้อง · บทนี้คุณจะได้ทักเพื่อนคนเดียวและทักทุกคนพร้อมกัน'}),
- vgrid({title:'3 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[TX,PY,DJH]}),
+ intro({scene:SC('l4-p3'),cap:'สถานการณ์ของบทนี้',title:'เพื่อนใหม่มาจากไหน',line:{...X.hgx,who:'f',k:'hgxrsn-m'},note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกว่ายินดีที่ได้รู้จัก ถามว่าเป็นคนประเทศไหน และบอกว่าคุณเป็นคนไทย'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[RS,GX,HEN,REN,ZG,TG,BJ,NA]}),
  /* 2 · เรียนทีละคำ */
- part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['同学','朋友','大家好'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
- wcard({no:1,of:3,cap:'คนที่เรียนด้วยกัน',w:TX,aid:{parts:['tóng',2,'xué',2],cap:'เสียง 2 ทั้งสองพยางค์ ขึ้นทั้งคู่'},hint:'คล้าย <b>"ถง เสวีย"</b> · xué ห่อปากแบบสระ ü',sk:'tx-fs',
-  use:'ใช้เรียกคนที่เรียนห้องเดียวกันหรือโรงเรียนเดียวกัน ครูก็ใช้เรียกนักเรียน',ex:[{zh:'你好，同学！',py:'nǐ hǎo, tóngxué!',th:'สวัสดีเพื่อน',k:'nhtx-m'},{zh:'同学们好！',py:'tóngxuémen hǎo!',th:'สวัสดีนักเรียนทุกคน',k:'txmh-t'}]}),
- syl({n:'คำที่ 1/3',w:TX,chars:[{zh:'同',py:'tóng',t:2,k:'g:tong2'},{zh:'学',py:'xué',t:2,k:'g:xue2'}],done:'tóng + xué = tóngxué'}),
- rec({n:'คำที่ 1/3',w:TX,keys:['tx-fs',TX.k]}),
- wcard({no:2,of:3,cap:'คนที่สนิทกัน',w:PY,aid:{parts:['péng',2,'you',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เผิง โหยว"</b> · you พูดเบาและสั้น',sk:'py-fs',
-  use:'ใช้เรียกเพื่อนที่สนิทกัน ไม่จำเป็นต้องเรียนห้องเดียวกัน',ex:[L.tswpy,{zh:'她是我朋友。',py:'tā shì wǒ péngyou.',th:'เธอเป็นเพื่อนของฉัน',k:'taswpy-m'}]}),
- rec({n:'คำที่ 2/3',w:PY,keys:['py-fs',PY.k]}),
- wcard({no:3,of:3,cap:'ทักหลายคนพร้อมกัน',w:DJH,aid:{parts:['dà',4,'jiā',1,'hǎo',3],cap:'เสียง 4 · เสียง 1 · เสียง 3'},hint:'คล้าย <b>"ต้า เจีย ห่าว"</b> · 大家 แปลว่าทุกคน',sk:'djh-fs',
-  use:'ใช้ทักคนหลายคนพร้อมกัน เช่น ยืนพูดหน้าห้อง หรือเดินเข้าไปในกลุ่มเพื่อน',ex:[{zh:'大家好！',py:'dàjiā hǎo!',th:'สวัสดีทุกคน',k:'djh-m'},{zh:'老师好，大家好！',py:'lǎoshī hǎo, dàjiā hǎo!',th:'สวัสดีคุณครู สวัสดีทุกคน',k:'lsdjh-f'}]}),
- rec({n:'คำที่ 3/3',w:DJH,keys:['djh-fs',DJH.k]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['认识','高兴','很','人','中国','泰国','北京','哪'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
+ wcard({no:1,of:8,cap:'เจอคนใหม่',w:RS,aid:{parts:['rèn',4,'shi',0],cap:'เสียง 4 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เริ่น ชื่อ"</b> · r ม้วนลิ้นเบา ๆ',sk:'rs-fs',
+  use:'แปลว่ารู้จัก ใช้กับคน · 认识你 = รู้จักคุณ',ex:[X.hgx,X.rsn]}),
+ syl({n:'คำที่ 1/8',w:RS,chars:[{zh:'认',py:'rèn',t:4,k:'g:ren4'},{zh:'识',py:'shi',t:0}],done:'rèn + shi เบา = rènshi'}),
+ wcard({no:2,of:8,cap:'ความรู้สึก',w:GX,aid:{parts:['gāo',1,'xìng',4],cap:'เสียง 1 · เสียง 4'},hint:'คล้าย <b>"เกา ซิ่ง"</b> · 兴 อ่านเหมือน 姓 ในบทที่แล้ว',sk:'gx-fs',
+  use:'แปลว่าดีใจ ใช้บอกความรู้สึกของตัวเอง มักมี 很 อยู่หน้า',ex:[X.whgx,X.hgx]}),
+ syl({n:'คำที่ 2/8',w:GX,chars:[{zh:'高',py:'gāo',t:1,k:'g:gao1'},{zh:'兴',py:'xìng',t:4,k:'g:xing4'}],done:'gāo + xìng = gāoxìng'}),
+ wcard({no:3,of:8,cap:'คำขยาย',w:HEN,aid:{parts:['hěn',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"เหิ่น"</b>',sk:'hen-fs',
+  use:'แปลว่ามาก วางหน้าคำบอกความรู้สึก 很高兴 = ดีใจมาก · ภาษาจีนชอบใส่ 很 แม้จะไม่ได้ตั้งใจเน้น',ex:[X.whgx,X.hgx]}),
+ use({n:'คำที่ 1–3/8',w:HEN,when:[{img:BOY,t:'เจอเพื่อนใหม่ครั้งแรก'},{img:TCH,t:'เจอครูใหม่ครั้งแรก'}],lines:[L.hgx,L.yhgx],tip:'ตอบกลับง่าย ๆ ด้วย <span class="zh">我也很高兴认识你</span> หรือ <span class="zh">认识你很高兴</span>'}),
+ rec({n:'คำที่ 1–3/8',w:HEN,keys:['hen-fs','hgxrsn-f']}),
+ wcard({no:4,of:8,cap:'คนหนึ่งคน',w:REN,aid:{parts:['rén',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"เหริน"</b> · r ม้วนลิ้นเบา ๆ',sk:'ren-fs',
+  use:'แปลว่าคน วางหลังชื่อประเทศหรือเมือง = คนที่มาจากที่นั่น',ex:[X.zg('wszgr-f'),X.tg('wstgr-f')]}),
+ wcard({no:5,of:8,cap:'ประเทศ',w:ZG,aid:{parts:['zhōng',1,'guó',2],cap:'เสียง 1 · เสียง 2'},hint:'คล้าย <b>"จง กั๋ว"</b>',sk:'zg-fs',
+  use:'แปลว่าประเทศจีน · 中国人 = คนจีน',ex:[X.zg('wszgr-m'),X.tzg]}),
+ syl({n:'คำที่ 5/8',w:ZG,chars:[{zh:'中',py:'zhōng',t:1,k:'g:zhong1'},{zh:'国',py:'guó',t:2,k:'g:guo2'}],done:'zhōng + guó = Zhōngguó · 国 แปลว่าประเทศ'}),
+ wcard({no:6,of:8,cap:'ประเทศ',w:TG,aid:{parts:['tài',4,'guó',2],cap:'เสียง 4 · เสียง 2'},hint:'คล้าย <b>"ไท่ กั๋ว"</b>',sk:'tg-fs',
+  use:'แปลว่าประเทศไทย · 泰国人 = คนไทย',ex:[X.tg('wstgr-f'),X.ttg]}),
+ rec({n:'คำที่ 4–6/8',ws:[REN,ZG,TG]}),
+ wcard({no:7,of:8,cap:'เมืองหลวงของจีน',w:BJ,aid:{parts:['běi',3,'jīng',1],cap:'เสียง 3 · เสียง 1'},hint:'คล้าย <b>"เป่ย จิง"</b>',sk:'bj-fs',
+  use:'แปลว่าปักกิ่ง เมืองหลวงของประเทศจีน · 北京人 = คนปักกิ่ง ซึ่งก็คือคนจีน',ex:[X.bj('wsbjr-m'),X.stbj]}),
+ syl({n:'คำที่ 7/8',w:BJ,chars:[{zh:'北',py:'běi',t:3,k:'g:bei3'},{zh:'京',py:'jīng',t:1,k:'g:jing1'}],done:'běi + jīng = Běijīng'}),
+ wcard({no:8,of:8,cap:'คำถาม',w:NA,aid:{parts:['nǎ',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"หน่า"</b>',sk:'na-fs',
+  use:'แปลว่าไหน ใช้ถามว่าเป็นคนประเทศไหน 哪国人 · วางตรงที่อยากรู้ เหมือน 什么 และ 谁',ex:[X.ngr,X.tngr]}),
+ use({n:'คำที่ 8/8',w:NA,when:[{img:BOY,t:'ถามเพื่อนใหม่'},{img:MAN,t:'ถามถึงคนอื่น'}],lines:[L.ngrt,L.tg],tip:'ตอบโดยเอาชื่อประเทศมาวางแทน <span class="zh">哪</span> · 哪国人 → 泰国人'}),
+ rec({n:'คำที่ 7–8/8',ws:[BJ,NA]}),
  /* 3 · เทคนิคการใช้ */
- part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','同学 กับ 朋友','เติม 们','เรียงบทสนทนา'],note:'ดูว่าทักคนเดียวกับทักหลายคนต่างกันอย่างไร'}),
- dialog({cap:'เทคนิค 1/5 · บทสนทนาในห้องเรียน',title:'ครูทักทั้งห้อง แล้วเพื่อนพาเพื่อนใหม่มา',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เพื่อนใหม่ทัก 大家好 เพราะพูดกับหลายคน'}),
- cmp({cap:'เทคนิค 2/5 · เพื่อน 2 แบบ',title:'同学 กับ 朋友',text:'ภาษาไทยเรียกว่าเพื่อนทั้งคู่ แต่ภาษาจีนแยกกัน',
-  a:{who:'เรียนด้วยกัน',img:TX.img,zh:'同学',py:'tóngxué',th:'เพื่อนร่วมชั้น',k:TX.k},b:{who:'สนิทกัน',img:PY.img,zh:'朋友',py:'péngyou',th:'เพื่อน',k:PY.k},
-  tip:'同学 อาจเป็น 朋友 ด้วยก็ได้ · แต่ 朋友 ไม่จำเป็นต้องเรียนด้วยกัน'}),
- talk({cap:'เทคนิค 3/5 · หลายคน',title:'เติม 们 = หลายคน',text:'เติม 们 men ท้ายคำที่หมายถึงคน จะกลายเป็นหลายคน',
-  lines:[L.txmh,{who:'me',zh:'你们好！',py:'nǐmen hǎo!',th:'สวัสดีพวกคุณ',k:'nmh-f'},{who:'f',zh:'我们是同学。',py:'wǒmen shì tóngxué.',th:'พวกเราเป็นเพื่อนร่วมชั้น',k:'wmstx-m'}],
-  chips:[{zh:'我们',py:'wǒmen',th:'พวกเรา',k:'w:我们'},{zh:'你们',py:'nǐmen',th:'พวกคุณ',k:'nimen-f'},{zh:'同学们',py:'tóngxuémen',th:'นักเรียนทุกคน',k:'txm-f'}],
-  tip:'们 อ่านเบา · ใช้กับคนเท่านั้น'}),
- ask({tag:'เทคนิค 4/5 · ทักคนเดียว หรือทักหลายคน',q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะ',pic:DJ,opts:[Z('你好！','สวัสดี'),Z('大家好！','สวัสดีทุกคน')],ans:1,fb:'มีหลายคน ทัก <span class="zh">大家好！</span>'}),
- lineup({tag:'เทคนิค 5/5 · เรียงบทสนทนา',sit:'ครูเข้าห้อง แล้วเพื่อนพาเพื่อนใหม่มาแนะนำ',lines:[L.txmh,L.lsh,L.tswpy,L.djhm]}),
- tips({cap:'ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
-  {h:'大家好 ใช้กับหลายคน',bad:'เจอเพื่อนคนเดียว ทัก 大家好',good:'คนเดียว ทัก 你好',k:'nihao-s-f'},
-  {h:'同学 ไม่เหมือน 学生',bad:'学生 = เพื่อน',good:'学生 = นักเรียน · 同学 = เพื่อนร่วมชั้น',k:TX.k},
-  {h:'朋友 พยางค์ที่สองเบา',bad:'péng yǒu หนักทั้งคู่',good:'péngyou',k:PY.k},
-  {h:'们 อ่านเบา',bad:'tóngxué mén',good:'tóngxuémen',k:'txm-f'}]}),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ยินดีที่ได้รู้จัก','ประเทศ + 人','ใครมาจากไหน','哪国人'],note:'ฝึกแนะนำตัวกับเพื่อนใหม่ต่างประเทศ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนากับนักเรียนใหม่',title:'เป็นคนประเทศไหน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เขาบอกทั้งประเทศ (中国) และเมือง (北京)'}),
+ talk({cap:'เทคนิค 2/6 · ยินดีที่ได้รู้จัก',title:'พูดตอนเจอกันครั้งแรก',text:'ทักทายแล้วบอกว่ายินดีที่ได้รู้จัก อีกฝ่ายตอบกลับด้วย 也',lines:[L.hgxm,{...X.yhgx,who:'me',k:'wyhgxrsn-f'}],
+  chips:[{zh:'很高兴认识你',py:'hěn gāoxìng rènshi nǐ',th:'ยินดีที่ได้รู้จัก',k:'hgxrsn-f'},{zh:'认识你很高兴',py:'rènshi nǐ hěn gāoxìng',th:'ยินดีที่ได้รู้จัก',k:'rsnhgx-f'}],tip:'สองแบบนี้ความหมายเดียวกัน · พูดตอนเจอกันครั้งแรกเท่านั้น'}),
+ talk({cap:'เทคนิค 3/6 · ประเทศ + 人',title:'คนประเทศไหน',text:'ชื่อประเทศหรือเมือง + 人 = คนที่มาจากที่นั่น',lines:[{...X.tzg,who:'g'},{...X.bj('wsbjr-m'),who:'f'},{...X.tg('wstgr-f'),who:'me'}],
+  chips:[{zh:'中国人',py:'Zhōngguó rén',th:'คนจีน',k:'zgr-f'},{zh:'泰国人',py:'Tàiguó rén',th:'คนไทย',k:'w:泰国人'},{zh:'北京人',py:'Běijīng rén',th:'คนปักกิ่ง',k:'bjr-f'}],tip:'คนปักกิ่งก็คือคนจีน เพราะปักกิ่งอยู่ในประเทศจีน'}),
+ sortmap({tag:'เทคนิค 4/6 · ใครมาจากไหน',bins:BINS,items:[it(BOY,'wszgr-m',0),it(GIRL,'wstgr-g',1),it(MAN,'wsbjr-t',0,1),it(STU,'wstgr-f',1)]}),
+ talk({cap:'เทคนิค 5/6 · ถามว่าคนประเทศไหน',title:'哪国人？',text:'ถามแล้วตอบโดยเอาชื่อประเทศมาแทน 哪 · ถามด้วย 吗 ก็ตอบ 是 หรือ 不是',lines:[L.ngrt,L.tg,L.tzgm,L.stbj],
+  chips:[{zh:'哪国人',py:'nǎ guó rén',th:'คนประเทศไหน',k:'nagr-f'},{zh:'北京人',py:'Běijīng rén',th:'คนปักกิ่ง',k:'bjr-f'}],tip:'ไม่ต้องใส่ <span class="zh">吗</span> ในคำถามที่มี <span class="zh">哪</span> แล้ว'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
+  {h:'คนไทย ไม่ใช่ ไทยคน',bad:'我是人泰国。',good:'我是泰国人。',k:'wstgr-f'},
+  {h:'มี 哪 แล้วไม่ต้องใส่ 吗',bad:'你是哪国人吗？',good:'你是哪国人？',k:'nsngr-g'},
+  {h:'高兴 มักมี 很 อยู่หน้า',bad:'我高兴。',good:'我很高兴。',k:'wohgx-g'},
+  {h:'ยินดีที่ได้รู้จัก พูดครั้งแรกเท่านั้น',bad:'พูดกับเพื่อนสนิททุกวัน',good:'พูดตอนเจอกันครั้งแรก',k:'hgxrsn-f'}]}),
  /* 4 · แบบทดสอบท้ายบท */
- part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ดูภาพเลือกคำทักทาย','เรียงบทสนทนา','ตอบในบทสนทนา'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะ',pic:BOY,opts:[Z('大家好！','สวัสดีทุกคน'),Z('你好！','สวัสดี'),Z('再见！','ลาก่อน')],ans:1,fb:'เจอคนเดียว ทัก <span class="zh">你好！</span>'}),
- ask({rv:4,q:'ฟัง 学 xué แล้วเลือกสระ',k:'g:xue2',opts:['u','ü'],ans:1,fb:'x j q ตามด้วย ü จะเขียนเป็น u แต่อ่านเป็น ü'}),
- lineup({tag:TQ(2),sit:'เพื่อนพาเพื่อนใหม่มาแนะนำ',lines:[L.nhg,L.nhme,L.tswpy,L.djhm]}),
- ask({tag:TQ(3),q:'ฟังเสียง แล้วเลือกความหมาย',k:PY.k,opts:['ครู','เพื่อน','นักเรียน'],ans:1,fb:'<span class="zh">朋友</span> <b>péngyou</b> = เพื่อน'}),
- ask({rv:2,q:'ฟังพยางค์ 同 tóng แล้วเลือกเส้นเสียง',k:'g:tong2',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<b class="t2">tóng</b> <span class="zh">同</span> · เสียง 2 ขึ้น'}),
- reply({tag:TQ(4),q:'ครูทักทั้งห้อง คุณจะตอบว่าอะไร',line:L.txmh,opts:[R.lsh,R.txmh,R.zj],ans:0,why:'ครูทักนักเรียน นักเรียนตอบ 老师好'}),
- reply({tag:TQ(5),q:'คุณยืนหน้าห้อง จะทักเพื่อนทุกคน',sit:'ยืนหน้าห้องเรียน เพื่อนนั่งอยู่หลายคน',simg:DJ.img,opts:[R.nh,R.djh,R.dbq],ans:1,why:'ทักหลายคน ใช้ 大家好'}),
- part({lab:'ภารกิจท้ายบท',of:0,title:'พักกลางวันกับเพื่อน',chips:['ทักทาย','เรียงบทสนทนา','ตอบเพื่อน'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 3 ข้อ'}),
- ask({tag:MQ(1),noTh:1,q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะ',pic:DJ,opts:[Z('你好！','',1),Z('大家好！','',1),Z('谢谢！','',1)],ans:1,fb:'<span class="zh">大家好！</span>'}),
- lineup({tag:MQ(2),noTh:1,sit:'เพื่อนทักคุณ แล้วคุณแนะนำเพื่อนผู้หญิงให้รู้จัก',lines:[L.nhtx,L.nhme,{who:'me',zh:'她是我朋友。',py:'tā shì wǒ péngyou.',th:'เธอเป็นเพื่อนของฉัน',k:'taswpy-f'},{who:'g',zh:'大家好！',py:'dàjiā hǎo!',th:'สวัสดีทุกคน',k:'djh-g'}]}),
- reply({tag:MQ(3),noTh:1,q:'เพื่อนพูดกับคุณ',line:L.nhtx,opts:[R.nh,R.djh,R.dbq],ans:0}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['บัตรข้อมูล','ใครมาจากไหน','ตอบในบทสนทนา','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ tf({tag:TQ(1),k:'wjwmzgr-m',img:BOY,card:card('王明','Wáng Míng','中国'),ans:0,fb:'เขาพูดว่า <span class="zh">我叫王明，我是中国人。</span> ตรงกับบัตร'}),
+ ask({rv:2,q:'ฟังพยางค์ 很 hěn แล้วเลือกเส้นเสียง',k:'g:hen3',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">hěn</b> <span class="zh">很</span> · เสียง 3 กดต่ำ'}),
+ ask({tag:TQ(2),q:'ฟังเสียง แล้วเลือกความหมาย',k:'nagr-f',opts:['คนประเทศไหน','คนจีน','คนไทย'],ans:0,fb:'<span class="zh">哪国人</span> <b>nǎ guó rén</b> = คนประเทศไหน'}),
+ sortmap({tag:TQ(3),bins:BINS,items:[it(GIRL,'wszgr-g',0),it(BOY,'wsbjr-m',0,1),it(TCH,'wstgr-t',1)]}),
+ ask({rv:6,q:'ฟัง 京 jīng แล้วเลือกพยัญชนะตัวแรก',k:'g:jing1',opts:['j','q','x'],ans:0,fb:'<b>j</b>īng · คล้าย จ'}),
+ reply({tag:TQ(4),q:'ครูถามคุณ คุณเป็นคนไทย จะตอบว่าอะไร',line:L.ngrt,opts:[X.tg('wstgr-f'),X.zg('wszgr-f'),X.hgx],ans:0,why:'คนไทย = 泰国人'}),
+ order({tag:TQ(5),th:'ยินดีที่ได้รู้จัก',tiles:[tl('很','hěn'),tl('高兴','gāoxìng'),tl('认识','rènshi'),tl('你','nǐ'),tl('哪','nǎ')],ans:[0,1,2,3],end:'！',k:'hgxrsn-f'}),
+ ask({rv:11,q:'ฟัง 京 jīng แล้วเลือกเสียงท้าย',k:'g:jing1',opts:['-n','-ng'],ans:1,fb:'jī<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก คล้าย ง'}),
+ tf({tag:TQ(6),k:'wjlntgr-g',img:GIRL,card:card('李娜','Lǐ Nà','中国'),ans:1,fb:'เธอพูดว่า <span class="zh">我叫李娜，我是泰国人。</span> เธอเป็นคนไทย ไม่ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'รู้จักเพื่อนต่างประเทศ',chips:['ใครมาจากไหน','ตอบเพื่อนใหม่','บัตรข้อมูล','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ sortmap({tag:MQ(1),noTh:1,bins:BINS,items:[it(MAN,'wstgr-m',1),it(BOY,'wsbjr-m',0,1),it(GIRL,'wstgr-g',1)]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนใหม่พูดกับคุณเป็นครั้งแรก',line:L.hgxm,opts:[X.dbq,X.yhgx,X.zj],ans:1}),
+ reply({tag:MQ(3),noTh:1,q:'เพื่อนถามถึงเพื่อนผู้ชายที่มาจากปักกิ่ง',line:L.tzgm,opts:[X.stbj,X.tg('wstgr-f'),X.tngr],ans:0}),
+ blank({tag:MQ(4),noTh:1,s:'你是_国人？',opts:['哪','很','吗'],ans:0,k:'nsngr-g',fb:'<span class="zh">你是哪国人？</span>'}),
  /* 5 · จบบท */
- fin({title:'ทักเพื่อนได้ทั้งคนเดียวและหลายคน',html:dlgH(D,{noTh:1}),chips:[{zh:'同学',py:'tóngxué',th:'เพื่อนร่วมชั้น',k:TX.k},{zh:'朋友',py:'péngyou',th:'เพื่อน',k:PY.k},{zh:'大家好',py:'dàjiā hǎo',th:'สวัสดีทุกคน',k:DJH.k},{zh:'们',py:'men',th:'หลายคน',k:'txm-f'}],note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg4',kl:'ฟังทั้งบทสนทนา'})]});
+ fin({title:'แนะนำตัวกับเพื่อนต่างประเทศได้แล้ว',html:dlgH(D,{noTh:1}),chips:[RS,GX,HEN,REN,ZG,TG,BJ,NA].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg4',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>
 </body></html>

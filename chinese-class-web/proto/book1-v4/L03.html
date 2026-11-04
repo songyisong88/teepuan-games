@@ -4,67 +4,100 @@
 <link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
 <link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
 <script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
-<title>ต้นแบบ · บท 1-3 ฉัน คุณ เขา เธอ</title>
+<title>ต้นแบบ · บท 1-3 ชื่ออะไร</title>
 </head><body>
 <script>
-/* บท 1-3 (ซ้งอี้ 4 พ.ย. 2026): ฉัน คุณ เขา เธอ · กิจกรรมเฉพาะบท: ชี้ให้ถูกคน และเรียงคำเป็นประโยค A 是 B */
-const WO=w('我','wǒ','ฉัน'),NI=w('你','nǐ','คุณ'),TA=w('他','tā','เขา (ผู้ชาย)'),TA2=w('她','tā','เธอ (ผู้หญิง)'),SHI=w('是','shì','เป็น คือ');
-const XS=w('学生','xuésheng','นักเรียน'),LS=w('老师','lǎoshī','ครู');
-const S={wslsh:{zh:'我是老师。',py:'wǒ shì lǎoshī.',th:'ฉันเป็นครู',k:'wslsh-t'},wsxs:{zh:'我是学生。',py:'wǒ shì xuésheng.',th:'ฉันเป็นนักเรียน',k:'wsxs-f'},
- tsls:{zh:'她是老师。',py:'tā shì lǎoshī.',th:'เธอเป็นครู',k:'tsls-g'},tsxs:{zh:'他是学生。',py:'tā shì xuésheng.',th:'เขาเป็นนักเรียน',k:'tsxs-f'},
- tasls:{zh:'他是老师。',py:'tā shì lǎoshī.',th:'เขาเป็นครู',k:'tasls-m'},tasxs:{zh:'她是学生。',py:'tā shì xuésheng.',th:'เธอเป็นนักเรียน',k:'tasxs-f'},
- nsls:{zh:'你是老师。',py:'nǐ shì lǎoshī.',th:'คุณเป็นครู',k:'nsls-f'},nsxs:{zh:'你是学生。',py:'nǐ shì xuésheng.',th:'คุณเป็นนักเรียน',k:'nsxs-f'}};
-const C4=[{img:WO.img,th:'ฉัน (ตัวเอง)'},{img:NI.img,th:'คุณ (คนที่คุยด้วย)'},{img:TA.img,th:'เขา (ผู้ชาย)'},{img:TA2.img,th:'เธอ (ผู้หญิง)'}];
-const RD=(zh,ans,why)=>({zh,k:[WO,NI,TA,TA2][ans].k,ans,why});
-const TL=[{who:'t',...S.wslsh},{who:'me',...S.wsxs},{who:'f',zh:'她是老师。',py:'tā shì lǎoshī.',th:'เธอเป็นครู',k:'tsls-m'},{who:'me',...S.tsxs}];
-const TQ=i=>`แบบทดสอบ ${i}/5 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/3 · ไม่มีตัวช่วยภาษาไทย`;
+/* บท 1-3 หน่วย 1 ฉบับใหม่ (ซ้งอี้ อนุมัติแผนคำศัพท์ 4 พ.ย. 2026): ชื่ออะไร · คำใหม่ 叫 名字 什么 姓 谁 呢 也
+   กิจกรรมเฉพาะบท: บัตรชื่อของฉัน (พิมพ์ชื่อตัวเอง) และเช็กชื่อในห้อง (เล่าเป็นภาพ) */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const JIAO=w('叫','jiào','ชื่อ (เรียกว่า)'),MZ=w('名字','míngzi','ชื่อ'),SM=w('什么','shénme','อะไร'),XING=w('姓','xìng','นามสกุล (มีนามสกุลว่า)'),SHEI=w('谁','shéi','ใคร'),NE=w('呢','ne','ล่ะ (ถามกลับ)'),YE=w('也','yě','ก็ ด้วย');
+const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),CLS=ART('教室'),TCH=ART('老师'),FRIEND=ART('朋友');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={nj:S('你叫什么名字？','nǐ jiào shénme míngzi?','คุณชื่ออะไร','njsmmz-f'),ml:S('我叫玛莉。','wǒ jiào Mǎlì.','ฉันชื่อมะลิ','wjml-f'),wm:S('我叫王明。','wǒ jiào Wáng Míng.','ฉันชื่อหวังหมิง','wjwm-m'),
+ ln:S('我叫李娜。','wǒ jiào Lǐ Nà.','ฉันชื่อหลี่น่า','wjln-g'),twm:S('他叫王明。','tā jiào Wáng Míng.','เขาชื่อหวังหมิง','tjwm-f'),tln:S('她叫李娜。','tā jiào Lǐ Nà.','เธอชื่อหลี่น่า','tjln-f'),
+ nml:S('你叫玛莉。','nǐ jiào Mǎlì.','คุณชื่อมะลิ','njml-f'),tjsm:S('她叫什么名字？','tā jiào shénme míngzi?','เธอชื่ออะไร','tjsmmz-m'),
+ nxsm:S('您姓什么？','nín xìng shénme?','คุณนามสกุลอะไร (สุภาพ)','nxsm-f'),lsnxsm:S('老师，您姓什么？','lǎoshī, nín xìng shénme?','คุณครูนามสกุลอะไร','lsnxsm-f'),
+ wxw:S('我姓王。','wǒ xìng Wáng.','ฉันนามสกุลหวัง','wxw-t'),wxwjwm:S('我姓王，叫王明。','wǒ xìng Wáng, jiào Wáng Míng.','ฉันนามสกุลหวัง ชื่อหวังหมิง','wxwjwm-m'),wxl:S('我姓李。','wǒ xìng Lǐ.','ฉันนามสกุลหลี่','wxl-g'),
+ tss:S('她是谁？','tā shì shéi?','เธอเป็นใคร','tss-f'),tass:S('他是谁？','tā shì shéi?','เขาเป็นใคร','tass-m'),tswpy:S('她是我朋友。','tā shì wǒ péngyou.','เธอเป็นเพื่อนของฉัน','taswpy-f'),
+ tsls:S('她是老师。','tā shì lǎoshī.','เธอเป็นครู','tsls-g'),wsxsnn:S('我是学生，你呢？','wǒ shì xuésheng, nǐ ne?','ฉันเป็นนักเรียน แล้วคุณล่ะ','wsxsnn-f'),
+ wysxs:S('我也是学生。','wǒ yě shì xuésheng.','ฉันก็เป็นนักเรียน','wysxs-m'),wsyxs:S('我是也学生。','wǒ shì yě xuésheng.','(ลำดับคำผิด)','wysxs-m'),
+ wjmlnn:S('我叫玛莉，你呢？','wǒ jiào Mǎlì, nǐ ne?','ฉันชื่อมะลิ แล้วคุณล่ะ','wjmlnn-f'),nn:S('你呢？','nǐ ne?','แล้วคุณล่ะ','nne-m'),
+ wysls:S('我也是老师。','wǒ yě shì lǎoshī.','ฉันก็เป็นครู','wysls-g'),tsxs:S('他是学生。','tā shì xuésheng.','เขาเป็นนักเรียน','tsxs-f')};
+const L={njt:S('你叫什么名字？','nǐ jiào shénme míngzi?','คุณชื่ออะไร','njsmmz-t','t'),ml:{...X.ml,who:'me'},wjmlnn:{...X.wjmlnn,who:'me'},wxwjwm:{...X.wxwjwm,who:'f'},
+ tss:{...X.tss,who:'f'},tsls:{...X.tsls,who:'me'},lsnxsm:{...X.lsnxsm,who:'me'},wxw:{...X.wxw,who:'t'},wsxsnn:{...X.wsxsnn,who:'g'},wysxs:{...X.wysxs,who:'me'},
+ tasst:S('他是谁？','tā shì shéi?','เขาเป็นใคร','tass-t','t'),twm:{...X.twm,who:'me'},tsst:S('她是谁？','tā shì shéi?','เธอเป็นใคร','tss-t','t'),tswpy:{...X.tswpy,who:'me'},tln:{...X.tln,who:'me'}};
+const D=[{sit:'วันแรกของเทอม ครูถามชื่อนักเรียน',img:CLS},L.njt,L.wjmlnn,L.wxwjwm,{sit:'เพื่อนชี้ไปที่ผู้หญิงหน้าห้อง',img:TCH},L.tss,L.tsls,L.lsnxsm,L.wxw];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
 const tl=(zh,py)=>({zh,py});
-LESSON({no:3,goal:{do:'บอกได้ว่าใครเป็นใครเป็นภาษาจีน',sub:'ใช้ <span class="gz">我 你 他 她</span> กับ <span class="gz">是</span> พูดประโยค A 是 B',min:7},steps:[
+const ROLL=[{img:BOY,sit:'ครูถามเด็กผู้ชาย เขาตอบว่า',line:L.njt,opts:[X.wm,X.twm],ans:0,why:'ตอบชื่อตัวเอง ใช้ 我叫'},
+ {img:GIRL,sit:'ครูชี้ที่เด็กผู้หญิง แล้วถามคุณ คุณตอบว่า',line:L.tsst,opts:[X.ln,X.tln],ans:1,why:'พูดถึงเธอ ใช้ 她叫'},
+ {img:TCH,sit:'คุณอยากรู้นามสกุลของครู คุณถามว่า',opts:[X.lsnxsm,X.nj,X.tss],ans:0,why:'ถามนามสกุลผู้ใหญ่ ใช้ 您姓什么'},
+ {img:STU,sit:'เพื่อนเป็นนักเรียนเหมือนคุณ คุณตอบว่า',line:{...X.wsxsnn,who:'g'},opts:[X.wysxs,{zh:'我是学生。',py:'wǒ shì xuésheng.',th:'ฉันเป็นนักเรียน',k:'wsxs-f'},X.nn],ans:0,why:'เหมือนกัน ใช้ 也'}];
+LESSON({no:3,goal:{do:'ถามชื่อ บอกชื่อ บอกนามสกุล และถามว่าใครเป็นใครได้',sub:'ใช้ <span class="gz">你叫什么名字 您姓什么 她是谁</span> และถามกลับด้วย <span class="gz">你呢</span>',min:11},steps:[
  /* 1 · เปิดบท + คำศัพท์ใหม่ */
- intro({scene:SC('l3-p7'),cap:'สถานการณ์ของบทนี้',title:'ใครเป็นใคร',line:TL[0],note:'แตะฟองเพื่อฟังครูแนะนำตัว · บทนี้คุณจะได้บอกว่าตัวเอง คุณ เขา และเธอเป็นใคร'}),
- vgrid({title:'5 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ · 他 กับ 她 เสียงเหมือนกัน',items:[WO,NI,TA,TA2,SHI]}),
+ intro({scene:SC('l4-p5'),cap:'สถานการณ์ของบทนี้',title:'ครูถามชื่อในวันแรก',line:L.njt,note:'แตะฟองเพื่อฟังครูถาม · จบบทนี้คุณจะตอบชื่อ ถามชื่อคนอื่น และถามว่าใครเป็นใครได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[JIAO,MZ,SM,XING,SHEI,NE,YE]}),
  /* 2 · เรียนทีละคำ */
- part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['我','你','他','她','是'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
- wcard({no:1,of:5,cap:'พูดถึงตัวเอง',w:WO,aid:{parts:['wǒ',3],cap:'เสียง 3 กดต่ำแล้วยกขึ้น'},hint:'คล้าย <b>"หวั่ว"</b> แต่สั้นกว่า · ห่อปากเล็กน้อย',sk:'wo-fs',
-  use:'ใช้แทนตัวเอง ผู้ชายและผู้หญิงใช้คำเดียวกัน ไม่มีคำแยกแบบภาษาไทย',ex:[S.wsxs,S.wslsh]}),
- wcard({no:2,of:5,cap:'พูดถึงคนที่คุยด้วย',w:NI,aid:{parts:['nǐ',3],cap:'เสียง 3'},hint:'คล้าย <b>"หนี่"</b> · ตัวเดียวกับใน 你好',sk:'ni-fs',
-  use:'ใช้เรียกคนที่เรากำลังคุยด้วย กับครูหรือผู้ใหญ่ใช้ 您 nín จะสุภาพกว่า',ex:[S.nsxs,S.nsls]}),
- rec({n:'คำที่ 1–2/5',ws:[WO,NI]}),
- wcard({no:3,of:5,cap:'พูดถึงผู้ชาย',w:TA,aid:{parts:['tā',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"ทา"</b> เสียงสูงยาว · ส่วนซ้าย 亻 แปลว่าคน',sk:'ta-fs',
-  use:'ใช้พูดถึงผู้ชายที่ไม่ใช่เราและไม่ใช่คนที่เราคุยด้วย',ex:[S.tsxs,S.tasls]}),
- wcard({no:4,of:5,cap:'พูดถึงผู้หญิง',w:TA2,aid:{parts:['tā',1],cap:'เสียงเหมือน 他 ทุกอย่าง'},hint:'อ่าน <b>"ทา"</b> เหมือน 他 · ส่วนซ้าย 女 แปลว่าผู้หญิง',sk:'ta-fs',
-  use:'ใช้พูดถึงผู้หญิง ฟังด้วยหูแยกไม่ได้ ต้องดูจากเรื่องที่คุยหรือดูตัวอักษร',ex:[S.tsls,S.tasxs]}),
- wcard({no:5,of:5,cap:'คำเชื่อม',w:SHI,aid:{parts:['shì',4],cap:'เสียง 4 ตกเร็ว'},hint:'คล้าย <b>"ซื่อ"</b> แต่ม้วนลิ้นขึ้น · ถ้าพูดเป็น sì จะฟังเป็น 四 ที่แปลว่าสี่',sk:'shi4-fs',
-  use:'ใช้เชื่อมคนกับสิ่งที่เขาเป็น A 是 B แปลว่า A เป็น B',ex:[S.wsxs,S.tsls]}),
- rec({n:'คำที่ 3–5/5',ws:[TA,SHI]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['叫','名字','什么','姓','谁','呢','也'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
+ wcard({no:1,of:7,cap:'ใช้บอกชื่อ',w:JIAO,aid:{parts:['jiào',4],cap:'เสียง 4 ตกเร็ว'},hint:'คล้าย <b>"เจี้ยว"</b>',sk:'jiao-fs',
+  use:'ใช้บอกชื่อ 我叫… แปลว่า ฉันชื่อ… แล้วตามด้วยชื่อได้เลย',ex:[X.ml,X.twm]}),
+ rec({n:'คำที่ 1/7',w:JIAO,keys:['jiao-fs',JIAO.k]}),
+ wcard({no:2,of:7,cap:'คำว่าชื่อ',w:MZ,aid:{parts:['míng',2,'zi',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"หมิง จึ"</b> · zi พูดเบาและสั้น',sk:'mz-fs',
+  use:'แปลว่าชื่อ ใช้ในคำถาม 你叫什么名字 ตอนตอบไม่ต้องพูดคำนี้ซ้ำ',ex:[X.nj,X.tjsm]}),
+ syl({n:'คำที่ 2/7',w:MZ,chars:[{zh:'名',py:'míng',t:2,k:'g:ming2'},{zh:'字',py:'zi',t:0}],done:'míng + zi เบา = míngzi'}),
+ wcard({no:3,of:7,cap:'คำถาม',w:SM,aid:{parts:['shén',2,'me',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เสิน เมอ"</b> · shén ม้วนลิ้นขึ้น',sk:'sm-fs',
+  use:'แปลว่าอะไร ภาษาจีนวาง 什么 ตรงตำแหน่งที่อยากรู้ ไม่ต้องย้ายไปไว้หน้าประโยค',ex:[X.nj,X.nxsm]}),
+ syl({n:'คำที่ 3/7',w:SM,chars:[{zh:'什',py:'shén',t:2,k:'g:shen2'},{zh:'么',py:'me',t:0}],done:'shén + me เบา = shénme'}),
+ rec({n:'คำที่ 2–3/7',ws:[MZ,SM]}),
+ wcard({no:4,of:7,cap:'บอกนามสกุล',w:XING,aid:{parts:['xìng',4],cap:'เสียง 4 ตกเร็ว'},hint:'คล้าย <b>"ซิ่ง"</b> · ลงท้ายเสียง ง',sk:'xing-fs',
+  use:'ใช้บอกนามสกุล 我姓王 = ฉันนามสกุลหวัง · ถามผู้ใหญ่อย่างสุภาพว่า 您姓什么',ex:[X.wxw,X.nxsm]}),
+ syl({n:'คำที่ 4/7',w:XING,chars:[{zh:'姓',py:'xìng',t:4,k:'g:xing4'}],done:'xìng เสียง 4'}),
+ rec({n:'คำที่ 4/7',w:XING,keys:['xing-fs',XING.k]}),
+ wcard({no:5,of:7,cap:'ถามหาคน',w:SHEI,aid:{parts:['shéi',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"เสย"</b> · sh ม้วนลิ้น',sk:'shei-fs',
+  use:'แปลว่าใคร วางตรงตำแหน่งที่อยากรู้ เหมือน 什么 · 她是谁 = เธอเป็นใคร',ex:[X.tss,X.tass]}),
+ rec({n:'คำที่ 5/7',w:SHEI,keys:['shei-fs',SHEI.k]}),
+ wcard({no:6,of:7,cap:'ถามกลับ',w:NE,aid:{parts:['ne',0],cap:'เสียงเบา สั้น'},hint:'คล้าย <b>"เนอะ"</b> เบาและสั้น',sk:'nne-fs',
+  use:'วางหลังคน ใช้ถามกลับเรื่องเดียวกัน 你呢 = แล้วคุณล่ะ ไม่ต้องพูดคำถามซ้ำ',ex:[X.wsxsnn,X.wjmlnn]}),
+ use({n:'คำที่ 6/7',w:NE,when:[{img:CLS,t:'บอกชื่อแล้วถามกลับ'},{img:FRIEND,t:'คุยกับเพื่อนใหม่'}],lines:[{...X.wsxsnn,who:'g'},{...X.wysxs,who:'me'}],tip:'<span class="zh">你呢？</span> ถามกลับได้ทุกเรื่อง ทั้งชื่อ และเป็นอะไร'}),
+ wcard({no:7,of:7,cap:'เหมือนกัน',w:YE,aid:{parts:['yě',3],cap:'เสียง 3 กดต่ำแล้วยกขึ้น'},hint:'คล้าย <b>"เหยี่ย"</b>',sk:'ye-fs',
+  use:'แปลว่าก็ ด้วย ใช้บอกว่าเหมือนกัน วางหลังคนและหน้า 是 · 我也是学生',ex:[X.wysxs,X.wysls]}),
+ rec({n:'คำที่ 6–7/7',ws:[NE,YE]}),
  /* 3 · เทคนิคการใช้ */
- part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['他 กับ 她','ชี้ให้ถูกคน','A 是 B'],note:'ฝึกใช้คำกับคนรอบตัว'}),
- cmp({cap:'เทคนิค 1/4 · เสียงเดียวกัน ตัวอักษรต่างกัน',title:'他 กับ 她',text:'ทั้งสองคำอ่าน tā เหมือนกันทุกอย่าง',
-  a:{who:'ผู้ชาย',img:TA.img,zh:'他',py:'tā',th:'เขา',k:TA.k},b:{who:'ผู้หญิง',img:TA2.img,zh:'她',py:'tā',th:'เธอ',k:TA2.k},
-  tip:'ดูส่วนซ้ายของตัวอักษร <span class="zh">亻</span> แปลว่าคน · <span class="zh">女</span> แปลว่าผู้หญิง'}),
- point({tag:'เทคนิค 2/4 · ชี้ให้ถูกคน',cards:C4,rounds:[RD('我',0),RD('她',3,'她 มี 女 ผู้หญิง'),RD('你',1),RD('他',2,'他 มี 亻 คน'),RD('我',0)]}),
- talk({cap:'เทคนิค 3/4 · ประโยคแรกของคุณ',title:'A 是 B = A เป็น B',text:'เปลี่ยนคนข้างหน้า หรือเปลี่ยนสิ่งข้างหลังได้เลย',lines:TL,
-  chips:[{zh:'学生',py:'xuésheng',th:'นักเรียน',k:XS.k},{zh:'老师',py:'lǎoshī',th:'ครู',k:LS.k}],tip:'是 ไม่เปลี่ยนรูปตามคน · <span class="zh">我是 你是 他是 她是</span> ใช้ 是 คำเดียวกันหมด'}),
- tips({cap:'เทคนิค 4/4 · ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
-  {h:'是 ต้องม้วนลิ้น',bad:'sì (四 แปลว่าสี่)',good:'shì',k:SHI.k},
-  {h:'我 ใช้ได้ทุกคน',bad:'ผู้หญิงใช้คำอื่น',good:'我 wǒ ทั้งผู้ชายและผู้หญิง',k:WO.k},
-  {h:'他 และ 她 อ่านเหมือนกัน',bad:'อ่านให้ต่างกัน',good:'tā ทั้งสองคำ',k:TA.k},
-  {h:'พูดกับครูหรือผู้ใหญ่',bad:'เรียกว่า 你 nǐ',good:'您 nín',k:'w:您',note:'หรือเรียกว่า 老师 ก็ได้'}]}),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','บัตรชื่อของฉัน','叫 กับ 姓','ถามว่าใคร','你呢 และ 也'],note:'ฝึกถามและตอบชื่อในห้องเรียน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในห้องเรียน',title:'ถามชื่อ แล้วถามว่าใคร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามด้วย 叫 ก็ตอบด้วย 叫 · ถามด้วย 姓 ก็ตอบด้วย 姓'}),
+ namecard({cap:'เทคนิค 2/6 · บัตรชื่อของฉัน',title:'เขียนบัตรชื่อของคุณ',text:'พิมพ์ชื่อของคุณ หรือแตะชื่อตัวอย่าง แล้วพูดประโยค 我叫… ดัง ๆ',
+  names:[{zh:'玛莉',py:'Mǎlì',th:'มะลิ',k:'wjml-f'},{zh:'王明',py:'Wáng Míng',th:'หวังหมิง',k:'wjwm-m'},{zh:'李娜',py:'Lǐ Nà',th:'หลี่น่า',k:'wjln-g'}],k:'wojiao-f'}),
+ cmp({cap:'เทคนิค 3/6 · ชื่อ กับ นามสกุล',title:'叫 กับ 姓',text:'ชื่อจีนวางนามสกุลไว้หน้า 王明 = นามสกุล 王 ชื่อ 明',
+  a:{who:'บอกชื่อเต็ม',img:BOY,zh:'我叫王明。',py:'wǒ jiào Wáng Míng.',th:'ฉันชื่อหวังหมิง',k:'wjwm-m'},b:{who:'บอกนามสกุล',img:TCH,zh:'我姓王。',py:'wǒ xìng Wáng.',th:'ฉันนามสกุลหวัง',k:'wxw-t'},
+  tip:'กับผู้ใหญ่ ถามนามสกุลว่า <span class="zh">您姓什么？</span> จะสุภาพกว่าถามชื่อ',chips:[{zh:'您姓什么？',py:'nín xìng shénme?',th:'คุณนามสกุลอะไร',k:'nxsm-f'}]}),
+ talk({cap:'เทคนิค 4/6 · ถามว่าใคร',title:'谁 = ใคร',text:'ถามถึงใคร ก็ใช้ 他 她 ที่เรียนในบทก่อน แล้วตอบแทนที่ 谁',lines:[L.tasst,L.twm,L.tsst,L.tswpy,{...X.tjsm,who:'g'},L.tln],
+  chips:[{zh:'他是谁？',py:'tā shì shéi?',th:'เขาเป็นใคร',k:'tass-m'},{zh:'她是谁？',py:'tā shì shéi?',th:'เธอเป็นใคร',k:'tss-f'}],tip:'ถามแบบไหน ตอบแบบนั้น · เอาคำตอบมาวางแทน <span class="zh">谁</span> หรือ <span class="zh">什么名字</span>'}),
+ talk({cap:'เทคนิค 5/6 · ถามกลับและตอบว่าเหมือนกัน',title:'你呢？ และ 也',text:'บอกเรื่องของตัวเอง แล้วถามกลับด้วย 你呢 ถ้าเหมือนกันให้ใช้ 也',lines:[{...X.wsxsnn,who:'g'},L.wysxs,L.wjmlnn,{...X.wm,who:'f'}],
+  chips:[{zh:'你呢？',py:'nǐ ne?',th:'แล้วคุณล่ะ',k:'nne-m'},{zh:'我也是',py:'wǒ yě shì',th:'ฉันก็เป็น',k:'wysxs-m'}],tip:'<span class="zh">也</span> วางหน้า <span class="zh">是</span> เสมอ · 我<b>也</b>是学生'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
+  {h:'ตอบไม่ต้องพูด 名字 ซ้ำ',bad:'我叫名字玛莉。',good:'我叫玛莉。',k:'wjml-f'},
+  {h:'什么 และ 谁 อยู่ตรงที่อยากรู้',bad:'谁是她？ 什么你叫名字？',good:'她是谁？ 你叫什么名字？',k:'tss-f'},
+  {h:'也 อยู่หน้า 是',bad:'我是也学生。',good:'我也是学生。',k:'wysxs-m'},
+  {h:'ถามนามสกุลผู้ใหญ่',bad:'老师，你叫什么名字？',good:'老师，您姓什么？',k:'lsnxsm-f',note:'แบบสุภาพมากพูดว่า 您贵姓 nín guìxìng'},
+  {h:'谁 มีสองเสียงอ่าน',bad:'อ่านได้แบบเดียว',good:'shéi (พูดทั่วไป) หรือ shuí',k:SHEI.k}]}),
  /* 4 · แบบทดสอบท้ายบท */
- part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังแล้วแตะคน','เรียงประโยค','ความหมาย'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- point({tag:TQ(1),cards:C4,rounds:[RD('他',2,'他 มี 亻 คน'),RD('你',1),RD('她',3,'她 มี 女 ผู้หญิง'),RD('我',0)]}),
- ask({rv:2,q:'ฟังพยางค์ 她 tā แล้วเลือกเส้นเสียง',k:'g:ta1',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t1">tā</b> <span class="zh">她</span> · เสียง 1 สูงเรียบ'}),
- order({tag:TQ(2),q:'แตะคำเรียงเป็นประโยค',th:'เธอเป็นครู',tiles:[tl('她','tā'),tl('是','shì'),tl('老师','lǎoshī'),tl('他','tā')],ans:[0,1,2],end:'。',k:'tsls-g'}),
- ask({tag:TQ(3),q:'ฟังประโยค แล้วเลือกความหมาย',k:'nsls-f',opts:['ฉันเป็นครู','คุณเป็นครู','เขาเป็นครู'],ans:1,fb:'<span class="zh">你是老师。</span> <b>nǐ shì lǎoshī</b> = คุณเป็นครู'}),
- ask({rv:7,q:'ฟัง 是 แล้วเลือกพยัญชนะตัวแรก',k:SHI.k,opts:['s','sh'],ans:1,fb:'<b>sh</b>ì · ม้วนลิ้นขึ้น ถ้าเป็น s จะกลายเป็น sì'}),
- order({tag:TQ(4),q:'แตะคำเรียงเป็นประโยค',th:'ฉันเป็นนักเรียน',tiles:[tl('我','wǒ'),tl('是','shì'),tl('学生','xuésheng'),tl('你','nǐ')],ans:[0,1,2],end:'。',k:'wsxs-f'}),
- ask({tag:TQ(5),q:'คำว่า 是 shì แปลว่าอะไร',k:SHI.k,opts:['เป็น คือ','ไม่ใช่','ชื่อ'],ans:0,fb:'<span class="zh">是</span> <b>shì</b> = เป็น คือ'}),
- part({lab:'ภารกิจท้ายบท',of:0,title:'ใครเป็นใครในห้องเรียน',chips:['ชี้คน','เรียงประโยค','ตอบครู'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 3 ข้อ'}),
- point({tag:MQ(1),noTh:1,cards:C4,rounds:[RD('她',3),RD('我',0),RD('他',2),RD('你',1)]}),
- order({tag:MQ(2),noTh:1,q:'ฟังแล้วเรียงคำให้ตรงกับที่ได้ยิน',tiles:[tl('他','tā'),tl('是','shì'),tl('学生','xuésheng'),tl('老师','lǎoshī')],ans:[0,1,2],end:'。',k:'tsxs-f'}),
- reply({tag:MQ(3),noTh:1,q:'ครูชี้มาที่คุณ คุณจะตอบว่าอะไร',line:{who:'t',zh:'你是学生。',py:'nǐ shì xuésheng.',th:'คุณเป็นนักเรียน',k:'nsxs-t'},opts:[S.tasxs,S.wsxs,S.nsxs],ans:1}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['เติมคำ','เรียงประโยค','ตอบในบทสนทนา','เช็กชื่อ'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ blank({tag:TQ(1),s:'你叫_名字？',th:'คุณชื่ออะไร',opts:['什么','谁','也'],ans:0,k:'njsmmz-f',fb:'<span class="zh">你叫什么名字？</span> = คุณชื่ออะไร'}),
+ ask({rv:7,q:'ฟัง 谁 แล้วเลือกพยัญชนะตัวแรก',k:'g:shei2',opts:['s','sh'],ans:1,fb:'<b>sh</b>éi · ม้วนลิ้นขึ้น'}),
+ order({tag:TQ(2),th:'ฉันก็เป็นนักเรียน',tiles:[tl('我','wǒ'),tl('也','yě'),tl('是','shì'),tl('学生','xuésheng'),tl('呢','ne')],ans:[0,1,2,3],end:'。',k:'wysxs-m'}),
+ ask({tag:TQ(3),q:'ฟังประโยค แล้วเลือกความหมาย',k:'tss-f',opts:['เธอเป็นใคร','เธอชื่ออะไร','เธอเป็นครู'],ans:0,fb:'<span class="zh">她是谁？</span> = เธอเป็นใคร'}),
+ reply({tag:TQ(4),q:'ครูถามคุณ คุณนามสกุลหวัง จะตอบว่าอะไร',line:S('你姓什么？','nǐ xìng shénme?','คุณนามสกุลอะไร','nixsm-t','t'),opts:[X.wxw,X.wm,X.wxl],ans:0,why:'ถามด้วย 姓 ตอบด้วย 姓'}),
+ ask({rv:2,q:'ฟังพยางค์ 姓 xìng แล้วเลือกเส้นเสียง',k:'g:xing4',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:1,fb:'<b class="t4">xìng</b> <span class="zh">姓</span> · เสียง 4 ตกเร็ว'}),
+ blank({tag:TQ(5),s:'我叫玛莉，你_？',th:'ฉันชื่อมะลิ แล้วคุณล่ะ',opts:['呢','也','谁'],ans:0,k:'wjmlnn-f',fb:'<span class="zh">你呢？</span> = แล้วคุณล่ะ'}),
+ ask({rv:3,q:'ฟัง 呢 ne แล้วเลือกสระ',k:'nne-m',opts:['a','o','e'],ans:2,fb:'n<b>e</b> · สระ e ปากผ่อน คล้าย "เออ" สั้น ๆ'}),
+ story({tag:TQ(6)+' · เช็กชื่อ',q:'ครูเช็กชื่อในห้อง ช่วยพูดให้ถูกทีละภาพ',panels:ROLL}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เช็กชื่อวันแรก',chips:['เติมคำ','ตอบเพื่อน','เรียงคำถาม','เช็กชื่อ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ blank({tag:MQ(1),noTh:1,s:'她是_？',opts:['谁','什么','呢'],ans:0,k:'tss-f',fb:'<span class="zh">她是谁？</span>'}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนพูดกับคุณ คุณเป็นนักเรียนเหมือนกัน',line:{...X.wsxsnn,who:'g'},opts:[X.nml,X.wysxs,X.tsxs],ans:1}),
+ order({tag:MQ(3),noTh:1,q:'ฟังแล้วเรียงคำให้ตรงกับที่ได้ยิน',tiles:[tl('您','nín'),tl('姓','xìng'),tl('什么','shénme'),tl('谁','shéi')],ans:[0,1,2],end:'？',k:'nxsm-f'}),
+ story({tag:MQ(4)+' · เช็กชื่อ',noTh:1,q:'ครูเช็กชื่อในห้อง ช่วยพูดให้ถูกทีละภาพ',panels:[ROLL[1],ROLL[0],ROLL[3]].map(p=>Object.assign({},p,{why:''}))}),
  /* 5 · จบบท */
- fin({title:'บอกได้แล้วว่าใครเป็นใคร',html:dlgH(TL,{noTh:1}),chips:[WO,NI,TA,TA2,SHI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg3',kl:'ฟังทั้งบทสนทนา'})]});
+ fin({title:'ถามชื่อและบอกชื่อได้แล้ว',html:dlgH(D,{noTh:1}),chips:[JIAO,MZ,SM,XING,SHEI,NE,YE].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg3',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>
 </body></html>

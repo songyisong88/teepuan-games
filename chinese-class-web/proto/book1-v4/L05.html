@@ -4,65 +4,65 @@
 <link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
 <link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
 <script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
-<title>ต้นแบบ · บท 1-5 ชื่อของฉัน</title>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 1</title>
 </head><body>
 <script>
-/* บท 1-5 (ซ้งอี้ 4 พ.ย. 2026): ชื่อของฉัน · กิจกรรมเฉพาะบท: บัตรชื่อของฉัน (พิมพ์ชื่อตัวเอง) และเช็กชื่อในห้อง */
-const JIAO=w('叫','jiào','ชื่อ (เรียกว่า)'),MZ=w('名字','míngzi','ชื่อ'),SM=w('什么','shénme','อะไร');
-const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),CLS=ART('教室');
+/* ทบทวนหน่วยที่ 1 ฉบับใหม่ (ซ้งอี้ อนุมัติแผนคำศัพท์ 4 พ.ย. 2026): ทวนคำเล่ม 0 + คำทั้ง 4 บท → บทสนทนาเต็มวัน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+const HAO=w('好','hǎo','ดี'),NH=w('你好','nǐ hǎo','สวัสดี'),XX=w('谢谢','xièxie','ขอบคุณ'),BKQ=w('不客气','bú kèqi','ยินดี (ตอบคำขอบคุณ)'),LS=w('老师','lǎoshī','ครู'),
+ WO=w('我','wǒ','ฉัน'),NI=w('你','nǐ','คุณ'),SHI=w('是','shì','เป็น คือ'),BU=w('不','bù','ไม่'),WM=w('我们','wǒmen','พวกเรา');
+const ZS=w('早上','zǎoshang','ตอนเช้า'),NIN=w('您','nín','คุณ (สุภาพ)'),DBQ=w('对不起','duìbuqǐ','ขอโทษ'),MGX=w('没关系','méi guānxi','ไม่เป็นไร'),WS=w('晚上','wǎnshang','ตอนค่ำ'),ZJ=w('再见','zàijiàn','ลาก่อน');
+const TA=w('他','tā','เขา (ผู้ชาย)'),TA2=w('她','tā','เธอ (ผู้หญิง)'),TX=w('同学','tóngxué','เพื่อนร่วมชั้น'),PY=w('朋友','péngyou','เพื่อน'),XS=w('学生','xuésheng','นักเรียน'),DJ=w('大家','dàjiā','ทุกคน'),MA=w('吗','ma','ไหม (คำถาม)');
+const JIAO=w('叫','jiào','ชื่อ (เรียกว่า)'),MZ=w('名字','míngzi','ชื่อ'),SM=w('什么','shénme','อะไร'),XING=w('姓','xìng','นามสกุล (มีนามสกุลว่า)'),SHEI=w('谁','shéi','ใคร'),NE=w('呢','ne','ล่ะ (ถามกลับ)'),YE=w('也','yě','ก็ ด้วย');
+const RS=w('认识','rènshi','รู้จัก'),GX=w('高兴','gāoxìng','ดีใจ'),HEN=w('很','hěn','มาก'),REN=w('人','rén','คน'),ZG=w('中国','Zhōngguó','ประเทศจีน'),TG=w('泰国','Tàiguó','ประเทศไทย'),BJ=w('北京','Běijīng','ปักกิ่ง'),NA=w('哪','nǎ','ไหน');
+const BOY=ART('男孩'),GIRL=ART('女孩'),STU=ART('学生'),TCH=ART('老师'),MAN=REN.img,BOOK=ART('书'),CLS=ART('教室'),DOOR=ART('门');
 const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
-const QN={nj:S('你叫什么名字？','nǐ jiào shénme míngzi?','คุณชื่ออะไร','njsmmz-t','t'),ta:S('他叫什么名字？','tā jiào shénme míngzi?','เขาชื่ออะไร','tajsmmz-t','t'),
- ta2:S('她叫什么名字？','tā jiào shénme míngzi?','เธอชื่ออะไร','tajsmmz-t','t'),ta2f:S('她叫什么名字？','tā jiào shénme míngzi?','เธอชื่ออะไร','tjsmmz-m','f')};
-const A={ml:S('我叫玛莉。','wǒ jiào Mǎlì.','ฉันชื่อมะลิ','wjml-f','me'),wm:S('我叫王明。','wǒ jiào Wáng Míng.','ฉันชื่อหวังหมิง','wjwm-m','f'),ln:S('我叫李娜。','wǒ jiào Lǐ Nà.','ฉันชื่อหลี่น่า','wjln-g','g'),
- twm:S('他叫王明。','tā jiào Wáng Míng.','เขาชื่อหวังหมิง','tjwm-f','me'),tln:S('她叫李娜。','tā jiào Lǐ Nà.','เธอชื่อหลี่น่า','tjln-f','me'),nml:S('你叫玛莉。','nǐ jiào Mǎlì.','คุณชื่อมะลิ','njml-f','me')};
-const D=[{sit:'วันแรกของเทอม ครูถามชื่อนักเรียน',img:CLS},QN.nj,A.ml,QN.ta,A.twm];
-const TQ=i=>`แบบทดสอบ ${i}/5 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/3 · ไม่มีตัวช่วยภาษาไทย`;
-const tl=(zh,py)=>({zh,py});
-const ROLL=[{img:BOY,sit:'ครูถามเด็กผู้ชาย',line:QN.nj,opts:[A.wm,A.twm],ans:0,why:'ตอบชื่อตัวเอง ใช้ 我叫'},
- {img:GIRL,sit:'ครูชี้ที่เด็กผู้หญิง แล้วถามคุณ',line:QN.ta2,opts:[A.ln,A.tln],ans:1,why:'พูดถึงเธอ ใช้ 她叫'},
- {img:STU,sit:'ครูหันมาถามคุณ',line:QN.nj,opts:[A.nml,A.ml],ans:1,why:'ตอบชื่อตัวเอง ใช้ 我叫'}];
-LESSON({no:5,goal:{do:'ถามชื่อ และบอกชื่อตัวเองเป็นภาษาจีนได้',sub:'ใช้ <span class="gz">你叫什么名字？</span> และตอบ <span class="gz">我叫…</span>',min:7},steps:[
- /* 1 · เปิดบท + คำศัพท์ใหม่ */
- intro({scene:SC('l4-p5'),cap:'สถานการณ์ของบทนี้',title:'ครูถามชื่อในวันแรก',line:QN.nj,note:'แตะฟองเพื่อฟังครูถาม · จบบทนี้คุณจะตอบชื่อตัวเองได้ และถามชื่อคนอื่นได้'}),
- vgrid({title:'3 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[JIAO,MZ,SM]}),
- /* 2 · เรียนทีละคำ */
- part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['叫','名字','什么'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
- wcard({no:1,of:3,cap:'ใช้บอกชื่อ',w:JIAO,aid:{parts:['jiào',4],cap:'เสียง 4 ตกเร็ว'},hint:'คล้าย <b>"เจี้ยว"</b>',sk:'jiao-fs',
-  use:'ใช้บอกชื่อ 我叫… แปลว่า ฉันชื่อ… แล้วตามด้วยชื่อได้เลย',ex:[A.ml,A.twm]}),
- rec({n:'คำที่ 1/3',w:JIAO,keys:['jiao-fs',JIAO.k]}),
- wcard({no:2,of:3,cap:'คำว่าชื่อ',w:MZ,aid:{parts:['míng',2,'zi',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"หมิง จึ"</b> · zi พูดเบาและสั้น',sk:'mz-fs',
-  use:'แปลว่าชื่อ ใช้ในคำถาม 你叫什么名字 ตอนตอบไม่ต้องพูดคำนี้ซ้ำ',ex:[S('你叫什么名字？','nǐ jiào shénme míngzi?','คุณชื่ออะไร','njsmmz-f'),S('她叫什么名字？','tā jiào shénme míngzi?','เธอชื่ออะไร','tjsmmz-m')]}),
- syl({n:'คำที่ 2/3',w:MZ,chars:[{zh:'名',py:'míng',t:2,k:'g:ming2'},{zh:'字',py:'zi',t:0}],done:'míng + zi เบา = míngzi'}),
- wcard({no:3,of:3,cap:'คำถาม',w:SM,aid:{parts:['shén',2,'me',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เสิน เมอ"</b> · shén ม้วนลิ้นขึ้น',sk:'sm-fs',
-  use:'แปลว่าอะไร ใช้ถาม ภาษาจีนวาง 什么 ตรงตำแหน่งที่อยากรู้ ไม่ต้องย้ายไปไว้หน้าประโยค',ex:[QN.nj,S('什么？','shénme?','อะไรนะ','sm-m')]}),
- rec({n:'คำที่ 2–3/3',ws:[MZ,SM]}),
- /* 3 · เทคนิคการใช้ */
- part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['ถามชื่อ ตอบชื่อ','บัตรชื่อของฉัน','ถามชื่อคนอื่น'],note:'ฝึกถามและตอบชื่อในห้องเรียน'}),
- dialog({cap:'เทคนิค 1/4 · บทสนทนาในห้องเรียน',title:'ครูถามชื่อนักเรียน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามด้วย 叫 ก็ตอบด้วย 叫'}),
- namecard({cap:'เทคนิค 2/4 · บัตรชื่อของฉัน',title:'เขียนบัตรชื่อของคุณ',text:'พิมพ์ชื่อของคุณ หรือแตะชื่อตัวอย่าง แล้วพูดประโยค 我叫… ดัง ๆ',
-  names:[{zh:'玛莉',py:'Mǎlì',th:'มะลิ',k:'wjml-f'},{zh:'王明',py:'Wáng Míng',th:'หวังหมิง',k:'wjwm-m'},{zh:'李娜',py:'Lǐ Nà',th:'หลี่น่า',k:'wjln-g'}],k:'wojiao-f'}),
- talk({cap:'เทคนิค 3/4 · ถามชื่อคนอื่น',title:'เปลี่ยนคนข้างหน้า',text:'ถามถึงใคร ก็ใช้ 你 他 她 ที่เรียนในบทก่อน',lines:[QN.ta,A.twm,QN.ta2f,A.tln],
-  chips:[{zh:'我叫',py:'wǒ jiào',th:'ฉันชื่อ',k:'wojiao-f'}],tip:'ถามแบบไหน ตอบแบบนั้น · เอาชื่อมาวางแทน <span class="zh">什么名字</span>'}),
- tips({cap:'เทคนิค 4/4 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
-  {h:'ตอบไม่ต้องพูด 名字 ซ้ำ',bad:'我叫名字玛莉。',good:'我叫玛莉。',k:'wjml-f'},
-  {h:'什么 อยู่ตรงที่อยากรู้',bad:'什么你叫名字？',good:'你叫什么名字？',k:'njsmmz-f'},
-  {h:'什么 ต้องม้วนลิ้น',bad:'sénme',good:'shénme',k:SM.k},
-  {h:'名字 พยางค์ที่สองเบา',bad:'míng zì หนักทั้งคู่',good:'míngzi',k:MZ.k}]}),
- /* 4 · แบบทดสอบท้ายบท */
- part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['เติมคำ','เรียงประโยค','เช็กชื่อ'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- blank({tag:TQ(1),s:'你叫_名字？',th:'คุณชื่ออะไร',opts:['什么','是','好'],ans:0,k:'njsmmz-f',fb:'<span class="zh">你叫什么名字？</span> = คุณชื่ออะไร'}),
- ask({rv:7,q:'ฟัง 什么 แล้วเลือกพยัญชนะตัวแรก',k:'g:shen2',opts:['s','sh'],ans:1,fb:'<b>sh</b>én · ม้วนลิ้นขึ้น'}),
- order({tag:TQ(2),th:'ฉันชื่อมะลิ',tiles:[tl('我','wǒ'),tl('叫','jiào'),tl('玛莉','Mǎlì'),tl('什么','shénme')],ans:[0,1,2],end:'。',k:'wjml-f'}),
- ask({tag:TQ(3),q:'ฟังประโยค แล้วเลือกความหมาย',k:'njsmmz-t',opts:['คุณชื่ออะไร','คุณเป็นนักเรียน','เธอชื่ออะไร'],ans:0,fb:'<span class="zh">你叫什么名字？</span> = คุณชื่ออะไร'}),
- blank({tag:TQ(4),s:'我_李娜。',th:'ฉันชื่อหลี่น่า',opts:['叫','什么','名字'],ans:0,k:'wjln-g',fb:'<span class="zh">我叫李娜。</span>'}),
- ask({rv:2,q:'ฟังพยางค์ 叫 jiào แล้วเลือกเส้นเสียง',k:'g:jiao4',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:1,fb:'<b class="t4">jiào</b> <span class="zh">叫</span> · เสียง 4 ตกเร็ว'}),
- story({tag:TQ(5)+' · เช็กชื่อ',q:'ครูถามชื่อทีละคน ช่วยตอบให้ถูก',panels:ROLL}),
- part({lab:'ภารกิจท้ายบท',of:0,title:'เช็กชื่อวันแรก',chips:['เติมคำ','เรียงคำถาม','เช็กชื่อ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 3 ข้อ'}),
- blank({tag:MQ(1),noTh:1,s:'她叫什么_？',opts:['名字','朋友','老师'],ans:0,k:'tjsmmz-m',fb:'<span class="zh">她叫什么名字？</span>'}),
- order({tag:MQ(2),noTh:1,q:'ฟังแล้วเรียงคำให้ตรงกับที่ได้ยิน',tiles:[tl('你','nǐ'),tl('叫','jiào'),tl('什么','shénme'),tl('名字','míngzi'),tl('我','wǒ')],ans:[0,1,2,3],end:'？',k:'njsmmz-m'}),
- story({tag:MQ(3)+' · เช็กชื่อ',noTh:1,q:'ครูถามชื่อทีละคน ช่วยตอบให้ถูก',panels:[ROLL[1],ROLL[0],ROLL[2]].map(p=>Object.assign({},p,{why:''}))}),
- /* 5 · จบบท */
- fin({title:'ถามชื่อและบอกชื่อตัวเองได้แล้ว',html:dlgH(D,{noTh:1}),chips:[JIAO,MZ,SM].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})).concat([{zh:'我叫',py:'wǒ jiào',th:'ฉันชื่อ',k:'wojiao-f'}]),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg5',kl:'ฟังทั้งบทสนทนา'})]});
+const L={txm:S('同学们，早上好！','tóngxuémen, zǎoshang hǎo!','สวัสดีตอนเช้านักเรียนทุกคน','txmzsh-t','t'),lszsh:S('老师，早上好！','lǎoshī, zǎoshang hǎo!','สวัสดีตอนเช้าคุณครู','lszsh-f','me'),
+ nj:S('你叫什么名字？','nǐ jiào shénme míngzi?','คุณชื่ออะไร','njsmmz-t','t'),ml:S('我叫玛莉，我是泰国人。','wǒ jiào Mǎlì, wǒ shì Tàiguó rén.','ฉันชื่อมะลิ ฉันเป็นคนไทย','wjmltgr-f','me'),
+ dbq:S('对不起！','duìbuqǐ!','ขอโทษ','dbq-m','f'),mgx:S('没关系！','méi guānxi!','ไม่เป็นไร','mgx-f','me'),
+ wm:S('我叫王明，我是北京人。','wǒ jiào Wáng Míng, wǒ shì Běijīng rén.','ฉันชื่อหวังหมิง ฉันเป็นคนปักกิ่ง','wjwmbjr-m','f'),hgx:S('很高兴认识你！','hěn gāoxìng rènshi nǐ!','ยินดีที่ได้รู้จัก','hgxrsn-f','me'),
+ yhgx:S('我也很高兴认识你！','wǒ yě hěn gāoxìng rènshi nǐ!','ฉันก็ยินดีที่ได้รู้จักคุณ','wyhgxrsn-m','f'),lszj:S('老师再见！','lǎoshī zàijiàn!','ลาก่อนคุณครู','lszj-f','me'),zjt:S('再见！','zàijiàn!','ลาก่อน','zaijian-t','t'),
+ nsxsm:S('你是学生吗？','nǐ shì xuésheng ma?','คุณเป็นนักเรียนไหม','nsxsm-g','g'),wbsxs:S('我不是学生，我是老师。','wǒ bú shì xuésheng, wǒ shì lǎoshī.','ฉันไม่ใช่นักเรียน ฉันเป็นครู','wbsxs-t','t'),
+ tss:S('她是谁？','tā shì shéi?','เธอเป็นใคร','tss-f','f'),tswpy:S('她是我朋友。','tā shì wǒ péngyou.','เธอเป็นเพื่อนของฉัน','taswpy-f','me')};
+const D=[{sit:'เช้าวันแรกของเทอม ครูเข้าห้องเรียน',img:ZS.img},L.txm,L.lszsh,L.nj,L.ml,{sit:'เพื่อนใหม่เดินชนคุณ หนังสือตก',img:BOOK},L.dbq,L.mgx,L.wm,L.hgx,L.yhgx,{sit:'เลิกเรียนแล้ว คุณเดินออกจากห้อง',img:DOOR},L.lszj,L.zjt];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),RD=(zh,ans)=>({zh,k:[WO,NI,TA,TA2][ans].k,ans});
+const O={zsh:S('老师，早上好！','lǎoshī, zǎoshang hǎo!','สวัสดีตอนเช้าคุณครู','lszsh-f'),wsh:S('晚上好！','wǎnshang hǎo!','สวัสดีตอนค่ำ','wsh-f'),mgx:S('没关系！','méi guānxi!','ไม่เป็นไร','mgx-f'),bkq:S('不客气！','bú kèqi!','ยินดี','bkq-f'),
+ dbq:S('对不起！','duìbuqǐ!','ขอโทษ','dbq-f'),nh:S('你好！','nǐ hǎo!','สวัสดี','nihao-s-f'),djh:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','djh-f'),wjml:S('我叫玛莉。','wǒ jiào Mǎlì.','ฉันชื่อมะลิ','wjml-f'),
+ njml:S('你叫玛莉。','nǐ jiào Mǎlì.','คุณชื่อมะลิ','njml-f'),wsls:S('我是老师。','wǒ shì lǎoshī.','ฉันเป็นครู','wslsh-f'),lszj:S('老师再见！','lǎoshī zàijiàn!','ลาก่อนคุณครู','lszj-f'),
+ wxl:S('我姓李。','wǒ xìng Lǐ.','ฉันนามสกุลหลี่','wxl-g'),tg:S('我是泰国人。','wǒ shì Tàiguó rén.','ฉันเป็นคนไทย','wstgr-f'),
+ zg:S('我是中国人。','wǒ shì Zhōngguó rén.','ฉันเป็นคนจีน','wszgr-f'),hgx:S('很高兴认识你！','hěn gāoxìng rènshi nǐ!','ยินดีที่ได้รู้จัก','hgxrsn-f')};
+const BINS=[{img:ZG.img,zh:'中国',py:'Zhōngguó',th:'ประเทศจีน'},{img:TG.img,zh:'泰国',py:'Tàiguó',th:'ประเทศไทย'}];
+const it=(img,k,b,bj)=>Object.assign({img,bin:b},bj?S('我是北京人。','wǒ shì Běijīng rén.','ฉันเป็นคนปักกิ่ง',k):b?S('我是泰国人。','wǒ shì Tàiguó rén.','ฉันเป็นคนไทย',k):S('我是中国人。','wǒ shì Zhōngguó rén.','ฉันเป็นคนจีน',k));
+const card=(n,py,c)=>`<b class="zh">${n}</b><span class="py">${py}</span><span>สัญชาติ <span class="zh">${c}人</span></span>`;
+LESSON({no:5,code:'ทบทวนหน่วย 1',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 1 ในวันแรกที่โรงเรียน',sub:'ทักทาย ขอโทษ บอกว่าใครเป็นใคร บอกชื่อ บอกประเทศ และบอกลา',min:8},steps:[
+ intro({scene:SC('l1-p3'),cap:'บททบทวน',title:'วันแรกที่โรงเรียน ตั้งแต่เช้าถึงเย็น',line:L.ml,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 1-1 ถึง 1-4 และคำที่ใช้บ่อยจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 1',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[HAO,NH,XX,BKQ,LS,WO,NI,SHI,BU,WM]},{lab:'1-1 ทักทาย ขอโทษ บอกลา',items:[ZS,NIN,DBQ,MGX,WS,ZJ]},{lab:'1-2 ฉัน คุณ เขา เธอ',items:[TA,TA2,TX,PY,XS,DJ,MA]},
+  {lab:'1-3 ชื่ออะไร',items:[JIAO,MZ,SM,XING,SHEI,NE,YE]},{lab:'1-4 ยินดีที่ได้รู้จัก',items:[RS,GX,HEN,REN,ZG,TG,BJ,NA]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'วันแรกของมะลิ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ชี้คน','เล่าเป็นภาพ','เติมคำ','เรียงคำ','ถูกหรือไม่ถูก','ใครมาจากไหน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[ZS,MGX,TX,SHEI,RS]}),
+ point({tag:TQ(2),cards:[{img:WO.img,th:'ฉัน'},{img:NI.img,th:'คุณ'},{img:TA.img,th:'เขา'},{img:TA2.img,th:'เธอ'}],rounds:[RD('她',3),RD('你',1),RD('他',2)]}),
+ story({tag:TQ(3),q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
+  {img:ZS.img,sit:'เช้านี้คุณเจอครูหน้าห้อง',opts:[O.zsh,O.wsh,O.lszj],ans:0,why:'ตอนเช้า ใช้ 早上好'},
+  {img:BOOK,sit:'เพื่อนชนคุณแล้วขอโทษ',line:L.dbq,opts:[O.bkq,O.mgx],ans:1,why:'ตอบคำขอโทษด้วย 没关系'},
+  {img:DJ.img,sit:'คุณเดินเข้าไปในกลุ่มเพื่อน',opts:[O.nh,O.djh],ans:1,why:'ทักหลายคน ใช้ 大家好'},
+  {img:WS.img,sit:'ตอนค่ำคุณเจอเพื่อนบ้าน',opts:[O.zsh,O.wsh],ans:1,why:'ตอนค่ำ ใช้ 晚上好'}]}),
+ ask({rv:12,q:'不 bù + 是 shì<br>อ่านต่อกันจริงว่าอะไร',k:'bs-f',opts:['bú shì','bù shì'],ans:0,fb:'<b>bú shì</b> · 不 เจอเสียง 4 เปลี่ยนเป็นเสียง 2'}),
+ blank({tag:TQ(4),s:'我叫玛莉，你_？',th:'ฉันชื่อมะลิ แล้วคุณล่ะ',opts:['呢','吗','也'],ans:0,k:'wjmlnn-f',fb:'<span class="zh">你呢？</span> = แล้วคุณล่ะ'}),
+ order({tag:TQ(5),th:'คุณเป็นคนประเทศไหน',tiles:[tl('你','nǐ'),tl('是','shì'),tl('哪','nǎ'),tl('国','guó'),tl('人','rén'),tl('吗','ma')],ans:[0,1,2,3,4],end:'？',k:'nsngr-g'}),
+ tf({tag:TQ(6),k:'wjwmbjr-m',img:BOY,card:card('王明','Wáng Míng','中国'),ans:0,fb:'เขาพูดว่า <span class="zh">我是北京人。</span> ปักกิ่งอยู่ในประเทศจีน จึงตรงกับบัตร'}),
+ sortmap({tag:TQ(7),bins:BINS,items:[it(GIRL,'wstgr-g',1),it(MAN,'wsbjr-t',0,1),it(BOY,'wstgr-m',1)]}),
+ ask({rv:2,q:'ฟังพยางค์ 早 zǎo แล้วเลือกเส้นเสียง',k:'g:zao3',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">zǎo</b> <span class="zh">早</span> · เสียง 3 กดต่ำ'}),
+ reply({tag:TQ(8),q:'ครูถามนามสกุลคุณ คุณนามสกุลหลี่',line:S('你姓什么？','nǐ xìng shénme?','คุณนามสกุลอะไร','nixsm-t','t'),opts:[O.wxl,O.wjml,O.tg],ans:0,why:'ถามด้วย 姓 ตอบด้วย 姓'}),
+ lineup({tag:TQ(9),sit:'เพื่อนใหม่ถามคนที่ยืนหน้าห้อง แล้วถามถึงผู้หญิงอีกคน',lines:[L.nsxsm,L.wbsxs,L.tss,L.tswpy]}),
+ ask({tag:TQ(10),q:'ฟังประโยค แล้วเลือกความหมาย',k:'tass-m',opts:['เขาเป็นใคร','เขาชื่ออะไร','เขาเป็นคนประเทศไหน'],ans:0,fb:'<span class="zh">他是谁？</span> = เขาเป็นใคร'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'วันที่สองที่โรงเรียน',chips:['ตอบครู','เรียงบทสนทนา','ตอบเพื่อนใหม่','บอกลา'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'ครูถามคุณ',line:L.nj,opts:[O.njml,O.wjml,O.wsls],ans:1}),
+ lineup({tag:MQ(2),noTh:1,sit:'เพื่อนใหม่เดินชนคุณ',lines:[L.dbq,L.mgx,L.wm,L.hgx]}),
+ reply({tag:MQ(3),noTh:1,q:'เพื่อนใหม่ถามคุณ',line:S('你是哪国人？','nǐ shì nǎ guó rén?','คุณเป็นคนประเทศไหน','nsngr-g','g'),opts:[O.zg,O.tg,O.hgx],ans:1}),
+ reply({tag:MQ(4),noTh:1,q:'เลิกเรียนแล้ว ครูพูดกับคุณ',line:L.zjt,opts:[O.bkq,O.lszj,O.zsh],ans:1}),
+ fin({title:'จบหน่วยที่ 1 แล้ว',html:dlgH(D,{noTh:1}),chips:[ZS,DBQ,TA2,MA,JIAO,SHEI,RS,NA].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg5',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>
 </body></html>

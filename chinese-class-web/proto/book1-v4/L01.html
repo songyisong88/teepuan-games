@@ -4,67 +4,100 @@
 <link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
 <link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
 <script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
-<title>ต้นแบบ · บท 1-1 ทักทาย ขอบคุณ บอกลา</title>
+<title>ต้นแบบ · บท 1-1 ทักทาย ขอโทษ บอกลา</title>
 </head><body>
 <script>
-/* บท 1-1 v3 (ซ้งอี้ 4 พ.ย. 2026): คำศัพท์ใหม่ (ไทล์แบบห้องคำ) → อธิบายทีละคำ (การ์ดคำแบบห้องคำ) → เทคนิคการใช้ → แบบทดสอบท้ายบท → จบบท */
-const NH=w('你好','nǐ hǎo','สวัสดี'),XX=w('谢谢','xièxie','ขอบคุณ'),ZJ=w('再见','zàijiàn','ลาก่อน');
-const NIN=w('您好','nín hǎo','สวัสดี (สุภาพ)'),BKQ=w('不客气','bú kèqi','ไม่เป็นไร'),MTJ=w('明天见','míngtiān jiàn','พรุ่งนี้เจอกัน');
-const GIFT=ART('礼物'),BOOK=ART('书'),HAND=ART('手'),MATE=ART('同学'),FRIEND=ART('朋友'),DOOR=ART('门'),TCH=ART('老师'),BOY=ART('男孩'),TMR=ART('明天'),HOME=ART('回家'),CLS=ART('教室');
-const D=[{who:'f',zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-m'},{who:'me',zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-f'},
- {sit:'คุณให้ของขวัญเพื่อน',img:GIFT},{who:'f',zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-m'},{who:'me',zh:'不客气！',py:'bú kèqi!',th:'ไม่เป็นไร',k:'bkq-f'},
- {sit:'ถึงเวลากลับบ้าน',img:HOME},{who:'f',zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-m'},{who:'me',zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-f'}];
-const R={nh:{zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-f'},xx:{zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-f'},zj:{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-f'},
- bkq:{zh:'不客气！',py:'bú kèqi!',th:'ไม่เป็นไร',k:'bkq-f'},lsh:{zh:'老师好！',py:'lǎoshī hǎo!',th:'สวัสดีคุณครู',k:'lsh-f'},xxls:{zh:'谢谢老师！',py:'xièxie lǎoshī!',th:'ขอบคุณคุณครู',k:'xxls-f'},
- mtj:{zh:'明天见！',py:'míngtiān jiàn!',th:'พรุ่งนี้เจอกัน',k:'mtj-f'}};
-const TQ=i=>`แบบทดสอบ ${i}/5 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/3 · ไม่มีตัวช่วยภาษาไทย`;
-LESSON({no:1,goal:{do:'ทักทาย ขอบคุณ และบอกลาเป็นภาษาจีนได้',sub:'รู้ว่าใช้ <span class="gz">你好 谢谢 再见</span> เมื่อไร และตอบกลับได้สุภาพ',min:9},steps:[
+/* บท 1-1 หน่วย 1 ฉบับใหม่ (ซ้งอี้ อนุมัติแผนคำศัพท์ 4 พ.ย. 2026): ทักทาย ขอโทษ บอกลา · คำใหม่ 再见 早上 晚上 您 对不起 没关系 · ทบทวนเล่ม 0: 好 你好 谢谢 不客气 老师
+   กิจกรรมเฉพาะบท: หนึ่งวันที่โรงเรียน (เล่าเป็นภาพ 4 ช่อง ตั้งแต่เช้าถึงค่ำ) */
+const ZS=w('早上','zǎoshang','ตอนเช้า'),WS=w('晚上','wǎnshang','ตอนค่ำ'),NIN=w('您','nín','คุณ (สุภาพ)'),DBQ=w('对不起','duìbuqǐ','ขอโทษ'),MGX=w('没关系','méi guānxi','ไม่เป็นไร'),ZJ=w('再见','zàijiàn','ลาก่อน');
+const NH=w('你好','nǐ hǎo','สวัสดี'),NINH=w('您好','nín hǎo','สวัสดี (สุภาพ)'),ZSH=w('早上好','zǎoshang hǎo','สวัสดีตอนเช้า'),WSH=w('晚上好','wǎnshang hǎo','สวัสดีตอนค่ำ'),BKQ=w('不客气','bú kèqi','ยินดี (ตอบคำขอบคุณ)'),XX=w('谢谢','xièxie','ขอบคุณ');
+const TCH=ART('老师'),CLS=ART('教室'),BOOK=ART('书'),NOTE=ART('本子'),BAG=ART('包'),GIFT=ART('礼物'),DOOR=ART('门'),BOY=ART('男孩'),HOME=ART('回家'),MORN=ZS.img,EVE=WS.img;
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const R={lszsh:S('老师，早上好！','lǎoshī, zǎoshang hǎo!','สวัสดีตอนเช้าคุณครู','lszsh-f'),lswsh:S('老师，晚上好！','lǎoshī, wǎnshang hǎo!','สวัสดีตอนค่ำคุณครู','lswsh-f'),
+ zsh:S('早上好！','zǎoshang hǎo!','สวัสดีตอนเช้า','zsh-f'),wsh:S('晚上好！','wǎnshang hǎo!','สวัสดีตอนค่ำ','wsh-f'),lsnh:S('老师，您好！','lǎoshī, nín hǎo!','สวัสดีคุณครู','lsnh-f'),
+ nh:S('你好！','nǐ hǎo!','สวัสดี','nihao-s-f'),dbq:S('对不起！','duìbuqǐ!','ขอโทษ','dbq-f'),lsdbq:S('老师，对不起！','lǎoshī, duìbuqǐ!','ขอโทษคุณครู','lsdbq-f'),
+ mgx:S('没关系！','méi guānxi!','ไม่เป็นไร','mgx-f'),bkq:S('不客气！','bú kèqi!','ยินดี','bkq-f'),xx:S('谢谢！','xièxie!','ขอบคุณ','xiexie-s-f'),
+ zj:S('再见！','zàijiàn!','ลาก่อน','zaijian-s-f'),lszj:S('老师再见！','lǎoshī zàijiàn!','ลาก่อนคุณครู','lszj-f')};
+const L={lszsh:{...R.lszsh,who:'me'},zsht:S('早上好！','zǎoshang hǎo!','สวัสดีตอนเช้า','zsh-t','t'),dbq:{...R.dbq,who:'me'},mgxf:S('没关系！','méi guānxi!','ไม่เป็นไร','mgx-m','f'),
+ xx:{...R.xx,who:'me'},bkqf:S('不客气！','bú kèqi!','ยินดี','bkq-m','f'),wshf:S('晚上好！','wǎnshang hǎo!','สวัสดีตอนค่ำ','wsh-m','f'),wsh:{...R.wsh,who:'me'},
+ zjf:S('再见！','zàijiàn!','ลาก่อน','zaijian-s-m','f'),zj:{...R.zj,who:'me'},dbqf:S('对不起！','duìbuqǐ!','ขอโทษ','dbq-m','f'),xxf:S('谢谢！','xièxie!','ขอบคุณ','xiexie-s-m','f'),
+ lsnh:{...R.lsnh,who:'me'},nht:S('你好！','nǐ hǎo!','สวัสดี','nihao-s-m','t'),zjt:S('再见！','zàijiàn!','ลาก่อน','zaijian-t','t'),lszj:{...R.lszj,who:'me'}};
+const D=[{sit:'เช้าวันแรก คุณเจอครูที่หน้าห้องเรียน',img:MORN},L.lszsh,L.zsht,{sit:'คุณรีบเข้าห้อง เดินชนเพื่อนโดยไม่ตั้งใจ',img:BOOK},L.dbq,L.mgxf,
+ {sit:'ตอนค่ำ คุณเจอเพื่อนที่หน้าบ้าน คุยกันสักพักแล้วแยกกัน',img:EVE},L.wshf,L.wsh,L.zjf,L.zj];
+const DAY=[{img:MORN,sit:'ตอนเช้า คุณเจอครูหน้าห้องเรียน คุณพูดว่า',opts:[R.lszsh,R.lswsh,R.zj],ans:0,why:'ตอนเช้าทักว่า 早上好 · ทักครูให้เรียก 老师 ก่อน'},
+ {img:BOOK,sit:'เพื่อนเดินชนคุณแล้วขอโทษ คุณตอบว่า',line:L.dbqf,opts:[R.bkq,R.mgx,R.xx],ans:1,why:'ตอบคำขอโทษด้วย 没关系'},
+ {img:NOTE,sit:'เพื่อนเก็บสมุดคืนให้คุณ คุณพูดว่า',opts:[R.dbq,R.xx,R.wsh],ans:1,why:'มีคนช่วย ต้องขอบคุณ'},
+ {img:EVE,sit:'ตอนค่ำ คุณเจอเพื่อนที่หน้าบ้าน คุณทักว่า',opts:[R.zsh,R.wsh,R.dbq],ans:1,why:'ตอนค่ำทักว่า 晚上好'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+LESSON({no:1,goal:{do:'ทักทายตามช่วงเวลา ขอโทษ และบอกลาเป็นภาษาจีนได้',sub:'ใช้ <span class="gz">早上好 晚上好 您好 对不起 没关系 再见</span> ได้ถูกจังหวะ',min:11},steps:[
  /* 1 · เปิดบท + คำศัพท์ใหม่ */
- intro({scene:SC('l1-p1'),cap:'สถานการณ์ของบทนี้',title:'วันแรกที่โรงเรียน',line:D[0],note:'แตะฟองเพื่อฟังเพื่อนทักคุณ · บทนี้คุณจะได้ทักทาย ขอบคุณ และบอกลา'}),
- vgrid({title:'3 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[NH,{w:XX,fb:GIFT},{w:ZJ,fb:HAND}]}),
+ intro({scene:SC('l1-p1'),cap:'สถานการณ์ของบทนี้',title:'หนึ่งวันที่โรงเรียน',line:L.lszsh,note:'แตะฟองเพื่อฟัง · บทนี้คุณจะได้ทักทายตามช่วงเวลา ขอโทษ ตอบคำขอโทษ และบอกลา'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ · เรียงตามเวลาในหนึ่งวัน',items:[ZS,NIN,DBQ,MGX,WS,ZJ]}),
  /* 2 · เรียนทีละคำ */
- part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['你好','谢谢','再见'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
- wcard({no:1,of:3,cap:'ใช้ตอนเจอกัน',w:NH,py:'n[í] hǎo',aid:{rule:['nǐ hǎo','ní hǎo'],cap:'เสียง 3 สองตัวติดกัน ตัวแรกอ่านเป็นเสียง 2'},hint:'คล้าย <b>"หนี๋ ห่าว"</b> · พยางค์แรกเสียงขึ้น',sk:'nihao-fs',use:'ใช้ทักทายเมื่อเจอกัน ได้ทุกช่วงเวลาของวัน อีกฝ่ายตอบกลับด้วย 你好 คำเดิม',ex:[{zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-m'},{zh:'老师好！',py:'lǎoshī hǎo!',th:'สวัสดีคุณครู',k:'lsh-f'}]}),
- syl({n:'คำที่ 1/3',w:NH,chars:[{zh:'你',py:'ní',t:2,k:'g:ni2'},{zh:'好',py:'hǎo',t:3,k:'g:hao3'}],done:'ní + hǎo = ní hǎo'}),
- use({n:'คำที่ 1/3',w:NH,when:[{img:MATE,t:'เจอเพื่อน'},{img:CLS,t:'มาถึงโรงเรียน'},{img:FRIEND,t:'เจอคนรู้จัก'}],lines:[D[0],D[1]],tip:'<b>ตอบกลับด้วยคำเดิม</b> 你好 ได้เลย · ใช้ได้ทุกช่วงเวลาของวัน'}),
- rec({n:'คำที่ 1/3',w:NH,keys:['nihao-fs',NH.k]}),
- wcard({no:2,of:3,cap:'ใช้ตอนได้รับของ',w:XX,aid:{parts:['xiè',4,'xie',0],cap:'พยางค์แรกเสียง 4 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เซี่ย เซี่ย"</b> · พยางค์ที่สองพูดเบาและสั้น',sk:'xiexie-fs',use:'ใช้เมื่อได้รับของหรือมีคนช่วย อีกฝ่ายมักตอบว่า 不客气',ex:[{zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-m'},{zh:'谢谢老师！',py:'xièxie lǎoshī!',th:'ขอบคุณคุณครู',k:'xxls-f'}]}),
- syl({n:'คำที่ 2/3',w:XX,chars:[{zh:'谢',py:'xiè',t:4,k:'g:xie4'},{zh:'谢',py:'xie',t:0}],done:'xiè + xie เบา = xièxie'}),
- use({n:'คำที่ 2/3',w:XX,when:[{img:GIFT,t:'ได้รับของขวัญ'},{img:BOOK,t:'มีคนยื่นของให้'}],lines:[{sit:'เพื่อนยื่นหนังสือให้คุณ',img:BOOK},{who:'me',...R.xx}],tip:'อยากบอกว่าขอบคุณใคร ให้เติมไว้ข้างหลัง เช่น <span class="zh">谢谢老师</span> ขอบคุณคุณครู'}),
- rec({n:'คำที่ 2/3',w:XX,keys:['xiexie-fs',XX.k]}),
- wcard({no:3,of:3,cap:'ใช้ตอนแยกจากกัน',w:ZJ,aid:{parts:['zài',4,'jiàn',4],cap:'เสียง 4 ทั้งสองพยางค์ ตกลงเร็ว'},hint:'คล้าย <b>"ไจ้ เจี้ยน"</b> · พูดสั้นและหนักแน่น',sk:'zaijian-fs',use:'ใช้ตอนแยกจากกันหรือกลับบ้าน อีกฝ่ายตอบ 再见 กลับ',ex:[{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-m'},{zh:'老师再见！',py:'lǎoshī zàijiàn!',th:'ลาก่อนคุณครู',k:'lszj-f'}]}),
- syl({n:'คำที่ 3/3',w:ZJ,chars:[{zh:'再',py:'zài',t:4,k:'g:zai4'},{zh:'见',py:'jiàn',t:4,k:'g:jian4'}],done:'zài + jiàn = zàijiàn'}),
- use({n:'คำที่ 3/3',w:ZJ,when:[{img:A2('再见'),t:'เลิกเรียน'},{img:HOME,t:'แยกกันกลับบ้าน'}],lines:[{sit:'เลิกเรียนแล้ว',img:HOME},D[6],D[7]],tip:'ฝ่ายหนึ่งพูด 再见 อีกฝ่าย<b>ตอบ 再见 กลับ</b> · พูดพร้อมโบกมือได้'}),
- rec({n:'คำที่ 3/3',w:ZJ,keys:['zaijian-fs',ZJ.k]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['早上','您','对不起','没关系','晚上','再见'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
+ wcard({no:1,of:6,cap:'ช่วงเวลา',w:ZS,aid:{parts:['zǎo',3,'shang',0],cap:'เสียง 3 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"จ่าว ซาง"</b> · z ลิ้นแบน ไม่ม้วนลิ้น',sk:'zs-fs',
+  use:'แปลว่าตอนเช้า เติม 好 ข้างหลังเป็นคำทักตอนเช้า 早上好',ex:[S('早上好！','zǎoshang hǎo!','สวัสดีตอนเช้า','zsh-f'),R.lszsh]}),
+ syl({n:'คำที่ 1/6',w:ZS,chars:[{zh:'早',py:'zǎo',t:3,k:'g:zao3'},{zh:'上',py:'shang',t:0}],done:'zǎo + shang เบา = zǎoshang'}),
+ use({n:'คำที่ 1/6',w:ZS,when:[{img:MORN,t:'ตอนเช้า'},{img:CLS,t:'มาถึงโรงเรียน'},{img:TCH,t:'เจอครูตอนเช้า'}],lines:[L.lszsh,L.zsht],tip:'ทักครูให้เรียก <span class="zh">老师</span> ก่อน แล้วตามด้วย <span class="zh">早上好</span>'}),
+ rec({n:'คำที่ 1/6',w:ZS,keys:['zs-fs','zsh-f']}),
+ wcard({no:2,of:6,cap:'คุณ แบบสุภาพ',w:NIN,aid:{parts:['nín',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"หนิน"</b> · ลงท้ายด้วยเสียง น',sk:'nin-fs',
+  use:'แปลว่าคุณ แบบให้เกียรติ ใช้กับครูหรือผู้ใหญ่ แทน 你',ex:[S('您好！','nín hǎo!','สวัสดี (สุภาพ)','w:您好'),R.lsnh]}),
+ rec({n:'คำที่ 2/6',w:NIN,keys:['nin-fs','w:您好']}),
+ wcard({no:3,of:6,cap:'ใช้ตอนทำผิด',w:DBQ,aid:{parts:['duì',4,'bu',0,'qǐ',3],cap:'เสียง 4 · เบา · เสียง 3'},hint:'คล้าย <b>"ตุ้ย ปุ ฉี่"</b> · พยางค์กลางพูดเบาและสั้น',sk:'dbq-fs',
+  use:'ใช้ขอโทษเมื่อทำผิดหรือทำให้คนอื่นเดือดร้อน ขอโทษครูให้เรียก 老师 ก่อน',ex:[R.dbq,R.lsdbq]}),
+ syl({n:'คำที่ 3/6',w:DBQ,chars:[{zh:'对',py:'duì',t:4,k:'g:dui4'},{zh:'不',py:'bu',t:0},{zh:'起',py:'qǐ',t:3,k:'g:qi3'}],done:'duì + bu เบา + qǐ = duìbuqǐ'}),
+ use({n:'คำที่ 3/6',w:DBQ,when:[{img:BOOK,t:'เดินชนเพื่อน'},{img:CLS,t:'มาเรียนสาย'},{img:BAG,t:'หยิบของผิด'}],lines:[{sit:'คุณมาถึงห้องเรียนสาย',img:CLS},{...R.lsdbq,who:'me'},S('没关系。','méi guānxi.','ไม่เป็นไร','mgx-t','t')],tip:'ขอโทษครู พูดว่า <span class="zh">老师，对不起！</span> จะสุภาพกว่า'}),
+ rec({n:'คำที่ 3/6',w:DBQ,keys:['dbq-fs',DBQ.k]}),
+ wcard({no:4,of:6,cap:'ใช้ตอบคำขอโทษ',w:MGX,aid:{parts:['méi',2,'guān',1,'xi',0],cap:'เสียง 2 · เสียง 1 · เบา'},hint:'คล้าย <b>"เหมย กวาน ซี"</b> · พยางค์สุดท้ายพูดเบา',sk:'mgx-fs',
+  use:'ใช้ตอบเมื่อมีคนขอโทษเรา แปลว่าไม่เป็นไร ไม่ต้องห่วง',ex:[R.mgx,S('没关系。','méi guānxi.','ไม่เป็นไร','mgx-t')]}),
+ syl({n:'คำที่ 4/6',w:MGX,chars:[{zh:'没',py:'méi',t:2,k:'g:mei2'},{zh:'关',py:'guān',t:1,k:'g:guan1'},{zh:'系',py:'xi',t:0}],done:'méi + guān + xi เบา = méi guānxi'}),
+ rec({n:'คำที่ 4/6',w:MGX,keys:['mgx-fs',MGX.k]}),
+ wcard({no:5,of:6,cap:'ช่วงเวลา',w:WS,aid:{parts:['wǎn',3,'shang',0],cap:'เสียง 3 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"หว่าน ซาง"</b>',sk:'ws-fs',
+  use:'แปลว่าตอนค่ำ เติม 好 ข้างหลังเป็นคำทักตอนค่ำ 晚上好 ใช้ตอนเจอกัน ไม่ใช่ตอนลา',ex:[R.wsh,R.lswsh]}),
+ syl({n:'คำที่ 5/6',w:WS,chars:[{zh:'晚',py:'wǎn',t:3,k:'g:wan3'},{zh:'上',py:'shang',t:0}],done:'wǎn + shang เบา = wǎnshang'}),
+ rec({n:'คำที่ 5/6',w:WS,keys:['ws-fs','wsh-f']}),
+ wcard({no:6,of:6,cap:'ใช้ตอนแยกจากกัน',w:ZJ,aid:{parts:['zài',4,'jiàn',4],cap:'เสียง 4 ทั้งสองพยางค์ ตกลงเร็ว'},hint:'คล้าย <b>"ไจ้ เจี้ยน"</b> · พูดสั้นและหนักแน่น',sk:'zaijian-fs',
+  use:'ใช้ตอนแยกจากกันหรือกลับบ้าน อีกฝ่ายตอบ 再见 กลับ',ex:[S('再见！','zàijiàn!','ลาก่อน','zaijian-s-m'),R.lszj]}),
+ syl({n:'คำที่ 6/6',w:ZJ,chars:[{zh:'再',py:'zài',t:4,k:'g:zai4'},{zh:'见',py:'jiàn',t:4,k:'g:jian4'}],done:'zài + jiàn = zàijiàn'}),
+ use({n:'คำที่ 6/6',w:ZJ,when:[{img:A2('再见'),t:'เลิกเรียน'},{img:HOME,t:'แยกกันกลับบ้าน'},{img:DOOR,t:'ออกจากห้อง'}],lines:[{sit:'เลิกเรียนแล้ว',img:HOME},L.zjf,L.zj],tip:'ฝ่ายหนึ่งพูด 再见 อีกฝ่าย<b>ตอบ 再见 กลับ</b> · ลาครูพูดว่า <span class="zh">老师再见</span>'}),
+ rec({n:'คำที่ 6/6',w:ZJ,keys:['zaijian-fs',ZJ.k]}),
  /* 3 · เทคนิคการใช้ (เรียน ไม่ใช่ทดสอบ) */
- part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','您好','不客气','明天见'],note:'ดูว่าคนจีนใช้คำเหล่านี้อย่างไรในชีวิตจริง'}),
- dialog({cap:'เทคนิค 1/5 · บทสนทนาที่โรงเรียน',title:'เจอเพื่อน ให้ของ แล้วกลับบ้าน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'สังเกตว่าคำทักทายและคำบอกลา ตอบกลับด้วยคำเดิม'}),
- cmp({cap:'เทคนิค 2/5 · ทักใครใช้คำไหน',title:'你好 กับ 您好',text:'ความหมายเหมือนกัน ต่างกันที่ความสุภาพ',a:{who:'กับเพื่อน',img:BOY,zh:'你好',py:'nǐ hǎo',th:'สวัสดี',k:NH.k},b:{who:'กับครู ผู้ใหญ่',img:NIN.img,zh:'您好',py:'nín hǎo',th:'สวัสดี (สุภาพ)',k:NIN.k},
-  tip:'<span class="zh">您</span> nín คือ "คุณ" แบบให้เกียรติ · ทักครูพูดอีกแบบได้ว่า <span class="zh">老师好</span>',chips:[{zh:'老师好',py:'lǎoshī hǎo',th:'สวัสดีคุณครู',k:'lsh-f'}]}),
- talk({cap:'เทคนิค 3/5 · ตอบคำขอบคุณ',title:'谢谢 แล้วตอบด้วย 不客气',text:'不客气 bú kèqi แปลว่า ไม่เป็นไร ยินดี',lines:[{who:'f',zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-m'},{who:'me',...R.bkq},{sit:'ครูยื่นหนังสือให้คุณ',img:BOOK},{who:'me',...R.xxls},{who:'t',zh:'不客气！',py:'bú kèqi!',th:'ไม่เป็นไร',k:'bkq-m'}],tip:'ขอบคุณครู ใช้ <span class="zh">谢谢老师</span> จะสุภาพและอบอุ่นกว่า'}),
- cmp({cap:'เทคนิค 4/5 · บอกลาแบบไหนดี',title:'再见 กับ 明天见',text:'见 jiàn แปลว่า เจอ',a:{who:'ลาทั่วไป',img:HAND,zh:'再见',py:'zàijiàn',th:'ลาก่อน',k:ZJ.k},b:{who:'พรุ่งนี้เจอกันอีก',img:TMR,zh:'明天见',py:'míngtiān jiàn',th:'พรุ่งนี้เจอกัน',k:MTJ.k},
-  tip:'明天 míngtiān = พรุ่งนี้ · บอกลาครูพูดว่า <span class="zh">老师再见</span>',chips:[{zh:'老师再见',py:'lǎoshī zàijiàn',th:'ลาก่อนคุณครู',k:'lszj-f'}]}),
- tips({cap:'เทคนิค 5/5 · ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
-  {h:'谢谢 พยางค์ที่สองอ่านเบา',bad:'xiè xiè หนักทั้งสองพยางค์',good:'xièxie',k:XX.k},
-  {h:'再见 ลิ้นแบน ไม่ม้วนลิ้น',bad:'zhàijiàn',good:'zàijiàn',k:ZJ.k},
-  {h:'ตอนแยกกัน ไม่ใช้ 你好',bad:'你好 ตอนกลับบ้าน',good:'再见 zàijiàn',k:'zaijian-s-f'},
-  {h:'ทักครูหรือผู้ใหญ่',bad:'เรียกครูว่า 你 nǐ',good:'老师好 หรือ 您好',k:'lsh-f',note:'ใช้ 您 กับผู้ใหญ่ ฟังสุภาพกว่า'}]}),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','早上好 กับ 晚上好','你好 กับ 您好','ไม่เป็นไร 2 แบบ','หนึ่งวันที่โรงเรียน'],note:'ดูว่าคนจีนใช้คำเหล่านี้อย่างไรในหนึ่งวัน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาหนึ่งวัน',title:'เช้า ชนเพื่อน แล้วค่ำ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'คำทักทายและคำบอกลา อีกฝ่ายตอบกลับด้วยคำเดิม'}),
+ cmp({cap:'เทคนิค 2/6 · ทักตามช่วงเวลา',title:'早上好 กับ 晚上好',text:'เติม 好 หลังช่วงเวลา เป็นคำทักทาย',a:{who:'ตอนเช้า',img:MORN,zh:'早上好',py:'zǎoshang hǎo',th:'สวัสดีตอนเช้า',k:ZSH.k},b:{who:'ตอนค่ำ',img:EVE,zh:'晚上好',py:'wǎnshang hǎo',th:'สวัสดีตอนค่ำ',k:WSH.k},
+  tip:'<span class="zh">你好</span> ใช้ได้ทุกช่วงเวลา · <span class="zh">晚上好</span> ใช้ตอนเจอกัน ตอนลาให้พูด <span class="zh">再见</span>',chips:[{zh:'你好',py:'nǐ hǎo',th:'สวัสดี',k:NH.k}]}),
+ cmp({cap:'เทคนิค 3/6 · ทักใครใช้คำไหน',title:'你好 กับ 您好',text:'ความหมายเหมือนกัน ต่างกันที่ความสุภาพ',a:{who:'กับเพื่อน',img:BOY,zh:'你好',py:'nǐ hǎo',th:'สวัสดี',k:NH.k},b:{who:'กับครู ผู้ใหญ่',img:NINH.img,zh:'您好',py:'nín hǎo',th:'สวัสดี (สุภาพ)',k:NINH.k},
+  tip:'<span class="zh">您</span> nín คือ "คุณ" แบบให้เกียรติ · ทักครูพูดได้ว่า <span class="zh">老师好</span> หรือ <span class="zh">老师，您好</span>',chips:[{zh:'老师好',py:'lǎoshī hǎo',th:'สวัสดีคุณครู',k:'lsh-f'},{zh:'老师，您好',py:'lǎoshī, nín hǎo',th:'สวัสดีคุณครู',k:'lsnh-f'}]}),
+ talk({cap:'เทคนิค 4/6 · ขอบคุณและตอบ',title:'谢谢 แล้วตอบด้วย 不客气',text:'ทวนคำจากเล่ม 0 · 不客气 bú kèqi แปลว่า ยินดี ไม่ต้องเกรงใจ',lines:[{sit:'เพื่อนเก็บสมุดคืนให้คุณ',img:NOTE},L.xx,L.bkqf,{sit:'คุณยื่นของขวัญให้เพื่อน',img:GIFT},L.xxf,{...R.bkq,who:'me'}],
+  chips:[{zh:'谢谢',py:'xièxie',th:'ขอบคุณ',k:XX.k},{zh:'不客气',py:'bú kèqi',th:'ยินดี',k:BKQ.k}],tip:'ขอบคุณครู พูดว่า <span class="zh">谢谢老师</span>'}),
+ cmp({cap:'เทคนิค 5/6 · ตอบให้ถูกคู่',title:'ไม่เป็นไร มี 2 แบบ',text:'ภาษาไทยแปลว่า ไม่เป็นไร เหมือนกัน แต่ภาษาจีนใช้ตอบคนละเรื่อง',
+  a:{who:'ตอบ 对不起',img:BOOK,zh:'没关系',py:'méi guānxi',th:'ไม่เป็นไร',k:'mgx-m'},b:{who:'ตอบ 谢谢',img:GIFT,zh:'不客气',py:'bú kèqi',th:'ยินดี',k:'bkq-m'},
+  tip:'มีคน<b>ขอโทษ</b> ตอบ <span class="zh">没关系</span> · มีคน<b>ขอบคุณ</b> ตอบ <span class="zh">不客气</span>',chips:[{zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-f'},{zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-f'}]}),
+ story({tag:'เทคนิค 6/6 · หนึ่งวันที่โรงเรียน',q:'ดูภาพทีละช่อง ตั้งแต่เช้าถึงค่ำ แล้วเลือกว่าควรพูดอะไร',panels:DAY}),
+ tips({cap:'ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
+  {h:'晚上好 ใช้ตอนเจอ ไม่ใช่ตอนลา',bad:'แยกกันตอนค่ำ พูด 晚上好',good:'แยกกัน พูด 再见',k:'zaijian-s-f'},
+  {h:'ตอบคำขอโทษ ไม่ใช้ 不客气',bad:'对不起 → 不客气',good:'对不起 → 没关系',k:'mgx-m'},
+  {h:'对不起 พยางค์กลางอ่านเบา',bad:'duì bù qǐ หนักทุกพยางค์',good:'duìbuqǐ',k:DBQ.k},
+  {h:'早上 ลิ้นแบน',bad:'zhǎoshang',good:'zǎoshang',k:ZS.k},
+  {h:'พูดกับครูหรือผู้ใหญ่',bad:'你好 nǐ hǎo',good:'您好 nín hǎo',k:NINH.k,note:'หรือเรียกว่า 老师 ก่อนแล้วค่อยทัก'}]}),
  /* 4 · แบบทดสอบท้ายบท (ทบทวนเล่ม 0 แทรกในช่วงนี้เท่านั้น) */
- part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังแล้วเลือก','จับคู่','ตอบในบทสนทนา'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:ZJ.k,opts:['สวัสดี','ขอบคุณ','ลาก่อน'],ans:2,fb:'<span class="zh">再见</span> <b>zàijiàn</b> = ลาก่อน'}),
- ask({rv:12,q:'你 nǐ + 好 hǎo<br>อ่านต่อกันจริงว่าอะไร',k:NH.k,opts:['ní hǎo','nǐ hǎo'],ans:0,fb:'<b>ní hǎo</b> · เสียง 3 + เสียง 3 ตัวแรกเปลี่ยนเป็นเสียง 2'}),
- match({tag:TQ(2),pairs:[NH,XX,ZJ,BKQ]}),
- reply({tag:TQ(3),q:'เพื่อนให้ของขวัญคุณ คุณจะพูดว่าอะไร',sit:'เพื่อนให้ของขวัญคุณ',simg:GIFT,opts:[R.nh,R.xx,R.zj],ans:1,why:'ได้รับของ ต้องขอบคุณ'}),
- ask({rv:2,q:'ฟังพยางค์ 再 แล้วเลือกเส้นเสียง',k:'g:zai4',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:1,fb:'<b class="t4">zài</b> <span class="zh">再</span> · เสียง 4 ตกเร็ว'}),
- reply({tag:TQ(4),q:'เพื่อนขอบคุณคุณ คุณจะตอบว่าอะไร',line:D[3],opts:[R.xx,R.bkq],ans:1,why:'มีคนขอบคุณ ตอบว่า 不客气'}),
- reply({tag:TQ(5),q:'เจอครูตอนเช้า ทักแบบสุภาพ',sit:'เจอครูตอนเช้า',simg:TCH,opts:[R.zj,R.lsh,R.bkq],ans:1,why:'ทักครูใช้ 老师好 หรือ 您好'}),
- ask({rv:8,q:'ฟัง 再见 แล้วเลือกพยัญชนะตัวแรก',k:ZJ.k,opts:['z','zh'],ans:0,fb:'<b>z</b>ài · ลิ้นแบน ไม่ม้วนลิ้น'}),
- part({lab:'ภารกิจท้ายบท',of:0,title:'วันแรกในห้องเรียน',chips:['ทักครู','ขอบคุณครู','บอกลาเพื่อน'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วเลือกคำตอบให้ถูกทั้ง 3 ข้อ'}),
- reply({tag:MQ(1),noTh:1,q:'ครูทักคุณ',sit:'เข้าห้องเรียนตอนเช้า',simg:CLS,line:{who:'t',zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-m'},opts:[R.xx,R.zj,R.lsh],ans:2}),
- reply({tag:MQ(2),noTh:1,q:'คุณจะพูดว่าอะไร',sit:'ครูยื่นหนังสือให้คุณ',simg:BOOK,opts:[R.bkq,R.xxls,R.nh],ans:1}),
- reply({tag:MQ(3),noTh:1,q:'เลิกเรียนแล้ว เพื่อนพูดกับคุณ',sit:'เลิกเรียน',simg:HOME,line:{who:'f',zh:'明天见！',py:'míngtiān jiàn!',th:'พรุ่งนี้เจอกัน',k:'mtj-m'},opts:[R.nh,R.xx,R.mtj],ans:2}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังแล้วเลือก','จับคู่','ตอบในบทสนทนา','หนึ่งวันที่โรงเรียน'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:ZS.k,opts:['ตอนเช้า','ตอนค่ำ','ลาก่อน'],ans:0,fb:'<span class="zh">早上</span> <b>zǎoshang</b> = ตอนเช้า'}),
+ ask({rv:2,q:'ฟังพยางค์ 晚 wǎn แล้วเลือกเส้นเสียง',k:'g:wan3',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">wǎn</b> <span class="zh">晚</span> · เสียง 3 กดต่ำแล้วยกขึ้น'}),
+ match({tag:TQ(2),pairs:[ZS,WS,DBQ,MGX]}),
+ reply({tag:TQ(3),q:'เพื่อนเดินชนคุณแล้วขอโทษ คุณจะตอบว่าอะไร',line:L.dbqf,opts:[R.bkq,R.mgx,R.zj],ans:1,why:'ตอบคำขอโทษด้วย 没关系'}),
+ ask({rv:8,q:'ฟัง 早上 แล้วเลือกพยัญชนะตัวแรก',k:ZS.k,opts:['z','zh'],ans:0,fb:'<b>z</b>ǎo · ลิ้นแบน ไม่ม้วนลิ้น'}),
+ ask({tag:TQ(4),q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะกับช่วงเวลา',pic:EVE,opts:['<span class="zh">早上好！</span> สวัสดีตอนเช้า','<span class="zh">晚上好！</span> สวัสดีตอนค่ำ'],ans:1,fb:'ตอนค่ำ ทัก <span class="zh">晚上好！</span>'}),
+ reply({tag:TQ(5),q:'เจอครูตอนเช้า คุณจะทักว่าอะไร',sit:'เจอครูตอนเช้า',simg:MORN,opts:[R.lszsh,R.lsdbq,R.lszj],ans:0,why:'เช้าทัก 早上好 และเรียก 老师 ก่อน'}),
+ ask({rv:2,q:'ฟังพยางค์ 您 nín แล้วเลือกเส้นเสียง',k:'g:nin2',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<b class="t2">nín</b> <span class="zh">您</span> · เสียง 2 ขึ้น'}),
+ story({tag:TQ(6)+' · หนึ่งวันที่โรงเรียน',q:'ดูภาพทีละช่อง แล้วเลือกว่าควรพูดอะไร',panels:[DAY[0],DAY[1],DAY[3]]}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'หนึ่งวันของคุณ',chips:['ทักครู','ตอบเพื่อน','ทักตอนค่ำ','บอกลา'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'เช้าวันใหม่ ครูทักคุณ',sit:'เข้าห้องเรียนตอนเช้า',simg:CLS,line:L.zsht,opts:[R.lswsh,R.lszsh,R.mgx],ans:1}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนพูดกับคุณ',line:L.dbqf,opts:[R.mgx,R.dbq,R.bkq],ans:0}),
+ story({tag:MQ(3)+' · หนึ่งวันที่โรงเรียน',noTh:1,q:'ดูภาพทีละช่อง แล้วเลือกว่าควรพูดอะไร',panels:[DAY[2],DAY[3]].map(p=>Object.assign({},p,{why:''}))}),
+ reply({tag:MQ(4),noTh:1,q:'เลิกเรียนแล้ว ครูพูดกับคุณ',sit:'เลิกเรียน',simg:HOME,line:L.zjt,opts:[R.lszsh,R.lszj,R.lsdbq],ans:1}),
  /* 5 · จบบท */
- fin({title:'ทักทาย ขอบคุณ และบอกลาได้แล้ว',html:dlgH(D,{noTh:1}),chips:[NH,XX,ZJ,NIN,BKQ,MTJ].map(x=>({zh:x.zh,py:x.py,th:x.th.replace(' (สุภาพ)',''),k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg',kl:'ฟังทั้งบทสนทนา'})]});
+ fin({title:'ทักทาย ขอโทษ และบอกลาได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZS,NIN,DBQ,MGX,WS,ZJ].map(x=>({zh:x.zh,py:x.py,th:x.th.replace(' (สุภาพ)',''),k:x.k})).concat([{zh:'早上好',py:'zǎoshang hǎo',th:'สวัสดีตอนเช้า',k:ZSH.k},{zh:'晚上好',py:'wǎnshang hǎo',th:'สวัสดีตอนค่ำ',k:WSH.k}]),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg1',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>
 </body></html>

@@ -4,75 +4,102 @@
 <link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
 <link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
 <script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
-<title>ต้นแบบ · บท 1-2 ขอโทษ และไม่เป็นไร</title>
+<title>ต้นแบบ · บท 1-2 ฉัน คุณ เขา เธอ</title>
 </head><body>
 <script>
-/* บท 1-2 (ซ้งอี้ 4 พ.ย. 2026): ขอโทษ และไม่เป็นไร · กิจกรรมเฉพาะบท: เล่าเป็นภาพ (ช่วยตัวละครพูดทีละภาพ) */
-const LS=w('老师','lǎoshī','ครู'),DBQ=w('对不起','duìbuqǐ','ขอโทษ'),MGX=w('没关系','méi guānxi','ไม่เป็นไร'),BKQ=w('不客气','bú kèqi','ไม่เป็นไร (ตอบคำขอบคุณ)'),XX=w('谢谢','xièxie','ขอบคุณ');
-const TCH=ART('老师'),CLS=ART('教室'),BOOK=ART('书'),NOTE=ART('本子'),BAG=ART('包'),GIFT=ART('礼物'),DOOR=ART('门'),STU=w('学生','xuésheng','นักเรียน').img,FRIEND=w('朋友','péngyou','เพื่อน').img;
-const R={dbq:{zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-f'},lsdbq:{zh:'老师，对不起！',py:'lǎoshī, duìbuqǐ!',th:'ขอโทษคุณครู',k:'lsdbq-f'},
- mgx:{zh:'没关系！',py:'méi guānxi!',th:'ไม่เป็นไร',k:'mgx-f'},bkq:{zh:'不客气！',py:'bú kèqi!',th:'ไม่เป็นไร (ยินดี)',k:'bkq-f'},
- xx:{zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-f'},xxls:{zh:'谢谢老师！',py:'xièxie lǎoshī!',th:'ขอบคุณคุณครู',k:'xxls-f'},
- nh:{zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'nihao-s-f'},lsh:{zh:'老师好！',py:'lǎoshī hǎo!',th:'สวัสดีคุณครู',k:'lsh-f'},zj:{zh:'再见！',py:'zàijiàn!',th:'ลาก่อน',k:'zaijian-s-f'},lszj:{zh:'老师再见！',py:'lǎoshī zàijiàn!',th:'ลาก่อนคุณครู',k:'lszj-f'}};
-const D=[{sit:'คุณมาถึงห้องเรียนสาย',img:CLS},{who:'me',...R.lsdbq},{who:'t',zh:'没关系。',py:'méi guānxi.',th:'ไม่เป็นไร',k:'mgx-t'},
- {sit:'คุณเดินชนเพื่อน หนังสือตก',img:BOOK},{who:'me',...R.dbq},{who:'f',zh:'没关系！',py:'méi guānxi!',th:'ไม่เป็นไร',k:'mgx-m'},
- {sit:'เพื่อนเก็บสมุดคืนให้คุณ',img:NOTE},{who:'me',...R.xx},{who:'f',zh:'不客气！',py:'bú kèqi!',th:'ไม่เป็นไร',k:'bkq-m'}];
-const TQ=i=>`แบบทดสอบ ${i}/5 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/3 · ไม่มีตัวช่วยภาษาไทย`;
-const fDBQ={who:'f',zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-m'},tXX={who:'t',zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-t'},tDBQ={who:'t',zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-t'},fXX={who:'f',zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-m'};
-LESSON({no:2,goal:{do:'ขอโทษ และตอบคำขอโทษเป็นภาษาจีนได้',sub:'ใช้ <span class="gz">对不起 没关系</span> ได้ถูกจังหวะ และทักครูด้วย <span class="gz">老师</span>',min:8},steps:[
+/* บท 1-2 หน่วย 1 ฉบับใหม่ (ซ้งอี้ อนุมัติแผนคำศัพท์ 4 พ.ย. 2026): ฉัน คุณ เขา เธอ · คำใหม่ 他 她 同学 朋友 学生 大家 吗 · ทบทวนเล่ม 0: 我 你 是 不 我们
+   กิจกรรมเฉพาะบท: ชี้ให้ถูกคน (他 她 我 你) และเรียงบทสนทนา + เติม 们 */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const TA=w('他','tā','เขา (ผู้ชาย)'),TA2=w('她','tā','เธอ (ผู้หญิง)'),TX=w('同学','tóngxué','เพื่อนร่วมชั้น'),PY=w('朋友','péngyou','เพื่อน'),XS=w('学生','xuésheng','นักเรียน'),DJ=w('大家','dàjiā','ทุกคน'),MA=w('吗','ma','ไหม (คำถาม)');
+const WO=w('我','wǒ','ฉัน'),NI=w('你','nǐ','คุณ'),SHI=w('是','shì','เป็น คือ'),WM=w('我们','wǒmen','พวกเรา'),DJH=w('大家好','dàjiā hǎo','สวัสดีทุกคน');
+const CLS=ART('教室'),TCH=ART('老师'),BOY=ART('男孩'),GIRL=ART('女孩'),BOOK=ART('书');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={tswpy:S('他是我朋友。','tā shì wǒ péngyou.','เขาเป็นเพื่อนของฉัน','tswpy-f'),taswpy:S('她是我朋友。','tā shì wǒ péngyou.','เธอเป็นเพื่อนของฉัน','taswpy-f'),
+ tswtx:S('她是我同学。','tā shì wǒ tóngxué.','เธอเป็นเพื่อนร่วมชั้นของฉัน','tswtx-g'),tsxs:S('他是学生。','tā shì xuésheng.','เขาเป็นนักเรียน','tsxs-f'),tasxs:S('她是学生。','tā shì xuésheng.','เธอเป็นนักเรียน','tasxs-f'),
+ tsls:S('她是老师。','tā shì lǎoshī.','เธอเป็นครู','tsls-g'),tasls:S('他是老师。','tā shì lǎoshī.','เขาเป็นครู','tasls-m'),wsxs:S('我是学生。','wǒ shì xuésheng.','ฉันเป็นนักเรียน','wsxs-f'),
+ nsxs:S('你是学生。','nǐ shì xuésheng.','คุณเป็นนักเรียน','nsxs-f'),nsxsm:S('你是学生吗？','nǐ shì xuésheng ma?','คุณเป็นนักเรียนไหม','nsxsm-g'),
+ swsxs:S('是，我是学生。','shì, wǒ shì xuésheng.','ใช่ ฉันเป็นนักเรียน','swsxs-f'),wbsxs:S('我不是学生，我是老师。','wǒ bú shì xuésheng, wǒ shì lǎoshī.','ฉันไม่ใช่นักเรียน ฉันเป็นครู','wbsxs-t'),
+ wbsls:S('我不是老师，我是学生。','wǒ bú shì lǎoshī, wǒ shì xuésheng.','ฉันไม่ใช่ครู ฉันเป็นนักเรียน','wbsls-f'),nslsm:S('你是老师吗？','nǐ shì lǎoshī ma?','คุณเป็นครูไหม','nslsm-g'),
+ tsxsm:S('他是学生吗？','tā shì xuésheng ma?','เขาเป็นนักเรียนไหม','tsxsm-f'),bstsls:S('不是，他是老师。','bú shì, tā shì lǎoshī.','ไม่ใช่ เขาเป็นครู','bstsls-g'),
+ djh:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','djh-f'),nh:S('你好！','nǐ hǎo!','สวัสดี','nihao-s-f'),lsh:S('老师好！','lǎoshī hǎo!','สวัสดีคุณครู','lsh-f'),dbq:S('对不起！','duìbuqǐ!','ขอโทษ','dbq-f'),
+ wmstx:S('我们是同学。','wǒmen shì tóngxué.','พวกเราเป็นเพื่อนร่วมชั้น','wmstx-m'),txmh:S('同学们好！','tóngxuémen hǎo!','สวัสดีนักเรียนทุกคน','txmh-t')};
+const L={djht:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','djh-t','t'),lsh:{...X.lsh,who:'me'},nsxsm:{...X.nsxsm,who:'g'},wbsxs:{...X.wbsxs,who:'t'},
+ tswpy:{...X.tswpy,who:'me'},nhg:S('你好！','nǐ hǎo!','สวัสดี','nihao-g','g'),nhm:S('你好！','nǐ hǎo!','สวัสดี','nihao-s-m','f'),
+ txmh:{...X.txmh,who:'t'},wmstx:{...X.wmstx,who:'f'},djhm:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','djh-m','f'),nhme:{...X.nh,who:'me'},
+ nsxsmt:S('你是学生吗？','nǐ shì xuésheng ma?','คุณเป็นนักเรียนไหม','nsxsm-t','t'),swsxs:{...X.swsxs,who:'me'},taswpy:{...X.taswpy,who:'me'},djhg:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','djh-g','g')};
+const D=[{sit:'ครูเข้าห้องเรียนตอนเช้า',img:CLS},L.djht,L.lsh,{sit:'เพื่อนใหม่ถามคนที่ยืนหน้าห้อง',img:TCH},L.nsxsm,L.wbsxs,{sit:'คุณแนะนำเพื่อนผู้ชายให้เพื่อนใหม่รู้จัก',img:BOY},L.tswpy,L.nhg];
+const C4=[{img:WO.img,th:'ฉัน (ตัวเอง)'},{img:NI.img,th:'คุณ (คนที่คุยด้วย)'},{img:TA.img,th:'เขา (ผู้ชาย)'},{img:TA2.img,th:'เธอ (ผู้หญิง)'}];
+const RD=(zh,ans,why)=>({zh,k:[WO,NI,TA,TA2][ans].k,ans,why}),RS=(s,ans,why)=>({zh:s.zh,k:s.k,ans,why});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),Z=(zh,th,noTh)=>`<span class="zh">${zh}</span>${noTh?'':` ${th}`}`;
+LESSON({no:2,goal:{do:'บอกได้ว่าใครเป็นใคร ถามว่าใช่ไหม และทักทุกคนได้',sub:'ใช้ <span class="gz">他 她 是 不是 吗</span> กับ <span class="gz">同学 朋友 学生 大家</span>',min:11},steps:[
  /* 1 · เปิดบท + คำศัพท์ใหม่ */
- intro({scene:SC('l3-p11'),cap:'สถานการณ์ของบทนี้',title:'มาสายในวันแรก',line:D[1],note:'แตะฟองเพื่อฟัง · คุณมาถึงห้องเรียนช้า ต้องขอโทษครู บทนี้คุณจะได้ขอโทษและตอบคำขอโทษ'}),
- vgrid({title:'3 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[LS,DBQ,MGX]}),
+ intro({scene:SC('l3-p7'),cap:'สถานการณ์ของบทนี้',title:'ใครเป็นใครในห้องเรียน',line:L.nsxsm,note:'แตะฟองเพื่อฟัง · บทนี้คุณจะได้บอกว่าใครเป็นใคร ถามว่าใช่ไหม และทักทุกคนพร้อมกัน'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ · 他 กับ 她 เสียงเหมือนกัน',items:[TA,TA2,XS,TX,PY,DJ,MA]}),
  /* 2 · เรียนทีละคำ */
- part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['老师','对不起','没关系'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
- wcard({no:1,of:3,cap:'เคยได้ยินใน 老师好',w:LS,aid:{parts:['lǎo',3,'shī',1],cap:'พยางค์แรกเสียง 3 · พยางค์ที่สองเสียง 1 สูงเรียบ'},hint:'คล้าย <b>"เหล่า ซือ"</b> · shī ม้วนลิ้นขึ้นเล็กน้อย ถ้าพูดเป็น shǔ จะกลายเป็น 老鼠 ที่แปลว่าหนู',sk:'laoshi-fs',
-  use:'ใช้เรียกครู และใช้แทนชื่อครูได้เลย เช่น ทักครูว่า 老师好 ขอบคุณครูว่า 谢谢老师',ex:[{zh:'老师好！',py:'lǎoshī hǎo!',th:'สวัสดีคุณครู',k:'lsh-f'},{zh:'谢谢老师！',py:'xièxie lǎoshī!',th:'ขอบคุณคุณครู',k:'xxls-f'}]}),
- rec({n:'คำที่ 1/3',w:LS,keys:['laoshi-fs',LS.k]}),
- wcard({no:2,of:3,cap:'ใช้ตอนทำผิด',w:DBQ,aid:{parts:['duì',4,'bu',0,'qǐ',3],cap:'เสียง 4 · เบา · เสียง 3'},hint:'คล้าย <b>"ตุ้ย ปุ ฉี่"</b> · พยางค์กลางพูดเบาและสั้น',sk:'dbq-fs',
-  use:'ใช้ขอโทษเมื่อมาสาย เดินชนคนอื่น หรือทำของของคนอื่นตก',ex:[{zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-f'},{zh:'老师，对不起！',py:'lǎoshī, duìbuqǐ!',th:'ขอโทษคุณครู',k:'lsdbq-f'}]}),
- syl({n:'คำที่ 2/3',w:DBQ,chars:[{zh:'对',py:'duì',t:4,k:'g:dui4'},{zh:'不',py:'bu',t:0},{zh:'起',py:'qǐ',t:3,k:'g:qi3'}],done:'duì + bu เบา + qǐ = duìbuqǐ'}),
- rec({n:'คำที่ 2/3',w:DBQ,keys:['dbq-fs',DBQ.k]}),
- wcard({no:3,of:3,cap:'ใช้ตอบคำขอโทษ',w:MGX,aid:{parts:['méi',2,'guān',1,'xi',0],cap:'เสียง 2 · เสียง 1 · เบา'},hint:'คล้าย <b>"เหมย กวาน ซี"</b> · พยางค์สุดท้ายพูดเบา',sk:'mgx-fs',
-  use:'ใช้ตอบเมื่อมีคนพูด 对不起 กับเรา ใช้ได้ทั้งกับเพื่อนและผู้ใหญ่',ex:[{zh:'没关系！',py:'méi guānxi!',th:'ไม่เป็นไร (เพื่อนพูด)',k:'mgx-m'},{zh:'没关系。',py:'méi guānxi.',th:'ไม่เป็นไร (ครูพูด)',k:'mgx-t'}]}),
- syl({n:'คำที่ 3/3',w:MGX,chars:[{zh:'没',py:'méi',t:2,k:'g:mei2'},{zh:'关',py:'guān',t:1,k:'g:guan1'},{zh:'系',py:'xi',t:0}],done:'méi + guān + xi เบา = méi guānxi'}),
- rec({n:'คำที่ 3/3',w:MGX,keys:['mgx-fs',MGX.k]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['他','她','学生','同学','朋友','大家','吗'],note:'ฟังเสียง ดูวิธีออกเสียง และดูว่าใช้เมื่อไร'}),
+ wcard({no:1,of:7,cap:'พูดถึงผู้ชาย',w:TA,aid:{parts:['tā',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"ทา"</b> เสียงสูงยาว · ส่วนซ้าย 亻 แปลว่าคน',sk:'ta-fs',
+  use:'ใช้พูดถึงผู้ชายที่ไม่ใช่เราและไม่ใช่คนที่เราคุยด้วย',ex:[X.tsxs,X.tswpy]}),
+ wcard({no:2,of:7,cap:'พูดถึงผู้หญิง',w:TA2,aid:{parts:['tā',1],cap:'เสียงเหมือน 他 ทุกอย่าง'},hint:'อ่าน <b>"ทา"</b> เหมือน 他 · ส่วนซ้าย 女 แปลว่าผู้หญิง',sk:'ta-fs',
+  use:'ใช้พูดถึงผู้หญิง ฟังด้วยหูแยกจาก 他 ไม่ได้ ต้องดูจากเรื่องที่คุยหรือดูตัวอักษร',ex:[X.tsls,X.taswpy]}),
+ rec({n:'คำที่ 1–2/7',ws:[TA,TA2]}),
+ wcard({no:3,of:7,cap:'คนที่มาเรียน',w:XS,aid:{parts:['xué',2,'sheng',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เสวีย เซิง"</b> · xué ห่อปากแบบสระ ü',sk:'xs-fs',
+  use:'แปลว่านักเรียน ใช้กับ 是 บอกว่าใครเป็นนักเรียน',ex:[X.wsxs,X.tasxs]}),
+ syl({n:'คำที่ 3/7',w:XS,chars:[{zh:'学',py:'xué',t:2,k:'g:xue2'},{zh:'生',py:'sheng',t:0}],done:'xué + sheng เบา = xuésheng'}),
+ rec({n:'คำที่ 3/7',w:XS,keys:['xs-fs',XS.k]}),
+ wcard({no:4,of:7,cap:'คนที่เรียนด้วยกัน',w:TX,aid:{parts:['tóng',2,'xué',2],cap:'เสียง 2 ทั้งสองพยางค์ ขึ้นทั้งคู่'},hint:'คล้าย <b>"ถง เสวีย"</b> · มี 学 เหมือนใน 学生',sk:'tx-fs',
+  use:'แปลว่าเพื่อนร่วมชั้น คนที่เรียนห้องเดียวกัน ใช้เรียกเพื่อนในห้องได้ด้วย',ex:[X.tswtx,X.wmstx]}),
+ syl({n:'คำที่ 4/7',w:TX,chars:[{zh:'同',py:'tóng',t:2,k:'g:tong2'},{zh:'学',py:'xué',t:2,k:'g:xue2'}],done:'tóng + xué = tóngxué'}),
+ wcard({no:5,of:7,cap:'คนที่สนิทกัน',w:PY,aid:{parts:['péng',2,'you',0],cap:'เสียง 2 · พยางค์ที่สองอ่านเบา'},hint:'คล้าย <b>"เผิง โหยว"</b> · you พูดเบาและสั้น',sk:'py-fs',
+  use:'แปลว่าเพื่อน คนที่สนิทกัน ไม่จำเป็นต้องเรียนด้วยกัน · 我朋友 = เพื่อนของฉัน',ex:[X.tswpy,X.taswpy]}),
+ rec({n:'คำที่ 4–5/7',ws:[TX,PY]}),
+ wcard({no:6,of:7,cap:'หลายคนพร้อมกัน',w:DJ,aid:{parts:['dà',4,'jiā',1],cap:'เสียง 4 · เสียง 1'},hint:'คล้าย <b>"ต้า เจีย"</b>',sk:'dj-fs',
+  use:'แปลว่าทุกคน เติม 好 เป็นคำทักทายหลายคนพร้อมกัน 大家好',ex:[X.djh,S('老师好，大家好！','lǎoshī hǎo, dàjiā hǎo!','สวัสดีคุณครู สวัสดีทุกคน','lsdjh-f')]}),
+ syl({n:'คำที่ 6/7',w:DJ,chars:[{zh:'大',py:'dà',t:4,k:'g:da4'},{zh:'家',py:'jiā',t:1,k:'g:jia1'}],done:'dà + jiā = dàjiā'}),
+ rec({n:'คำที่ 6/7',w:DJ,keys:['dj-fs','djh-f']}),
+ wcard({no:7,of:7,cap:'คำถาม',w:MA,aid:{parts:['ma',0],cap:'เสียงเบา สั้น'},hint:'คล้าย <b>"มะ"</b> เบาและสั้น',sk:'nsxsm-fs',
+  use:'วางท้ายประโยค เปลี่ยนประโยคบอกเล่าเป็นคำถาม ใช่ไหม · ตอบ 是 (ใช่) หรือ 不是 (ไม่ใช่)',ex:[X.nsxsm,X.tsxsm]}),
+ use({n:'คำที่ 7/7',w:MA,when:[{img:XS.img,t:'ถามว่าเป็นนักเรียนไหม'},{img:TCH,t:'ถามว่าเป็นครูไหม'},{img:PY.img,t:'ถามว่าเป็นเพื่อนไหม'}],lines:[L.nsxsmt,L.swsxs],tip:'ประโยคเดิม + <span class="zh">吗</span> = คำถาม · ไม่ต้องย้ายคำ'}),
  /* 3 · เทคนิคการใช้ */
- part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ตอบให้ถูกคู่','เล่าเป็นภาพ'],note:'ดูว่าคนจีนขอโทษและตอบกลับอย่างไร'}),
- dialog({cap:'เทคนิค 1/4 · บทสนทนาในห้องเรียน',title:'มาสาย ชนเพื่อน แล้วได้รับความช่วยเหลือ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ขอโทษครูให้เรียก 老师 ก่อน จะสุภาพกว่า'}),
- cmp({cap:'เทคนิค 2/4 · ตอบให้ถูกคู่',title:'ไม่เป็นไร มี 2 แบบ',text:'ภาษาไทยแปลว่า ไม่เป็นไร เหมือนกัน แต่ภาษาจีนใช้ตอบคนละเรื่อง',
-  a:{who:'ตอบ 对不起',img:BOOK,zh:'没关系',py:'méi guānxi',th:'ไม่เป็นไร',k:'mgx-m'},b:{who:'ตอบ 谢谢',img:GIFT,zh:'不客气',py:'bú kèqi',th:'ยินดี',k:'bkq-m'},
-  tip:'มีคน<b>ขอโทษ</b> ตอบ <span class="zh">没关系</span> · มีคน<b>ขอบคุณ</b> ตอบ <span class="zh">不客气</span>',chips:[{zh:'对不起！',py:'duìbuqǐ!',th:'ขอโทษ',k:'dbq-f'},{zh:'谢谢！',py:'xièxie!',th:'ขอบคุณ',k:'xiexie-s-f'}]}),
- story({tag:'เทคนิค 3/4 · เล่าเป็นภาพ',q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
-  {img:CLS,sit:'คุณมาถึงห้องเรียนสาย คุณพูดกับครูว่า',opts:[R.lsdbq,R.xxls,R.lsh],ans:0,why:'มาสาย ต้องขอโทษครู'},
-  {img:BOOK,sit:'เพื่อนเดินชนคุณแล้วขอโทษ คุณตอบว่า',line:fDBQ,opts:[R.bkq,R.mgx,R.zj],ans:1,why:'ตอบคำขอโทษด้วย 没关系'},
-  {img:NOTE,sit:'เพื่อนเก็บสมุดคืนให้คุณ คุณพูดว่า',opts:[R.dbq,R.xx],ans:1,why:'มีคนช่วย ต้องขอบคุณ'},
-  {img:GIFT,sit:'เพื่อนขอบคุณคุณ คุณตอบว่า',line:fXX,opts:[R.mgx,R.bkq],ans:1,why:'ตอบคำขอบคุณด้วย 不客气'}]}),
- tips({cap:'เทคนิค 4/4 · ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
-  {h:'对不起 พยางค์กลางอ่านเบา',bad:'duì bù qǐ หนักทุกพยางค์',good:'duìbuqǐ',k:DBQ.k},
-  {h:'老师 พยางค์ที่สองคือ shī',bad:'lǎoshǔ (老鼠 แปลว่าหนู)',good:'lǎoshī',k:LS.k},
-  {h:'ตอบคำขอโทษ ไม่ใช้ 不客气',bad:'对不起 → 不客气',good:'对不起 → 没关系',k:'mgx-m'},
-  {h:'ขอโทษครู เรียกครูก่อน',bad:'对不起 คำเดียว',good:'老师，对不起！',k:'lsdbq-f',note:'กับเพื่อนพูด 对不起 คำเดียวได้'}]}),
- /* 4 · แบบทดสอบท้ายบท */
- part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ดูภาพเลือกคำ','ตอบในบทสนทนา','เล่าเป็นภาพ'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:LS.k,opts:[{img:STU},{img:TCH},{img:FRIEND}],ans:1,fb:'<span class="zh">老师</span> <b>lǎoshī</b> = ครู'}),
- ask({rv:2,q:'ฟังพยางค์ 起 qǐ แล้วเลือกเส้นเสียง',k:'g:qi3',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">qǐ</b> <span class="zh">起</span> · เสียง 3 กดต่ำแล้วยกขึ้น'}),
- reply({tag:TQ(2),q:'เพื่อนขอโทษคุณ คุณจะตอบว่าอะไร',line:fDBQ,opts:[R.bkq,R.mgx,R.xx],ans:1,why:'ตอบคำขอโทษด้วย 没关系'}),
- ask({tag:TQ(3),q:'ฟังเสียง แล้วเลือกความหมาย',k:MGX.k,opts:['ขอโทษ','ไม่เป็นไร','ขอบคุณ'],ans:1,fb:'<span class="zh">没关系</span> <b>méi guānxi</b> = ไม่เป็นไร'}),
- ask({rv:7,q:'ฟัง 老师 แล้วเลือกพยัญชนะของพยางค์ที่สอง',k:LS.k,opts:['s','sh'],ans:1,fb:'lǎo<b>sh</b>ī · ม้วนลิ้นขึ้นเล็กน้อย'}),
- story({tag:TQ(4),q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
-  {img:BAG,sit:'คุณทำกระเป๋าของเพื่อนตก คุณพูดว่า',opts:[R.nh,R.dbq,R.mgx],ans:1,why:'ทำของคนอื่นตก ต้องขอโทษ'},
-  {img:GIFT,sit:'ครูให้ของขวัญคุณ คุณพูดว่า',opts:[R.xxls,R.lsdbq,R.lszj],ans:0,why:'ได้รับของจากครู ขอบคุณครู'},
-  {img:BOOK,sit:'คุณช่วยครูถือหนังสือ ครูขอบคุณคุณ คุณตอบว่า',line:tXX,opts:[R.mgx,R.bkq],ans:1,why:'ตอบคำขอบคุณด้วย 不客气'}]}),
- reply({tag:TQ(5),q:'คุณทำหนังสือของครูตก คุณจะพูดว่าอะไร',sit:'หนังสือของครูตกพื้น',simg:BOOK,opts:[R.lsh,R.lsdbq,R.lszj],ans:1,why:'ทำของครูตก ต้องขอโทษครู'}),
- part({lab:'ภารกิจท้ายบท',of:0,title:'อีกวันในห้องเรียน',chips:['มาสาย','ชนกัน','ช่วยกัน'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วเลือกคำตอบให้ถูกทั้ง 3 ข้อ'}),
- story({tag:MQ(1),noTh:1,q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
-  {img:DOOR,sit:'คุณเปิดประตูเข้าห้องเรียนสาย',opts:[R.lsh,R.lsdbq,R.xxls],ans:1},
-  {img:BOOK,sit:'เพื่อนพูดกับคุณ',line:fDBQ,opts:[R.mgx,R.dbq],ans:0},
-  {img:NOTE,sit:'ครูพูดกับคุณ',line:tXX,opts:[R.bkq,R.xx],ans:0}]}),
- reply({tag:MQ(2),noTh:1,q:'คุณเดินชนครูที่หน้าห้อง',sit:'หน้าห้องเรียน',simg:DOOR,opts:[R.lsdbq,R.lsh,R.bkq],ans:0}),
- reply({tag:MQ(3),noTh:1,q:'ครูพูดกับคุณ',sit:'ครูเดินชนคุณ',simg:TCH,line:tDBQ,opts:[R.bkq,R.mgx,R.zj],ans:1}),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','他 กับ 她','ชี้ให้ถูกคน','是 กับ 不是','同学 กับ 朋友','เติม 们'],note:'ฝึกใช้คำกับคนรอบตัวในห้องเรียน'}),
+ dialog({cap:'เทคนิค 1/7 · บทสนทนาในห้องเรียน',title:'ใครเป็นครู ใครเป็นเพื่อน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ครูดูเด็ก เพื่อนใหม่จึงถามว่า 你是学生吗'}),
+ cmp({cap:'เทคนิค 2/7 · เสียงเดียวกัน ตัวอักษรต่างกัน',title:'他 กับ 她',text:'ทั้งสองคำอ่าน tā เหมือนกันทุกอย่าง',
+  a:{who:'ผู้ชาย',img:TA.img,zh:'他',py:'tā',th:'เขา',k:TA.k},b:{who:'ผู้หญิง',img:TA2.img,zh:'她',py:'tā',th:'เธอ',k:TA2.k},
+  tip:'ดูส่วนซ้ายของตัวอักษร <span class="zh">亻</span> แปลว่าคน · <span class="zh">女</span> แปลว่าผู้หญิง'}),
+ point({tag:'เทคนิค 3/7 · ชี้ให้ถูกคน',q:'ฟังประโยค ดูตัวอักษรตัวแรก แล้วแตะคนที่พูดถึง',cards:C4,rounds:[RS(X.tsxs,2,'他 มี 亻 คน'),RS(X.tsls,3,'她 มี 女 ผู้หญิง'),RS(X.wsxs,0,'我 คือตัวเอง'),RS(X.nsxs,1,'你 คือคนที่คุยด้วย'),RS(X.taswpy,3,'她 มี 女 ผู้หญิง')]}),
+ talk({cap:'เทคนิค 4/7 · ใช่ หรือ ไม่ใช่',title:'是 กับ 不是',text:'ตอบคำถามที่ลงท้ายด้วย 吗 · 不 bù เจอเสียง 4 อ่านเป็น bú',lines:[L.nsxsmt,L.swsxs,{...X.nslsm,who:'g'},{...X.wbsls,who:'me'}],
+  chips:[{zh:'是',py:'shì',th:'ใช่ เป็น',k:SHI.k},{zh:'不是',py:'bú shì',th:'ไม่ใช่',k:'bs-f'}],tip:'<span class="zh">不是</span> อ่านว่า <b>bú shì</b> · 不 เสียง 4 เจอเสียง 4 ตัวหน้าเปลี่ยนเป็นเสียง 2'}),
+ cmp({cap:'เทคนิค 5/7 · เพื่อน 2 แบบ',title:'同学 กับ 朋友',text:'ภาษาไทยเรียกว่าเพื่อนทั้งคู่ แต่ภาษาจีนแยกกัน',
+  a:{who:'เรียนด้วยกัน',img:TX.img,zh:'同学',py:'tóngxué',th:'เพื่อนร่วมชั้น',k:TX.k},b:{who:'สนิทกัน',img:PY.img,zh:'朋友',py:'péngyou',th:'เพื่อน',k:PY.k},
+  tip:'同学 อาจเป็น 朋友 ด้วยก็ได้ · <span class="zh">学生</span> แปลว่านักเรียน ไม่ได้แปลว่าเพื่อน'}),
+ talk({cap:'เทคนิค 6/7 · หลายคน',title:'เติม 们 = หลายคน',text:'ทวนคำ 我们 จากเล่ม 0 · เติม 们 men ท้ายคำที่หมายถึงคน จะกลายเป็นหลายคน',
+  lines:[L.txmh,{who:'me',zh:'你们好！',py:'nǐmen hǎo!',th:'สวัสดีพวกคุณ',k:'nmh-f'},L.wmstx],
+  chips:[{zh:'我们',py:'wǒmen',th:'พวกเรา',k:WM.k},{zh:'你们',py:'nǐmen',th:'พวกคุณ',k:'nimen-f'},{zh:'同学们',py:'tóngxuémen',th:'นักเรียนทุกคน',k:'txm-f'}],
+  tip:'们 อ่านเบา · ทักหลายคนใช้ <span class="zh">大家好</span> หรือ <span class="zh">你们好</span> ก็ได้'}),
+ lineup({tag:'เทคนิค 7/7 · เรียงบทสนทนา',sit:'ครูเข้าห้อง แล้วเพื่อนใหม่ถามครู',lines:[L.djht,L.lsh,L.nsxsm,L.wbsxs]}),
+ tips({cap:'ข้อควรระวัง',title:'ผิดบ่อยและมารยาท',items:[
+  {h:'ไม่ใช่ ใช้ 不是',bad:'我是不学生。',good:'我不是学生。',k:'wbsls-f'},
+  {h:'吗 อยู่ท้ายประโยค',bad:'吗你是学生？',good:'你是学生吗？',k:'nsxsm-g'},
+  {h:'大家好 ใช้กับหลายคน',bad:'เจอเพื่อนคนเดียว ทัก 大家好',good:'คนเดียว ทัก 你好',k:'nihao-s-f'},
+  {h:'朋友 พยางค์ที่สองเบา',bad:'péng yǒu หนักทั้งคู่',good:'péngyou',k:PY.k}]}),
+ /* 4 · แบบทดสอบท้ายบท (ทบทวนเล่ม 0 แทรกในช่วงนี้เท่านั้น) */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ชี้คน','เติมคำ','เรียงประโยค','เรียงบทสนทนา'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ point({tag:TQ(1),cards:C4,rounds:[RD('他',2,'他 มี 亻 คน'),RD('你',1),RD('她',3,'她 มี 女 ผู้หญิง'),RD('我',0)]}),
+ ask({rv:2,q:'ฟังพยางค์ 她 tā แล้วเลือกเส้นเสียง',k:'g:ta1',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t1">tā</b> <span class="zh">她</span> · เสียง 1 สูงเรียบ'}),
+ ask({tag:TQ(2),q:'ฟังเสียง แล้วเลือกความหมาย',k:XS.k,opts:['นักเรียน','เพื่อนร่วมชั้น','ครู'],ans:0,fb:'<span class="zh">学生</span> <b>xuésheng</b> = นักเรียน'}),
+ blank({tag:TQ(3),s:'你是学生_？',th:'คุณเป็นนักเรียนไหม',opts:['吗','好','是'],ans:0,k:'nsxsm-g',fb:'<span class="zh">你是学生吗？</span> · 吗 ท้ายประโยค = คำถาม'}),
+ ask({rv:12,q:'不 bù + 是 shì<br>อ่านต่อกันจริงว่าอะไร',k:'bs-f',opts:['bú shì','bù shì'],ans:0,fb:'<b>bú shì</b> · 不 เจอเสียง 4 เปลี่ยนเป็นเสียง 2'}),
+ order({tag:TQ(4),th:'เขาเป็นเพื่อนของฉัน',tiles:[tl('他','tā'),tl('是','shì'),tl('我','wǒ'),tl('朋友','péngyou'),tl('吗','ma')],ans:[0,1,2,3],end:'。',k:'tswpy-f'}),
+ ask({rv:4,q:'ฟัง 学 xué แล้วเลือกสระ',k:'g:xue2',opts:['u','ü'],ans:1,fb:'x j q ตามด้วย ü จะเขียนเป็น u แต่อ่านเป็น ü'}),
+ reply({tag:TQ(5),q:'เพื่อนใหม่ถามคุณ คุณเป็นนักเรียน จะตอบว่าอะไร',line:L.nsxsm,opts:[X.swsxs,X.wbsxs,X.djh],ans:0,why:'เป็นนักเรียน ตอบ 是'}),
+ lineup({tag:TQ(6),sit:'ครูทักทั้งห้อง แล้วเพื่อนแนะนำตัว',lines:[L.txmh,L.lsh,L.wmstx,L.djhm]}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'แนะนำคนในห้องเรียน',chips:['ชี้คน','ตอบคำถาม','ทักทุกคน','เรียงบทสนทนา'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังประโยค แล้วแตะคนที่พูดถึง',cards:C4,rounds:[RS(X.tasls,2),RS(X.tasxs,3),RS(X.nsxs,1)]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนใหม่ถามคุณ คุณเป็นนักเรียน',line:{...X.nslsm,who:'g'},opts:[X.wbsls,X.wbsxs,X.tsxsm],ans:0}),
+ ask({tag:MQ(3),noTh:1,q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะ',pic:DJ.img,opts:[Z('你好！','',1),Z('大家好！','',1),Z('对不起！','',1)],ans:1,fb:'<span class="zh">大家好！</span>'}),
+ lineup({tag:MQ(4),noTh:1,sit:'เพื่อนทักคุณ แล้วคุณแนะนำเพื่อนผู้หญิงให้รู้จัก',lines:[L.nhm,L.nhme,L.taswpy,L.djhg]}),
  /* 5 · จบบท */
- fin({title:'ขอโทษและตอบคำขอโทษได้แล้ว',html:dlgH(D,{noTh:1}),chips:[LS,DBQ,MGX,BKQ].map(x=>({zh:x.zh,py:x.py,th:x.th.replace(' (ตอบคำขอบคุณ)',''),k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg2',kl:'ฟังทั้งบทสนทนา'})]});
+ fin({title:'บอกได้แล้วว่าใครเป็นใคร',html:dlgH(D,{noTh:1}),chips:[TA,TA2,XS,TX,PY,DJ,MA].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})).concat([{zh:'不是',py:'bú shì',th:'ไม่ใช่',k:'bs-f'}]),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg2',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>
 </body></html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 7</title>
+</head><body>
+<script>
+/* ทบทวนหน่วยที่ 7 เล่าวันของฉัน: ทวนคำเล่ม 0 + คำทั้ง 2 บท → บทสนทนาวางแผนวันหยุด → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const SV=s=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#FBF5EA"/>${s}</svg>`);
+const FF='font-family="Noto Sans SC,Noto Sans CJK SC,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif"';
+const CALD=(m,d,th)=>{const u=SV(`<rect x="86" y="70" width="340" height="372" rx="34" fill="#fff" stroke="#D9C7B0" stroke-width="8"/><path d="M86 104a34 34 0 0 1 34-34h272a34 34 0 0 1 34 34v76H86z" fill="#D9473B"/><circle cx="176" cy="66" r="14" fill="#8C6A4E"/><circle cx="336" cy="66" r="14" fill="#8C6A4E"/><text x="256" y="152" text-anchor="middle" font-size="64" ${FF} fill="#fff" font-weight="700">${m}</text><text x="256" y="370" text-anchor="middle" font-size="170" ${FF} fill="#3C2E25" font-weight="700">${d}</text>`);THL[u]=th;return u};
+const CLK=(h,th)=>{const a=(h%12)*30*Math.PI/180,x=256+92*Math.sin(a),y=256-92*Math.cos(a);let t='';for(let i=0;i<12;i++){const b=i*30*Math.PI/180;t+=`<line x1="${256+150*Math.sin(b)}" y1="${256-150*Math.cos(b)}" x2="${256+170*Math.sin(b)}" y2="${256-170*Math.cos(b)}" stroke="#8C6A4E" stroke-width="${i%3?6:12}" stroke-linecap="round"/>`}
+ const u=SV(`<circle cx="256" cy="256" r="196" fill="#fff" stroke="#8C6A4E" stroke-width="14"/>${t}<line x1="256" y1="256" x2="256" y2="112" stroke="#3C2E25" stroke-width="12" stroke-linecap="round"/><line x1="256" y1="256" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#D9473B" stroke-width="18" stroke-linecap="round"/><circle cx="256" cy="256" r="16" fill="#3C2E25"/>`);THL[u]=th;return u};const ICO=(s,th)=>{const u=SV(s);THL[u]=th;return u};
+const I_T=ICO('<path d="M136 300v-50a120 120 0 0 1 240 0v50" fill="none" stroke="#3C2E25" stroke-width="26" stroke-linecap="round"/><rect x="100" y="280" width="80" height="130" rx="30" fill="#D9473B"/><rect x="332" y="280" width="80" height="130" rx="30" fill="#D9473B"/>','ฟัง');
+const I_S=ICO('<path d="M110 120h292a40 40 0 0 1 40 40v150a40 40 0 0 1-40 40H230l-80 70v-70h-40a40 40 0 0 1-40-40V160a40 40 0 0 1 40-40z" fill="#fff" stroke="#3C2E25" stroke-width="16" stroke-linejoin="round"/><circle cx="186" cy="235" r="20" fill="#D9473B"/><circle cx="256" cy="235" r="20" fill="#D9473B"/><circle cx="326" cy="235" r="20" fill="#D9473B"/>','พูด');
+const I_D=ICO('<path d="M256 160c-50-34-120-40-170-30v240c50-10 120-4 170 30z" fill="#fff" stroke="#3C2E25" stroke-width="14" stroke-linejoin="round"/><path d="M256 160c50-34 120-40 170-30v240c-50-10-120-4-170 30z" fill="#fff" stroke="#3C2E25" stroke-width="14" stroke-linejoin="round"/><path d="M256 160v240" stroke="#3C2E25" stroke-width="10"/><path d="M116 190q60-10 110 10M116 240q60-10 110 10M116 290q60-10 110 10M286 200q50-20 110-10M286 250q50-20 110-10M286 300q50-20 110-10" fill="none" stroke="#C9B59B" stroke-width="10" stroke-linecap="round"/>','อ่าน');
+const I_X=ICO('<g transform="rotate(45 256 256)"><rect x="216" y="70" width="80" height="290" rx="10" fill="#F2B544" stroke="#3C2E25" stroke-width="12"/><rect x="216" y="70" width="80" height="50" rx="10" fill="#D9473B" stroke="#3C2E25" stroke-width="12"/><path d="M216 360h80l-40 80z" fill="#F4E1C1" stroke="#3C2E25" stroke-width="12" stroke-linejoin="round"/><path d="M243 414l13 26 13-26z" fill="#3C2E25"/></g><path d="M90 440q60-30 120 0" fill="none" stroke="#3C2E25" stroke-width="10" stroke-linecap="round"/>','เขียน');
+const K6=CLK(6,'6 นาฬิกา'),K9=CLK(9,'9 นาฬิกา'),K12=CLK(12,'12 นาฬิกา'),K3=CLK(3,'3 นาฬิกา'),K10=CLK(10,'10 นาฬิกา');
+const YQ=w('一起','yìqǐ','ด้วยกัน'),ZIW=w('字','zì','ตัวอักษร');
+const SW=w('上午','shàngwǔ','ช่วงเช้า (ก่อนเที่ยง)'),ZW=w('中午','zhōngwǔ','ตอนเที่ยง'),XW=w('下午','xiàwǔ','ตอนบ่าย'),QC=w('起床','qǐchuáng','ตื่นนอน'),
+ SJ=w('睡觉','shuìjiào','นอนหลับ'),ZUO=w('做','zuò','ทำ'),GZ=w('工作','gōngzuò','ทำงาน งาน');
+const XXI=w('学习','xuéxí','เรียน ศึกษา'),HY=w('汉语','Hànyǔ','ภาษาจีน'),HUI=w('会','huì','เป็น (ทำได้เพราะเรียนมา)'),SHUO=w('说','shuō','พูด'),
+ TING=w('听','tīng','ฟัง'),DU=w('读','dú','อ่าน (ออกเสียง)'),XIE=w('写','xiě','เขียน'),DY=w('电影','diànyǐng','ภาพยนตร์');
+const WS=ART('晚上');THL[WS]='ตอนกลางคืน';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const L={g1:S('你上午做什么？','nǐ shàngwǔ zuò shénme?','ช่วงเช้าคุณทำอะไร','b24-nsw-g','g'),
+ me1:S('上午我工作。','shàngwǔ wǒ gōngzuò.','ช่วงเช้าฉันทำงาน','b24-swgz-f','me'),
+ g2:S('你会说汉语吗？','nǐ huì shuō Hànyǔ ma?','คุณพูดภาษาจีนเป็นไหม','b25-nhs-g','g'),
+ me2:S('会一点儿。','huì yìdiǎnr.','เป็นนิดหน่อย','b25-hyd-f','me'),
+ g3:S('下午我们一起去看电影！','xiàwǔ wǒmen yìqǐ qù kàn diànyǐng!','ตอนบ่ายพวกเราไปดูภาพยนตร์ด้วยกันนะ','b26-g3-g','g'),
+ me3:S('好！','hǎo!','ได้เลย','b24-hao-f','me'),
+ njdqc:S('你几点起床？','nǐ jǐ diǎn qǐchuáng?','คุณตื่นนอนกี่โมง','b24-njdqc-g','g')};
+const O={qc:S('我早上六点起床。','wǒ zǎoshang liù diǎn qǐchuáng.','ฉันตื่นนอนตอนหกโมงเช้า','b24-qc-f'),
+ wssj:S('晚上十点睡觉。','wǎnshang shí diǎn shuìjiào.','ตอนกลางคืนเข้านอนสี่ทุ่ม','b24-wssj-f'),
+ wgz:S('我工作。','wǒ gōngzuò.','ฉันทำงาน','b24-wgz-f'),
+ hyd:S('会一点儿。','huì yìdiǎnr.','เป็นนิดหน่อย','b25-hyd-f'),
+ swgz:S('上午我工作。','shàngwǔ wǒ gōngzuò.','ช่วงเช้าฉันทำงาน','b24-swgz-f'),
+ zwyq:S('中午我们一起吃米饭。','zhōngwǔ wǒmen yìqǐ chī mǐfàn.','ตอนเที่ยงพวกเราทานข้าวด้วยกัน','b24-zwyq-g'),
+ xwhj:S('我下午三点回家。','wǒ xiàwǔ sān diǎn huí jiā.','ฉันกลับบ้านตอนบ่ายสามโมง','b24-xwhj-f'),
+ thy:S('我们听汉语。','wǒmen tīng Hànyǔ.','พวกเราฟังภาษาจีน','b25-thy-f'),
+ xz:S('我会写字。','wǒ huì xiě zì.','ฉันเขียนตัวอักษรเป็น','b25-xz-f'),
+ zgz:S('这个字怎么读？','zhège zì zěnme dú?','ตัวอักษรนี้อ่านว่าอย่างไร','b25-zgz-g'),
+ kdy:S('我们去看电影。','wǒmen qù kàn diànyǐng.','พวกเราไปดูภาพยนตร์กัน','b25-kdy-f'),
+ wzgz:S('我在医院工作。','wǒ zài yīyuàn gōngzuò.','ฉันทำงานที่โรงพยาบาล','b24-wzgz-f')};
+const D=[{sit:'เพื่อนชวนวางแผนวันหยุดด้วยกัน',img:K9},L.g1,L.me1,L.g2,L.me2,L.g3,L.me3];
+const BINS=[{img:SW.img,zh:'上午',py:'shàngwǔ',th:'ช่วงเช้า'},{img:ZW.img,zh:'中午',py:'zhōngwǔ',th:'ตอนเที่ยง'},{img:XW.img,zh:'下午',py:'xiàwǔ',th:'ตอนบ่าย'},{img:WS,zh:'晚上',py:'wǎnshang',th:'กลางคืน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const SKC=[{img:I_T,th:'ฟัง'},{img:I_S,th:'พูด'},{img:I_D,th:'อ่าน'},{img:I_X,th:'เขียน'}];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:26,code:'ทบทวนหน่วย 7',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 7 เล่าหนึ่งวันของคุณ บอกทักษะภาษาจีน และชวนเพื่อนทำด้วยกัน',sub:'几点起床 · 做什么 · 一起 · 会说汉语 · 看电影',min:8},steps:[
+ intro({scene:K9,cap:'บททบทวน',title:'วางแผนวันหยุดกับเพื่อน',line:L.g1,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 7-1 ถึง 7-2 และคำจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 7',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[YQ,ZIW]},{lab:'7-1 หนึ่งวันของฉัน',items:[SW,ZW,XW,QC,SJ,ZUO,GZ]},{lab:'7-2 เรียนภาษาจีน',items:[XXI,HY,HUI,SHUO,TING,DU,XIE,DY]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'วางแผนวันหยุดกับเพื่อน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ตารางหนึ่งวัน','ห้องเรียนภาษาจีน','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[QC,SJ,HY,DY,ZW]}),
+ sortmap({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะว่าเป็นช่วงไหนของวัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'จัดตารางครบแล้ว',
+  items:[it(K3,O.xwhj,2),it(K9,O.swgz,0),it(K12,O.zwyq,1)]}),
+ ask({rv:9,q:'ฟัง 说 shuō แล้วเลือกว่าประกอบจากเสียงใด',k:'sy:说',opts:['sh + uo','s + uo','sh + ou'],ans:0,fb:'<b>sh</b> + <b>uo</b> = shuō'}),
+ point({tag:TQ(3),q:'ฟังแต่ละประโยค แล้วแตะทักษะที่ตรงกัน',this:'คือทักษะนี้',cards:SKC,rounds:[
+  {zh:O.xz.zh,k:O.xz.k,ans:3},{zh:O.thy.zh,k:O.thy.k,ans:0},{zh:O.zgz.zh,k:O.zgz.k,ans:2}]}),
+ blank({tag:TQ(4),s:'你几点_床？',th:'คุณตื่นนอนกี่โมง',opts:['起','睡','做'],ans:0,k:'b24-njdqc-g',fb:'<span class="zh">你几点起床？</span>'}),
+ reply({tag:TQ(5),q:'เพื่อนถามว่าคุณพูดภาษาจีนเป็นไหม คุณพูดเป็นนิดหน่อย',line:L.g2,opts:[O.hyd,O.wgz,O.qc],ans:0,why:'ถาม 会…吗 ตอบ 会一点儿'}),
+ ask({rv:2,q:'ฟัง 写 แล้วเลือกเสียงวรรณยุกต์',k:'w:写',opts:[{tone:3,lab:'เสียง 3'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'<b>xiě</b> · เสียง 3 ลงแล้วขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b25-kdy-f',opts:[{img:DY.img},{img:K10},{img:ZIW.img}],ans:0,fb:'<span class="zh">我们去看电影。</span> = พวกเราไปดูภาพยนตร์กัน'}),
+ blank({tag:TQ(7),s:'我在医院_。',th:'ฉันทำงานที่โรงพยาบาล',opts:['工作','电影','汉语'],ans:0,k:'b24-wzgz-f',fb:'<span class="zh">我在医院工作。</span>'}),
+ ask({rv:11,q:'ฟัง 影 yǐng แล้วเลือกเสียงท้าย',k:'sy:影',opts:['-n','-ng'],ans:1,fb:'yǐ<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
+ lineup({tag:TQ(8),sit:'เพื่อนชวนวางแผนวันหยุด',lines:[L.g2,L.me2,L.g3]}),
+ ask({tag:TQ(9),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b24-zwyq-g',opts:['ตอนเที่ยงพวกเราทานข้าวด้วยกัน','ตอนเที่ยงพวกเราดูภาพยนตร์','ตอนเช้าพวกเราทำงานด้วยกัน'],ans:0,fb:'<span class="zh">中午我们一起吃米饭。</span>'}),
+ ask({tag:TQ(10),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:学习',opts:['เรียน ศึกษา','ทำงาน','เขียน'],ans:0,fb:'<span class="zh">学习</span> <b>xuéxí</b> = เรียน ศึกษา'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'เล่าวันของฉันเอง',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'คุณตื่นนอนหกโมงเช้า เพื่อนถามว่า',line:L.njdqc,opts:[O.qc,O.wssj,O.wgz],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'b24-wssj-f',opts:[{img:K6},{img:K10},{img:DY.img}],ans:1,fb:'<span class="zh">晚上十点睡觉。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('你','nǐ'),tl('会','huì'),tl('说','shuō'),tl('汉语','Hànyǔ'),tl('吗','ma'),tl('写','xiě')],ans:[0,1,2,3,4],end:'？',k:'b25-nhs-g'}),
+ blank({tag:MQ(4),noTh:1,s:'中午我们一起吃_。',opts:['米饭','电影','字'],ans:0,k:'b24-zwyq-g',fb:'<span class="zh">中午我们一起吃米饭。</span>'}),
+ fin({title:'จบหน่วยที่ 7 แล้ว',html:dlgH(D,{noTh:1}),chips:[SW,ZW,XW,QC,SJ,GZ,XXI,HY,HUI,SHUO,DY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L26',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

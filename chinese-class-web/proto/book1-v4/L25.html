@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 7-2 เรียนภาษาจีน</title>
+</head><body>
+<script>
+/* บท 7-2 หน่วย 7 เล่าวันของฉัน: เรียนภาษาจีน · คำใหม่ 学习 汉语 会 说 听 读 写 电影 · คำทบทวนเล่ม 0: 字
+   ทบทวนจากบทก่อน: 一点儿 也 去 看 这个 怎么 书 在 学校 吗 · กิจกรรมเฉพาะบท: ห้องเรียนภาษาจีน ฟังแล้วแตะทักษะ ฟัง พูด อ่าน เขียน */
+WHO.g={n:'เพื่อน',img:ART('男孩')};
+const SV=s=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#FBF5EA"/>${s}</svg>`);
+const FF='font-family="Noto Sans SC,Noto Sans CJK SC,PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif"';
+const CALD=(m,d,th)=>{const u=SV(`<rect x="86" y="70" width="340" height="372" rx="34" fill="#fff" stroke="#D9C7B0" stroke-width="8"/><path d="M86 104a34 34 0 0 1 34-34h272a34 34 0 0 1 34 34v76H86z" fill="#D9473B"/><circle cx="176" cy="66" r="14" fill="#8C6A4E"/><circle cx="336" cy="66" r="14" fill="#8C6A4E"/><text x="256" y="152" text-anchor="middle" font-size="64" ${FF} fill="#fff" font-weight="700">${m}</text><text x="256" y="370" text-anchor="middle" font-size="170" ${FF} fill="#3C2E25" font-weight="700">${d}</text>`);THL[u]=th;return u};
+const CLK=(h,th)=>{const a=(h%12)*30*Math.PI/180,x=256+92*Math.sin(a),y=256-92*Math.cos(a);let t='';for(let i=0;i<12;i++){const b=i*30*Math.PI/180;t+=`<line x1="${256+150*Math.sin(b)}" y1="${256-150*Math.cos(b)}" x2="${256+170*Math.sin(b)}" y2="${256-170*Math.cos(b)}" stroke="#8C6A4E" stroke-width="${i%3?6:12}" stroke-linecap="round"/>`}
+ const u=SV(`<circle cx="256" cy="256" r="196" fill="#fff" stroke="#8C6A4E" stroke-width="14"/>${t}<line x1="256" y1="256" x2="256" y2="112" stroke="#3C2E25" stroke-width="12" stroke-linecap="round"/><line x1="256" y1="256" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#D9473B" stroke-width="18" stroke-linecap="round"/><circle cx="256" cy="256" r="16" fill="#3C2E25"/>`);THL[u]=th;return u};
+const ICO=(s,th)=>{const u=SV(s);THL[u]=th;return u};
+const I_T=ICO('<path d="M136 300v-50a120 120 0 0 1 240 0v50" fill="none" stroke="#3C2E25" stroke-width="26" stroke-linecap="round"/><rect x="100" y="280" width="80" height="130" rx="30" fill="#D9473B"/><rect x="332" y="280" width="80" height="130" rx="30" fill="#D9473B"/>','ฟัง');
+const I_S=ICO('<path d="M110 120h292a40 40 0 0 1 40 40v150a40 40 0 0 1-40 40H230l-80 70v-70h-40a40 40 0 0 1-40-40V160a40 40 0 0 1 40-40z" fill="#fff" stroke="#3C2E25" stroke-width="16" stroke-linejoin="round"/><circle cx="186" cy="235" r="20" fill="#D9473B"/><circle cx="256" cy="235" r="20" fill="#D9473B"/><circle cx="326" cy="235" r="20" fill="#D9473B"/>','พูด');
+const I_D=ICO('<path d="M256 160c-50-34-120-40-170-30v240c50-10 120-4 170 30z" fill="#fff" stroke="#3C2E25" stroke-width="14" stroke-linejoin="round"/><path d="M256 160c50-34 120-40 170-30v240c-50-10-120-4-170 30z" fill="#fff" stroke="#3C2E25" stroke-width="14" stroke-linejoin="round"/><path d="M256 160v240" stroke="#3C2E25" stroke-width="10"/><path d="M116 190q60-10 110 10M116 240q60-10 110 10M116 290q60-10 110 10M286 200q50-20 110-10M286 250q50-20 110-10M286 300q50-20 110-10" fill="none" stroke="#C9B59B" stroke-width="10" stroke-linecap="round"/>','อ่าน');
+const I_X=ICO('<g transform="rotate(45 256 256)"><rect x="216" y="70" width="80" height="290" rx="10" fill="#F2B544" stroke="#3C2E25" stroke-width="12"/><rect x="216" y="70" width="80" height="50" rx="10" fill="#D9473B" stroke="#3C2E25" stroke-width="12"/><path d="M216 360h80l-40 80z" fill="#F4E1C1" stroke="#3C2E25" stroke-width="12" stroke-linejoin="round"/><path d="M243 414l13 26 13-26z" fill="#3C2E25"/></g><path d="M90 440q60-30 120 0" fill="none" stroke="#3C2E25" stroke-width="10" stroke-linecap="round"/>','เขียน');
+const XXI=w('学习','xuéxí','เรียน ศึกษา'),HY=w('汉语','Hànyǔ','ภาษาจีน'),HUI=w('会','huì','เป็น (ทำได้เพราะเรียนมา)'),SHUO=w('说','shuō','พูด'),
+ TING=w('听','tīng','ฟัง'),DU=w('读','dú','อ่าน (ออกเสียง)'),XIE=w('写','xiě','เขียน'),DY=w('电影','diànyǐng','ภาพยนตร์');
+const ZI=ART('字');THL[ZI]='ตัวอักษร';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ xxm:S('你学习汉语吗？','nǐ xuéxí Hànyǔ ma?','คุณเรียนภาษาจีนไหม','b25-xxm-g'),
+ xxhy:S('我学习汉语。','wǒ xuéxí Hànyǔ.','ฉันเรียนภาษาจีน','b25-xxhy-f'),
+ nhs:S('你会说汉语吗？','nǐ huì shuō Hànyǔ ma?','คุณพูดภาษาจีนเป็นไหม','b25-nhs-g'),
+ hyd:S('会一点儿。','huì yìdiǎnr.','เป็นนิดหน่อย','b25-hyd-f'),
+ hdx:S('我会读，也会写。','wǒ huì dú, yě huì xiě.','ฉันอ่านเป็น และเขียนเป็นด้วย','b25-hdx-f'),
+ mtdy:S('明天我们去看电影。','míngtiān wǒmen qù kàn diànyǐng.','พรุ่งนี้พวกเราไปดูภาพยนตร์กัน','b25-mtdy-g'),
+ hao:S('好！','hǎo!','ได้เลย','b25-hao-f'),
+ kdy:S('我们去看电影。','wǒmen qù kàn diànyǐng.','พวกเราไปดูภาพยนตร์กัน','b25-kdy-f'),
+ xz:S('我会写字。','wǒ huì xiě zì.','ฉันเขียนตัวอักษรเป็น','b25-xz-f'),
+ thy:S('我们听汉语。','wǒmen tīng Hànyǔ.','พวกเราฟังภาษาจีน','b25-thy-f'),
+ shy:S('我会说汉语。','wǒ huì shuō Hànyǔ.','ฉันพูดภาษาจีนเป็น','b25-shy-f'),
+ dshu:S('我读书。','wǒ dú shū.','ฉันอ่านหนังสือ','b25-dshu-f'),
+ nzx:S('你在哪儿学习？','nǐ zài nǎr xuéxí?','คุณเรียนที่ไหน','b25-nzx-g'),
+ wzx:S('我在学校学习汉语。','wǒ zài xuéxiào xuéxí Hànyǔ.','ฉันเรียนภาษาจีนที่โรงเรียน','b25-wzx-f'),
+ zgz:S('这个字怎么读？','zhège zì zěnme dú?','ตัวอักษรนี้อ่านว่าอย่างไร','b25-zgz-g'),
+ bhx:S('我不会写。','wǒ bú huì xiě.','ฉันเขียนไม่เป็น','b25-bhx-f'),
+ /* ภารกิจ */
+ m1:S('我会说一点儿汉语。','wǒ huì shuō yìdiǎnr Hànyǔ.','ฉันพูดภาษาจีนเป็นนิดหน่อย','b25-m1-t'),
+ m2:S('你会写这个字吗？','nǐ huì xiě zhège zì ma?','คุณเขียนตัวอักษรนี้เป็นไหม','b25-m2-t'),
+ m3:S('我们听汉语。','wǒmen tīng Hànyǔ.','พวกเราฟังภาษาจีน','b25-m3-t'),
+ /* ชิปคำ */
+ hs:S('会说','huì shuō','พูดเป็น','b25-hs-t'),hd:S('会读','huì dú','อ่านเป็น','b25-hd-t'),hx:S('会写','huì xiě','เขียนเป็น','b25-hx-t'),bh:S('不会','bú huì','ไม่เป็น','b25-bh-t'),
+ kdy2:S('看电影','kàn diànyǐng','ดูภาพยนตร์','b25-kdy2-t'),xzi:S('写字','xiě zì','เขียนตัวอักษร','b25-xzi-t'),dsh:S('读书','dú shū','อ่านหนังสือ','b25-dsh-t')};
+const L={xxm:{...X.xxm,who:'g'},xxhy:{...X.xxhy,who:'me'},nhs:{...X.nhs,who:'g'},hyd:{...X.hyd,who:'me'},hdx:{...X.hdx,who:'me'},mtdy:{...X.mtdy,who:'g'},hao:{...X.hao,who:'me'}};
+const D=[{sit:'คุยกับเพื่อนเรื่องการเรียนภาษาจีน',img:HY.img},L.xxm,L.xxhy,L.nhs,L.hyd,L.hdx,L.mtdy,L.hao];
+const SKC=[{img:I_T,th:'ฟัง'},{img:I_S,th:'พูด'},{img:I_D,th:'อ่าน'},{img:I_X,th:'เขียน'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:25,code:'บท 7-2',goal:{do:'บอกว่าเรียนภาษาจีน ทำอะไรเป็นบ้าง และชวนเพื่อนไปดูภาพยนตร์',sub:'ใช้ <span class="gz">学习汉语 · 会说 · 会一点儿 · 看电影</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:HY.img,cap:'สถานการณ์ของบทนี้',title:'เรียนภาษาจีน',line:L.nhs,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกได้ว่าฟัง พูด อ่าน เขียนภาษาจีนเป็นแค่ไหน'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[XXI,HY,HUI,SHUO,TING,DU,XIE,DY]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['学习','汉语','会','说','听','读','写','电影'],note:'ใช้คำจากบทก่อน 一点儿 也 看 怎么 และคำ 字 จากเล่ม 0 ร่วมด้วย'}),
+ wcard({no:1,of:8,cap:'การเรียน',w:XXI,aid:{parts:['xué',2,'xí',2],cap:'เสียง 2 + เสียง 2'},hint:'คล้าย <b>"เสวีย ซี๋"</b> · x ยิ้มกว้าง',sk:'fs:学习',
+  use:'แปลว่าเรียน ศึกษา · 学习 + วิชา เช่น 学习汉语',ex:[X.xxhy,X.nzx]}),
+ syl({n:'คำที่ 1/8',w:XXI,chars:[{zh:'学',py:'xué',t:2,k:'sy:学'},{zh:'习',py:'xí',t:2,k:'sy:习'}],done:'xué + xí = xuéxí'}),
+ wcard({no:2,of:8,cap:'ภาษา',w:HY,aid:{parts:['Hàn',4,'yǔ',3],cap:'เสียง 4 + เสียง 3'},hint:'คล้าย <b>"ฮั่น หยวี่"</b> · yu ห่อปาก',sk:'fs:汉语',
+  use:'แปลว่าภาษาจีน · ใช้กับ 学习 说 听 ได้',ex:[X.xxhy,X.shy]}),
+ syl({n:'คำที่ 2/8',w:HY,chars:[{zh:'汉',py:'hàn',t:4,k:'sy:汉'},{zh:'语',py:'yǔ',t:3,k:'sy:语'}],done:'hàn + yǔ = Hànyǔ'}),
+ rec({n:'คำที่ 1–2/8',ws:[XXI,HY]}),
+ use({n:'คำที่ 1–2/8',w:HY,when:[{img:HY.img,t:'บอกว่าเรียนภาษาอะไร'},{img:ART('学校-v2'),t:'บอกว่าเรียนที่ไหน'}],lines:[{...X.xxm,who:'g'},{...X.xxhy,who:'me'},{...X.wzx,who:'me'}],tip:'<span class="zh">学习</span> + <span class="zh">汉语</span> · สถานที่ใช้ <span class="zh">在学校学习</span>'}),
+ wcard({no:3,of:8,cap:'ความสามารถ',w:HUI,aid:{parts:['huì',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ฮุ่ย"</b>',sk:'fs:会',
+  use:'แปลว่าทำเป็น เพราะเรียนมา · 会 + กริยา · ปฏิเสธใช้ 不会',ex:[X.nhs,X.bhx]}),
+ wcard({no:4,of:8,cap:'ทักษะ',w:SHUO,aid:{parts:['shuō',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"ซัว"</b> · sh ม้วนลิ้น',sk:'fs:说',
+  use:'แปลว่าพูด · 说汉语 พูดภาษาจีน',ex:[X.shy,X.m1]}),
+ rec({n:'คำที่ 3–4/8',ws:[HUI,SHUO]}),
+ use({n:'คำที่ 3–4/8',w:HUI,when:[{img:I_S,t:'ถามว่าพูดภาษาจีนเป็นไหม'},{img:I_X,t:'บอกว่าทำอะไรไม่เป็น'}],lines:[{...X.nhs,who:'g'},{...X.hyd,who:'me'},{...X.bhx,who:'me'}],tip:'ตอบสั้นได้ว่า <span class="zh">会</span> หรือ <span class="zh">不会</span> · 不 หน้าเสียง 4 อ่าน bú'}),
+ wcard({no:5,of:8,cap:'ทักษะ',w:TING,aid:{parts:['tīng',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"ทิง"</b> · t พ่นลม ลงท้าย -ng',sk:'fs:听',
+  use:'แปลว่าฟัง · 听汉语 ฟังภาษาจีน',ex:[X.thy,X.m3]}),
+ wcard({no:6,of:8,cap:'ทักษะ',w:DU,aid:{parts:['dú',2],cap:'เสียง 2 ขึ้น'},hint:'คล้าย <b>"ตู๋"</b> · d ไม่พ่นลม',sk:'fs:读',
+  use:'แปลว่าอ่าน อ่านออกเสียง · 读书 อ่านหนังสือ',ex:[X.dshu,X.zgz]}),
+ wcard({no:7,of:8,cap:'ทักษะ',w:XIE,aid:{parts:['xiě',3],cap:'เสียง 3 ลงแล้วขึ้น'},hint:'คล้าย <b>"เสี่ย"</b> · x ยิ้มกว้าง',sk:'fs:写',
+  use:'แปลว่าเขียน · 写字 เขียนตัวอักษร',ex:[X.xz,X.hdx]}),
+ rec({n:'คำที่ 5–7/8',ws:[TING,DU,XIE]}),
+ use({n:'คำที่ 5–7/8',w:DU,when:[{img:I_D,t:'ถามว่าตัวอักษรนี้อ่านอย่างไร'},{img:I_X,t:'บอกว่าอ่านเป็น เขียนเป็น'}],lines:[{...X.zgz,who:'g'},{...X.hdx,who:'me'},{...X.thy,who:'me'}],tip:'ฟัง <span class="zh">听</span> · พูด <span class="zh">说</span> · อ่าน <span class="zh">读</span> · เขียน <span class="zh">写</span>'}),
+ wcard({no:8,of:8,cap:'บันเทิง',w:DY,aid:{parts:['diàn',4,'yǐng',3],cap:'เสียง 4 + เสียง 3'},hint:'คล้าย <b>"เตี้ยน หยิ่ง"</b> · ลงท้าย -n แล้ว -ng',sk:'fs:电影',
+  use:'แปลว่าภาพยนตร์ · ดูภาพยนตร์ใช้ 看电影',ex:[X.kdy,X.mtdy]}),
+ syl({n:'คำที่ 8/8',w:DY,chars:[{zh:'电',py:'diàn',t:4,k:'sy:电'},{zh:'影',py:'yǐng',t:3,k:'sy:影'}],done:'diàn + yǐng = diànyǐng'}),
+ rec({n:'คำที่ 8/8',ws:[DY]}),
+ use({n:'คำที่ 8/8',w:DY,when:[{img:DY.img,t:'ชวนเพื่อนไปดูภาพยนตร์'},{img:ZI,t:'ถามว่าตัวอักษรนี้อ่านอย่างไร'}],lines:[{...X.mtdy,who:'g'},{...X.hao,who:'me'},{...X.kdy,who:'me'}],tip:'ดูภาพยนตร์ใช้ <span class="zh">看</span> ไม่ใช่ <span class="zh">听</span>'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','会 + กริยา','说 กับ 读','ห้องเรียนภาษาจีน','看电影 · 写字','ข้อควรระวัง'],note:'ฝึกบอกว่าทำอะไรเป็นบ้าง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาเรื่องเรียนภาษาจีน',title:'คุณพูดภาษาจีนเป็นไหม',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามว่าทำเป็นไหมใช้ 会…吗 · ตอบถ่อมตัวว่า 会一点儿'}),
+ talk({cap:'เทคนิค 2/6 · 会 + กริยา',title:'ทำอะไรเป็นบ้าง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nhs,who:'g'},{...X.hyd,who:'me'},{...X.hdx,who:'me'},{...X.bhx,who:'me'}],
+  chips:[X.hs,X.hd,X.hx,X.bh],tip:'<span class="zh">会</span> + กริยา = ทำเป็น · <span class="zh">不会</span> + กริยา = ทำไม่เป็น'}),
+ cmp({cap:'เทคนิค 3/6 · 说 กับ 读',title:'พูด กับ อ่าน',text:'ออกเสียงเหมือนกัน แต่ต่างกันที่ดูตัวอักษรหรือไม่',a:{who:'พูดเอง',img:I_S,zh:'我会说汉语。',py:'wǒ huì shuō Hànyǔ.',th:'ฉันพูดภาษาจีนเป็น',k:'b25-shy-f'},b:{who:'อ่านจากตัวอักษร',img:I_D,zh:'这个字怎么读？',py:'zhège zì zěnme dú?',th:'ตัวอักษรนี้อ่านว่าอย่างไร',k:'b25-zgz-g'},
+  tip:'<span class="zh">说</span> พูดออกมาเอง · <span class="zh">读</span> อ่านออกเสียงจากตัวหนังสือ'}),
+ point({tag:'เทคนิค 4/6 · ห้องเรียนภาษาจีน',q:'ฟังแต่ละประโยค แล้วแตะทักษะที่ตรงกัน',this:'คือทักษะนี้',cards:SKC,rounds:[
+  {zh:X.thy.zh,k:X.thy.k,ans:0},{zh:X.shy.zh,k:X.shy.k,ans:1},{zh:X.dshu.zh,k:X.dshu.k,ans:2},{zh:X.xz.zh,k:X.xz.k,ans:3}]}),
+ talk({cap:'เทคนิค 5/6 · 看电影 · 写字',title:'คำที่ไปด้วยกัน',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.mtdy,who:'g'},{...X.hao,who:'me'},{...X.xz,who:'me'}],
+  chips:[X.kdy2,X.xzi,X.dsh],tip:'<span class="zh">看电影</span> · <span class="zh">写字</span> · <span class="zh">读书</span> · กริยา + สิ่งที่ทำ'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'会 อยู่หน้ากริยา',bad:'我说会汉语。',good:'我会说汉语。',k:'b25-shy-f'},
+  {h:'ทำไม่เป็นใช้ 不会',bad:'我没会写。',good:'我不会写。',k:'b25-bhx-f'},
+  {h:'也 อยู่หน้า 会',bad:'我会读，会也写。',good:'我会读，也会写。',k:'b25-hdx-f'},
+  {h:'ดูภาพยนตร์ใช้ 看',bad:'我们去听电影。',good:'我们去看电影。',k:'b25-kdy-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:写',opts:['เขียน','อ่าน','ฟัง'],ans:0,fb:'<span class="zh">写</span> <b>xiě</b> = เขียน'}),
+ ask({rv:4,q:'ฟัง 语 yǔ แล้วเลือกสระ',k:'sy:语',opts:['u','ü'],ans:1,fb:'y<b>ǔ</b> · เขียน yu แต่ออกเสียง ü ห่อปาก'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b25-kdy-f',opts:[{img:DY.img},{img:I_D},{img:I_X}],ans:0,fb:'<span class="zh">我们去看电影。</span> = พวกเราไปดูภาพยนตร์กัน'}),
+ blank({tag:TQ(3),s:'你会_汉语吗？',th:'คุณพูดภาษาจีนเป็นไหม',opts:['说','看','做'],ans:0,k:'b25-nhs-g',fb:'<span class="zh">你会说汉语吗？</span>'}),
+ ask({rv:7,q:'ฟัง 说 shuō แล้วเลือกพยัญชนะตัวแรก',k:'sy:说',opts:['sh','s','x'],ans:0,fb:'<b>sh</b>uō · ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'เพื่อนถามว่าคุณพูดภาษาจีนเป็นไหม คุณพูดเป็นนิดหน่อย',line:{...X.nhs,who:'g'},opts:[X.hyd,X.xxhy,X.kdy],ans:0,why:'ถาม 会…吗 ตอบ 会一点儿'}),
+ order({tag:TQ(5),th:'ฉันเรียนภาษาจีน',tiles:[tl('我','wǒ'),tl('学习','xuéxí'),tl('汉语','Hànyǔ'),tl('电影','diànyǐng')],ans:[0,1,2],end:'。',k:'b25-xxhy-f'}),
+ ask({rv:2,q:'ฟัง 读 แล้วเลือกเสียงวรรณยุกต์',k:'w:读',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b>dú</b> · เสียง 2 ขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b25-hdx-f',opts:['ฉันอ่านเป็น และเขียนเป็นด้วย','ฉันพูดเป็น และฟังเป็นด้วย','ฉันอ่านไม่เป็น'],ans:0,fb:'<span class="zh">我会读，也会写。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'บอกทักษะภาษาจีนของฉัน',chips:['ห้องเรียนภาษาจีน','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะทักษะ',this:'คือทักษะนี้',cards:SKC,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:1},{zh:X.m3.zh,k:X.m3.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณพูดภาษาจีนเป็นนิดหน่อย เพื่อนถามว่า',line:{...X.nhs,who:'g'},opts:[X.hyd,X.bhx,X.kdy],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我会读，也会_。',opts:['写','学','做'],ans:0,k:'b25-hdx-f',fb:'<span class="zh">我会读，也会写。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我们','wǒmen'),tl('去','qù'),tl('看','kàn'),tl('电影','diànyǐng'),tl('听','tīng')],ans:[0,1,2,3],end:'。',k:'b25-kdy-f'}),
+ /* 5 · จบบท */
+ fin({title:'บอกทักษะภาษาจีนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[XXI,HY,HUI,SHUO,TING,DU,XIE,DY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L25',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

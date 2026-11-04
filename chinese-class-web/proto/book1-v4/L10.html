@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 3-1 ครอบครัวของฉัน</title>
+</head><body>
+<script>
+/* บท 3-1 หน่วย 3 เพื่อนมาเที่ยวบ้าน: ครอบครัวของฉัน · คำใหม่ 这 那 的 儿子 女儿 都 · ทบทวนเล่ม 0: 爸爸 妈妈 家 和
+   ทบทวนจากบทก่อน: 是 我 谁 我们 泰国 人 · กิจกรรมเฉพาะบท: ดูรูปครอบครัว ฟังแล้วแตะคนในรูป */
+WHO.g={n:'เพื่อน',img:ART('女孩')};WHO.mm={n:'แม่ของเพื่อน',img:ART('妈妈')};
+const ZHE=w('这','zhè','นี่ นี้'),NA=w('那','nà','นั่น นั้น'),DE=w('的','de','ของ'),EZ=w('儿子','érzi','ลูกชาย'),NE=w('女儿','nǚ\'ér','ลูกสาว'),DOU=w('都','dōu','ล้วน ทั้งหมด');
+const BB=ART('爸爸'),MM=ART('妈妈'),PHOTO=ART('照片'),FAM=ART('一家人'),HOME=ART('家'),BOY=ART('男孩'),GIRL=ART('女孩'),TCH=ART('老师'),BOOK=ART('书'),CUP=ART('杯子'),CAT=ART('猫');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ zswj:S('这是我家。','zhè shì wǒ jiā.','นี่คือบ้านของฉัน','b10-zswj-f'),zbbm:S('这是我爸爸和我妈妈。','zhè shì wǒ bàba hé wǒ māma.','นี่คือพ่อและแม่ของฉัน','b10-zbbm-f'),
+ zsbb:S('这是我爸爸。','zhè shì wǒ bàba.','นี่คือพ่อของฉัน','b10-zsbb-f'),zsmm:S('这是我妈妈。','zhè shì wǒ māma.','นี่คือแม่ของฉัน','b10-zsmm-f'),
+ nss:S('那是谁？','nà shì shéi?','นั่นคือใคร','b10-nss-f'),nsmm:S('那是我妈妈。','nà shì wǒ māma.','นั่นคือแม่ของฉัน','b10-nsmm-g'),
+ nsne:S('那是我的女儿。','nà shì wǒ de nǚ\'ér.','นั่นคือลูกสาวของฉัน','b10-nsne-t'),zsez:S('这是我的儿子。','zhè shì wǒ de érzi.','นี่คือลูกชายของฉัน','b10-zsez-t'),
+ zsezw:S('这是我的儿子，王明。','zhè shì wǒ de érzi, Wáng Míng.','นี่คือลูกชายของฉัน หวังหมิง','b10-zsezw-t'),tswez:S('他是我儿子。','tā shì wǒ érzi.','เขาเป็นลูกชายของฉัน','b10-tswez-t'),
+ tswne:S('她是我女儿。','tā shì wǒ nǚ\'ér.','เธอเป็นลูกสาวของฉัน','b10-tswne-t'),
+ zswds:S('这是我的书。','zhè shì wǒ de shū.','นี่คือหนังสือของฉัน','b10-zswds-f'),nsnd:S('那是你的杯子。','nà shì nǐ de bēizi.','นั่นคือแก้วของคุณ','b10-nsnd-g'),
+ wmdt:S('我们都是泰国人。','wǒmen dōu shì Tàiguó rén.','พวกเราเป็นคนไทยทุกคน','b10-wmdt-f'),wmdb:S('我们都是北京人。','wǒmen dōu shì Běijīng rén.','พวกเราเป็นคนปักกิ่งทุกคน','b10-wmdb-f'),
+ bmdl:S('爸爸妈妈都是老师。','bàba māma dōu shì lǎoshī.','พ่อกับแม่เป็นครูทั้งคู่','b10-bmdl-g'),
+ wds:S('我的书','wǒ de shū','หนังสือของฉัน','b10-wds-t'),ndb:S('你的杯子','nǐ de bēizi','แก้วของคุณ','b10-ndb-t'),wdm:S('我的猫','wǒ de māo','แมวของฉัน','b10-wdm-t'),lsds:S('老师的书','lǎoshī de shū','หนังสือของครู','b10-lsds-t'),
+ wbb:S('我爸爸','wǒ bàba','พ่อของฉัน','b10-wbb-t'),
+ zswne:S('这是我的女儿。','zhè shì wǒ de nǚ\'ér.','นี่คือลูกสาวของฉัน','b10-zswne-t'),zst:S('这是谁？','zhè shì shéi?','นี่คือใคร','b10-zst-g'),nsez:S('那是我的儿子。','nà shì wǒ de érzi.','นั่นคือลูกชายของฉัน','b10-nsez-t')};
+const L={zswj:{...X.zswj,who:'f'},zbbm:{...X.zbbm,who:'f'},nss:{...X.nss,who:'me'},nsne:{...X.nsne,who:'mm'},wmdb:{...X.wmdb,who:'f'},zsezw:{...X.zsezw,who:'mm'},
+ zst:{...X.zst,who:'g'},nsmm:{...X.nsmm,who:'g'}};
+const D=[{sit:'คุณไปเที่ยวบ้านหวังหมิง เขาชวนดูรูปครอบครัว',img:PHOTO},L.zswj,L.zbbm,L.nss,L.nsne,L.wmdb,{sit:'แม่ของหวังหมิงเดินเข้ามา ชี้ไปที่หวังหมิง',img:MM},L.zsezw];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+const FC=[{img:BB,th:'พ่อ'},{img:MM,th:'แม่'},{img:EZ.img,th:'ลูกชาย'},{img:NE.img,th:'ลูกสาว'}];
+LESSON({no:10,code:'บท 3-1',goal:{do:'แนะนำคนในครอบครัว บอกว่านี่หรือนั่นคือใคร และบอกว่าเป็นของใคร',sub:'ใช้ <span class="gz">这是 · 那是谁 · 我的 · 都是</span>',min:11},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:PHOTO,cap:'สถานการณ์ของบทนี้',title:'เพื่อนดูรูปครอบครัวที่บ้าน',line:L.zbbm,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะแนะนำคนในครอบครัวและถามว่าคนในรูปคือใครได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZHE,NA,DE,EZ,NE,DOU]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['这','那','的','儿子','女儿','都'],note:'ใช้คำจากเล่ม 0 爸爸 妈妈 家 和 ร่วมด้วย'}),
+ wcard({no:1,of:6,cap:'ชี้ใกล้',w:ZHE,aid:{parts:['zhè',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"เจ้อ"</b> · zh ม้วนลิ้นขึ้น',sk:'fs:这',
+  use:'แปลว่านี่ นี้ · ใช้ชี้คนหรือของที่อยู่ใกล้ตัว เช่น 这是我家 นี่คือบ้านของฉัน',ex:[X.zswj,X.zsbb]}),
+ wcard({no:2,of:6,cap:'ชี้ไกล',w:NA,aid:{parts:['nà',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"น่า"</b>',sk:'fs:那',
+  use:'แปลว่านั่น นั้น · ใช้ชี้คนหรือของที่อยู่ไกลออกไป · ถามว่า 那是谁 นั่นคือใคร',ex:[X.nss,X.nsmm]}),
+ rec({n:'คำที่ 1–2/6',ws:[ZHE,NA]}),
+ use({n:'คำที่ 1–2/6',w:NA,when:[{img:ZHE.img,t:'ของอยู่ใกล้ ใช้ 这'},{img:NA.img,t:'ของอยู่ไกล ใช้ 那'}],lines:[{...X.zsbb,who:'f'},{...X.nss,who:'me'},{...X.nsmm,who:'g'}],tip:'ใกล้ = <span class="zh">这</span> · ไกล = <span class="zh">那</span> · ตามด้วย <span class="zh">是</span> ได้เลย'}),
+ wcard({no:3,of:6,cap:'แสดงความเป็นเจ้าของ',w:DE,aid:{parts:['de',0],cap:'เสียงเบา'},hint:'คล้าย <b>"เดอะ"</b> เบาและสั้น',sk:'fs:的',
+  use:'แปลว่าของ · เจ้าของ + 的 + สิ่งของ เช่น 我的书 หนังสือของฉัน · ลำดับกลับกับภาษาไทย',ex:[X.zswds,X.nsnd]}),
+ wcard({no:4,of:6,cap:'ครอบครัว',w:EZ,aid:{parts:['ér',2,'zi',0],cap:'เสียง 2 + เสียงเบา'},hint:'คล้าย <b>"เอ๋อร์ จึ"</b> · ér ม้วนลิ้นท้าย',sk:'fs:儿子',
+  use:'แปลว่าลูกชาย · พ่อแม่ใช้พูดถึงลูกผู้ชายของตัวเอง',ex:[X.zsez,X.tswez]}),
+ syl({n:'คำที่ 4/6',w:EZ,chars:[{zh:'儿',py:'ér',t:2,k:'sy:儿'},{zh:'子',py:'zi',t:0}],done:'ér + zi เบา = érzi'}),
+ wcard({no:5,of:6,cap:'ครอบครัว',w:NE,aid:{parts:['nǚ',3,'ér',2],cap:'เสียง 3 + เสียง 2'},hint:'คล้าย <b>"หนวี่ เอ๋อร์"</b> · ǚ ห่อปากแล้วพูด อี',sk:'fs:女儿',
+  use:'แปลว่าลูกสาว · 我的女儿 ลูกสาวของฉัน',ex:[X.nsne,X.tswne]}),
+ syl({n:'คำที่ 5/6',w:NE,chars:[{zh:'女',py:'nǚ',t:3,k:'sy:女'},{zh:'儿',py:'ér',t:2,k:'sy:儿'}],done:'nǚ + ér = nǚ\'ér'}),
+ rec({n:'คำที่ 3–5/6',ws:[DE,EZ,NE]}),
+ use({n:'คำที่ 4–5/6',w:NE,when:[{img:EZ.img,t:'แม่แนะนำลูกชาย'},{img:NE.img,t:'แม่แนะนำลูกสาว'}],lines:[{...X.zsez,who:'mm'},{...X.nsne,who:'mm'}],tip:'กับคนในครอบครัว จะใส่ <span class="zh">的</span> หรือไม่ใส่ก็ได้ · <span class="zh">我的女儿</span> = <span class="zh">我女儿</span>'}),
+ wcard({no:6,of:6,cap:'ทั้งหมด',w:DOU,aid:{parts:['dōu',1],cap:'เสียง 1 สูงเรียบ'},hint:'คล้าย <b>"โตว"</b> เสียงสูงยาว',sk:'fs:都',
+  use:'แปลว่าล้วน ทั้งหมด · วางหลังคนหลายคน และอยู่หน้า 是 เช่น 我们都是泰国人',ex:[X.wmdt,X.bmdl]}),
+ rec({n:'คำที่ 6/6',ws:[DOU]}),
+ use({n:'คำที่ 6/6',w:DOU,when:[{img:FAM,t:'ทุกคนในครอบครัวเหมือนกัน'},{img:TCH,t:'พ่อแม่เป็นครูทั้งคู่'}],lines:[{...X.wmdt,who:'f'},{...X.bmdl,who:'g'}],tip:'<span class="zh">都</span> อยู่หน้า <span class="zh">是</span> เสมอ · ไม่วางไว้ท้ายประโยคแบบคำว่า ทุกคน ในภาษาไทย'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','这 กับ 那','ดูรูปครอบครัว','ของใคร','都','ข้อควรระวัง'],note:'ฝึกแนะนำคนในครอบครัวจากรูปถ่าย'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่บ้านเพื่อน',title:'นั่นคือใคร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ชี้ใกล้ใช้ 这 ชี้ไกลใช้ 那'}),
+ cmp({cap:'เทคนิค 2/6 · 这 กับ 那',title:'ใกล้หรือไกล',text:'ประโยคเหมือนกัน เปลี่ยนแค่คำชี้',a:{who:'ใกล้ตัว',img:ZHE.img,zh:'这是谁？',py:'zhè shì shéi?',th:'นี่คือใคร',k:'b10-zst-g'},b:{who:'ไกลออกไป',img:NA.img,zh:'那是谁？',py:'nà shì shéi?',th:'นั่นคือใคร',k:'b10-nss-f'},
+  tip:'ถามว่าใคร ใช้ <span class="zh">谁</span> แทนที่คำตอบได้เลย ไม่ต้องย้ายไปไว้หน้าประโยค'}),
+ point({tag:'เทคนิค 3/6 · ดูรูปครอบครัว',q:'ฟังหวังหมิงแนะนำครอบครัว แล้วแตะคนในรูปที่ตรงกัน',this:'คือคนนี้',cards:FC,rounds:[
+  {zh:'这是我爸爸。',k:'b10-zsbb-f',ans:0},{zh:'这是我妈妈。',k:'b10-zsmm-f',ans:1},{zh:'那是我的女儿。',k:'b10-nsne-t',ans:3,why:'แม่ของเพื่อนพูดถึงลูกสาว'},{zh:'这是我的儿子。',k:'b10-zsez-t',ans:2,why:'แม่ของเพื่อนพูดถึงลูกชาย'}]}),
+ talk({cap:'เทคนิค 4/6 · ของใคร',title:'เจ้าของ + 的 + สิ่งของ',text:'แตะแต่ละคำเพื่อฟัง ลำดับกลับกับภาษาไทย',lines:[{...X.zswds,who:'f'},{...X.nsnd,who:'g'}],
+  chips:[X.wds,X.ndb,X.wdm,X.lsds],tip:'ภาษาไทยพูด หนังสือ + ของฉัน · ภาษาจีนพูด <span class="zh">我的</span> + <span class="zh">书</span>'}),
+ talk({cap:'เทคนิค 5/6 · 都',title:'ทุกคนเหมือนกัน',text:'หลายคน + 都 + 是 ...',lines:[{...X.wmdt,who:'f'},{...X.wmdb,who:'f'},{...X.bmdl,who:'g'}],
+  chips:[{zh:'都是',py:'dōu shì',th:'เป็น...ทุกคน',k:'b10-ds-t'}],tip:'ประธานต้องมีหลายคน เช่น <span class="zh">我们</span> <span class="zh">爸爸妈妈</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'的 อยู่หลังเจ้าของ',bad:'书的我。',good:'我的书。',k:'b10-wds-t'},
+  {h:'都 อยู่หน้า 是',bad:'我们是泰国人都。',good:'我们都是泰国人。',k:'b10-wmdt-f'},
+  {h:'ใช้ 谁 ถามคน ไม่ใช้ 什么',bad:'那是什么人？',good:'那是谁？',k:'b10-nss-f'},
+  {h:'ลูกสาวคือ 女儿 ไม่ใช่ 女孩',bad:'她是我女孩。',good:'她是我女儿。',k:'b10-tswne-t'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:女儿',opts:['ลูกสาว','ลูกชาย','แม่'],ans:0,fb:'<span class="zh">女儿</span> <b>nǚ\'ér</b> = ลูกสาว'}),
+ ask({rv:7,q:'ฟัง 这 zhè แล้วเลือกพยัญชนะตัวแรก',k:'w:这',opts:['zh','z','j'],ans:0,fb:'<b>zh</b>è · zh ม้วนลิ้นขึ้น'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b10-tswez-t',opts:[{img:NE.img},{img:EZ.img},{img:BB}],ans:1,fb:'<span class="zh">他是我儿子。</span> = เขาเป็นลูกชายของฉัน'}),
+ blank({tag:TQ(3),s:'这是我_书。',th:'นี่คือหนังสือของฉัน',opts:['的','是','都'],ans:0,k:'b10-zswds-f',fb:'<span class="zh">这是我的书。</span>'}),
+ ask({rv:4,q:'ฟัง 女 nǚ แล้วเลือกสระ',k:'sy:女',opts:['u','ü'],ans:1,fb:'n<b>ǚ</b> · หลัง n l ต้องเขียนจุดบน ü ให้เห็น'}),
+ reply({tag:TQ(4),q:'เพื่อนชี้รูปผู้หญิงที่อยู่ไกล แล้วถามคุณ เธอคือแม่ของคุณ',line:{...X.nss,k:'b10-nss-g',who:'g'},opts:[X.nsmm,S('那是我的书。','nà shì wǒ de shū.','นั่นคือหนังสือของฉัน','b10-nswds-f'),S('我是妈妈。','wǒ shì māma.','ฉันเป็นแม่','b10-wsmm-f')],ans:0,why:'ถามว่าใคร ตอบด้วยคน'}),
+ order({tag:TQ(5),th:'พวกเราเป็นคนไทยทุกคน',tiles:[tl('我们','wǒmen'),tl('都','dōu'),tl('是','shì'),tl('泰国','Tàiguó'),tl('人','rén'),tl('的','de')],ans:[0,1,2,3,4],end:'。',k:'b10-wmdt-f'}),
+ ask({rv:2,q:'ฟังพยางค์ 都 dōu แล้วเลือกเส้นเสียง',k:'w:都',opts:[{tone:1,lab:'เสียง 1'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t1">dōu</b> <span class="zh">都</span> · เสียง 1 สูงเรียบ'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b10-bmdl-g',opts:['พ่อกับแม่เป็นครูทั้งคู่','พ่อเป็นครู','แม่ไม่ใช่ครู'],ans:0,fb:'<span class="zh">爸爸妈妈都是老师。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'แนะนำครอบครัวให้เพื่อน',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'เพื่อนชี้ผู้ชายในรูปที่อยู่ใกล้คุณ เขาคือพ่อของคุณ',line:L.zst,opts:[X.zsbb,X.zswj,X.nsnd],ans:0}),
+ ask({tag:MQ(2),q:'ฟังประโยค แล้วเลือกภาพ',k:'b10-nsez-t',opts:[{img:MM},{img:EZ.img},{img:NE.img}],ans:1,fb:'<span class="zh">那是我的儿子。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('这','zhè'),tl('是','shì'),tl('我','wǒ'),tl('的','de'),tl('女儿','nǚ\'ér'),tl('那','nà')],ans:[0,1,2,3,4],end:'。',k:'b10-zswne-t'}),
+ blank({tag:MQ(4),noTh:1,s:'我们_是北京人。',opts:['都','的','那'],ans:0,k:'b10-wmdb-f',fb:'<span class="zh">我们都是北京人。</span>'}),
+ /* 5 · จบบท */
+ fin({title:'แนะนำครอบครัวได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZHE,NA,DE,EZ,NE,DOU].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L10',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

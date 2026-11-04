@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · บท 3-2 ในบ้านมีอะไร</title>
+</head><body>
+<script>
+/* บท 3-2 หน่วย 3 เพื่อนมาเที่ยวบ้าน: ในบ้านมีอะไร · คำใหม่ 桌子 椅子 电脑 电视 本 里 上 下 · ทบทวนเล่ม 0: 书 杯子 猫 狗
+   ทบทวนจากบทก่อน: 有 一 家 吗 · กิจกรรมเฉพาะบท: ฟังแล้วแยกของตามตำแหน่ง บน ใต้ ข้างใน */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const ZZ=w('桌子','zhuōzi','โต๊ะ'),YZ=w('椅子','yǐzi','เก้าอี้'),DN=w('电脑','diànnǎo','คอมพิวเตอร์'),DS=w('电视','diànshì','โทรทัศน์'),BEN=w('本','běn','เล่ม (ลักษณนามของหนังสือ)'),
+ LI=w('里','lǐ','ข้างใน'),SHANG=w('上','shàng','บน ข้างบน'),XIA=w('下','xià','ใต้ ข้างล่าง');
+const ROOM=ART('房间'),BOOK=ART('书'),CUP=ART('杯子'),CAT=ART('猫'),DOG=ART('狗'),WATER=ART('水'),HOME=ART('家');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ jlyd:S('家里有电脑吗？','jiā li yǒu diànnǎo ma?','ที่บ้านมีคอมพิวเตอร์ไหม','b11-jlyd-g'),yzsd:S('有。桌子上有电脑。','yǒu. zhuōzi shang yǒu diànnǎo.','มี บนโต๊ะมีคอมพิวเตอร์','b11-yzsd-f'),
+ zsyj:S('桌子上有几本书？','zhuōzi shang yǒu jǐ běn shū?','บนโต๊ะมีหนังสือกี่เล่ม','b11-zsyj-g'),zsyl:S('桌子上有两本书。','zhuōzi shang yǒu liǎng běn shū.','บนโต๊ะมีหนังสือสองเล่ม','b11-zsyl-f'),
+ yxym:S('椅子下有猫！','yǐzi xia yǒu māo!','ใต้เก้าอี้มีแมว','b11-yxym-g'),nswm:S('那是我的猫。','nà shì wǒ de māo.','นั่นคือแมวของฉัน','b11-nswm-f'),
+ zsyb:S('桌子上有一本书。','zhuōzi shang yǒu yì běn shū.','บนโต๊ะมีหนังสือหนึ่งเล่ม','b11-zsyb-t'),zswz:S('这是我的桌子。','zhè shì wǒ de zhuōzi.','นี่คือโต๊ะของฉัน','b11-zswz-f'),
+ yxymt:S('椅子下有猫。','yǐzi xia yǒu māo.','ใต้เก้าอี้มีแมว','b11-yxym-t'),zsny:S('这是你的椅子。','zhè shì nǐ de yǐzi.','นี่คือเก้าอี้ของคุณ','b11-zsny-t'),
+ zsbd:S('这是我爸爸的电脑。','zhè shì wǒ bàba de diànnǎo.','นี่คือคอมพิวเตอร์ของพ่อฉัน','b11-zsbd-f'),jlyds:S('家里有电视。','jiā li yǒu diànshì.','ที่บ้านมีโทรทัศน์','b11-jlyds-t'),
+ nsjd:S('那是我家的电视。','nà shì wǒ jiā de diànshì.','นั่นคือโทรทัศน์ของบ้านฉัน','b11-nsjd-f'),
+ ybs:S('一本书','yì běn shū','หนังสือหนึ่งเล่ม','b11-ybs-t'),lbs:S('两本书','liǎng běn shū','หนังสือสองเล่ม','b11-lbs-t'),sbs:S('三本书','sān běn shū','หนังสือสามเล่ม','b11-sbs-t'),
+ wylb:S('我有两本书。','wǒ yǒu liǎng běn shū.','ฉันมีหนังสือสองเล่ม','b11-wylb-f'),zsyd:S('桌子上有电脑。','zhuōzi shang yǒu diànnǎo.','บนโต๊ะมีคอมพิวเตอร์','b11-zsyd-t'),
+ zxyg:S('桌子下有狗。','zhuōzi xia yǒu gǒu.','ใต้โต๊ะมีสุนัข','b11-zxyg-t'),blys:S('杯子里有水。','bēizi li yǒu shuǐ.','ในแก้วมีน้ำ','b11-blys-t'),
+ zzs:S('桌子上','zhuōzi shang','บนโต๊ะ','b11-zzs-t'),yzx:S('椅子下','yǐzi xia','ใต้เก้าอี้','b11-yzx-t'),jl:S('家里','jiā li','ในบ้าน','b11-jl-t'),bl:S('杯子里','bēizi li','ในแก้ว','b11-bl-t'),
+ you:S('有。','yǒu.','มี','b11-you-f'),my:S('没有。','méiyǒu.','ไม่มี','b11-my-f'),shi:S('是。','shì.','ใช่','b11-shi-f'),wsds:S('我是电视。','wǒ shì diànshì.','ฉันเป็นโทรทัศน์','b11-wsds-f'),
+ jlyds2:S('家里有电视吗？','jiā li yǒu diànshì ma?','ที่บ้านมีโทรทัศน์ไหม','b11-jlyds2-g'),lgbz:S('两个杯子','liǎng ge bēizi','แก้วสองใบ','b11-lgbz-t'),
+ zs3:S('桌子上有三本书。','zhuōzi shang yǒu sān běn shū.','บนโต๊ะมีหนังสือสามเล่ม','b11-zs3-f'),zs3g:S('桌子上有三个书。','zhuōzi shang yǒu sān ge shū.','','b11-zs3g-f'),zx3:S('桌子下有三本书。','zhuōzi xia yǒu sān běn shū.','ใต้โต๊ะมีหนังสือสามเล่ม','b11-zx3-f'),
+ yzsg:S('椅子上有狗。','yǐzi shang yǒu gǒu.','บนเก้าอี้มีสุนัข','b11-yzsg-g'),jlym:S('家里有猫。','jiā li yǒu māo.','ในบ้านมีแมว','b11-jlym-m'),yxyb:S('椅子下有杯子。','yǐzi xia yǒu bēizi.','ใต้เก้าอี้มีแก้ว','b11-yxyb-t'),
+ zsds:S('桌子上有电视。','zhuōzi shang yǒu diànshì.','บนโต๊ะมีโทรทัศน์','b11-zsds-m'),jlyd2:S('家里有电脑。','jiā li yǒu diànnǎo.','ในบ้านมีคอมพิวเตอร์','b11-jlyd2-g'),jlmy:S('家里没有电视。','jiā li méiyǒu diànshì.','ที่บ้านไม่มีโทรทัศน์','b11-jlmy-t'),zxym:S('桌子下有猫。','zhuōzi xia yǒu māo.','ใต้โต๊ะมีแมว','b11-zxym-t')};
+const L={jlyd:{...X.jlyd,who:'g'},yzsd:{...X.yzsd,who:'me'},zsyj:{...X.zsyj,who:'g'},zsyl:{...X.zsyl,who:'me'},yxym:{...X.yxym,who:'g'},nswm:{...X.nswm,who:'me'},jlyds2:{...X.jlyds2,who:'g'}};
+const D=[{sit:'เพื่อนมาเที่ยวบ้าน คุณพาเพื่อนดูห้องของคุณ',img:ROOM},L.jlyd,L.yzsd,L.zsyj,L.zsyl,{sit:'ได้ยินเสียงแมวร้องเหมียว',img:CAT},L.yxym,L.nswm];
+const BINS=[{img:SHANG.img,zh:'上',py:'shàng',th:'บน'},{img:XIA.img,zh:'下',py:'xià',th:'ใต้'},{img:LI.img,zh:'里',py:'lǐ',th:'ข้างใน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:11,code:'บท 3-2',goal:{do:'บอกว่าในบ้านมีอะไร และของอยู่บน ใต้ หรือข้างใน',sub:'ใช้ <span class="gz">桌子上有 · 椅子下有 · 家里有…吗 · 一本书</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:ROOM,cap:'สถานการณ์ของบทนี้',title:'พาเพื่อนดูห้อง ของอยู่ตรงไหน',line:L.jlyd,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกได้ว่าบนโต๊ะ ใต้เก้าอี้ หรือในบ้านมีอะไร'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZZ,YZ,DN,DS,BEN,LI,SHANG,XIA]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['桌子','椅子','电脑','电视','本','上','下','里'],note:'ใช้คำจากเล่ม 0 书 杯子 猫 狗 ร่วมด้วย'}),
+ wcard({no:1,of:8,cap:'ของในบ้าน',w:ZZ,aid:{parts:['zhuō',1,'zi',0],cap:'เสียง 1 + เสียงเบา'},hint:'คล้าย <b>"จัว จึ"</b> · zh ม้วนลิ้นขึ้น',sk:'fs:桌子',
+  use:'แปลว่าโต๊ะ · 桌子上 บนโต๊ะ',ex:[X.zswz,X.zsyb]}),
+ syl({n:'คำที่ 1/8',w:ZZ,chars:[{zh:'桌',py:'zhuō',t:1,k:'sy:桌'},{zh:'子',py:'zi',t:0}],done:'zhuō + zi เบา = zhuōzi'}),
+ wcard({no:2,of:8,cap:'ของในบ้าน',w:YZ,aid:{parts:['yǐ',3,'zi',0],cap:'เสียง 3 + เสียงเบา'},hint:'คล้าย <b>"อี่ จึ"</b>',sk:'fs:椅子',
+  use:'แปลว่าเก้าอี้ · 椅子下 ใต้เก้าอี้',ex:[X.zsny,X.yxymt]}),
+ syl({n:'คำที่ 2/8',w:YZ,chars:[{zh:'椅',py:'yǐ',t:3,k:'sy:椅'},{zh:'子',py:'zi',t:0}],done:'yǐ + zi เบา = yǐzi'}),
+ rec({n:'คำที่ 1–2/8',ws:[ZZ,YZ]}),
+ wcard({no:3,of:8,cap:'เครื่องใช้ไฟฟ้า',w:DN,aid:{parts:['diàn',4,'nǎo',3],cap:'เสียง 4 + เสียง 3'},hint:'คล้าย <b>"เตี้ยน หน่าว"</b>',sk:'fs:电脑',
+  use:'แปลว่าคอมพิวเตอร์ · 电 แปลว่าไฟฟ้า 脑 แปลว่าสมอง',ex:[X.jlyd,X.zsbd]}),
+ syl({n:'คำที่ 3/8',w:DN,chars:[{zh:'电',py:'diàn',t:4,k:'sy:电'},{zh:'脑',py:'nǎo',t:3,k:'sy:脑'}],done:'diàn + nǎo = diànnǎo'}),
+ wcard({no:4,of:8,cap:'เครื่องใช้ไฟฟ้า',w:DS,aid:{parts:['diàn',4,'shì',4],cap:'เสียง 4 ทั้งสองพยางค์'},hint:'คล้าย <b>"เตี้ยน ซื่อ"</b> · sh ม้วนลิ้นขึ้น',sk:'fs:电视',
+  use:'แปลว่าโทรทัศน์ · ขึ้นต้นด้วย 电 เหมือน 电脑',ex:[X.jlyds,X.nsjd]}),
+ syl({n:'คำที่ 4/8',w:DS,chars:[{zh:'电',py:'diàn',t:4,k:'sy:电'},{zh:'视',py:'shì',t:4,k:'sy:视'}],done:'diàn + shì = diànshì'}),
+ rec({n:'คำที่ 3–4/8',ws:[DN,DS]}),
+ use({n:'คำที่ 3–4/8',w:DS,when:[{img:DN.img,t:'ถามว่ามีคอมพิวเตอร์ไหม'},{img:DS.img,t:'บอกว่ามีโทรทัศน์'}],lines:[L.jlyd,{...X.yzsd,who:'me'},{...X.jlyds,who:'t'}],tip:'ถามว่ามีไหม ใช้ <span class="zh">有…吗？</span> · ตอบสั้น ๆ ว่า <span class="zh">有</span> หรือ <span class="zh">没有</span>'}),
+ wcard({no:5,of:8,cap:'คำลักษณนาม',w:BEN,aid:{parts:['běn',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"เปิ่น"</b> · ลงท้าย -n',sk:'fs:本',
+  use:'ลักษณนามของหนังสือ เหมือนคำว่า เล่ม · ตัวเลข + 本 + 书 · ลำดับกลับกับภาษาไทย',ex:[X.ybs,X.wylb]}),
+ wcard({no:6,of:8,cap:'ตำแหน่ง',w:SHANG,aid:{parts:['shàng',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"ซ่าง"</b> · sh ม้วนลิ้นขึ้น',sk:'fs:上',
+  use:'แปลว่าบน · วางหลังสิ่งของ เช่น 桌子上 บนโต๊ะ · เวลาอยู่หลังคำอื่นมักออกเสียงเบา',ex:[X.zsyb,X.zsyd]}),
+ wcard({no:7,of:8,cap:'ตำแหน่ง',w:XIA,aid:{parts:['xià',4],cap:'เสียง 4 ลงหนัก'},hint:'คล้าย <b>"เซี่ย"</b>',sk:'fs:下',
+  use:'แปลว่าใต้ ข้างล่าง · 椅子下 ใต้เก้าอี้ · ตรงข้ามกับ 上',ex:[X.yxymt,X.zxyg]}),
+ wcard({no:8,of:8,cap:'ตำแหน่ง',w:LI,aid:{parts:['lǐ',3],cap:'เสียง 3 กดต่ำ'},hint:'คล้าย <b>"หลี่"</b>',sk:'fs:里',
+  use:'แปลว่าข้างใน · 家里 ในบ้าน 杯子里 ในแก้ว',ex:[X.jlyd,X.blys]}),
+ rec({n:'คำที่ 5–8/8',ws:[BEN,SHANG,XIA,LI]}),
+ use({n:'คำที่ 6–8/8',w:SHANG,when:[{img:SHANG.img,t:'อยู่บน'},{img:XIA.img,t:'อยู่ใต้'},{img:LI.img,t:'อยู่ข้างใน'}],lines:[{...X.zsyb,who:'t'},{...X.yxymt,who:'t'},{...X.blys,who:'t'}],tip:'ภาษาไทยพูด บน + โต๊ะ · ภาษาจีนพูด <span class="zh">桌子</span> + <span class="zh">上</span>'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ตรงไหนมีอะไร','有…吗','บน ใต้ ข้างใน','本 กับ 个','ข้อควรระวัง'],note:'ฝึกบอกว่าของอยู่ตรงไหนในบ้าน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในห้องของคุณ',title:'ในห้องมีอะไร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามจำนวนหนังสือใช้ 几本'}),
+ talk({cap:'เทคนิค 2/6 · ตรงไหนมีอะไร',title:'ที่ไหน + 有 + อะไร',text:'ขึ้นต้นด้วยที่ แล้วตามด้วย 有 และสิ่งของ แตะแต่ละที่เพื่อฟัง',lines:[{...X.zsyb,who:'t'},{...X.yxymt,who:'t'}],
+  chips:[X.zzs,X.yzx,X.jl,X.bl],tip:'ประโยคนี้ไม่ต้องมี <span class="zh">是</span> · <span class="zh">桌子上有书。</span>'}),
+ cmp({cap:'เทคนิค 3/6 · 有…吗',title:'มีไหม',text:'ถามด้วย 有…吗 ตอบสั้น ๆ ได้',a:{who:'มี',img:DN.img,zh:'有。',py:'yǒu.',th:'มี',k:'b11-you-f'},b:{who:'ไม่มี',img:DS.img,zh:'没有。',py:'méiyǒu.',th:'ไม่มี',k:'b11-my-f'},
+  tip:'คำถาม <span class="zh">家里有电脑吗？</span> ห้ามตอบว่า <span class="zh">是</span>'}),
+ sortmap({tag:'เทคนิค 4/6 · บน ใต้ ข้างใน',q:'ฟังแต่ละประโยค แล้วแตะว่าของอยู่ตรงไหน',bins:BINS,
+  items:[it(BOOK,X.zsyb,0),it(CAT,X.yxymt,1),it(WATER,X.blys,2),it(DOG,X.zxyg,1),it(DN.img,X.zsyd,0),it(DS.img,X.jlyds,2)]}),
+ talk({cap:'เทคนิค 5/6 · 本 กับ 个',title:'นับหนังสือใช้ 本',text:'หนังสือใช้ 本 ส่วนแก้วและคนใช้ 个',lines:[{...X.zsyj,who:'g'},{...X.zsyl,who:'me'}],
+  chips:[X.ybs,X.lbs,X.sbs,X.lgbz],tip:'หน้า 本 ก็ใช้ <span class="zh">两</span> เหมือนหน้า 个 · <span class="zh">两本书</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'上 อยู่หลังสิ่งของ',bad:'上桌子有书。',good:'桌子上有书。',k:'b11-zsyb-t'},
+  {h:'หนังสือใช้ 本',bad:'两个书。',good:'两本书。',k:'b11-lbs-t'},
+  {h:'ตอบคำถาม 有…吗 ด้วย 有',bad:'是。',good:'有。',k:'b11-you-f'},
+  {h:'ไม่มี ใช้ 没有',bad:'家里不有电视。',good:'家里没有电视。',k:'b11-jlmy-t'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ฟังประโยค','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:椅子',opts:['เก้าอี้','โต๊ะ','โทรทัศน์'],ans:0,fb:'<span class="zh">椅子</span> <b>yǐzi</b> = เก้าอี้'}),
+ ask({rv:7,q:'ฟัง 视 shì แล้วเลือกพยัญชนะตัวแรก',k:'sy:视',opts:['sh','s','x'],ans:0,fb:'<b>sh</b>ì · ม้วนลิ้นขึ้น'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b11-zsyd-t',opts:['บนโต๊ะมีคอมพิวเตอร์','ใต้โต๊ะมีคอมพิวเตอร์','ในบ้านมีโทรทัศน์'],ans:0,fb:'<span class="zh">桌子上有电脑。</span>'}),
+ blank({tag:TQ(3),s:'桌子上有一_书。',th:'บนโต๊ะมีหนังสือหนึ่งเล่ม',opts:['本','个','两'],ans:0,k:'b11-zsyb-t',fb:'<span class="zh">一本书</span> หนังสือใช้ 本'}),
+ ask({rv:11,q:'ฟัง 电 diàn แล้วเลือกเสียงท้าย',k:'sy:电',opts:['-n','-ng'],ans:0,fb:'dià<b>n</b> · ลงท้าย -n ปลายลิ้นแตะเหงือก'}),
+ reply({tag:TQ(4),q:'เพื่อนถาม ที่บ้านคุณมีโทรทัศน์',line:L.jlyds2,opts:[X.you,X.shi,X.wsds],ans:0,why:'ถามด้วย 有 ตอบด้วย 有'}),
+ order({tag:TQ(5),th:'ใต้เก้าอี้มีแมว',tiles:[tl('椅子','yǐzi'),tl('下','xia'),tl('有','yǒu'),tl('猫','māo'),tl('是','shì'),tl('上','shang')],ans:[0,1,2,3],end:'。',k:'b11-yxym-t'}),
+ ask({rv:2,q:'ฟังพยางค์ 脑 nǎo แล้วเลือกเส้นเสียง',k:'sy:脑',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">nǎo</b> <span class="zh">脑</span> · เสียง 3 กดต่ำ'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกภาพตำแหน่งที่ตรงกัน',k:'b11-zxyg-t',opts:[{img:SHANG.img},{img:XIA.img},{img:LI.img}],ans:1,fb:'<span class="zh">桌子下有狗。</span> = ใต้โต๊ะมีสุนัข'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ช่วยเพื่อนหาของในบ้าน',chips:['ของอยู่ตรงไหน','ตอบเพื่อน','เติมคำ','ฟังแล้วเลือกภาพ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ sortmap({tag:MQ(1),noTh:1,q:'ฟังแต่ละประโยค แล้วแตะตำแหน่งที่ตรงกัน',bins:BINS,items:[it(DOG,X.yzsg,0),it(CUP,X.yxyb,1),it(CAT,X.jlym,2),it(DS.img,X.zsds,0)]}),
+ reply({tag:MQ(2),noTh:1,q:'บนโต๊ะมีหนังสือสามเล่ม เพื่อนถามว่า',line:L.zsyj,opts:[X.zs3,X.zs3g,X.zx3],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'杯子_有水。',opts:['里','本','是'],ans:0,k:'b11-blys-t',fb:'<span class="zh">杯子里有水。</span>'}),
+ ask({tag:MQ(4),q:'ฟังประโยค แล้วเลือกภาพ',k:'b11-jlyd2-g',opts:[{img:DS.img},{img:DN.img},{img:ZZ.img}],ans:1,fb:'<span class="zh">家里有电脑。</span>'}),
+ /* 5 · จบบท */
+ fin({title:'บอกได้แล้วว่าในบ้านมีอะไร อยู่ตรงไหน',html:dlgH(D,{noTh:1}),chips:[ZZ,YZ,DN,DS,BEN,SHANG,XIA,LI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L11',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

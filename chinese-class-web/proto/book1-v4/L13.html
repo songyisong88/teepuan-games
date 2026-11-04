@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script>
+<title>ต้นแบบ · ทบทวนหน่วยที่ 3</title>
+</head><body>
+<script>
+/* ทบทวนหน่วยที่ 3 เพื่อนมาเที่ยวบ้าน: ทวนคำเล่ม 0 + คำทั้ง 3 บท → บทสนทนาที่บ้าน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.g={n:'เพื่อน',img:ART('女孩')};
+const BBw=w('爸爸','bàba','พ่อ'),MMw=w('妈妈','māma','แม่'),JIA=w('家','jiā','บ้าน'),HE=w('和','hé','และ กับ'),SHU=w('书','shū','หนังสือ'),BZ=w('杯子','bēizi','แก้ว'),MAO=w('猫','māo','แมว'),HEw=w('喝','hē','ดื่ม'),CHA=w('茶','chá','ชา');
+const ZHE=w('这','zhè','นี่ นี้'),NA=w('那','nà','นั่น นั้น'),DE=w('的','de','ของ'),EZ=w('儿子','érzi','ลูกชาย'),NE=w('女儿','nǚ\'ér','ลูกสาว'),DOU=w('都','dōu','ล้วน ทั้งหมด');
+const ZZ=w('桌子','zhuōzi','โต๊ะ'),YZ=w('椅子','yǐzi','เก้าอี้'),DN=w('电脑','diànnǎo','คอมพิวเตอร์'),DS=w('电视','diànshì','โทรทัศน์'),BEN=w('本','běn','เล่ม (ลักษณนามของหนังสือ)'),
+ LI=w('里','lǐ','ข้างใน'),SHANG=w('上','shàng','บน ข้างบน'),XIA=w('下','xià','ใต้ ข้างล่าง');
+const QING=w('请','qǐng','เชิญ กรุณา'),ZUO=w('坐','zuò','นั่ง'),XIANG=w('想','xiǎng','อยาก'),DX=w('东西','dōngxi','ของ สิ่งของ'),XIE=w('些','xiē','บาง หลาย (ลักษณนามพหูพจน์)'),XIAO=w('小','xiǎo','เล็ก');
+const IMG=n=>`img/${n}.webp`,lab=(n,t)=>{THL[IMG(n)]=t;return IMG(n)};
+const CB=lab('cupbig','แก้วใบใหญ่'),CS=lab('cupsmall','แก้วใบเล็ก');
+const GUEST=ART('客人'),TEA=ART('茶'),WATER=ART('水'),CAT=ART('猫'),CHAIR=ART('椅子');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const L={qz:S('请坐！','qǐng zuò!','เชิญนั่ง','b12-qz-f','me'),xzsn:S('谢谢！这是你家吗？','xièxie! zhè shì nǐ jiā ma?','ขอบคุณ นี่คือบ้านของคุณใช่ไหม','b13-xzsn-g','g'),
+ nsbm:S('是。那是我爸爸和我妈妈。','shì. nà shì wǒ bàba hé wǒ māma.','ใช่ นั่นคือพ่อและแม่ของฉัน','b13-nsbm-f','me'),
+ njyd:S('你家有电视吗？','nǐ jiā yǒu diànshì ma?','บ้านคุณมีโทรทัศน์ไหม','b13-njyd-g','g'),yzsd:S('有，桌子上有电视。','yǒu, zhuōzi shang yǒu diànshì.','มี บนโต๊ะมีโทรทัศน์','b13-yzsd-f','me'),
+ nxh:S('你想喝什么？','nǐ xiǎng hē shénme?','คุณอยากดื่มอะไร','b12-nxh-f','me'),wxhc:S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','b12-wxhc-g','g'),qhc:S('请喝茶。','qǐng hē chá.','เชิญดื่มชา','b12-qhc-f','me'),
+ yxys:S('椅子下有什么？','yǐzi xia yǒu shénme?','ใต้เก้าอี้มีอะไร','b13-yxys-g','g'),bmdl:S('爸爸妈妈都是老师。','bàba māma dōu shì lǎoshī.','พ่อกับแม่เป็นครูทั้งคู่','b10-bmdl-g','g')};
+const O={wz:S('我坐！','wǒ zuò!','ฉันนั่ง','b12-wz-f'),qzc:S('请坐茶。','qǐng zuò chá.','ใช้กริยาผิด','b12-qzc-f'),
+ you:S('有。','yǒu.','มี','b11-you-f'),shi:S('是。','shì.','ใช่','b11-shi-f'),wsds:S('我是电视。','wǒ shì diànshì.','ฉันเป็นโทรทัศน์','b11-wsds-f'),
+ yxym:S('椅子下有猫。','yǐzi xia yǒu māo.','ใต้เก้าอี้มีแมว','b13-yxym-f'),yzsm:S('椅子上有猫。','yǐzi shang yǒu māo.','บนเก้าอี้มีแมว','b13-yzsm-f'),wym:S('我有猫。','wǒ yǒu māo.','ฉันมีแมว','b13-wym-f')};
+const R_=[S('桌子上有两本书。','zhuōzi shang yǒu liǎng běn shū.','บนโต๊ะมีหนังสือสองเล่ม','b11-zsyl-f'),S('她是我女儿。','tā shì wǒ nǚ\'ér.','เธอเป็นลูกสาวของฉัน','b10-tswne-t'),S('这个杯子很小。','zhège bēizi hěn xiǎo.','แก้วใบนี้เล็กมาก','b12-zgxx-t')];
+const D=[{sit:'วันเสาร์ เพื่อนมาเที่ยวบ้านคุณเป็นครั้งแรก',img:GUEST},L.qz,L.xzsn,L.nsbm,L.njyd,L.yzsd,{sit:'คุณเตรียมเครื่องดื่มให้เพื่อน',img:TEA},L.nxh,L.wxhc,L.qhc];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py}),op=x=>({...x,who:'me'});
+const FC=[{img:BBw.img,th:'พ่อ'},{img:MMw.img,th:'แม่'},{img:EZ.img,th:'ลูกชาย'},{img:NE.img,th:'ลูกสาว'}];
+const BINS=[{img:SHANG.img,zh:'上',py:'shàng',th:'บน'},{img:XIA.img,zh:'下',py:'xià',th:'ใต้'},{img:LI.img,zh:'里',py:'lǐ',th:'ข้างใน'}];
+const it=(img,zh,py,th,k,bin)=>({img,zh,py,th,k,bin});
+LESSON({no:13,code:'ทบทวนหน่วย 3',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 3 แนะนำครอบครัว บอกว่าของอยู่ที่ไหน และต้อนรับเพื่อนที่บ้าน',sub:'这 那 的 都 · 桌子上有 · 请坐 · 你想喝什么',min:8},steps:[
+ intro({scene:GUEST,cap:'บททบทวน',title:'เพื่อนมาเที่ยวบ้านครั้งแรก',line:L.xzsn,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 3-1 ถึง 3-3 และคำจากเล่ม 0'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 3',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'คำจากเล่ม 0',items:[BBw,MMw,JIA,HE,SHU,BZ,MAO,HEw,CHA]},{lab:'3-1 ครอบครัวของฉัน',items:[ZHE,NA,DE,EZ,NE,DOU]},{lab:'3-2 ในบ้านมีอะไร',items:[ZZ,YZ,DN,DS,BEN,LI,SHANG,XIA]},
+  {lab:'3-3 ต้อนรับแขก',items:[QING,ZUO,XIANG,DX,XIE,XIAO]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'เพื่อนมาเที่ยวบ้าน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ดูรูปครอบครัว','บน ใต้ ข้างใน','ต้อนรับเพื่อน','เติมคำ','เรียงคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[EZ,NE,ZZ,DN,DX]}),
+ point({tag:TQ(2),q:'ฟังแล้วแตะคนในรูปที่ตรงกัน',this:'คือคนนี้',cards:FC,rounds:[{zh:'这是我爸爸。',k:'b10-zsbb-f',ans:0},{zh:'那是我的女儿。',k:'b10-nsne-t',ans:3},{zh:'这是我的儿子。',k:'b10-zsez-t',ans:2}]}),
+ sortmap({tag:TQ(3),q:'ฟังแต่ละประโยค แล้วแตะว่าของอยู่ตรงไหน',bins:BINS,
+  items:[it(CAT,'桌子下有猫。','zhuōzi xia yǒu māo.','ใต้โต๊ะมีแมว','b11-zxym-t',1),it(WATER,'杯子里有水。','bēizi li yǒu shuǐ.','ในแก้วมีน้ำ','b11-blys-t',2),it(DN.img,'桌子上有电脑。','zhuōzi shang yǒu diànnǎo.','บนโต๊ะมีคอมพิวเตอร์','b11-zsyd-t',0)]}),
+ ask({rv:7,q:'ฟัง 桌 zhuō แล้วเลือกพยัญชนะตัวแรก',k:'sy:桌',opts:['zh','z','j'],ans:0,fb:'<b>zh</b>uō · zh ม้วนลิ้นขึ้น'}),
+ story({tag:TQ(4),q:'ดูภาพทีละภาพ แล้วเลือกว่าควรพูดอะไร',panels:[
+  {img:GUEST,sit:'เพื่อนมาถึงบ้าน คุณเชิญเพื่อนนั่ง',opts:[op({...L.qz}),op(O.wz)],ans:0,why:'เชิญนั่งใช้ 请坐'},
+  {img:TEA,sit:'เพื่อนบอกว่าอยากดื่มชา คุณยกชาให้',line:L.wxhc,opts:[op({...L.qhc}),op(O.qzc)],ans:0,why:'ยกชาให้แขก พูดว่า 请喝茶'}]}),
+ blank({tag:TQ(5),s:'桌子上有两_书。',th:'บนโต๊ะมีหนังสือสองเล่ม',opts:['本','个','些'],ans:0,k:'b11-zsyl-f',fb:'<span class="zh">桌子上有两本书。</span> · หนังสือใช้ 本'}),
+ order({tag:TQ(6),th:'บนโต๊ะมีคอมพิวเตอร์',tiles:[tl('桌子','zhuōzi'),tl('上','shang'),tl('有','yǒu'),tl('电脑','diànnǎo'),tl('里','li')],ans:[0,1,2,3],end:'。',k:'b11-zsyd-t'}),
+ ask({rv:10,q:'ฟัง 小 xiǎo แล้วเลือกสระ',k:'w:小',opts:['iao','ao','iu'],ans:0,fb:'x<b>iao</b> · i + ao อ่านต่อกันเร็ว ๆ'}),
+ ask({tag:TQ(7),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b10-tswne-t',opts:[{img:NE.img},{img:EZ.img},{img:MMw.img}],ans:0,fb:'<span class="zh">她是我女儿。</span> = เธอเป็นลูกสาวของฉัน'}),
+ reply({tag:TQ(8),q:'เพื่อนถามว่าบ้านคุณมีโทรทัศน์ไหม บ้านคุณมี',line:L.njyd,opts:[O.you,O.shi,O.wsds],ans:0,why:'ถามด้วย 有 ตอบด้วย 有 หรือ 没有'}),
+ ask({rv:9,q:'ฟัง 都 dōu แล้วเลือกว่าประกอบจากเสียงใด',k:'w:都',opts:['d + ou','t + ou','d + uo'],ans:0,fb:'<b>d</b> + <b>ou</b> = dōu'}),
+ lineup({tag:TQ(9),sit:'เพื่อนมาถึงบ้าน คุณเชิญนั่งแล้วถามเรื่องเครื่องดื่ม',lines:[L.qz,L.nxh,L.wxhc]}),
+ ask({tag:TQ(10),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b12-zgxx-t',opts:['แก้วใบนี้เล็กมาก','แก้วใบนั้นใหญ่มาก','แก้วเหล่านี้เป็นของฉัน'],ans:0,fb:'<span class="zh">这个杯子很小。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'เป็นเจ้าบ้านเอง',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'เพื่อนถามว่าใต้เก้าอี้มีอะไร แมวของคุณอยู่ใต้เก้าอี้',line:L.yxys,opts:[O.yxym,O.yzsm,O.wym],ans:0}),
+ ask({tag:MQ(2),q:'ฟังประโยค แล้วเลือกภาพ',k:'b13-ddsn-t',opts:[{img:CB},{img:CS},{img:CHAIR}],ans:0,fb:'<span class="zh">大的是你的。</span>',_reg:S('大的是你的。','dà de shì nǐ de.','ใบใหญ่เป็นของคุณ','b13-ddsn-t')}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('爸爸','bàba'),tl('妈妈','māma'),tl('都','dōu'),tl('是','shì'),tl('老师','lǎoshī'),tl('的','de')],ans:[0,1,2,3,4],end:'。',k:'b10-bmdl-g'}),
+ blank({tag:MQ(4),noTh:1,s:'请_茶。',opts:['喝','坐','想'],ans:0,k:'b12-qhc-f',fb:'<span class="zh">请喝茶。</span>'}),
+ fin({title:'จบหน่วยที่ 3 แล้ว',html:dlgH(D,{noTh:1}),chips:[ZHE,NA,DOU,ZZ,DN,QING,XIANG,DX].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L13',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

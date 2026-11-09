@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 4-2 เดินทางไปเที่ยว</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 4-2 หน่วย 4 สถานีเดินทางสบายใจ: เดินทางไปเที่ยว · คำใหม่ 骑 自行车 走 到 路 机场 旅游
+   ทบทวนจากบทก่อน: 坐 地铁 火车 站 吧 · กิจกรรมเฉพาะบท: 骑 หรือ 坐 แตะภาพที่พูดถึง 去 กับ 到 */
+const QI=W('骑','qí','ขี่ (จักรยาน/ม้า)'),ZXC=W('自行车','zìxíngchē','จักรยาน',{s:'zì xíng chē',sl:[1]}),ZOU=W('走','zǒu','เดิน / ไป'),
+ DAO=W('到','dào','ถึง / ไปถึง'),LU=W('路','lù','ถนน / เส้นทาง'),JC=W('机场','jīchǎng','สนามบิน',{s:'jī chǎng',sl:[1]}),LY=W('旅游','lǚyóu','ท่องเที่ยว',{s:'lǚ yóu'});
+const HC=W('火车','huǒchē','รถไฟ',{s:'huǒ chē'}),DT=W('地铁','dìtiě','รถไฟใต้ดิน',{s:'dì tiě',sl:[0]}),GJ=W('公共汽车','gōnggòng qìchē','รถเมล์ / รถโดยสารประจำทาง',{s:'gōng gòng qì chē'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，你去哪儿旅游？','Mǎlì, nǐ qù nǎr lǚyóu?','มะลิ คุณจะไปเที่ยวที่ไหน','p11-a-m'),
+ b:S('我想去北京旅游。','wǒ xiǎng qù Běijīng lǚyóu.','ฉันอยากไปเที่ยวปักกิ่ง','p11-b-f'),
+ c:S('你怎么去机场？','nǐ zěnme qù jīchǎng?','คุณจะไปสนามบินอย่างไร','p11-c-m'),
+ d:S('我坐地铁去机场。','wǒ zuò dìtiě qù jīchǎng.','ฉันนั่งรถไฟใต้ดินไปสนามบิน','p11-d-f'),
+ e:S('你呢？','nǐ ne?','แล้วคุณล่ะ','p10-nne-f'),
+ f:S('我骑自行车去地铁站。','wǒ qí zìxíngchē qù dìtiězhàn.','ฉันปั่นจักรยานไปสถานีรถไฟใต้ดิน','p11-f-m'),
+ g:S('我走路去。','wǒ zǒu lù qù.','ฉันเดินไป','p11-g-f'),
+ h:S('好，九点到地铁站吧！','hǎo, jiǔ diǎn dào dìtiězhàn ba!','ได้ เก้าโมงไปถึงสถานีรถไฟใต้ดินนะ','p11-h-m'),
+ qzxc:S('我骑自行车去学校。','wǒ qí zìxíngchē qù xuéxiào.','ฉันปั่นจักรยานไปโรงเรียน','p11-qzxc-f'),
+ ddq:S('弟弟会骑自行车。','dìdi huì qí zìxíngchē.','น้องชายปั่นจักรยานเป็น','p11-ddq-g'),
+ wdzx:S('这是我的自行车。','zhè shì wǒ de zìxíngchē.','นี่คือจักรยานของฉัน','p11-wdzx-m'),
+ nyzx:S('你有自行车吗？','nǐ yǒu zìxíngchē ma?','คุณมีจักรยานไหม','p11-nyzx-g'),
+ wmzb:S('我们走吧！','wǒmen zǒu ba!','ไปกันเถอะ','p11-wmzb-g'),
+ zlxx:S('我走路去学校。','wǒ zǒu lù qù xuéxiào.','ฉันเดินไปโรงเรียน','p11-zlxx-f'),
+ hcd:S('火车几点到？','huǒchē jǐ diǎn dào?','รถไฟมาถึงกี่โมง','p11-hcd-g'),
+ dbj:S('我到北京了。','wǒ dào Běijīng le.','ฉันถึงปักกิ่งแล้ว','p11-dbj-f'),
+ lsc:S('路上有很多车。','lù shang yǒu hěn duō chē.','บนถนนมีรถเยอะมาก','p11-lsc-t'),
+ zdl:S('我知道路。','wǒ zhīdào lù.','ฉันรู้ทาง','p11-zdl-m'),
+ jczn:S('机场在哪儿？','jīchǎng zài nǎr?','สนามบินอยู่ที่ไหน','p11-jczn-f'),
+ czjc:S('我坐出租车去机场。','wǒ zuò chūzūchē qù jīchǎng.','ฉันนั่งแท็กซี่ไปสนามบิน','p11-czjc-g'),
+ qjc:S('我去机场。','wǒ qù jīchǎng.','ฉันไปสนามบิน','p11-qjc-f'),
+ xhly:S('你喜欢旅游吗？','nǐ xǐhuan lǚyóu ma?','คุณชอบท่องเที่ยวไหม','p11-xhly-g'),
+ xhbj:S('喜欢！我想去北京旅游。','xǐhuan! wǒ xiǎng qù Běijīng lǚyóu.','ชอบ ฉันอยากไปเที่ยวปักกิ่ง','p11-xhbj-f'),
+ nzq:S('你怎么去学校？','nǐ zěnme qù xuéxiào?','คุณไปโรงเรียนอย่างไร','p10-nzq-g'),
+ wqzx:S('我骑自行车去。','wǒ qí zìxíngchē qù.','ฉันปั่นจักรยานไป','p11-wqzx-f'),
+ zlq:S('我走路去。','wǒ zǒu lù qù.','ฉันเดินไป','p11-zlq-g'),
+ wzc:S('我坐船。','wǒ zuò chuán.','ฉันนั่งเรือ','p10-m2-t'),
+ dtz:S('地铁站在哪儿？','dìtiězhàn zài nǎr?','สถานีรถไฟใต้ดินอยู่ที่ไหน','p10-dtz-f'),
+ c1:S('骑自行车','qí zìxíngchē','ปั่นจักรยาน','p11-c1-t'),c2:S('走路','zǒu lù','เดิน','p11-c2-t'),c3:S('坐飞机','zuò fēijī','นั่งเครื่องบิน','p11-c3-t'),c4:S('坐出租车','zuò chūzūchē','นั่งแท็กซี่','p11-c4-t')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'me'},f:{...X.f,who:'f'},g:{...X.g,who:'me'},h:{...X.h,who:'f'}};
+const D=[{sit:'วันหยุด หวังหมิงกับมะลินัดกันไปสนามบิน',img:JC.img},L.a,L.b,L.c,L.d,L.e,L.f,L.g,L.h];
+const PL=[{img:ZXC.img,th:'จักรยาน'},{img:JC.img,th:'สนามบิน'},{img:NL(LU),th:'ถนน'},{img:NL(LY),th:'ท่องเที่ยว'}];
+const MP=[{img:ZXC.img,th:'จักรยาน'},{img:JC.img,th:'สนามบิน'},{img:HC.img,th:'รถไฟ'},{img:DT.img,th:'รถไฟใต้ดิน'}];
+const BINS=[{img:NL(QI),zh:'骑',py:'qí',th:'ขี่ ปั่น'},{img:GJ.img,zh:'坐',py:'zuò',th:'นั่ง (รถ เรือ)'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:11,code:'บท 4-2',title:'เดินทางไปเที่ยว',goal:{do:'บอกว่าจะไปเที่ยวที่ไหน เดินทางด้วยอะไร และนัดเวลาไปถึง',sub:'ใช้ <span class="gz">骑自行车 · 走路 · 到 · 旅游</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:NL(LY),cap:'สถานการณ์ของบทนี้',title:'ไปเที่ยวปักกิ่ง',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะวางแผนเดินทางไปเที่ยวกับเพื่อนได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[QI,ZXC,ZOU,DAO,LU,JC,LY]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['骑','自行车','走','到','路','机场','旅游'],note:'ใช้คำจากบท 4-1 เช่น 坐 地铁 火车 站 ร่วมด้วย'}),
+ ...WC(QI,1,7,{cap:'การเดินทาง',hint:'คล้าย <b>"ฉี"</b> · q พ่นลม เสียง 2',use:'ขี่ ปั่น · ใช้กับสิ่งที่นั่งคร่อม เช่น จักรยาน ม้า',ex:[X.qzxc,X.ddq]}),
+ ...WC(ZXC,2,7,{cap:'ยานพาหนะ',hint:'คล้าย <b>"จื้อ สิง เชอ"</b> · z ไม่ม้วนลิ้น · ch ม้วนลิ้น',use:'จักรยาน · ปั่นจักรยานพูดว่า 骑自行车',ex:[X.wdzx,X.nyzx]}),
+ RC('คำที่ 1–2/7',[QI,ZXC]),
+ use({n:'คำที่ 1–2/7',w:QI,when:[{img:NL(QI),t:'ปั่นจักรยาน'},{img:GJ.img,t:'นั่งรถเมล์'}],lines:[{...X.nzq,who:'g'},{...X.wqzx,who:'me'}],tip:'จักรยานใช้ <span class="zh">骑</span> · รถเมล์ รถไฟ เรือ ใช้ <span class="zh">坐</span>'}),
+ ...WC(ZOU,3,7,{cap:'การเดินทาง',hint:'คล้าย <b>"โจ่ว"</b> · z ไม่พ่นลม เสียง 3',use:'เดิน หรือออกเดินทางไป · 走路 เดิน · 我们走吧 ไปกันเถอะ',ex:[X.wmzb,X.zlxx]}),
+ ...WC(DAO,4,7,{cap:'การเดินทาง',hint:'คล้าย <b>"เต้า"</b> · d ไม่พ่นลม เสียง 4',use:'ถึง ไปถึง · 到 + ที่หมาย · ถึงแล้วใส่ 了',ex:[X.hcd,X.dbj]}),
+ RC('คำที่ 3–4/7',[ZOU,DAO]),
+ use({n:'คำที่ 3–4/7',w:DAO,when:[{img:NL(ZOU),t:'ออกเดิน'},{img:NL(DAO),t:'ถึงที่หมาย'}],lines:[{...X.g,who:'me'},{...X.h,who:'f'}],tip:'นัดเวลาไปถึงด้วย เวลา + <span class="zh">到</span> + ที่หมาย · <span class="zh">九点到地铁站</span>'}),
+ ...WC(LU,5,7,{cap:'สถานที่',hint:'คล้าย <b>"ลู่"</b> · เสียง 4',use:'ถนน ทาง · 路上 บนถนน ระหว่างทาง · 走路 เดิน',ex:[X.lsc,X.zdl]}),
+ ...WC(JC,6,7,{cap:'สถานที่',hint:'คล้าย <b>"จี ฉ่าง"</b> · ch ม้วนลิ้น พ่นลม เสียง 3',use:'机 เครื่องบิน + 场 ลาน = สนามบิน',ex:[X.jczn,X.czjc]}),
+ RC('คำที่ 5–6/7',[LU,JC]),
+ ...WC(LY,7,7,{cap:'กิจกรรม',hint:'คล้าย <b>"หลวี่ โหยว"</b> · ü ห่อปาก',use:'ท่องเที่ยว · 去 + ที่หมาย + 旅游 ไปเที่ยวที่…',ex:[X.b,X.xhly]}),
+ rec({n:'คำที่ 7/7',ws:[LY]}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ไปอย่างไร','骑 หรือ 坐','ภาพไหน','去 กับ 到','ข้อควรระวัง'],note:'ฝึกวางแผนเดินทางไปเที่ยว'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนานัดไปสนามบิน',title:'ไปเที่ยวปักกิ่ง',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามที่เที่ยวด้วย 去哪儿旅游 · นัดเวลาด้วย 九点到…'}),
+ talk({cap:'เทคนิค 2/6 · ไปอย่างไร',title:'บอกวิธีเดินทางแบบใหม่',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nzq,who:'g'},{...X.wqzx,who:'me'},{...X.e,who:'me'},{...X.zlq,who:'g'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">骑</span> ใช้กับสิ่งที่นั่งคร่อม · <span class="zh">坐</span> ใช้กับรถที่นั่งข้างใน · เดินไปใช้ <span class="zh">走路</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · 骑 หรือ 坐',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 骑 หรือ 坐',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ZXC.img,X.qzxc,0),it(JC.img,X.czjc,1),it(ART('弟弟'),X.ddq,0),it(DT.img,X.d,1)]}),
+ point({tag:'เทคนิค 4/6 · ภาพไหน',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PL,rounds:[
+  {zh:X.wdzx.zh,k:X.wdzx.k,ans:0},{zh:X.jczn.zh,k:X.jczn.k,ans:1},{zh:X.lsc.zh,k:X.lsc.k,ans:2},{zh:X.xhly.zh,k:X.xhly.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 去 กับ 到',title:'ไป หรือ ถึง',text:'แตะการ์ดเพื่อฟัง',a:{who:'กำลังจะไป',img:NL(ZOU),zh:X.b.zh,zhb:'去',py:'qù',th:'ไป',k:X.b.k},b:{who:'ถึงแล้ว',img:NL(DAO),zh:X.dbj.zh,zhb:'到',py:'dào',th:'ถึง',k:X.dbj.k},
+  tip:'<span class="zh">去</span> บอกว่าจะไปที่ไหน · <span class="zh">到</span> บอกว่าถึงที่หมาย มักตามด้วย <span class="zh">了</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'จักรยานใช้ 骑 ไม่ใช้ 坐',bad:'我坐自行车去学校。',good:'我骑自行车去学校。',k:'p11-qzxc-f'},
+  {h:'走路 อยู่หน้า 去 + ที่หมาย',bad:'我走去学校路。',good:'我走路去学校。',k:'p11-zlxx-f'},
+  {h:'几点 อยู่หน้า 到',bad:'火车到几点？',good:'火车几点到？',k:'p11-hcd-g'},
+  {h:'สนามบินคือ 机场 ไม่ใช่ 飞机',bad:'我去飞机。',good:'我去机场。',k:'p11-qjc-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:机场',opts:['สนามบิน','สถานีรถไฟ','ถนน'],ans:0,fb:'<span class="zh">机场</span> <b>jīchǎng</b> = สนามบิน'}),
+ ask({rv:'ทบทวนบท 4-1 ซื้อตั๋วขึ้นรถ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p11-d-f',opts:['ฉันนั่งรถไฟใต้ดินไปสนามบิน','ฉันนั่งรถเมล์ไปสนามบิน','ฉันนั่งรถไฟไปปักกิ่ง'],ans:0,fb:'<span class="zh">我坐地铁去机场。</span>'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:自行车',opts:[{img:ZXC.img},{img:GJ.img},{img:ART('船')}],ans:0,fb:'<span class="zh">自行车</span> <b>zìxíngchē</b> = จักรยาน'}),
+ blank({tag:TQ(3),s:'我_自行车去学校。',th:'ฉันปั่นจักรยานไปโรงเรียน',opts:['骑','坐','走'],ans:0,k:'p11-qzxc-f',fb:'<span class="zh">我骑自行车去学校。</span>'}),
+ ask({rv:4,q:'ฟัง 旅 lǚ แล้วเลือกสระ',k:'sy:旅',opts:['ü','u'],ans:0,fb:'l<b>ǚ</b> · หลัง l กับ n ต้องเขียนจุดบน ü ให้เห็น'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณชอบท่องเที่ยวไหม',line:{...X.xhly,who:'g'},opts:[X.xhbj,X.zlq,X.hcd],ans:0,why:'ตอบว่าชอบ แล้วบอกที่ที่อยากไป'}),
+ ask({rv:'ทบทวนบท 3-1 พี่น้องและครอบครัว',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p11-ddq-g',opts:['น้องชายปั่นจักรยานเป็น','พี่ชายปั่นจักรยานเป็น','น้องชายมีจักรยาน'],ans:0,fb:'<span class="zh">弟弟会骑自行车。</span> 弟弟 = น้องชาย'}),
+ order({tag:TQ(5),th:'ฉันเดินไปโรงเรียน',tiles:[tl('我','wǒ'),tl('走路','zǒu lù'),tl('去','qù'),tl('学校','xuéxiào'),tl('骑','qí')],ans:[0,1,2,3],end:'。',k:'p11-zlxx-f'}),
+ tf({tag:TQ(6),k:'p11-h-m',img:JC.img,card:'<b>นัดเจอ</b><br>สนามบิน 9 โมง',ans:1,fb:'<span class="zh">九点到地铁站吧！</span> = นัดที่สถานีรถไฟใต้ดิน ไม่ใช่สนามบิน'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'วางแผนเที่ยวเอง',chips:['ฟังแล้วแตะภาพ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:MP,rounds:[{zh:X.qjc.zh,k:X.qjc.k,ans:1},{zh:X.wdzx.zh,k:X.wdzx.k,ans:0},{zh:X.hcd.zh,k:X.hcd.k,ans:2},{zh:X.dtz.zh,k:X.dtz.k,ans:3}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนถามว่าคุณไปโรงเรียนอย่างไร คุณปั่นจักรยานไป',line:{...X.nzq,who:'g'},opts:[X.wqzx,X.wzc,X.dbj],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我_北京了。',opts:['到','走','骑'],ans:0,k:'p11-dbj-f',fb:'<span class="zh">我到北京了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('想','xiǎng'),tl('去','qù'),tl('北京','Běijīng'),tl('旅游','lǚyóu'),tl('机场','jīchǎng')],ans:[0,1,2,3,4],end:'。',k:'p11-b-f'}),
+ /* 5 · จบบท */
+ fin({title:'วางแผนเที่ยวได้แล้ว',html:dlgH(D,{noTh:1}),chips:[QI,ZXC,ZOU,DAO,LU,JC,LY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L11',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

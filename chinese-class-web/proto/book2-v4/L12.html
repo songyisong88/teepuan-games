@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 4-3 ไกล ใกล้ ซ้าย ขวา</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 4-3 หน่วย 4 สถานีเดินทางสบายใจ: ไกล ใกล้ ซ้าย ขวา · คำใหม่ 离 远 近 左边 右边 旁边 外
+   ทบทวนจากบทก่อน: 请问 机场 地铁站 · กิจกรรมเฉพาะบท: ไกลหรือใกล้ แตะตำแหน่ง 左边 กับ 右边 */
+WHO.m={n:'คุณลุงที่ป้ายรถเมล์',img:ART('爷爷')};
+const LI=W('离','lí','ห่างจาก'),YUAN=W('远','yuǎn','ไกล'),JIN=W('近','jìn','ใกล้'),ZB=W('左边','zuǒbian','ด้านซ้าย',{s:'zuǒ bian'}),
+ YB=W('右边','yòubian','ด้านขวา',{s:'yòu bian'}),PB=W('旁边','pángbiān','ข้าง ๆ',{s:'páng biān'}),WAI=W('外','wài','นอก / ภายนอก');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('请问，饭店离这儿远吗？','qǐngwèn, fàndiàn lí zhèr yuǎn ma?','ขอถามหน่อย ร้านอาหารอยู่ไกลจากที่นี่ไหม','p12-a-f'),
+ b:S('不远，很近。','bù yuǎn, hěn jìn.','ไม่ไกล ใกล้มาก','p12-b-t'),
+ c:S('你看，在医院旁边。','nǐ kàn, zài yīyuàn pángbiān.','ดูสิ อยู่ข้าง ๆ โรงพยาบาล','p12-c-t'),
+ d:S('医院在哪儿？','yīyuàn zài nǎr?','โรงพยาบาลอยู่ที่ไหน','p12-d-f'),
+ e:S('在前面，左边是医院，右边是商店。','zài qiánmiàn, zuǒbian shì yīyuàn, yòubian shì shāngdiàn.','อยู่ข้างหน้า ด้านซ้ายเป็นโรงพยาบาล ด้านขวาเป็นร้านค้า','p12-e-t'),
+ f:S('谢谢！','xièxie!','ขอบคุณ','p04-xx-f'),
+ g:S('玛莉，我在外面！','Mǎlì, wǒ zài wàimiàn!','มะลิ ฉันอยู่ข้างนอก','p12-g-m'),
+ ljxx:S('我家离学校很近。','wǒ jiā lí xuéxiào hěn jìn.','บ้านฉันอยู่ใกล้โรงเรียน','p12-ljxx-f'),
+ jcly:S('机场离这儿很远。','jīchǎng lí zhèr hěn yuǎn.','สนามบินอยู่ไกลจากที่นี่มาก','p12-jcly-g'),
+ bjy:S('北京很远。','Běijīng hěn yuǎn.','ปักกิ่งไกลมาก','p12-bjy-m'),
+ hczy:S('火车站远吗？','huǒchēzhàn yuǎn ma?','สถานีรถไฟไกลไหม','p12-hczy-f'),
+ sdj:S('商店很近。','shāngdiàn hěn jìn.','ร้านค้าอยู่ใกล้มาก','p12-sdj-g'),
+ dtj:S('地铁站离我家很近。','dìtiězhàn lí wǒ jiā hěn jìn.','สถานีรถไฟใต้ดินอยู่ใกล้บ้านฉัน','p12-dtj-f'),
+ zbxx:S('左边是我的学校。','zuǒbian shì wǒ de xuéxiào.','ด้านซ้ายคือโรงเรียนของฉัน','p12-zbxx-f'),
+ sdzb:S('商店在左边。','shāngdiàn zài zuǒbian.','ร้านค้าอยู่ด้านซ้าย','p12-sdzb-t'),
+ ybyy:S('右边是医院。','yòubian shì yīyuàn.','ด้านขวาคือโรงพยาบาล','p12-ybyy-m'),
+ myb:S('猫在我右边。','māo zài wǒ yòubian.','แมวอยู่ทางขวาของฉัน','p12-myb-g'),
+ xxpb:S('学校旁边有一个商店。','xuéxiào pángbiān yǒu yí ge shāngdiàn.','ข้าง ๆ โรงเรียนมีร้านค้าหนึ่งร้าน','p12-xxpb-f'),
+ gpb:S('狗在猫旁边。','gǒu zài māo pángbiān.','สุนัขอยู่ข้าง ๆ แมว','p12-gpb-t'),
+ wmhl:S('外面很冷。','wàimiàn hěn lěng.','ข้างนอกหนาวมาก','p12-wmhl-g'),
+ wmxy:S('外面下雨了。','wàimiàn xià yǔ le.','ข้างนอกฝนตกแล้ว','p12-wmxy-f'),
+ wzwm:S('我在外面。','wǒ zài wàimiàn.','ฉันอยู่ข้างนอก','p12-wzwm-f'),
+ jczy:S('机场离这儿远吗？','jīchǎng lí zhèr yuǎn ma?','สนามบินอยู่ไกลจากที่นี่ไหม','p12-jczy-f'),
+ hydt:S('很远，坐地铁去吧。','hěn yuǎn, zuò dìtiě qù ba.','ไกลมาก นั่งรถไฟใต้ดินไปเถอะ','p12-hydt-g'),
+ sdn:S('商店呢？','shāngdiàn ne?','แล้วร้านค้าล่ะ','p12-sdn-f'),
+ sdy:S('商店远吗？','shāngdiàn yuǎn ma?','ร้านค้าไกลไหม','p12-sdy-g'),
+ dtyz:S('地铁站远吗？','dìtiězhàn yuǎn ma?','สถานีรถไฟใต้ดินไกลไหม','p12-dtyz-g'),
+ m1:S('医院在右边。','yīyuàn zài yòubian.','โรงพยาบาลอยู่ด้านขวา','p12-m1-t'),m2:S('学校在左边。','xuéxiào zài zuǒbian.','โรงเรียนอยู่ด้านซ้าย','p12-m2-t'),
+ m3:S('猫在狗旁边。','māo zài gǒu pángbiān.','แมวอยู่ข้าง ๆ สุนัข','p12-m3-t'),m4:S('妈妈在外面。','māma zài wàimiàn.','แม่อยู่ข้างนอก','p12-m4-t'),
+ c1:S('很远','hěn yuǎn','ไกลมาก','p12-c1-t'),c2:S('很近','hěn jìn','ใกล้มาก','p12-c2-t'),c3:S('不远','bù yuǎn','ไม่ไกล','p12-c3-t'),c4:S('离这儿','lí zhèr','จากที่นี่','p12-c4-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'m'},d:{...X.d,who:'me'},e:{...X.e,who:'m'},f:{...X.f,who:'me'},g:{...X.g,who:'f'}};
+const D=[{sit:'มะลินัดหวังหมิงที่ร้านอาหาร จึงถามทางคุณลุงที่ป้ายรถเมล์',img:ART('站')},L.a,L.b,L.c,L.d,L.e,L.f,{sit:'มะลิมาถึงร้าน',img:WAI.img},L.g];
+const POS=[{img:ZB.img,th:'ด้านซ้าย'},{img:YB.img,th:'ด้านขวา'},{img:PB.img,th:'ข้าง ๆ'},{img:WAI.img,th:'ข้างนอก'}];
+const BINS=[{img:YUAN.img,zh:'远',py:'yuǎn',th:'ไกล'},{img:JIN.img,zh:'近',py:'jìn',th:'ใกล้'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:12,code:'บท 4-3',title:'ไกล ใกล้ ซ้าย ขวา',goal:{do:'ถามว่าที่หมายไกลไหม บอกว่าอยู่ด้านซ้าย ด้านขวา ข้าง ๆ หรือข้างนอก',sub:'ใช้ <span class="gz">离…远吗 · 左边 · 右边 · 旁边</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:ART('站'),cap:'สถานการณ์ของบทนี้',title:'ร้านอาหารไกลไหม',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะถามระยะทางและบอกตำแหน่งได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[LI,YUAN,JIN,ZB,YB,PB,WAI]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['离','远','近','左边','右边','旁边','外'],note:'ใช้คำจากเล่ม 1 เช่น 在 哪儿 前面 商店 医院 ร่วมด้วย'}),
+ ...WC(LI,1,7,{cap:'ระยะทาง',hint:'คล้าย <b>"ลี"</b> · เสียง 2 ขึ้น',use:'ห่างจาก · A + 离 + B + 很近 / 很远 บอกว่า A อยู่ใกล้หรือไกลจาก B',ex:[X.ljxx,X.jcly]}),
+ rec({n:'คำที่ 1/7',ws:[LI]}),
+ ...WC(YUAN,2,7,{cap:'ระยะทาง',hint:'คล้าย <b>"หยวี่ยน"</b> · yu ห่อปาก เสียง 3',use:'ไกล · ถามว่า …远吗？ ไกลไหม',ex:[X.bjy,X.hczy]}),
+ ...WC(JIN,3,7,{cap:'ระยะทาง',hint:'คล้าย <b>"จิ้น"</b> · ออกเสียงเหมือน 进 ที่แปลว่าเข้า',use:'ใกล้ · 很近 ใกล้มาก · ตรงข้ามกับ 远',ex:[X.sdj,X.dtj]}),
+ RC('คำที่ 2–3/7',[YUAN,JIN]),
+ use({n:'คำที่ 1–3/7',w:LI,when:[{img:YUAN.img,t:'ที่หมายอยู่ไกล'},{img:JIN.img,t:'ที่หมายอยู่ใกล้'}],lines:[{...X.a,who:'me'},{...X.b,who:'m'}],tip:'ถาม <span class="zh">…离这儿远吗？</span> · ตอบ <span class="zh">很远</span> หรือ <span class="zh">不远，很近</span>'}),
+ ...WC(ZB,4,7,{cap:'ตำแหน่ง',hint:'คล้าย <b>"จั่ว เปียน"</b> · z ไม่ม้วนลิ้น · 边 อ่านเบา',use:'左 ซ้าย + 边 ด้าน = ด้านซ้าย · 在左边 อยู่ทางซ้าย',ex:[X.zbxx,X.sdzb]}),
+ ...WC(YB,5,7,{cap:'ตำแหน่ง',hint:'คล้าย <b>"โย่ว เปียน"</b> · 边 อ่านเบา',use:'右 ขวา + 边 ด้าน = ด้านขวา',ex:[X.ybyy,X.myb]}),
+ RC('คำที่ 4–5/7',[ZB,YB]),
+ ...WC(PB,6,7,{cap:'ตำแหน่ง',hint:'คล้าย <b>"ผาง เปียน"</b> · p พ่นลม เสียง 2',use:'ข้าง ๆ · สิ่งที่เป็นหลัก + 旁边 · 学校旁边 ข้าง ๆ โรงเรียน',ex:[X.xxpb,X.gpb]}),
+ ...WC(WAI,7,7,{cap:'ตำแหน่ง',hint:'คล้าย <b>"ไว่"</b> · เสียง 4',use:'นอก · มักพูดว่า 外面 ข้างนอก ตรงข้ามกับ 里面 ข้างใน',ex:[X.wmhl,X.wmxy]}),
+ RC('คำที่ 6–7/7',[PB,WAI]),
+ use({n:'คำที่ 6–7/7',w:PB,when:[{img:PB.img,t:'อยู่ติดกัน'},{img:WAI.img,t:'อยู่ข้างนอก'}],lines:[{...X.c,who:'m'},{...X.g,who:'f'}],tip:'<span class="zh">在</span> + สถานที่ + <span class="zh">旁边</span> · <span class="zh">在外面</span> อยู่ข้างนอก'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ไกลไหม','远 หรือ 近','อยู่ตรงไหน','左边 กับ 右边','ข้อควรระวัง'],note:'ฝึกถามทางและบอกตำแหน่ง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาถามทาง',title:'ร้านอาหารไกลไหม',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามระยะทางด้วย 离…远吗 · บอกตำแหน่งด้วย 左边 右边 旁边'}),
+ talk({cap:'เทคนิค 2/6 · ไกลไหม',title:'ถามระยะทาง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.jczy,who:'me'},{...X.hydt,who:'g'},{...X.sdn,who:'me'},{...X.sdj,who:'g'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'A + <span class="zh">离</span> + B + <span class="zh">很远</span> / <span class="zh">很近</span> · ถามสั้น ๆ ว่า <span class="zh">远吗？</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · 远 หรือ 近',q:'ฟังแต่ละประโยค แล้วแตะว่าไกลหรือใกล้',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('机场'),X.jcly,0),it(ART('商店'),X.sdj,1),it(ART('北京'),X.bjy,0),it(ART('地铁'),X.dtj,1)]}),
+ point({tag:'เทคนิค 4/6 · อยู่ตรงไหน',q:'ฟังแต่ละประโยค แล้วแตะตำแหน่งที่ตรงกัน',this:'คือตำแหน่งนี้',cards:POS,rounds:[
+  {zh:X.sdzb.zh,k:X.sdzb.k,ans:0},{zh:X.ybyy.zh,k:X.ybyy.k,ans:1},{zh:X.gpb.zh,k:X.gpb.k,ans:2},{zh:X.wzwm.zh,k:X.wzwm.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 左边 กับ 右边',title:'ซ้าย ขวา',text:'แตะการ์ดเพื่อฟัง',a:{who:'ซ้าย',img:ZB.img,zh:X.zbxx.zh,zhb:'左边',py:'zuǒbian',th:'ด้านซ้าย',k:X.zbxx.k},b:{who:'ขวา',img:YB.img,zh:X.ybyy.zh,zhb:'右边',py:'yòubian',th:'ด้านขวา',k:X.ybyy.k},
+  tip:'<span class="zh">在左边</span> อยู่ทางซ้าย · <span class="zh">左边是…</span> ทางซ้ายคือ…'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'离 อยู่ระหว่างสองที่',bad:'我家很近离学校。',good:'我家离学校很近。',k:'p12-ljxx-f'},
+  {h:'ใกล้ไกลใช้ 很 ไม่ใช้ 是',bad:'商店是近。',good:'商店很近。',k:'p12-sdj-g'},
+  {h:'สิ่งที่เป็นหลักอยู่หน้า 旁边',bad:'旁边学校有一个商店。',good:'学校旁边有一个商店。',k:'p12-xxpb-f'},
+  {h:'ข้างนอกคือ 外面',bad:'我在面外。',good:'我在外面。',k:'p12-wzwm-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:远',opts:['ไกล','ใกล้','ข้าง ๆ'],ans:0,fb:'<span class="zh">远</span> <b>yuǎn</b> = ไกล'}),
+ ask({rv:'ทบทวนบท 4-2 เดินทางไปเที่ยว',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p12-jcly-g',opts:['สนามบินอยู่ไกลจากที่นี่มาก','สถานีรถไฟอยู่ไกลจากที่นี่มาก','สนามบินอยู่ใกล้ที่นี่มาก'],ans:0,fb:'<span class="zh">机场离这儿很远。</span> 机场 = สนามบิน'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:旁边',opts:[{img:PB.img},{img:ZB.img},{img:YB.img}],ans:0,fb:'<span class="zh">旁边</span> <b>pángbiān</b> = ข้าง ๆ'}),
+ blank({tag:TQ(3),s:'我家_学校很近。',th:'บ้านฉันอยู่ใกล้โรงเรียน',opts:['离','到','在'],ans:0,k:'p12-ljxx-f',fb:'<span class="zh">我家离学校很近。</span>'}),
+ ask({rv:2,q:'ฟัง 远 yuǎn แล้วเลือกวรรณยุกต์',k:'sy:远',opts:[{tone:3,lab:'เสียง 3'},{tone:2,lab:'เสียง 2'}],ans:0,fb:'yu<b>ǎn</b> · เสียง 3 ลงต่ำแล้วขึ้น'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าร้านค้าไกลไหม ร้านอยู่ใกล้มาก',line:{...X.sdy,who:'g'},opts:[X.b,X.wzwm,X.f],ans:0,why:'ตอบว่าไม่ไกลด้วย 不远，很近'}),
+ blank({tag:'ทบทวนบท 1-1 ขอถามหน่อย ขอโทษ',s:'_，饭店离这儿远吗？',th:'ขอถามหน่อย ร้านอาหารอยู่ไกลจากที่นี่ไหม',opts:['请问','知道','可以'],ans:0,k:'p12-a-f',fb:'<span class="zh">请问</span> ใช้ก่อนถามทาง'}),
+ order({tag:TQ(5),th:'ข้าง ๆ โรงเรียนมีร้านค้าหนึ่งร้าน',tiles:[tl('学校','xuéxiào'),tl('旁边','pángbiān'),tl('有','yǒu'),tl('一个','yí ge'),tl('商店','shāngdiàn'),tl('外','wài')],ans:[0,1,2,3,4],end:'。',k:'p12-xxpb-f'}),
+ tf({tag:TQ(6),k:'p12-e-t',img:ZB.img,card:'<b>ด้านซ้าย</b> โรงพยาบาล<br><b>ด้านขวา</b> ร้านค้า',ans:0,fb:'<span class="zh">左边是医院，右边是商店。</span> · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'บอกทางเอง',chips:['ฟังแล้วแตะตำแหน่ง','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะตำแหน่ง',this:'คือตำแหน่งนี้',cards:POS,rounds:[{zh:X.m1.zh,k:X.m1.k,ans:1},{zh:X.m2.zh,k:X.m2.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m3.zh,k:X.m3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนถามว่าสถานีรถไฟใต้ดินไกลไหม ความจริงอยู่ใกล้มาก',line:{...X.dtyz,who:'g'},opts:[X.b,X.wmhl,X.ybyy],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'外面很_。',opts:['冷','近','远'],ans:0,k:'p12-wmhl-g',fb:'<span class="zh">外面很冷。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('机场','jīchǎng'),tl('离','lí'),tl('这儿','zhèr'),tl('很','hěn'),tl('远','yuǎn'),tl('近','jìn')],ans:[0,1,2,3,4],end:'。',k:'p12-jcly-g'}),
+ /* 5 · จบบท */
+ fin({title:'บอกทางได้แล้ว',html:dlgH(D,{noTh:1}),chips:[LI,YUAN,JIN,ZB,YB,PB,WAI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L12',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

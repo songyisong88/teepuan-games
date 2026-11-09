@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · ทบทวนหน่วยที่ 2</title>
+</head><body>
+<script>
+/* เล่ม 2 ทบทวนหน่วยที่ 2 เช้าเย็นและอากาศ: ทวนคำทั้ง 2 บท + คำเล่ม 1 (一点儿 号) → บทสนทนาวันหนึ่งกับหลี่น่า → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+const ZSH=W('早上好','zǎoshang hǎo','สวัสดีตอนเช้า',{s:'zǎo shang hǎo'}),WSH=W('晚上好','wǎnshang hǎo','สวัสดีตอนเย็น ตอนค่ำ',{s:'wǎn shang hǎo'}),
+ WA=W('晚安',"wǎn'ān",'ราตรีสวัสดิ์',{s:'wǎn ān'}),MTJ=W('明天见','míngtiān jiàn','เจอกันพรุ่งนี้',{s:'míng tiān jiàn'}),
+ YHJ=W('一会儿见','yíhuìr jiàn','เดี๋ยวเจอกัน',{s:'yí huìr jiàn',c:['一','会儿','见'],sl:[0,1]}),BA=W('吧','ba','…นะ …เถอะ (ชวน เสนอ)',{nosk:1}),BAN=W('半','bàn','ครึ่ง');
+const JN=W('今年','jīnnián','ปีนี้',{s:'jīn nián'}),QN=W('去年','qùnián','ปีที่แล้ว',{s:'qù nián'}),DY=W('第一','dìyī','ที่หนึ่ง แรก',{s:'dì yī'}),
+ YIN=W('阴','yīn','ครึ้ม มีเมฆมาก'),YU=W('雨','yǔ','ฝน'),XUE=W('雪','xuě','หิมะ'),QING=W('晴','qíng','แจ่มใส (ท้องฟ้า)');
+const YDR=w('一点儿','yìdiǎnr','นิดหน่อย'),HAO=w('号','hào','วันที่');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('早上好，李娜！','zǎoshang hǎo, Lǐ Nà!','สวัสดีตอนเช้า หลี่น่า','p06-a-f'),
+ b:S('早上好！今天是晴天，我们一起去商店吧！','zǎoshang hǎo! jīntiān shì qíngtiān, wǒmen yìqǐ qù shāngdiàn ba!','สวัสดีตอนเช้า วันนี้ท้องฟ้าแจ่มใส ไปร้านค้าด้วยกันเถอะ','p06-b-g'),
+ c:S('好！现在几点？','hǎo! xiànzài jǐ diǎn?','ได้เลย ตอนนี้กี่โมง','p06-c-f'),
+ d:S('现在八点半。一会儿见！','xiànzài bā diǎn bàn. yíhuìr jiàn!','ตอนนี้แปดโมงครึ่ง เดี๋ยวเจอกัน','p06-d-g'),
+ e:S('下雨了！我回家了。','xià yǔ le! wǒ huí jiā le.','ฝนตกแล้ว ฉันกลับบ้านก่อนนะ','p06-e-g'),
+ f:S('好，晚安！明天见！',"hǎo, wǎn'ān! míngtiān jiàn!",'ได้ ราตรีสวัสดิ์ เจอกันพรุ่งนี้','p04-wamt-f'),
+ g:S('明天见！','míngtiān jiàn!','เจอกันพรุ่งนี้','p04-mtj-g'),
+ lsz:S('李老师，早上好！','Lǐ lǎoshī, zǎoshang hǎo!','สวัสดีตอนเช้า คุณครูหลี่','p04-lsz-f'),
+ txw:S('同学们，晚上好！','tóngxuémen, wǎnshang hǎo!','สวัสดีตอนค่ำ นักเรียนทุกคน','p04-txw-t'),
+ wamm:S('晚安，妈妈！',"wǎn'ān, māma!",'ราตรีสวัสดิ์นะแม่','p04-wamm-f'),
+ qdb:S('现在七点半。','xiànzài qī diǎn bàn.','ตอนนี้เจ็ดโมงครึ่ง','p04-qdb-t'),
+ yqqb:S('我们一起去吧！','wǒmen yìqǐ qù ba!','ไปด้วยกันเถอะ','p04-yqqb-g'),
+ hsyd:S('我会说一点儿汉语。','wǒ huì shuō yìdiǎnr Hànyǔ.','ฉันพูดภาษาจีนได้นิดหน่อย','p04-hsyd-f'),
+ tqz:S('今天天气怎么样？','jīntiān tiānqì zěnmeyàng?','วันนี้อากาศเป็นอย่างไร','p05-tqz-g'),
+ qtr:S('今天是晴天，很热。','jīntiān shì qíngtiān, hěn rè.','วันนี้ท้องฟ้าแจ่มใส ร้อนมาก','p05-qtr-f'),
+ qnbj:S('去年我去了北京。','qùnián wǒ qù le Běijīng.','ปีที่แล้วฉันไปปักกิ่งมา','p05-qnbj-f'),
+ jnss:S('我今年十岁。','wǒ jīnnián shí suì.','ปีนี้ฉันอายุสิบขวบ','p05-jnss-f'),
+ mtqt:S('明天是晴天。','míngtiān shì qíngtiān.','พรุ่งนี้ท้องฟ้าแจ่มใส','p05-mtqt-f'),
+ xyl:S('下雨了。','xià yǔ le.','ฝนตกแล้ว','p05-xyl-f'),
+ jtjh:S('今天几号？','jīntiān jǐ hào?','วันนี้วันที่เท่าไร','p05-jtjh-g'),
+ zsh:S('早上好！','zǎoshang hǎo!','สวัสดีตอนเช้า','p04-zsh-g')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'g'},c:{...X.c,who:'me'},d:{...X.d,who:'g'},e:{...X.e,who:'g'},f:{...X.f,who:'me'},g:{...X.g,who:'g'}};
+const D=[{sit:'เช้าวันอาทิตย์ มะลิเจอหลี่น่าหน้าบ้าน',img:NL(ZSH)},L.a,L.b,L.c,L.d,{sit:'ตอนค่ำ ฝนเริ่มตก',img:NL(YU)},L.e,L.f,L.g];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:6,code:'ทบทวนหน่วย 2',title:'ทบทวนหน่วยที่ 2',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 2 ทักทายให้ถูกเวลา ชวนเพื่อน บอกลา และคุยเรื่องอากาศ',sub:'早上好 · 晚安 · 吧 · 今年 · 下雨',min:8},steps:[
+ intro({scene:NL(ZSH),cap:'บททบทวน',title:'หนึ่งวันกับหลี่น่า',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 2-1 ถึง 2-2 และคำจากเล่ม 1'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 2',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'2-1 สวัสดีตอนเช้า ราตรีสวัสดิ์',items:[ZSH,WSH,WA,MTJ,YHJ,BA,BAN]},{lab:'2-2 ปีนี้ ปีที่แล้ว อากาศ',items:[JN,QN,DY,YIN,YU,XUE,QING]},{lab:'คำจากเล่ม 1',items:[YDR,HAO]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'หนึ่งวันกับหลี่น่า',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะภาพ','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[WA,MTJ,JN,QN,XUE]}),
+ point({tag:TQ(2),q:'ฟังคำทักแต่ละประโยค แล้วแตะช่วงเวลาที่ตรงกัน',this:'คือช่วงเวลานี้',cards:[{img:NL(ZSH),th:'ตอนเช้า'},{img:NL(WSH),th:'ตอนค่ำ'},{img:NL(WA),th:'ก่อนนอน'}],rounds:[
+  {zh:X.lsz.zh,k:X.lsz.k,ans:0},{zh:X.txw.zh,k:X.txw.k,ans:1},{zh:X.wamm.zh,k:X.wamm.k,ans:2}]}),
+ ask({rv:6,q:'ฟัง 晴 qíng แล้วเลือกพยัญชนะตัวแรก',k:'sy:晴',opts:['q','ch','x'],ans:0,fb:'<b>q</b>íng · ปลายลิ้นแตะฟันล่าง พ่นลมออก'}),
+ blank({tag:TQ(3),s:'现在七点_。',th:'ตอนนี้เจ็ดโมงครึ่ง',opts:['半','吧','号'],ans:0,k:'p04-qdb-t',fb:'<span class="zh">现在七点半。</span>'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าวันนี้อากาศเป็นอย่างไร',line:{...X.tqz,who:'g'},opts:[X.qtr,X.wamm,X.hsyd],ans:0,why:'ตอบเรื่องอากาศ 晴天 ท้องฟ้าแจ่มใส'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p05-qnbj-f',opts:['ปีที่แล้วฉันไปปักกิ่งมา','ปีนี้ฉันอยากไปปักกิ่ง','พรุ่งนี้ฉันจะไปปักกิ่ง'],ans:0,fb:'<span class="zh">去年我去了北京。</span> 去年 = ปีที่แล้ว'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:雪',opts:[{img:NL(XUE)},{img:NL(YU)},{img:NL(QING)}],ans:0,fb:'<span class="zh">雪</span> <b>xuě</b> = หิมะ'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 6-2 วันที่เท่าไร กี่โมง',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p05-jtjh-g',opts:['วันนี้วันที่เท่าไร','ตอนนี้กี่โมง','วันนี้อากาศเป็นอย่างไร'],ans:0,fb:'<span class="zh">今天几号？</span> 号 = วันที่'}),
+ lineup({tag:TQ(7),sit:'ตอนค่ำ หลี่น่าจะกลับบ้าน',lines:[L.e,L.f,L.g]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 晚安',opts:['ก่อนเข้านอน','เจอครูตอนเช้า','แขกมาถึงบ้าน'],ans:0,fb:'<span class="zh">晚安</span> ใช้ตอนกลางคืนก่อนแยกย้ายไปนอน'}),
+ ask({rv:12,q:'ฟัง 一会儿见 แล้วเลือกเสียงของ 一',k:'w:一会儿见',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'一 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>yíhuìr jiàn</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:第一',opts:['ที่หนึ่ง แรก','ปีนี้','ครึ่ง'],ans:0,fb:'<span class="zh">第一</span> <b>dì yī</b> = ที่หนึ่ง'}),
+ blank({tag:TQ(10),s:'我们一起去_！',th:'ไปด้วยกันเถอะ',opts:['吧','半','雨'],ans:0,k:'p04-yqqb-g',fb:'<span class="zh">我们一起去吧！</span> 吧 ใช้ชวน'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'ทักให้ถูกเวลา',chips:['บอกลา','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'สี่ทุ่มแล้ว เพื่อนกำลังจะกลับบ้าน',opts:[X.f,X.zsh,X.qtr],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p05-xyl-f',opts:[{img:NL(YU)},{img:NL(XUE)},{img:NL(QING)}],ans:0,fb:'<span class="zh">下雨了。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('明天','míngtiān'),tl('是','shì'),tl('晴天','qíngtiān'),tl('去年','qùnián')],ans:[0,1,2],end:'。',k:'p05-mtqt-f'}),
+ blank({tag:MQ(4),noTh:1,s:'我_十岁。',opts:['今年','去年','第一'],ans:0,k:'p05-jnss-f',fb:'<span class="zh">我今年十岁。</span>'}),
+ fin({title:'จบหน่วยที่ 2 แล้ว',html:dlgH(D,{noTh:1}),chips:[ZSH,WSH,WA,MTJ,YHJ,BA,BAN,JN,QN,DY,YIN,YU,XUE,QING].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L06',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

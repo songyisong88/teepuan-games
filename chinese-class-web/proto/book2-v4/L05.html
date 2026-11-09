@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 2-2 ปีนี้ ปีที่แล้ว อากาศ</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 2-2 หน่วย 2 ทักทายเช้าเย็น: ปีนี้ ปีที่แล้ว อากาศ · คำใหม่ 今年 去年 第一 阴 雨 雪 晴 · ทบทวนในบริบท (เล่ม 1): 号
+   ทบทวนจากบทก่อน: 天气 怎么样 下雨 月 吧 · กิจกรรมเฉพาะบท: ปีที่แล้วหรือปีนี้ (แยกประโยค) · พยากรณ์อากาศ 4 แบบ */
+const JN=W('今年','jīnnián','ปีนี้',{s:'jīn nián'}),QN=W('去年','qùnián','ปีที่แล้ว',{s:'qù nián'}),DY=W('第一','dìyī','ที่หนึ่ง แรก',{s:'dì yī'}),
+ YIN=W('阴','yīn','ครึ้ม มีเมฆมาก'),YU=W('雨','yǔ','ฝน'),XUE=W('雪','xuě','หิมะ'),QING=W('晴','qíng','แจ่มใส (ท้องฟ้า)');
+const HAO=w('号','hào','วันที่');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('北京今天下雪了！','Běijīng jīntiān xià xuě le!','วันนี้ที่ปักกิ่งหิมะตกแล้ว','p05-a-m'),
+ b:S('下雪了？泰国没有雪。','xià xuě le? Tàiguó méiyǒu xuě.','หิมะตกเหรอ ที่ไทยไม่มีหิมะ','p05-b-f'),
+ c:S('你今年来北京吗？','nǐ jīnnián lái Běijīng ma?','ปีนี้มาปักกิ่งไหม','p05-c-m'),
+ d:S('我去年去了，今年也想去。','wǒ qùnián qù le, jīnnián yě xiǎng qù.','ปีที่แล้วฉันไปมาแล้ว ปีนี้ก็อยากไปอีก','p05-d-f'),
+ e:S('十二月二十号来吧！','shí\'èr yuè èrshí hào lái ba!','มาวันที่ยี่สิบธันวาคมสิ','p05-e-m'),
+ f:S('好！明天天气怎么样？','hǎo! míngtiān tiānqì zěnmeyàng?','ได้เลย พรุ่งนี้อากาศเป็นอย่างไร','p05-f-f'),
+ g:S('明天阴天，不下雪。','míngtiān yīntiān, bú xià xuě.','พรุ่งนี้ฟ้าครึ้ม หิมะไม่ตก','p05-g-m'),
+ jnss:S('我今年十岁。','wǒ jīnnián shí suì.','ปีนี้ฉันอายุสิบขวบ','p05-jnss-f'),
+ jnxq:S('今年我想去北京。','jīnnián wǒ xiǎng qù Běijīng.','ปีนี้ฉันอยากไปปักกิ่ง','p05-jnxq-f'),
+ qnbj:S('去年我去了北京。','qùnián wǒ qù le Běijīng.','ปีที่แล้วฉันไปปักกิ่งมา','p05-qnbj-f'),
+ qnxx:S('去年北京下雪了。','qùnián Běijīng xià xuě le.','ปีที่แล้วหิมะตกที่ปักกิ่ง','p05-qnxx-m'),
+ dyt:S('今天是我学汉语的第一天。','jīntiān shì wǒ xué Hànyǔ de dì yī tiān.','วันนี้เป็นวันแรกที่ฉันเรียนภาษาจีน','p05-dyt-f'),
+ dyg:S('我是第一个！','wǒ shì dì yī ge!','ฉันเป็นคนแรก','p05-dyg-g'),
+ yint:S('今天阴天。','jīntiān yīntiān.','วันนี้ฟ้าครึ้ม','p05-yint-f'),
+ yinyu:S('今天阴天，有雨吗？','jīntiān yīntiān, yǒu yǔ ma?','วันนี้ฟ้าครึ้ม จะมีฝนไหม','p05-yinyu-g'),
+ yuhd:S('雨很大。','yǔ hěn dà.','ฝนตกหนักมาก','p05-yuhd-f'),
+ jtyy:S('明天有雨。','míngtiān yǒu yǔ.','พรุ่งนี้มีฝน','p05-jtyy-f'),
+ xuehd:S('雪很大。','xuě hěn dà.','หิมะตกหนักมาก','p05-xuehd-m'),
+ qtr:S('今天是晴天，很热。','jīntiān shì qíngtiān, hěn rè.','วันนี้ท้องฟ้าแจ่มใส ร้อนมาก','p05-qtr-f'),
+ mtqt:S('明天是晴天。','míngtiān shì qíngtiān.','พรุ่งนี้ท้องฟ้าแจ่มใส','p05-mtqt-f'),
+ tqz:S('今天天气怎么样？','jīntiān tiānqì zěnmeyàng?','วันนี้อากาศเป็นอย่างไร','p05-tqz-g'),
+ mtn:S('明天呢？','míngtiān ne?','แล้วพรุ่งนี้ล่ะ','p05-mtn-g'),
+ xyl:S('下雨了。','xià yǔ le.','ฝนตกแล้ว','p05-xyl-f'),
+ jtjh:S('今天几号？','jīntiān jǐ hào?','วันนี้วันที่เท่าไร','p05-jtjh-g'),
+ /* ภารกิจ / ชิป */
+ m1:S('北京下雪了。','Běijīng xià xuě le.','ที่ปักกิ่งหิมะตกแล้ว','p05-m1-t'),m2:S('今天是晴天。','jīntiān shì qíngtiān.','วันนี้ท้องฟ้าแจ่มใส','p05-m2-t'),
+ m3:S('明天阴天。','míngtiān yīntiān.','พรุ่งนี้ฟ้าครึ้ม','p05-m3-t'),m4:S('雨很大。','yǔ hěn dà.','ฝนตกหนักมาก','p05-m4-t'),
+ mtqz:S('明天天气怎么样？','míngtiān tiānqì zěnmeyàng?','พรุ่งนี้อากาศเป็นอย่างไร','p05-mtqz-m'),
+ c1:S('晴天','qíngtiān','วันฟ้าแจ่มใส','p05-c1-t'),c2:S('阴天','yīntiān','วันฟ้าครึ้ม','p05-c2-t'),c3:S('下雨','xià yǔ','ฝนตก','p05-c3-t'),c4:S('下雪','xià xuě','หิมะตก','p05-c4-t')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'},g:{...X.g,who:'f'}};
+const D=[{sit:'มะลิวิดีโอคอลกับหวังหมิงที่ปักกิ่ง',img:XUE.img},L.a,L.b,L.c,L.d,L.e,L.f,L.g];
+const WC4=[{img:QING.img,th:'แจ่มใส'},{img:YIN.img,th:'ฟ้าครึ้ม'},{img:YU.img,th:'ฝน'},{img:XUE.img,th:'หิมะ'}];
+const BINS=[{img:QN.img,zh:'去年',py:'qùnián',th:'ปีที่แล้ว'},{img:JN.img,zh:'今年',py:'jīnnián',th:'ปีนี้'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:5,code:'บท 2-2',title:'ปีนี้ ปีที่แล้ว อากาศ',goal:{do:'บอกเรื่องปีนี้ ปีที่แล้ว นัดวันที่ และคุยเรื่องอากาศ ฝน หิมะ',sub:'ใช้ <span class="gz">今年 · 去年 · 晴天 · 阴天 · 下雪</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:XUE.img,cap:'สถานการณ์ของบทนี้',title:'หิมะตกที่ปักกิ่ง',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะคุยเรื่องอากาศ และนัดไปเที่ยวในปีนี้ได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[JN,QN,DY,YIN,YU,XUE,QING]}),
+ recap({cap:'คำจากเล่ม 1 ที่ใช้ในบทนี้',title:'ทวนคำเดิม',text:'แตะการ์ดเพื่อฟัง คำนี้จะใช้นัดวันที่',groups:[{lab:'เล่ม 1 · บท 6-2',items:[HAO]}]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['今年','去年','第一','阴','雨','雪','晴'],note:'ใช้คำจากเล่ม 1 เช่น 天气 怎么样 下雨 月 ร่วมด้วย'}),
+ ...WC(JN,1,7,{cap:'เวลา',hint:'คล้าย <b>"จิน เหนียน"</b> · 今 ลงท้าย -n',use:'今 ตอนนี้ + 年 ปี = ปีนี้ · วางไว้ต้นประโยคหรือหลังผู้พูด',ex:[X.jnss,X.jnxq]}),
+ ...WC(QN,2,7,{cap:'เวลา',hint:'คล้าย <b>"ชวี่ เหนียน"</b> · q พ่นลม ü ห่อปาก',use:'去 ที่ผ่านไป + 年 ปี = ปีที่แล้ว · เล่าเรื่องที่เกิดแล้วมักมี 了',ex:[X.qnbj,X.qnxx]}),
+ RC('คำที่ 1–2/7',[JN,QN]),
+ use({n:'คำที่ 1–2/7',w:JN,when:[{img:QN.img,t:'เล่าเรื่องปีที่แล้ว'},{img:JN.img,t:'บอกเรื่องปีนี้'}],lines:[{...X.c,who:'f'},{...X.d,who:'me'}],tip:'<span class="zh">去年</span> + เรื่องที่ทำแล้ว + <span class="zh">了</span> · <span class="zh">今年</span> + สิ่งที่อยากทำ'}),
+ ...WC(DY,3,7,{cap:'ลำดับ',hint:'คล้าย <b>"ตี้ อี"</b> · 一 ที่บอกลำดับอ่านเสียง 1 เสมอ',use:'第 + ตัวเลข = ลำดับที่ · 第一 ที่หนึ่ง · 第一天 วันแรก · 第一个 คนแรก อันแรก',ex:[X.dyt,X.dyg]}),
+ rec({n:'คำที่ 3/7',ws:[DY]}),
+ ...WC(YIN,4,7,{cap:'อากาศ',hint:'คล้าย <b>"อิน"</b> · เสียงสูงเรียบ ลงท้าย -n',use:'ท้องฟ้าครึ้ม มีเมฆมาก · มักพูดว่า 阴天 วันฟ้าครึ้ม',ex:[X.yint,X.yinyu]}),
+ ...WC(YU,5,7,{cap:'อากาศ',hint:'คล้าย <b>"หยวี่"</b> · yu ห่อปาก เสียง 3',use:'แปลว่าฝน · ฝนตก 下雨 · มีฝน 有雨',ex:[X.yuhd,X.jtyy]}),
+ RC('คำที่ 4–5/7',[YIN,YU]),
+ use({n:'คำที่ 4–5/7',w:YIN,when:[{img:YIN.img,t:'ท้องฟ้าครึ้ม'},{img:YU.img,t:'ฝนตก'}],lines:[{...X.yinyu,who:'g'},{...X.jtyy,who:'me'}],tip:'<span class="zh">阴天</span> ฟ้าครึ้ม · <span class="zh">有雨</span> มีฝน · <span class="zh">下雨了</span> ฝนตกแล้ว'}),
+ ...WC(XUE,6,7,{cap:'อากาศ',hint:'คล้าย <b>"เสวีย"</b> · u หลัง x คือ ü ห่อปาก',use:'แปลว่าหิมะ · หิมะตก 下雪 · หิมะตกแล้ว 下雪了',ex:[X.a,X.xuehd]}),
+ ...WC(QING,7,7,{cap:'อากาศ',hint:'คล้าย <b>"ฉิง"</b> · q พ่นลม เสียง 2 ขึ้น',use:'ท้องฟ้าแจ่มใส ไม่มีเมฆ · มักพูดว่า 晴天 วันฟ้าแจ่มใส',ex:[X.qtr,X.mtqt]}),
+ RC('คำที่ 6–7/7',[XUE,QING]),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','晴天 阴天','ปีที่แล้วหรือปีนี้','พยากรณ์อากาศ','下雨 กับ 下雪','ข้อควรระวัง'],note:'ฝึกคุยเรื่องอากาศ และนัดวันไปเที่ยวปักกิ่ง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาวิดีโอคอล',title:'หิมะตกที่ปักกิ่ง',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เล่าเรื่องปีที่แล้วด้วย 去年 · นัดวันที่ด้วย 月 + 号'}),
+ talk({cap:'เทคนิค 2/6 · 晴天 阴天',title:'บอกว่าวันนี้ฟ้าเป็นอย่างไร',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.tqz,who:'g'},{...X.qtr,who:'me'},{...X.mtn,who:'g'},{...X.jtyy,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">晴</span> <span class="zh">阴</span> + <span class="zh">天</span> = วันฟ้าแจ่มใส วันฟ้าครึ้ม · ฝนกับหิมะใช้ <span class="zh">下</span> นำหน้า'}),
+ sortmap({tag:'เทคนิค 3/6 · ปีที่แล้วหรือปีนี้',q:'ฟังแต่ละประโยค แล้วแตะว่าเป็นเรื่องของปีไหน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('学生'),X.qnbj,0),it(ART('女孩'),X.jnss,1),it(ART('男孩'),X.qnxx,0),it(ART('学生'),X.jnxq,1)]}),
+ point({tag:'เทคนิค 4/6 · พยากรณ์อากาศ',q:'ฟังพยากรณ์อากาศ แล้วแตะภาพที่ตรงกัน',this:'คืออากาศนี้',cards:WC4,rounds:[
+  {zh:X.xuehd.zh,k:X.xuehd.k,ans:3},{zh:X.qtr.zh,k:X.qtr.k,ans:0},{zh:X.yint.zh,k:X.yint.k,ans:1},{zh:X.yuhd.zh,k:X.yuhd.k,ans:2}]}),
+ cmp({cap:'เทคนิค 5/6 · 下雨 กับ 下雪',title:'ฝนตก หิมะตก',text:'แตะการ์ดเพื่อฟัง',a:{who:'ฝนตก',img:YU.img,zh:'下雨了。',zhb:'下雨',py:'xià yǔ',th:'ฝนตก',k:'p05-xyl-f'},b:{who:'หิมะตก',img:XUE.img,zh:'北京今天下雪了！',zhb:'下雪',py:'xià xuě',th:'หิมะตก',k:'p05-a-m'},
+  tip:'<span class="zh">下</span> แปลว่าตกลงมา · <span class="zh">下雨</span> ฝนตก · <span class="zh">下雪</span> หิมะตก'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'คำบอกเวลาอยู่หน้ากริยา',bad:'我想去北京今年。',good:'今年我想去北京。',k:'p05-jnxq-f'},
+  {h:'第 อยู่หน้าตัวเลข',bad:'今天是我学汉语的一第天。',good:'今天是我学汉语的第一天。',k:'p05-dyt-f'},
+  {h:'晴 阴 ต่อด้วย 天',bad:'今天是晴，很热。',good:'今天是晴天，很热。',k:'p05-qtr-f'},
+  {h:'เดือนมาก่อนวันที่',bad:'二十号十二月',good:'十二月二十号来吧！',k:'p05-e-m'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:去年',opts:['ปีที่แล้ว','ปีนี้','พรุ่งนี้'],ans:0,fb:'<span class="zh">去年</span> <b>qùnián</b> = ปีที่แล้ว'}),
+ blank({tag:'ทบทวนเล่ม 1 · บท 6-2 วันที่เท่าไร กี่โมง',s:'今天几_？',th:'วันนี้วันที่เท่าไร',opts:['号','年','点'],ans:0,k:'p05-jtjh-g',fb:'<span class="zh">今天几号？</span> · 号 = วันที่'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:雪',opts:[{img:XUE.img},{img:YU.img},{img:QING.img}],ans:0,fb:'<span class="zh">雪</span> <b>xuě</b> = หิมะ'}),
+ blank({tag:TQ(3),s:'今天是_天，很热。',th:'วันนี้ท้องฟ้าแจ่มใส ร้อนมาก',opts:['晴','阴','雪'],ans:0,k:'p05-qtr-f',fb:'<span class="zh">今天是晴天，很热。</span>'}),
+ ask({rv:4,q:'ฟัง 雪 xuě · ตัว u หลัง x อ่านเป็นสระอะไร',k:'w:雪',opts:['ü','u'],ans:0,fb:'หลัง j q x ตัว u คือ <b>ü</b> ห่อปากกลม · xuě'}),
+ reply({tag:TQ(4),q:'หวังหมิงชวนมาปักกิ่ง ปีที่แล้วคุณไปมาแล้ว และปีนี้ก็อยากไป',line:{...X.c,who:'f'},opts:[X.d,X.mtqt,X.qnxx],ans:0,why:'เล่าปีที่แล้วด้วย 去年 และปีนี้ด้วย 今年'}),
+ order({tag:TQ(5),th:'ปีที่แล้วหิมะตกที่ปักกิ่ง',tiles:[tl('去年','qùnián'),tl('北京','Běijīng'),tl('下','xià'),tl('雪','xuě'),tl('了','le'),tl('今年','jīnnián')],ans:[0,1,2,3,4],end:'。',k:'p05-qnxx-m'}),
+ ask({rv:'ทบทวนบท 2-1 สวัสดีตอนเช้า ราตรีสวัสดิ์',q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:半',opts:['ครึ่ง','นิดหน่อย','เดี๋ยวเจอกัน'],ans:0,fb:'<span class="zh">半</span> <b>bàn</b> = ครึ่ง'}),
+ tf({tag:TQ(6),k:'p05-g-m',img:YIN.img,card:'<b>ปักกิ่ง · พรุ่งนี้</b><br>ฟ้าครึ้ม ไม่มีหิมะ',ans:0,fb:'<span class="zh">明天阴天，不下雪。</span> = พรุ่งนี้ฟ้าครึ้ม หิมะไม่ตก · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'รายงานอากาศเอง',chips:['ฟังแล้วแตะภาพ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพอากาศ',this:'คืออากาศนี้',cards:WC4,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:1},{zh:X.m1.zh,k:X.m1.k,ans:3},{zh:X.m4.zh,k:X.m4.k,ans:2},{zh:X.m2.zh,k:X.m2.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'พยากรณ์บอกว่าพรุ่งนี้ฝนตก หวังหมิงถามว่า',line:{...X.mtqz,who:'f'},opts:[X.jtyy,X.mtqt,X.xuehd],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'今天是我学汉语的_天。',opts:['第一','今年','去年'],ans:0,k:'p05-dyt-f',fb:'<span class="zh">今天是我学汉语的第一天。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('十二月','shí\'èr yuè'),tl('二十号','èrshí hào'),tl('来','lái'),tl('吧','ba'),tl('雪','xuě')],ans:[0,1,2,3],end:'！',k:'p05-e-m'}),
+ /* 5 · จบบท */
+ fin({title:'คุยเรื่องอากาศได้แล้ว',html:dlgH(D,{noTh:1}),chips:[JN,QN,DY,YIN,YU,XUE,QING,HAO].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L05',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

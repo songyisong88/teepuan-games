@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 2-1 สวัสดีตอนเช้า ราตรีสวัสดิ์</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 2-1 หน่วย 2 ทักทายเช้าเย็น: สวัสดีตอนเช้า ราตรีสวัสดิ์ · คำใหม่ 早上好 晚上好 晚安 明天见 一会儿见 吧 半 · ทบทวนในบริบท (เล่ม 1): 一点儿
+   ทบทวนจากบทก่อน: 一起 点 现在 回家 · กิจกรรมเฉพาะบท: ทักให้ถูกเวลา (ฟังคำทักแล้วแตะช่วงเวลา) · นาฬิกา …点半 */
+const SV=s=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#FBF5EA"/>${s}</svg>`);
+const CLK=(h,m,th)=>{const ha=((h%12)+m/60)*30*Math.PI/180,ma=m*6*Math.PI/180;let t='';for(let i=0;i<12;i++){const b=i*30*Math.PI/180;t+=`<line x1="${256+150*Math.sin(b)}" y1="${256-150*Math.cos(b)}" x2="${256+170*Math.sin(b)}" y2="${256-170*Math.cos(b)}" stroke="#8C6A4E" stroke-width="${i%3?6:12}" stroke-linecap="round"/>`}
+ const u=SV(`<circle cx="256" cy="256" r="196" fill="#fff" stroke="#8C6A4E" stroke-width="14"/>${t}<line x1="256" y1="256" x2="${(256+144*Math.sin(ma)).toFixed(1)}" y2="${(256-144*Math.cos(ma)).toFixed(1)}" stroke="#3C2E25" stroke-width="12" stroke-linecap="round"/><line x1="256" y1="256" x2="${(256+92*Math.sin(ha)).toFixed(1)}" y2="${(256-92*Math.cos(ha)).toFixed(1)}" stroke="#D9473B" stroke-width="18" stroke-linecap="round"/><circle cx="256" cy="256" r="16" fill="#3C2E25"/>`);THL[u]=th;return u};
+const K730=CLK(7,30,'7 นาฬิกาครึ่ง'),K930=CLK(9,30,'9 นาฬิกาครึ่ง'),K10=CLK(10,0,'10 นาฬิกา');
+const ZSH=W('早上好','zǎoshang hǎo','สวัสดีตอนเช้า',{s:'zǎo shang hǎo'}),WSH=W('晚上好','wǎnshang hǎo','สวัสดีตอนเย็น ตอนค่ำ',{s:'wǎn shang hǎo'}),
+ WA=W('晚安',"wǎn'ān",'ราตรีสวัสดิ์',{s:'wǎn ān'}),MTJ=W('明天见','míngtiān jiàn','เจอกันพรุ่งนี้',{s:'míng tiān jiàn'}),
+ YHJ=W('一会儿见','yíhuìr jiàn','เดี๋ยวเจอกัน',{s:'yí huìr jiàn',c:['一','会儿','见'],sl:[0,1]}),BA=W('吧','ba','…นะ …เถอะ (ชวน เสนอ)',{nosk:1}),BAN=W('半','bàn','ครึ่ง');
+const YDR=w('一点儿','yìdiǎnr','นิดหน่อย');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ zsh:S('早上好！','zǎoshang hǎo!','สวัสดีตอนเช้า','p04-zsh-g'),
+ zshq:S('早上好！你去哪儿？','zǎoshang hǎo! nǐ qù nǎr?','สวัสดีตอนเช้า จะไปไหนเหรอ','p04-zshq-f'),
+ wqsd:S('我去商店。我们一起去吧！','wǒ qù shāngdiàn. wǒmen yìqǐ qù ba!','ฉันไปร้านค้า ไปด้วยกันเถอะ','p04-wqsd-g'),
+ hyhj:S('好！一会儿见！','hǎo! yíhuìr jiàn!','ได้ เดี๋ยวเจอกัน','p04-hyhj-f'),
+ jdb:S('现在九点半了，我回家了。','xiànzài jiǔ diǎn bàn le, wǒ huí jiā le.','ตอนนี้สามทุ่มครึ่งแล้ว ฉันกลับบ้านก่อนนะ','p04-jdb-g'),
+ wamt:S('好，晚安！明天见！',"hǎo, wǎn'ān! míngtiān jiàn!",'ได้ ราตรีสวัสดิ์ เจอกันพรุ่งนี้','p04-wamt-f'),
+ mtj:S('明天见！','míngtiān jiàn!','เจอกันพรุ่งนี้','p04-mtj-g'),
+ lsz:S('李老师，早上好！','Lǐ lǎoshī, zǎoshang hǎo!','สวัสดีตอนเช้า คุณครูหลี่','p04-lsz-f'),
+ lszt:S('早上好！你们好！','zǎoshang hǎo! nǐmen hǎo!','สวัสดีตอนเช้า สวัสดีทุกคน','p04-lszt-t'),
+ txw:S('同学们，晚上好！','tóngxuémen, wǎnshang hǎo!','สวัสดีตอนค่ำ นักเรียนทุกคน','p04-txw-t'),
+ lsw:S('老师，晚上好！','lǎoshī, wǎnshang hǎo!','สวัสดีตอนค่ำ คุณครู','p04-lsw-f'),
+ wamm:S('晚安，妈妈！',"wǎn'ān, māma!",'ราตรีสวัสดิ์นะแม่','p04-wamm-f'),
+ sdwa:S('十点了，晚安！',"shí diǎn le, wǎn'ān!",'สี่ทุ่มแล้ว ราตรีสวัสดิ์','p04-sdwa-g'),
+ hjmt:S('我回家了，明天见！','wǒ huí jiā le, míngtiān jiàn!','ฉันกลับบ้านก่อนนะ เจอกันพรุ่งนี้','p04-hjmt-g'),
+ lsmt:S('老师，明天见！','lǎoshī, míngtiān jiàn!','คุณครู เจอกันพรุ่งนี้','p04-lsmt-f'),
+ msyh:S('我去买水，一会儿见！','wǒ qù mǎi shuǐ, yíhuìr jiàn!','ฉันไปซื้อน้ำ เดี๋ยวเจอกัน','p04-msyh-m'),
+ yhj:S('一会儿见！','yíhuìr jiàn!','เดี๋ยวเจอกัน','p04-yhj-f'),
+ yqqb:S('我们一起去吧！','wǒmen yìqǐ qù ba!','ไปด้วยกันเถอะ','p04-yqqb-g'),
+ hcb:S('你喝一点儿茶吧。','nǐ hē yìdiǎnr chá ba.','ดื่มชาหน่อยสิ','p04-hcb-g'),
+ cfb:S('我们吃饭吧！','wǒmen chī fàn ba!','พวกเราทานข้าวกันเถอะ','p04-cfb-m'),
+ hao:S('好！','hǎo!','ได้เลย','p04-hao-f'),xx:S('谢谢！','xièxie!','ขอบคุณ','p04-xx-f'),
+ qdb:S('现在七点半。','xiànzài qī diǎn bàn.','ตอนนี้เจ็ดโมงครึ่ง','p04-qdb-t'),
+ bgpg:S('我吃半个苹果。','wǒ chī bàn ge píngguǒ.','ฉันกินแอปเปิลครึ่งลูก','p04-bgpg-f'),
+ hsyd:S('我会说一点儿汉语。','wǒ huì shuō yìdiǎnr Hànyǔ.','ฉันพูดภาษาจีนได้นิดหน่อย','p04-hsyd-f'),
+ xzjd:S('现在几点？','xiànzài jǐ diǎn?','ตอนนี้กี่โมง','p04-xzjd-g'),
+ hy:S('欢迎，欢迎！','huānyíng, huānyíng!','ยินดีต้อนรับ ยินดีต้อนรับ','p04-hy-f'),
+ lswa:S('老师，晚安！',"lǎoshī, wǎn'ān!",'คุณครู ราตรีสวัสดิ์','p04-lswa-f'),
+ /* ภารกิจ */
+ t1:S('七点半','qī diǎn bàn','เจ็ดโมงครึ่ง','p04-t1-t'),t2:S('九点半','jiǔ diǎn bàn','เก้าโมงครึ่ง','p04-t2-t'),t3:S('十点','shí diǎn','สิบโมง','p04-t3-t'),
+ c1:S('去吧','qù ba','ไปเถอะ','p04-c1-t'),c2:S('吃吧','chī ba','ทานสิ','p04-c2-t'),c3:S('好吧','hǎo ba','ก็ได้','p04-c3-t'),c4:S('一点儿','yìdiǎnr','นิดหน่อย','p04-c4-t')};
+const L={a:{...X.zsh,who:'g'},b:{...X.zshq,who:'me'},c:{...X.wqsd,who:'g'},d:{...X.hyhj,who:'me'},e:{...X.jdb,who:'g'},f:{...X.wamt,who:'me'},g:{...X.mtj,who:'g'}};
+const D=[{sit:'เช้าวันเสาร์ มะลิเจอหลี่น่าหน้าบ้าน',img:NL(ZSH)},L.a,L.b,L.c,L.d,{sit:'ตอนค่ำ หลังเที่ยวด้วยกันทั้งวัน',img:K930},L.e,L.f,L.g];
+const BINS=[{img:NL(ZSH),zh:'早上',py:'zǎoshang',th:'ตอนเช้า'},{img:NL(WSH),zh:'晚上',py:'wǎnshang',th:'ตอนค่ำ'},{img:NL(WA),zh:'睡觉',py:'shuìjiào',th:'ก่อนนอน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const KC=[{img:K730,th:'7 โมงครึ่ง'},{img:K930,th:'9 โมงครึ่ง'},{img:K10,th:'10 โมง'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:4,code:'บท 2-1',title:'สวัสดีตอนเช้า ราตรีสวัสดิ์',goal:{do:'ทักทายให้ถูกช่วงเวลา บอกลา ชวนเพื่อน และบอกเวลาครึ่งชั่วโมง',sub:'ใช้ <span class="gz">早上好 · 晚安 · 明天见 · …吧 · 七点半</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:ZSH.img,cap:'สถานการณ์ของบทนี้',title:'หนึ่งวันกับหลี่น่า',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะทักทายตอนเช้า บอกลาตอนกลางคืน และชวนเพื่อนไปด้วยกันได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZSH,WSH,WA,MTJ,YHJ,BA,BAN]}),
+ recap({cap:'คำจากเล่ม 1 ที่ใช้ในบทนี้',title:'ทวนคำเดิม',text:'แตะการ์ดเพื่อฟัง คำนี้จะใช้ในบทสนทนา',groups:[{lab:'เล่ม 1 · บท 4-2',items:[YDR]}]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['早上好','晚上好','晚安','明天见','一会儿见','吧','半'],note:'ใช้คำจากเล่ม 1 เช่น 现在 点 回家 一起 ร่วมด้วย'}),
+ ...WC(ZSH,1,7,{cap:'ทักทาย',hint:'คล้าย <b>"จ่าว ซัง ห่าว"</b> · 上 อ่านเบา · เคยเห็นในเล่ม 1 แล้ว บทนี้ฝึกใช้ให้ถูกเวลา',use:'ทักทายตอนเช้า ถึงประมาณสิบโมง · ตอบกลับด้วย 早上好 เหมือนกัน',ex:[X.lsz,X.zshq]}),
+ ...WC(WSH,2,7,{cap:'ทักทาย',hint:'คล้าย <b>"หว่าน ซัง ห่าว"</b> · 上 อ่านเบา',use:'ทักทายเมื่อเจอกันตอนเย็นหรือค่ำ · ใช้ตอนพบกัน ไม่ใช่ตอนลา',ex:[X.txw,X.lsw]}),
+ RC('คำที่ 1–2/7',[ZSH,WSH]),
+ use({n:'คำที่ 1–2/7',w:ZSH,when:[{img:NL(ZSH),t:'เจอกันตอนเช้า'},{img:NL(WSH),t:'เจอกันตอนเย็นหรือค่ำ'}],lines:[{...X.lsz,who:'me'},{...X.lszt,who:'t'},{...X.txw,who:'t'}],tip:'ช่วงเวลา + <span class="zh">好</span> = คำทักทาย · <span class="zh">早上好</span> ตอนเช้า · <span class="zh">晚上好</span> ตอนค่ำ'}),
+ ...WC(WA,3,7,{cap:'บอกลา',hint:'คล้าย <b>"หว่าน อัน"</b> · เขียนพินอินมีขีด \' คั่น เพื่อไม่ให้อ่านติดกันเป็น wǎ nān',use:'พูดตอนลาไปนอน หรือแยกกันตอนดึก · ไม่ใช้ทักทายตอนเจอกัน',ex:[X.wamm,X.sdwa]}),
+ ...WC(MTJ,4,7,{cap:'บอกลา',hint:'คล้าย <b>"หมิง เทียน เจี้ยน"</b>',use:'明天 พรุ่งนี้ + 见 เจอ · ลาคนที่จะเจอกันอีกวันพรุ่งนี้',ex:[X.hjmt,X.lsmt]}),
+ RC('คำที่ 3–4/7',[WA,MTJ]),
+ use({n:'คำที่ 3–4/7',w:WA,when:[{img:NL(WA),t:'ลาไปนอน'},{img:NL(MTJ),t:'ลาเพื่อนที่จะเจอพรุ่งนี้'}],lines:[{...X.hjmt,who:'g'},{...X.wamt,who:'me'}],tip:'ตอนดึกพูดคู่กันได้ <span class="zh">晚安！明天见！</span>'}),
+ ...WC(YHJ,5,7,{cap:'บอกลา',hint:'คล้าย <b>"อี๋ ฮุ่ย(ร) เจี้ยน"</b> · 一 อยู่หน้าเสียง 4 จึงอ่านเป็นเสียง 2 yí · 会儿 ม้วนลิ้นท้าย',use:'แยกกันแป๊บเดียวแล้วจะเจอกันอีกในวันเดียวกัน',ex:[X.msyh,X.hyhj]}),
+ ...WC(BA,6,7,{cap:'ท้ายประโยค',hint:'คล้าย <b>"ปะ"</b> · เสียงเบาและสั้น',use:'วางท้ายประโยค ใช้ชวนหรือเสนออย่างนุ่มนวล เช่น 我们一起去吧 ไปด้วยกันเถอะ',ex:[X.yqqb,X.cfb]}),
+ RC('คำที่ 5–6/7',[YHJ,BA]),
+ use({n:'คำที่ 5–6/7',w:BA,when:[{img:NL(YHJ),t:'แยกกันแป๊บเดียว'},{img:BA.img,t:'ชวนเพื่อนทำด้วยกัน'}],lines:[{...X.wqsd,who:'g'},{...X.hyhj,who:'me'}],tip:'ชวน <span class="zh">我们 + กริยา + 吧</span> · ตอบรับ <span class="zh">好！</span>'}),
+ ...WC(BAN,7,7,{cap:'จำนวน',hint:'คล้าย <b>"ปั้น"</b> · b ไม่พ่นลม ลงท้าย -n',use:'แปลว่าครึ่ง · บอกเวลา …点半 เช่น 七点半 เจ็ดโมงครึ่ง · ครึ่งลูก 半个',ex:[X.qdb,X.bgpg]}),
+ rec({n:'คำที่ 7/7',ws:[BAN]}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ทักให้ถูกเวลา','明天见 กับ 一会儿见','ชวนด้วย 吧','…点半','ข้อควรระวัง'],note:'ฝึกทักและลาให้ถูกช่วงเวลาของวัน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาเช้าและค่ำ',title:'หนึ่งวันกับหลี่น่า',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ตอนเจอ 早上好 · ชวน …吧 · ตอนลา 一会儿见 晚安 明天见'}),
+ sortmap({tag:'เทคนิค 2/6 · ทักให้ถูกเวลา',q:'ฟังแต่ละประโยค แล้วแตะช่วงเวลาที่ควรพูด',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'ทักถูกเวลาครบแล้ว',
+  items:[it(ART('学生'),X.lsz,0),it(ART('女孩'),X.sdwa,2),it(ART('老师'),X.txw,1),it(ART('学生'),X.wamm,2)]}),
+ cmp({cap:'เทคนิค 3/6 · 明天见 กับ 一会儿见',title:'เจอกันอีกเมื่อไร',text:'ทั้งสองคำใช้บอกลา แต่เวลาที่จะเจอกันต่างกัน',a:{who:'พรุ่งนี้',img:NL(MTJ),zh:'明天见！',zhb:'明天见',py:'míngtiān jiàn',th:'เจอกันพรุ่งนี้',k:'p04-mtj-g'},b:{who:'อีกสักครู่',img:NL(YHJ),zh:'一会儿见！',zhb:'一会儿见',py:'yíhuìr jiàn',th:'เดี๋ยวเจอกัน',k:'p04-yhj-f'},
+  tip:'คำบอกเวลา + <span class="zh">见</span> = เจอกัน… · <span class="zh">明天见</span> <span class="zh">一会儿见</span>'}),
+ talk({cap:'เทคนิค 4/6 · ชวนด้วย 吧',title:'ชวนและเสนออย่างนุ่มนวล',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.yqqb,who:'g'},{...X.hao,who:'me'},{...X.hcb,who:'g'},{...X.xx,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">吧</span> ท้ายประโยคทำให้ชวนหรือเสนอได้นุ่มนวล · <span class="zh">好吧</span> แปลว่า ก็ได้ · <span class="zh">一点儿</span> ทำให้ข้อเสนอสุภาพขึ้น'}),
+ point({tag:'เทคนิค 5/6 · …点半',q:'ฟังเวลา แล้วแตะนาฬิกาที่ตรงกัน',this:'คือนาฬิกานี้',cards:KC,rounds:[{zh:X.t1.zh,k:X.t1.k,ans:0},{zh:X.t3.zh,k:X.t3.k,ans:2},{zh:X.t2.zh,k:X.t2.k,ans:1}]}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'半 อยู่หลัง 点',bad:'七半点',good:'现在七点半。',k:'p04-qdb-t'},
+  {h:'เจอกันตอนค่ำ ใช้ 晚上好 ไม่ใช่ 晚安',bad:'(เจอคุณครูตอนหัวค่ำ) 老师，晚安！',good:'老师，晚上好！',k:'p04-lsw-f'},
+  {h:'吧 อยู่ท้ายประโยค',bad:'吧我们一起去！',good:'我们一起去吧！',k:'p04-yqqb-g'},
+  {h:'一点儿 อยู่หลังกริยา',bad:'我一点儿会说汉语。',good:'我会说一点儿汉语。',k:'p04-hsyd-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:晚安',opts:['ราตรีสวัสดิ์','สวัสดีตอนค่ำ','เจอกันพรุ่งนี้'],ans:0,fb:'<span class="zh">晚安</span> <b>wǎn\'ān</b> = ราตรีสวัสดิ์'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 6-2 วันที่เท่าไร กี่โมง',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p04-xzjd-g',opts:['ตอนนี้กี่โมง','วันนี้วันอะไร','ตอนนี้ไปไหน'],ans:0,fb:'<span class="zh">现在几点？</span> = ตอนนี้กี่โมง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:早上好',opts:[{img:NL(ZSH)},{img:NL(WSH)},{img:NL(WA)}],ans:0,fb:'<span class="zh">早上好</span> <b>zǎoshang hǎo</b> = สวัสดีตอนเช้า'}),
+ blank({tag:TQ(3),s:'现在七点_。',th:'ตอนนี้เจ็ดโมงครึ่ง',opts:['半','吧','见'],ans:0,k:'p04-qdb-t',fb:'<span class="zh">现在七点半。</span>'}),
+ ask({rv:'ทบทวนบท 1-2 ยินดีต้อนรับ แนะนำตัว',q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:欢迎',opts:['ยินดีต้อนรับ','เดี๋ยวเจอกัน','ราตรีสวัสดิ์'],ans:0,fb:'<span class="zh">欢迎</span> <b>huānyíng</b> = ยินดีต้อนรับ'}),
+ reply({tag:TQ(4),q:'หลี่น่าจะกลับบ้าน แล้วพรุ่งนี้จะเจอกันอีก',line:{...X.hjmt,who:'g'},opts:[X.mtj,X.lsz,X.hy],ans:0,why:'จะเจอกันพรุ่งนี้ ตอบ 明天见'}),
+ order({tag:TQ(5),th:'ไปด้วยกันเถอะ',tiles:[tl('我们','wǒmen'),tl('一起','yìqǐ'),tl('去','qù'),tl('吧','ba'),tl('半','bàn')],ans:[0,1,2,3],end:'！',k:'p04-yqqb-g'}),
+ ask({rv:12,q:'ฟัง 一会儿见 แล้วเลือกเสียงของ 一',k:'w:一会儿见',opts:[{tone:2,lab:'เสียง 2'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'一 อยู่หน้าเสียง 4 (会 huì) อ่านเป็นเสียง 2 · <b>yíhuìr jiàn</b>'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p04-hcb-g',opts:['ดื่มชาหน่อยสิ','คุณดื่มชาเยอะไหม','ฉันไม่ดื่มชา'],ans:0,fb:'<span class="zh">你喝一点儿茶吧。</span> · 吧 = เสนออย่างนุ่มนวล'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ทักทายทั้งวัน',chips:['ทักคุณครู','ฟังเวลา','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'เจ็ดโมงเช้า คุณเจอคุณครูหลี่หน้าโรงเรียน',opts:[X.lsz,X.lswa,X.lsmt],ans:0}),
+ point({tag:MQ(2),noTh:1,q:'ฟังเวลา แล้วแตะนาฬิกา',this:'คือนาฬิกานี้',cards:KC,rounds:[{zh:X.t2.zh,k:X.t2.k,ans:1},{zh:X.t1.zh,k:X.t1.k,ans:0},{zh:X.t3.zh,k:X.t3.k,ans:2}]}),
+ blank({tag:MQ(3),noTh:1,s:'好，晚安！_见！',opts:['明天','一会儿','早上'],ans:0,k:'p04-wamt-f',fb:'<span class="zh">好，晚安！明天见！</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('会','huì'),tl('说','shuō'),tl('一点儿','yìdiǎnr'),tl('汉语','Hànyǔ'),tl('吧','ba')],ans:[0,1,2,3,4],end:'。',k:'p04-hsyd-f'}),
+ /* 5 · จบบท */
+ fin({title:'ทักทายได้ทั้งวันแล้ว',html:dlgH(D,{noTh:1}),chips:[ZSH,WSH,WA,MTJ,YHJ,BA,BAN,YDR].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L04',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 8-2 ถามตอบในห้องเรียน</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 8-2 หน่วย 8 สะพานเหตุผล: ถามตอบในห้องเรียน · คำใหม่ 问 回答 问题 题 懂 错
+   ทบทวนจากบทก่อน: 考试 因为 所以 得 · กิจกรรมเฉพาะบท: ขอถามครู ถูกหรือผิด แตะภาพ 问题 กับ 题 */
+const WEN=W('问','wèn','ถาม'),HD=W('回答','huídá','ตอบ',{s:'huí dá'}),WT=W('问题','wèntí','คำถาม / ปัญหา',{s:'wèn tí'}),
+ TI2=W('题','tí','โจทย์ / ข้อ (ในข้อสอบ)'),DONG=W('懂','dǒng','เข้าใจ'),CUO=W('错','cuò','ผิด');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('同学们，现在我问问题。','tóngxuémen, xiànzài wǒ wèn wèntí.','นักเรียนทุกคน ตอนนี้ครูจะถามคำถามนะ','p30-a-t'),
+ b:S('王明，你回答第一个题。','Wáng Míng, nǐ huídá dì yī ge tí.','หวังหมิง ตอบข้อแรกหน่อย','p30-b-t'),
+ c:S('对不起，老师，我不懂这个题。','duìbuqǐ, lǎoshī, wǒ bù dǒng zhège tí.','ขอโทษครับครู ผมไม่เข้าใจโจทย์ข้อนี้','p30-c-m'),
+ d:S('没关系。玛莉，你来回答。','méi guānxi. Mǎlì, nǐ lái huídá.','ไม่เป็นไร มะลิ ลองตอบดู','p30-d-t'),
+ e:S('是五十吗？','shì wǔshí ma?','ห้าสิบใช่ไหมคะ','p30-e-f'),
+ f:S('对了！王明，你懂了吗？','duì le! Wáng Míng, nǐ dǒng le ma?','ถูกต้อง หวังหมิง เข้าใจหรือยัง','p30-f-t'),
+ g:S('懂了！谢谢老师。','dǒng le! xièxie lǎoshī.','เข้าใจแล้วครับ ขอบคุณครับครู','p30-g-m'),
+ kyw:S('我可以问你吗？','wǒ kěyǐ wèn nǐ ma?','ฉันขอถามคุณได้ไหม','p30-kyw-f'),
+ wls:S('你问老师吧。','nǐ wèn lǎoshī ba.','ไปถามครูสิ','p30-wls-g'),
+ hdw:S('请回答我的问题。','qǐng huídá wǒ de wèntí.','กรุณาตอบคำถามของฉัน','p30-hdw-t'),
+ mhd:S('他没回答。','tā méi huídá.','เขาไม่ได้ตอบ','p30-mhd-g'),
+ ygw:S('我有一个问题。','wǒ yǒu yí ge wèntí.','ฉันมีคำถามข้อหนึ่ง','p30-ygw-f'),
+ mwt:S('没问题！','méi wèntí!','ไม่มีปัญหา','p30-mwt-m'),
+ twh:S('这个题我会。','zhège tí wǒ huì.','ข้อนี้ฉันทำได้','p30-twh-f'),
+ ssg:S('考试有十个题。','kǎoshì yǒu shí ge tí.','ข้อสอบมีสิบข้อ','p30-ssg-t'),
+ ndl:S('你懂了吗？','nǐ dǒng le ma?','เข้าใจหรือยัง','p30-ndl-t'),
+ tbd:S('我听不懂。','wǒ tīng bu dǒng.','ฉันฟังไม่เข้าใจ','p30-tbd-f'),
+ wcl:S('对不起，我错了。','duìbuqǐ, wǒ cuò le.','ขอโทษ ฉันผิดเอง','p30-wcl-m'),
+ zcl:S('这个题你做错了。','zhège tí nǐ zuò cuò le.','ข้อนี้คุณทำผิด','p30-zcl-t'),
+ hdd:S('你回答对了。','nǐ huídá duì le.','คุณตอบถูกแล้ว','p30-hdd-t'),
+ xcl:S('你写错了。','nǐ xiě cuò le.','คุณเขียนผิด','p30-xcl-g'),
+ dws:S('对，是五十。','duì, shì wǔshí.','ใช่ ห้าสิบ','p30-dws-g'),
+ nwb:S('好，你问吧。','hǎo, nǐ wèn ba.','ได้ ถามมาเลย','p30-nwb-t'),
+ tbdz:S('这个题我不懂。','zhège tí wǒ bù dǒng.','ข้อนี้ฉันไม่เข้าใจ','p30-tbdz-f'),
+ yqk:S('没关系，我们一起看。','méi guānxi, wǒmen yìqǐ kàn.','ไม่เป็นไร มาดูด้วยกัน','p30-yqk-t'),
+ lsw:S('老师，我有一个问题。','lǎoshī, wǒ yǒu yí ge wèntí.','คุณครูคะ หนูมีคำถามข้อหนึ่ง','p30-lsw-f'),
+ ybd:S('因为我不懂，所以问老师。','yīnwèi wǒ bù dǒng, suǒyǐ wèn lǎoshī.','เพราะไม่เข้าใจ เลยถามครู','p30-ybd-g'),
+ lstb:S('老师，我听不懂。','lǎoshī, wǒ tīng bu dǒng.','คุณครูคะ หนูฟังไม่เข้าใจ','p30-lstb-f'),
+ dlx:S('懂了！谢谢老师。','dǒng le! xièxie lǎoshī.','เข้าใจแล้ว ขอบคุณค่ะคุณครู','p30-dlx-f'),
+ m1:S('我想问一个问题。','wǒ xiǎng wèn yí ge wèntí.','ฉันอยากถามคำถามข้อหนึ่ง','p30-m1-t'),m2:S('谁来回答？','shéi lái huídá?','ใครจะตอบ','p30-m2-t'),
+ m3:S('我懂了。','wǒ dǒng le.','ฉันเข้าใจแล้ว','p30-m3-t'),m4:S('我错了。','wǒ cuò le.','ฉันผิดแล้ว','p30-m4-t'),
+ c1:S('我懂了','wǒ dǒng le','ฉันเข้าใจแล้ว','p30-c1-t'),c2:S('我不懂','wǒ bù dǒng','ฉันไม่เข้าใจ','p30-c2-t'),c3:S('我听不懂','wǒ tīng bu dǒng','ฉันฟังไม่เข้าใจ','p30-c3-t'),c4:S('没问题','méi wèntí','ไม่มีปัญหา','p30-c4-t')};
+const L={a:{...X.a,who:'t'},b:{...X.b,who:'t'},c:{...X.c,who:'f'},d:{...X.d,who:'t'},e:{...X.e,who:'me'},f:{...X.f,who:'t'},g:{...X.g,who:'f'}};
+const D=[{sit:'ในห้องเรียน ครูถามคำถามนักเรียน',img:NL(WT)},L.a,L.b,L.c,L.d,L.e,L.f,L.g];
+const PIC=[{img:NL(WEN),th:'ถาม'},{img:NL(HD),th:'ตอบ'},{img:NL(DONG),th:'เข้าใจ'},{img:CUO.img,th:'ผิด'}];
+const BINS=[{img:ART('对'),zh:'对',py:'duì',th:'ถูก'},{img:CUO.img,zh:'错',py:'cuò',th:'ผิด'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:30,code:'บท 8-2',title:'ถามตอบในห้องเรียน',goal:{do:'ขอถามครู ตอบคำถาม บอกว่าเข้าใจหรือไม่เข้าใจ และยอมรับเมื่อทำผิด',sub:'ใช้ <span class="gz">我有一个问题 · 回答 · 懂了吗 · 错了</span>',min:12},steps:[
+ intro({scene:NL(WT),cap:'สถานการณ์ของบทนี้',title:'ครูถาม นักเรียนตอบ',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะถามตอบในห้องเรียนได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[WEN,HD,WT,TI2,DONG,CUO]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['问','回答','问题','题','懂','错'],note:'ใช้คำจากบทก่อน เช่น 考试 教室 因为 ร่วมด้วย'}),
+ ...WC(WEN,1,6,{cap:'ในห้องเรียน',hint:'คล้าย <b>"เวิ่น"</b> · เสียง 4',use:'ถาม · 问 + คน',ex:[X.kyw,X.wls]}),
+ ...WC(HD,2,6,{cap:'ในห้องเรียน',hint:'คล้าย <b>"หุย ต๋า"</b>',use:'ตอบ · 回答 + คำถาม',ex:[X.hdw,X.mhd]}),
+ RC('คำที่ 1–2/6',[WEN,HD]),
+ ...WC(WT,3,6,{cap:'ในห้องเรียน',hint:'คล้าย <b>"เวิ่น ถี๋"</b> · t พ่นลม',use:'คำถาม ปัญหา · 没问题 ไม่มีปัญหา',ex:[X.ygw,X.mwt]}),
+ ...WC(TI2,4,6,{cap:'ในห้องเรียน',hint:'คล้าย <b>"ถี๋"</b> · t พ่นลม เสียง 2',use:'โจทย์ ข้อ · 这个题 ข้อนี้',ex:[X.twh,X.ssg]}),
+ RC('คำที่ 3–4/6',[WT,TI2]),
+ use({n:'คำที่ 1–4/6',w:WT,when:[{img:NL(WEN),t:'ครูบอกว่าจะถามคำถาม'},{img:NL(HD),t:'ครูให้หวังหมิงตอบ'}],lines:[{...X.a,who:'t'},{...X.b,who:'t'}],tip:'<span class="zh">问问题</span> ถามคำถาม · <span class="zh">回答</span> + ข้อ ตอบข้อนั้น'}),
+ ...WC(DONG,5,6,{cap:'ความเข้าใจ',hint:'คล้าย <b>"ต่ง"</b> · เสียง 3',use:'เข้าใจ · 听不懂 ฟังไม่เข้าใจ',ex:[X.ndl,X.tbd]}),
+ ...WC(CUO,6,6,{cap:'ความเข้าใจ',hint:'คล้าย <b>"ชั่ว"</b> · c ลิ้นแตะฟัน พ่นลม',use:'ผิด · กริยา + 错了 ทำผิด',ex:[X.wcl,X.zcl]}),
+ RC('คำที่ 5–6/6',[DONG,CUO]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ขอถามครู','ถูกหรือผิด','แตะภาพ','问题 กับ 题','ข้อควรระวัง'],note:'ฝึกถามตอบในห้องเรียน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในห้องเรียน',title:'ครูถาม นักเรียนตอบ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ไม่เข้าใจให้บอก 我不懂 · ครูถาม 你懂了吗'}),
+ talk({cap:'เทคนิค 2/6 · ขอถามครู',title:'ไม่เข้าใจก็ถามได้',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.lsw,who:'me'},{...X.nwb,who:'t'},{...X.tbdz,who:'me'},{...X.yqk,who:'t'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ขอถาม <span class="zh">我有一个问题</span> · ไม่เข้าใจ <span class="zh">我不懂</span> / <span class="zh">我听不懂</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · ถูกหรือผิด',q:'ฟังแต่ละประโยค แล้วแตะว่าบอกว่าถูกหรือผิด',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('老师'),X.hdd,0),it(ART('老师'),X.zcl,1),it(ART('女孩'),X.dws,0),it(ART('女孩'),X.xcl,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.kyw.zh,k:X.kyw.k,ans:0},{zh:X.hdw.zh,k:X.hdw.k,ans:1},{zh:X.ndl.zh,k:X.ndl.k,ans:2},{zh:X.wcl.zh,k:X.wcl.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 问题 กับ 题',title:'คำถาม กับ โจทย์',text:'แตะการ์ดเพื่อฟัง',a:{who:'คำถาม',img:NL(WT),zh:X.ygw.zh,zhb:'问题',py:'wèntí',th:'คำถาม ปัญหา',k:X.ygw.k},b:{who:'โจทย์',img:TI2.img,zh:X.ssg.zh,zhb:'题',py:'tí',th:'โจทย์ ข้อสอบ',k:X.ssg.k},
+  tip:'<span class="zh">问题</span> คำถามที่คนถาม หรือปัญหา · <span class="zh">题</span> โจทย์ในแบบฝึกหัดหรือข้อสอบ'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ฟังไม่เข้าใจ 听不懂',bad:'我不听懂。',good:'我听不懂。',k:'p30-tbd-f'},
+  {h:'问 + คน',bad:'我可以问吗你？',good:'我可以问你吗？',k:'p30-kyw-f'},
+  {h:'ผิดแล้วมี 了',bad:'对不起，我错。',good:'对不起，我错了。',k:'p30-wcl-m'},
+  {h:'ของใครอยู่หน้า 的',bad:'请回答问题我的。',good:'请回答我的问题。',k:'p30-hdw-t'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:懂',opts:['เข้าใจ','ผิด','ถาม'],ans:0,fb:'<span class="zh">懂</span> <b>dǒng</b> = เข้าใจ'}),
+ ask({rv:'ทบทวนบท 8-1 ป่วยเพราะอะไร',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p30-ybd-g',opts:['เพราะไม่เข้าใจ เลยถามครู','เพราะเข้าใจแล้ว เลยไม่ถามครู','เพราะครูถาม เลยตอบ'],ans:0,fb:'<span class="zh">因为…所以…</span> = เพราะ…เลย…'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:错',opts:[{img:CUO.img},{img:NL(DONG)},{img:NL(WEN)}],ans:0,fb:'<span class="zh">错</span> <b>cuò</b> = ผิด'}),
+ blank({tag:TQ(3),s:'我有一个_。',th:'ฉันมีคำถามข้อหนึ่ง',opts:['问题','回答','懂'],ans:0,k:'p30-ygw-f',fb:'<span class="zh">我有一个问题。</span>'}),
+ ask({rv:10,q:'ฟัง 错 cuò แล้วเลือกสระ',k:'sy:错',opts:['uo','ou','ao'],ans:0,fb:'c<b>uò</b> · สระผสม uo'}),
+ reply({tag:TQ(4),q:'ครูถามว่าเข้าใจหรือยัง คุณเข้าใจแล้ว',line:{...X.ndl,who:'t'},opts:[X.dlx,X.kyw,X.xcl],ans:0,why:'ตอบด้วย 懂了'}),
+ ask({rv:'ทบทวนบท 6-6 ห้องเรียนและการสอบ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p30-ssg-t',opts:['ข้อสอบมีสิบข้อ','ข้อสอบมีห้าข้อ','สอบสิบครั้ง'],ans:0,fb:'<span class="zh">考试</span> = สอบ · <span class="zh">十个题</span> = สิบข้อ'}),
+ order({tag:TQ(5),th:'กรุณาตอบคำถามของฉัน',tiles:[tl('请','qǐng'),tl('回答','huídá'),tl('我的','wǒ de'),tl('问题','wèntí'),tl('题','tí')],ans:[0,1,2,3],end:'。',k:'p30-hdw-t'}),
+ tf({tag:TQ(6),k:'p30-c-m',img:NL(DONG),card:'<b>หวังหมิง</b><br>เข้าใจโจทย์ข้อนี้',ans:1,fb:'<span class="zh">我不懂这个题。</span> = ไม่เข้าใจโจทย์ข้อนี้ · ไม่ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ในห้องเรียน',chips:['ฟังแล้วแตะภาพ','บอกครู','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'ครูพูดเร็ว คุณฟังไม่เข้าใจ',opts:[X.lstb,X.mwt,X.twh],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'对不起，我_了。',opts:['错','问','回答'],ans:0,k:'p30-wcl-m',fb:'<span class="zh">对不起，我错了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('可以','kěyǐ'),tl('问','wèn'),tl('你','nǐ'),tl('吗','ma'),tl('题','tí')],ans:[0,1,2,3,4],end:'？',k:'p30-kyw-f'}),
+ fin({title:'ถามตอบในห้องเรียนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[WEN,HD,WT,TI2,DONG,CUO].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L30',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

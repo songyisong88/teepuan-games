@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 8-1 ป่วยเพราะอะไร</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 8-1 หน่วย 8 สะพานเหตุผล: ป่วยเพราะอะไร · คำใหม่ 生病 药 累 因为 所以 但是
+   ทบทวนจากบทก่อน: 休息 次 还 忙 · กิจกรรมเฉพาะบท: 因为…所以… เหตุหรือแต่ แตะภาพ 因为 กับ 所以 */
+const SBING=W('生病','shēng bìng','ป่วย',{s:'shēng bìng'}),YAOW=W('药','yào','ยา'),LEI=W('累','lèi','เหนื่อย'),
+ YW=W('因为','yīnwèi','เพราะ',{s:'yīn wèi',sl:[1]}),SY=W('所以','suǒyǐ','ดังนั้น / จึง',{s:'suǒ yǐ'}),DS=W('但是','dànshì','แต่',{s:'dàn shì'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('李娜，你今天怎么没来上课？','Lǐ Nà, nǐ jīntiān zěnme méi lái shàng kè?','หลี่น่า วันนี้ทำไมไม่มาเรียน','p29-a-f'),
+ b:S('因为我生病了，所以没去。','yīnwèi wǒ shēng bìng le, suǒyǐ méi qù.','เพราะฉันป่วย เลยไม่ได้ไป','p29-b-g'),
+ c:S('你去医院了吗？','nǐ qù yīyuàn le ma?','ไปโรงพยาบาลมาหรือยัง','p29-c-f'),
+ d:S('去了。医生说我太累了。','qù le. yīshēng shuō wǒ tài lèi le.','ไปแล้ว หมอบอกว่าฉันเหนื่อยเกินไป','p29-d-g'),
+ e:S('你吃药了吗？','nǐ chī yào le ma?','กินยาหรือยัง','p29-e-f'),
+ f:S('吃了。但是我还想睡觉。','chī le. dànshì wǒ hái xiǎng shuì jiào.','กินแล้ว แต่ยังอยากนอนอยู่','p29-f-g'),
+ g:S('那你多休息吧！','nà nǐ duō xiūxi ba!','งั้นพักผ่อนเยอะ ๆ นะ','p29-g-f'),
+ tsb:S('他生病了。','tā shēng bìng le.','เขาป่วย','p29-tsb-m'),
+ sbn:S('我生病了，不能去上班。','wǒ shēng bìng le, bù néng qù shàng bān.','ฉันป่วย ไปทำงานไม่ได้','p29-sbn-f'),
+ ysc:S('这个药一天吃三次。','zhège yào yì tiān chī sān cì.','ยานี้กินวันละสามครั้ง','p29-ysc-t'),
+ yzz:S('药在桌子上。','yào zài zhuōzi shang.','ยาอยู่บนโต๊ะ','p29-yzz-g'),
+ whl:S('我很累。','wǒ hěn lèi.','ฉันเหนื่อยมาก','p29-whl-f'),
+ gml:S('今天工作很忙，我太累了。','jīntiān gōngzuò hěn máng, wǒ tài lèi le.','วันนี้งานยุ่งมาก ฉันเหนื่อยเกินไปแล้ว','p29-gml-m'),
+ yxy:S('因为下雨，我们不去了。','yīnwèi xià yǔ, wǒmen bú qù le.','เพราะฝนตก เราไม่ไปแล้ว','p29-yxy-g'),
+ ysm:S('因为他生病了，所以没来。','yīnwèi tā shēng bìng le, suǒyǐ méi lái.','เพราะเขาป่วย เลยไม่ได้มา','p29-ysm-t'),
+ sxx:S('我很累，所以想休息。','wǒ hěn lèi, suǒyǐ xiǎng xiūxi.','ฉันเหนื่อยมาก เลยอยากพักผ่อน','p29-sxx-f'),
+ slc:S('今天很冷，所以我多穿一点儿。','jīntiān hěn lěng, suǒyǐ wǒ duō chuān yìdiǎnr.','วันนี้หนาวมาก ฉันเลยใส่เสื้อเยอะหน่อย','p29-slc-m'),
+ dmy:S('我想去，但是没有时间。','wǒ xiǎng qù, dànshì méiyǒu shíjiān.','ฉันอยากไป แต่ไม่มีเวลา','p29-dmy-f'),
+ dtg:S('这件衣服很漂亮，但是太贵了。','zhè jiàn yīfu hěn piàoliang, dànshì tài guì le.','เสื้อตัวนี้สวยมาก แต่แพงเกินไป','p29-dtg-g'),
+ tlz:S('我太累了。','wǒ tài lèi le.','ฉันเหนื่อยเกินไปแล้ว','p29-tlz-f'),
+ q1:S('你怎么不去？','nǐ zěnme bú qù?','ทำไมคุณไม่ไป','p29-q1-g'),
+ a1:S('因为我很累，所以不去。','yīnwèi wǒ hěn lèi, suǒyǐ bú qù.','เพราะฉันเหนื่อยมาก เลยไม่ไป','p29-a1-f'),
+ q2:S('他怎么没来？','tā zěnme méi lái?','ทำไมเขาไม่มา','p29-q2-g'),
+ a2:S('因为他生病了，所以没来。','yīnwèi tā shēng bìng le, suǒyǐ méi lái.','เพราะเขาป่วย เลยไม่ได้มา','p29-a2-f'),
+ mlh:S('我太忙了，所以很累。','wǒ tài máng le, suǒyǐ hěn lèi.','ฉันยุ่งมาก เลยเหนื่อยมาก','p29-mlh-g'),
+ ywsb:S('因为我生病了。','yīnwèi wǒ shēng bìng le.','เพราะฉันป่วย','p29-ywsb-f'),
+ ysl:S('医生说我太累了。','yīshēng shuō wǒ tài lèi le.','หมอบอกว่าฉันเหนื่อยเกินไป','p29-ysl-g'),
+ lbq:S('我很累，所以不去了。','wǒ hěn lèi, suǒyǐ bú qù le.','ฉันเหนื่อยมาก เลยไม่ไปแล้ว','p29-lbq-f'),
+ m1:S('我生病了。','wǒ shēng bìng le.','ฉันป่วย','p29-m1-t'),m2:S('我要吃药。','wǒ yào chī yào.','ฉันต้องกินยา','p29-m2-t'),
+ m3:S('我累了。','wǒ lèi le.','ฉันเหนื่อยแล้ว','p29-m3-t'),m4:S('我要去医院。','wǒ yào qù yīyuàn.','ฉันจะไปโรงพยาบาล','p29-m4-t'),
+ c1:S('下雨了','xià yǔ le','ฝนตกแล้ว','p29-c1-t'),c2:S('我很累','wǒ hěn lèi','ฉันเหนื่อยมาก','p29-c2-t'),c3:S('他生病了','tā shēng bìng le','เขาป่วย','p29-c3-t'),c4:S('没有时间','méiyǒu shíjiān','ไม่มีเวลา','p29-c4-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'g'},c:{...X.c,who:'me'},d:{...X.d,who:'g'},e:{...X.e,who:'me'},f:{...X.f,who:'g'},g:{...X.g,who:'me'}};
+const D=[{sit:'หลี่น่าไม่มาเรียน มะลิโทรไปถาม',img:NL(SBING)},L.a,L.b,L.c,L.d,L.e,L.f,L.g];
+const PIC=[{img:NL(SBING),th:'ป่วย'},{img:YAOW.img,th:'ยา'},{img:NL(LEI),th:'เหนื่อย'},{img:ART('医院'),th:'โรงพยาบาล'}];
+const BINS=[{img:YW.img,zh:'因为',py:'yīnwèi',th:'เพราะ (เหตุผล)'},{img:DS.img,zh:'但是',py:'dànshì',th:'แต่ (ตรงข้าม)'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:29,code:'บท 8-1',title:'ป่วยเพราะอะไร',goal:{do:'บอกว่าป่วยหรือเหนื่อย ถามเพื่อนเรื่องหาหมอและกินยา และให้เหตุผลด้วย 因为…所以…',sub:'ใช้ <span class="gz">因为…所以… · 但是 · 生病了 · 吃药</span>',min:12},steps:[
+ intro({scene:NL(SBING),cap:'สถานการณ์ของบทนี้',title:'หลี่น่าไม่สบาย',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกเหตุผลได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[SBING,YAOW,LEI,YW,SY,DS]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['生病','药','累','因为','所以','但是'],note:'ใช้คำจากเล่ม 1 เช่น 医院 医生 睡觉 ร่วมด้วย'}),
+ ...WC(SBING,1,6,{cap:'สุขภาพ',hint:'คล้าย <b>"เซิง ปิ้ง"</b> · sh ม้วนลิ้น',use:'ป่วย · มักพูดว่า 生病了',ex:[X.tsb,X.sbn]}),
+ ...WC(YAOW,2,6,{cap:'สุขภาพ',hint:'คล้าย <b>"เย่า"</b> · เสียง 4',use:'ยา · กินยาใช้ 吃药',ex:[X.ysc,X.yzz]}),
+ ...WC(LEI,3,6,{cap:'สุขภาพ',hint:'คล้าย <b>"เล่ย"</b> · เสียง 4',use:'เหนื่อย · 太累了 เหนื่อยเกินไป',ex:[X.whl,X.gml]}),
+ RC('คำที่ 1–3/6',[SBING,YAOW,LEI]),
+ use({n:'คำที่ 1–3/6',w:SBING,when:[{img:NL(SBING),t:'บอกว่าป่วยเลยไม่มา'},{img:YAOW.img,t:'ถามว่ากินยาหรือยัง'}],lines:[{...X.b,who:'g'},{...X.e,who:'me'}],tip:'<span class="zh">生病了</span> ป่วยแล้ว · ถาม <span class="zh">你吃药了吗？</span>'}),
+ ...WC(YW,4,6,{cap:'เหตุผล',hint:'คล้าย <b>"อิน เว่ย"</b> · 为 ในคำนี้อ่าน wèi',use:'เพราะ · 因为 + เหตุ',ex:[X.yxy,X.ysm]}),
+ ...WC(SY,5,6,{cap:'เหตุผล',hint:'คล้าย <b>"สั่ว อี่"</b> · เสียง 3 ต่อกัน ตัวแรกอ่านขึ้น',use:'ดังนั้น จึง · 所以 + ผล',ex:[X.sxx,X.slc]}),
+ ...WC(DS,6,6,{cap:'เหตุผล',hint:'คล้าย <b>"ตั้น ซื่อ"</b> · sh ม้วนลิ้น',use:'แต่ · ใช้ขึ้นต้นส่วนที่ตรงข้าม',ex:[X.dmy,X.dtg]}),
+ RC('คำที่ 4–6/6',[YW,SY,DS]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','因为…所以…','เหตุหรือแต่','แตะภาพ','因为 กับ 所以','ข้อควรระวัง'],note:'ฝึกบอกเหตุผล'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาทางโทรศัพท์',title:'หลี่น่าไม่สบาย',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถาม 怎么没来 · ตอบ 因为…所以… · ห่วงใยด้วย 多休息吧'}),
+ talk({cap:'เทคนิค 2/6 · 因为…所以…',title:'ถามว่าทำไม',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.q1,who:'g'},{...X.a1,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ถาม <span class="zh">怎么</span> + กริยา ทำไม… · ตอบ <span class="zh">因为</span> เหตุ <span class="zh">所以</span> ผล'}),
+ sortmap({tag:'เทคนิค 3/6 · เหตุหรือแต่',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 因为 หรือ 但是',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('学生'),X.yxy,0),it(ART('时间'),X.dmy,1),it(NL(SBING),X.ysm,0),it(ART('衣服'),X.dtg,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.tsb.zh,k:X.tsb.k,ans:0},{zh:X.yzz.zh,k:X.yzz.k,ans:1},{zh:X.whl.zh,k:X.whl.k,ans:2},{zh:X.c.zh,k:X.c.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 因为 กับ 所以',title:'เหตุ กับ ผล',text:'แตะการ์ดเพื่อฟัง',a:{who:'เหตุ',img:YW.img,zh:X.yxy.zh,zhb:'因为',py:'yīnwèi',th:'เพราะ',k:X.yxy.k},b:{who:'ผล',img:SY.img,zh:X.sxx.zh,zhb:'所以',py:'suǒyǐ',th:'จึง',k:X.sxx.k},
+  tip:'<span class="zh">因为</span> + เหตุ · <span class="zh">所以</span> + ผล · ใช้คู่กันหรือใช้คำเดียวก็ได้'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'因为 นำเหตุผล',bad:'所以下雨，我们不去了。',good:'因为下雨，我们不去了。',k:'p29-yxy-g'},
+  {h:'ป่วยแล้วมี 了',bad:'他生病。',good:'他生病了。',k:'p29-tsb-m'},
+  {h:'但是 ขึ้นต้นส่วนที่สอง',bad:'我想去但是，没有时间。',good:'我想去，但是没有时间。',k:'p29-dmy-f'},
+  {h:'太…了 ใช้คู่กัน',bad:'我太累。',good:'我太累了。',k:'p29-tlz-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:药',opts:['ยา','เหนื่อย','ป่วย'],ans:0,fb:'<span class="zh">药</span> <b>yào</b> = ยา'}),
+ ask({rv:'ทบทวนบท 6-5 ที่บริษัท',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p29-mlh-g',opts:['ฉันยุ่งมาก เลยเหนื่อยมาก','ฉันเหนื่อยมาก เลยไม่ยุ่ง','ฉันยุ่งมาก แต่ไม่เหนื่อย'],ans:0,fb:'<span class="zh">忙</span> = ยุ่ง · <span class="zh">所以</span> = เลย'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:累',opts:[{img:NL(LEI)},{img:YAOW.img},{img:ART('医院')}],ans:0,fb:'<span class="zh">累</span> <b>lèi</b> = เหนื่อย'}),
+ blank({tag:TQ(3),s:'我想去，_没有时间。',th:'ฉันอยากไป แต่ไม่มีเวลา',opts:['但是','因为','所以'],ans:0,k:'p29-dmy-f',fb:'<span class="zh">我想去，但是没有时间。</span>'}),
+ ask({rv:9,q:'ฟัง 所以 แล้วเลือกเสียงที่ได้ยินของตัวแรก',k:'w:所以',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'เสียง 3 ต่อเสียง 3 ตัวแรกอ่านเป็นเสียง 2 · <b>suó yǐ</b> (เขียน suǒyǐ)'}),
+ reply({tag:TQ(4),q:'เพื่อนถามว่าทำไมวันนี้ไม่มาเรียน คุณป่วย',line:{...X.a,who:'g'},opts:[X.ywsb,X.yzz,X.e],ans:0,why:'ให้เหตุผลด้วย 因为…'}),
+ ask({rv:'ทบทวนบท 6-6 ห้องเรียนและการสอบ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p29-ysc-t',opts:['ยานี้กินวันละสามครั้ง','ยานี้กินวันละสองครั้ง','ยานี้กินสามวัน'],ans:0,fb:'<span class="zh">三次</span> = สามครั้ง'}),
+ order({tag:TQ(5),th:'หมอบอกว่าฉันเหนื่อยเกินไป',tiles:[tl('医生','yīshēng'),tl('说','shuō'),tl('我','wǒ'),tl('太累了','tài lèi le'),tl('药','yào')],ans:[0,1,2,3],end:'。',k:'p29-ysl-g'}),
+ tf({tag:TQ(6),k:'p29-f-g',img:YAOW.img,card:'<b>หลี่น่า</b><br>กินยาแล้ว',ans:0,fb:'<span class="zh">吃了。</span> = กินแล้ว · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'บอกเหตุผล',chips:['ฟังแล้วแตะภาพ','ปฏิเสธพร้อมเหตุผล','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนชวนไปดูหนัง แต่คุณเหนื่อยมาก บอกเหตุผล',opts:[X.lbq,X.tsb,X.yzz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'_下雨，我们不去了。',opts:['因为','所以','但是'],ans:0,k:'p29-yxy-g',fb:'<span class="zh">因为下雨，我们不去了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('你','nǐ'),tl('吃','chī'),tl('药','yào'),tl('了','le'),tl('吗','ma'),tl('累','lèi')],ans:[0,1,2,3,4],end:'？',k:'p29-e-f'}),
+ fin({title:'บอกเหตุผลได้แล้ว',html:dlgH(D,{noTh:1}),chips:[SBING,YAOW,LEI,YW,SY,DS].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L29',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

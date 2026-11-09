@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 7-3 เปรียบเทียบ</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 7-3 หน่วย 7 ถนนสีสันและการเปรียบเทียบ: เปรียบเทียบ · คำใหม่ 长 快 慢 最 高 比 非常 还
+   ทบทวนจากบทก่อน: 跑 得 件 手表 颜色 · กิจกรรมเฉพาะบท: A 比 B เร็วหรือช้า แตะภาพ 很 กับ 比 */
+const CHANG=W('长','cháng','ยาว',{nosk:1}),KUAI=W('快','kuài','เร็ว'),MAN=W('慢','màn','ช้า'),ZUI=W('最','zuì','ที่สุด'),GAO=W('高','gāo','สูง'),
+ BI=W('比','bǐ','เทียบกับ / กว่า'),FC=W('非常','fēicháng','อย่างยิ่ง / มาก ๆ',{s:'fēi cháng'}),HAI=W('还','hái','ยัง / อีก / …ด้วย',{nosk:1});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，你看，我比你高！','Mǎlì, nǐ kàn, wǒ bǐ nǐ gāo!','มะลิ ดูสิ ผมสูงกว่าเธอ','p27-a-m'),
+ b:S('对，你比我高。我跑得比你快！','duì, nǐ bǐ wǒ gāo. wǒ pǎo de bǐ nǐ kuài!','ใช่ เธอสูงกว่าฉัน แต่ฉันวิ่งเร็วกว่าเธอนะ','p27-b-f'),
+ c:S('我们三个人，谁最高？','wǒmen sān ge rén, shéi zuì gāo?','เราสามคน ใครสูงที่สุด','p27-c-m'),
+ d:S('王明最高，玛莉跑得最快。','Wáng Míng zuì gāo, Mǎlì pǎo de zuì kuài.','หวังหมิงสูงที่สุด มะลิวิ่งเร็วที่สุด','p27-d-g'),
+ e:S('李娜，你呢？','Lǐ Nà, nǐ ne?','หลี่น่า แล้วเธอล่ะ','p27-e-m'),
+ f:S('我跑得很慢，我还要多运动！','wǒ pǎo de hěn màn, wǒ hái yào duō yùndòng!','ฉันวิ่งช้า ฉันยังต้องออกกำลังกายอีกเยอะ','p27-f-g'),
+ dyc:S('这个电影很长。','zhège diànyǐng hěn cháng.','หนังเรื่องนี้ยาวมาก','p27-dyc-f'),
+ ytc:S('这件衣服太长了。','zhè jiàn yīfu tài cháng le.','เสื้อตัวนี้ยาวเกินไป','p27-ytc-g'),
+ pk:S('他跑得很快。','tā pǎo de hěn kuài.','เขาวิ่งเร็วมาก','p27-pk-m'),
+ kl:S('快来！','kuài lái!','มาเร็ว','p27-kl-g'),
+ sm:S('请说慢一点儿。','qǐng shuō màn yìdiǎnr.','กรุณาพูดช้าลงหน่อย','p27-sm-f'),
+ zm:S('他走得很慢。','tā zǒu de hěn màn.','เขาเดินช้ามาก','p27-zm-t'),
+ zxl:S('我最喜欢蓝色。','wǒ zuì xǐhuan lánsè.','ฉันชอบสีฟ้าที่สุด','p27-zxl-f'),
+ zhc:S('这个最好吃。','zhège zuì hǎochī.','อันนี้อร่อยที่สุด','p27-zhc-m'),
+ thg:S('他很高。','tā hěn gāo.','เขาสูงมาก','p27-thg-g'),
+ ggg:S('哥哥比我高。','gēge bǐ wǒ gāo.','พี่ชายสูงกว่าฉัน','p27-ggg-f'),
+ bzr:S('今天比昨天热。','jīntiān bǐ zuótiān rè.','วันนี้ร้อนกว่าเมื่อวาน','p27-bzr-g'),
+ bng:S('这件比那件贵。','zhè jiàn bǐ nà jiàn guì.','ตัวนี้แพงกว่าตัวนั้น','p27-bng-m'),
+ fzc:S('我非常喜欢中国菜。','wǒ fēicháng xǐhuan Zhōngguó cài.','ฉันชอบอาหารจีนมาก ๆ','p27-fzc-f'),
+ fcr:S('今天非常热。','jīntiān fēicháng rè.','วันนี้ร้อนมาก ๆ','p27-fcr-t'),
+ hxc:S('你还想吃什么？','nǐ hái xiǎng chī shénme?','คุณยังอยากกินอะไรอีก','p27-hxc-g'),
+ hml:S('他还没来。','tā hái méi lái.','เขายังไม่มา','p27-hml-m'),
+ q1:S('哥哥比你高吗？','gēge bǐ nǐ gāo ma?','พี่ชายสูงกว่าคุณไหม','p27-q1-g'),
+ q2:S('今天比昨天热吗？','jīntiān bǐ zuótiān rè ma?','วันนี้ร้อนกว่าเมื่อวานไหม','p27-q2-g'),
+ a2:S('对，今天比昨天热。','duì, jīntiān bǐ zuótiān rè.','ใช่ วันนี้ร้อนกว่าเมื่อวาน','p27-a2-f'),
+ a1:S('对，哥哥比我高。','duì, gēge bǐ wǒ gāo.','ใช่ พี่ชายสูงกว่าฉัน','p27-a1-f'),
+ zxq:S('你最喜欢什么颜色？','nǐ zuì xǐhuan shénme yánsè?','คุณชอบสีอะไรที่สุด','p27-zxq-g'),
+ sbg:S('这块手表比那块贵。','zhè kuài shǒubiǎo bǐ nà kuài guì.','นาฬิกาเรือนนี้แพงกว่าเรือนนั้น','p27-sbg-g'),
+ pfk:S('他跑步跑得非常快。','tā pǎo bù pǎo de fēicháng kuài.','เขาวิ่งเร็วมาก ๆ','p27-pfk-m'),
+ m1:S('这个非常长。','zhège fēicháng cháng.','อันนี้ยาวมาก ๆ','p27-m1-t'),m2:S('这个非常高。','zhège fēicháng gāo.','อันนี้สูงมาก ๆ','p27-m2-t'),
+ m3:S('她非常快。','tā fēicháng kuài.','เธอเร็วมาก ๆ','p27-m3-t'),m4:S('这个非常慢。','zhège fēicháng màn.','อันนี้ช้ามาก ๆ','p27-m4-t'),
+ c1:S('比我高','bǐ wǒ gāo','สูงกว่าฉัน','p27-c1-t'),c2:S('比你快','bǐ nǐ kuài','เร็วกว่าคุณ','p27-c2-t'),c3:S('比昨天热','bǐ zuótiān rè','ร้อนกว่าเมื่อวาน','p27-c3-t'),c4:S('比那件贵','bǐ nà jiàn guì','แพงกว่าตัวนั้น','p27-c4-t')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'g'},e:{...X.e,who:'f'},f:{...X.f,who:'g'}};
+const D=[{sit:'มะลิ หวังหมิง และหลี่น่า วิ่งเล่นที่สวนหลังเลิกเรียน',img:GAO.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:CHANG.img,th:'ยาว'},{img:GAO.img,th:'สูง'},{img:NL(KUAI),th:'เร็ว'},{img:MAN.img,th:'ช้า'}];
+const BINS=[{img:NL(KUAI),zh:'快',py:'kuài',th:'เร็ว'},{img:MAN.img,zh:'慢',py:'màn',th:'ช้า'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:27,code:'บท 7-3',title:'เปรียบเทียบ',goal:{do:'เปรียบเทียบคนและสิ่งของ สูงกว่า เร็วกว่า และบอกว่าอะไรที่สุด',sub:'ใช้ <span class="gz">A 比 B + คำคุณศัพท์ · 最 · 非常</span>',min:12},steps:[
+ intro({scene:GAO.img,cap:'สถานการณ์ของบทนี้',title:'ใครสูงกว่า ใครเร็วกว่า',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเปรียบเทียบได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[CHANG,KUAI,MAN,ZUI,GAO,BI,FC,HAI]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['长','快','慢','最','高','比','非常','还'],note:'ใช้คำจากบทก่อน เช่น 跑得 件 颜色 ร่วมด้วย'}),
+ ...WC(CHANG,1,8,{cap:'ลักษณะ',hint:'คล้าย <b>"ฉาง"</b> · ch ม้วนลิ้น พ่นลม เสียง 2',use:'ยาว · 太长了 ยาวเกินไป',ex:[X.dyc,X.ytc]}),
+ ...WC(KUAI,2,8,{cap:'ความเร็ว',hint:'คล้าย <b>"ไคว่"</b> · k พ่นลม เสียง 4',use:'เร็ว · 快来 มาเร็ว · 跑得很快 วิ่งเร็ว',ex:[X.pk,X.kl]}),
+ ...WC(MAN,3,8,{cap:'ความเร็ว',hint:'คล้าย <b>"ม่าน"</b> · เสียง 4',use:'ช้า · 慢一点儿 ช้าลงหน่อย',ex:[X.sm,X.zm]}),
+ RC('คำที่ 1–3/8',[CHANG,KUAI,MAN]),
+ ...WC(ZUI,4,8,{cap:'ระดับ',hint:'คล้าย <b>"จุ้ย"</b> · z ไม่พ่นลม',use:'ที่สุด · 最 + คำคุณศัพท์ หรือ 最喜欢',ex:[X.zxl,X.zhc]}),
+ ...WC(GAO,5,8,{cap:'ลักษณะ',hint:'คล้าย <b>"เกา"</b> · เสียง 1',use:'สูง · 很高 สูงมาก',ex:[X.thg,X.ggg]}),
+ RC('คำที่ 4–5/8',[ZUI,GAO]),
+ use({n:'คำที่ 1–5/8',w:GAO,when:[{img:GAO.img,t:'หวังหมิงบอกว่าสูงกว่า'},{img:ZUI.img,t:'ถามว่าใครสูงที่สุด'}],lines:[{...X.a,who:'f'},{...X.c,who:'f'}],tip:'<span class="zh">我比你高</span> ฉันสูงกว่าเธอ · <span class="zh">谁最高？</span> ใครสูงที่สุด'}),
+ ...WC(BI,6,8,{cap:'เปรียบเทียบ',hint:'คล้าย <b>"ปี่"</b> · เสียง 3',use:'A 比 B + คำคุณศัพท์ = A …กว่า B',ex:[X.bzr,X.bng]}),
+ ...WC(FC,7,8,{cap:'ระดับ',hint:'คล้าย <b>"เฟย ฉาง"</b>',use:'มาก ๆ อย่างยิ่ง · หนักกว่า 很',ex:[X.fzc,X.fcr]}),
+ ...WC(HAI,8,8,{cap:'เวลา',hint:'คล้าย <b>"ไห๋"</b> · h มาจากลำคอ เสียง 2',use:'ยัง อีก · 还没 ยังไม่ · 还想 ยังอยากอีก',ex:[X.hxc,X.hml]}),
+ RC('คำที่ 6–8/8',[BI,FC,HAI]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','A 比 B','เร็วหรือช้า','แตะภาพ','很 กับ 比','ข้อควรระวัง'],note:'ฝึกเปรียบเทียบ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในสวน',title:'ใครสูงกว่า ใครเร็วกว่า',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เปรียบเทียบด้วย 比 · บอกที่สุดด้วย 最'}),
+ talk({cap:'เทคนิค 2/6 · A 比 B',title:'…กว่า…',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.q1,who:'g'},{...X.a1,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'A + <span class="zh">比</span> + B + คำคุณศัพท์ · ถามต่อท้ายด้วย <span class="zh">吗</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · เร็วหรือช้า',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงเร็วหรือช้า',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(A2('跑步'),X.pk,0),it(A2('走'),X.zm,1),it(ART('朋友'),X.kl,0),it(ART('老师'),X.sm,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.ytc.zh,k:X.ytc.k,ans:0},{zh:X.zm.zh,k:X.zm.k,ans:3},{zh:X.thg.zh,k:X.thg.k,ans:1},{zh:X.pk.zh,k:X.pk.k,ans:2}]}),
+ cmp({cap:'เทคนิค 5/6 · 很 กับ 比',title:'สูงมาก สูงกว่า',text:'แตะการ์ดเพื่อฟัง',a:{who:'บอกเฉย ๆ',img:GAO.img,zh:X.thg.zh,zhb:'很高',py:'hěn gāo',th:'สูงมาก',k:X.thg.k},b:{who:'เปรียบเทียบ',img:BI.img,zh:X.ggg.zh,zhb:'比我高',py:'bǐ wǒ gāo',th:'สูงกว่าฉัน',k:X.ggg.k},
+  tip:'ประโยค <span class="zh">比</span> ไม่ใส่ <span class="zh">很</span> หรือ <span class="zh">非常</span> หน้าคำคุณศัพท์'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'比 ไม่ใช้ 很',bad:'哥哥比我很高。',good:'哥哥比我高。',k:'p27-ggg-f'},
+  {h:'最 อยู่หน้า 喜欢',bad:'我喜欢最蓝色。',good:'我最喜欢蓝色。',k:'p27-zxl-f'},
+  {h:'慢一点儿 อยู่หลังกริยา',bad:'请一点儿慢说。',good:'请说慢一点儿。',k:'p27-sm-f'},
+  {h:'ยังไม่ คือ 还没',bad:'他没还来。',good:'他还没来。',k:'p27-hml-m'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:慢',opts:['ช้า','เร็ว','สูง'],ans:0,fb:'<span class="zh">慢</span> <b>màn</b> = ช้า'}),
+ ask({rv:'ทบทวนบท 7-2 ซื้อของขวัญ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p27-sbg-g',opts:['นาฬิกาเรือนนี้แพงกว่าเรือนนั้น','นาฬิกาเรือนนั้นแพงกว่าเรือนนี้','นาฬิกาเรือนนี้ถูกกว่าเรือนนั้น'],ans:0,fb:'<span class="zh">这块</span> เรือนนี้ + <span class="zh">比</span> + <span class="zh">那块</span> เรือนนั้น'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:高',opts:[{img:GAO.img},{img:MAN.img},{img:CHANG.img}],ans:0,fb:'<span class="zh">高</span> <b>gāo</b> = สูง'}),
+ blank({tag:TQ(3),s:'请说_一点儿。',th:'กรุณาพูดช้าลงหน่อย',opts:['慢','最','比'],ans:0,k:'p27-sm-f',fb:'<span class="zh">请说慢一点儿。</span>'}),
+ ask({rv:2,q:'ฟัง 比 bǐ แล้วเลือกวรรณยุกต์',k:'sy:比',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">比</span> b<b>ǐ</b> เสียง 3'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณชอบสีอะไรที่สุด คุณชอบสีฟ้า',line:{...X.zxq,who:'g'},opts:[X.zxl,X.hml,X.bzr],ans:0,why:'ตอบด้วย 我最喜欢…'}),
+ ask({rv:'ทบทวนบท 6-1 เล่นกีฬา',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p27-pfk-m',opts:['เขาวิ่งเร็วมาก ๆ','เขาว่ายน้ำเร็วมาก ๆ','เขาวิ่งช้ามาก'],ans:0,fb:'<span class="zh">跑步</span> = วิ่ง · <span class="zh">非常快</span> = เร็วมาก ๆ'}),
+ order({tag:TQ(5),th:'วันนี้ร้อนกว่าเมื่อวาน',tiles:[tl('今天','jīntiān'),tl('比','bǐ'),tl('昨天','zuótiān'),tl('热','rè'),tl('很','hěn')],ans:[0,1,2,3],end:'。',k:'p27-bzr-g'}),
+ tf({tag:TQ(6),k:'p27-d-g',img:NL(KUAI),card:'<b>มะลิ</b><br>วิ่งเร็วที่สุด',ans:0,fb:'<span class="zh">玛莉跑得最快。</span> = มะลิวิ่งเร็วที่สุด · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เปรียบเทียบให้ถูก',chips:['ฟังแล้วแตะภาพ','ขอให้พูดช้า','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:1},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนพูดภาษาจีนเร็วเกินไป คุณฟังไม่ทัน',opts:[X.sm,X.kl,X.zxl],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'这件_那件贵。',opts:['比','最','还'],ans:0,k:'p27-bng-m',fb:'<span class="zh">这件比那件贵。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('非常','fēicháng'),tl('喜欢','xǐhuan'),tl('中国菜','Zhōngguó cài'),tl('最','zuì')],ans:[0,1,2,3],end:'。',k:'p27-fzc-f'}),
+ fin({title:'เปรียบเทียบได้แล้ว',html:dlgH(D,{noTh:1}),chips:[CHANG,KUAI,MAN,ZUI,GAO,BI,FC,HAI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L27',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

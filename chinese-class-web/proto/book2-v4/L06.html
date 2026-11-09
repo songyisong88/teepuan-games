@@ -50,7 +50,7 @@ LESSON({no:6,code:'ทบทวนหน่วย 2',title:'ทบทวนห�
  match({tag:TQ(1),pairs:[WA,MTJ,JN,QN,XUE]}),
  point({tag:TQ(2),q:'ฟังคำทักแต่ละประโยค แล้วแตะช่วงเวลาที่ตรงกัน',this:'คือช่วงเวลานี้',cards:[{img:NL(ZSH),th:'ตอนเช้า'},{img:NL(WSH),th:'ตอนค่ำ'},{img:NL(WA),th:'ก่อนนอน'}],rounds:[
   {zh:X.lsz.zh,k:X.lsz.k,ans:0},{zh:X.txw.zh,k:X.txw.k,ans:1},{zh:X.wamm.zh,k:X.wamm.k,ans:2}]}),
- ask({rv:6,q:'ฟัง 晴 qíng แล้วเลือกพยัญชนะตัวแรก',k:'sy:晴',opts:['q','ch','x'],ans:0,fb:'<b>q</b>íng · ปลายลิ้นแตะฟันล่าง พ่นลมออก'}),
+ ask({rv:6,q:'ฟัง 晴 แล้วเลือกพยัญชนะตัวแรก',k:'sy:晴',opts:['q','ch','x'],ans:0,fb:'<b>q</b>íng · ปลายลิ้นแตะฟันล่าง พ่นลมออก'}),
  blank({tag:TQ(3),s:'现在七点_。',th:'ตอนนี้เจ็ดโมงครึ่ง',opts:['半','吧','号'],ans:0,k:'p04-qdb-t',fb:'<span class="zh">现在七点半。</span>'}),
  reply({tag:TQ(4),q:'หลี่น่าถามว่าวันนี้อากาศเป็นอย่างไร',line:{...X.tqz,who:'g'},opts:[X.qtr,X.wamm,X.hsyd],ans:0,why:'ตอบเรื่องอากาศ 晴天 ท้องฟ้าแจ่มใส'}),
  ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p05-qnbj-f',opts:['ปีที่แล้วฉันไปปักกิ่งมา','ปีนี้ฉันอยากไปปักกิ่ง','พรุ่งนี้ฉันจะไปปักกิ่ง'],ans:0,fb:'<span class="zh">去年我去了北京。</span> 去年 = ปีที่แล้ว'}),
@@ -65,7 +65,7 @@ LESSON({no:6,code:'ทบทวนหน่วย 2',title:'ทบทวนห�
  reply({tag:MQ(1),noTh:1,q:'สี่ทุ่มแล้ว เพื่อนกำลังจะกลับบ้าน',opts:[X.f,X.zsh,X.qtr],ans:0}),
  ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p05-xyl-f',opts:[{img:NL(YU)},{img:NL(XUE)},{img:NL(QING)}],ans:0,fb:'<span class="zh">下雨了。</span>'}),
  order({tag:MQ(3),noTh:1,th:'',tiles:[tl('明天','míngtiān'),tl('是','shì'),tl('晴天','qíngtiān'),tl('去年','qùnián')],ans:[0,1,2],end:'。',k:'p05-mtqt-f'}),
- blank({tag:MQ(4),noTh:1,s:'我_十岁。',opts:['今年','去年','第一'],ans:0,k:'p05-jnss-f',fb:'<span class="zh">我今年十岁。</span>'}),
+ blank({tag:MQ(4),noTh:1,s:'我_十岁。',opts:['今年','身体','天气'],ans:0,k:'p05-jnss-f',fb:'<span class="zh">我今年十岁。</span>'}),
  fin({title:'จบหน่วยที่ 2 แล้ว',html:dlgH(D,{noTh:1}),chips:[ZSH,WSH,WA,MTJ,YHJ,BA,BAN,JN,QN,DY,YIN,YU,XUE,QING].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L06',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>

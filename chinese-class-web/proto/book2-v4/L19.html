@@ -90,7 +90,7 @@ LESSON({no:19,code:'บท 6-2',title:'งานอดิเรก',goal:{do:'�
  ask({rv:'ทบทวนบท 6-1 เล่นกีฬา',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p19-yyhw-g',opts:['ฉันว่าว่ายน้ำสนุกมาก','ฉันว่าวิ่งสนุกมาก','ฉันว่ายน้ำไม่เป็น'],ans:0,fb:'<span class="zh">游泳</span> = ว่ายน้ำ'}),
  ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:照片',opts:[{img:ZP.img},{img:YX.img},{img:YYUE.img}],ans:0,fb:'<span class="zh">照片</span> <b>zhàopiàn</b> = รูปถ่าย'}),
  blank({tag:TQ(3),s:'我爱听_。',th:'ฉันชอบฟังเพลงมาก',opts:['音乐','游戏','照片'],ans:0,k:'p19-aty-f',fb:'<span class="zh">我爱听音乐。</span>'}),
- ask({rv:7,q:'ฟัง 唱 chàng แล้วเลือกพยัญชนะตัวแรก',k:'sy:唱',opts:['ch','zh','sh'],ans:0,fb:'<b>ch</b>àng · ม้วนลิ้น พ่นลม'}),
+ ask({rv:7,q:'ฟัง 唱 แล้วเลือกพยัญชนะตัวแรก',k:'sy:唱',opts:['ch','zh','sh'],ans:0,fb:'<b>ch</b>àng · ม้วนลิ้น พ่นลม'}),
  reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณคิดว่าเพลงนี้เป็นอย่างไร คุณว่าเพราะ',line:{...X.yyzm,who:'g'},opts:[X.hht,X.wdzp,X.qwb],ans:0,why:'บอกความเห็นด้วย 我觉得…'}),
  ask({rv:'ทบทวนบท 4-3 ไกล ใกล้ ซ้าย ขวา',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p19-hzwm-t',opts:['เด็ก ๆ เล่นอยู่ข้างนอก','เด็ก ๆ เล่นอยู่ในบ้าน','เด็ก ๆ เล่นอยู่ข้าง ๆ โรงเรียน'],ans:0,fb:'<span class="zh">外面</span> = ข้างนอก'}),
  order({tag:TQ(5),th:'น้องชายชอบเล่นเกมมาก',tiles:[tl('弟弟','dìdi'),tl('爱','ài'),tl('玩','wán'),tl('游戏','yóuxì'),tl('唱','chàng')],ans:[0,1,2,3],end:'。',k:'p19-ddyx-f'}),
@@ -98,7 +98,7 @@ LESSON({no:19,code:'บท 6-2',title:'งานอดิเรก',goal:{do:'�
  part({lab:'ภารกิจท้ายบท',of:0,title:'เล่างานอดิเรก',chips:['ฟังแล้วแตะภาพ','ชมเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะสิ่งที่กำลังทำ',this:'คืออันนี้',cards:HB,rounds:[{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
  reply({tag:MQ(2),noTh:1,q:'เพื่อนให้ดูรูปของเขา คุณอยากชมว่ารูปสวย',opts:[X.zphp,X.aty,X.mtz],ans:0}),
- blank({tag:MQ(3),noTh:1,s:'我们去_吧。',opts:['玩','跳','唱'],ans:0,k:'p19-qwb-g',fb:'<span class="zh">我们去玩吧。</span>'}),
+ blank({tag:MQ(3),noTh:1,s:'我们去_吧。',opts:['玩','书','水'],ans:0,k:'p19-qwb-g',fb:'<span class="zh">我们去玩吧。</span>'}),
  order({tag:MQ(4),noTh:1,th:'',tiles:[tl('这','zhè'),tl('是','shì'),tl('我家','wǒ jiā'),tl('的','de'),tl('照片','zhàopiàn'),tl('游戏','yóuxì')],ans:[0,1,2,3,4],end:'。',k:'p19-jzp-g'}),
  fin({title:'เล่างานอดิเรกได้แล้ว',html:dlgH(D,{noTh:1}),chips:[JDE,CG,YYUE,TIAO,TW,WANR,YX,ZP].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L19',kl:'ฟังทั้งบทสนทนา'})]});
 

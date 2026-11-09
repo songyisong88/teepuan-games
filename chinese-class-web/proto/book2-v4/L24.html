@@ -31,7 +31,7 @@ const X={
  b:S('好！我们去游泳，然后吃午饭，怎么样？','hǎo! wǒmen qù yóuyǒng, ránhòu chī wǔfàn, zěnmeyàng?','ได้ ไปว่ายน้ำ แล้วก็กินข้าวกลางวัน ดีไหม','p24-b-f'),
  c:S('我觉得很好！下午我们玩游戏吧。','wǒ juéde hěn hǎo! xiàwǔ wǒmen wán yóuxì ba.','ฉันว่าดีมาก ตอนบ่ายเราเล่นเกมกันเถอะ','p24-c-g'),
  d:S('下午我要准备考试，星期一有考试。','xiàwǔ wǒ yào zhǔnbèi kǎoshì, xīngqīyī yǒu kǎoshì.','ตอนบ่ายฉันต้องเตรียมสอบ วันจันทร์มีสอบ','p24-d-f'),
- e:S('你学了几个小时？','nǐ xué le jǐ ge xiǎoshí?','เธอเรียนไปกี่ชั่วโมงแล้ว','p24-e-g'),
+ e:S('你学了几个小时了？','nǐ xué le jǐ ge xiǎoshí le?','เธอเรียนไปกี่ชั่วโมงแล้ว','p24-e-g'),
  f:S('已经三个小时了。我们去吃晚饭吧！','yǐjīng sān ge xiǎoshí le. wǒmen qù chī wǎnfàn ba!','สามชั่วโมงแล้ว ไปกินข้าวเย็นกันเถอะ','p24-f-f'),
  g:S('你准备得很好！我们走吧。','nǐ zhǔnbèi de hěn hǎo! wǒmen zǒu ba.','เธอเตรียมมาดีมาก ไปกันเถอะ','p24-g-g'),
  acg:S('她爱唱歌。','tā ài chàng gē.','เธอชอบร้องเพลงมาก','p19-acg-m'),
@@ -67,7 +67,7 @@ LESSON({no:24,code:'ทบทวนหน่วย 6',title:'ทบทวนห�
  match({tag:TQ(1),pairs:[YY,SJ,ZF,GS,BZH]}),
  point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะกิจกรรมที่พูดถึง',this:'คืออันนี้',cards:[{img:NL(CG),th:'ร้องเพลง'},{img:NL(TW),th:'เต้น'},{img:LQ.img,th:'บาส'}],rounds:[
   {zh:X.acg.zh,k:X.acg.k,ans:0},{zh:X.mlq.zh,k:X.mlq.k,ans:2},{zh:X.mmtw.zh,k:X.mmtw.k,ans:1}]}),
- ask({rv:2,q:'ฟัง 忙 máng แล้วเลือกวรรณยุกต์',k:'sy:忙',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">忙</span> m<b>áng</b> เสียง 2 = ยุ่ง'}),
+ ask({rv:2,q:'ฟัง 忙 แล้วเลือกวรรณยุกต์',k:'sy:忙',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">忙</span> m<b>áng</b> เสียง 2 = ยุ่ง'}),
  blank({tag:TQ(3),s:'我吃早饭，_去学校。',th:'ฉันกินอาหารเช้า แล้วก็ไปโรงเรียน',opts:['然后','已经','每天'],ans:0,k:'p21-rxx-f',fb:'<span class="zh">我吃早饭，然后去学校。</span>'}),
  reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณเตรียมสอบเป็นอย่างไร คุณเตรียมมาดี',line:{...X.zbq,who:'g'},opts:[X.zbh,X.xbz,X.wdzp],ans:0,why:'ตอบด้วย 准备得很好'}),
  ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-sbj-f',opts:['ฉันไปปักกิ่งมาสามครั้ง','ฉันไปปักกิ่งมาสามวัน','ฉันจะไปปักกิ่งสามครั้ง'],ans:0,fb:'<span class="zh">三次</span> = สามครั้ง'}),

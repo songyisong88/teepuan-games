@@ -8,7 +8,7 @@
 </head><body>
 <script>
 /* เล่ม 2 ทบทวนหน่วยที่ 7 ถนนสีสันและการเปรียบเทียบ: ทวนคำทั้ง 3 บท + 您 → บทสนทนาซื้อนาฬิกาเป็นของขวัญ → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
-WHO.m={n:'พนักงานขาย',img:ART('服务员')};
+WHO.m={n:'พนักงานขาย',img:ART('售货员')};
 const YS=W('颜色','yánsè','สี',{s:'yán sè',sl:[1]}),HONG=W('红','hóng','สีแดง'),BAI=W('白','bái','สีขาว'),HEI=W('黑','hēi','สีดำ'),
  LAN=W('蓝','lán','สีน้ำเงิน / สีฟ้า'),ZHEN=W('真','zhēn','จริง ๆ / จริง'),XIE=W('鞋','xié','รองเท้า'),CHUAN=W('穿','chuān','สวม ใส่ (เสื้อผ้า รองเท้า)'),
  NIN=W('您','nín','ท่าน / คุณ (สุภาพ)');
@@ -52,7 +52,7 @@ LESSON({no:28,code:'ทบทวนหน่วย 7',title:'ทบทวนห�
  match({tag:TQ(1),pairs:[XIE,SB,HONG,GAO,YUAN]}),
  point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะสีที่พูดถึง',this:'คือสีนี้',cards:[{img:HONG.img,th:'แดง'},{img:HEI.img,th:'ดำ'},{img:LAN.img,th:'น้ำเงิน'}],rounds:[
   {zh:X.xhs.zh,k:X.xhs.k,ans:1},{zh:X.hyf.zh,k:X.hyf.k,ans:0},{zh:X.sjl.zh,k:X.sjl.k,ans:2}]}),
- ask({rv:2,q:'ฟัง 试 shì แล้วเลือกวรรณยุกต์',k:'sy:试',opts:[{tone:4,lab:'เสียง 4'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">试</span> sh<b>ì</b> เสียง 4 = ลอง'}),
+ ask({rv:2,q:'ฟัง 试 แล้วเลือกวรรณยุกต์',k:'sy:试',opts:[{tone:4,lab:'เสียง 4'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">试</span> sh<b>ì</b> เสียง 4 = ลอง'}),
  blank({tag:TQ(3),s:'哥哥_我高。',th:'พี่ชายสูงกว่าฉัน',opts:['比','最','还'],ans:0,k:'p27-ggg-f',fb:'<span class="zh">哥哥比我高。</span>'}),
  reply({tag:TQ(4),q:'พนักงานถามว่าหาอะไรอยู่ คุณหาเสื้อตัวใหม่',line:{...X.nzs,who:'m'},opts:[X.zxy,X.hml,X.xgt],ans:0,why:'ตอบด้วย 我找…'}),
  ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p26-zns-t',opts:['ทอนให้สิบหยวน','ราคาสิบหยวน','หาของสิบชิ้น'],ans:0,fb:'<span class="zh">找</span> ในร้านแปลว่าทอนเงิน'}),
@@ -67,7 +67,7 @@ LESSON({no:28,code:'ทบทวนหน่วย 7',title:'ทบทวนห�
  reply({tag:MQ(1),noTh:1,q:'เพื่อนใส่เสื้อสีแดงตัวใหม่ คุณอยากชม',opts:[X.chp,X.ggg,X.zns],ans:0}),
  ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p26-sbx-f',opts:[{img:SB.img},{img:XIE.img},{img:JIAN.img}],ans:0,fb:'<span class="zh">我的手表是新的。</span>'}),
  order({tag:MQ(3),noTh:1,th:'',tiles:[tl('这件','zhè jiàn'),tl('比','bǐ'),tl('那件','nà jiàn'),tl('贵','guì'),tl('最','zuì')],ans:[0,1,2,3],end:'。',k:'p27-bng-m'}),
- blank({tag:MQ(4),noTh:1,s:'他还_来。',opts:['没','不','最'],ans:0,k:'p27-hml-m',fb:'<span class="zh">他还没来。</span>'}),
+ blank({tag:MQ(4),noTh:1,s:'他还_来。',opts:['没','很','在'],ans:0,k:'p27-hml-m',fb:'<span class="zh">他还没来。</span>'}),
  fin({title:'จบหน่วยที่ 7 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L28',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>

@@ -23,7 +23,7 @@ const X={
  d:S('服务员，我们想吃面条和鱼。','fúwùyuán, wǒmen xiǎng chī miàntiáo hé yú.','พนักงาน เราอยากกินบะหมี่กับปลา','p17-d-f'),
  e:S('好。喝什么？','hǎo. hē shénme?','ได้ ดื่มอะไรดี','p17-e-t'),
  f:S('一杯咖啡，一杯牛奶。','yì bēi kāfēi, yì bēi niúnǎi.','กาแฟหนึ่งแก้ว นมหนึ่งแก้ว','p17-f-g'),
- g:S('吃完了，很好吃！我们再来吧！','chī wán le, hěn hǎochī! wǒmen zài lái ba!','ทานเสร็จแล้ว อร่อยมาก ไว้มาอีกนะ','p17-g-f'),
+ g:S('吃完了，很好吃！我们下次再来吧！','chī wán le, hěn hǎochī! wǒmen xià cì zài lái ba!','ทานเสร็จแล้ว อร่อยมาก ไว้คราวหน้ามาอีกนะ','p17-g-f'),
  xcmt:S('我想吃面条。','wǒ xiǎng chī miàntiáo.','ฉันอยากกินบะหมี่','p14-xcmt-f'),
  dght:S('蛋糕很甜。','dàngāo hěn tián.','เค้กหวานมาก','p14-dght-m'),
  cyr:S('你吃羊肉吗？','nǐ chī yángròu ma?','คุณกินเนื้อแกะไหม','p15-cyr-m'),
@@ -53,7 +53,7 @@ LESSON({no:17,code:'ทบทวนหน่วย 5',title:'ทบทวนห�
  match({tag:TQ(1),pairs:[JD,KF,XG,YU,QIAN]}),
  point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะอาหารที่พูดถึง',this:'คืออาหารนี้',cards:[{img:MT.img,th:'บะหมี่'},{img:DG.img,th:'เค้ก'},{img:YR.img,th:'เนื้อแกะ'}],rounds:[
   {zh:X.xcmt.zh,k:X.xcmt.k,ans:0},{zh:X.dght.zh,k:X.dght.k,ans:1},{zh:X.cyr.zh,k:X.cyr.k,ans:2}]}),
- ask({rv:2,q:'ฟัง 卖 mài แล้วเลือกวรรณยุกต์',k:'sy:卖',opts:[{tone:4,lab:'เสียง 4'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">卖</span> m<b>ài</b> เสียง 4 = ขาย · <span class="zh">买</span> mǎi เสียง 3 = ซื้อ'}),
+ ask({rv:2,q:'ฟัง 卖 แล้วเลือกวรรณยุกต์',k:'sy:卖',opts:[{tone:4,lab:'เสียง 4'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">卖</span> m<b>ài</b> เสียง 4 = ขาย · <span class="zh">买</span> mǎi เสียง 3 = ซื้อ'}),
  blank({tag:TQ(3),s:'西瓜很_。',th:'แตงโมหวานมาก',opts:['甜','百','完'],ans:0,k:'p15-xght-m',fb:'<span class="zh">西瓜很甜。</span>'}),
  reply({tag:TQ(4),q:'พนักงานถามว่าอยากทานอะไร คุณอยากกินปลา',line:{...X.nxc,who:'d'},opts:[X.xcy,X.nnhw,X.sdsg],ans:0,why:'สั่งด้วย 我们想吃…'}),
  ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p16-sqk-g',opts:['อันนี้แพงมาก สามพันหยวน','อันนี้แพงมาก สามร้อยหยวน','อันนี้ถูกมาก สามพันหยวน'],ans:0,fb:'<span class="zh">这个很贵，三千块！</span> 千 = พัน'}),

@@ -24,7 +24,7 @@ const SW=w('上午','shàngwǔ','ช่วงเช้า (ก่อนเที
  SJ=w('睡觉','shuìjiào','นอนหลับ'),ZUO=w('做','zuò','ทำ'),GZ=w('工作','gōngzuò','ทำงาน งาน');
 const XXI=w('学习','xuéxí','เรียน ศึกษา'),HY=w('汉语','Hànyǔ','ภาษาจีน'),HUI=w('会','huì','เป็น (ทำได้เพราะเรียนมา)'),SHUO=w('说','shuō','พูด'),
  TING=w('听','tīng','ฟัง'),DU=w('读','dú','อ่าน (ออกเสียง)'),XIE=w('写','xiě','เขียน'),DY=w('电影','diànyǐng','ภาพยนตร์');
-const WS=ART('晚上');THL[WS]='ตอนกลางคืน';
+const WS=ART('晚上');THL[WS]='ตอนค่ำ';
 const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
 const L={g1:S('你上午做什么？','nǐ shàngwǔ zuò shénme?','ช่วงเช้าคุณทำอะไร','b24-nsw-g','g'),
  me1:S('上午我工作。','shàngwǔ wǒ gōngzuò.','ช่วงเช้าฉันทำงาน','b24-swgz-f','me'),
@@ -34,11 +34,11 @@ const L={g1:S('你上午做什么？','nǐ shàngwǔ zuò shénme?','ช่ว�
  me3:S('好！','hǎo!','ได้เลย','b24-hao-f','me'),
  njdqc:S('你几点起床？','nǐ jǐ diǎn qǐchuáng?','คุณตื่นนอนกี่โมง','b24-njdqc-g','g')};
 const O={qc:S('我早上六点起床。','wǒ zǎoshang liù diǎn qǐchuáng.','ฉันตื่นนอนตอนหกโมงเช้า','b24-qc-f'),
- wssj:S('晚上十点睡觉。','wǎnshang shí diǎn shuìjiào.','ตอนกลางคืนเข้านอนสี่ทุ่ม','b24-wssj-f'),
+ wssj:S('晚上十点睡觉。','wǎnshang shí diǎn shuìjiào.','ตอนค่ำเข้านอนสี่ทุ่ม','b24-wssj-f'),
  wgz:S('我工作。','wǒ gōngzuò.','ฉันทำงาน','b24-wgz-f'),
  hyd:S('会一点儿。','huì yìdiǎnr.','เป็นนิดหน่อย','b25-hyd-f'),
  swgz:S('上午我工作。','shàngwǔ wǒ gōngzuò.','ช่วงเช้าฉันทำงาน','b24-swgz-f'),
- zwyq:S('中午我们一起吃米饭。','zhōngwǔ wǒmen yìqǐ chī mǐfàn.','ตอนเที่ยงพวกเราทานข้าวด้วยกัน','b24-zwyq-g'),
+ zwyq:S('中午我们一起吃饭。','zhōngwǔ wǒmen yìqǐ chī fàn.','ตอนเที่ยงพวกเราทานข้าวด้วยกัน','b24-zwyq-g'),
  xwhj:S('我下午三点回家。','wǒ xiàwǔ sān diǎn huí jiā.','ฉันกลับบ้านตอนบ่ายสามโมง','b24-xwhj-f'),
  thy:S('我们听汉语。','wǒmen tīng Hànyǔ.','พวกเราฟังภาษาจีน','b25-thy-f'),
  xz:S('我会写字。','wǒ huì xiě zì.','ฉันเขียนตัวอักษรเป็น','b25-xz-f'),
@@ -46,7 +46,7 @@ const O={qc:S('我早上六点起床。','wǒ zǎoshang liù diǎn qǐchuáng.',
  kdy:S('我们去看电影。','wǒmen qù kàn diànyǐng.','พวกเราไปดูภาพยนตร์กัน','b25-kdy-f'),
  wzgz:S('我在医院工作。','wǒ zài yīyuàn gōngzuò.','ฉันทำงานที่โรงพยาบาล','b24-wzgz-f')};
 const D=[{sit:'เพื่อนชวนวางแผนวันหยุดด้วยกัน',img:K9},L.g1,L.me1,L.g2,L.me2,L.g3,L.me3];
-const BINS=[{img:SW.img,zh:'上午',py:'shàngwǔ',th:'ช่วงเช้า'},{img:ZW.img,zh:'中午',py:'zhōngwǔ',th:'ตอนเที่ยง'},{img:XW.img,zh:'下午',py:'xiàwǔ',th:'ตอนบ่าย'},{img:WS,zh:'晚上',py:'wǎnshang',th:'กลางคืน'}];
+const BINS=[{img:SW.img,zh:'上午',py:'shàngwǔ',th:'ช่วงเช้า'},{img:ZW.img,zh:'中午',py:'zhōngwǔ',th:'ตอนเที่ยง'},{img:XW.img,zh:'下午',py:'xiàwǔ',th:'ตอนบ่าย'},{img:WS,zh:'晚上',py:'wǎnshang',th:'ตอนค่ำ'}];
 const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
 const SKC=[{img:I_T,th:'ฟัง'},{img:I_S,th:'พูด'},{img:I_D,th:'อ่าน'},{img:I_X,th:'เขียน'}];
 const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
@@ -70,13 +70,13 @@ LESSON({no:26,code:'ทบทวนหน่วย 7',goal:{do:'ใช้คำ�
  blank({tag:TQ(7),s:'我在医院_。',th:'ฉันทำงานที่โรงพยาบาล',opts:['工作','电影','汉语'],ans:0,k:'b24-wzgz-f',fb:'<span class="zh">我在医院工作。</span>'}),
  ask({rv:11,q:'ฟัง 影 yǐng แล้วเลือกเสียงท้าย',k:'sy:影',opts:['-n','-ng'],ans:1,fb:'yǐ<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก'}),
  lineup({tag:TQ(8),sit:'เพื่อนชวนวางแผนวันหยุด',lines:[L.g2,L.me2,L.g3]}),
- ask({tag:TQ(9),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b24-zwyq-g',opts:['ตอนเที่ยงพวกเราทานข้าวด้วยกัน','ตอนเที่ยงพวกเราดูภาพยนตร์','ตอนเช้าพวกเราทำงานด้วยกัน'],ans:0,fb:'<span class="zh">中午我们一起吃米饭。</span>'}),
+ ask({tag:TQ(9),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b24-zwyq-g',opts:['ตอนเที่ยงพวกเราทานข้าวด้วยกัน','ตอนเที่ยงพวกเราดูภาพยนตร์','ตอนเช้าพวกเราทำงานด้วยกัน'],ans:0,fb:'<span class="zh">中午我们一起吃饭。</span>'}),
  ask({tag:TQ(10),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:学习',opts:['เรียน ศึกษา','ทำงาน','เขียน'],ans:0,fb:'<span class="zh">学习</span> <b>xuéxí</b> = เรียน ศึกษา'}),
  part({lab:'ภารกิจท้ายหน่วย',of:0,title:'เล่าวันของฉันเอง',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  reply({tag:MQ(1),noTh:1,q:'คุณตื่นนอนหกโมงเช้า เพื่อนถามว่า',line:L.njdqc,opts:[O.qc,O.wssj,O.wgz],ans:0}),
  ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'b24-wssj-f',opts:[{img:K6},{img:K10},{img:DY.img}],ans:1,fb:'<span class="zh">晚上十点睡觉。</span>'}),
  order({tag:MQ(3),noTh:1,th:'',tiles:[tl('你','nǐ'),tl('会','huì'),tl('说','shuō'),tl('汉语','Hànyǔ'),tl('吗','ma'),tl('写','xiě')],ans:[0,1,2,3,4],end:'？',k:'b25-nhs-g'}),
- blank({tag:MQ(4),noTh:1,s:'中午我们一起吃_。',opts:['米饭','电影','字'],ans:0,k:'b24-zwyq-g',fb:'<span class="zh">中午我们一起吃米饭。</span>'}),
+ blank({tag:MQ(4),noTh:1,s:'中午我们一起_。',opts:['吃饭','看电影','写字'],ans:0,k:'b24-zwyq-g',fb:'<span class="zh">中午我们一起吃饭。</span>'}),
  fin({title:'จบหน่วยที่ 7 แล้ว',html:dlgH(D,{noTh:1}),chips:[SW,ZW,XW,QC,SJ,GZ,XXI,HY,HUI,SHUO,DY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L26',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>

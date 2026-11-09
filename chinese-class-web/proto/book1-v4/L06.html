@@ -25,7 +25,7 @@ const X={
  r3:S('三个人。','sān ge rén.','สามคน','b6-sgr-f'),r6:S('六个人。','liù ge rén.','หกคน','b6-lgr-f'),r9:S('九个人。','jiǔ ge rén.','เก้าคน','b6-jiugr-f'),r5:S('五个人。','wǔ ge rén.','ห้าคน','b6-wgr-f'),
  b3:S('三个杯子。','sān ge bēizi.','แก้วสามใบ','b6-sgbz-f'),b6:S('六个杯子。','liù ge bēizi.','แก้วหกใบ','b6-lgbz-m'),b9:S('九个杯子。','jiǔ ge bēizi.','แก้วเก้าใบ','b6-jiugbz-m'),b4:S('四个杯子。','sì ge bēizi.','แก้วสี่ใบ','b6-sigbz-m'),
  wm6:S('我们是六个人。','wǒmen shì liù ge rén.','พวกเรามีหกคน','b6-wm6-m'),hh:S('很好！','hěn hǎo!','ดีมาก','b6-hh-t'),
- lsh:S('老师好！','lǎoshī hǎo!','สวัสดีครับ/ค่ะ คุณครู','lsh-f'),xx:S('谢谢！','xièxie!','ขอบคุณ','b6-xx-f'),dj:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','b6-djh-t')};
+ lsh:S('老师好！','lǎoshī hǎo!','สวัสดีคุณครู','lsh-f'),xx:S('谢谢！','xièxie!','ขอบคุณ','b6-xx-f'),dj:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','b6-djh-t')};
 const L={jgr:{...X.jgr,who:'t'},c16:{...S('一、二、三、四、五、六。','yī, èr, sān, sì, wǔ, liù.','หนึ่ง สอง สาม สี่ ห้า หก','b6-c16-f'),who:'me'},r6:{...X.r6,who:'me',k:'b6-lgr-f'},hh:{...X.hh,who:'t'},
  jgbz:{...X.jgbz,who:'g'},b3:{...X.b3,who:'me'},jgrg:{...X.jgrg,who:'g'},r9:{...X.r9,who:'me'},wm6:{...X.wm6,who:'f'},c10:{...X.c10,who:'me'},c03:{...X.c03,who:'g',k:'b6-c03-g'}};
 const D=[{sit:'ครูให้นับเพื่อนในกลุ่มของคุณ',img:R6},L.jgr,L.c16,L.r6,L.hh,{sit:'เพื่อนชี้ไปที่แก้วบนโต๊ะ',img:C3},L.jgbz,L.b3];
@@ -68,7 +68,7 @@ LESSON({no:6,code:'บท 2-1',goal:{do:'นับเลข 0 ถึง 10 แ�
  talk({cap:'เทคนิค 5/6 · ถามว่ากี่คน กี่อัน',title:'几个？',text:'ถามด้วย 几个 + คำนาม แล้วตอบโดยเอาตัวเลขมาแทน 几',lines:[L.jgr,{...X.r9,who:'me'},L.jgbz,L.b3],
   chips:[{zh:'几个人',py:'jǐ ge rén',th:'กี่คน',k:'b6-jgr-g'},{zh:'三个人',py:'sān ge rén',th:'สามคน',k:'b6-sgr-f'},{zh:'几个杯子',py:'jǐ ge bēizi',th:'แก้วกี่ใบ',k:'b6-jgbz-g'}],tip:'มี <span class="zh">几</span> แล้วเป็นคำถามอยู่แล้ว ไม่ต้องใส่ <span class="zh">吗</span>'}),
  tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
-  {h:'ระหว่างตัวเลขกับคำนามต้องมี 个',bad:'三杯子。',good:'三个杯子。',k:'b6-sgbz-f'},
+  {h:'ต้องมีลักษณนาม เช่น 个',bad:'三杯子。',good:'三个杯子。',k:'b6-sgbz-f'},
   {h:'มี 几 แล้วไม่ต้องใส่ 吗',bad:'几个人吗？',good:'几个人？',k:'b6-jgr-g'},
   {h:'ยี่สิบ คือ สองสิบ',bad:'ยี่สิบ = 十二',good:'ยี่สิบ = 二十',k:'b6-20-f'},
   {h:'个 ในประโยคอ่านเบา',bad:'sān gè rén (เน้น gè)',good:'sān ge rén',k:'b6-sgr-f'}]}),

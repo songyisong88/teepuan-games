@@ -16,7 +16,7 @@ const GUEST=ART('客人'),CHAIR=ART('椅子'),TEA=ART('茶'),WATER=ART('水'),CU
  CB=lab('cupbig','แก้วใบใหญ่'),CS=lab('cupsmall','แก้วใบเล็ก'),CBS=lab('cupbs','แก้วใหญ่กับแก้วเล็ก'),BB_=lab('bookbig','หนังสือเล่มใหญ่'),BS_=lab('booksmall','หนังสือเล่มเล็ก');
 const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
 const X={
- qz:S('请坐！','qǐng zuò!','เชิญนั่ง','b12-qz-f'),nqz:S('您请坐。','nín qǐng zuò.','เชิญนั่งครับ (สุภาพ)','b12-nqz-f'),
+ qz:S('请坐！','qǐng zuò!','เชิญนั่ง','b12-qz-f'),nqz:S('您请坐。','nín qǐng zuò.','เชิญนั่งค่ะ (สุภาพ)','b12-nqz-f'),
  qhc:S('请喝茶。','qǐng hē chá.','เชิญดื่มชา','b12-qhc-f'),qhs:S('请喝水。','qǐng hē shuǐ.','เชิญดื่มน้ำ','b12-qhs-t'),
  xx:S('谢谢！','xièxie!','ขอบคุณ','b12-xx-g'),
  nxh:S('你想喝什么？','nǐ xiǎng hē shénme?','คุณอยากดื่มอะไร','b12-nxh-f'),wxhc:S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','b12-wxhc-g'),
@@ -28,7 +28,7 @@ const X={
  xdsn:S('小的是你的。','xiǎo de shì nǐ de.','ใบเล็กเป็นของคุณ','b12-xdsn-t'),dds:S('大的是谁的？','dà de shì shéi de?','ใบใหญ่เป็นของใคร','b12-dds-g'),
  xds:S('小的是谁的？','xiǎo de shì shéi de?','ใบเล็กเป็นของใคร','b12-xds-g'),xdsw:S('小的是我的。','xiǎo de shì wǒ de.','ใบเล็กเป็นของฉัน','b12-xdsw-f'),
  ddsw:S('大的是我的。','dà de shì wǒ de.','ใบใหญ่เป็นของฉัน','b12-ddsw-f'),
- lsqz:S('老师，请坐！','lǎoshī, qǐng zuò!','คุณครู เชิญนั่งครับ','b12-lsqz-f'),lsxh:S('老师，您想喝什么？','lǎoshī, nín xiǎng hē shénme?','คุณครูอยากดื่มอะไรครับ','b12-lsxh-f'),
+ lsqz:S('老师，请坐！','lǎoshī, qǐng zuò!','คุณครู เชิญนั่งค่ะ','b12-lsqz-f'),lsxh:S('老师，您想喝什么？','lǎoshī, nín xiǎng hē shénme?','คุณครูอยากดื่มอะไรค่ะ','b12-lsxh-f'),
  zxsw:S('这些书是我的。','zhèxiē shū shì wǒ de.','หนังสือเหล่านี้เป็นของฉัน','b12-zxsw-f'),
  qz2:S('请坐','qǐng zuò','เชิญนั่ง','b12-qz2-t'),qhc2:S('请喝茶','qǐng hē chá','เชิญดื่มชา','b12-qhc2-t'),qhs2:S('请喝水','qǐng hē shuǐ','เชิญดื่มน้ำ','b12-qhs2-t'),
  zx:S('这些','zhèxiē','เหล่านี้','b12-zx-t'),nx:S('那些','nàxiē','เหล่านั้น','b12-nx-t'),zxdx:S('这些东西','zhèxiē dōngxi','ของเหล่านี้','b12-zxdx-t'),nxbz2:S('那些杯子','nàxiē bēizi','แก้วเหล่านั้น','b12-nxbz2-t'),
@@ -67,14 +67,14 @@ LESSON({no:12,code:'บท 3-3',goal:{do:'ต้อนรับเพื่อ�
  dialog({cap:'เทคนิค 1/6 · บทสนทนาที่บ้าน',title:'เชิญนั่ง เชิญดื่มชา',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'แขกมาถึง พูด 请坐 ก่อน แล้วถามว่าอยากดื่มอะไร'}),
  talk({cap:'เทคนิค 2/6 · 请 + กริยา',title:'เชิญอย่างสุภาพ',text:'แตะแต่ละคำเพื่อฟัง',lines:[L.qz,L.qhc,{...X.qhs,who:'t'}],
   chips:[X.qz2,X.qhc2,X.qhs2],tip:'<span class="zh">请</span> อยู่หน้ากริยาเสมอ · กับผู้ใหญ่พูด <span class="zh">您请坐</span>'}),
- talk({cap:'เทคนิค 3/6 · 这些 那些',title:'ของหลายชิ้น',text:'这 那 + 些 = เหล่านี้ เหล่านั้น',lines:[L.zxds,{...X.nxbz,who:'f'},{...X.zxsw,who:'f'}],
+ talk({cap:'เทคนิค 3/6 · 这些 那些',title:'ของหลายชิ้น',text:'这 那 + 些 = เหล่านี้ เหล่านั้น',lines:[L.zxds,{...X.nxbz,who:'f',k:'b12-nxbz-m'},{...X.zxsw,who:'f',k:'b12-zxsw-m'}],
   chips:[X.zx,X.nx,X.zxdx,X.nxbz2],tip:'ของชิ้นเดียวใช้ <span class="zh">这个</span> · หลายชิ้นใช้ <span class="zh">这些</span>'}),
  cmp({cap:'เทคนิค 4/6 · 大的 小的',title:'ใบใหญ่หรือใบเล็ก',text:'คำบอกขนาด + 的 = อันที่มีลักษณะนั้น',a:{who:'ใบใหญ่',img:CB,zh:'大的',py:'dà de',th:'อันใหญ่',k:'b12-dd-t'},b:{who:'ใบเล็ก',img:CS,zh:'小的',py:'xiǎo de',th:'อันเล็ก',k:'b12-xd-t'},
   tip:'<span class="zh">大的是我的，小的是你的。</span> ใบใหญ่ของฉัน ใบเล็กของคุณ'}),
  story({tag:'เทคนิค 5/6 · ต้อนรับเพื่อนที่บ้าน',q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
   {img:GUEST,sit:'เพื่อนมาถึงบ้าน คุณเชิญเพื่อนนั่ง',opts:[op(X.qz),op(S('我坐！','wǒ zuò!','ฉันนั่ง','b12-wz-f')),op(S('请喝！','qǐng hē!','เชิญดื่ม','b12-qh-f'))],ans:0,why:'เชิญนั่งใช้ 请坐'},
   {img:TEA,sit:'คุณอยากรู้ว่าเพื่อนอยากดื่มอะไร',opts:[op(X.nxh),op(S('你是什么？','nǐ shì shénme?','คุณคืออะไร','b12-nssm-f')),op(S('你有茶吗？','nǐ yǒu chá ma?','คุณมีชาไหม','b12-nycm-f'))],ans:0,why:'ถามความอยากใช้ 想 + กริยา + 什么'},
-  {img:TEA,sit:'เพื่อนบอกว่าอยากดื่มชา คุณยกชาให้',line:L.wxhc,opts:[op(X.qhc),op(S('请坐茶。','qǐng zuò chá.','ใช้กริยาผิด','b12-qzc-f')),op(S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','b12-wxhc2-f'))],ans:0,why:'ยกชาให้แขก พูดว่า 请喝茶'},
+  {img:TEA,sit:'เพื่อนบอกว่าอยากดื่มชา คุณยกชาให้',line:L.wxhc,opts:[op(X.qhc),op(S('请坐茶。','qǐng zuò chá.','เชิญนั่งชา','b12-qzc-f')),op(S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','b12-wxhc2-f'))],ans:0,why:'ยกชาให้แขก พูดว่า 请喝茶'},
   {img:DX.img,sit:'เพื่อนเห็นของหลายชิ้น ถามว่าเป็นของใคร',line:L.zxds,opts:[op(X.swd),op(S('是我。','shì wǒ.','คือฉัน','b12-sw-f')),op(S('是东西。','shì dōngxi.','เป็นของ','b12-sdx-f'))],ans:0,why:'ตอบว่าเป็นของใคร ต้องมี 的'}]}),
  tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
   {h:'请 อยู่หน้ากริยา',bad:'坐请！',good:'请坐！',k:'b12-qz-f'},

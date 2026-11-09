@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 2-2 สั่งแบบที่ชอบ</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 2-2 หน่วย 2 ร้านชานมและเครื่องดื่ม: สั่งแบบที่ชอบ · คำใหม่ 大杯 中杯 小杯 糖 少糖 加冰 去冰 外带
+   กิจกรรมเฉพาะบท: A 还是 B แตะขนาดแก้ว แยก 加冰 กับ 去冰 不要糖 กับ 少糖 */
+WHO.m={n:'พนักงานร้านชานม',img:ART('服务员')};
+const DB=W('大杯','dàbēi','แก้วใหญ่',{s:'dà bēi'}),ZB=W('中杯','zhōngbēi','แก้วกลาง',{s:'zhōng bēi',sl:[0]}),XB=W('小杯','xiǎobēi','แก้วเล็ก',{s:'xiǎo bēi'}),
+ TANG=W('糖','táng','น้ำตาล / ลูกอม'),ST=W('少糖','shǎotáng','หวานน้อย',{s:'shǎo táng',sl:[0]}),JB=W('加冰','jiābīng','ใส่น้ำแข็ง',{s:'jiā bīng'}),
+ QB=W('去冰','qùbīng','ไม่ใส่น้ำแข็ง',{s:'qù bīng'}),WD=W('外带','wàidài','ซื้อกลับ / ห่อกลับ',{s:'wài dài',img:ART('外带-b3')});WD.v2=WD.img;
+const KL_=W('可乐','kělè','โคล่า',{s:'kě lè',sl:[1]}),NC_=W('奶茶','nǎichá','ชานม',{s:'nǎi chá'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('你要大杯还是中杯？','nǐ yào dàbēi háishi zhōngbēi?','รับแก้วใหญ่หรือแก้วกลางครับ','p07-a-t'),
+ b:S('我要中杯奶茶，少糖。','wǒ yào zhōngbēi nǎichá, shǎotáng.','ขอชานมแก้วกลาง หวานน้อยค่ะ','p07-b-f'),
+ c:S('要加冰吗？','yào jiā bīng ma?','ใส่น้ำแข็งไหมครับ','p07-c-t'),
+ d:S('不要，去冰。','bú yào, qù bīng.','ไม่ใส่ค่ะ ไม่เอาน้ำแข็ง','p07-d-f'),
+ e:S('在这儿喝还是外带？','zài zhèr hē háishi wàidài?','ดื่มที่นี่หรือรับกลับบ้านครับ','p07-e-t'),
+ f:S('外带，谢谢！','wàidài, xièxie!','รับกลับบ้านค่ะ ขอบคุณค่ะ','p07-f-f'),
+ dbg:S('我要大杯果汁。','wǒ yào dàbēi guǒzhī.','ผมขอน้ำผลไม้แก้วใหญ่','p07-dbg-m'),
+ dbq:S('大杯多少钱？','dàbēi duōshao qián?','แก้วใหญ่ราคาเท่าไร','p07-dbq-g'),
+ zbl:S('我要中杯绿茶。','wǒ yào zhōngbēi lǜchá.','ฉันขอชาเขียวแก้วกลาง','p07-zbl-f'),
+ zbk:S('中杯十五块。','zhōngbēi shíwǔ kuài.','แก้วกลางสิบห้าหยวน','p07-zbk-t'),
+ xbt:S('小杯太小了。','xiǎobēi tài xiǎo le.','แก้วเล็กเล็กเกินไป','p07-xbt-g'),
+ xbh:S('孩子要小杯。','háizi yào xiǎobēi.','เด็กเอาแก้วเล็ก','p07-xbh-t'),
+ byt:S('我不要糖。','wǒ bú yào táng.','ฉันไม่ใส่น้ำตาล','p07-byt-f'),
+ hct:S('孩子喜欢吃糖。','háizi xǐhuan chī táng.','เด็กชอบกินลูกอม','p07-hct-t'),
+ wst:S('我要少糖。','wǒ yào shǎotáng.','ฉันขอหวานน้อย','p07-wst-f'),
+ stt:S('少糖不太甜。','shǎotáng bú tài tián.','หวานน้อยไม่ค่อยหวาน','p07-stt-g'),
+ trj:S('天太热了，要加冰。','tiān tài rè le, yào jiā bīng.','อากาศร้อนเกินไป ต้องใส่น้ำแข็ง','p07-trj-m'),
+ klj:S('可乐要加冰吗？','kělè yào jiā bīng ma?','โคล่าใส่น้ำแข็งไหม','p07-klj-t'),
+ gmq:S('我感冒了，要去冰。','wǒ gǎnmào le, yào qù bīng.','ฉันเป็นหวัด ขอไม่ใส่น้ำแข็ง','p07-gmq-f'),
+ qbn:S('去冰的奶茶不太冷。','qù bīng de nǎichá bú tài lěng.','ชานมไม่ใส่น้ำแข็งไม่ค่อยเย็น','p07-qbn-g'),
+ wyw:S('我要外带。','wǒ yào wàidài.','ฉันขอรับกลับบ้าน','p07-wyw-f'),
+ wdz:S('外带还是在这儿喝？','wàidài háishi zài zhèr hē?','รับกลับบ้านหรือดื่มที่นี่','p07-wdz-t'),
+ c1:S('中杯，少糖，去冰','zhōngbēi, shǎotáng, qù bīng','แก้วกลาง หวานน้อย ไม่ใส่น้ำแข็ง','p07-c1-f'),
+ c2:S('大杯，加冰','dàbēi, jiā bīng','แก้วใหญ่ ใส่น้ำแข็ง','p07-c2-f'),
+ c3:S('小杯，不要糖','xiǎobēi, bú yào táng','แก้วเล็ก ไม่ใส่น้ำตาล','p07-c3-f'),
+ c4:S('外带','wàidài','รับกลับบ้าน','p07-c4-f'),
+ xgg:S('请给我一个吸管。','qǐng gěi wǒ yí ge xīguǎn.','ขอหลอดหนึ่งอันหน่อย','p06-xgg-g'),
+ xgz:S('吸管在这儿。','xīguǎn zài zhèr.','หลอดอยู่ตรงนี้','p06-xgz-t'),
+ pjb:S('爸爸喝啤酒。','bàba hē píjiǔ.','พ่อดื่มเบียร์','p06-pjb-t'),
+ cyz:S('这是中国的茶叶。','zhè shì Zhōngguó de cháyè.','นี่คือใบชาของจีน','p06-cyz-t'),
+ dzt:S('我肚子疼。','wǒ dùzi téng.','ฉันปวดท้อง','p01-dzt-f')};
+const L={a:{...X.a,who:'m'},b:{...X.b,who:'me'},c:{...X.c,who:'m'},d:{...X.d,who:'me'},e:{...X.e,who:'m'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลิสั่งชานมแบบที่ชอบ แล้วรับกลับบ้าน',img:NL(ZB)},L.a,L.b,L.c,L.d,L.e,L.f];
+const CUP=[{img:NL(DB),th:'แก้วใหญ่'},{img:NL(ZB),th:'แก้วกลาง'},{img:NL(XB),th:'แก้วเล็ก'},{img:NL(WD),th:'รับกลับบ้าน'}];
+const BINS=[{img:NL(JB),zh:'加冰',py:'jiā bīng',th:'ใส่น้ำแข็ง'},{img:NL(QB),zh:'去冰',py:'qù bīng',th:'ไม่ใส่น้ำแข็ง'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:7,code:'บท 2-2',title:'สั่งแบบที่ชอบ',goal:{do:'บอกขนาดแก้ว ความหวาน น้ำแข็ง และบอกว่าจะรับกลับบ้าน',sub:'ใช้ <span class="gz">大杯还是中杯 · 少糖 · 去冰 · 外带</span>',min:12},steps:[
+ intro({scene:NL(ZB),cap:'สถานการณ์ของบทนี้',title:'สั่งแบบที่ชอบ',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะสั่งชานมแบบที่ชอบได้ครบ'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[DB,ZB,XB,TANG,ST,JB,QB,WD]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['大杯','中杯','小杯','糖','少糖','加冰','去冰','外带'],note:'ใช้คำจากบทก่อน เช่น 奶茶 绿茶 果汁 ร่วมด้วย'}),
+ ...WC(DB,1,8,{cap:'ขนาดแก้ว',hint:'คล้าย <b>"ต้า เปย"</b> · 大 = ใหญ่ 杯 = แก้ว',use:'แก้วใหญ่ · 大杯 + เครื่องดื่ม',ex:[X.dbg,X.dbq]}),
+ ...WC(ZB,2,8,{cap:'ขนาดแก้ว',hint:'คล้าย <b>"จง เปย"</b> · 中 ในคำนี้อ่าน zhōng',use:'แก้วกลาง',ex:[X.zbl,X.zbk]}),
+ ...WC(XB,3,8,{cap:'ขนาดแก้ว',hint:'คล้าย <b>"เสี่ยว เปย"</b> · x ยิ้มปาก',use:'แก้วเล็ก',ex:[X.xbh,X.xbt]}),
+ ...WC(TANG,4,8,{cap:'ความหวาน',hint:'คล้าย <b>"ถาง"</b> · เสียง 2 เสียงขึ้น',use:'น้ำตาล ลูกอม · 吃糖 = กินลูกอม',ex:[X.byt,X.hct]}),
+ RC('คำที่ 1–4/8',[DB,ZB,XB,TANG]),
+ use({n:'คำที่ 1–4/8',w:ZB,when:[{img:NL(DB),t:'พนักงานถามให้เลือกขนาด'},{img:NL(ZB),t:'ตอบขนาดที่ต้องการ'}],lines:[{...X.a,who:'m'},{...X.zbl,who:'me'}],tip:'ถามให้เลือกใช้ <span class="zh">A 还是 B？</span> ไม่ต้องมี 吗'}),
+ ...WC(ST,5,8,{cap:'ความหวาน',hint:'คล้าย <b>"ส่าว ถาง"</b> · 少 ในคำนี้อ่าน shǎo',use:'หวานน้อย · ใส่น้ำตาลน้อย',ex:[X.wst,X.stt]}),
+ ...WC(JB,6,8,{cap:'น้ำแข็ง',hint:'คล้าย <b>"เจีย ปิง"</b> · ทั้งสองพยางค์เสียง 1',use:'ใส่น้ำแข็ง',ex:[X.trj,X.klj]}),
+ ...WC(QB,7,8,{cap:'น้ำแข็ง',hint:'คล้าย <b>"ชวี่ ปิง"</b> · q มีลมออก ยิ้มปาก',use:'ไม่ใส่น้ำแข็ง · 去 ในคำนี้ = เอาออก',ex:[X.gmq,X.qbn]}),
+ ...WC(WD,8,8,{cap:'ในร้าน',hint:'คล้าย <b>"ไว่ ไต้"</b> · ทั้งสองพยางค์เสียง 4',use:'ซื้อกลับ ห่อกลับ · ตรงข้ามกับ 在这儿喝',ex:[X.wyw,X.wdz]}),
+ RC('คำที่ 5–8/8',[ST,JB,QB,WD]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','สั่งให้ครบ','แตะขนาดแก้ว','加冰 หรือ 去冰','不要糖 กับ 少糖','ข้อควรระวัง'],note:'ฝึกสั่งเครื่องดื่มแบบที่ชอบ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่ร้าน',title:'สั่งชานมแบบที่ชอบ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'A 还是 B = A หรือ B · 不要 อ่าน bú yào'}),
+ talk({cap:'เทคนิค 2/6 · สั่งให้ครบ',title:'ขนาด ความหวาน น้ำแข็ง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'m'},{...X.b,who:'me'},{...X.c,who:'m'},{...X.d,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'บอกเรียงกันได้เลย ขนาดแก้ว · ความหวาน · น้ำแข็ง เช่น <span class="zh">中杯，少糖，去冰</span>'}),
+ point({tag:'เทคนิค 3/6 · แตะขนาดแก้ว',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:CUP,rounds:[
+  {zh:X.zbl.zh,k:X.zbl.k,ans:1},{zh:X.wyw.zh,k:X.wyw.k,ans:3},{zh:X.dbg.zh,k:X.dbg.k,ans:0},{zh:X.xbh.zh,k:X.xbh.k,ans:2}]}),
+ sortmap({tag:'เทคนิค 4/6 · 加冰 หรือ 去冰',q:'ฟังแต่ละประโยค แล้วแตะว่าใส่น้ำแข็งหรือไม่ใส่',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('太阳'),X.trj,0),it(A2('感冒'),X.gmq,1),it(NL(KL_),X.klj,0),it(NL(NC_),X.qbn,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 不要糖 กับ 少糖',title:'ไม่ใส่น้ำตาล กับ หวานน้อย',text:'แตะการ์ดเพื่อฟัง',a:{who:'ไม่ใส่เลย',img:NL(TANG),zh:X.byt.zh,zhb:'不要糖',py:'bú yào táng',th:'ไม่ใส่น้ำตาล',k:X.byt.k},b:{who:'ใส่น้อย',img:NL(ST),zh:X.wst.zh,zhb:'少糖',py:'shǎotáng',th:'หวานน้อย',k:X.wst.k},
+  tip:'<span class="zh">不要糖</span> = ไม่ใส่น้ำตาลเลย · <span class="zh">少糖</span> = ใส่น้ำตาลแต่น้อยลง'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ประโยค 还是 ไม่ต้องมี 吗',bad:'你要大杯还是中杯吗？',good:'你要大杯还是中杯？',k:'p07-a-t'},
+  {h:'不 อยู่หน้า 要',bad:'我要不糖。',good:'我不要糖。',k:'p07-byt-f'},
+  {h:'要 อยู่หน้าสิ่งที่ต้องการ',bad:'我少糖要。',good:'我要少糖。',k:'p07-wst-f'},
+  {h:'ขนาดแก้วอยู่หน้าเครื่องดื่ม',bad:'我要绿茶中杯。',good:'我要中杯绿茶。',k:'p07-zbl-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:去冰',opts:['ไม่ใส่น้ำแข็ง','ใส่น้ำแข็ง','หวานน้อย'],ans:0,fb:'<span class="zh">去冰</span> <b>qùbīng</b> = ไม่ใส่น้ำแข็ง'}),
+ ask({rv:'ทบทวนบท 2-1 เครื่องดื่มในร้าน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p06-xgg-g',opts:['ขอหลอดหนึ่งอันหน่อย','ขอชานมหนึ่งแก้ว','หลอดอยู่ตรงนี้'],ans:0,fb:'<span class="zh">吸管</span> = หลอดดูด'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:少糖',opts:[{img:NL(ST)},{img:NL(JB)},{img:NL(WD)}],ans:0,fb:'<span class="zh">少糖</span> <b>shǎotáng</b> = หวานน้อย'}),
+ blank({tag:TQ(3),s:'你要大杯_中杯？',th:'รับแก้วใหญ่หรือแก้วกลาง',opts:['还是','和','也'],ans:0,k:'p07-a-t',fb:'<span class="zh">你要大杯还是中杯？</span>'}),
+ ask({rv:12,q:'ฟัง 不要，去冰 แล้วเลือกเสียงของ 不',k:'p07-d-f',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'不 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>bú yào</b>'}),
+ reply({tag:TQ(4),q:'พนักงานถามว่าดื่มที่นี่หรือรับกลับบ้าน',line:{...X.e,who:'m'},opts:[X.f,X.pjb,X.dzt],ans:0,why:'ตอบสั้น ๆ ว่า 外带'}),
+ ask({rv:11,q:'ฟัง 中杯 แล้วเลือกเสียงท้ายของ 中',k:'w:中杯',opts:['-ng','-n'],ans:0,fb:'zh<b>ōng</b> ลงท้าย -ng เสียงขึ้นจมูก'}),
+ order({tag:TQ(5),th:'ชานมไม่ใส่น้ำแข็งไม่ค่อยเย็น',tiles:[tl('去冰的','qù bīng de'),tl('奶茶','nǎichá'),tl('不太','bú tài'),tl('冷','lěng'),tl('加冰','jiā bīng')],ans:[0,1,2,3],end:'。',k:'p07-qbn-g'}),
+ tf({tag:TQ(6),k:'p07-b-f',img:NL(ZB),card:'<b>มะลิสั่ง</b><br>ชานมแก้วใหญ่',ans:1,fb:'<span class="zh">我要中杯奶茶。</span> = ขอชานมแก้วกลาง'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'สั่งชานมแบบที่ชอบ',chips:['ฟังแล้วแตะ','ตอบพนักงาน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:CUP,rounds:[{zh:X.c3.zh,k:X.c3.k,ans:2},{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c2.zh,k:X.c2.k,ans:0},{zh:X.c1.zh,k:X.c1.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'พนักงานถามเรื่องน้ำแข็ง',line:{...X.c,who:'m'},opts:[X.d,X.xgz,X.cyz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我感冒了，要_。',opts:['去冰','加冰','大杯'],ans:0,k:'p07-gmq-f',fb:'<span class="zh">我感冒了，要去冰。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('要','yào'),tl('中杯','zhōngbēi'),tl('绿茶','lǜchá'),tl('糖','táng')],ans:[0,1,2,3],end:'。',k:'p07-zbl-f'}),
+ fin({title:'สั่งเครื่องดื่มแบบที่ชอบได้แล้ว',html:dlgH(D,{noTh:1}),chips:[DB,ZB,XB,TANG,ST,JB,QB,WD].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L07',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

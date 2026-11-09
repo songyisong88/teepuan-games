@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · ทบทวนหน่วยที่ 2</title>
+</head><body>
+<script>
+/* เล่ม 3 ทบทวนหน่วยที่ 2 ร้านชานมและเครื่องดื่ม: ทวนคำทั้ง 2 บท → บทสนทนาพาเพื่อนไปร้านชานม → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.m={n:'พนักงานร้านชานม',img:ART('服务员')};
+const NC=W('奶茶','nǎichá','ชานม',{s:'nǎi chá'}),ZZ=W('珍珠','zhēnzhū','ไข่มุก (ในชานม)',{s:'zhēn zhū'}),XG=W('吸管','xīguǎn','หลอดดูด',{s:'xī guǎn'}),
+ GZ=W('果汁','guǒzhī','น้ำผลไม้',{s:'guǒ zhī'}),KL=W('可乐','kělè','โคล่า',{s:'kě lè',sl:[1]}),PJ=W('啤酒','píjiǔ','เบียร์',{s:'pí jiǔ'}),
+ CY=W('茶叶','cháyè','ใบชา',{s:'chá yè'}),LC=W('绿茶','lǜchá','ชาเขียว',{s:'lǜ chá'});
+const DB=W('大杯','dàbēi','แก้วใหญ่',{s:'dà bēi'}),ZB=W('中杯','zhōngbēi','แก้วกลาง',{s:'zhōng bēi',sl:[0]}),XB=W('小杯','xiǎobēi','แก้วเล็ก',{s:'xiǎo bēi'}),
+ TANG=W('糖','táng','น้ำตาล / ลูกอม'),ST=W('少糖','shǎotáng','หวานน้อย',{s:'shǎo táng',sl:[0]}),JB=W('加冰','jiābīng','ใส่น้ำแข็ง',{s:'jiā bīng'}),
+ QB=W('去冰','qùbīng','ไม่ใส่น้ำแข็ง',{s:'qù bīng'}),WD=W('外带','wàidài','ซื้อกลับ / ห่อกลับ',{s:'wài dài',img:ART('外带-b3')});WD.v2=WD.img;
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('你们好！想喝什么？','nǐmen hǎo! xiǎng hē shénme?','สวัสดีครับ รับอะไรดีครับ','p08-a-t'),
+ b:S('我要一杯绿茶，大杯，加冰。','wǒ yào yì bēi lǜchá, dàbēi, jiā bīng.','ขอชาเขียวหนึ่งแก้ว แก้วใหญ่ ใส่น้ำแข็งค่ะ','p08-b-g'),
+ c:S('我要珍珠奶茶，中杯，少糖，去冰。','wǒ yào zhēnzhū nǎichá, zhōngbēi, shǎotáng, qù bīng.','ฉันขอชานมไข่มุก แก้วกลาง หวานน้อย ไม่ใส่น้ำแข็งค่ะ','p08-c-f'),
+ d:S('好的。在这儿喝还是外带？','hǎo de. zài zhèr hē háishi wàidài?','ได้ครับ ดื่มที่นี่หรือรับกลับบ้านครับ','p08-d-t'),
+ e:S('在这儿喝。请给我们两个吸管。','zài zhèr hē. qǐng gěi wǒmen liǎng ge xīguǎn.','ดื่มที่นี่ค่ะ ขอหลอดสองอันด้วยนะคะ','p08-e-g'),
+ f:S('好，请等一下。','hǎo, qǐng děng yíxià.','ได้ครับ รอสักครู่นะครับ','p08-f-t'),
+ lgx:S('请给我们两个吸管。','qǐng gěi wǒmen liǎng ge xīguǎn.','ขอหลอดสองอันหน่อย','p08-lgx-g'),
+ nhs:S('你喝什么？','nǐ hē shénme?','เธอดื่มอะไร','p08-nhs-g'),
+ xnc:S('我喜欢喝奶茶。','wǒ xǐhuan hē nǎichá.','ฉันชอบดื่มชานม','p06-xnc-f'),gzt:S('果汁很甜。','guǒzhī hěn tián.','น้ำผลไม้หวานมาก','p06-gzt-t'),
+ lct:S('绿茶不太甜。','lǜchá bú tài tián.','ชาเขียวไม่ค่อยหวาน','p06-lct-g'),pjb:S('爸爸喝啤酒。','bàba hē píjiǔ.','พ่อดื่มเบียร์','p06-pjb-t'),
+ c06:S('要珍珠吗？','yào zhēnzhū ma?','ใส่ไข่มุกไหมครับ','p06-c-t'),d06:S('要！请给我一个吸管。','yào! qǐng gěi wǒ yí ge xīguǎn.','ใส่ค่ะ ขอหลอดหนึ่งอันด้วยนะคะ','p06-d-f'),
+ stt:S('少糖不太甜。','shǎotáng bú tài tián.','หวานน้อยไม่ค่อยหวาน','p07-stt-g'),zbk:S('中杯十五块。','zhōngbēi shíwǔ kuài.','แก้วกลางสิบห้าหยวน','p07-zbk-t'),
+ wyl:S('我要一杯绿茶。','wǒ yào yì bēi lǜchá.','ฉันขอชาเขียวหนึ่งแก้ว','p06-wyl-f'),xgz:S('吸管在这儿。','xīguǎn zài zhèr.','หลอดอยู่ตรงนี้','p06-xgz-t'),
+ hct:S('孩子喜欢吃糖。','háizi xǐhuan chī táng.','เด็กชอบกินลูกอม','p07-hct-t'),slw:S('我送你一个礼物。','wǒ sòng nǐ yí ge lǐwù.','ฉันให้ของขวัญเธอชิ้นหนึ่ง','p03-slw-m')};
+const L={a:{...X.a,who:'m'},b:{...X.b,who:'g'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'g'},f:{...X.f,who:'m'}};
+const D=[{sit:'มะลิพาหลี่น่ามาร้านชานมที่ชอบ',img:NL(NC)},L.a,L.b,L.c,L.d,L.e,L.f];
+const DR=[{img:NL(NC),th:'ชานม'},{img:NL(GZ),th:'น้ำผลไม้'},{img:NL(LC),th:'ชาเขียว'},{img:NL(PJ),th:'เบียร์'}];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+const ALL=[NC,ZZ,XG,GZ,KL,PJ,CY,LC,DB,ZB,XB,TANG,ST,JB,QB,WD];
+LESSON({no:8,code:'ทบทวนหน่วย 2',title:'ทบทวนหน่วยที่ 2',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 2 สั่งเครื่องดื่ม เลือกขนาดแก้ว ความหวาน น้ำแข็ง และบอกว่าดื่มที่ร้านหรือรับกลับ',sub:'一杯奶茶 · 大杯还是中杯 · 少糖 · 去冰 · 外带',min:8},steps:[
+ intro({scene:NL(NC),cap:'บททบทวน',title:'พาเพื่อนไปร้านชานม',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 2-1 และ 2-2'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 2',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'2-1 เครื่องดื่มในร้าน',items:[NC,ZZ,XG,GZ,KL,PJ,CY,LC]},{lab:'2-2 สั่งแบบที่ชอบ',items:[DB,ZB,XB,TANG,ST,JB,QB,WD]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'พาเพื่อนไปร้านชานม',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะ','เติมคำ','ตอบพนักงาน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[XG,CY,PJ,GZ,JB]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะเครื่องดื่มที่พูดถึง',this:'คือเครื่องดื่มนี้',cards:DR,rounds:[
+  {zh:X.xnc.zh,k:X.xnc.k,ans:0},{zh:X.gzt.zh,k:X.gzt.k,ans:1},{zh:X.lct.zh,k:X.lct.k,ans:2},{zh:X.pjb.zh,k:X.pjb.k,ans:3}]}),
+ ask({rv:2,q:'ฟัง 糖 táng แล้วเลือกวรรณยุกต์',k:'sy:糖',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">糖</span> t<b>á</b>ng เสียง 2 = น้ำตาล'}),
+ blank({tag:TQ(3),s:'天太热了，要_。',th:'อากาศร้อนเกินไป ต้องใส่น้ำแข็ง',opts:['加冰','去冰','外带'],ans:0,k:'p07-trj-m',fb:'<span class="zh">天太热了，要加冰。</span>'}),
+ reply({tag:TQ(4),q:'พนักงานถามว่าใส่ไข่มุกไหม',line:{...X.c06,who:'m'},opts:[X.d06,X.stt,X.zbk],ans:0,why:'ตอบว่า 要 แล้วขอหลอดต่อ'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p07-wdz-t',opts:['รับกลับบ้านหรือดื่มที่นี่','แก้วใหญ่หรือแก้วกลาง','ใส่น้ำแข็งไหม'],ans:0,fb:'<span class="zh">外带还是在这儿喝？</span>'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:茶叶',opts:[{img:NL(CY)},{img:NL(PJ)},{img:NL(TANG)}],ans:0,fb:'<span class="zh">茶叶</span> <b>cháyè</b> = ใบชา'}),
+ ask({rv:'ทบทวนบท 1-3 งานวันเกิดคุณปู่',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p03-slw-m',opts:['ฉันให้ของขวัญเธอชิ้นหนึ่ง','ฉันซื้อเสื้อเชิ้ตหนึ่งตัว','ฉันอยากได้ของขวัญ'],ans:0,fb:'<span class="zh">送礼物</span> = ให้ของขวัญ'}),
+ lineup({tag:TQ(7),sit:'หลี่น่ากับมะลิสั่งเครื่องดื่ม',lines:[L.a,L.b,L.c]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 外带',opts:['จะซื้อกลับไปดื่มที่บ้าน','อยากได้แก้วใหญ่','ไม่อยากใส่น้ำแข็ง'],ans:0,fb:'<span class="zh">外带</span> = ซื้อกลับ'}),
+ ask({rv:12,q:'ฟัง 绿茶不太甜 แล้วเลือกเสียงของ 不',k:'p06-lct-g',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'不 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>bú tài</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:小杯',opts:['แก้วเล็ก','แก้วกลาง','แก้วใหญ่'],ans:0,fb:'<span class="zh">小杯</span> <b>xiǎobēi</b> = แก้วเล็ก'}),
+ blank({tag:TQ(10),s:'孩子不能喝_。',th:'เด็กดื่มเบียร์ไม่ได้',opts:['啤酒','果汁','奶茶'],ans:0,k:'p06-pjh-g',fb:'<span class="zh">孩子不能喝啤酒。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'ร้านชานมของเรา',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'หลี่น่าถามว่าคุณดื่มอะไร',line:{...X.nhs,who:'g'},opts:[X.wyl,X.xgz,X.hct],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p07-xbh-t',opts:[{img:NL(XB)},{img:NL(PJ)},{img:NL(CY)}],ans:0,fb:'<span class="zh">孩子要小杯。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('要','yào'),tl('外带','wàidài'),tl('不太','bú tài')],ans:[0,1,2],end:'。',k:'p07-wyw-f'}),
+ blank({tag:MQ(4),noTh:1,s:'请给我们两个_。',opts:['吸管','奶茶','茶叶'],ans:0,k:'p08-lgx-g',fb:'<span class="zh">请给我们两个吸管。</span>'}),
+ fin({title:'จบหน่วยที่ 2 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L08',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

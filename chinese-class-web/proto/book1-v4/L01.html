@@ -24,10 +24,7 @@ const L={lszsh:{...R.lszsh,who:'me'},zsht:S('早上好！','zǎoshang hǎo!','�
  lsnh:{...R.lsnh,who:'me'},nht:S('你好！','nǐ hǎo!','สวัสดี','nihao-s-m','t'),zjt:S('再见！','zàijiàn!','ลาก่อน','zaijian-t','t'),lszj:{...R.lszj,who:'me'}};
 const D=[{sit:'เช้าวันแรก คุณเจอครูที่หน้าห้องเรียน',img:MORN},L.lszsh,L.zsht,{sit:'คุณรีบเข้าห้อง เดินชนเพื่อนโดยไม่ตั้งใจ',img:BOOK},L.dbq,L.mgxf,
  {sit:'ตอนค่ำ คุณเจอเพื่อนที่หน้าบ้าน คุยกันสักพักแล้วแยกกัน',img:EVE},L.wshf,L.wsh,L.zjf,L.zj];
-const DAY=[{img:MORN,sit:'ตอนเช้า คุณเจอครูหน้าห้องเรียน คุณพูดว่า',opts:[R.lszsh,R.lswsh,R.zj],ans:0,why:'ตอนเช้าทักว่า 早上好 · ทักครูให้เรียก 老师 ก่อน'},
- {img:BOOK,sit:'เพื่อนเดินชนคุณแล้วขอโทษ คุณตอบว่า',line:L.dbqf,opts:[R.bkq,R.mgx,R.xx],ans:1,why:'ตอบคำขอโทษด้วย 没关系'},
- {img:NOTE,sit:'เพื่อนเก็บสมุดคืนให้คุณ คุณพูดว่า',opts:[R.dbq,R.xx,R.wsh],ans:1,why:'มีคนช่วย ต้องขอบคุณ'},
- {img:EVE,sit:'ตอนค่ำ คุณเจอเพื่อนที่หน้าบ้าน คุณทักว่า',opts:[R.zsh,R.wsh,R.dbq],ans:1,why:'ตอนค่ำทักว่า 晚上好'}];
+const DAY=[{img:MORN,sit:'ตอนเช้า คุณเจอครูหน้าห้องเรียน คุณพูดว่า',opts:[R.lszsh, R.lswsh, R.zj],ans:0,why:'ตอนเช้าทักว่า 早上好 · ทักครูให้เรียก 老师 ก่อน'},{img:BOOK,sit:'เพื่อนเดินชนคุณแล้วขอโทษ คุณตอบว่า',line:L.dbqf,opts:[R.mgx, R.bkq, R.xx],ans:0,why:'ตอบคำขอโทษด้วย 没关系'},{img:NOTE,sit:'เพื่อนเก็บสมุดคืนให้คุณ คุณพูดว่า',opts:[R.xx, R.dbq, R.wsh],ans:0,why:'มีคนช่วย ต้องขอบคุณ'},{img:EVE,sit:'ตอนค่ำ คุณเจอเพื่อนที่หน้าบ้าน คุณทักว่า',opts:[R.dbq, R.zsh, R.wsh],ans:2,why:'ตอนค่ำทักว่า 晚上好'}];
 const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
 LESSON({no:1,goal:{do:'ทักทายตามช่วงเวลา ขอโทษ และบอกลาเป็นภาษาจีนได้',sub:'ใช้ <span class="gz">早上好 晚上好 您好 对不起 没关系 再见</span> ได้ถูกจังหวะ',min:11},steps:[
  /* 1 · เปิดบท + คำศัพท์ใหม่ */
@@ -82,20 +79,20 @@ LESSON({no:1,goal:{do:'ทักทายตามช่วงเวลา ข�
   {h:'พูดกับครูหรือผู้ใหญ่',bad:'你好 nǐ hǎo',good:'您好 nín hǎo',k:NINH.k,note:'หรือเรียกว่า 老师 ก่อนแล้วค่อยทัก'}]}),
  /* 4 · แบบทดสอบท้ายบท (ทบทวนเล่ม 0 แทรกในช่วงนี้เท่านั้น) */
  part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังแล้วเลือก','จับคู่','ตอบในบทสนทนา','หนึ่งวันที่โรงเรียน'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:ZS.k,opts:['ตอนเช้า','ตอนค่ำ','ลาก่อน'],ans:0,fb:'<span class="zh">早上</span> <b>zǎoshang</b> = ตอนเช้า'}),
- ask({rv:2,q:'ฟังพยางค์ 晚 wǎn แล้วเลือกเส้นเสียง',k:'g:wan3',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">wǎn</b> <span class="zh">晚</span> · เสียง 3 กดต่ำแล้วยกขึ้น'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:ZS.k,opts:['ตอนเช้า', 'ตอนค่ำ', 'ลาก่อน'],ans:0,fb:'<span class="zh">早上</span> <b>zǎoshang</b> = ตอนเช้า'}),
+ ask({rv:2,q:'ฟังพยางค์ 晚 wǎn แล้วเลือกเส้นเสียง',k:'g:wan3',opts:[{tone:4,lab:'เสียง 4'}, {tone:3,lab:'เสียง 3'}],ans:1,fb:'<b class="t3">wǎn</b> <span class="zh">晚</span> · เสียง 3 กดต่ำแล้วยกขึ้น'}),
  match({tag:TQ(2),pairs:[ZS,WS,DBQ,MGX]}),
- reply({tag:TQ(3),q:'เพื่อนเดินชนคุณแล้วขอโทษ คุณจะตอบว่าอะไร',line:L.dbqf,opts:[R.bkq,R.mgx,R.zj],ans:1,why:'ตอบคำขอโทษด้วย 没关系'}),
- ask({rv:8,q:'ฟัง 早上 แล้วเลือกพยัญชนะตัวแรก',k:ZS.k,opts:['z','zh'],ans:0,fb:'<b>z</b>ǎo · ลิ้นแบน ไม่ม้วนลิ้น'}),
- ask({tag:TQ(4),q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะกับช่วงเวลา',pic:EVE,opts:['<span class="zh">早上好！</span> สวัสดีตอนเช้า','<span class="zh">晚上好！</span> สวัสดีตอนค่ำ'],ans:1,fb:'ตอนค่ำ ทัก <span class="zh">晚上好！</span>'}),
- reply({tag:TQ(5),q:'เจอครูตอนเช้า คุณจะทักว่าอะไร',sit:'เจอครูตอนเช้า',simg:MORN,opts:[R.lszsh,R.lsdbq,R.lszj],ans:0,why:'เช้าทัก 早上好 และเรียก 老师 ก่อน'}),
- ask({rv:2,q:'ฟังพยางค์ 您 nín แล้วเลือกเส้นเสียง',k:'g:nin2',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<b class="t2">nín</b> <span class="zh">您</span> · เสียง 2 ขึ้น'}),
- story({tag:TQ(6)+' · หนึ่งวันที่โรงเรียน',q:'ดูภาพทีละช่อง แล้วเลือกว่าควรพูดอะไร',panels:[DAY[0],DAY[1],DAY[3]]}),
+ reply({tag:TQ(3),q:'เพื่อนเดินชนคุณแล้วขอโทษ คุณจะตอบว่าอะไร',line:L.dbqf,opts:[R.zj, R.mgx, R.bkq],ans:1,why:'ตอบคำขอโทษด้วย 没关系'}),
+ ask({rv:8,q:'ฟัง 早上 แล้วเลือกพยัญชนะตัวแรก',k:ZS.k,opts:['zh', 'z'],ans:1,fb:'<b>z</b>ǎo · ลิ้นแบน ไม่ม้วนลิ้น'}),
+ ask({tag:TQ(4),q:'ดูภาพ แล้วเลือกคำทักทายที่เหมาะกับช่วงเวลา',pic:EVE,opts:['<span class="zh">晚上好！</span> สวัสดีตอนค่ำ', '<span class="zh">早上好！</span> สวัสดีตอนเช้า'],ans:0,fb:'ตอนค่ำ ทัก <span class="zh">晚上好！</span>'}),
+ reply({tag:TQ(5),q:'เจอครูตอนเช้า คุณจะทักว่าอะไร',sit:'เจอครูตอนเช้า',simg:MORN,opts:[R.lszsh, R.lszj, R.lsdbq],ans:0,why:'เช้าทัก 早上好 และเรียก 老师 ก่อน'}),
+ ask({rv:2,q:'ฟังพยางค์ 您 nín แล้วเลือกเส้นเสียง',k:'g:nin2',opts:[{tone:2,lab:'เสียง 2'}, {tone:3,lab:'เสียง 3'}],ans:0,fb:'<b class="t2">nín</b> <span class="zh">您</span> · เสียง 2 ขึ้น'}),
+ story({tag:TQ(6)+' · หนึ่งวันที่โรงเรียน',q:'ดูภาพทีละช่อง แล้วเลือกว่าควรพูดอะไร',panels:[DAY[0], DAY[1], DAY[3]]}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'หนึ่งวันของคุณ',chips:['ทักครู','ตอบเพื่อน','ทักตอนค่ำ','บอกลา'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
- reply({tag:MQ(1),noTh:1,q:'เช้าวันใหม่ ครูทักคุณ',sit:'เข้าห้องเรียนตอนเช้า',simg:CLS,line:L.zsht,opts:[R.lswsh,R.lszsh,R.mgx],ans:1}),
- reply({tag:MQ(2),noTh:1,q:'เพื่อนพูดกับคุณ',line:L.dbqf,opts:[R.mgx,R.dbq,R.bkq],ans:0}),
- story({tag:MQ(3)+' · หนึ่งวันที่โรงเรียน',noTh:1,q:'ดูภาพทีละช่อง แล้วเลือกว่าควรพูดอะไร',panels:[DAY[2],DAY[3]].map(p=>Object.assign({},p,{why:''}))}),
- reply({tag:MQ(4),noTh:1,q:'เลิกเรียนแล้ว ครูพูดกับคุณ',sit:'เลิกเรียน',simg:HOME,line:L.zjt,opts:[R.lszsh,R.lszj,R.lsdbq],ans:1}),
+ reply({tag:MQ(1),noTh:1,q:'เช้าวันใหม่ ครูทักคุณ',sit:'เข้าห้องเรียนตอนเช้า',simg:CLS,line:L.zsht,opts:[R.lszsh, R.mgx, R.lswsh],ans:0}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนพูดกับคุณ',line:L.dbqf,opts:[R.bkq, R.mgx, R.dbq],ans:1}),
+ story({tag:MQ(3)+' · หนึ่งวันที่โรงเรียน',noTh:1,q:'ดูภาพทีละช่อง แล้วเลือกว่าควรพูดอะไร',panels:[DAY[2], DAY[3]].map(p=>Object.assign({},p,{why:''}))}),
+ reply({tag:MQ(4),noTh:1,q:'เลิกเรียนแล้ว ครูพูดกับคุณ',sit:'เลิกเรียน',simg:HOME,line:L.zjt,opts:[R.lszsh, R.lszj, R.lsdbq],ans:1}),
  /* 5 · จบบท */
  fin({title:'ทักทาย ขอโทษ และบอกลาได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZS,NIN,DBQ,MGX,WS,ZJ].map(x=>({zh:x.zh,py:x.py,th:x.th.replace(' (สุภาพ)',''),k:x.k})).concat([{zh:'早上好',py:'zǎoshang hǎo',th:'สวัสดีตอนเช้า',k:ZSH.k},{zh:'晚上好',py:'wǎnshang hǎo',th:'สวัสดีตอนค่ำ',k:WSH.k}]),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg1',kl:'ฟังทั้งบทสนทนา'})]});
 

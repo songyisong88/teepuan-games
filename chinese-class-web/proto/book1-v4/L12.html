@@ -71,11 +71,7 @@ LESSON({no:12,code:'บท 3-3',goal:{do:'ต้อนรับเพื่อ�
   chips:[X.zx,X.nx,X.zxdx,X.nxbz2],tip:'ของชิ้นเดียวใช้ <span class="zh">这个</span> · หลายชิ้นใช้ <span class="zh">这些</span>'}),
  cmp({cap:'เทคนิค 4/6 · 大的 小的',title:'ใบใหญ่หรือใบเล็ก',text:'คำบอกขนาด + 的 = อันที่มีลักษณะนั้น',a:{who:'ใบใหญ่',img:CB,zh:'大的',py:'dà de',th:'อันใหญ่',k:'b12-dd-t'},b:{who:'ใบเล็ก',img:CS,zh:'小的',py:'xiǎo de',th:'อันเล็ก',k:'b12-xd-t'},
   tip:'<span class="zh">大的是我的，小的是你的。</span> ใบใหญ่ของฉัน ใบเล็กของคุณ'}),
- story({tag:'เทคนิค 5/6 · ต้อนรับเพื่อนที่บ้าน',q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
-  {img:GUEST,sit:'เพื่อนมาถึงบ้าน คุณเชิญเพื่อนนั่ง',opts:[op(X.qz),op(S('我坐！','wǒ zuò!','ฉันนั่ง','b12-wz-f')),op(S('请喝！','qǐng hē!','เชิญดื่ม','b12-qh-f'))],ans:0,why:'เชิญนั่งใช้ 请坐'},
-  {img:TEA,sit:'คุณอยากรู้ว่าเพื่อนอยากดื่มอะไร',opts:[op(X.nxh),op(S('你是什么？','nǐ shì shénme?','คุณคืออะไร','b12-nssm-f')),op(S('你有茶吗？','nǐ yǒu chá ma?','คุณมีชาไหม','b12-nycm-f'))],ans:0,why:'ถามความอยากใช้ 想 + กริยา + 什么'},
-  {img:TEA,sit:'เพื่อนบอกว่าอยากดื่มชา คุณยกชาให้',line:L.wxhc,opts:[op(X.qhc),op(S('请坐茶。','qǐng zuò chá.','เชิญนั่งชา','b12-qzc-f')),op(S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','b12-wxhc2-f'))],ans:0,why:'ยกชาให้แขก พูดว่า 请喝茶'},
-  {img:DX.img,sit:'เพื่อนเห็นของหลายชิ้น ถามว่าเป็นของใคร',line:L.zxds,opts:[op(X.swd),op(S('是我。','shì wǒ.','คือฉัน','b12-sw-f')),op(S('是东西。','shì dōngxi.','เป็นของ','b12-sdx-f'))],ans:0,why:'ตอบว่าเป็นของใคร ต้องมี 的'}]}),
+ story({tag:'เทคนิค 5/6 · ต้อนรับเพื่อนที่บ้าน',q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[{img:GUEST,sit:'เพื่อนมาถึงบ้าน คุณเชิญเพื่อนนั่ง',opts:[op(X.qz), op(S('我坐！','wǒ zuò!','ฉันนั่ง','b12-wz-f')), op(S('请喝！','qǐng hē!','เชิญดื่ม','b12-qh-f'))],ans:0,why:'เชิญนั่งใช้ 请坐'},{img:TEA,sit:'คุณอยากรู้ว่าเพื่อนอยากดื่มอะไร',opts:[op(S('你是什么？','nǐ shì shénme?','คุณคืออะไร','b12-nssm-f')), op(S('你有茶吗？','nǐ yǒu chá ma?','คุณมีชาไหม','b12-nycm-f')), op(X.nxh)],ans:2,why:'ถามความอยากใช้ 想 + กริยา + 什么'},{img:TEA,sit:'เพื่อนบอกว่าอยากดื่มชา คุณยกชาให้',line:L.wxhc,opts:[op(S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','b12-wxhc2-f')), op(X.qhc), op(S('请坐茶。','qǐng zuò chá.','เชิญนั่งชา','b12-qzc-f'))],ans:1,why:'ยกชาให้แขก พูดว่า 请喝茶'},{img:DX.img,sit:'เพื่อนเห็นของหลายชิ้น ถามว่าเป็นของใคร',line:L.zxds,opts:[op(X.swd), op(S('是东西。','shì dōngxi.','เป็นของ','b12-sdx-f')), op(S('是我。','shì wǒ.','คือฉัน','b12-sw-f'))],ans:0,why:'ตอบว่าเป็นของใคร ต้องมี 的'}]}),
  tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
   {h:'请 อยู่หน้ากริยา',bad:'坐请！',good:'请坐！',k:'b12-qz-f'},
   {h:'想 อยู่หน้ากริยา',bad:'你喝想什么？',good:'你想喝什么？',k:'b12-nxh-f'},
@@ -83,23 +79,20 @@ LESSON({no:12,code:'บท 3-3',goal:{do:'ต้อนรับเพื่อ�
   {h:'อันเล็ก ต้องมี 的',bad:'小是你的。',good:'小的是你的。',k:'b12-xdsn-t'}]}),
  /* 4 · แบบทดสอบท้ายบท */
  part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:东西',opts:['ของ สิ่งของ','เก้าอี้','ชา'],ans:0,fb:'<span class="zh">东西</span> <b>dōngxi</b> = ของ สิ่งของ'}),
- ask({rv:6,q:'ฟัง 请 qǐng แล้วเลือกพยัญชนะตัวแรก',k:'w:请',opts:['q','j','x'],ans:0,fb:'<b>q</b>ǐng · q พ่นลม'}),
- ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b12-wxhc-g',opts:[{img:TEA},{img:WATER},{img:CHAIR}],ans:0,fb:'<span class="zh">我想喝茶。</span> = ฉันอยากดื่มชา'}),
- blank({tag:TQ(3),s:'你_喝什么？',th:'คุณอยากดื่มอะไร',opts:['想','请','些'],ans:0,k:'b12-nxh-f',fb:'<span class="zh">你想喝什么？</span>'}),
- ask({rv:11,q:'ฟัง 想 xiǎng แล้วเลือกเสียงท้าย',k:'w:想',opts:['-ng','-n'],ans:0,fb:'xiǎ<b>ng</b> · ลงท้าย ng'}),
- reply({tag:TQ(4),q:'เพื่อนชี้แก้วใบเล็กแล้วถาม แก้วใบเล็กเป็นของคุณ',line:{...X.xds,who:'g'},opts:[X.xdsw,S('小的是我。','xiǎo de shì wǒ.','อันเล็กคือฉัน','b12-xdw-f'),S('我很小。','wǒ hěn xiǎo.','ฉันตัวเล็กมาก','b12-whx-f')],ans:0,why:'ถามว่าของใคร ตอบ 我的'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:东西',opts:['ของ สิ่งของ', 'ชา', 'เก้าอี้'],ans:0,fb:'<span class="zh">东西</span> <b>dōngxi</b> = ของ สิ่งของ'}),
+ ask({rv:6,q:'ฟัง 请 qǐng แล้วเลือกพยัญชนะตัวแรก',k:'w:请',opts:['j', 'x', 'q'],ans:2,fb:'<b>q</b>ǐng · q พ่นลม'}),
+ ask({tag:TQ(2),q:'ฟังประโยค แล้วเลือกภาพที่ตรงกัน',k:'b12-wxhc-g',opts:[{img:CHAIR}, {img:WATER}, {img:TEA}],ans:2,fb:'<span class="zh">我想喝茶。</span> = ฉันอยากดื่มชา'}),
+ blank({tag:TQ(3),s:'你_喝什么？',th:'คุณอยากดื่มอะไร',opts:['些', '想', '请'],ans:1,k:'b12-nxh-f',fb:'<span class="zh">你想喝什么？</span>'}),
+ ask({rv:11,q:'ฟัง 想 xiǎng แล้วเลือกเสียงท้าย',k:'w:想',opts:['-n', '-ng'],ans:1,fb:'xiǎ<b>ng</b> · ลงท้าย ng'}),
+ reply({tag:TQ(4),q:'เพื่อนชี้แก้วใบเล็กแล้วถาม แก้วใบเล็กเป็นของคุณ',line:{...X.xds,who:'g'},opts:[X.xdsw, S('我很小。','wǒ hěn xiǎo.','ฉันตัวเล็กมาก','b12-whx-f'), S('小的是我。','xiǎo de shì wǒ.','อันเล็กคือฉัน','b12-xdw-f')],ans:0,why:'ถามว่าของใคร ตอบ 我的'}),
  order({tag:TQ(5),th:'ของเหล่านี้เป็นของใคร',tiles:[tl('这','zhè'),tl('些','xiē'),tl('东西','dōngxi'),tl('是','shì'),tl('谁','shéi'),tl('的','de'),tl('个','ge')],ans:[0,1,2,3,4,5],end:'？',k:'b12-zxds-g'}),
- ask({rv:2,q:'ฟังพยางค์ 小 xiǎo แล้วเลือกเส้นเสียง',k:'w:小',opts:[{tone:3,lab:'เสียง 3'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'<b class="t3">xiǎo</b> <span class="zh">小</span> · เสียง 3 ต่ำแล้วขึ้น'}),
- ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b12-qhs-t',opts:['เชิญดื่มน้ำ','อยากดื่มน้ำ','ดื่มน้ำเยอะ'],ans:0,fb:'<span class="zh">请喝水。</span>'}),
+ ask({rv:2,q:'ฟังพยางค์ 小 xiǎo แล้วเลือกเส้นเสียง',k:'w:小',opts:[{tone:3,lab:'เสียง 3'}, {tone:1,lab:'เสียง 1'}],ans:0,fb:'<b class="t3">xiǎo</b> <span class="zh">小</span> · เสียง 3 ต่ำแล้วขึ้น'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'b12-qhs-t',opts:['เชิญดื่มน้ำ', 'อยากดื่มน้ำ', 'ดื่มน้ำเยอะ'],ans:0,fb:'<span class="zh">请喝水。</span>'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'ต้อนรับแขกเอง',chips:['ต้อนรับครู','ตอบเพื่อน','เติมคำ','ฟังแล้วเลือกภาพ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
- story({tag:MQ(1),noTh:1,q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[
-  {img:CHAIR,sit:'ครูมาเยี่ยมบ้าน คุณเชิญครูนั่ง',opts:[op(X.lsqz),op(S('老师，我坐！','lǎoshī, wǒ zuò!','','b12-lswz-f')),op(S('老师，坐请！','lǎoshī, zuò qǐng!','','b12-lszq-f'))],ans:0},
-  {img:TEA,sit:'คุณถามครูว่าอยากดื่มอะไร',opts:[op(X.lsxh),op(S('老师，您是什么？','lǎoshī, nín shì shénme?','','b12-lsns-f')),op(S('老师，您喝想什么？','lǎoshī, nín hē xiǎng shénme?','','b12-lshx-f'))],ans:0},
-  {img:WATER,sit:'ครูตอบ แล้วคุณยกเครื่องดื่มให้',line:{...X.wxhs,who:'t'},opts:[op(S('请喝水。','qǐng hē shuǐ.','','b12-qhs-f')),op(S('请喝茶。','qǐng hē chá.','','b12-qhc3-f')),op(S('我想喝水。','wǒ xiǎng hē shuǐ.','','b12-wxhs2-f'))],ans:0}]}),
- reply({tag:MQ(2),noTh:1,q:'เพื่อนชี้แก้วใบใหญ่แล้วถาม แก้วใบใหญ่เป็นของคุณ',line:{...X.dds,who:'g'},opts:[X.ddsw,S('大的是你。','dà de shì nǐ.','','b12-ddsn-f'),S('我很大。','wǒ hěn dà.','','b12-whd-f')],ans:0}),
- blank({tag:MQ(3),noTh:1,s:'这_东西是谁的？',opts:['些','是','想'],ans:0,k:'b12-zxds-g',fb:'<span class="zh">这些东西是谁的？</span>'}),
- ask({tag:MQ(4),q:'ฟังประโยค แล้วเลือกภาพ',k:'b12-xdsn-t',opts:[{img:CB},{img:CS},{img:BOOK}],ans:1,fb:'<span class="zh">小的是你的。</span>'}),
+ story({tag:MQ(1),noTh:1,q:'ช่วยพูดให้ถูกในแต่ละภาพ',panels:[{img:CHAIR,sit:'ครูมาเยี่ยมบ้าน คุณเชิญครูนั่ง',opts:[op(S('老师，坐请！','lǎoshī, zuò qǐng!','','b12-lszq-f')), op(X.lsqz), op(S('老师，我坐！','lǎoshī, wǒ zuò!','','b12-lswz-f'))],ans:1},{img:TEA,sit:'คุณถามครูว่าอยากดื่มอะไร',opts:[op(S('老师，您是什么？','lǎoshī, nín shì shénme?','','b12-lsns-f')), op(S('老师，您喝想什么？','lǎoshī, nín hē xiǎng shénme?','','b12-lshx-f')), op(X.lsxh)],ans:2},{img:WATER,sit:'ครูตอบ แล้วคุณยกเครื่องดื่มให้',line:{...X.wxhs,who:'t'},opts:[op(S('请喝茶。','qǐng hē chá.','','b12-qhc3-f')), op(S('请喝水。','qǐng hē shuǐ.','','b12-qhs-f')), op(S('我想喝水。','wǒ xiǎng hē shuǐ.','','b12-wxhs2-f'))],ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนชี้แก้วใบใหญ่แล้วถาม แก้วใบใหญ่เป็นของคุณ',line:{...X.dds,who:'g'},opts:[X.ddsw, S('我很大。','wǒ hěn dà.','','b12-whd-f'), S('大的是你。','dà de shì nǐ.','','b12-ddsn-f')],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'这_东西是谁的？',opts:['想', '些', '是'],ans:1,k:'b12-zxds-g',fb:'<span class="zh">这些东西是谁的？</span>'}),
+ ask({tag:MQ(4),q:'ฟังประโยค แล้วเลือกภาพ',k:'b12-xdsn-t',opts:[{img:CB}, {img:CS}, {img:BOOK}],ans:1,fb:'<span class="zh">小的是你的。</span>'}),
  /* 5 · จบบท */
  fin({title:'ต้อนรับเพื่อนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[QING,ZUO,XIANG,DX,XIE,XIAO].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L12',kl:'ฟังทั้งบทสนทนา'})]});
 

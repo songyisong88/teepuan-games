@@ -76,19 +76,19 @@ LESSON({no:4,goal:{do:'บอกว่ายินดีที่ได้รู
  /* 4 · แบบทดสอบท้ายบท */
  part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['บัตรข้อมูล','ใครมาจากไหน','ตอบในบทสนทนา','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
  tf({tag:TQ(1),k:'wjwmzgr-m',img:BOY,card:card('王明','Wáng Míng','中国'),ans:0,fb:'เขาพูดว่า <span class="zh">我叫王明，我是中国人。</span> ตรงกับบัตร'}),
- ask({rv:2,q:'ฟังพยางค์ 很 hěn แล้วเลือกเส้นเสียง',k:'g:hen3',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<b class="t3">hěn</b> <span class="zh">很</span> · เสียง 3 กดต่ำ'}),
- ask({tag:TQ(2),q:'ฟังเสียง แล้วเลือกความหมาย',k:'nagr-f',opts:['คนประเทศไหน','คนจีน','คนไทย'],ans:0,fb:'<span class="zh">哪国人</span> <b>nǎ guó rén</b> = คนประเทศไหน'}),
+ ask({rv:2,q:'ฟังพยางค์ 很 hěn แล้วเลือกเส้นเสียง',k:'g:hen3',opts:[{tone:4,lab:'เสียง 4'}, {tone:3,lab:'เสียง 3'}],ans:1,fb:'<b class="t3">hěn</b> <span class="zh">很</span> · เสียง 3 กดต่ำ'}),
+ ask({tag:TQ(2),q:'ฟังเสียง แล้วเลือกความหมาย',k:'nagr-f',opts:['คนประเทศไหน', 'คนจีน', 'คนไทย'],ans:0,fb:'<span class="zh">哪国人</span> <b>nǎ guó rén</b> = คนประเทศไหน'}),
  sortmap({tag:TQ(3),bins:BINS,items:[it(GIRL,'wszgr-g',0),it(BOY,'wsbjr-m',0,1),it(TCH,'wstgr-t',1)]}),
- ask({rv:6,q:'ฟัง 京 jīng แล้วเลือกพยัญชนะตัวแรก',k:'g:jing1',opts:['j','q','x'],ans:0,fb:'<b>j</b>īng · คล้าย จ'}),
- reply({tag:TQ(4),q:'ครูถามคุณ คุณเป็นคนไทย จะตอบว่าอะไร',line:L.ngrt,opts:[X.tg('wstgr-f'),X.zg('wszgr-f'),X.hgx],ans:0,why:'คนไทย = 泰国人'}),
+ ask({rv:6,q:'ฟัง 京 jīng แล้วเลือกพยัญชนะตัวแรก',k:'g:jing1',opts:['q', 'x', 'j'],ans:2,fb:'<b>j</b>īng · คล้าย จ'}),
+ reply({tag:TQ(4),q:'ครูถามคุณ คุณเป็นคนไทย จะตอบว่าอะไร',line:L.ngrt,opts:[X.hgx, X.tg('wstgr-f'), X.zg('wszgr-f')],ans:1,why:'คนไทย = 泰国人'}),
  order({tag:TQ(5),th:'ยินดีที่ได้รู้จัก',tiles:[tl('很','hěn'),tl('高兴','gāoxìng'),tl('认识','rènshi'),tl('你','nǐ'),tl('哪','nǎ')],ans:[0,1,2,3],end:'！',k:'hgxrsn-f'}),
- ask({rv:11,q:'ฟัง 京 jīng แล้วเลือกเสียงท้าย',k:'g:jing1',opts:['-n','-ng'],ans:1,fb:'jī<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก คล้าย ง'}),
- tf({tag:TQ(6),k:'wjlntgr-g',img:GIRL,card:card('李娜','Lǐ Nà','中国'),ans:1,fb:'เธอพูดว่า <span class="zh">我叫李娜，我是泰国人。</span> เธอเป็นคนไทย ไม่ตรงกับบัตร'}),
+ ask({rv:11,q:'ฟัง 京 jīng แล้วเลือกเสียงท้าย',k:'g:jing1',opts:['-n', '-ng'],ans:1,fb:'jī<b>ng</b> · ลงท้าย -ng เสียงขึ้นจมูก คล้าย ง'}),
+ tf({tag:TQ(6),k:'wjlntgr-g',img:GIRL,card:card('李娜','Lǐ Nà','泰国'),ans:0,fb:'เธอพูดว่า <span class="zh">我叫李娜，我是泰国人。</span> เธอเป็นคนไทย ไม่ตรงกับบัตร'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'รู้จักเพื่อนต่างประเทศ',chips:['ใครมาจากไหน','ตอบเพื่อนใหม่','บัตรข้อมูล','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  sortmap({tag:MQ(1),noTh:1,bins:BINS,items:[it(MAN,'wstgr-m',1),it(BOY,'wsbjr-m',0,1),it(GIRL,'wstgr-g',1)]}),
- reply({tag:MQ(2),noTh:1,q:'เพื่อนใหม่พูดกับคุณเป็นครั้งแรก',line:L.hgxm,opts:[X.dbq,X.yhgx,X.zj],ans:1}),
- reply({tag:MQ(3),noTh:1,q:'เพื่อนถามถึงเพื่อนผู้ชายที่มาจากปักกิ่ง',line:L.tzgm,opts:[X.stbj,X.tg('wstgr-f'),X.tngr],ans:0}),
- blank({tag:MQ(4),noTh:1,s:'你是_国人？',opts:['哪','很','吗'],ans:0,k:'nsngr-g',fb:'<span class="zh">你是哪国人？</span>'}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนใหม่พูดกับคุณเป็นครั้งแรก',line:L.hgxm,opts:[X.dbq, X.yhgx, X.zj],ans:1}),
+ reply({tag:MQ(3),noTh:1,q:'เพื่อนถามถึงเพื่อนผู้ชายที่มาจากปักกิ่ง',line:L.tzgm,opts:[X.stbj, X.tg('wstgr-f'), X.tngr],ans:0}),
+ blank({tag:MQ(4),noTh:1,s:'你是_国人？',opts:['吗', '很', '哪'],ans:2,k:'nsngr-g',fb:'<span class="zh">你是哪国人？</span>'}),
  /* 5 · จบบท */
  fin({title:'แนะนำตัวกับเพื่อนต่างประเทศได้แล้ว',html:dlgH(D,{noTh:1}),chips:[RS,GX,HEN,REN,ZG,TG,BJ,NA].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'g:dlg4',kl:'ฟังทั้งบทสนทนา'})]});
 

@@ -1,0 +1,11 @@
+/* เล่ม 2 · ปรับเฉพาะคำ 4 พยางค์ (不好意思 公共汽车) ให้อยู่ในจอ 390px */
+.msyl:has(button:nth-child(4)){gap:7px;margin:14px 8px 0}
+.msyl:has(button:nth-child(4)) button{width:86px;flex:0 1 86px;padding:9px 2px 7px;border-radius:16px}
+.msyl:has(button:nth-child(4)) .zh{font-size:34px}
+.msyl:has(button:nth-child(4)) .py{font-size:18px}
+.msyl:has(button:nth-child(4)) .ct,.msyl:has(button:nth-child(4)) .ct svg{width:64px;height:44px}
+/* ตัวเลือกประโยคยาว (เล่ม 2 ประโยคยาวขึ้น): จีนเต็มบรรทัด แล้วพินอินกับคำแปลอยู่บรรทัดล่าง */
+.mreply .opt{flex-wrap:wrap;row-gap:3px;padding:10px 16px;min-height:0}
+.mreply .opt .zh{flex:1 1 100%;font-size:22px;line-height:1.3}
+.mreply .opt .py{font-size:14.5px}
+.mstrip .fr .bb{font-size:12.5px;line-height:1.25}

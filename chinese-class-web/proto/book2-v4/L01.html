@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 1-1 ขอถามหน่อย ขอโทษ</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 1-1 หน่วย 1 ท่าเรือสวัสดี: ขอถามหน่อย ขอโทษ · คำใหม่ 请问 不好意思 麻烦你 可以 对 知道
+   ทบทวนจากเล่ม 1: 商店 在 哪儿 前面 后面 医院 那个 坐 看 名字 · กิจกรรมเฉพาะบท: เรื่องเล่าที่ท่าเรือ 4 ภาพ พูดให้สุภาพ */
+WHO.m={n:'เจ้าหน้าที่',img:ART('男人')};
+const QW=W('请问','qǐngwèn','ขอถามหน่อย',{s:'qǐng wèn'}),BHY=W('不好意思','bù hǎo yìsi','ขอโทษ เกรงใจ',{s:'bù hǎo yì si'}),
+ MF=W('麻烦你','máfan nǐ','รบกวนหน่อย',{s:'má fan nǐ'}),KY=W('可以','kěyǐ','ได้ อนุญาต',{s:'kě yǐ'}),
+ DUI=W('对','duì','ถูก ใช่'),ZD=W('知道','zhīdào','รู้',{s:'zhī dào'});
+const DBQ=A2('对不起');THL[DBQ]='ขอโทษ (ทำผิดจริง)';
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ qwsd:S('不好意思，请问，商店在哪儿？','bù hǎo yìsi, qǐngwèn, shāngdiàn zài nǎr?','ขอโทษนะ ขอถามหน่อย ร้านค้าอยู่ที่ไหน','p01-qwsd-f'),
+ sdqm:S('商店在前面。','shāngdiàn zài qiánmiàn.','ร้านค้าอยู่ข้างหน้า','p01-sdqm-m'),
+ snsd:S('是那个商店吗？','shì nàge shāngdiàn ma?','ใช่ร้านนั้นไหม','p01-snsd-f'),
+ dsng:S('对，是那个。','duì, shì nàge.','ใช่ ร้านนั้นแหละ','p01-dsng-m'),
+ mfl:S('麻烦你了，谢谢！','máfan nǐ le, xièxie!','รบกวนด้วยนะ ขอบคุณ','p01-mfl-f'),
+ bkq:S('不客气。','bú kèqi.','ยินดี','p01-bkq-m'),
+ qwls:S('请问，你是老师吗？','qǐngwèn, nǐ shì lǎoshī ma?','ขอถามหน่อย คุณเป็นครูไหม','p01-qwls-f'),
+ qwjd:S('请问，现在几点？','qǐngwèn, xiànzài jǐ diǎn?','ขอถามหน่อย ตอนนี้กี่โมง','p01-qwjd-f'),
+ bhy:S('不好意思，请问……','bù hǎo yìsi, qǐngwèn……','ขอโทษนะ ขอถามหน่อย','p01-bhy-f'),
+ mfmz:S('麻烦你，我想买这个。','máfan nǐ, wǒ xiǎng mǎi zhège.','รบกวนหน่อย ฉันอยากซื้ออันนี้','p01-mfmz-f'),
+ mfn:S('麻烦你。','máfan nǐ.','รบกวนหน่อย','p01-mfn-f'),
+ kyz:S('我可以坐吗？','wǒ kěyǐ zuò ma?','ฉันนั่งได้ไหม','p01-kyz-f'),
+ kyzm:S('我可以坐吗？','wǒ kěyǐ zuò ma?','ฉันนั่งได้ไหม','p01-kyz-m'),
+ kyqz:S('可以，请坐。','kěyǐ, qǐng zuò.','ได้ เชิญนั่ง','p01-kyqz-m'),
+ kyqzf:S('可以，请坐。','kěyǐ, qǐng zuò.','ได้ เชิญนั่ง','p01-kyqz-f'),
+ kykm:S('我可以看吗？','wǒ kěyǐ kàn ma?','ฉันขอดูได้ไหม','p01-kykm-f'),
+ bky:S('不可以。','bù kěyǐ.','ไม่ได้','p01-bky-m'),
+ dpy:S('对，他是我的朋友。','duì, tā shì wǒ de péngyou.','ใช่ เขาเป็นเพื่อนของฉัน','p01-dpy-f'),
+ bdui:S('不对。','bú duì.','ไม่ถูก','p01-bdui-f'),
+ ndm:S('你是泰国人，对吗？','nǐ shì Tàiguó rén, duì ma?','คุณเป็นคนไทย ใช่ไหม','p01-ndm-g'),
+ dwsz:S('对，我是泰国人。','duì, wǒ shì Tàiguó rén.','ใช่ ฉันเป็นคนไทย','p01-dwsz-f'),
+ wzd:S('我知道。','wǒ zhīdào.','ฉันรู้','p01-wzd-f'),
+ wbzd:S('对不起，我不知道。','duìbuqǐ, wǒ bù zhīdào.','ขอโทษ ฉันไม่รู้','p01-wbzd-m'),
+ wbzdf:S('对不起，我不知道。','duìbuqǐ, wǒ bù zhīdào.','ขอโทษ ฉันไม่รู้','p01-wbzd-f'),
+ nzdm:S('你知道他叫什么名字吗？','nǐ zhīdào tā jiào shénme míngzi ma?','คุณรู้ไหมว่าเขาชื่ออะไร','p01-nzdm-g'),
+ tjwm:S('我知道，他叫王明。','wǒ zhīdào, tā jiào Wáng Míng.','ฉันรู้ เขาชื่อหวังหมิง','p01-tjwm-f'),
+ nzyy:S('你知道医院在哪儿吗？','nǐ zhīdào yīyuàn zài nǎr ma?','คุณรู้ไหมว่าโรงพยาบาลอยู่ที่ไหน','p01-nzyy-f'),
+ yyhm:S('医院在后面。','yīyuàn zài hòumiàn.','โรงพยาบาลอยู่ข้างหลัง','p01-yyhm-m'),
+ dbq:S('对不起！','duìbuqǐ!','ขอโทษ','p01-dbq-f'),
+ /* ภารกิจ */
+ m1:S('不好意思，请问，医院在哪儿？','bù hǎo yìsi, qǐngwèn, yīyuàn zài nǎr?','ขอโทษนะ ขอถามหน่อย โรงพยาบาลอยู่ที่ไหน','p01-m1-f'),
+ m1b:S('没关系，医院在哪儿？','méi guānxi, yīyuàn zài nǎr?','ไม่เป็นไร โรงพยาบาลอยู่ที่ไหน','p01-m1b-f'),
+ m1c:S('不客气，医院在哪儿？','bú kèqi, yīyuàn zài nǎr?','ยินดี โรงพยาบาลอยู่ที่ไหน','p01-m1c-f'),
+ m2:S('我可以看吗？','wǒ kěyǐ kàn ma?','ฉันขอดูได้ไหม','p01-m2-t'),m3:S('我知道。','wǒ zhīdào.','ฉันรู้','p01-m3-t'),m4:S('对，是那个。','duì, shì nàge.','ใช่ อันนั้นแหละ','p01-m4-t'),
+ /* ชิปคำ */
+ c1:S('请问','qǐngwèn','ขอถามหน่อย','p01-c1-t'),c2:S('在哪儿','zài nǎr','อยู่ที่ไหน','p01-c2-t'),c3:S('几点','jǐ diǎn','กี่โมง','p01-c3-t'),c4:S('是…吗','shì…ma','ใช่…ไหม','p01-c4-t'),
+ c5:S('对','duì','ถูก ใช่','p01-c5-t'),c6:S('不对','bú duì','ไม่ถูก','p01-c6-t'),c7:S('知道','zhīdào','รู้','p01-c7-t'),c8:S('不知道','bù zhīdào','ไม่รู้','p01-c8-t')};
+const L={a:{...X.qwsd,who:'me'},b:{...X.sdqm,who:'m'},c:{...X.snsd,who:'me'},d:{...X.dsng,who:'m'},e:{...X.mfl,who:'me'},f:{...X.bkq,who:'m'}};
+const D=[{sit:'วันแรกที่ท่าเรือ คุณอยากไปร้านค้า เลยถามเจ้าหน้าที่',img:NL(QW)},L.a,L.b,L.c,L.d,L.e,L.f];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:1,code:'บท 1-1',title:'ขอถามหน่อย ขอโทษ',goal:{do:'ถามคนที่ไม่รู้จักอย่างสุภาพ ขออนุญาต และตอบว่ารู้หรือไม่รู้',sub:'ใช้ <span class="gz">不好意思 · 请问 · 麻烦你 · 可以 · 对 · 知道</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:QW.img,cap:'สถานการณ์ของบทนี้',title:'ถามทางที่ท่าเรือ',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะถามทาง ขออนุญาต และขอความช่วยเหลือได้อย่างสุภาพ'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[QW,BHY,MF,KY,DUI,ZD]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['请问','不好意思','麻烦你','可以','对','知道'],note:'ใช้คำจากเล่ม 1 เช่น 在哪儿 前面 后面 ร่วมด้วย'}),
+ ...WC(QW,1,6,{cap:'มารยาท',hint:'คล้าย <b>"ฉิ่ง เวิ่น"</b> · q พ่นลม',use:'ใช้ขึ้นต้นก่อนถามคนที่ไม่สนิท ฟังสุภาพ · 请问 + คำถาม',ex:[X.qwls,X.qwjd]}),
+ ...WC(BHY,2,6,{cap:'มารยาท',hint:'คล้าย <b>"ปู้ ห่าว อี้ ซือ"</b> · 思 อ่านเบาและสั้น',use:'ใช้เรียกคนหรือขอโทษเรื่องเล็กน้อย เช่น ขอทาง รบกวนเวลา · มักพูดก่อน 请问',ex:[X.bhy,X.qwsd]}),
+ RC('คำที่ 1–2/6',[QW,BHY]),
+ use({n:'คำที่ 1–2/6',w:BHY,when:[{img:NL(QW),t:'ถามคนที่ไม่รู้จัก'},{img:NL(BHY),t:'รบกวนหรือขอโทษเล็กน้อย'}],lines:[{...X.qwsd,who:'me'},{...X.sdqm,who:'m'}],tip:'เรียงแบบนี้ฟังสุภาพที่สุด · <span class="zh">不好意思</span> + <span class="zh">请问</span> + คำถาม'}),
+ ...WC(MF,3,6,{cap:'มารยาท',hint:'คล้าย <b>"หมา ฟาน หนี่"</b> · 烦 อ่านเบา',use:'ใช้ก่อนขอให้คนอื่นช่วย · เมื่อเขาช่วยแล้วพูดว่า 麻烦你了 เพื่อขอบคุณ',ex:[X.mfmz,X.mfl]}),
+ ...WC(KY,4,6,{cap:'ขออนุญาต',hint:'คล้าย <b>"เขอ อี่"</b> · เสียง 3 สองตัวติดกัน ตัวแรกออกเสียงเป็นเสียง 2 จึงฟังเป็น ké yǐ',use:'แปลว่าได้ อนุญาต · ขออนุญาตพูดว่า 我可以…吗？ · ตอบ 可以 หรือ 不可以',ex:[X.kyz,X.kyqz]}),
+ RC('คำที่ 3–4/6',[MF,KY]),
+ use({n:'คำที่ 3–4/6',w:KY,when:[{img:NL(MF),t:'ขอให้คนช่วย'},{img:NL(KY),t:'ขออนุญาตทำอะไรสักอย่าง'}],lines:[{...X.kyzm,who:'m'},{...X.kyqzf,who:'me'},{...X.kykm,who:'me'},{...X.bky,who:'m'}],tip:'ถาม <span class="zh">我可以 + กริยา + 吗？</span> · ตอบ <span class="zh">可以</span> ได้ · <span class="zh">不可以</span> ไม่ได้'}),
+ ...WC(DUI,5,6,{cap:'ตอบรับ',hint:'คล้าย <b>"ตุ้ย"</b> · d ไม่พ่นลม เสียง 4 ลงสั้น',use:'แปลว่าถูก ใช่ · ตอบรับว่าใช่พูด 对 · ไม่ถูกพูด 不对 (不 เปลี่ยนเป็น bú)',ex:[X.dpy,X.bdui]}),
+ ...WC(ZD,6,6,{cap:'ความรู้',hint:'คล้าย <b>"จือ เต้า"</b> · zh ม้วนลิ้น ไม่พ่นลม',use:'แปลว่ารู้ (รู้ข้อมูล) · ไม่รู้พูด 不知道 · ถ้ารู้จักคนใช้ 认识',ex:[X.wzd,X.wbzdf]}),
+ RC('คำที่ 5–6/6',[DUI,ZD]),
+ use({n:'คำที่ 5–6/6',w:ZD,when:[{img:NL(DUI),t:'ตอบว่าใช่ หรือถูกต้อง'},{img:NL(ZD),t:'บอกว่ารู้ หรือไม่รู้'}],lines:[{...X.ndm,who:'g'},{...X.dwsz,who:'me'},{...X.nzdm,who:'g'},{...X.tjwm,who:'me'}],tip:'ถามว่าใช่ไหม ต่อท้ายด้วย <span class="zh">对吗？</span> · ถามว่ารู้ไหม <span class="zh">你知道…吗？</span>'}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','不好意思 กับ 对不起','请问 + คำถาม','เรื่องเล่าที่ท่าเรือ','对 กับ 知道','ข้อควรระวัง'],note:'ฝึกพูดกับคนที่ไม่รู้จักให้สุภาพ ในสถานการณ์ที่ท่าเรือ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่ท่าเรือ',title:'ร้านค้าอยู่ที่ไหน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เริ่มด้วย 不好意思 แล้วตามด้วย 请问 · จบด้วย 麻烦你了 谢谢'}),
+ cmp({cap:'เทคนิค 2/6 · 不好意思 กับ 对不起',title:'ขอโทษแบบไหนดี',text:'ทั้งสองคำแปลว่าขอโทษ แต่ใช้ต่างกัน',a:{who:'เกรงใจ รบกวน',img:NL(BHY),zh:'不好意思，请问……',zhb:'不好意思',py:'bù hǎo yìsi',th:'ขอโทษนะ (รบกวนหน่อย)',k:'p01-bhy-f'},b:{who:'ทำผิดจริง',img:DBQ,zh:'对不起！',zhb:'对不起',py:'duìbuqǐ',th:'ขอโทษ (ฉันผิดเอง)',k:'p01-dbq-f'},
+  tip:'ขอทาง เรียกคน รบกวนเวลา ใช้ <span class="zh">不好意思</span> · ชนคน ทำของเขาเสีย ใช้ <span class="zh">对不起</span>'}),
+ talk({cap:'เทคนิค 3/6 · 请问 + คำถาม',title:'ขึ้นต้นคำถามให้สุภาพ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.qwls,who:'me'},{...X.qwjd,who:'me'},{...X.qwsd,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">请问</span> วางไว้หน้าคำถาม · ตามด้วย <span class="zh">在哪儿</span> <span class="zh">几点</span> หรือ <span class="zh">是…吗</span>'}),
+ story({tag:'เทคนิค 4/6 · เรื่องเล่าที่ท่าเรือ',q:'ช่วยมะลิพูดให้สุภาพในแต่ละภาพ',panels:[
+  {img:NL(QW),sit:'อยากถามทางคนที่ไม่รู้จัก',opts:[X.bhy,X.bkq,X.dbq],ans:0,why:'เรียกคนที่ไม่รู้จักใช้ 不好意思 请问'},
+  {img:NL(MF),sit:'ขอให้เจ้าหน้าที่ช่วยถือกล่อง',opts:[X.wzd,X.mfn,X.bdui],ans:1,why:'ขอให้ช่วยใช้ 麻烦你'},
+  {img:NL(KY),sit:'อยากนั่งเก้าอี้ว่างข้างคุณป้า',opts:[X.kyz,X.kykm,X.wzd],ans:0,why:'ขออนุญาตนั่งพูด 我可以坐吗'},
+  {img:NL(ZD),sit:'เพื่อนถามชื่อผู้ชายคนหนึ่ง คุณรู้คำตอบ',line:{...X.nzdm,who:'g'},opts:[X.wbzdf,X.tjwm,X.kyqzf],ans:1,why:'รู้คำตอบพูด 我知道'}]}),
+ talk({cap:'เทคนิค 5/6 · 对 กับ 知道',title:'ใช่ไหม รู้ไหม',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.ndm,who:'g'},{...X.dwsz,who:'me'},{...X.nzyy,who:'me'},{...X.wbzd,who:'m'}],
+  chips:[X.c5,X.c6,X.c7,X.c8],tip:'不 ปกติอ่าน bù · ถ้าคำถัดไปเป็นเสียง 4 อ่าน bú เช่น <span class="zh">不对</span> bú duì · <span class="zh">不知道</span> ยังอ่าน bù'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ไม่รู้ ใช้ 不 ไม่ใช้ 没',bad:'我没知道。',good:'对不起，我不知道。',k:'p01-wbzd-f'},
+  {h:'可以 อยู่หน้ากริยา',bad:'我坐可以吗？',good:'我可以坐吗？',k:'p01-kyz-f'},
+  {h:'对吗 อยู่ท้ายประโยค',bad:'对你是泰国人吗？',good:'你是泰国人，对吗？',k:'p01-ndm-g'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:知道',opts:['รู้','ได้ อนุญาต','ถูก ใช่'],ans:0,fb:'<span class="zh">知道</span> <b>zhīdào</b> = รู้'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 5-2 ไปอย่างไร',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p01-sdqm-m',opts:['ร้านค้าอยู่ข้างหน้า','ร้านค้าอยู่ข้างหลัง','โรงพยาบาลอยู่ข้างหน้า'],ans:0,fb:'<span class="zh">商店在前面。</span> · 前面 = ข้างหน้า'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:麻烦你',opts:[{img:NL(MF)},{img:NL(KY)},{img:NL(ZD)}],ans:0,fb:'<span class="zh">麻烦你</span> <b>máfan nǐ</b> = รบกวนหน่อย'}),
+ blank({tag:TQ(3),s:'对不起，我不_。',th:'ขอโทษ ฉันไม่รู้',opts:['知道','可以','请问'],ans:0,k:'p01-wbzd-f',fb:'<span class="zh">对不起，我不知道。</span>'}),
+ ask({rv:12,q:'ฟัง 可以 แล้วเลือกเสียงที่ได้ยินในพยางค์แรก',k:'w:可以',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'kě + yǐ เสียง 3 ติดกัน พยางค์แรกเปลี่ยนเป็นเสียง 2 · ฟังเป็น <b>ké yǐ</b>'}),
+ reply({tag:TQ(4),q:'ผู้ชายคนหนึ่งขอนั่งข้างคุณ คุณอนุญาต',line:{...X.kyzm,who:'m'},opts:[X.kyqzf,X.bkq,X.wbzdf],ans:0,why:'อนุญาตตอบ 可以'}),
+ order({tag:TQ(5),th:'คุณรู้ไหมว่าโรงพยาบาลอยู่ที่ไหน',tiles:[tl('你','nǐ'),tl('知道','zhīdào'),tl('医院','yīyuàn'),tl('在','zài'),tl('哪儿','nǎr'),tl('吗','ma'),tl('可以','kěyǐ')],ans:[0,1,2,3,4,5],end:'？',k:'p01-nzyy-f'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 1-3 ชื่ออะไร',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p01-nzdm-g',opts:['คุณรู้ไหมว่าเขาชื่ออะไร','คุณรู้จักเขาไหม','เขาชื่อหวังหมิงใช่ไหม'],ans:0,fb:'<span class="zh">你知道他叫什么名字吗？</span>'}),
+ ask({tag:TQ(6),q:'สถานการณ์ไหนควรพูด 对不起',opts:['เดินชนคนจนของตก','ขอทางในที่คนเยอะ','เรียกเจ้าหน้าที่เพื่อถามทาง'],ans:0,fb:'ทำผิดจริงใช้ <span class="zh">对不起</span> · ขอทางหรือเรียกคนใช้ <span class="zh">不好意思</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'พูดสุภาพที่ท่าเรือ',chips:['ถามทาง','ฟังแล้วแตะภาพ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'คุณอยากรู้ว่าโรงพยาบาลอยู่ที่ไหน จึงถามคนที่ไม่รู้จัก',opts:[X.m1,X.m1b,X.m1c],ans:0}),
+ point({tag:MQ(2),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:[{img:NL(KY),th:'ขออนุญาต'},{img:NL(ZD),th:'รู้'},{img:NL(DUI),th:'ใช่'}],rounds:[
+  {zh:X.m2.zh,k:X.m2.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:1},{zh:X.m4.zh,k:X.m4.k,ans:2}]}),
+ blank({tag:MQ(3),noTh:1,s:'你是泰国人，_吗？',opts:['对','可以','知道'],ans:0,k:'p01-ndm-g',fb:'<span class="zh">你是泰国人，对吗？</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('可以','kěyǐ'),tl('看','kàn'),tl('吗','ma'),tl('知道','zhīdào')],ans:[0,1,2,3],end:'？',k:'p01-kykm-f'}),
+ /* 5 · จบบท */
+ fin({title:'ถามอย่างสุภาพได้แล้ว',html:dlgH(D,{noTh:1}),chips:[QW,BHY,MF,KY,DUI,ZD].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L01',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

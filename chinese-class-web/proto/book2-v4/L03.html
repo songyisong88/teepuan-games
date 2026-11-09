@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · ทบทวนหน่วยที่ 1</title>
+</head><body>
+<script>
+/* เล่ม 2 ทบทวนหน่วยที่ 1 ท่าเรือสวัสดี: ทวนคำทั้ง 2 บท + คำเล่ม 1 (姓 大家) → บทสนทนาถามทางไปบ้านเพื่อน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.m={n:'เจ้าหน้าที่',img:ART('男人')};
+const QW=W('请问','qǐngwèn','ขอถามหน่อย',{s:'qǐng wèn'}),BHY=W('不好意思','bù hǎo yìsi','ขอโทษ เกรงใจ',{s:'bù hǎo yì si'}),
+ MF=W('麻烦你','máfan nǐ','รบกวนหน่อย',{s:'má fan nǐ'}),KY=W('可以','kěyǐ','ได้ อนุญาต',{s:'kě yǐ'}),
+ DUI=W('对','duì','ถูก ใช่'),ZD=W('知道','zhīdào','รู้',{s:'zhī dào'});
+const JS=W('介绍','jièshào','แนะนำ',{s:'jiè shào'}),NAN=W('男人','nánrén','ผู้ชาย',{s:'nán rén'}),NV=W('女人','nǚrén','ผู้หญิง',{s:'nǚ rén'}),
+ JIN=W('进','jìn','เข้า'),HY=W('欢迎','huānyíng','ยินดีต้อนรับ',{s:'huān yíng'}),XW=W('希望','xīwàng','หวัง ความหวัง',{s:'xī wàng'});
+const XING=w('姓','xìng','แซ่ นามสกุล'),DJ=w('大家','dàjiā','ทุกคน');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('不好意思，请问，你知道李娜家在哪儿吗？','bù hǎo yìsi, qǐngwèn, nǐ zhīdào Lǐ Nà jiā zài nǎr ma?','ขอโทษนะ ขอถามหน่อย คุณรู้ไหมว่าบ้านหลี่น่าอยู่ที่ไหน','p03-a-f'),
+ b:S('知道，在前面。','zhīdào, zài qiánmiàn.','รู้ อยู่ข้างหน้า','p03-b-m'),
+ c:S('麻烦你了，谢谢！','máfan nǐ le, xièxie!','รบกวนด้วยนะ ขอบคุณ','p01-mfl-f'),
+ d:S('玛莉，请进！欢迎，欢迎！','Mǎlì, qǐng jìn! huānyíng, huānyíng!','มะลิ เชิญเข้ามาเลย ยินดีต้อนรับ','p03-d-g'),
+ e:S('大家好！这是我的朋友玛莉。','dàjiā hǎo! zhè shì wǒ de péngyou Mǎlì.','สวัสดีทุกคน นี่คือมะลิเพื่อนของฉัน','p03-e-g'),
+ f:S('认识大家很高兴！','rènshi dàjiā hěn gāoxìng!','ยินดีที่ได้รู้จักทุกคน','p03-f-f'),
+ qwsd:S('请问，商店在哪儿？','qǐngwèn, shāngdiàn zài nǎr?','ขอถามหน่อย ร้านค้าอยู่ที่ไหน','p03-qwsd-t'),
+ qjhy:S('请进！欢迎，欢迎！','qǐng jìn! huānyíng, huānyíng!','เชิญเข้ามาเลย ยินดีต้อนรับ','p02-qjhy2-m'),
+ jsyx:S('我来介绍一下。','wǒ lái jièshào yíxià.','ขอแนะนำหน่อย','p02-m4-t'),
+ kyj:S('我可以进吗？','wǒ kěyǐ jìn ma?','ฉันเข้าไปได้ไหม','p02-kyj-f'),
+ ndm:S('你是泰国人，对吗？','nǐ shì Tàiguó rén, duì ma?','คุณเป็นคนไทย ใช่ไหม','p01-ndm-g'),
+ dwsz:S('对，我是泰国人。','duì, wǒ shì Tàiguó rén.','ใช่ ฉันเป็นคนไทย','p01-dwsz-f'),
+ bkq:S('不客气。','bú kèqi.','ยินดี','p02-bkq-f'),hyf:S('欢迎，欢迎！','huānyíng, huānyíng!','ยินดีต้อนรับ ยินดีต้อนรับ','p03-hy-f'),
+ nxsm:S('您姓什么？','nín xìng shénme?','คุณแซ่อะไร','p02-nxsm-f'),
+ mfn:S('麻烦你。','máfan nǐ.','รบกวนหน่อย','p01-mfn-f'),bdui:S('不对。','bú duì.','ไม่ถูก','p01-bdui-f'),
+ wzd:S('我知道。','wǒ zhīdào.','ฉันรู้','p02-wzd-f'),wbzd:S('对不起，我不知道。','duìbuqǐ, wǒ bù zhīdào.','ขอโทษ ฉันไม่รู้','p01-wbzd-f'),
+ nvls:S('那个女人是我的老师。','nàge nǚrén shì wǒ de lǎoshī.','ผู้หญิงคนนั้นเป็นครูของฉัน','p02-m2-t'),
+ xwxh:S('希望你喜欢我家！','xīwàng nǐ xǐhuan wǒ jiā!','หวังว่าคุณจะชอบบ้านของเรานะ','p02-xwxh-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'g'},e:{...X.e,who:'g'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลิหาบ้านหลี่น่าไม่เจอ จึงถามเจ้าหน้าที่ที่ท่าเรือ',img:NL(QW)},L.a,L.b,L.c,{sit:'มาถึงบ้านหลี่น่าในวันเลี้ยงต้อนรับ',img:NL(HY)},L.d,L.e,L.f];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:3,code:'ทบทวนหน่วย 1',title:'ทบทวนหน่วยที่ 1',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 1 ถามทางอย่างสุภาพ และทักทายคนในงานเลี้ยงต้อนรับ',sub:'不好意思 · 请问 · 麻烦你 · 可以 · 请进 · 欢迎 · 介绍',min:8},steps:[
+ intro({scene:QW.img,cap:'บททบทวน',title:'ไปบ้านหลี่น่า',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 1-1 ถึง 1-2 และคำจากเล่ม 1'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 1',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'1-1 ขอถามหน่อย ขอโทษ',items:[QW,BHY,MF,KY,DUI,ZD]},{lab:'1-2 ยินดีต้อนรับ แนะนำตัว',items:[JS,NAN,NV,JIN,HY,XW]},{lab:'คำจากเล่ม 1',items:[XING,DJ]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'ไปบ้านหลี่น่า',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคมาจากบทที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะภาพ','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[QW,MF,KY,ZD,JIN]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะสถานการณ์ที่ตรงกัน',this:'คือสถานการณ์นี้',cards:[{img:NL(QW),th:'ถามทาง'},{img:NL(HY),th:'ต้อนรับแขก'},{img:NL(JS),th:'แนะนำคน'}],rounds:[
+  {zh:X.qwsd.zh,k:X.qwsd.k,ans:0},{zh:X.qjhy.zh,k:X.qjhy.k,ans:1},{zh:X.jsyx.zh,k:X.jsyx.k,ans:2}]}),
+ ask({rv:7,q:'ฟัง 知 zhī แล้วเลือกพยัญชนะตัวแรก',k:'sy:知',opts:['zh','z','j'],ans:0,fb:'<b>zh</b>ī · ม้วนลิ้นขึ้น ไม่พ่นลม'}),
+ blank({tag:TQ(3),s:'我_进吗？',th:'ฉันเข้าไปได้ไหม',opts:['可以','知道','欢迎'],ans:0,k:'p02-kyj-f',fb:'<span class="zh">我可以进吗？</span>'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณเป็นคนไทยใช่ไหม',line:{...X.ndm,who:'g'},opts:[X.dwsz,X.bkq,X.hyf],ans:0,why:'ตอบว่าใช่ด้วย 对'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p02-nxsm-f',opts:['คุณแซ่อะไร','คุณชื่ออะไร','คุณเป็นใคร'],ans:0,fb:'<span class="zh">您姓什么？</span> = คุณแซ่อะไร'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:希望',opts:[{img:NL(XW)},{img:NL(ZD)},{img:NL(JIN)}],ans:0,fb:'<span class="zh">希望</span> <b>xīwàng</b> = หวัง'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 1-4 ยินดีที่ได้รู้จัก',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p03-f-f',opts:['ยินดีที่ได้รู้จักทุกคน','สวัสดีทุกคน','ทุกคนเป็นเพื่อนของฉัน'],ans:0,fb:'<span class="zh">认识大家很高兴！</span>'}),
+ lineup({tag:TQ(7),sit:'มะลิถามทางที่ท่าเรือ',lines:[L.a,L.b,L.c]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 欢迎',opts:['แขกมาถึงบ้าน','เดินชนเพื่อนจนล้ม','ไม่รู้คำตอบ'],ans:0,fb:'<span class="zh">欢迎</span> ใช้ต้อนรับแขก'}),
+ ask({rv:12,q:'ฟัง 不对 แล้วเลือกเสียงของ 不',k:'p01-bdui-f',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'不 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>bú duì</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:介绍',opts:['แนะนำ','ยินดีต้อนรับ','รบกวนหน่อย'],ans:0,fb:'<span class="zh">介绍</span> <b>jièshào</b> = แนะนำ'}),
+ blank({tag:TQ(10),s:'_好！这是我的朋友玛莉。',th:'สวัสดีทุกคน นี่คือมะลิเพื่อนของฉัน',opts:['大家','男人','女人'],ans:0,k:'p03-e-g',fb:'<span class="zh">大家好！</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'สุภาพทั้งวัน',chips:['ขอความช่วยเหลือ','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'คุณถือของหนัก อยากให้เจ้าหน้าที่ช่วย',opts:[X.mfn,X.hyf,X.bdui],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p02-m2-t',opts:[{img:NV.img},{img:NAN.img},{img:DJ.img}],ans:0,fb:'<span class="zh">那个女人是我的老师。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('认识','rènshi'),tl('大家','dàjiā'),tl('很','hěn'),tl('高兴','gāoxìng'),tl('进','jìn')],ans:[0,1,2,3],end:'！',k:'p03-f-f'}),
+ blank({tag:MQ(4),noTh:1,s:'对不起，我不_。',opts:['知道','介绍','进'],ans:0,k:'p01-wbzd-f',fb:'<span class="zh">对不起，我不知道。</span>'}),
+ fin({title:'จบหน่วยที่ 1 แล้ว',html:dlgH(D,{noTh:1}),chips:[QW,BHY,MF,KY,DUI,ZD,JS,NAN,NV,JIN,HY,XW].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L03',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

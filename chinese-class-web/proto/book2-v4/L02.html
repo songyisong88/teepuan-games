@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 1-2 ยินดีต้อนรับ แนะนำตัว</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 1-2 หน่วย 1 ท่าเรือสวัสดี: ยินดีต้อนรับ แนะนำตัว · คำใหม่ 介绍 男人 女人 进 欢迎 希望 · ทบทวนในบริบท (เล่ม 1): 姓 大家
+   ทบทวนจากบท 1-1: 可以 · กิจกรรมเฉพาะบท: งานเลี้ยงต้อนรับ ฟังหวังหมิงแนะนำ แล้วแตะคน · เรียงบทสนทนาที่ประตู */
+WHO.d={n:'คุณพ่อของหวังหมิง',img:ART('男人')};
+const JS=W('介绍','jièshào','แนะนำ',{s:'jiè shào'}),NAN=W('男人','nánrén','ผู้ชาย',{s:'nán rén'}),NV=W('女人','nǚrén','ผู้หญิง',{s:'nǚ rén'}),
+ JIN=W('进','jìn','เข้า'),HY=W('欢迎','huānyíng','ยินดีต้อนรับ',{s:'huān yíng'}),XW=W('希望','xīwàng','หวัง ความหวัง',{s:'xī wàng'});
+const XING=w('姓','xìng','แซ่ นามสกุล'),DJ=w('大家','dàjiā','ทุกคน');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ qjhy:S('请进！欢迎你来我家！','qǐng jìn! huānyíng nǐ lái wǒ jiā!','เชิญเข้ามาเลย ยินดีต้อนรับสู่บ้านของฉัน','p02-qjhy-m'),
+ xx:S('谢谢！','xièxie!','ขอบคุณ','p02-xx-f'),
+ jsbb:S('我来介绍一下，这是我爸爸。','wǒ lái jièshào yíxià, zhè shì wǒ bàba.','ขอแนะนำหน่อย นี่คือพ่อของฉัน','p02-jsbb-m'),
+ wxw:S('你好！我姓王。','nǐ hǎo! wǒ xìng Wáng.','สวัสดี ฉันแซ่หวัง','p02-wxw-t'),
+ nhrs:S('王先生，您好！认识您很高兴。','Wáng xiānsheng, nín hǎo! rènshi nín hěn gāoxìng.','สวัสดีคุณหวัง ยินดีที่ได้รู้จัก','p02-nhrs-f'),
+ xwxh:S('希望你喜欢我家！','xīwàng nǐ xǐhuan wǒ jiā!','หวังว่าคุณจะชอบบ้านของเรานะ','p02-xwxh-t'),
+ jspy:S('我介绍一下我的朋友。','wǒ jièshào yíxià wǒ de péngyou.','ขอแนะนำเพื่อนของฉันหน่อย','p02-jspy-m'),
+ nanbb:S('那个男人是我爸爸。','nàge nánrén shì wǒ bàba.','ผู้ชายคนนั้นคือพ่อของฉัน','p02-nanbb-m'),
+ nansh:S('那个男人是谁？','nàge nánrén shì shéi?','ผู้ชายคนนั้นคือใคร','p02-nansh-f'),
+ nvmm:S('那个女人是我妈妈。','nàge nǚrén shì wǒ māma.','ผู้หญิงคนนั้นคือแม่ของฉัน','p02-nvmm-m'),
+ nvls:S('那个女人是老师。','nàge nǚrén shì lǎoshī.','ผู้หญิงคนนั้นเป็นครู','p02-nvls-m'),
+ nvsh:S('那个女人是谁？','nàge nǚrén shì shéi?','ผู้หญิงคนนั้นคือใคร','p02-nvsh-f'),
+ qj:S('请进！','qǐng jìn!','เชิญเข้ามา','p02-qj-m'),
+ kyj:S('我可以进吗？','wǒ kěyǐ jìn ma?','ฉันเข้าไปได้ไหม','p02-kyj-f'),
+ hyhy:S('欢迎，欢迎！','huānyíng, huānyíng!','ยินดีต้อนรับ ยินดีต้อนรับ','p02-hyhy-m'),
+ qjhy2:S('请进！欢迎，欢迎！','qǐng jìn! huānyíng, huānyíng!','เชิญเข้ามาเลย ยินดีต้อนรับ','p02-qjhy2-m'),
+ hyjf:S('请进！欢迎，欢迎！','qǐng jìn! huānyíng, huānyíng!','เชิญเข้ามาเลย ยินดีต้อนรับ','p02-qjhy2-f'),
+ xwbx:S('我希望明天不下雨。','wǒ xīwàng míngtiān bú xià yǔ.','ฉันหวังว่าพรุ่งนี้ฝนจะไม่ตก','p02-xwbx-f'),
+ ngx:S('您贵姓？','nín guì xìng?','คุณแซ่อะไร (สุภาพ)','p02-ngx-f'),
+ nxsm:S('您姓什么？','nín xìng shénme?','คุณแซ่อะไร','p02-nxsm-f'),
+ nxsmg:S('你姓什么？','nǐ xìng shénme?','คุณแซ่อะไร','p02-nxsm-g'),
+ wxl:S('我姓李，叫李娜。','wǒ xìng Lǐ, jiào Lǐ Nà.','ฉันแซ่หลี่ ชื่อหลี่น่า','p02-wxl-g'),
+ djh:S('大家好！我叫玛莉。','dàjiā hǎo! wǒ jiào Mǎlì.','สวัสดีทุกคน ฉันชื่อมะลิ','p02-djh-f'),
+ djdp:S('大家都是我的朋友。','dàjiā dōu shì wǒ de péngyou.','ทุกคนเป็นเพื่อนของฉัน','p02-djdp-m'),
+ djh2:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','p02-djh2-m'),
+ bkq:S('不客气。','bú kèqi.','ยินดี','p02-bkq-f'),mgx:S('没关系。','méi guānxi.','ไม่เป็นไร','p02-mgx-f'),
+ wzd:S('我知道。','wǒ zhīdào.','ฉันรู้','p02-wzd-f'),bhy:S('不好意思。','bù hǎo yìsi.','ขอโทษนะ','p02-bhy-f'),
+ /* ภารกิจ */
+ m1:S('那个男人是我爸爸。','nàge nánrén shì wǒ bàba.','ผู้ชายคนนั้นคือพ่อของฉัน','p02-m1-t'),m2:S('那个女人是我的老师。','nàge nǚrén shì wǒ de lǎoshī.','ผู้หญิงคนนั้นเป็นครูของฉัน','p02-m2-t'),
+ m3:S('大家好！','dàjiā hǎo!','สวัสดีทุกคน','p02-m3-t'),m4:S('我来介绍一下。','wǒ lái jièshào yíxià.','ขอแนะนำหน่อย','p02-m4-t'),
+ c1:S('您贵姓','nín guì xìng','คุณแซ่อะไร (สุภาพ)','p02-c1-t'),c2:S('我姓…','wǒ xìng…','ฉันแซ่…','p02-c2-t'),c3:S('叫什么名字','jiào shénme míngzi','ชื่ออะไร','p02-c3-t')};
+const L={a:{...X.qjhy,who:'f'},b:{...X.xx,who:'me'},c:{...X.jsbb,who:'f'},d:{...X.wxw,who:'d'},e:{...X.nhrs,who:'me'},g:{...X.xwxh,who:'d'}};
+const D=[{sit:'หวังหมิงชวนคุณมาบ้านในวันเลี้ยงต้อนรับ',img:NL(HY)},L.a,L.b,L.c,L.d,L.e,L.g];
+const CARDS=[{img:NAN.img,th:'ผู้ชาย'},{img:NV.img,th:'ผู้หญิง'},{img:DJ.img,th:'ทุกคน'}];
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:2,code:'บท 1-2',title:'ยินดีต้อนรับ แนะนำตัว',goal:{do:'ต้อนรับแขก แนะนำคนในบ้าน และถามแซ่อย่างสุภาพ',sub:'ใช้ <span class="gz">请进 · 欢迎 · 介绍 · 您贵姓</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:HY.img,cap:'สถานการณ์ของบทนี้',title:'มาเที่ยวบ้านเพื่อน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะต้อนรับแขก แนะนำคนในครอบครัว และทักทายทุกคนได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[JS,NAN,NV,JIN,HY,XW]}),
+ recap({cap:'คำจากเล่ม 1 ที่ใช้ในบทนี้',title:'ทวนคำเดิม 2 คำ',text:'แตะการ์ดเพื่อฟัง สองคำนี้จะใช้ในบทสนทนา',groups:[{lab:'เล่ม 1 · บท 1-2 และ 1-3',items:[XING,DJ]}]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['介绍','男人','女人','进','欢迎','希望'],note:'ใช้คำจากบท 1-1 และเล่ม 1 เช่น 可以 那个 是 ร่วมด้วย'}),
+ ...WC(JS,1,6,{cap:'แนะนำ',hint:'คล้าย <b>"เจี้ย ซ่าว"</b> · sh ม้วนลิ้น',use:'ใช้แนะนำคนหรือสิ่งของ · ประโยคที่ใช้บ่อย 我来介绍一下 = ขอแนะนำหน่อย',ex:[X.jsbb,X.jspy]}),
+ ...WC(NAN,2,6,{cap:'คน',hint:'คล้าย <b>"หนาน เหริน"</b> · r ม้วนลิ้นเบา ๆ',use:'แปลว่าผู้ชาย (ผู้ใหญ่) · มักพูดว่า 那个男人 ผู้ชายคนนั้น',ex:[X.nanbb,X.nansh]}),
+ RC('คำที่ 1–2/6',[JS,NAN]),
+ ...WC(NV,3,6,{cap:'คน',hint:'คล้าย <b>"หนวี่ เหริน"</b> · ü ห่อปากแล้วพูด อี',use:'แปลว่าผู้หญิง (ผู้ใหญ่) · 女 nǚ ผู้หญิง ตรงข้ามกับ 男 nán ผู้ชาย',ex:[X.nvmm,X.nvls]}),
+ use({n:'คำที่ 1–3/6',w:JS,when:[{img:NL(JS),t:'แนะนำคนให้รู้จักกัน'},{img:NAN.img,t:'ชี้บอกว่าผู้ชายคนนั้นคือใคร'}],lines:[{...X.jsbb,who:'f'},{...X.nvsh,who:'me'},{...X.nvmm,who:'f'}],tip:'แนะนำคน <span class="zh">这是…</span> นี่คือ… · ถามว่าคือใคร <span class="zh">那个女人是谁？</span>'}),
+ ...WC(JIN,4,6,{cap:'กริยา',hint:'คล้าย <b>"จิ้น"</b> · j ไม่พ่นลม ลงท้าย -n',use:'แปลว่าเข้า · เชิญแขกเข้าบ้านพูด 请进 · ขออนุญาตเข้าพูด 我可以进吗？',ex:[X.qj,X.kyj]}),
+ ...WC(HY,5,6,{cap:'ต้อนรับ',hint:'คล้าย <b>"ฮวน อิ๋ง"</b> · ลงท้าย -n แล้ว -ng',use:'แปลว่ายินดีต้อนรับ · พูดซ้ำ 欢迎，欢迎 ฟังอบอุ่น · 欢迎你来… ยินดีต้อนรับที่มา…',ex:[X.hyhy,X.qjhy]}),
+ RC('คำที่ 4–5/6',[JIN,HY]),
+ use({n:'คำที่ 4–5/6',w:HY,when:[{img:NL(JIN),t:'เชิญแขกเข้าบ้าน'},{img:NL(HY),t:'ต้อนรับแขกที่ประตู'}],lines:[{...X.kyj,who:'me'},{...X.qjhy2,who:'f'},{...X.xx,who:'me'}],tip:'เจ้าของบ้านพูด <span class="zh">请进！欢迎，欢迎！</span> · แขกตอบ <span class="zh">谢谢！</span>'}),
+ ...WC(XW,6,6,{cap:'ความรู้สึก',hint:'คล้าย <b>"ซี วั่ง"</b> · w ห่อปากเล็กน้อย',use:'แปลว่าหวัง · 希望 + สิ่งที่อยากให้เกิด เช่น 希望你喜欢 หวังว่าคุณจะชอบ',ex:[X.xwxh,X.xwbx]}),
+ rec({n:'คำที่ 6/6',ws:[XW]}),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ถามแซ่อย่างสุภาพ','งานเลี้ยงต้อนรับ','เรียงบทสนทนา','男人 กับ 女人','ข้อควรระวัง'],note:'ฝึกต้อนรับแขก และแนะนำคนในบ้านของหวังหมิง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่บ้านหวังหมิง',title:'ยินดีต้อนรับ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เจ้าของบ้านพูด 请进 欢迎 · แนะนำคนด้วย 我来介绍一下'}),
+ talk({cap:'เทคนิค 2/6 · ถามแซ่อย่างสุภาพ',title:'您贵姓？',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.ngx,who:'me'},{...X.wxw,who:'d'},{...X.nxsmg,who:'g'},{...X.wxl,who:'g'}],
+  chips:[X.c1,X.c2,X.c3],tip:'ผู้ใหญ่หรือคนที่เพิ่งรู้จัก ถาม <span class="zh">您贵姓？</span> สุภาพที่สุด · 贵 ในที่นี้ไม่ได้แปลว่าแพง แต่เป็นคำยกย่อง · ตอบ <span class="zh">我姓…</span>'}),
+ point({tag:'เทคนิค 3/6 · งานเลี้ยงต้อนรับ',q:'ฟังหวังหมิงแนะนำ แล้วแตะคนที่เขาพูดถึง',this:'คือภาพนี้',cards:CARDS,rounds:[
+  {zh:X.nanbb.zh,k:X.nanbb.k,ans:0},{zh:X.nvmm.zh,k:X.nvmm.k,ans:1},{zh:X.djh2.zh,k:X.djh2.k,ans:2},{zh:X.nvls.zh,k:X.nvls.k,ans:1}]}),
+ lineup({tag:'เทคนิค 4/6 · เรียงบทสนทนา',sit:'มะลิมาถึงหน้าประตูบ้านหวังหมิง',lines:[{...X.kyj,who:'me'},{...X.qjhy2,who:'f'},{...X.xx,who:'me'},{...X.jsbb,who:'f'}]}),
+ cmp({cap:'เทคนิค 5/6 · 男人 กับ 女人',title:'ผู้ชาย กับ ผู้หญิง',text:'แตะการ์ดเพื่อฟัง',a:{who:'ผู้ชาย',img:NAN.img,zh:'那个男人是我爸爸。',zhb:'男人',py:'nánrén',th:'ผู้ชาย',k:'p02-nanbb-m'},b:{who:'ผู้หญิง',img:NV.img,zh:'那个女人是我妈妈。',zhb:'女人',py:'nǚrén',th:'ผู้หญิง',k:'p02-nvmm-m'},
+  tip:'<span class="zh">男</span> nán ผู้ชาย · <span class="zh">女</span> nǚ ผู้หญิง · ต่อด้วย <span class="zh">人</span> rén คน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ถามแซ่ใช้ 姓 ไม่ใช่ 叫',bad:'您叫什么姓？',good:'您姓什么？',k:'p02-nxsm-f'},
+  {h:'请 อยู่หน้า 进',bad:'进请！',good:'请进！',k:'p02-qj-m'},
+  {h:'บอกแซ่ ไม่ต้องมี 是',bad:'我是姓王。',good:'你好！我姓王。',k:'p02-wxw-t'},
+  {h:'希望 อยู่หน้าเรื่องที่หวัง',bad:'你喜欢我家希望！',good:'希望你喜欢我家！',k:'p02-xwxh-t'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','เรียงประโยค'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:欢迎',opts:['ยินดีต้อนรับ','แนะนำ','หวัง'],ans:0,fb:'<span class="zh">欢迎</span> <b>huānyíng</b> = ยินดีต้อนรับ'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 1-3 ชื่ออะไร',q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:姓',opts:['แซ่ นามสกุล','ชื่อ','ทุกคน'],ans:0,fb:'<span class="zh">姓</span> <b>xìng</b> = แซ่ นามสกุล'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:进',opts:[{img:NL(JIN)},{img:NL(HY)},{img:NL(XW)}],ans:0,fb:'<span class="zh">进</span> <b>jìn</b> = เข้า'}),
+ blank({tag:TQ(3),s:'那个_是我妈妈。',th:'ผู้หญิงคนนั้นคือแม่ของฉัน',opts:['女人','男人','大家'],ans:0,k:'p02-nvmm-m',fb:'<span class="zh">那个女人是我妈妈。</span>'}),
+ reply({rv:'ทบทวนบท 1-1 ขอถามหน่อย ขอโทษ',q:'คุณยืนอยู่หน้าห้องครู อยากขออนุญาตเข้าไป',opts:[X.kyj,X.wzd,X.bhy],ans:0,why:'ขออนุญาตพูด 我可以…吗？'}),
+ reply({tag:TQ(4),q:'คุณพ่อของหวังหมิงต้อนรับคุณ คุณตอบว่า',line:{...X.xwxh,who:'d'},opts:[X.xx,X.bkq,X.mgx],ans:0,why:'มีคนต้อนรับหรืออวยพร ตอบ 谢谢'}),
+ order({tag:TQ(5),th:'หวังว่าคุณจะชอบบ้านของเรานะ',tiles:[tl('希望','xīwàng'),tl('你','nǐ'),tl('喜欢','xǐhuan'),tl('我','wǒ'),tl('家','jiā'),tl('欢迎','huānyíng')],ans:[0,1,2,3,4],end:'！',k:'p02-xwxh-t'}),
+ ask({rv:4,q:'ฟัง 女 nǚ แล้วเลือกสระที่ได้ยิน',k:'sy:女',opts:['ü','u','i'],ans:0,fb:'n<b>ü</b> · ห่อปากกลมแล้วพูด อี'}),
+ ask({tag:TQ(6),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p02-djh-f',opts:['สวัสดีทุกคน ฉันชื่อมะลิ','ทุกคนเป็นเพื่อนของฉัน','ยินดีต้อนรับทุกคน'],ans:0,fb:'<span class="zh">大家好！我叫玛莉。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ต้อนรับแขกเอง',chips:['ต้อนรับเพื่อน','ฟังแล้วแตะคน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'หลี่น่ามาหาที่บ้าน คุณเปิดประตูต้อนรับ',line:{who:'g',zh:'你好！',py:'nǐ hǎo!',th:'สวัสดี',k:'p02-nh-g'},opts:[X.hyjf,X.bhy,X.wzd],ans:0}),
+ point({tag:MQ(2),noTh:1,q:'ฟังแล้วแตะคนที่พูดถึง',this:'คือภาพนี้',cards:CARDS,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:1},{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0}]}),
+ blank({tag:MQ(3),noTh:1,s:'您_什么？',opts:['姓','叫','是'],ans:0,k:'p02-nxsm-f',fb:'<span class="zh">您姓什么？</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('来','lái'),tl('介绍','jièshào'),tl('一下','yíxià'),tl('进','jìn')],ans:[0,1,2,3],end:'。',k:'p02-m4-t'}),
+ /* 5 · จบบท */
+ fin({title:'ต้อนรับแขกและแนะนำคนได้แล้ว',html:dlgH(D,{noTh:1}),chips:[JS,NAN,NV,JIN,HY,XW,XING,DJ].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L02',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

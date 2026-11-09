@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · ทบทวนหน่วยที่ 5</title>
+</head><body>
+<script>
+/* เล่ม 2 ทบทวนหน่วยที่ 5 ตลาดอร่อยทุกมุม: ทวนคำทั้ง 3 บท + 饭店 → บทสนทนาซื้อแตงโมแล้วไปร้านอาหาร → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+WHO.m={n:'พ่อค้าในตลาด',img:ART('男人')};WHO.d={n:'พนักงานเสิร์ฟ',img:ART('服务员')};
+const JD=W('鸡蛋','jīdàn','ไข่ไก่',{s:'jī dàn'}),NNAI=W('牛奶','niúnǎi','นมวัว',{s:'niú nǎi'}),KF=W('咖啡','kāfēi','กาแฟ',{s:'kā fēi',sl:[0,1]}),
+ MT=W('面条','miàntiáo','เส้นก๋วยเตี๋ยว / บะหมี่',{s:'miàn tiáo'}),DG=W('蛋糕','dàngāo','เค้ก',{s:'dàn gāo'}),TIAN=W('甜','tián','หวาน');
+const MAI=W('卖','mài','ขาย'),GJIN=W('公斤','gōngjīn','กิโลกรัม',{s:'gōng jīn'}),XG=W('西瓜','xīguā','แตงโม',{s:'xī guā'}),
+ ROU=W('肉','ròu','เนื้อ'),YR=W('羊肉','yángròu','เนื้อแกะ',{s:'yáng ròu'}),JI=W('鸡','jī','ไก่');
+const YU=W('鱼','yú','ปลา'),FWY=W('服务员','fúwùyuán','พนักงานเสิร์ฟ',{s:'fú wù yuán'}),BAI=W('百','bǎi','ร้อย'),QIAN=W('千','qiān','พัน'),
+ WAN=W('完','wán','เสร็จ / หมด (ใช้ต่อท้ายกริยา)'),ZAI=W('再','zài','อีก (ทำซ้ำในอนาคต)'),FD=W('饭店','fàndiàn','ร้านอาหาร ภัตตาคาร',{s:'fàn diàn'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，我们去买西瓜吧！','Mǎlì, wǒmen qù mǎi xīguā ba!','มะลิ ไปซื้อแตงโมกันเถอะ','p17-a-g'),
+ b:S('好！请问，西瓜多少钱一公斤？','hǎo! qǐngwèn, xīguā duōshao qián yì gōngjīn?','ได้ ขอถามหน่อย แตงโมกิโลละเท่าไร','p17-b-f'),
+ c:S('五块。西瓜很甜！','wǔ kuài. xīguā hěn tián!','ห้าหยวน แตงโมหวานมาก','p17-c-t'),
+ d:S('服务员，我们想吃面条和鱼。','fúwùyuán, wǒmen xiǎng chī miàntiáo hé yú.','พนักงาน เราอยากกินบะหมี่กับปลา','p17-d-f'),
+ e:S('好。喝什么？','hǎo. hē shénme?','ได้ ดื่มอะไรดี','p17-e-t'),
+ f:S('一杯咖啡，一杯牛奶。','yì bēi kāfēi, yì bēi niúnǎi.','กาแฟหนึ่งแก้ว นมหนึ่งแก้ว','p17-f-g'),
+ g:S('吃完了，很好吃！我们再来吧！','chī wán le, hěn hǎochī! wǒmen zài lái ba!','ทานเสร็จแล้ว อร่อยมาก ไว้มาอีกนะ','p17-g-f'),
+ xcmt:S('我想吃面条。','wǒ xiǎng chī miàntiáo.','ฉันอยากกินบะหมี่','p14-xcmt-f'),
+ dght:S('蛋糕很甜。','dàngāo hěn tián.','เค้กหวานมาก','p14-dght-m'),
+ cyr:S('你吃羊肉吗？','nǐ chī yángròu ma?','คุณกินเนื้อแกะไหม','p15-cyr-m'),
+ xght:S('西瓜很甜。','xīguā hěn tián.','แตงโมหวานมาก','p15-xght-m'),
+ nxc:S('你好！请坐。你们想吃什么？','nǐ hǎo! qǐng zuò. nǐmen xiǎng chī shénme?','สวัสดี เชิญนั่ง ทุกคนอยากทานอะไร','p16-b-t'),
+ xcy:S('我们想吃鱼，鱼多少钱？','wǒmen xiǎng chī yú, yú duōshao qián?','เราอยากกินปลา ปลาราคาเท่าไร','p16-c-m'),
+ nnhw:S('牛奶喝完了。','niúnǎi hē wán le.','นมดื่มหมดแล้ว','p16-nnhw-g'),
+ sdsg:S('这个商店卖水果。','zhège shāngdiàn mài shuǐguǒ.','ร้านนี้ขายผลไม้','p15-sdsg-t'),
+ gjfd:S('我们坐公共汽车去饭店吧！','wǒmen zuò gōnggòng qìchē qù fàndiàn ba!','เรานั่งรถเมล์ไปร้านอาหารกันเถอะ','p17-gjfd-g'),
+ xgdq:S('西瓜多少钱一公斤？','xīguā duōshao qián yì gōngjīn?','แตงโมกิโลละเท่าไร','p15-xgdq-f'),
+ ybnn:S('我喝一杯牛奶。','wǒ hē yì bēi niúnǎi.','ฉันดื่มนมหนึ่งแก้ว','p14-ybnn-f'),
+ acy:S('我爱吃鱼。','wǒ ài chī yú.','ฉันชอบกินปลามาก','p16-acy-f'),
+ bmyr:S('不卖羊肉，卖鸡。','bú mài yángròu, mài jī.','ไม่ได้ขายเนื้อแกะ ขายไก่','p15-f-t'),
+ zlc:S('好，再来两杯茶。','hǎo, zài lái liǎng bēi chá.','ได้ ขอชาเพิ่มอีกสองแก้ว','p16-e-f'),
+ sqk:S('这个很贵，三千块！','zhège hěn guì, sānqiān kuài!','อันนี้แพงมาก สามพันหยวน','p16-sqk-g'),
+ wcwl:S('我吃完了。','wǒ chī wán le.','ฉันกินเสร็จแล้ว','p16-wcwl-f')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'m'},d:{...X.d,who:'me'},e:{...X.e,who:'d'},f:{...X.f,who:'g'},g:{...X.g,who:'me'}};
+const D=[{sit:'มะลิกับหลี่น่าไปตลาดสดตอนเช้า',img:XG.img},L.a,L.b,L.c,{sit:'ตอนเที่ยงไปทานข้าวที่ร้านอาหาร',img:FD.img},L.d,L.e,L.f,L.g];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:17,code:'ทบทวนหน่วย 5',title:'ทบทวนหน่วยที่ 5',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 5 สั่งอาหารและเครื่องดื่ม ซื้อของในตลาด และจ่ายเงินในร้าน',sub:'想吃 · 一杯 · 一公斤 · 服务员 · 吃完了',min:8},steps:[
+ intro({scene:FD.img,cap:'บททบทวน',title:'ตลาดกับร้านอาหาร',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 5-1 ถึง 5-3'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 5',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'5-1 มื้อเช้าที่ร้านกาแฟ',items:[JD,NNAI,KF,MT,DG,TIAN]},{lab:'5-2 ซื้อของที่ตลาดสด',items:[MAI,GJIN,XG,ROU,YR,JI]},{lab:'5-3 ในร้านอาหาร',items:[YU,FWY,BAI,QIAN,WAN,ZAI]},{lab:'คำจากเล่ม 1',items:[FD]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'ตลาดกับร้านอาหาร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะภาพ','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[JD,KF,XG,YU,QIAN]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะอาหารที่พูดถึง',this:'คืออาหารนี้',cards:[{img:MT.img,th:'บะหมี่'},{img:DG.img,th:'เค้ก'},{img:YR.img,th:'เนื้อแกะ'}],rounds:[
+  {zh:X.xcmt.zh,k:X.xcmt.k,ans:0},{zh:X.dght.zh,k:X.dght.k,ans:1},{zh:X.cyr.zh,k:X.cyr.k,ans:2}]}),
+ ask({rv:2,q:'ฟัง 卖 mài แล้วเลือกวรรณยุกต์',k:'sy:卖',opts:[{tone:4,lab:'เสียง 4'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">卖</span> m<b>ài</b> เสียง 4 = ขาย · <span class="zh">买</span> mǎi เสียง 3 = ซื้อ'}),
+ blank({tag:TQ(3),s:'西瓜很_。',th:'แตงโมหวานมาก',opts:['甜','百','完'],ans:0,k:'p15-xght-m',fb:'<span class="zh">西瓜很甜。</span>'}),
+ reply({tag:TQ(4),q:'พนักงานถามว่าอยากทานอะไร คุณอยากกินปลา',line:{...X.nxc,who:'d'},opts:[X.xcy,X.nnhw,X.sdsg],ans:0,why:'สั่งด้วย 我们想吃…'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p16-sqk-g',opts:['อันนี้แพงมาก สามพันหยวน','อันนี้แพงมาก สามร้อยหยวน','อันนี้ถูกมาก สามพันหยวน'],ans:0,fb:'<span class="zh">这个很贵，三千块！</span> 千 = พัน'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:鸡蛋',opts:[{img:JD.img},{img:JI.img},{img:DG.img}],ans:0,fb:'<span class="zh">鸡蛋</span> <b>jīdàn</b> = ไข่ไก่'}),
+ ask({rv:'ทบทวนบท 4-1 ซื้อตั๋วขึ้นรถ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p17-gjfd-g',opts:['เรานั่งรถเมล์ไปร้านอาหารกันเถอะ','เรานั่งรถไฟใต้ดินไปร้านอาหารกันเถอะ','เราเดินไปร้านอาหารกันเถอะ'],ans:0,fb:'<span class="zh">公共汽车</span> = รถเมล์'}),
+ lineup({tag:TQ(7),sit:'มะลิซื้อแตงโมที่ตลาด',lines:[L.a,L.b,L.c]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 服务员',opts:['เรียกพนักงานในร้านอาหาร','ทักเพื่อนตอนเช้า','ถามทางไปสถานี'],ans:0,fb:'<span class="zh">服务员</span> = พนักงานเสิร์ฟ'}),
+ ask({rv:12,q:'ฟัง 不卖羊肉 แล้วเลือกเสียงของ 不',k:'p15-f-t',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'不 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>bú mài</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:公斤',opts:['กิโลกรัม','ร้อย','แก้ว'],ans:0,fb:'<span class="zh">公斤</span> <b>gōngjīn</b> = กิโลกรัม'}),
+ blank({tag:TQ(10),s:'好，再来两杯_。',th:'ได้ ขอชาเพิ่มอีกสองแก้ว',opts:['茶','鱼','鸡'],ans:0,k:'p16-e-f',fb:'<span class="zh">好，再来两杯茶。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'กินเที่ยวทั้งวัน',chips:['ถามราคา','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'ร้านนี้ขายแตงโม คุณอยากรู้ราคาต่อกิโล',opts:[X.xgdq,X.dght,X.wcwl],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p14-ybnn-f',opts:[{img:NNAI.img},{img:KF.img},{img:XG.img}],ans:0,fb:'<span class="zh">我喝一杯牛奶。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('爱','ài'),tl('吃','chī'),tl('鱼','yú'),tl('卖','mài')],ans:[0,1,2,3],end:'。',k:'p16-acy-f'}),
+ blank({tag:MQ(4),noTh:1,s:'牛奶喝_了。',opts:['完','再','甜'],ans:0,k:'p16-nnhw-g',fb:'<span class="zh">牛奶喝完了。</span>'}),
+ fin({title:'จบหน่วยที่ 5 แล้ว',html:dlgH(D,{noTh:1}),chips:[JD,NNAI,KF,MT,DG,TIAN,MAI,GJIN,XG,ROU,YR,JI,YU,FWY,BAI,QIAN,WAN,ZAI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L17',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 5-3 ในร้านอาหาร</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 5-3 หน่วย 5 ตลาดอร่อยทุกมุม: ในร้านอาหาร · คำใหม่ 鱼 服务员 百 千 完 再 · ทบทวนในบริบท (เล่ม 1) 饭店
+   ทบทวนจากบทก่อน: 鸡 牛奶 咖啡 一杯 · กิจกรรมเฉพาะบท: เรียกพนักงาน นับร้อยนับพัน 完 กับ 再 */
+WHO.m={n:'พนักงานเสิร์ฟ',img:ART('男人')};
+const YU=W('鱼','yú','ปลา'),FWY=W('服务员','fúwùyuán','พนักงานเสิร์ฟ',{s:'fú wù yuán'}),BAI=W('百','bǎi','ร้อย'),QIAN=W('千','qiān','พัน'),
+ WAN=W('完','wán','เสร็จ / หมด (ใช้ต่อท้ายกริยา)'),ZAI=W('再','zài','อีก (ทำซ้ำในอนาคต)');
+const FD=W('饭店','fàndiàn','ร้านอาหาร ภัตตาคาร',{s:'fàn diàn'});
+const JI=W('鸡','jī','ไก่'),NNAI=W('牛奶','niúnǎi','นมวัว',{s:'niú nǎi'}),KF=W('咖啡','kāfēi','กาแฟ',{s:'kā fēi',sl:[0,1]});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('服务员！','fúwùyuán!','พนักงาน','p16-a-f'),
+ b:S('你好！请坐。你们想吃什么？','nǐ hǎo! qǐng zuò. nǐmen xiǎng chī shénme?','สวัสดี เชิญนั่ง ทุกคนอยากทานอะไร','p16-b-t'),
+ c:S('我们想吃鱼，鱼多少钱？','wǒmen xiǎng chī yú, yú duōshao qián?','เราอยากกินปลา ปลาราคาเท่าไร','p16-c-m'),
+ d:S('一百二十块。','yìbǎi èrshí kuài.','หนึ่งร้อยยี่สิบหยวน','p16-d-t'),
+ e:S('好，再来两杯茶。','hǎo, zài lái liǎng bēi chá.','ได้ ขอชาเพิ่มอีกสองแก้ว','p16-e-f'),
+ f:S('吃完了！服务员，多少钱？','chī wán le! fúwùyuán, duōshao qián?','ทานเสร็จแล้ว พนักงาน ทั้งหมดเท่าไร','p16-f-m'),
+ g:S('一百五十块。','yìbǎi wǔshí kuài.','หนึ่งร้อยห้าสิบหยวน','p16-g-t'),
+ h:S('这个饭店的菜很好吃，我们明天再来！','zhège fàndiàn de cài hěn hǎochī, wǒmen míngtiān zài lái!','อาหารร้านนี้อร่อยมาก พรุ่งนี้เราจะมาอีก','p16-h-f'),
+ acy:S('我爱吃鱼。','wǒ ài chī yú.','ฉันชอบกินปลามาก','p16-acy-f'),
+ tyd:S('这条鱼很大。','zhè tiáo yú hěn dà.','ปลาตัวนี้ใหญ่มาก','p16-tyd-g'),
+ fws:S('服务员，请来一杯水。','fúwùyuán, qǐng lái yì bēi shuǐ.','พนักงาน ขอน้ำหนึ่งแก้ว','p16-fws-f'),
+ fdfw:S('她是这个饭店的服务员。','tā shì zhège fàndiàn de fúwùyuán.','เธอเป็นพนักงานเสิร์ฟของร้านอาหารนี้','p16-fdfw-m'),
+ sbk:S('我有三百块钱。','wǒ yǒu sānbǎi kuài qián.','ฉันมีเงินสามร้อยหยวน','p16-sbk-f'),
+ sbs:S('这本书一百块。','zhè běn shū yìbǎi kuài.','หนังสือเล่มนี้หนึ่งร้อยหยวน','p16-sbs-g'),
+ sqk:S('这个很贵，三千块！','zhège hěn guì, sānqiān kuài!','อันนี้แพงมาก สามพันหยวน','p16-sqk-g'),
+ lqxs:S('我们学校有两千个学生。','wǒmen xuéxiào yǒu liǎngqiān ge xuésheng.','โรงเรียนเรามีนักเรียนสองพันคน','p16-lqxs-t'),
+ wcwl:S('我吃完了。','wǒ chī wán le.','ฉันกินเสร็จแล้ว','p16-wcwl-f'),
+ nnhw:S('牛奶喝完了。','niúnǎi hē wán le.','นมดื่มหมดแล้ว','p16-nnhw-g'),
+ mtzl:S('我们明天再来！','wǒmen míngtiān zài lái!','พรุ่งนี้เราจะมาอีก','p16-mtzl-f'),
+ zhyb:S('再喝一杯吧！','zài hē yì bēi ba!','ดื่มอีกแก้วสิ','p16-zhyb-g'),
+ zkf:S('再喝一杯咖啡吧！','zài hē yì bēi kāfēi ba!','ดื่มกาแฟอีกแก้วสิ','p16-zkf-g'),
+ jrh:S('鸡肉很好吃。','jīròu hěn hǎochī.','เนื้อไก่อร่อยมาก','p15-jrh-f'),
+ mmnn:S('妹妹爱喝牛奶。','mèimei ài hē niúnǎi.','น้องสาวชอบดื่มนมมาก','p14-mmnn-m'),
+ zgdq:S('这个多少钱？','zhège duōshao qián?','อันนี้ราคาเท่าไร','p16-zgdq-f'),
+ ybk:S('一百块。','yìbǎi kuài.','หนึ่งร้อยหยวน','p16-ybk-t'),
+ ngn:S('那个呢？','nàge ne?','แล้วอันนั้นล่ะ','p16-ngn-f'),
+ yqk:S('一千块，很贵。','yìqiān kuài, hěn guì.','หนึ่งพันหยวน แพงมาก','p16-yqk-t'),
+ zj:S('再见！','zàijiàn!','ลาก่อน','p16-zj-f'),
+ fwdq:S('服务员，多少钱？','fúwùyuán, duōshao qián?','พนักงาน ทั้งหมดเท่าไร','p16-fwdq-f'),
+ m1:S('服务员，来一条鱼。','fúwùyuán, lái yì tiáo yú.','พนักงาน ขอปลาหนึ่งตัว','p16-m1-t'),m2:S('再来一杯咖啡。','zài lái yì bēi kāfēi.','ขอกาแฟอีกหนึ่งแก้ว','p16-m2-t'),
+ m3:S('再来一杯牛奶。','zài lái yì bēi niúnǎi.','ขอนมอีกหนึ่งแก้ว','p16-m3-t'),m4:S('我想吃鸡肉。','wǒ xiǎng chī jīròu.','ฉันอยากกินเนื้อไก่','p16-m4-t'),
+ c1:S('一百','yìbǎi','หนึ่งร้อย','p16-c1-t'),c2:S('两百','liǎngbǎi','สองร้อย','p16-c2-t'),c3:S('一千','yìqiān','หนึ่งพัน','p16-c3-t'),c4:S('三千','sānqiān','สามพัน','p16-c4-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'f'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'f'},g:{...X.g,who:'m'},h:{...X.h,who:'me'}};
+const D=[{sit:'มะลิกับหวังหมิงไปทานข้าวเย็นที่ร้านอาหาร',img:FD.img},L.a,L.b,L.c,L.d,L.e,{sit:'ทานเสร็จแล้ว',img:NL(WAN)},L.f,L.g,L.h];
+const ORD=[{img:YU.img,th:'ปลา'},{img:JI.img,th:'ไก่'},{img:NNAI.img,th:'นม'},{img:KF.img,th:'กาแฟ'}];
+const BINS=[{img:BAI.img,zh:'百',py:'bǎi',th:'ร้อย'},{img:QIAN.img,zh:'千',py:'qiān',th:'พัน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:16,code:'บท 5-3',title:'ในร้านอาหาร',goal:{do:'เรียกพนักงาน สั่งปลา ถามราคาเป็นร้อยเป็นพัน และบอกว่าทานเสร็จแล้ว',sub:'ใช้ <span class="gz">服务员 · 一百 · 吃完了 · 再来</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:FD.img,cap:'สถานการณ์ของบทนี้',title:'ทานข้าวเย็นที่ร้านอาหาร',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะสั่งอาหารและจ่ายเงินในร้านได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[YU,FWY,BAI,QIAN,WAN,ZAI]}),
+ recap({cap:'คำจากเล่ม 1 ที่ใช้ในบทนี้',title:'ทวนคำเดิม',text:'แตะการ์ดเพื่อฟัง บทนี้เกิดขึ้นในร้านอาหาร',groups:[{lab:'เล่ม 1 · บท 4-1',items:[FD]}]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['鱼','服务员','百','千','完','再'],note:'ใช้คำจากเล่ม 1 เช่น 饭店 菜 多少钱 块 贵 ร่วมด้วย'}),
+ ...WC(YU,1,6,{cap:'อาหาร',hint:'คล้าย <b>"หยวี"</b> · yu ห่อปาก เสียง 2',use:'ปลา · นับเป็นตัวด้วย 条',ex:[X.acy,X.tyd]}),
+ ...WC(FWY,2,6,{cap:'คน',hint:'คล้าย <b>"ฝู อู้ หยวน"</b> · f ใช้ฟันแตะริมฝีปากล่าง',use:'พนักงานเสิร์ฟ · เรียกในร้านว่า 服务员！ ได้อย่างสุภาพ',ex:[X.fws,X.fdfw]}),
+ RC('คำที่ 1–2/6',[YU,FWY]),
+ use({n:'คำที่ 1–2/6',w:FWY,when:[{img:FWY.img,t:'เรียกพนักงาน'},{img:YU.img,t:'สั่งอาหาร'}],lines:[{...X.a,who:'me'},{...X.b,who:'m'}],tip:'เรียกพนักงานด้วย <span class="zh">服务员！</span> ไม่ต้องเรียกว่าผู้ชายหรือผู้หญิง'}),
+ ...WC(BAI,3,6,{cap:'ตัวเลข',hint:'คล้าย <b>"ป่าย"</b> · b ไม่พ่นลม เสียง 3',use:'ร้อย · 一百 หนึ่งร้อย ต้องมี 一 นำหน้า · 一 หน้า 百 อ่าน yì',ex:[X.sbk,X.sbs]}),
+ ...WC(QIAN,4,6,{cap:'ตัวเลข',hint:'คล้าย <b>"เชียน"</b> · q พ่นลม เสียง 1',use:'พัน · 一千 หนึ่งพัน · 两千 สองพัน',ex:[X.sqk,X.lqxs]}),
+ RC('คำที่ 3–4/6',[BAI,QIAN]),
+ ...WC(WAN,5,6,{cap:'ผลของการทำ',hint:'คล้าย <b>"หวาน"</b> · เสียง 2',use:'เสร็จ หมด · วางหลังกริยา 吃完 กินเสร็จ 喝完 ดื่มหมด · มักตามด้วย 了',ex:[X.wcwl,X.nnhw]}),
+ ...WC(ZAI,6,6,{cap:'การทำซ้ำ',hint:'คล้าย <b>"ไจ้"</b> · z ไม่ม้วนลิ้น เสียง 4',use:'อีก · ทำซ้ำในอนาคต วางหน้ากริยา · 再见 คือพบกันอีก',ex:[X.mtzl,X.zhyb]}),
+ RC('คำที่ 5–6/6',[WAN,ZAI]),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ร้อยกับพัน','百 หรือ 千','สั่งอะไร','完 กับ 再','ข้อควรระวัง'],note:'ฝึกสั่งอาหารและจ่ายเงินในร้าน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในร้านอาหาร',title:'ทานข้าวเย็นที่ร้านอาหาร',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เรียกพนักงานด้วย 服务员 · ทานเสร็จพูดว่า 吃完了'}),
+ talk({cap:'เทคนิค 2/6 · ร้อยกับพัน',title:'ถามราคาสูง ๆ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.zgdq,who:'me'},{...X.ybk,who:'m'},{...X.ngn,who:'me'},{...X.yqk,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ตัวเลข + <span class="zh">百</span> / <span class="zh">千</span> · <span class="zh">一</span> หน้า 百 และ 千 อ่าน <b>yì</b> · สองร้อยพูดว่า <span class="zh">两百</span> หรือ <span class="zh">二百</span> ก็ได้'}),
+ sortmap({tag:'เทคนิค 3/6 · 百 หรือ 千',q:'ฟังแต่ละประโยค แล้วแตะว่าเป็นหลักร้อยหรือหลักพัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(YU.img,X.d,0),it(ART('钱'),X.sqk,1),it(ART('钱'),X.sbk,0),it(ART('学校'),X.lqxs,1)]}),
+ point({tag:'เทคนิค 4/6 · สั่งอะไร',q:'ฟังแต่ละประโยค แล้วแตะอาหารหรือเครื่องดื่มที่พูดถึง',this:'คืออันนี้',cards:ORD,rounds:[
+  {zh:X.acy.zh,k:X.acy.k,ans:0},{zh:X.jrh.zh,k:X.jrh.k,ans:1},{zh:X.mmnn.zh,k:X.mmnn.k,ans:2},{zh:X.zkf.zh,k:X.zkf.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 完 กับ 再',title:'เสร็จแล้ว ทำอีก',text:'แตะการ์ดเพื่อฟัง',a:{who:'เสร็จแล้ว',img:NL(WAN),zh:X.wcwl.zh,zhb:'完',py:'wán',th:'เสร็จ หมด',k:X.wcwl.k},b:{who:'ทำอีก',img:ZAI.img,zh:X.mtzl.zh,zhb:'再',py:'zài',th:'อีก',k:X.mtzl.k},
+  tip:'กริยา + <span class="zh">完</span> = ทำเสร็จ · <span class="zh">再</span> + กริยา = จะทำอีก'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'完 อยู่หลังกริยา',bad:'我完吃了。',good:'我吃完了。',k:'p16-wcwl-f'},
+  {h:'再 อยู่หน้ากริยา',bad:'我们明天来再！',good:'我们明天再来！',k:'p16-mtzl-f'},
+  {h:'หนึ่งร้อยต้องมี 一',bad:'百二十块。',good:'一百二十块。',k:'p16-d-t'},
+  {h:'เรียกพนักงานด้วย 服务员',bad:'女人，请来一杯水。',good:'服务员，请来一杯水。',k:'p16-fws-f'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:鱼',opts:['ปลา','ไก่','เนื้อ'],ans:0,fb:'<span class="zh">鱼</span> <b>yú</b> = ปลา'}),
+ ask({rv:'ทบทวนเล่ม 1 · บท 4-1 กินอะไรดี',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p16-fdfw-m',opts:['เธอเป็นพนักงานเสิร์ฟของร้านอาหารนี้','เธอเป็นครูของโรงเรียนนี้','เธอเป็นหมอของโรงพยาบาลนี้'],ans:0,fb:'<span class="zh">饭店</span> = ร้านอาหาร'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:千',opts:[{img:QIAN.img},{img:BAI.img},{img:YU.img}],ans:0,fb:'<span class="zh">千</span> <b>qiān</b> = พัน'}),
+ blank({tag:TQ(3),s:'我吃_了。',th:'ฉันกินเสร็จแล้ว',opts:['完','再','百'],ans:0,k:'p16-wcwl-f',fb:'<span class="zh">我吃完了。</span>'}),
+ ask({rv:9,q:'ฟัง 千 แล้วเลือกพินอินที่ถูก',k:'sy:千',opts:['qiān','qīn','jiān'],ans:0,fb:'q + ian = <b>qiān</b>'}),
+ reply({tag:TQ(4),q:'พนักงานถามว่าอยากทานอะไร คุณอยากกินปลา',line:{...X.b,who:'m'},opts:[X.c,X.wcwl,X.zj],ans:0,why:'สั่งด้วย 我们想吃…'}),
+ ask({rv:'ทบทวนบท 5-1 มื้อเช้าที่ร้านกาแฟ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p16-nnhw-g',opts:['นมดื่มหมดแล้ว','นมหวานมาก','อยากดื่มนมอีกแก้ว'],ans:0,fb:'<span class="zh">牛奶喝完了。</span> 喝完 = ดื่มหมด'}),
+ order({tag:TQ(5),th:'พรุ่งนี้เราจะมาอีก',tiles:[tl('我们','wǒmen'),tl('明天','míngtiān'),tl('再','zài'),tl('来','lái'),tl('完','wán')],ans:[0,1,2,3],end:'！',k:'p16-mtzl-f'}),
+ tf({tag:TQ(6),k:'p16-d-t',img:YU.img,card:'<b>ปลา</b><br>120 หยวน',ans:0,fb:'<span class="zh">一百二十块。</span> = หนึ่งร้อยยี่สิบหยวน · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'สั่งอาหารเอง',chips:['ฟังแล้วแตะภาพ','เรียกพนักงาน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะสิ่งที่สั่ง',this:'คืออันนี้',cards:ORD,rounds:[{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m2.zh,k:X.m2.k,ans:3},{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m4.zh,k:X.m4.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'ทานเสร็จแล้ว อยากเรียกพนักงานมาถามราคา',opts:[X.fwdq,X.acy,X.zkf],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我们明天_来！',opts:['再','完','千'],ans:0,k:'p16-mtzl-f',fb:'<span class="zh">我们明天再来！</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('有','yǒu'),tl('三百','sānbǎi'),tl('块','kuài'),tl('钱','qián'),tl('千','qiān')],ans:[0,1,2,3,4],end:'。',k:'p16-sbk-f'}),
+ /* 5 · จบบท */
+ fin({title:'สั่งอาหารและจ่ายเงินได้แล้ว',html:dlgH(D,{noTh:1}),chips:[YU,FWY,BAI,QIAN,WAN,ZAI,FD].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L16',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

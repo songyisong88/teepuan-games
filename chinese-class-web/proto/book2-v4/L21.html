@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 6-4 กิจวัตรสามมื้อ</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 6-4 หน่วย 6 วันธรรมดาสุดสนุก: กิจวัตรสามมื้อ · คำใหม่ 早饭 午饭 晚饭 然后 洗 出 上班 下班
+   ทบทวนจากบทก่อน: 每天 地铁 外面 已经 · กิจกรรมเฉพาะบท: …然后… ไปหรือเลิกงาน แตะมื้ออาหาร 出 กับ 回 */
+const ZF=W('早饭','zǎofàn','อาหารเช้า',{s:'zǎo fàn'}),WUF=W('午饭','wǔfàn','อาหารกลางวัน',{s:'wǔ fàn'}),WF=W('晚饭','wǎnfàn','อาหารเย็น',{s:'wǎn fàn'}),
+ RH=W('然后','ránhòu','แล้วก็ / หลังจากนั้น',{s:'rán hòu'}),XI=W('洗','xǐ','ล้าง / ซัก'),CHU=W('出','chū','ออก'),SB=W('上班','shàng bān','ไปทำงาน',{s:'shàng bān'}),
+ XB=W('下班','xià bān','เลิกงาน',{s:'xià bān'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('李娜，你妈妈每天几点上班？','Lǐ Nà, nǐ māma měi tiān jǐ diǎn shàng bān?','หลี่น่า แม่ของเธอไปทำงานกี่โมงทุกวัน','p21-a-f'),
+ b:S('她八点上班，五点下班。','tā bā diǎn shàng bān, wǔ diǎn xià bān.','แม่เข้างานแปดโมง เลิกงานห้าโมง','p21-b-g'),
+ c:S('她在家吃早饭吗？','tā zài jiā chī zǎofàn ma?','แม่กินอาหารเช้าที่บ้านไหม','p21-c-f'),
+ d:S('吃。她七点吃早饭，然后坐地铁去上班。','chī. tā qī diǎn chī zǎofàn, ránhòu zuò dìtiě qù shàng bān.','กิน แม่กินอาหารเช้าเจ็ดโมง แล้วก็นั่งรถไฟใต้ดินไปทำงาน','p21-d-g'),
+ e:S('午饭呢？','wǔfàn ne?','แล้วอาหารกลางวันล่ะ','p21-e-f'),
+ f:S('她在外面吃午饭，晚上回家吃晚饭。','tā zài wàimiàn chī wǔfàn, wǎnshang huí jiā chī wǎnfàn.','แม่กินข้าวกลางวันข้างนอก ตอนเย็นกลับมากินข้าวเย็นที่บ้าน','p21-f-g'),
+ czf:S('你吃早饭了吗？','nǐ chī zǎofàn le ma?','คุณกินอาหารเช้าแล้วหรือยัง','p21-czf-g'),
+ qzf:S('我七点吃早饭。','wǒ qī diǎn chī zǎofàn.','ฉันกินอาหารเช้าเจ็ดโมง','p21-qzf-f'),
+ yqw:S('我们一起吃午饭吧。','wǒmen yìqǐ chī wǔfàn ba.','ไปกินข้าวกลางวันด้วยกันเถอะ','p21-yqw-m'),
+ zww:S('中午十二点吃午饭。','zhōngwǔ shí\'èr diǎn chī wǔfàn.','กินข้าวกลางวันตอนเที่ยง','p21-zww-t'),
+ zwf:S('妈妈在做晚饭。','māma zài zuò wǎnfàn.','แม่กำลังทำอาหารเย็น','p21-zwf-f'),
+ wcs:S('晚饭吃什么？','wǎnfàn chī shénme?','มื้อเย็นกินอะไรดี','p21-wcs-g'),
+ rxx:S('我吃早饭，然后去学校。','wǒ chī zǎofàn, ránhòu qù xuéxiào.','ฉันกินอาหารเช้า แล้วก็ไปโรงเรียน','p21-rxx-f'),
+ rdy:S('我们去看电影，然后吃晚饭。','wǒmen qù kàn diànyǐng, ránhòu chī wǎnfàn.','เราไปดูหนัง แล้วก็กินข้าวเย็น','p21-rdy-m'),
+ qxs:S('我去洗手。','wǒ qù xǐ shǒu.','ฉันไปล้างมือ','p21-qxs-f'),
+ xyf:S('妈妈在洗衣服。','māma zài xǐ yīfu.','แม่กำลังซักผ้า','p21-xyf-g'),
+ cq:S('他出去了。','tā chūqu le.','เขาออกไปข้างนอกแล้ว','p21-cq-g'),
+ cl:S('你出来吧！','nǐ chūlai ba!','ออกมาเถอะ','p21-cl-f'),
+ bsb:S('我爸爸八点上班。','wǒ bàba bā diǎn shàng bān.','พ่อของฉันเข้างานแปดโมง','p21-bsb-f'),
+ nsb:S('你在哪儿上班？','nǐ zài nǎr shàng bān?','คุณทำงานที่ไหน','p21-nsb-g'),
+ jxb:S('你几点下班？','nǐ jǐ diǎn xià bān?','คุณเลิกงานกี่โมง','p21-jxb-g'),
+ bxb:S('爸爸下班回家了。','bàba xià bān huí jiā le.','พ่อเลิกงานกลับบ้านแล้ว','p21-bxb-m'),
+ w5:S('我五点下班。','wǒ wǔ diǎn xià bān.','ฉันเลิกงานห้าโมง','p21-w5-f'),
+ zzs:S('你早上做什么？','nǐ zǎoshang zuò shénme?','ตอนเช้าคุณทำอะไร','p21-zzs-g'),
+ zpb:S('我跑步，然后吃早饭。','wǒ pǎo bù, ránhòu chī zǎofàn.','ฉันวิ่ง แล้วก็กินอาหารเช้า','p21-zpb-f'),
+ wsn:S('晚上呢？','wǎnshang ne?','แล้วตอนเย็นล่ะ','p21-wsn-g'),
+ wds:S('我吃晚饭，然后看电视。','wǒ chī wǎnfàn, ránhòu kàn diànshì.','ฉันกินข้าวเย็น แล้วก็ดูทีวี','p21-wds-f'),
+ yjx:S('他已经下班了。','tā yǐjīng xià bān le.','เขาเลิกงานแล้ว','p21-yjx-g'),
+ fds:S('我在饭店上班。','wǒ zài fàndiàn shàng bān.','ฉันทำงานที่ร้านอาหาร','p21-fds-f'),
+ m1:S('现在吃早饭。','xiànzài chī zǎofàn.','ตอนนี้กินอาหารเช้า','p21-m1-t'),m2:S('现在吃午饭。','xiànzài chī wǔfàn.','ตอนนี้กินข้าวกลางวัน','p21-m2-t'),
+ m3:S('现在吃晚饭。','xiànzài chī wǎnfàn.','ตอนนี้กินข้าวเย็น','p21-m3-t'),m4:S('现在洗衣服。','xiànzài xǐ yīfu.','ตอนนี้ซักผ้า','p21-m4-t'),
+ c1:S('吃早饭','chī zǎofàn','กินอาหารเช้า','p21-c1-t'),c2:S('吃午饭','chī wǔfàn','กินข้าวกลางวัน','p21-c2-t'),c3:S('吃晚饭','chī wǎnfàn','กินข้าวเย็น','p21-c3-t'),c4:S('洗衣服','xǐ yīfu','ซักผ้า','p21-c4-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'g'},c:{...X.c,who:'me'},d:{...X.d,who:'g'},e:{...X.e,who:'me'},f:{...X.f,who:'g'}};
+const D=[{sit:'มะลิถามหลี่น่าว่าแม่ของเธอทำอะไรบ้างในหนึ่งวัน',img:SB.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const MEAL=[{img:ZF.img,th:'อาหารเช้า'},{img:WUF.img,th:'อาหารกลางวัน'},{img:WF.img,th:'อาหารเย็น'},{img:NL(XI),th:'ซักล้าง'}];
+const BINS=[{img:SB.img,zh:'上班',py:'shàng bān',th:'ไปทำงาน'},{img:XB.img,zh:'下班',py:'xià bān',th:'เลิกงาน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:21,code:'บท 6-4',title:'กิจวัตรสามมื้อ',goal:{do:'เล่าเรื่องในหนึ่งวันตามลำดับ มื้ออาหาร เวลาไปและเลิกงาน',sub:'ใช้ <span class="gz">早饭 · 然后 · 上班 · 下班</span>',min:12},steps:[
+ intro({scene:SB.img,cap:'สถานการณ์ของบทนี้',title:'หนึ่งวันของแม่',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเล่าเรื่องในหนึ่งวันตามลำดับได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZF,WUF,WF,RH,XI,CHU,SB,XB]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['早饭','午饭','晚饭','然后','洗','出','上班','下班'],note:'ใช้คำจากบทก่อน เช่น 每天 已经 地铁 ร่วมด้วย'}),
+ ...WC(ZF,1,8,{cap:'มื้ออาหาร',hint:'คล้าย <b>"เจ่า ฟ่าน"</b>',use:'早 เช้า + 饭 ข้าว = อาหารเช้า · กินใช้ 吃',ex:[X.czf,X.qzf]}),
+ ...WC(WUF,2,8,{cap:'มื้ออาหาร',hint:'คล้าย <b>"อู่ ฟ่าน"</b>',use:'午 เที่ยง + 饭 = อาหารกลางวัน',ex:[X.yqw,X.zww]}),
+ ...WC(WF,3,8,{cap:'มื้ออาหาร',hint:'คล้าย <b>"หว่าน ฟ่าน"</b>',use:'晚 เย็น + 饭 = อาหารเย็น · ทำอาหารใช้ 做',ex:[X.zwf,X.wcs]}),
+ RC('คำที่ 1–3/8',[ZF,WUF,WF]),
+ use({n:'คำที่ 1–3/8',w:ZF,when:[{img:ZF.img,t:'ถามว่าแม่กินข้าวเช้าที่บ้านไหม'},{img:WF.img,t:'เย็นกลับมากินที่บ้าน'}],lines:[{...X.c,who:'me'},{...X.f,who:'g'}],tip:'<span class="zh">吃</span> + <span class="zh">早饭</span> / <span class="zh">午饭</span> / <span class="zh">晚饭</span>'}),
+ ...WC(RH,4,8,{cap:'ลำดับ',hint:'คล้าย <b>"หราน โฮ่ว"</b> · r ม้วนลิ้น',use:'แล้วก็ หลังจากนั้น · ทำ ก, 然后 ทำ ข',ex:[X.rxx,X.rdy]}),
+ ...WC(XI,5,8,{cap:'กิจวัตร',hint:'คล้าย <b>"สี่"</b> · x ลิ้นแตะฟันล่าง เสียง 3',use:'ล้าง ซัก · 洗手 ล้างมือ 洗衣服 ซักผ้า',ex:[X.qxs,X.xyf]}),
+ RC('คำที่ 4–5/8',[RH,XI]),
+ ...WC(CHU,6,8,{cap:'ทิศทาง',hint:'คล้าย <b>"ชู"</b> · ch ม้วนลิ้น พ่นลม',use:'ออก · 出去 ออกไป 出来 ออกมา',ex:[X.cq,X.cl]}),
+ rec({n:'คำที่ 6/8',ws:[CHU]}),
+ ...WC(SB,7,8,{cap:'งาน',hint:'คล้าย <b>"ซั่ง ปาน"</b>',use:'ไปทำงาน เข้างาน · 在 + ที่ + 上班 ทำงานที่…',ex:[X.bsb,X.nsb]}),
+ ...WC(XB,8,8,{cap:'งาน',hint:'คล้าย <b>"เซี่ย ปาน"</b>',use:'เลิกงาน · ตรงข้ามกับ 上班',ex:[X.jxb,X.bxb]}),
+ RC('คำที่ 7–8/8',[SB,XB]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','…然后…','ไปหรือเลิกงาน','แตะมื้ออาหาร','出 กับ 回','ข้อควรระวัง'],note:'ฝึกเล่าเรื่องในหนึ่งวันตามลำดับ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาหนึ่งวัน',title:'หนึ่งวันของแม่',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'บอกเวลาก่อนกริยา 八点上班 · เรียงเรื่องด้วย 然后'}),
+ talk({cap:'เทคนิค 2/6 · …然后…',title:'ทำอะไรก่อน ทำอะไรหลัง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.zzs,who:'g'},{...X.zpb,who:'me'},{...X.wsn,who:'g'},{...X.wds,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'เรื่องแรก + <span class="zh">，然后</span> + เรื่องถัดไป'}),
+ sortmap({tag:'เทคนิค 3/6 · ไปหรือเลิกงาน',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงไปทำงานหรือเลิกงาน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('爸爸'),X.bsb,0),it(ART('爸爸'),X.bxb,1),it(ART('女孩'),X.nsb,0),it(ART('女孩'),X.jxb,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะมื้ออาหาร',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:MEAL,rounds:[
+  {zh:X.czf.zh,k:X.czf.k,ans:0},{zh:X.zwf.zh,k:X.zwf.k,ans:2},{zh:X.xyf.zh,k:X.xyf.k,ans:3},{zh:X.zww.zh,k:X.zww.k,ans:1}]}),
+ cmp({cap:'เทคนิค 5/6 · 出 กับ 回',title:'ออกไป กลับมา',text:'แตะการ์ดเพื่อฟัง',a:{who:'ออก',img:NL(CHU),zh:X.cq.zh,zhb:'出去',py:'chūqu',th:'ออกไป',k:X.cq.k},b:{who:'กลับ',img:XB.img,zh:X.bxb.zh,zhb:'回家',py:'huí jiā',th:'กลับบ้าน',k:X.bxb.k},
+  tip:'<span class="zh">出</span> ออกจากที่เดิม · <span class="zh">回</span> กลับมาที่เดิม เช่น <span class="zh">回家</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'然后 อยู่ต้นเรื่องที่สอง',bad:'我吃早饭然后，去学校。',good:'我吃早饭，然后去学校。',k:'p21-rxx-f'},
+  {h:'了吗 อยู่ท้ายประโยค',bad:'你吃早饭吗了？',good:'你吃早饭了吗？',k:'p21-czf-g'},
+  {h:'在哪儿 อยู่หน้า 上班',bad:'你上班在哪儿？',good:'你在哪儿上班？',k:'p21-nsb-g'},
+  {h:'在 อยู่หน้ากริยา',bad:'妈妈洗在衣服。',good:'妈妈在洗衣服。',k:'p21-xyf-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:然后',opts:['แล้วก็ / หลังจากนั้น','ทุกวัน','เริ่ม'],ans:0,fb:'<span class="zh">然后</span> <b>ránhòu</b> = แล้วก็'}),
+ ask({rv:'ทบทวนบท 6-3 เวลาของฉัน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p21-yjx-g',opts:['เขาเลิกงานแล้ว','เขาเริ่มงานแล้ว','เขาไปทำงานบ่อย ๆ'],ans:0,fb:'<span class="zh">已经…了</span> = …แล้ว'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:晚饭',opts:[{img:WF.img},{img:ZF.img},{img:NL(XI)}],ans:0,fb:'<span class="zh">晚饭</span> <b>wǎnfàn</b> = อาหารเย็น'}),
+ blank({tag:TQ(3),s:'我去_手。',th:'ฉันไปล้างมือ',opts:['洗','出','吃'],ans:0,k:'p21-qxs-f',fb:'<span class="zh">我去洗手。</span>'}),
+ ask({rv:5,q:'ฟัง 饭 fàn แล้วเลือกพยัญชนะตัวแรก',k:'sy:饭',opts:['f','h','p'],ans:0,fb:'<b>f</b>àn · ฟันบนแตะริมฝีปากล่าง'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณเลิกงานกี่โมง',line:{...X.jxb,who:'g'},opts:[X.w5,X.qxs,X.wcs],ans:0,why:'ตอบด้วยเวลา + 下班'}),
+ ask({rv:'ทบทวนบท 4-1 ซื้อตั๋วขึ้นรถ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p21-d-g',opts:['กินอาหารเช้าเจ็ดโมง แล้วนั่งรถไฟใต้ดินไปทำงาน','กินอาหารเช้าเจ็ดโมง แล้วนั่งแท็กซี่ไปทำงาน','กินอาหารเช้าแปดโมง แล้วเดินไปทำงาน'],ans:0,fb:'<span class="zh">坐地铁</span> = นั่งรถไฟใต้ดิน'}),
+ order({tag:TQ(5),th:'ไปกินข้าวกลางวันด้วยกันเถอะ',tiles:[tl('我们','wǒmen'),tl('一起','yìqǐ'),tl('吃','chī'),tl('午饭','wǔfàn'),tl('吧','ba'),tl('晚上','wǎnshang')],ans:[0,1,2,3,4],end:'。',k:'p21-yqw-m'}),
+ tf({tag:TQ(6),k:'p21-b-g',img:XB.img,card:'<b>แม่ของหลี่น่า</b><br>เลิกงานห้าโมง',ans:0,fb:'<span class="zh">五点下班</span> = เลิกงานห้าโมง · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เล่าหนึ่งวันของฉัน',chips:['ฟังแล้วแตะภาพ','บอกที่ทำงาน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:MEAL,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนถามว่าคุณทำงานที่ไหน คุณทำงานที่ร้านอาหาร',line:{...X.nsb,who:'g'},opts:[X.fds,X.qzf,X.cq],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'爸爸_回家了。',opts:['下班','上班','出'],ans:0,k:'p21-bxb-m',fb:'<span class="zh">爸爸下班回家了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('妈妈','māma'),tl('在','zài'),tl('做','zuò'),tl('晚饭','wǎnfàn'),tl('午饭','wǔfàn')],ans:[0,1,2,3],end:'。',k:'p21-zwf-f'}),
+ fin({title:'เล่าหนึ่งวันตามลำดับได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZF,WUF,WF,RH,XI,CHU,SB,XB].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L21',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

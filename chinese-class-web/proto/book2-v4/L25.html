@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 7-1 สีและการแต่งตัว</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 7-1 หน่วย 7 ถนนสีสันและการเปรียบเทียบ: สีและการแต่งตัว · คำใหม่ 颜色 红 白 黑 蓝 真 鞋 穿 · ทบทวนในบริบท (เล่ม 1) 您
+   กิจกรรมเฉพาะบท: 什么颜色 你 หรือ 您 แตะสี 很 กับ 真 */
+WHO.m={n:'พนักงานขาย',img:ART('服务员')};
+const YS=W('颜色','yánsè','สี',{s:'yán sè',sl:[1]}),HONG=W('红','hóng','สีแดง'),BAI=W('白','bái','สีขาว'),HEI=W('黑','hēi','สีดำ'),
+ LAN=W('蓝','lán','สีน้ำเงิน / สีฟ้า'),ZHEN=W('真','zhēn','จริง ๆ / จริง'),XIE=W('鞋','xié','รองเท้า'),CHUAN=W('穿','chuān','สวม ใส่ (เสื้อผ้า รองเท้า)'),
+ NIN=W('您','nín','ท่าน / คุณ (สุภาพ)');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('您好！您想买什么？','nín hǎo! nín xiǎng mǎi shénme?','สวัสดีครับ ต้องการซื้ออะไรครับ','p25-a-t'),
+ b:S('我想买鞋。有红色的吗？','wǒ xiǎng mǎi xié. yǒu hóngsè de ma?','ฉันอยากซื้อรองเท้า มีสีแดงไหมคะ','p25-b-f'),
+ c:S('有。红的、白的、黑的都有。','yǒu. hóng de, bái de, hēi de dōu yǒu.','มีครับ สีแดง สีขาว สีดำ มีหมดเลย','p25-c-t'),
+ d:S('玛莉，你穿红的真漂亮！','Mǎlì, nǐ chuān hóng de zhēn piàoliang!','มะลิ ใส่สีแดงสวยจริง ๆ','p25-d-g'),
+ e:S('谢谢！你喜欢什么颜色？','xièxie! nǐ xǐhuan shénme yánsè?','ขอบคุณ เธอชอบสีอะไร','p25-e-f'),
+ f:S('我喜欢蓝色。请问，有蓝色的吗？','wǒ xǐhuan lánsè. qǐngwèn, yǒu lánsè de ma?','ฉันชอบสีฟ้า ขอถามหน่อย มีสีฟ้าไหมคะ','p25-f-g'),
+ sms:S('你喜欢什么颜色？','nǐ xǐhuan shénme yánsè?','คุณชอบสีอะไร','p25-sms-g'),
+ ysp:S('这个颜色很漂亮。','zhège yánsè hěn piàoliang.','สีนี้สวยมาก','p25-ysp-f'),
+ hyf:S('她穿红衣服。','tā chuān hóng yīfu.','เธอใส่เสื้อสีแดง','p25-hyf-m'),
+ pgh:S('苹果是红的。','píngguǒ shì hóng de.','แอปเปิลเป็นสีแดง','p25-pgh-t'),
+ bxh:S('白色的鞋很好看。','báisè de xié hěn hǎokàn.','รองเท้าสีขาวสวยดี','p25-bxh-g'),
+ yfb:S('他的衣服是白的。','tā de yīfu shì bái de.','เสื้อของเขาเป็นสีขาว','p25-yfb-f'),
+ xhs:S('我喜欢黑色。','wǒ xǐhuan hēisè.','ฉันชอบสีดำ','p25-xhs-m'),
+ wmh:S('外面很黑。','wàimiàn hěn hēi.','ข้างนอกมืดมาก','p25-wmh-g'),
+ tl:S('今天天很蓝。','jīntiān tiān hěn lán.','วันนี้ฟ้าสีฟ้าสดใส','p25-tl-f'),
+ sjl:S('我的手机是蓝色的。','wǒ de shǒujī shì lánsè de.','มือถือของฉันเป็นสีน้ำเงิน','p25-sjl-m'),
+ nzh:S('你真好！','nǐ zhēn hǎo!','เธอดีจริง ๆ','p25-nzh-g'),
+ xgt:S('这个西瓜真甜！','zhège xīguā zhēn tián!','แตงโมลูกนี้หวานจริง ๆ','p25-xgt-f'),
+ mx:S('我想买鞋。','wǒ xiǎng mǎi xié.','ฉันอยากซื้อรองเท้า','p25-mx-f'),
+ xpl:S('你的鞋很漂亮。','nǐ de xié hěn piàoliang.','รองเท้าของคุณสวยมาก','p25-xpl-g'),
+ dcy:S('今天很冷，你多穿一点儿。','jīntiān hěn lěng, nǐ duō chuān yìdiǎnr.','วันนี้หนาวมาก ใส่เสื้อเยอะ ๆ หน่อยนะ','p25-dcy-t'),
+ cbs:S('她穿白色的衣服。','tā chuān báisè de yīfu.','เธอใส่เสื้อสีขาว','p25-cbs-g'),
+ lsn:S('老师，您好！','lǎoshī, nín hǎo!','สวัสดีค่ะคุณครู','p25-lsn-f'),
+ ngx:S('您贵姓？','nín guì xìng?','ท่านนามสกุลอะไรคะ','p25-ngx-g'),
+ hsx:S('我想买红色的鞋。','wǒ xiǎng mǎi hóngsè de xié.','ฉันอยากซื้อรองเท้าสีแดง','p25-hsx-f'),
+ xhh:S('我喜欢红色。','wǒ xǐhuan hóngsè.','ฉันชอบสีแดง','p25-xhh-f'),
+ q2:S('你的鞋是什么颜色的？','nǐ de xié shì shénme yánsè de?','รองเท้าของคุณสีอะไร','p25-q2-g'),
+ a2:S('我的鞋是白色的。','wǒ de xié shì báisè de.','รองเท้าของฉันสีขาว','p25-a2-f'),
+ fjl:S('我的房间是蓝色的。','wǒ de fángjiān shì lánsè de.','ห้องของฉันเป็นสีฟ้า','p25-fjl-g'),
+ yhs:S('请问，有黑色的吗？','qǐngwèn, yǒu hēisè de ma?','ขอถามหน่อย มีสีดำไหม','p25-yhs-f'),
+ m1:S('我要红色的。','wǒ yào hóngsè de.','ฉันเอาสีแดง','p25-m1-t'),m2:S('我要白色的。','wǒ yào báisè de.','ฉันเอาสีขาว','p25-m2-t'),
+ m3:S('我要黑色的。','wǒ yào hēisè de.','ฉันเอาสีดำ','p25-m3-t'),m4:S('我要蓝色的。','wǒ yào lánsè de.','ฉันเอาสีน้ำเงิน','p25-m4-t'),
+ c1:S('红色','hóngsè','สีแดง','p25-c1-t'),c2:S('白色','báisè','สีขาว','p25-c2-t'),c3:S('黑色','hēisè','สีดำ','p25-c3-t'),c4:S('蓝色','lánsè','สีน้ำเงิน','p25-c4-t')};
+const L={a:{...X.a,who:'m'},b:{...X.b,who:'me'},c:{...X.c,who:'m'},d:{...X.d,who:'g'},e:{...X.e,who:'me'},f:{...X.f,who:'g'}};
+const D=[{sit:'มะลิกับหลี่น่าไปร้านรองเท้า',img:XIE.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const COL=[{img:HONG.img,th:'แดง'},{img:BAI.img,th:'ขาว'},{img:HEI.img,th:'ดำ'},{img:LAN.img,th:'น้ำเงิน'}];
+const BINS=[{img:ART('朋友'),zh:'你',py:'nǐ',th:'เพื่อน คนทั่วไป'},{img:NIN.img,zh:'您',py:'nín',th:'ผู้ใหญ่ ลูกค้า'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:25,code:'บท 7-1',title:'สีและการแต่งตัว',goal:{do:'เลือกรองเท้าและเสื้อผ้าตามสี ถามว่ามีสีที่ต้องการไหม และชมการแต่งตัว',sub:'ใช้ <span class="gz">什么颜色 · 有红色的吗 · 穿 · 真漂亮</span>',min:12},steps:[
+ intro({scene:XIE.img,cap:'สถานการณ์ของบทนี้',title:'ร้านรองเท้า',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเลือกซื้อของตามสีได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[YS,HONG,BAI,HEI,LAN,ZHEN,XIE,CHUAN]}),
+ recap({cap:'คำจากเล่ม 1 ที่ใช้ในบทนี้',title:'ทวนคำเดิม',text:'แตะการ์ดเพื่อฟัง พนักงานในร้านจะพูดกับลูกค้าด้วยคำนี้',groups:[{lab:'คำจากเล่ม 1',items:[NIN]}]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['颜色','红','白','黑','蓝','真','鞋','穿'],note:'ใช้คำจากบทก่อน เช่น 衣服 漂亮 想买 ร่วมด้วย'}),
+ ...WC(YS,1,8,{cap:'สี',hint:'คล้าย <b>"เหยียน เซ่อ"</b> · 色 ในคำนี้อ่าน sè',use:'สี · ถาม 什么颜色 สีอะไร',ex:[X.sms,X.ysp]}),
+ ...WC(HONG,2,8,{cap:'สี',hint:'คล้าย <b>"หง"</b> · เสียง 2',use:'สีแดง · พูดชื่อสีเดี่ยว ๆ ว่า 红色',ex:[X.hyf,X.pgh]}),
+ ...WC(BAI,3,8,{cap:'สี',hint:'คล้าย <b>"ป๋าย"</b> · เสียง 2',use:'สีขาว · 白色的 + ของ',ex:[X.bxh,X.yfb]}),
+ RC('คำที่ 1–3/8',[YS,HONG,BAI]),
+ ...WC(HEI,4,8,{cap:'สี',hint:'คล้าย <b>"เฮย"</b> · เสียง 1',use:'สีดำ · ใช้บอกว่ามืดได้ด้วย',ex:[X.xhs,X.wmh]}),
+ ...WC(LAN,5,8,{cap:'สี',hint:'คล้าย <b>"หลาน"</b> · เสียง 2',use:'สีน้ำเงิน สีฟ้า',ex:[X.tl,X.sjl]}),
+ RC('คำที่ 4–5/8',[HEI,LAN]),
+ use({n:'คำที่ 1–5/8',w:YS,when:[{img:XIE.img,t:'ถามหาสีที่อยากได้'},{img:LAN.img,t:'บอกสีที่ชอบ'}],lines:[{...X.b,who:'me'},{...X.f,who:'g'}],tip:'ถามหาสินค้า <span class="zh">有</span> + สี + <span class="zh">的吗？</span>'}),
+ ...WC(ZHEN,6,8,{cap:'ความรู้สึก',hint:'คล้าย <b>"เจิน"</b> · zh ม้วนลิ้น',use:'จริง ๆ · 真 + คำคุณศัพท์ ใช้ชมหรืออุทาน',ex:[X.nzh,X.xgt]}),
+ ...WC(XIE,7,8,{cap:'เสื้อผ้า',hint:'คล้าย <b>"เสีย"</b> · x ลิ้นแตะฟันล่าง เสียง 2',use:'รองเท้า',ex:[X.mx,X.xpl]}),
+ ...WC(CHUAN,8,8,{cap:'การแต่งตัว',hint:'คล้าย <b>"ชวน"</b> · ch ม้วนลิ้น พ่นลม',use:'สวม ใส่ · ใช้กับเสื้อผ้าและรองเท้า',ex:[X.dcy,X.cbs]}),
+ RC('คำที่ 6–8/8',[ZHEN,XIE,CHUAN]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','什么颜色','你 หรือ 您','แตะสี','很 กับ 真','ข้อควรระวัง'],note:'ฝึกเลือกซื้อของตามสี'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในร้าน',title:'ร้านรองเท้า',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'พนักงานพูดกับลูกค้าด้วย 您 · ชมด้วย 真漂亮'}),
+ talk({cap:'เทคนิค 2/6 · 什么颜色',title:'ถามและบอกสี',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.sms,who:'g'},{...X.xhh,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ถาม <span class="zh">什么颜色</span> · บอกสีของสิ่งของ <span class="zh">是…色的</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · 你 หรือ 您',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 你 หรือ 您',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('老师'),X.lsn,1),it(ART('女孩'),X.nzh,0),it(NIN.img,X.ngx,1),it(ART('朋友'),X.sms,0)]}),
+ point({tag:'เทคนิค 4/6 · แตะสี',q:'ฟังแต่ละประโยค แล้วแตะสีที่พูดถึง',this:'คือสีนี้',cards:COL,rounds:[
+  {zh:X.hyf.zh,k:X.hyf.k,ans:0},{zh:X.xhs.zh,k:X.xhs.k,ans:2},{zh:X.sjl.zh,k:X.sjl.k,ans:3},{zh:X.yfb.zh,k:X.yfb.k,ans:1}]}),
+ cmp({cap:'เทคนิค 5/6 · 很 กับ 真',title:'มาก กับ จริง ๆ',text:'แตะการ์ดเพื่อฟัง',a:{who:'บอกเฉย ๆ',img:YS.img,zh:X.ysp.zh,zhb:'很漂亮',py:'hěn piàoliang',th:'สวยมาก',k:X.ysp.k},b:{who:'อุทานชม',img:NL(CHUAN),zh:X.d.zh,zhb:'真漂亮',py:'zhēn piàoliang',th:'สวยจริง ๆ',k:X.d.k},
+  tip:'<span class="zh">很</span> บอกข้อมูลทั่วไป · <span class="zh">真</span> ใส่ความรู้สึก ใช้ชมหรืออุทาน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'สีอยู่หน้าสิ่งของ',bad:'我想买鞋红。',good:'我想买红色的鞋。',k:'p25-hsx-f'},
+  {h:'什么 อยู่หน้า 颜色',bad:'你喜欢颜色什么？',good:'你喜欢什么颜色？',k:'p25-sms-g'},
+  {h:'真 อยู่หน้าคำคุณศัพท์',bad:'这个西瓜甜真！',good:'这个西瓜真甜！',k:'p25-xgt-f'},
+  {h:'ชื่อสีเดี่ยว ๆ มี 色',bad:'我喜欢红。',good:'我喜欢红色。',k:'p25-xhh-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:鞋',opts:['รองเท้า','เสื้อผ้า','สี'],ans:0,fb:'<span class="zh">鞋</span> <b>xié</b> = รองเท้า'}),
+ ask({rv:'ทบทวนบท 6-6 ห้องเรียนและการสอบ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p25-fjl-g',opts:['ห้องของฉันเป็นสีฟ้า','ห้องเรียนของฉันเป็นสีฟ้า','ห้องของฉันเป็นสีขาว'],ans:0,fb:'<span class="zh">房间</span> = ห้อง · <span class="zh">蓝色</span> = สีฟ้า'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:红',opts:[{img:HONG.img},{img:HEI.img},{img:LAN.img}],ans:0,fb:'<span class="zh">红</span> <b>hóng</b> = สีแดง'}),
+ blank({tag:TQ(3),s:'你喜欢什么_？',th:'คุณชอบสีอะไร',opts:['颜色','鞋','真'],ans:0,k:'p25-sms-g',fb:'<span class="zh">你喜欢什么颜色？</span>'}),
+ ask({rv:6,q:'ฟัง 鞋 xié แล้วเลือกพยัญชนะตัวแรก',k:'sy:鞋',opts:['x','q','j'],ans:0,fb:'<b>x</b>ié · ลิ้นแตะฟันล่าง ไม่พ่นลม'}),
+ reply({tag:TQ(4),q:'พนักงานทักและถามว่าต้องการซื้ออะไร คุณอยากซื้อรองเท้า',line:{...X.a,who:'m'},opts:[X.mx,X.nzh,X.wmh],ans:0,why:'ตอบด้วย 我想买…'}),
+ ask({rv:'ทบทวนบท 5-2 ซื้อของที่ตลาดสด',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p25-xgt-f',opts:['แตงโมลูกนี้หวานจริง ๆ','แตงโมลูกนี้แพงจริง ๆ','แตงโมลูกนี้ใหญ่จริง ๆ'],ans:0,fb:'<span class="zh">西瓜</span> = แตงโม · <span class="zh">甜</span> = หวาน'}),
+ order({tag:TQ(5),th:'เธอใส่เสื้อสีขาว',tiles:[tl('她','tā'),tl('穿','chuān'),tl('白色的','báisè de'),tl('衣服','yīfu'),tl('鞋','xié')],ans:[0,1,2,3],end:'。',k:'p25-cbs-g'}),
+ tf({tag:TQ(6),k:'p25-c-t',img:XIE.img,card:'<b>ร้านนี้</b><br>มีรองเท้าสีฟ้า',ans:1,fb:'<span class="zh">红的、白的、黑的都有。</span> = มีสีแดง ขาว ดำ · ไม่ได้พูดถึงสีฟ้า'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เลือกสีที่ชอบ',chips:['ฟังแล้วแตะสี','ถามพนักงาน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะสีที่ลูกค้าเลือก',this:'คือสีนี้',cards:COL,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณอยากได้รองเท้าสีดำ คุณถามพนักงาน',opts:[X.yhs,X.xpl,X.xhh],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'今天很冷，你多_一点儿。',opts:['穿','真','买'],ans:0,k:'p25-dcy-t',fb:'<span class="zh">今天很冷，你多穿一点儿。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('你的','nǐ de'),tl('鞋','xié'),tl('很','hěn'),tl('漂亮','piàoliang'),tl('颜色','yánsè')],ans:[0,1,2,3],end:'。',k:'p25-xpl-g'}),
+ fin({title:'เลือกซื้อของตามสีได้แล้ว',html:dlgH(D,{noTh:1}),chips:[YS,HONG,BAI,HEI,LAN,ZHEN,XIE,CHUAN,NIN].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L25',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

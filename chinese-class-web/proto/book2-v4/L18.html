@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 6-1 เล่นกีฬา</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 6-1 หน่วย 6 วันธรรมดาสุดสนุก: เล่นกีฬา · คำใหม่ 运动 跑 跑步 游泳 篮球 打 打篮球 踢
+   ทบทวนจากบทก่อน: 吧 一起 会 · กิจกรรมเฉพาะบท: 打 หรือ 踢 แตะกีฬา 跑 กับ 跑步 */
+const YD=W('运动','yùndòng','ออกกำลังกาย / กีฬา',{s:'yùn dòng'}),PAO=W('跑','pǎo','วิ่ง'),PB=W('跑步','pǎo bù','วิ่งออกกำลังกาย',{s:'pǎo bù'}),
+ YY=W('游泳','yóuyǒng','ว่ายน้ำ',{s:'yóu yǒng'}),LQ=W('篮球','lánqiú','บาสเกตบอล',{s:'lán qiú'}),DA=W('打','dǎ','ตี / เล่น (กีฬา) / โทร'),
+ DLQ=W('打篮球','dǎlánqiú','เล่นบาสเกตบอล',{s:'dǎ lán qiú'}),TI=W('踢','tī','เตะ');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，你喜欢运动吗？','Mǎlì, nǐ xǐhuan yùndòng ma?','มะลิ คุณชอบออกกำลังกายไหม','p18-a-m'),
+ b:S('喜欢！我喜欢跑步和游泳。','xǐhuan! wǒ xǐhuan pǎo bù hé yóuyǒng.','ชอบ ฉันชอบวิ่งกับว่ายน้ำ','p18-b-f'),
+ c:S('我喜欢打篮球。下午我们一起去打篮球吧！','wǒ xǐhuan dǎ lánqiú. xiàwǔ wǒmen yìqǐ qù dǎ lánqiú ba!','ฉันชอบเล่นบาส บ่ายนี้ไปเล่นบาสด้วยกันเถอะ','p18-c-m'),
+ d:S('好！李娜也去吗？','hǎo! Lǐ Nà yě qù ma?','ได้ หลี่น่าไปด้วยไหม','p18-d-f'),
+ e:S('她不去，她去踢球。','tā bú qù, tā qù tī qiú.','เธอไม่ไป เธอไปเตะบอล','p18-e-m'),
+ f:S('好，我们走吧！','hǎo, wǒmen zǒu ba!','ได้ ไปกันเถอะ','p18-f-f'),
+ ayd:S('我爱运动。','wǒ ài yùndòng.','ฉันรักการออกกำลังกาย','p18-ayd-f'),
+ smyd:S('你喜欢什么运动？','nǐ xǐhuan shénme yùndòng?','คุณชอบกีฬาอะไร','p18-smyd-g'),
+ wmpb:S('我们跑吧！','wǒmen pǎo ba!','วิ่งกันเถอะ','p18-wmpb-g'),
+ gpl:S('狗跑了！','gǒu pǎo le!','สุนัขวิ่งหนีไปแล้ว','p18-gpl-m'),
+ zspb:S('我喜欢早上跑步。','wǒ xǐhuan zǎoshang pǎo bù.','ฉันชอบวิ่งตอนเช้า','p18-zspb-f'),
+ yqpb:S('我们一起去跑步吧！','wǒmen yìqǐ qù pǎo bù ba!','ไปวิ่งด้วยกันเถอะ','p18-yqpb-g'),
+ hyy:S('你会游泳吗？','nǐ huì yóuyǒng ma?','คุณว่ายน้ำเป็นไหม','p18-hyy-g'),
+ whyy:S('我会游泳。','wǒ huì yóuyǒng.','ฉันว่ายน้ำเป็น','p18-whyy-f'),
+ xhlq:S('我喜欢篮球。','wǒ xǐhuan lánqiú.','ฉันชอบบาสเกตบอล','p18-xhlq-m'),
+ wdlq:S('这是我的篮球。','zhè shì wǒ de lánqiú.','นี่คือลูกบาสของฉัน','p18-wdlq-f'),
+ qdlq:S('我们去打篮球吧。','wǒmen qù dǎ lánqiú ba.','ไปเล่นบาสกันเถอะ','p18-qdlq-m'),
+ ddh:S('我打电话。','wǒ dǎ diànhuà.','ฉันโทรศัพท์','p18-ddh-f'),
+ gglq:S('我哥哥喜欢打篮球。','wǒ gēge xǐhuan dǎ lánqiú.','พี่ชายของฉันชอบเล่นบาส','p18-gglq-g'),
+ pydl:S('我喜欢和朋友打篮球。','wǒ xǐhuan hé péngyou dǎ lánqiú.','ฉันชอบเล่นบาสกับเพื่อน','p18-pydl-f'),
+ ddtq:S('弟弟喜欢踢球。','dìdi xǐhuan tī qiú.','น้องชายชอบเตะบอล','p18-ddtq-f'),
+ tzz:S('他踢了桌子。','tā tī le zhuōzi.','เขาเตะโต๊ะ','p18-tzz-t'),
+ m1:S('我喜欢跑步。','wǒ xǐhuan pǎo bù.','ฉันชอบวิ่ง','p18-m1-t'),m2:S('我喜欢游泳。','wǒ xǐhuan yóuyǒng.','ฉันชอบว่ายน้ำ','p18-m2-t'),
+ m3:S('我喜欢打篮球。','wǒ xǐhuan dǎ lánqiú.','ฉันชอบเล่นบาส','p18-m3-t'),m4:S('我喜欢踢球。','wǒ xǐhuan tī qiú.','ฉันชอบเตะบอล','p18-m4-t'),
+ c1:S('跑步','pǎo bù','วิ่ง','p18-c1-t'),c2:S('游泳','yóuyǒng','ว่ายน้ำ','p18-c2-t'),c3:S('打篮球','dǎ lánqiú','เล่นบาส','p18-c3-t'),c4:S('踢球','tī qiú','เตะบอล','p18-c4-t')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'}};
+const D=[{sit:'หลังเลิกเรียน หวังหมิงชวนมะลิไปออกกำลังกาย',img:NL(YD)},L.a,L.b,L.c,L.d,L.e,L.f];
+const SP=[{img:NL(PB),th:'วิ่ง'},{img:NL(YY),th:'ว่ายน้ำ'},{img:NL(DLQ),th:'เล่นบาส'},{img:NL(TI),th:'เตะบอล'}];
+const BINS=[{img:LQ.img,zh:'打',py:'dǎ',th:'ตี เล่น'},{img:NL(TI),zh:'踢',py:'tī',th:'เตะ'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:18,code:'บท 6-1',title:'เล่นกีฬา',goal:{do:'บอกว่าชอบกีฬาอะไร ทำเป็นไหม และชวนเพื่อนไปเล่นด้วยกัน',sub:'ใช้ <span class="gz">运动 · 跑步 · 游泳 · 打篮球</span>',min:12},steps:[
+ intro({scene:NL(YD),cap:'สถานการณ์ของบทนี้',title:'ไปเล่นกีฬากัน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะคุยเรื่องกีฬาและชวนเพื่อนไปเล่นได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[YD,PAO,PB,YY,LQ,DA,DLQ,TI]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['运动','跑','跑步','游泳','篮球','打','打篮球','踢'],note:'ใช้คำจากเล่ม 1 เช่น 喜欢 会 和 下午 ร่วมด้วย'}),
+ ...WC(YD,1,8,{cap:'กีฬา',hint:'คล้าย <b>"ยวิ่น ต้ง"</b> · เสียง 4 ทั้งสองพยางค์',use:'ออกกำลังกาย กีฬา · 什么运动 กีฬาอะไร',ex:[X.ayd,X.smyd]}),
+ ...WC(PAO,2,8,{cap:'กีฬา',hint:'คล้าย <b>"เผ่า"</b> · p พ่นลม เสียง 3',use:'วิ่ง · บอกการวิ่งทั่วไป เช่น วิ่งหนี วิ่งไป',ex:[X.wmpb,X.gpl]}),
+ RC('คำที่ 1–2/8',[YD,PAO]),
+ ...WC(PB,3,8,{cap:'กีฬา',hint:'คล้าย <b>"เผ่า ปู้"</b> · p พ่นลม b ไม่พ่นลม',use:'跑 วิ่ง + 步 ก้าว = วิ่งออกกำลังกาย · ไม่ต้องมีกรรมตามหลัง',ex:[X.zspb,X.yqpb]}),
+ ...WC(YY,4,8,{cap:'กีฬา',hint:'คล้าย <b>"โหยว หย่ง"</b> · เสียง 2 ต่อด้วยเสียง 3',use:'ว่ายน้ำ · ทำเป็นใช้ 会游泳',ex:[X.hyy,X.whyy]}),
+ RC('คำที่ 3–4/8',[PB,YY]),
+ use({n:'คำที่ 1–4/8',w:YD,when:[{img:NL(PB),t:'ชอบวิ่ง'},{img:NL(YY),t:'ชอบว่ายน้ำ'}],lines:[{...X.a,who:'f'},{...X.b,who:'me'}],tip:'ถาม <span class="zh">你喜欢运动吗？</span> · ตอบ <span class="zh">我喜欢</span> + กีฬา'}),
+ ...WC(LQ,5,8,{cap:'กีฬา',hint:'คล้าย <b>"หลาน ฉิว"</b> · q พ่นลม',use:'篮 ตะกร้า + 球 ลูกบอล = บาสเกตบอล',ex:[X.xhlq,X.wdlq]}),
+ ...WC(DA,6,8,{cap:'กริยา',hint:'คล้าย <b>"ต่า"</b> · d ไม่พ่นลม เสียง 3',use:'ตี เล่นกีฬาที่ใช้มือ · โทรศัพท์ก็ใช้ 打电话',ex:[X.qdlq,X.ddh]}),
+ RC('คำที่ 5–6/8',[LQ,DA]),
+ ...WC(DLQ,7,8,{cap:'กีฬา',hint:'คล้าย <b>"ต่า หลาน ฉิว"</b>',use:'打 เล่น + 篮球 บาส = เล่นบาสเกตบอล',ex:[X.gglq,X.pydl]}),
+ ...WC(TI,8,8,{cap:'กริยา',hint:'คล้าย <b>"ที"</b> · t พ่นลม เสียง 1',use:'เตะ · เตะบอลพูดว่า 踢球',ex:[X.ddtq,X.tzz]}),
+ RC('คำที่ 7–8/8',[DLQ,TI]),
+ use({n:'คำที่ 5–8/8',w:DLQ,when:[{img:NL(DLQ),t:'ใช้มือ'},{img:NL(TI),t:'ใช้เท้า'}],lines:[{...X.c,who:'f'},{...X.e,who:'f'}],tip:'บาสใช้ <span class="zh">打</span> · บอลใช้ <span class="zh">踢</span> · ชวนไปด้วยกันใช้ <span class="zh">一起去…吧</span>'}),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','กีฬาอะไร','打 หรือ 踢','แตะกีฬา','跑 กับ 跑步','ข้อควรระวัง'],note:'ฝึกคุยเรื่องกีฬาและชวนเพื่อน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาหลังเลิกเรียน',title:'ไปเล่นกีฬากัน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'บอกกีฬาที่ชอบด้วย 我喜欢… · ชวนด้วย 一起去…吧'}),
+ talk({cap:'เทคนิค 2/6 · กีฬาอะไร',title:'ถามกีฬาที่ชอบ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.smyd,who:'g'},{...X.zspb,who:'me'},{...X.hyy,who:'g'},{...X.whyy,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">你喜欢什么运动？</span> · ทำเป็นไหมใช้ <span class="zh">会…吗？</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · 打 หรือ 踢',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 打 หรือ 踢',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(DLQ),X.gglq,0),it(ART('弟弟'),X.ddtq,1),it(ART('电话'),X.ddh,0),it(ART('桌子'),X.tzz,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะกีฬา',q:'ฟังแต่ละประโยค แล้วแตะกีฬาที่พูดถึง',this:'คือกีฬานี้',cards:SP,rounds:[
+  {zh:X.yqpb.zh,k:X.yqpb.k,ans:0},{zh:X.hyy.zh,k:X.hyy.k,ans:1},{zh:X.pydl.zh,k:X.pydl.k,ans:2},{zh:X.ddtq.zh,k:X.ddtq.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 跑 กับ 跑步',title:'วิ่ง วิ่งออกกำลังกาย',text:'แตะการ์ดเพื่อฟัง',a:{who:'วิ่ง',img:NL(PAO),zh:X.gpl.zh,zhb:'跑',py:'pǎo',th:'วิ่ง',k:X.gpl.k},b:{who:'วิ่งออกกำลังกาย',img:NL(PB),zh:X.zspb.zh,zhb:'跑步',py:'pǎo bù',th:'วิ่งออกกำลังกาย',k:X.zspb.k},
+  tip:'<span class="zh">跑</span> การวิ่งทั่วไป · <span class="zh">跑步</span> วิ่งเพื่อออกกำลังกาย'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'บาสใช้ 打 ไม่ใช้ 踢',bad:'我哥哥喜欢踢篮球。',good:'我哥哥喜欢打篮球。',k:'p18-gglq-g'},
+  {h:'ทำเป็นใช้ 会',bad:'我是游泳。',good:'我会游泳。',k:'p18-whyy-f'},
+  {h:'เวลาอยู่หน้ากริยา',bad:'我喜欢跑步早上。',good:'我喜欢早上跑步。',k:'p18-zspb-f'},
+  {h:'一起 อยู่หน้า 去',bad:'我们去一起跑步吧！',good:'我们一起去跑步吧！',k:'p18-yqpb-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:游泳',opts:['ว่ายน้ำ','วิ่ง','เตะ'],ans:0,fb:'<span class="zh">游泳</span> <b>yóuyǒng</b> = ว่ายน้ำ'}),
+ ask({rv:'ทบทวนบท 3-1 พี่น้องและครอบครัว',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p18-gglq-g',opts:['พี่ชายของฉันชอบเล่นบาส','น้องชายของฉันชอบเล่นบาส','พี่ชายของฉันชอบเตะบอล'],ans:0,fb:'<span class="zh">哥哥</span> = พี่ชาย'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:踢',opts:[{img:NL(TI)},{img:NL(DLQ)},{img:NL(YY)}],ans:0,fb:'<span class="zh">踢</span> <b>tī</b> = เตะ'}),
+ blank({tag:TQ(3),s:'我会_。',th:'ฉันว่ายน้ำเป็น',opts:['游泳','篮球','运动'],ans:0,k:'p18-whyy-f',fb:'<span class="zh">我会游泳。</span>'}),
+ ask({rv:5,q:'ฟัง 踢 tī แล้วเลือกพยัญชนะตัวแรก',k:'sy:踢',opts:['t','d'],ans:0,fb:'<b>t</b>ī · พ่นลมออกมา · d ไม่พ่นลม'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณชอบกีฬาอะไร คุณชอบวิ่งตอนเช้า',line:{...X.smyd,who:'g'},opts:[X.zspb,X.ddh,X.gpl],ans:0,why:'ตอบกีฬาที่ชอบด้วย 我喜欢…'}),
+ ask({rv:'ทบทวนบท 2-1 สวัสดีตอนเช้า ราตรีสวัสดิ์',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p18-qdlq-m',opts:['ไปเล่นบาสกันเถอะ','เดี๋ยวเจอกันที่สนามบาส','ฉันไม่อยากเล่นบาส'],ans:0,fb:'<span class="zh">吧</span> ใช้ชวน'}),
+ order({tag:TQ(5),th:'ไปวิ่งด้วยกันเถอะ',tiles:[tl('我们','wǒmen'),tl('一起','yìqǐ'),tl('去','qù'),tl('跑步','pǎo bù'),tl('吧','ba'),tl('踢','tī')],ans:[0,1,2,3,4],end:'！',k:'p18-yqpb-g'}),
+ tf({tag:TQ(6),k:'p18-e-m',img:NL(TI),card:'<b>หลี่น่า</b><br>ไปเล่นบาส',ans:1,fb:'<span class="zh">她不去，她去踢球。</span> = หลี่น่าไปเตะบอล · จึงไม่ถูก'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ชวนเพื่อนเล่นกีฬา',chips:['ฟังแล้วแตะกีฬา','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะกีฬา',this:'คือกีฬานี้',cards:SP,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนถามว่าคุณว่ายน้ำเป็นไหม คุณว่ายเป็น',line:{...X.hyy,who:'g'},opts:[X.whyy,X.wdlq,X.tzz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'弟弟喜欢_球。',opts:['踢','跑','游'],ans:0,k:'p18-ddtq-f',fb:'<span class="zh">弟弟喜欢踢球。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('爱','ài'),tl('运动','yùndòng'),tl('篮球','lánqiú')],ans:[0,1,2],end:'。',k:'p18-ayd-f'}),
+ fin({title:'คุยเรื่องกีฬาได้แล้ว',html:dlgH(D,{noTh:1}),chips:[YD,PAO,PB,YY,LQ,DA,DLQ,TI].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L18',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

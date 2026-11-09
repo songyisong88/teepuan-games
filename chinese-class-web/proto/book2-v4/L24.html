@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · ทบทวนหน่วยที่ 6</title>
+</head><body>
+<script>
+/* เล่ม 2 ทบทวนหน่วยที่ 6 วันธรรมดาสุดสนุก: ทวนคำทั้ง 6 บท → บทสนทนาวันเสาร์ของมะลิ → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+const YD=W('运动','yùndòng','ออกกำลังกาย / กีฬา',{s:'yùn dòng'}),PAO=W('跑','pǎo','วิ่ง'),PB=W('跑步','pǎo bù','วิ่งออกกำลังกาย',{s:'pǎo bù'}),
+ YY=W('游泳','yóuyǒng','ว่ายน้ำ',{s:'yóu yǒng'}),LQ=W('篮球','lánqiú','บาสเกตบอล',{s:'lán qiú'}),DA=W('打','dǎ','ตี / เล่น (กีฬา) / โทร'),
+ DLQ=W('打篮球','dǎlánqiú','เล่นบาสเกตบอล',{s:'dǎ lán qiú'}),TI=W('踢','tī','เตะ');
+const JDE=W('觉得','juéde','รู้สึกว่า / คิดว่า',{s:'jué de',sl:[0]}),CG=W('唱歌','chàng gē','ร้องเพลง',{s:'chàng gē'}),YYUE=W('音乐','yīnyuè','ดนตรี',{s:'yīn yuè',sl:[1]}),
+ TIAO=W('跳','tiào','กระโดด'),TW=W('跳舞','tiào wǔ','เต้นรำ',{s:'tiào wǔ'}),WANR=W('玩','wán','เล่น / เที่ยว'),YX=W('游戏','yóuxì','เกม',{s:'yóu xì'}),
+ ZP=W('照片','zhàopiàn','รูปถ่าย',{s:'zhào piàn',sl:[1]});
+const SJ=W('手机','shǒujī','โทรศัพท์มือถือ',{s:'shǒu jī'}),XS=W('小时','xiǎoshí','ชั่วโมง',{s:'xiǎo shí'}),SJN=W('时间','shíjiān','เวลา',{s:'shí jiān',sl:[1]}),
+ MT=W('每天','měi tiān','ทุกวัน',{s:'měi tiān'}),MEI=W('每','měi','ทุก ๆ'),JC=W('经常','jīngcháng','บ่อย ๆ',{s:'jīng cháng'}),YJ=W('已经','yǐjīng','แล้ว (เกิดขึ้นแล้ว)',{s:'yǐ jīng'}),
+ KS=W('开始','kāishǐ','เริ่ม',{s:'kāi shǐ'});
+const ZF=W('早饭','zǎofàn','อาหารเช้า',{s:'zǎo fàn'}),WUF=W('午饭','wǔfàn','อาหารกลางวัน',{s:'wǔ fàn'}),WF=W('晚饭','wǎnfàn','อาหารเย็น',{s:'wǎn fàn'}),
+ RH=W('然后','ránhòu','แล้วก็ / หลังจากนั้น',{s:'rán hòu'}),XI=W('洗','xǐ','ล้าง / ซัก'),CHU=W('出','chū','ออก'),SB=W('上班','shàng bān','ไปทำงาน',{s:'shàng bān'}),
+ XB=W('下班','xià bān','เลิกงาน',{s:'xià bān'});
+const ZM=W('周末','zhōumò','สุดสัปดาห์',{s:'zhōu mò'}),YAO=W('要','yào','จะ / ต้องการ'),GS=W('公司','gōngsī','บริษัท',{s:'gōng sī'}),
+ BZ=W('帮助','bāngzhù','ช่วยเหลือ',{s:'bāng zhù'}),ZB=W('准备','zhǔnbèi','เตรียม',{s:'zhǔn bèi'}),MANG=W('忙','máng','ยุ่ง'),XX=W('休息','xiūxi','พักผ่อน',{s:'xiū xi'}),
+ XIAO=W('笑','xiào','หัวเราะ / ยิ้ม');
+const DE=W('得','de','(คำเชื่อม บอกว่าทำได้ระดับไหน)',{nosk:1}),FJ=W('房间','fángjiān','ห้อง',{s:'fáng jiān',sl:[1]}),MEN=W('门','mén','ประตู'),
+ CI=W('次','cì','ครั้ง'),KE=W('课','kè','บทเรียน / คาบเรียน'),JS=W('教室','jiàoshì','ห้องเรียน',{s:'jiào shì',sl:[0]}),BZH=W('报纸','bàozhǐ','หนังสือพิมพ์',{s:'bào zhǐ'}),
+ KSH=W('考试','kǎoshì','สอบ / การสอบ',{s:'kǎo shì'});const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，你每天都很忙，周末休息一下吧！','Mǎlì, nǐ měi tiān dōu hěn máng, zhōumò xiūxi yíxià ba!','มะลิ เธอยุ่งทุกวันเลย สุดสัปดาห์พักสักหน่อยเถอะ','p24-a-g'),
+ b:S('好！我们去游泳，然后吃午饭，怎么样？','hǎo! wǒmen qù yóuyǒng, ránhòu chī wǔfàn, zěnmeyàng?','ได้ ไปว่ายน้ำ แล้วก็กินข้าวกลางวัน ดีไหม','p24-b-f'),
+ c:S('我觉得很好！下午我们玩游戏吧。','wǒ juéde hěn hǎo! xiàwǔ wǒmen wán yóuxì ba.','ฉันว่าดีมาก ตอนบ่ายเราเล่นเกมกันเถอะ','p24-c-g'),
+ d:S('下午我要准备考试，星期一有考试。','xiàwǔ wǒ yào zhǔnbèi kǎoshì, xīngqīyī yǒu kǎoshì.','ตอนบ่ายฉันต้องเตรียมสอบ วันจันทร์มีสอบ','p24-d-f'),
+ e:S('你学了几个小时？','nǐ xué le jǐ ge xiǎoshí?','เธอเรียนไปกี่ชั่วโมงแล้ว','p24-e-g'),
+ f:S('已经三个小时了。我们去吃晚饭吧！','yǐjīng sān ge xiǎoshí le. wǒmen qù chī wǎnfàn ba!','สามชั่วโมงแล้ว ไปกินข้าวเย็นกันเถอะ','p24-f-f'),
+ g:S('你准备得很好！我们走吧。','nǐ zhǔnbèi de hěn hǎo! wǒmen zǒu ba.','เธอเตรียมมาดีมาก ไปกันเถอะ','p24-g-g'),
+ acg:S('她爱唱歌。','tā ài chàng gē.','เธอชอบร้องเพลงมาก','p19-acg-m'),
+ mmtw:S('妹妹喜欢跳舞。','mèimei xǐhuan tiào wǔ.','น้องสาวชอบเต้น','p19-mmtw-f'),
+ mlq:S('我每个星期六打篮球。','wǒ měi ge xīngqīliù dǎ lánqiú.','ฉันเล่นบาสทุกวันเสาร์','p20-mlq-m'),
+ rxx:S('我吃早饭，然后去学校。','wǒ chī zǎofàn, ránhòu qù xuéxiào.','ฉันกินอาหารเช้า แล้วก็ไปโรงเรียน','p21-rxx-f'),
+ zbq:S('你准备得怎么样？','nǐ zhǔnbèi de zěnmeyàng?','คุณเตรียมตัวเป็นอย่างไรบ้าง','p23-zbq-g'),
+ zbh:S('我准备得很好。','wǒ zhǔnbèi de hěn hǎo.','ฉันเตรียมมาดี','p23-zbh-f'),
+ xbz:S('谢谢你的帮助！','xièxie nǐ de bāngzhù!','ขอบคุณที่ช่วยนะ','p22-xbz-f'),
+ wdzp:S('这是我的照片。','zhè shì wǒ de zhàopiàn.','นี่คือรูปของฉัน','p19-wdzp-f'),
+ sbj:S('我去了三次北京。','wǒ qù le sān cì Běijīng.','ฉันไปปักกิ่งมาสามครั้ง','p23-sbj-f'),
+ fdw:S('我们去饭店吃晚饭吧。','wǒmen qù fàndiàn chī wǎnfàn ba.','ไปกินข้าวเย็นที่ร้านอาหารกันเถอะ','p24-fdw-g'),
+ yqtw:S('我们一起跳舞吧。','wǒmen yìqǐ tiào wǔ ba.','มาเต้นด้วยกันเถอะ','p19-yqtw-m'),
+ kbz:S('爸爸在看报纸。','bàba zài kàn bàozhǐ.','พ่อกำลังอ่านหนังสือพิมพ์','p23-kbz-f'),
+ q1:S('这个周末你要做什么？','zhège zhōumò nǐ yào zuò shénme?','สุดสัปดาห์นี้คุณจะทำอะไร','p22-q1-g'),
+ a2:S('星期天我要休息。','xīngqītiān wǒ yào xiūxi.','วันอาทิตย์ฉันจะพักผ่อน','p22-a2-f'),
+ w5:S('我五点下班。','wǒ wǔ diǎn xià bān.','ฉันเลิกงานห้าโมง','p21-w5-f'),
+ xyf:S('妈妈在洗衣服。','māma zài xǐ yīfu.','แม่กำลังซักผ้า','p21-xyf-g'),
+ yxhw:S('这个游戏很好玩。','zhège yóuxì hěn hǎowán.','เกมนี้สนุกมาก','p19-yxhw-m'),
+ hys:S('你汉语说得很好。','nǐ Hànyǔ shuō de hěn hǎo.','คุณพูดภาษาจีนเก่งมาก','p23-hys-g')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'g'},d:{...X.d,who:'me'},e:{...X.e,who:'g'},f:{...X.f,who:'me'},g:{...X.g,who:'g'}};
+const D=[{sit:'วันเสาร์ หลี่น่าชวนมะลิออกไปพักผ่อน',img:NL(YY)},L.a,L.b,L.c,L.d,{sit:'ตอนเย็น หลี่น่ามาหามะลิที่บ้าน',img:KSH.img},L.e,L.f,L.g];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+const ALL=[YD,PAO,PB,YY,LQ,DA,DLQ,TI,JDE,CG,YYUE,TIAO,TW,WANR,YX,ZP,SJ,XS,SJN,MT,MEI,JC,YJ,KS,ZF,WUF,WF,RH,XI,CHU,SB,XB,ZM,YAO,GS,BZ,ZB,MANG,XX,XIAO,DE,FJ,MEN,CI,KE,JS,BZH,KSH];
+LESSON({no:24,code:'ทบทวนหน่วย 6',title:'ทบทวนหน่วยที่ 6',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 6 เล่ากีฬา งานอดิเรก เวลา กิจวัตร งาน และการเรียน',sub:'每天 · 然后 · 我要… · 我觉得… · …得很好',min:10},steps:[
+ intro({scene:NL(YY),cap:'บททบทวน',title:'วันเสาร์ของมะลิ',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 6-1 ถึง 6-6'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 6',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'6-1 เล่นกีฬา',items:[YD,PAO,PB,YY,LQ,DA,DLQ,TI]},{lab:'6-2 งานอดิเรก',items:[JDE,CG,YYUE,TIAO,TW,WANR,YX,ZP]},{lab:'6-3 เวลาของฉัน',items:[SJ,XS,SJN,MT,MEI,JC,YJ,KS]},
+  {lab:'6-4 กิจวัตรสามมื้อ',items:[ZF,WUF,WF,RH,XI,CHU,SB,XB]},{lab:'6-5 ที่บริษัท',items:[ZM,YAO,GS,BZ,ZB,MANG,XX,XIAO]},{lab:'6-6 ห้องเรียนและการสอบ',items:[DE,FJ,MEN,CI,KE,JS,BZH,KSH]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'วันเสาร์ของมะลิ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะภาพ','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[YY,SJ,ZF,GS,BZH]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะกิจกรรมที่พูดถึง',this:'คืออันนี้',cards:[{img:NL(CG),th:'ร้องเพลง'},{img:NL(TW),th:'เต้น'},{img:LQ.img,th:'บาส'}],rounds:[
+  {zh:X.acg.zh,k:X.acg.k,ans:0},{zh:X.mlq.zh,k:X.mlq.k,ans:2},{zh:X.mmtw.zh,k:X.mmtw.k,ans:1}]}),
+ ask({rv:2,q:'ฟัง 忙 máng แล้วเลือกวรรณยุกต์',k:'sy:忙',opts:[{tone:2,lab:'เสียง 2'},{tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">忙</span> m<b>áng</b> เสียง 2 = ยุ่ง'}),
+ blank({tag:TQ(3),s:'我吃早饭，_去学校。',th:'ฉันกินอาหารเช้า แล้วก็ไปโรงเรียน',opts:['然后','已经','每天'],ans:0,k:'p21-rxx-f',fb:'<span class="zh">我吃早饭，然后去学校。</span>'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณเตรียมสอบเป็นอย่างไร คุณเตรียมมาดี',line:{...X.zbq,who:'g'},opts:[X.zbh,X.xbz,X.wdzp],ans:0,why:'ตอบด้วย 准备得很好'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-sbj-f',opts:['ฉันไปปักกิ่งมาสามครั้ง','ฉันไปปักกิ่งมาสามวัน','ฉันจะไปปักกิ่งสามครั้ง'],ans:0,fb:'<span class="zh">三次</span> = สามครั้ง'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:跳舞',opts:[{img:NL(TW)},{img:NL(CG)},{img:NL(PB)}],ans:0,fb:'<span class="zh">跳舞</span> <b>tiào wǔ</b> = เต้นรำ'}),
+ ask({rv:'ทบทวนบท 5-3 ในร้านอาหาร',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-fdw-g',opts:['ไปกินข้าวเย็นที่ร้านอาหารกันเถอะ','ไปกินข้าวกลางวันที่ร้านอาหารกันเถอะ','ไปทำอาหารเย็นที่บ้านกันเถอะ'],ans:0,fb:'<span class="zh">饭店</span> = ร้านอาหาร · <span class="zh">晚饭</span> = อาหารเย็น'}),
+ lineup({tag:TQ(7),sit:'หลี่น่ากับมะลิวางแผนวันเสาร์',lines:[L.a,L.b,L.c]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 你汉语说得很好',opts:['ชมเพื่อนที่พูดภาษาจีนเก่ง','ถามว่าเพื่อนยุ่งไหม','บอกว่าเริ่มสอบแล้ว'],ans:0,fb:'<span class="zh">说得很好</span> = พูดเก่ง'}),
+ ask({rv:12,q:'ฟัง 我们一起跳舞吧 แล้วเลือกเสียงของ 一 ใน 一起',k:'p19-yqtw-m',opts:[{tone:4,lab:'เสียง 4'},{tone:1,lab:'เสียง 1'}],ans:0,fb:'一 อยู่หน้าเสียง 3 อ่านเป็นเสียง 4 · <b>yìqǐ</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:经常',opts:['บ่อย ๆ','ทุกวัน','แล้ว'],ans:0,fb:'<span class="zh">经常</span> <b>jīngcháng</b> = บ่อย ๆ'}),
+ blank({tag:TQ(10),s:'爸爸在看_。',th:'พ่อกำลังอ่านหนังสือพิมพ์',opts:['报纸','门','课'],ans:0,k:'p23-kbz-f',fb:'<span class="zh">爸爸在看报纸。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'หนึ่งสัปดาห์ของฉัน',chips:['บอกแผน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'เพื่อนถามแผนสุดสัปดาห์ วันอาทิตย์คุณจะพักผ่อน',line:{...X.q1,who:'g'},opts:[X.a2,X.w5,X.kbz],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p21-xyf-g',opts:[{img:NL(XI)},{img:WF.img},{img:ZF.img}],ans:0,fb:'<span class="zh">妈妈在洗衣服。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('这个','zhège'),tl('游戏','yóuxì'),tl('很','hěn'),tl('好玩','hǎowán'),tl('照片','zhàopiàn')],ans:[0,1,2,3],end:'。',k:'p19-yxhw-m'}),
+ blank({tag:MQ(4),noTh:1,s:'你汉语说_很好。',opts:['得','的','了'],ans:0,k:'p23-hys-g',fb:'<span class="zh">你汉语说得很好。</span>'}),
+ fin({title:'จบหน่วยที่ 6 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L24',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

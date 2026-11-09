@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 6-5 ที่บริษัท</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 6-5 หน่วย 6 วันธรรมดาสุดสนุก: ที่บริษัท · คำใหม่ 周末 要 公司 帮助 准备 忙 休息 笑
+   ทบทวนจากบทก่อน: 时间 上班 晚饭 游泳 咖啡 · กิจกรรมเฉพาะบท: 要 ทำอะไร ยุ่งหรือพัก แตะภาพ 要 กับ 想 */
+const ZM=W('周末','zhōumò','สุดสัปดาห์',{s:'zhōu mò'}),YAO=W('要','yào','จะ / ต้องการ'),GS=W('公司','gōngsī','บริษัท',{s:'gōng sī'}),
+ BZ=W('帮助','bāngzhù','ช่วยเหลือ',{s:'bāng zhù'}),ZB=W('准备','zhǔnbèi','เตรียม',{s:'zhǔn bèi'}),MANG=W('忙','máng','ยุ่ง'),XX=W('休息','xiūxi','พักผ่อน',{s:'xiū xi'}),
+ XIAO=W('笑','xiào','หัวเราะ / ยิ้ม');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，这个周末你要做什么？','Mǎlì, zhège zhōumò nǐ yào zuò shénme?','มะลิ สุดสัปดาห์นี้เธอจะทำอะไร','p22-a-m'),
+ b:S('我要休息。这个星期我很忙。','wǒ yào xiūxi. zhège xīngqī wǒ hěn máng.','ฉันจะพักผ่อน สัปดาห์นี้ฉันยุ่งมาก','p22-b-f'),
+ c:S('星期六我要来公司。你有时间吗？','xīngqīliù wǒ yào lái gōngsī. nǐ yǒu shíjiān ma?','วันเสาร์ผมจะมาบริษัท เธอมีเวลาไหม','p22-c-m'),
+ d:S('有。你要做什么？','yǒu. nǐ yào zuò shénme?','มี เธอจะทำอะไรเหรอ','p22-d-f'),
+ e:S('我要准备星期一的工作，你能帮助我吗？','wǒ yào zhǔnbèi xīngqīyī de gōngzuò, nǐ néng bāngzhù wǒ ma?','ผมต้องเตรียมงานของวันจันทร์ เธอช่วยผมได้ไหม','p22-e-m'),
+ f:S('好！上午我来帮助你，下午我们休息。','hǎo! shàngwǔ wǒ lái bāngzhù nǐ, xiàwǔ wǒmen xiūxi.','ได้ ตอนเช้าฉันมาช่วย ตอนบ่ายเราพักผ่อนกัน','p22-f-f'),
+ zzs:S('周末你做什么？','zhōumò nǐ zuò shénme?','สุดสัปดาห์คุณทำอะไร','p22-zzs-g'),
+ zyy:S('周末我经常去游泳。','zhōumò wǒ jīngcháng qù yóuyǒng.','สุดสัปดาห์ฉันไปว่ายน้ำบ่อย ๆ','p22-zyy-f'),
+ ykf:S('我要一杯咖啡。','wǒ yào yì bēi kāfēi.','ขอกาแฟหนึ่งแก้ว','p22-ykf-f'),
+ ybj:S('明天我要去北京。','míngtiān wǒ yào qù Běijīng.','พรุ่งนี้ฉันจะไปปักกิ่ง','p22-ybj-m'),
+ gsb:S('我爸爸在公司上班。','wǒ bàba zài gōngsī shàng bān.','พ่อของฉันทำงานที่บริษัท','p22-gsb-f'),
+ gsz:S('你们公司在哪儿？','nǐmen gōngsī zài nǎr?','บริษัทของพวกคุณอยู่ที่ไหน','p22-gsz-g'),
+ xbz:S('谢谢你的帮助！','xièxie nǐ de bāngzhù!','ขอบคุณที่ช่วยนะ','p22-xbz-f'),
+ lbz:S('我来帮助你。','wǒ lái bāngzhù nǐ.','ฉันช่วยเอง','p22-lbz-m'),
+ zbh:S('你准备好了吗？','nǐ zhǔnbèi hǎo le ma?','คุณเตรียมพร้อมแล้วหรือยัง','p22-zbh-g'),
+ zbw:S('妈妈在准备晚饭。','māma zài zhǔnbèi wǎnfàn.','แม่กำลังเตรียมอาหารเย็น','p22-zbw-f'),
+ nmm:S('你忙吗？','nǐ máng ma?','คุณยุ่งไหม','p22-nmm-g'),
+ jtm:S('我今天很忙。','wǒ jīntiān hěn máng.','วันนี้ฉันยุ่งมาก','p22-jtm-f'),
+ bgm:S('爸爸工作很忙。','bàba gōngzuò hěn máng.','พ่องานยุ่งมาก','p22-bgm-m'),
+ xyx:S('我们休息一下吧。','wǒmen xiūxi yíxià ba.','พักกันสักหน่อยเถอะ','p22-xyx-g'),
+ xjx:S('星期天我在家休息。','xīngqītiān wǒ zài jiā xiūxi.','วันอาทิตย์ฉันพักผ่อนอยู่บ้าน','p22-xjx-f'),
+ txl:S('她笑了。','tā xiào le.','เธอยิ้มแล้ว','p22-txl-t'),
+ xsm:S('你笑什么？','nǐ xiào shénme?','หัวเราะอะไรเหรอ','p22-xsm-g'),
+ xkf:S('我想喝咖啡。','wǒ xiǎng hē kāfēi.','ฉันอยากดื่มกาแฟ','p22-xkf-f'),
+ q1:S('这个周末你要做什么？','zhège zhōumò nǐ yào zuò shénme?','สุดสัปดาห์นี้คุณจะทำอะไร','p22-q1-g'),
+ a1:S('我要去游泳。','wǒ yào qù yóuyǒng.','ฉันจะไปว่ายน้ำ','p22-a1-f'),
+ q2:S('星期天呢？','xīngqītiān ne?','แล้ววันอาทิตย์ล่ะ','p22-q2-g'),
+ a2:S('星期天我要休息。','xīngqītiān wǒ yào xiūxi.','วันอาทิตย์ฉันจะพักผ่อน','p22-a2-f'),
+ bsb:S('周末我不上班。','zhōumò wǒ bú shàng bān.','สุดสัปดาห์ฉันไม่ไปทำงาน','p22-bsb-g'),
+ m1:S('我要去公司。','wǒ yào qù gōngsī.','ฉันจะไปบริษัท','p22-m1-t'),m2:S('我要在家休息。','wǒ yào zài jiā xiūxi.','ฉันจะพักผ่อนที่บ้าน','p22-m2-t'),
+ m3:S('大家都笑了。','dàjiā dōu xiào le.','ทุกคนหัวเราะ','p22-m3-t'),m4:S('我要准备晚饭。','wǒ yào zhǔnbèi wǎnfàn.','ฉันจะเตรียมอาหารเย็น','p22-m4-t'),
+ c1:S('去游泳','qù yóuyǒng','ไปว่ายน้ำ','p22-c1-t'),c2:S('去公司','qù gōngsī','ไปบริษัท','p22-c2-t'),c3:S('在家休息','zài jiā xiūxi','พักผ่อนที่บ้าน','p22-c3-t'),c4:S('准备晚饭','zhǔnbèi wǎnfàn','เตรียมอาหารเย็น','p22-c4-t')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'}};
+const D=[{sit:'วันศุกร์ที่บริษัท หวังหมิงคุยกับมะลิเพื่อนร่วมงาน',img:GS.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:GS.img,th:'บริษัท'},{img:NL(XX),th:'พักผ่อน'},{img:NL(XIAO),th:'หัวเราะ'},{img:NL(ZB),th:'เตรียม'}];
+const BINS=[{img:NL(MANG),zh:'忙',py:'máng',th:'ยุ่ง'},{img:NL(XX),zh:'休息',py:'xiūxi',th:'พักผ่อน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:22,code:'บท 6-5',title:'ที่บริษัท',goal:{do:'คุยกับเพื่อนร่วมงานเรื่องแผนสุดสัปดาห์ บอกว่ายุ่งหรือว่าง ขอและเสนอความช่วยเหลือ',sub:'ใช้ <span class="gz">周末 · 我要… · 很忙 · 休息</span>',min:12},steps:[
+ intro({scene:GS.img,cap:'สถานการณ์ของบทนี้',title:'วันศุกร์ที่บริษัท',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะคุยเรื่องแผนสุดสัปดาห์ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZM,YAO,GS,BZ,ZB,MANG,XX,XIAO]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['周末','要','公司','帮助','准备','忙','休息','笑'],note:'ใช้คำจากบทก่อน เช่น 时间 上班 晚饭 ร่วมด้วย'}),
+ ...WC(ZM,1,8,{cap:'เวลา',hint:'คล้าย <b>"โจว ม่อ"</b> · zh ม้วนลิ้น',use:'สุดสัปดาห์ · มักวางต้นประโยค',ex:[X.zzs,X.zyy]}),
+ ...WC(YAO,2,8,{cap:'ความตั้งใจ',hint:'คล้าย <b>"เย่า"</b> · เสียง 4',use:'จะ (มีแผนแล้ว) · ต้องการ ขอ',ex:[X.ykf,X.ybj]}),
+ RC('คำที่ 1–2/8',[ZM,YAO]),
+ use({n:'คำที่ 1–2/8',w:YAO,when:[{img:ZM.img,t:'ถามแผนสุดสัปดาห์'},{img:NL(XX),t:'ตอบว่าจะพักผ่อน'}],lines:[{...X.a,who:'f'},{...X.b,who:'me'}],tip:'<span class="zh">要</span> + สิ่งที่จะทำ · ถาม <span class="zh">你要做什么？</span>'}),
+ ...WC(GS,3,8,{cap:'สถานที่',hint:'คล้าย <b>"กง ซือ"</b>',use:'บริษัท · 在公司上班 ทำงานที่บริษัท',ex:[X.gsb,X.gsz]}),
+ ...WC(BZ,4,8,{cap:'การกระทำ',hint:'คล้าย <b>"ปัง จู้"</b> · zh ม้วนลิ้น',use:'ช่วยเหลือ · 帮助 + คน · 你的帮助 ความช่วยเหลือของคุณ',ex:[X.xbz,X.lbz]}),
+ ...WC(ZB,5,8,{cap:'การกระทำ',hint:'คล้าย <b>"จุ่น เป้ย"</b> · zh ม้วนลิ้น',use:'เตรียม · 准备好了 เตรียมพร้อมแล้ว',ex:[X.zbh,X.zbw]}),
+ RC('คำที่ 3–5/8',[GS,BZ,ZB]),
+ ...WC(MANG,6,8,{cap:'ความรู้สึก',hint:'คล้าย <b>"หมาง"</b> · เสียง 2',use:'ยุ่ง · ใช้กับ 很 ไม่ใช้ 是',ex:[X.nmm,X.jtm]}),
+ ...WC(XX,7,8,{cap:'กิจวัตร',hint:'คล้าย <b>"ซิว ซิ"</b> · 息 อ่านเบา',use:'พักผ่อน · 休息一下 พักสักหน่อย',ex:[X.xyx,X.xjx]}),
+ ...WC(XIAO,8,8,{cap:'ความรู้สึก',hint:'คล้าย <b>"เซี่ยว"</b> · x ลิ้นแตะฟันล่าง',use:'หัวเราะ ยิ้ม',ex:[X.txl,X.xsm]}),
+ RC('คำที่ 6–8/8',[MANG,XX,XIAO]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','要 ทำอะไร','ยุ่งหรือพัก','แตะภาพ','要 กับ 想','ข้อควรระวัง'],note:'ฝึกคุยเรื่องแผนสุดสัปดาห์'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่บริษัท',title:'วันศุกร์ที่บริษัท',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'บอกแผนด้วย 我要… · ขอให้ช่วยด้วย 你能帮助我吗？ · เสนอช่วยด้วย 我来帮助你'}),
+ talk({cap:'เทคนิค 2/6 · 要 ทำอะไร',title:'ถามและบอกแผน',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.q1,who:'g'},{...X.a1,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ถาม <span class="zh">你要做什么？</span> · ตอบ <span class="zh">我要</span> + สิ่งที่จะทำ'}),
+ sortmap({tag:'เทคนิค 3/6 · ยุ่งหรือพัก',q:'ฟังแต่ละประโยค แล้วแตะว่ายุ่งหรือได้พัก',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('女孩'),X.jtm,0),it(ART('家'),X.xjx,1),it(ART('爸爸'),X.bgm,0),it(ART('学生'),X.xyx,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.gsb.zh,k:X.gsb.k,ans:0},{zh:X.txl.zh,k:X.txl.k,ans:2},{zh:X.zbw.zh,k:X.zbw.k,ans:3},{zh:X.xjx.zh,k:X.xjx.k,ans:1}]}),
+ cmp({cap:'เทคนิค 5/6 · 要 กับ 想',title:'จะเอา อยาก',text:'แตะการ์ดเพื่อฟัง',a:{who:'จะเอา',img:YAO.img,zh:X.ykf.zh,zhb:'要',py:'yào',th:'จะ ต้องการ',k:X.ykf.k},b:{who:'อยาก',img:ART('咖啡'),zh:X.xkf.zh,zhb:'想',py:'xiǎng',th:'อยาก',k:X.xkf.k},
+  tip:'<span class="zh">要</span> ตั้งใจแน่นอน ใช้สั่งของได้ · <span class="zh">想</span> แค่อยาก ฟังนุ่มกว่า'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'忙 ใช้กับ 很',bad:'我今天是忙。',good:'我今天很忙。',k:'p22-jtm-f'},
+  {h:'一下 อยู่หลังกริยา',bad:'我们一下休息吧。',good:'我们休息一下吧。',k:'p22-xyx-g'},
+  {h:'ความช่วยเหลือของคุณ',bad:'谢谢你帮助的！',good:'谢谢你的帮助！',k:'p22-xbz-f'},
+  {h:'周末 อยู่ต้นประโยค',bad:'你做什么周末？',good:'周末你做什么？',k:'p22-zzs-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:忙',opts:['ยุ่ง','พักผ่อน','หัวเราะ'],ans:0,fb:'<span class="zh">忙</span> <b>máng</b> = ยุ่ง'}),
+ ask({rv:'ทบทวนบท 6-4 กิจวัตรสามมื้อ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p22-bsb-g',opts:['สุดสัปดาห์ฉันไม่ไปทำงาน','สุดสัปดาห์ฉันไปทำงาน','สุดสัปดาห์ฉันเลิกงานเร็ว'],ans:0,fb:'<span class="zh">不上班</span> = ไม่ไปทำงาน'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:笑',opts:[{img:NL(XIAO)},{img:NL(XX)},{img:GS.img}],ans:0,fb:'<span class="zh">笑</span> <b>xiào</b> = หัวเราะ ยิ้ม'}),
+ blank({tag:TQ(3),s:'谢谢你的_！',th:'ขอบคุณที่ช่วยนะ',opts:['帮助','准备','周末'],ans:0,k:'p22-xbz-f',fb:'<span class="zh">谢谢你的帮助！</span>'}),
+ ask({rv:12,q:'ฟัง 周末我不上班 แล้วเลือกเสียงของ 不',k:'p22-bsb-g',opts:['bú','bù','bǔ'],ans:0,fb:'不 หน้า 上 (เสียง 4) อ่าน <b>bú</b>'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณยุ่งไหม วันนี้คุณยุ่งมาก',line:{...X.nmm,who:'g'},opts:[X.jtm,X.txl,X.xbz],ans:0,why:'ตอบด้วย 很忙'}),
+ ask({rv:'ทบทวนบท 5-1 มื้อเช้าที่ร้านกาแฟ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p22-ykf-f',opts:['ขอกาแฟหนึ่งแก้ว','ขอชาหนึ่งแก้ว','ขอกาแฟสองแก้ว'],ans:0,fb:'<span class="zh">一杯咖啡</span> = กาแฟหนึ่งแก้ว'}),
+ order({tag:TQ(5),th:'พักกันสักหน่อยเถอะ',tiles:[tl('我们','wǒmen'),tl('休息','xiūxi'),tl('一下','yíxià'),tl('吧','ba'),tl('忙','máng')],ans:[0,1,2,3],end:'。',k:'p22-xyx-g'}),
+ tf({tag:TQ(6),k:'p22-c-m',img:GS.img,card:'<b>หวังหมิง</b><br>วันเสาร์จะมาบริษัท',ans:0,fb:'<span class="zh">星期六我要来公司。</span> = วันเสาร์ผมจะมาบริษัท · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'วางแผนสุดสัปดาห์',chips:['ฟังแล้วแตะภาพ','ขอบคุณเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:1},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนร่วมงานช่วยคุณเตรียมงาน คุณอยากขอบคุณ',opts:[X.xbz,X.jtm,X.zzs],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'这个_你要做什么？',opts:['周末','公司','休息'],ans:0,k:'p22-q1-g',fb:'<span class="zh">这个周末你要做什么？</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('妈妈','māma'),tl('在','zài'),tl('准备','zhǔnbèi'),tl('晚饭','wǎnfàn'),tl('帮助','bāngzhù')],ans:[0,1,2,3],end:'。',k:'p22-zbw-f'}),
+ fin({title:'คุยเรื่องแผนสุดสัปดาห์ได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZM,YAO,GS,BZ,ZB,MANG,XX,XIAO].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L22',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

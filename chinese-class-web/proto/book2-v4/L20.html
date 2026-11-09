@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 6-3 เวลาของฉัน</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 6-3 หน่วย 6 วันธรรมดาสุดสนุก: เวลาของฉัน · คำใหม่ 手机 小时 时间 每天 每 经常 已经 开始
+   ทบทวนจากบทก่อน: 跑步 篮球 游泳 音乐 电影 · กิจกรรมเฉพาะบท: กี่ชั่วโมง ทำบ่อยหรือทำแล้ว ทำอะไรประจำ 每天 กับ 每 */
+const SJ=W('手机','shǒujī','โทรศัพท์มือถือ',{s:'shǒu jī'}),XS=W('小时','xiǎoshí','ชั่วโมง',{s:'xiǎo shí'}),SJN=W('时间','shíjiān','เวลา',{s:'shí jiān',sl:[1]}),
+ MT=W('每天','měi tiān','ทุกวัน',{s:'měi tiān'}),MEI=W('每','měi','ทุก ๆ'),JC=W('经常','jīngcháng','บ่อย ๆ',{s:'jīng cháng'}),YJ=W('已经','yǐjīng','แล้ว (เกิดขึ้นแล้ว)',{s:'yǐ jīng'}),
+ KS=W('开始','kāishǐ','เริ่ม',{s:'kāi shǐ'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('王明，你每天看几个小时手机？','Wáng Míng, nǐ měi tiān kàn jǐ ge xiǎoshí shǒujī?','หวังหมิง เธอดูมือถือวันละกี่ชั่วโมง','p20-a-g'),
+ b:S('我每天看三个小时。','wǒ měi tiān kàn sān ge xiǎoshí.','ผมดูวันละสามชั่วโมง','p20-b-m'),
+ c:S('三个小时！太多了。','sān ge xiǎoshí! tài duō le.','สามชั่วโมง เยอะเกินไปแล้ว','p20-c-g'),
+ d:S('对，我明天开始少看手机。','duì, wǒ míngtiān kāishǐ shǎo kàn shǒujī.','ใช่ พรุ่งนี้ผมจะเริ่มดูมือถือให้น้อยลง','p20-d-m'),
+ e:S('现在几点了？','xiànzài jǐ diǎn le?','ตอนนี้กี่โมงแล้ว','p20-e-g'),
+ f:S('已经十点了！我们没有时间了。','yǐjīng shí diǎn le! wǒmen méiyǒu shíjiān le.','สิบโมงแล้ว เราไม่มีเวลาแล้ว','p20-f-m'),
+ sjz:S('我的手机在哪儿？','wǒ de shǒujī zài nǎr?','มือถือของฉันอยู่ที่ไหน','p20-sjz-f'),
+ sjh:S('你的手机号是多少？','nǐ de shǒujī hào shì duōshao?','เบอร์มือถือของคุณคือเบอร์อะไร','p20-sjh-g'),
+ s8:S('我睡了八个小时。','wǒ shuì le bā ge xiǎoshí.','ฉันนอนไปแปดชั่วโมง','p20-s8-f'),
+ x1:S('我学了一个小时汉语。','wǒ xué le yí ge xiǎoshí Hànyǔ.','ฉันเรียนภาษาจีนไปหนึ่งชั่วโมง','p20-x1-m'),
+ ysj:S('你有时间吗？','nǐ yǒu shíjiān ma?','คุณมีเวลาไหม','p20-ysj-g'),
+ msj:S('我没有时间。','wǒ méiyǒu shíjiān.','ฉันไม่มีเวลา','p20-msj-f'),
+ mpb:S('我每天早上跑步。','wǒ měi tiān zǎoshang pǎo bù.','ฉันวิ่งทุกเช้า','p20-mpb-f'),
+ mhc:S('我每天都喝茶。','wǒ měi tiān dōu hē chá.','ฉันดื่มชาทุกวัน','p20-mhc-m'),
+ mgr:S('每个人都有手机。','měi ge rén dōu yǒu shǒujī.','ทุกคนมีมือถือ','p20-mgr-t'),
+ mlq:S('我每个星期六打篮球。','wǒ měi ge xīngqīliù dǎ lánqiú.','ฉันเล่นบาสทุกวันเสาร์','p20-mlq-m'),
+ jdy:S('他经常看电影。','tā jīngcháng kàn diànyǐng.','เขาดูหนังบ่อย ๆ','p20-jdy-g'),
+ jyy:S('我们经常一起游泳。','wǒmen jīngcháng yìqǐ yóuyǒng.','เราว่ายน้ำด้วยกันบ่อย ๆ','p20-jyy-f'),
+ yjh:S('他已经回家了。','tā yǐjīng huí jiā le.','เขากลับบ้านไปแล้ว','p20-yjh-g'),
+ yj10:S('已经十点了。','yǐjīng shí diǎn le.','สิบโมงแล้ว','p20-yj10-t'),
+ ksb:S('我们开始吧！','wǒmen kāishǐ ba!','เริ่มกันเถอะ','p20-ksb-t'),
+ dyk:S('电影八点开始。','diànyǐng bā diǎn kāishǐ.','หนังเริ่มแปดโมง','p20-dyk-g'),
+ qs:S('你每天睡几个小时？','nǐ měi tiān shuì jǐ ge xiǎoshí?','คุณนอนวันละกี่ชั่วโมง','p20-qs-g'),
+ as:S('我每天睡八个小时。','wǒ měi tiān shuì bā ge xiǎoshí.','ฉันนอนวันละแปดชั่วโมง','p20-as-f'),
+ qx:S('你每天学几个小时汉语？','nǐ měi tiān xué jǐ ge xiǎoshí Hànyǔ?','คุณเรียนภาษาจีนวันละกี่ชั่วโมง','p20-qx-g'),
+ ax:S('我每天学一个小时。','wǒ měi tiān xué yí ge xiǎoshí.','ฉันเรียนวันละหนึ่งชั่วโมง','p20-ax-f'),
+ dyy:S('我每天都听音乐。','wǒ měi tiān dōu tīng yīnyuè.','ฉันฟังเพลงทุกวัน','p20-dyy-g'),
+ dqm:S('对不起，我没有时间。','duìbuqǐ, wǒ méiyǒu shíjiān.','ขอโทษ ฉันไม่มีเวลา','p20-dqm-f'),
+ m1:S('我经常跑步。','wǒ jīngcháng pǎo bù.','ฉันวิ่งบ่อย ๆ','p20-m1-t'),m2:S('我经常看电影。','wǒ jīngcháng kàn diànyǐng.','ฉันดูหนังบ่อย ๆ','p20-m2-t'),
+ m3:S('我每天游泳。','wǒ měi tiān yóuyǒng.','ฉันว่ายน้ำทุกวัน','p20-m3-t'),m4:S('我每天打篮球。','wǒ měi tiān dǎ lánqiú.','ฉันเล่นบาสทุกวัน','p20-m4-t'),
+ c1:S('一个小时','yí ge xiǎoshí','หนึ่งชั่วโมง','p20-c1-t'),c2:S('两个小时','liǎng ge xiǎoshí','สองชั่วโมง','p20-c2-t'),c3:S('三个小时','sān ge xiǎoshí','สามชั่วโมง','p20-c3-t'),c4:S('八个小时','bā ge xiǎoshí','แปดชั่วโมง','p20-c4-t')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'f'},c:{...X.c,who:'g'},d:{...X.d,who:'f'},e:{...X.e,who:'g'},f:{...X.f,who:'f'}};
+const D=[{sit:'หลี่น่าเห็นหวังหมิงก้มดูมือถือทั้งวัน',img:SJ.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const ACT=[{img:A2('跑步'),th:'วิ่ง'},{img:ART('篮球'),th:'บาส'},{img:ART('电影'),th:'หนัง'},{img:A2('游泳'),th:'ว่ายน้ำ'}];
+const BINS=[{img:JC.img,zh:'经常',py:'jīngcháng',th:'บ่อย ๆ'},{img:YJ.img,zh:'已经',py:'yǐjīng',th:'แล้ว'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:20,code:'บท 6-3',title:'เวลาของฉัน',goal:{do:'บอกว่าทำอะไรทุกวัน ทำนานกี่ชั่วโมง ทำบ่อยแค่ไหน และบอกว่าเริ่มหรือทำไปแล้ว',sub:'ใช้ <span class="gz">每天 · 几个小时 · 经常 · 已经…了</span>',min:12},steps:[
+ intro({scene:SJ.img,cap:'สถานการณ์ของบทนี้',title:'มือถือทั้งวัน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเล่าเรื่องเวลาในแต่ละวันได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[SJ,XS,SJN,MT,MEI,JC,YJ,KS]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['手机','小时','时间','每天','每','经常','已经','开始'],note:'ใช้คำจากบทก่อน เช่น 跑步 游泳 篮球 ร่วมด้วย'}),
+ ...WC(SJ,1,8,{cap:'สิ่งของ',hint:'คล้าย <b>"โส่ว จี"</b> · sh ม้วนลิ้น',use:'手 มือ + 机 เครื่อง = มือถือ',ex:[X.sjz,X.sjh]}),
+ rec({n:'คำที่ 1/8',ws:[SJ]}),
+ ...WC(XS,2,8,{cap:'เวลา',hint:'คล้าย <b>"เสี่ยว สือ"</b>',use:'ชั่วโมง · ตัวเลข + 个 + 小时',ex:[X.s8,X.x1]}),
+ ...WC(SJN,3,8,{cap:'เวลา',hint:'คล้าย <b>"สือ เจียน"</b> · 间 ในคำนี้อ่าน jiān',use:'เวลา · 有时间 มีเวลา 没有时间 ไม่มีเวลา',ex:[X.ysj,X.msj]}),
+ RC('คำที่ 2–3/8',[XS,SJN]),
+ use({n:'คำที่ 1–3/8',w:XS,when:[{img:SJ.img,t:'ถามว่าดูมือถือกี่ชั่วโมง'},{img:SJN.img,t:'บอกว่าไม่มีเวลาแล้ว'}],lines:[{...X.a,who:'g'},{...X.f,who:'f'}],tip:'<span class="zh">几个小时</span> กี่ชั่วโมง · <span class="zh">时间</span> คือเวลาโดยรวม ไม่ใช้นับ'}),
+ ...WC(MT,4,8,{cap:'ความถี่',hint:'คล้าย <b>"เหม่ย เทียน"</b>',use:'ทุกวัน · วางหน้ากริยา มักตามด้วย 都',ex:[X.mpb,X.mhc]}),
+ ...WC(MEI,5,8,{cap:'ความถี่',hint:'คล้าย <b>"เหม่ย"</b> · เสียง 3',use:'ทุก ๆ · 每 + 个 + คำนาม เช่น 每个人',ex:[X.mgr,X.mlq]}),
+ RC('คำที่ 4–5/8',[MT,MEI]),
+ ...WC(JC,6,8,{cap:'ความถี่',hint:'คล้าย <b>"จิง ฉาง"</b> · ch ม้วนลิ้น พ่นลม',use:'บ่อย ๆ · วางหน้ากริยา',ex:[X.jdy,X.jyy]}),
+ ...WC(YJ,7,8,{cap:'เวลา',hint:'คล้าย <b>"อี่ จิง"</b>',use:'แล้ว · 已经 + เรื่องที่เกิดแล้ว + 了',ex:[X.yjh,X.yj10]}),
+ RC('คำที่ 6–7/8',[JC,YJ]),
+ ...WC(KS,8,8,{cap:'เวลา',hint:'คล้าย <b>"ไค สื่อ"</b> · sh ม้วนลิ้น',use:'เริ่ม · 开始 + สิ่งที่ทำ หรือ เวลา + 开始',ex:[X.ksb,X.dyk]}),
+ rec({n:'คำที่ 8/8',ws:[KS]}),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','几个小时','บ่อยหรือแล้ว','ทำอะไรประจำ','每天 กับ 每','ข้อควรระวัง'],note:'ฝึกเล่าเวลาในแต่ละวัน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนามือถือ',title:'มือถือทั้งวัน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามด้วย 每天…几个小时 · บอกว่าเกิดแล้วด้วย 已经…了'}),
+ talk({cap:'เทคนิค 2/6 · 几个小时',title:'ถามว่าทำกี่ชั่วโมง',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.qs,who:'g'},{...X.as,who:'me'},{...X.qx,who:'g'},{...X.ax,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">每天</span> + กริยา + <span class="zh">几个小时</span> · ตอบด้วยตัวเลข + <span class="zh">个小时</span> · สองชั่วโมงใช้ <span class="zh">两</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · บ่อยหรือแล้ว',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 经常 หรือ 已经',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('电影'),X.jdy,0),it(ART('家'),X.yjh,1),it(A2('游泳'),X.jyy,0),it(ART('时间'),X.yj10,1)]}),
+ point({tag:'เทคนิค 4/6 · ทำอะไรประจำ',q:'ฟังแต่ละประโยค แล้วแตะกิจกรรมที่พูดถึง',this:'คืออันนี้',cards:ACT,rounds:[
+  {zh:X.mpb.zh,k:X.mpb.k,ans:0},{zh:X.jdy.zh,k:X.jdy.k,ans:2},{zh:X.mlq.zh,k:X.mlq.k,ans:1},{zh:X.jyy.zh,k:X.jyy.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 每天 กับ 每',title:'ทุกวัน ทุก ๆ',text:'แตะการ์ดเพื่อฟัง',a:{who:'ทุกวัน',img:MT.img,zh:X.mhc.zh,zhb:'每天',py:'měi tiān',th:'ทุกวัน',k:X.mhc.k},b:{who:'ทุกคน',img:MEI.img,zh:X.mgr.zh,zhb:'每个人',py:'měi ge rén',th:'ทุกคน',k:X.mgr.k},
+  tip:'<span class="zh">每天</span> ไม่ต้องมี <span class="zh">个</span> · คำอื่นใช้ <span class="zh">每</span> + <span class="zh">个</span> + คำนาม · ข้างหลังมักมี <span class="zh">都</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'每天 อยู่หน้ากริยา',bad:'我跑步每天早上。',good:'我每天早上跑步。',k:'p20-mpb-f'},
+  {h:'นับเวลาใช้ 小时',bad:'我学了一个时间汉语。',good:'我学了一个小时汉语。',k:'p20-x1-m'},
+  {h:'已经 คู่กับ 了',bad:'他已经回家。',good:'他已经回家了。',k:'p20-yjh-g'},
+  {h:'ไม่มีเวลาใช้ 没有',bad:'我不有时间。',good:'我没有时间。',k:'p20-msj-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:经常',opts:['บ่อย ๆ','แล้ว','เริ่ม'],ans:0,fb:'<span class="zh">经常</span> <b>jīngcháng</b> = บ่อย ๆ'}),
+ ask({rv:'ทบทวนบท 6-2 งานอดิเรก',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p20-dyy-g',opts:['ฉันฟังเพลงทุกวัน','ฉันร้องเพลงทุกวัน','ฉันเต้นทุกวัน'],ans:0,fb:'<span class="zh">听音乐</span> = ฟังเพลง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:手机',opts:[{img:SJ.img},{img:ART('电影')},{img:ART('篮球')}],ans:0,fb:'<span class="zh">手机</span> <b>shǒujī</b> = โทรศัพท์มือถือ'}),
+ blank({tag:TQ(3),s:'你有_吗？',th:'คุณมีเวลาไหม',opts:['时间','小时','每天'],ans:0,k:'p20-ysj-g',fb:'<span class="zh">你有时间吗？</span>'}),
+ ask({rv:12,q:'ฟัง 一个小时 แล้วเลือกเสียงของ 一',k:'p20-c1-t',opts:['yí','yī','yì'],ans:0,fb:'一 หน้า 个 (เสียง 4 เดิม) อ่าน <b>yí</b>'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณนอนวันละกี่ชั่วโมง',line:{...X.qs,who:'g'},opts:[X.as,X.yj10,X.ksb],ans:0,why:'ตอบด้วยตัวเลข + 个小时'}),
+ ask({rv:'ทบทวนบท 6-1 เล่นกีฬา',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p20-mlq-m',opts:['ฉันเล่นบาสทุกวันเสาร์','ฉันเล่นบาสทุกวันอาทิตย์','ฉันเตะบอลทุกวันเสาร์'],ans:0,fb:'<span class="zh">星期六</span> = วันเสาร์ · <span class="zh">打篮球</span> = เล่นบาส'}),
+ order({tag:TQ(5),th:'หนังเริ่มแปดโมง',tiles:[tl('电影','diànyǐng'),tl('八点','bā diǎn'),tl('开始','kāishǐ'),tl('已经','yǐjīng')],ans:[0,1,2],end:'。',k:'p20-dyk-g'}),
+ tf({tag:TQ(6),k:'p20-b-m',img:SJ.img,card:'<b>หวังหมิง</b><br>ดูมือถือวันละ 2 ชั่วโมง',ans:1,fb:'<span class="zh">我每天看三个小时。</span> = วันละสามชั่วโมง · ไม่ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เล่าวันของฉัน',chips:['ฟังแล้วแตะภาพ','ปฏิเสธเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะกิจกรรมที่พูดถึง',this:'คืออันนี้',cards:ACT,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:2},{zh:X.m4.zh,k:X.m4.k,ans:1},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:3}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนชวนไปดูหนัง แต่คุณไม่ว่าง',opts:[X.dqm,X.yjh,X.sjz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'_十点了。',opts:['已经','经常','开始'],ans:0,k:'p20-yj10-t',fb:'<span class="zh">已经十点了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我们','wǒmen'),tl('开始','kāishǐ'),tl('吧','ba'),tl('小时','xiǎoshí')],ans:[0,1,2],end:'！',k:'p20-ksb-t'}),
+ fin({title:'เล่าเวลาของฉันได้แล้ว',html:dlgH(D,{noTh:1}),chips:[SJ,XS,SJN,MT,MEI,JC,YJ,KS].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L20',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

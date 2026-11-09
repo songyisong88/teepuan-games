@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 6-6 ห้องเรียนและการสอบ</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 6-6 หน่วย 6 วันธรรมดาสุดสนุก: ห้องเรียนและการสอบ · คำใหม่ 得 房间 门 次 课 教室 报纸 考试
+   ทบทวนจากบทก่อน: 准备 唱歌 开始 休息 · กิจกรรมเฉพาะบท: 得 บอกระดับ ห้องนอนหรือห้องเรียน แตะภาพ 次 กับ 个 */
+const DE=W('得','de','(คำเชื่อม บอกว่าทำได้ระดับไหน)',{nosk:1}),FJ=W('房间','fángjiān','ห้อง',{s:'fáng jiān',sl:[1]}),MEN=W('门','mén','ประตู'),
+ CI=W('次','cì','ครั้ง'),KE=W('课','kè','บทเรียน / คาบเรียน'),JS=W('教室','jiàoshì','ห้องเรียน',{s:'jiào shì',sl:[0]}),BZH=W('报纸','bàozhǐ','หนังสือพิมพ์',{s:'bào zhǐ'}),
+ KSH=W('考试','kǎoshì','สอบ / การสอบ',{s:'kǎo shì'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，今天下午有考试！','Mǎlì, jīntiān xiàwǔ yǒu kǎoshì!','มะลิ บ่ายนี้มีสอบนะ','p23-a-g'),
+ b:S('我知道。我们在哪个教室考试？','wǒ zhīdào. wǒmen zài nǎge jiàoshì kǎoshì?','รู้แล้ว เราสอบที่ห้องเรียนไหน','p23-b-f'),
+ c:S('那个教室。你准备得怎么样？','nàge jiàoshì. nǐ zhǔnbèi de zěnmeyàng?','ห้องนั้น เธอเตรียมตัวเป็นอย่างไรบ้าง','p23-c-g'),
+ d:S('我准备得很好。这个星期我上了五次课。','wǒ zhǔnbèi de hěn hǎo. zhège xīngqī wǒ shàng le wǔ cì kè.','ฉันเตรียมมาดี สัปดาห์นี้ฉันเข้าเรียนไปห้าครั้ง','p23-d-f'),
+ e:S('太好了！我们进去吧，门开了。','tài hǎo le! wǒmen jìnqu ba, mén kāi le.','ดีมาก เข้าไปกันเถอะ ประตูเปิดแล้ว','p23-e-g'),
+ f:S('好，我们走吧！','hǎo, wǒmen zǒu ba!','ได้ ไปกันเลย','p23-f-f'),
+ cgh:S('她唱歌唱得很好。','tā chàng gē chàng de hěn hǎo.','เธอร้องเพลงเก่งมาก','p23-cgh-m'),
+ hys:S('你汉语说得很好。','nǐ Hànyǔ shuō de hěn hǎo.','คุณพูดภาษาจีนเก่งมาก','p23-hys-g'),
+ wfj:S('这是我的房间。','zhè shì wǒ de fángjiān.','นี่คือห้องของฉัน','p23-wfj-f'),
+ fjd:S('你的房间很大。','nǐ de fángjiān hěn dà.','ห้องของคุณใหญ่มาก','p23-fjd-g'),
+ qkm:S('请开门。','qǐng kāi mén.','กรุณาเปิดประตู','p23-qkm-t'),
+ mkl:S('门开了。','mén kāi le.','ประตูเปิดแล้ว','p23-mkl-g'),
+ sbj:S('我去了三次北京。','wǒ qù le sān cì Běijīng.','ฉันไปปักกิ่งมาสามครั้ง','p23-sbj-f'),
+ lck:S('一个星期上两次课。','yí ge xīngqī shàng liǎng cì kè.','สัปดาห์หนึ่งเรียนสองครั้ง','p23-lck-t'),
+ hyk:S('今天有汉语课。','jīntiān yǒu Hànyǔ kè.','วันนี้มีคาบภาษาจีน','p23-hyk-m'),
+ bsk:S('我们八点上课。','wǒmen bā diǎn shàng kè.','เราเริ่มเรียนแปดโมง','p23-bsk-g'),
+ jsd:S('我们的教室很大。','wǒmen de jiàoshì hěn dà.','ห้องเรียนของเราใหญ่มาก','p23-jsd-f'),
+ lsj:S('老师在教室里。','lǎoshī zài jiàoshì li.','ครูอยู่ในห้องเรียน','p23-lsj-m'),
+ kbz:S('爸爸在看报纸。','bàba zài kàn bàozhǐ.','พ่อกำลังอ่านหนังสือพิมพ์','p23-kbz-f'),
+ jbz:S('这是今天的报纸。','zhè shì jīntiān de bàozhǐ.','นี่คือหนังสือพิมพ์ของวันนี้','p23-jbz-t'),
+ myk:S('明天有考试。','míngtiān yǒu kǎoshì.','พรุ่งนี้มีสอบ','p23-myk-g'),
+ ksk:S('考试开始了！','kǎoshì kāishǐ le!','เริ่มสอบแล้ว','p23-ksk-t'),
+ sgp:S('我有三个朋友。','wǒ yǒu sān ge péngyou.','ฉันมีเพื่อนสามคน','p23-sgp-m'),
+ q1:S('她唱歌唱得怎么样？','tā chàng gē chàng de zěnmeyàng?','เธอร้องเพลงเป็นอย่างไร','p23-q1-g'),
+ a1:S('她唱得很好。','tā chàng de hěn hǎo.','เธอร้องเก่งมาก','p23-a1-f'),
+ q2:S('他跳舞跳得怎么样？','tā tiào wǔ tiào de zěnmeyàng?','เขาเต้นเป็นอย่างไร','p23-q2-g'),
+ a2:S('他跳得很好。','tā tiào de hěn hǎo.','เขาเต้นเก่งมาก','p23-a2-f'),
+ zbq:S('你准备得怎么样？','nǐ zhǔnbèi de zěnmeyàng?','คุณเตรียมตัวเป็นอย่างไรบ้าง','p23-zbq-g'),
+ zbh:S('我准备得很好。','wǒ zhǔnbèi de hěn hǎo.','ฉันเตรียมมาดี','p23-zbh-f'),
+ kqx:S('考试前我们休息一下吧。','kǎoshì qián wǒmen xiūxi yíxià ba.','ก่อนสอบพักกันสักหน่อยเถอะ','p23-kqx-g'),
+ m1:S('你看，门开了。','nǐ kàn, mén kāi le.','ดูสิ ประตูเปิดแล้ว','p23-m1-t'),m2:S('这是今天的报纸。','zhè shì jīntiān de bàozhǐ.','นี่คือหนังสือพิมพ์ของวันนี้','p23-m2-t'),
+ m3:S('考试开始了。','kǎoshì kāishǐ le.','เริ่มสอบแล้ว','p23-m3-t'),m4:S('现在上课。','xiànzài shàng kè.','ตอนนี้เริ่มเรียน','p23-m4-t'),
+ c1:S('说得很好','shuō de hěn hǎo','พูดเก่ง','p23-c1-t'),c2:S('唱得很好','chàng de hěn hǎo','ร้องเก่ง','p23-c2-t'),c3:S('跳得很好','tiào de hěn hǎo','เต้นเก่ง','p23-c3-t'),c4:S('准备得很好','zhǔnbèi de hěn hǎo','เตรียมมาดี','p23-c4-t')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'g'},d:{...X.d,who:'me'},e:{...X.e,who:'g'},f:{...X.f,who:'me'}};
+const D=[{sit:'ก่อนสอบ มะลิกับหลี่น่าเจอกันที่โรงเรียน',img:JS.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:MEN.img,th:'ประตู'},{img:BZH.img,th:'หนังสือพิมพ์'},{img:KSH.img,th:'สอบ'},{img:KE.img,th:'คาบเรียน'}];
+const BINS=[{img:FJ.img,zh:'房间',py:'fángjiān',th:'ห้อง'},{img:JS.img,zh:'教室',py:'jiàoshì',th:'ห้องเรียน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:23,code:'บท 6-6',title:'ห้องเรียนและการสอบ',goal:{do:'คุยเรื่องเรียนและสอบ บอกว่าทำได้ดีแค่ไหนด้วย 得 และบอกจำนวนครั้งด้วย 次',sub:'ใช้ <span class="gz">…得很好 · 教室 · 考试 · 几次</span>',min:12},steps:[
+ intro({scene:JS.img,cap:'สถานการณ์ของบทนี้',title:'บ่ายนี้มีสอบ',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะคุยเรื่องเรียนและสอบได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[DE,FJ,MEN,CI,KE,JS,BZH,KSH]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['得','房间','门','次','课','教室','报纸','考试'],note:'ใช้คำจากบทก่อน เช่น 准备 唱歌 开始 ร่วมด้วย'}),
+ ...WC(DE,1,8,{cap:'ไวยากรณ์',hint:'อ่านเบา <b>"เตอะ"</b> · ไม่มีเสียงวรรณยุกต์',use:'กริยา + 得 + 很好 · บอกว่าทำได้ดีแค่ไหน',ex:[X.cgh,X.hys]}),
+ ...WC(FJ,2,8,{cap:'บ้าน',hint:'คล้าย <b>"ฝาง เจียน"</b> · 间 ในคำนี้อ่าน jiān',use:'ห้อง · 我的房间 ห้องของฉัน',ex:[X.wfj,X.fjd]}),
+ ...WC(MEN,3,8,{cap:'บ้าน',hint:'คล้าย <b>"เหมิน"</b> · เสียง 2',use:'ประตู · 开门 เปิดประตู',ex:[X.qkm,X.mkl]}),
+ RC('คำที่ 2–3/8',[FJ,MEN]),
+ use({n:'คำที่ 1–3/8',w:DE,when:[{img:KSH.img,t:'ถามว่าเตรียมสอบเป็นอย่างไร'},{img:MEN.img,t:'ประตูห้องสอบเปิดแล้ว'}],lines:[{...X.c,who:'g'},{...X.e,who:'g'}],tip:'<span class="zh">准备得怎么样？</span> เตรียมเป็นอย่างไร · ตอบ <span class="zh">准备得很好</span>'}),
+ ...WC(CI,4,8,{cap:'การนับ',hint:'คล้าย <b>"ชื่อ"</b> · c ลิ้นแตะฟัน พ่นลม',use:'ครั้ง · กริยา + ตัวเลข + 次',ex:[X.sbj,X.lck]}),
+ ...WC(KE,5,8,{cap:'โรงเรียน',hint:'คล้าย <b>"เค่อ"</b> · k พ่นลม',use:'คาบเรียน · 上课 เข้าเรียน 汉语课 คาบภาษาจีน',ex:[X.hyk,X.bsk]}),
+ RC('คำที่ 4–5/8',[CI,KE]),
+ ...WC(JS,6,8,{cap:'โรงเรียน',hint:'คล้าย <b>"เจี้ยว สือ"</b> · 教 ในคำนี้อ่าน jiào',use:'ห้องเรียน · 在教室里 อยู่ในห้องเรียน',ex:[X.jsd,X.lsj]}),
+ ...WC(BZH,7,8,{cap:'สิ่งของ',hint:'คล้าย <b>"เป้า จื่อ"</b> · zh ม้วนลิ้น',use:'หนังสือพิมพ์ · อ่านใช้ 看',ex:[X.kbz,X.jbz]}),
+ ...WC(KSH,8,8,{cap:'โรงเรียน',hint:'คล้าย <b>"เข่า ซื่อ"</b> · sh ม้วนลิ้น',use:'สอบ การสอบ · 有考试 มีสอบ',ex:[X.myk,X.ksk]}),
+ RC('คำที่ 6–8/8',[JS,BZH,KSH]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','得 บอกระดับ','ห้องหรือห้องเรียน','แตะภาพ','次 กับ 个','ข้อควรระวัง'],note:'ฝึกคุยเรื่องเรียนและสอบ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาก่อนสอบ',title:'บ่ายนี้มีสอบ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ถามด้วย 准备得怎么样 · นับครั้งด้วย 五次课'}),
+ talk({cap:'เทคนิค 2/6 · 得 บอกระดับ',title:'ทำได้ดีแค่ไหน',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.q1,who:'g'},{...X.a1,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'กริยา + <span class="zh">得</span> + <span class="zh">很好</span> · ถ้ามีกรรม พูดกริยาซ้ำ <span class="zh">唱歌唱得很好</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · ห้องหรือห้องเรียน',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงห้องหรือห้องเรียน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('女孩'),X.wfj,0),it(ART('老师'),X.lsj,1),it(ART('家'),X.fjd,0),it(ART('学生'),X.jsd,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.qkm.zh,k:X.qkm.k,ans:0},{zh:X.kbz.zh,k:X.kbz.k,ans:1},{zh:X.myk.zh,k:X.myk.k,ans:2},{zh:X.hyk.zh,k:X.hyk.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 次 กับ 个',title:'ครั้ง กับ คน/อัน',text:'แตะการ์ดเพื่อฟัง',a:{who:'ครั้ง',img:CI.img,zh:X.sbj.zh,zhb:'三次',py:'sān cì',th:'สามครั้ง',k:X.sbj.k},b:{who:'คน',img:ART('朋友'),zh:X.sgp.zh,zhb:'三个',py:'sān ge',th:'สามคน',k:X.sgp.k},
+  tip:'<span class="zh">次</span> นับว่าทำกี่ครั้ง วางหลังกริยา · <span class="zh">个</span> นับคนหรือสิ่งของ วางหน้าคำนาม'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'บอกระดับใช้ 得',bad:'你汉语说的很好。',good:'你汉语说得很好。',k:'p23-hys-g'},
+  {h:'มีกรรม พูดกริยาซ้ำ',bad:'她唱歌得很好。',good:'她唱歌唱得很好。',k:'p23-cgh-m'},
+  {h:'จำนวนครั้งอยู่หลังกริยา',bad:'我三次去了北京。',good:'我去了三次北京。',k:'p23-sbj-f'},
+  {h:'里 อยู่หลังสถานที่',bad:'老师在里教室。',good:'老师在教室里。',k:'p23-lsj-m'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:考试',opts:['สอบ / การสอบ','ห้องเรียน','หนังสือพิมพ์'],ans:0,fb:'<span class="zh">考试</span> <b>kǎoshì</b> = สอบ'}),
+ ask({rv:'ทบทวนบท 6-5 ที่บริษัท',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-kqx-g',opts:['ก่อนสอบพักกันสักหน่อยเถอะ','หลังสอบไปกินข้าวกันเถอะ','ก่อนสอบเตรียมตัวกันเถอะ'],ans:0,fb:'<span class="zh">休息一下</span> = พักสักหน่อย'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:报纸',opts:[{img:BZH.img},{img:MEN.img},{img:FJ.img}],ans:0,fb:'<span class="zh">报纸</span> <b>bàozhǐ</b> = หนังสือพิมพ์'}),
+ blank({tag:TQ(3),s:'请开_。',th:'กรุณาเปิดประตู',opts:['门','课','次'],ans:0,k:'p23-qkm-t',fb:'<span class="zh">请开门。</span>'}),
+ ask({rv:7,q:'ฟัง 纸 zhǐ แล้วเลือกพยัญชนะตัวแรก',k:'sy:纸',opts:['zh','ch','j'],ans:0,fb:'<b>zh</b>ǐ · ม้วนลิ้น ไม่พ่นลม'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณเตรียมสอบเป็นอย่างไร คุณเตรียมมาดี',line:{...X.zbq,who:'g'},opts:[X.zbh,X.mkl,X.wfj],ans:0,why:'ตอบด้วย 准备得很好'}),
+ ask({rv:'ทบทวนบท 6-2 งานอดิเรก',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-cgh-m',opts:['เธอร้องเพลงเก่งมาก','เธอเต้นเก่งมาก','เธอชอบร้องเพลง'],ans:0,fb:'<span class="zh">唱歌</span> = ร้องเพลง · <span class="zh">唱得很好</span> = ร้องเก่ง'}),
+ order({tag:TQ(5),th:'เราเริ่มเรียนแปดโมง',tiles:[tl('我们','wǒmen'),tl('八点','bā diǎn'),tl('上','shàng'),tl('课','kè'),tl('次','cì')],ans:[0,1,2,3],end:'。',k:'p23-bsk-g'}),
+ tf({tag:TQ(6),k:'p23-d-f',img:KE.img,card:'<b>มะลิ</b><br>สัปดาห์นี้เข้าเรียนสามครั้ง',ans:1,fb:'<span class="zh">上了五次课</span> = เข้าเรียนห้าครั้ง · ไม่ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'วันสอบ',chips:['ฟังแล้วแตะภาพ','ชมเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนพูดภาษาจีนเก่งมาก คุณอยากชมเพื่อน',opts:[X.hys,X.kbz,X.myk],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'一个星期上两_课。',opts:['次','个','门'],ans:0,k:'p23-lck-t',fb:'<span class="zh">一个星期上两次课。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('老师','lǎoshī'),tl('在','zài'),tl('教室','jiàoshì'),tl('里','li'),tl('房间','fángjiān')],ans:[0,1,2,3],end:'。',k:'p23-lsj-m'}),
+ fin({title:'คุยเรื่องเรียนและสอบได้แล้ว',html:dlgH(D,{noTh:1}),chips:[DE,FJ,MEN,CI,KE,JS,BZH,KSH].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L23',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

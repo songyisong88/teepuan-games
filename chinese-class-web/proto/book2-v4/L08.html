@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 3-2 งานวันเกิด</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 3-2 หน่วย 3 สวนครอบครัวสุขใจ: งานวันเกิด · คำใหม่ 孩子 男孩 女孩 老人 生日 快乐 身体 眼睛
+   ทบทวนจากบทก่อน: 哥哥 妹妹 爷爷 奶奶 男人 · กิจกรรมเฉพาะบท: อวยพรวันเกิด แยกเด็กกับผู้สูงอายุ 男孩 กับ 男人 */
+const HZ=W('孩子','háizi','เด็ก / ลูก',{s:'hái zi'}),NH=W('男孩','nánhái','เด็กชาย',{s:'nán hái'}),NVH=W('女孩','nǚhái','เด็กหญิง',{s:'nǚ hái'}),
+ LR=W('老人','lǎorén','ผู้สูงอายุ',{s:'lǎo rén'}),SR=W('生日','shēngrì','วันเกิด',{s:'shēng rì'}),KL=W('快乐','kuàilè','มีความสุข',{s:'kuài lè',sl:[1]}),
+ ST=W('身体','shēntǐ','ร่างกาย / สุขภาพ',{s:'shēn tǐ'}),YJ=W('眼睛','yǎnjing','ตา',{s:'yǎn jing'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，欢迎！今天是我奶奶的生日。','Mǎlì, huānyíng! jīntiān shì wǒ nǎinai de shēngrì.','มะลิ ยินดีต้อนรับ วันนี้เป็นวันเกิดของคุณย่าฉัน','p08-a-g'),
+ b:S('奶奶，生日快乐！','nǎinai, shēngrì kuàilè!','คุณย่า สุขสันต์วันเกิด','p08-b-f'),
+ c:S('谢谢！奶奶今年八十岁，身体很好。','xièxie! nǎinai jīnnián bāshí suì, shēntǐ hěn hǎo.','ขอบคุณ ปีนี้คุณย่าอายุแปดสิบปี สุขภาพแข็งแรงดี','p08-c-g'),
+ d:S('那个男孩是谁？','nàge nánhái shì shéi?','เด็กผู้ชายคนนั้นเป็นใคร','p08-d-f'),
+ e:S('他是我哥哥的孩子。','tā shì wǒ gēge de háizi.','เขาเป็นลูกของพี่ชายฉัน','p08-e-g'),
+ f:S('那个女孩呢？她的眼睛很大！','nàge nǚhái ne? tā de yǎnjing hěn dà!','แล้วเด็กผู้หญิงคนนั้นล่ะ ตาของเธอโตมาก','p08-f-f'),
+ g:S('她是我妹妹。今天大家都很快乐！','tā shì wǒ mèimei. jīntiān dàjiā dōu hěn kuàilè!','เธอเป็นน้องสาวฉัน วันนี้ทุกคนมีความสุขมาก','p08-g-g'),
+ hzwd:S('他是我的孩子。','tā shì wǒ de háizi.','เขาเป็นลูกของฉัน','p08-hzwd-t'),
+ hzxx:S('孩子们在学校。','háizimen zài xuéxiào.','เด็ก ๆ อยู่ที่โรงเรียน','p08-hzxx-f'),
+ nhbs:S('这个男孩八岁。','zhège nánhái bā suì.','เด็กผู้ชายคนนี้อายุแปดขวบ','p08-nhbs-m'),
+ nvmm:S('这个女孩是我妹妹。','zhège nǚhái shì wǒ mèimei.','เด็กผู้หญิงคนนี้คือน้องสาวของฉัน','p08-nvmm-f'),
+ nvpl:S('那个女孩很漂亮。','nàge nǚhái hěn piàoliang.','เด็กผู้หญิงคนนั้นสวยมาก','p08-nvpl-g'),
+ lrds:S('老人在家看电视。','lǎorén zài jiā kàn diànshì.','ผู้สูงอายุดูทีวีอยู่ที่บ้าน','p08-lrds-t'),
+ lryy:S('这个老人是我爷爷。','zhège lǎorén shì wǒ yéye.','ผู้สูงอายุท่านนี้คือคุณปู่ของฉัน','p08-lryy-m'),
+ srwd:S('今天是我的生日！','jīntiān shì wǒ de shēngrì!','วันนี้เป็นวันเกิดของฉัน','p08-srwd-g'),
+ srjy:S('你的生日是几月几号？','nǐ de shēngrì shì jǐ yuè jǐ hào?','วันเกิดของคุณคือวันที่เท่าไร เดือนอะไร','p08-srjy-g'),
+ srwy:S('我的生日是五月十号。','wǒ de shēngrì shì wǔ yuè shí hào.','วันเกิดของฉันคือวันที่สิบพฤษภาคม','p08-srwy-f'),
+ hkl:S('我很快乐。','wǒ hěn kuàilè.','ฉันมีความสุขมาก','p08-hkl-f'),
+ srkl:S('生日快乐！','shēngrì kuàilè!','สุขสันต์วันเกิด','p08-srkl-f'),
+ yyst:S('爷爷身体很好。','yéye shēntǐ hěn hǎo.','คุณปู่สุขภาพแข็งแรงดี','p08-yyst-f'),
+ nstz:S('奶奶，您身体怎么样？','nǎinai, nín shēntǐ zěnmeyàng?','คุณย่า สุขภาพเป็นอย่างไรบ้าง','p08-nstz-f'),
+ yjd:S('她的眼睛很大。','tā de yǎnjing hěn dà.','ตาของเธอโตมาก','p08-yjd-m'),
+ yjpl:S('妹妹的眼睛很漂亮。','mèimei de yǎnjing hěn piàoliang.','ตาของน้องสาวสวยมาก','p08-yjpl-g'),
+ nnbs:S('奶奶今年八十岁。','nǎinai jīnnián bāshí suì.','ปีนี้คุณย่าอายุแปดสิบปี','p08-nnbs-g'),
+ nrbb:S('那个男人是我爸爸。','nàge nánrén shì wǒ bàba.','ผู้ชายคนนั้นเป็นพ่อของฉัน','p08-nrbb-f'),
+ bkq:S('不客气。','bú kèqi.','ยินดี','p02-bkq-f'),
+ cfb:S('我们吃饭吧！','wǒmen chī fàn ba!','พวกเราทานข้าวกันเถอะ','p04-cfb-m'),
+ c1:S('生日快乐','shēngrì kuàilè','สุขสันต์วันเกิด','p08-c1-t'),c2:S('几月几号','jǐ yuè jǐ hào','วันที่เท่าไร เดือนอะไร','p08-c2-t'),
+ c3:S('身体很好','shēntǐ hěn hǎo','สุขภาพแข็งแรงดี','p08-c3-t'),c4:S('很快乐','hěn kuàilè','มีความสุขมาก','p08-c4-t')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'g'},d:{...X.d,who:'me'},e:{...X.e,who:'g'},f:{...X.f,who:'me'},g:{...X.g,who:'g'}};
+const D=[{sit:'วันนี้เป็นวันเกิดของคุณย่าหลี่น่า มีแขกมาที่บ้านหลายคน',img:SR.img},L.a,L.b,L.c,L.d,L.e,L.f,L.g];
+const PTY=[{img:NH.img,th:'เด็กชาย'},{img:NVH.img,th:'เด็กหญิง'},{img:LR.img,th:'ผู้สูงอายุ'},{img:SR.img,th:'วันเกิด'}];
+const PPL=[{img:NH.img,th:'เด็กชาย'},{img:NVH.img,th:'เด็กหญิง'},{img:LR.img,th:'ผู้สูงอายุ'},{img:HZ.img,th:'เด็ก ลูก'}];
+const BINS=[{img:HZ.img,zh:'孩子',py:'háizi',th:'เด็ก'},{img:LR.img,zh:'老人',py:'lǎorén',th:'ผู้สูงอายุ'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:8,code:'บท 3-2',title:'งานวันเกิด',goal:{do:'อวยพรวันเกิด ถามวันเกิด พูดถึงเด็กและผู้สูงอายุ และถามเรื่องสุขภาพ',sub:'ใช้ <span class="gz">生日快乐 · 孩子 · 老人 · 身体很好</span>',min:12},steps:[
+ /* 1 · เปิดบท + คำศัพท์ใหม่ */
+ intro({scene:SR.img,cap:'สถานการณ์ของบทนี้',title:'วันเกิดคุณย่า',line:L.b,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะอวยพรวันเกิดและพูดถึงคนในงานได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[HZ,NH,NVH,LR,SR,KL,ST,YJ]}),
+ /* 2 · เรียนทีละคำ */
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['孩子','男孩','女孩','老人','生日','快乐','身体','眼睛'],note:'ใช้คำจากบท 3-1 เช่น 哥哥 妹妹 爷爷 奶奶 ร่วมด้วย'}),
+ ...WC(HZ,1,8,{cap:'คน',hint:'คล้าย <b>"ไห จือ"</b> · h ออกเสียงจากคอ · 子 อ่านเบา',use:'เด็ก หรือลูกของใครสักคน · 孩子们 เด็ก ๆ หลายคน',ex:[X.hzwd,X.hzxx]}),
+ ...WC(NH,2,8,{cap:'คน',hint:'คล้าย <b>"หนาน ไห"</b> · เสียง 2 ทั้งสองพยางค์',use:'男 ผู้ชาย + 孩 เด็ก = เด็กผู้ชาย',ex:[X.d,X.nhbs]}),
+ RC('คำที่ 1–2/8',[HZ,NH]),
+ ...WC(NVH,3,8,{cap:'คน',hint:'คล้าย <b>"หนวี่ ไห"</b> · ü ห่อปากกลม',use:'女 ผู้หญิง + 孩 เด็ก = เด็กผู้หญิง',ex:[X.nvmm,X.nvpl]}),
+ ...WC(LR,4,8,{cap:'คน',hint:'คล้าย <b>"เหลา เริน"</b> · r ม้วนลิ้น',use:'老 แก่ + 人 คน = ผู้สูงอายุ · พูดถึงคนสูงอายุอย่างสุภาพ',ex:[X.lrds,X.lryy]}),
+ RC('คำที่ 3–4/8',[NVH,LR]),
+ use({n:'คำที่ 1–4/8',w:HZ,when:[{img:HZ.img,t:'พูดถึงเด็กหรือลูก'},{img:LR.img,t:'พูดถึงคนสูงอายุ'}],lines:[{...X.d,who:'me'},{...X.e,who:'g'}],tip:'<span class="zh">我哥哥的孩子</span> ลูกของพี่ชายฉัน · ของใครอยู่หน้า <span class="zh">的</span>'}),
+ ...WC(SR,5,8,{cap:'งานเลี้ยง',hint:'คล้าย <b>"เซิง รื่อ"</b> · sh และ r ม้วนลิ้น',use:'生 เกิด + 日 วัน = วันเกิด · ถามวันเกิดด้วย 几月几号',ex:[X.srwd,X.srjy]}),
+ ...WC(KL,6,8,{cap:'ความรู้สึก',hint:'คล้าย <b>"ไคว่ เล่อ"</b> · k พ่นลม เสียง 4 ทั้งสองพยางค์',use:'มีความสุข · 生日快乐 สุขสันต์วันเกิด',ex:[X.hkl,X.srkl]}),
+ RC('คำที่ 5–6/8',[SR,KL]),
+ use({n:'คำที่ 5–6/8',w:SR,when:[{img:SR.img,t:'อวยพรวันเกิด'},{img:NL(KL),t:'บอกว่ามีความสุข'}],lines:[{...X.srwd,who:'g'},{...X.srkl,who:'me'}],tip:'<span class="zh">生日快乐！</span> ใช้อวยพรได้ทุกคน ทั้งเพื่อนและผู้ใหญ่'}),
+ ...WC(ST,7,8,{cap:'ร่างกาย',hint:'คล้าย <b>"เซิน ถี่"</b> · t พ่นลม · 体 เสียง 3',use:'ร่างกาย สุขภาพ · 身体很好 สุขภาพแข็งแรงดี',ex:[X.yyst,X.nstz]}),
+ ...WC(YJ,8,8,{cap:'ร่างกาย',hint:'คล้าย <b>"เหยี่ยน จิง"</b> · 睛 อ่านเบา',use:'ตา · ตาโตใช้ 眼睛很大',ex:[X.yjd,X.yjpl]}),
+ RC('คำที่ 7–8/8',[ST,YJ]),
+ /* 3 · เทคนิคการใช้ */
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','อวยพรวันเกิด','เด็กหรือผู้สูงอายุ','คนในงาน','男孩 กับ 男人','ข้อควรระวัง'],note:'ฝึกพูดในงานวันเกิดของคุณย่า'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในงานวันเกิด',title:'วันเกิดคุณย่า',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'อวยพรด้วย 生日快乐 · ถามว่าใครด้วย 那个…是谁'}),
+ talk({cap:'เทคนิค 2/6 · อวยพรวันเกิด',title:'อวยพรแล้วถามวันเกิด',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.srwd,who:'g'},{...X.srkl,who:'me'},{...X.srjy,who:'g'},{...X.srwy,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">生日快乐</span> สุขสันต์วันเกิด · ถามวันเกิดด้วย <span class="zh">几月几号</span> · ตอบเดือนก่อนแล้วตามด้วยวันที่'}),
+ sortmap({tag:'เทคนิค 3/6 · เด็กหรือผู้สูงอายุ',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงเด็กหรือผู้สูงอายุ',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NH.img,X.nhbs,0),it(ART('爷爷'),X.lryy,1),it(NVH.img,X.nvmm,0),it(ART('奶奶'),X.nnbs,1)]}),
+ point({tag:'เทคนิค 4/6 · คนในงาน',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PTY,rounds:[
+  {zh:X.nvpl.zh,k:X.nvpl.k,ans:1},{zh:X.srwd.zh,k:X.srwd.k,ans:3},{zh:X.d.zh,k:X.d.k,ans:0},{zh:X.lrds.zh,k:X.lrds.k,ans:2}]}),
+ cmp({cap:'เทคนิค 5/6 · 男孩 กับ 男人',title:'เด็กผู้ชาย ผู้ชาย',text:'แตะการ์ดเพื่อฟัง',a:{who:'เด็กผู้ชาย',img:NH.img,zh:X.nhbs.zh,zhb:'男孩',py:'nánhái',th:'เด็กผู้ชาย',k:X.nhbs.k},b:{who:'ผู้ชาย',img:ART('男人'),zh:X.nrbb.zh,zhb:'男人',py:'nánrén',th:'ผู้ชาย (ผู้ใหญ่)',k:X.nrbb.k},
+  tip:'<span class="zh">孩</span> แปลว่าเด็ก · <span class="zh">男孩 女孩</span> เด็กชาย เด็กหญิง · <span class="zh">男人 女人</span> ผู้ใหญ่'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'生日 มาก่อน 快乐',bad:'快乐生日！',good:'生日快乐！',k:'p08-srkl-f'},
+  {h:'บอกสุขภาพใช้ 很好 ไม่ใช้ 是',bad:'爷爷身体是好。',good:'爷爷身体很好。',k:'p08-yyst-f'},
+  {h:'ถามวันเกิด เดือนมาก่อนวัน',bad:'你的生日是几号几月？',good:'你的生日是几月几号？',k:'p08-srjy-g'},
+  {h:'ลูกของใคร 的 อยู่หน้า 孩子',bad:'他是孩子的我。',good:'他是我的孩子。',k:'p08-hzwd-t'}]}),
+ /* 4 · แบบทดสอบท้ายบท */
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:老人',opts:['ผู้สูงอายุ','เด็ก','ผู้ชาย'],ans:0,fb:'<span class="zh">老人</span> <b>lǎorén</b> = ผู้สูงอายุ'}),
+ ask({rv:'ทบทวนบท 3-1 พี่น้องและครอบครัว',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p08-e-g',opts:['เขาเป็นลูกของพี่ชายฉัน','เขาเป็นพี่ชายของฉัน','เขาเป็นน้องชายของฉัน'],ans:0,fb:'<span class="zh">他是我哥哥的孩子。</span>'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:眼睛',opts:[{img:YJ.img},{img:ST.img},{img:SR.img}],ans:0,fb:'<span class="zh">眼睛</span> <b>yǎnjing</b> = ตา'}),
+ blank({tag:TQ(3),s:'_快乐！',th:'สุขสันต์วันเกิด',opts:['生日','身体','孩子'],ans:0,k:'p08-srkl-f',fb:'<span class="zh">生日快乐！</span>'}),
+ ask({rv:10,q:'ฟัง 孩 hái แล้วเลือกสระ',k:'sy:孩',opts:['ai','ei','ao'],ans:0,fb:'h<b>ái</b> · สระผสม ai คล้าย "ไอ"'}),
+ reply({tag:TQ(4),q:'หลี่น่าบอกว่าวันนี้เป็นวันเกิดของเธอ',line:{...X.srwd,who:'g'},opts:[X.srkl,X.bkq,X.yyst],ans:0,why:'อวยพรด้วย 生日快乐'}),
+ blank({tag:'ทบทวนบท 2-1 สวัสดีตอนเช้า ราตรีสวัสดิ์',s:'我们吃饭_！',th:'พวกเราทานข้าวกันเถอะ',opts:['吧','半','号'],ans:0,k:'p04-cfb-m',fb:'<span class="zh">我们吃饭吧！</span> 吧 ใช้ชวน'}),
+ order({tag:TQ(5),th:'คุณปู่สุขภาพแข็งแรงดี',tiles:[tl('爷爷','yéye'),tl('身体','shēntǐ'),tl('很','hěn'),tl('好','hǎo'),tl('眼睛','yǎnjing')],ans:[0,1,2,3],end:'。',k:'p08-yyst-f'}),
+ tf({tag:TQ(6),k:'p08-nnbs-g',img:ART('奶奶'),card:'<b>奶奶</b><br>อายุ 80 ปี',ans:0,fb:'<span class="zh">奶奶今年八十岁。</span> = ปีนี้คุณย่าอายุแปดสิบปี · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ไปงานวันเกิด',chips:['ฟังแล้วแตะภาพ','พูดกับผู้ใหญ่','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะคนที่พูดถึง',this:'คือคนนี้',cards:PPL,rounds:[{zh:X.lryy.zh,k:X.lryy.k,ans:2},{zh:X.hzwd.zh,k:X.hzwd.k,ans:3},{zh:X.nvmm.zh,k:X.nvmm.k,ans:1},{zh:X.nhbs.zh,k:X.nhbs.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณเจอคุณย่าของเพื่อน อยากถามเรื่องสุขภาพอย่างสุภาพ',opts:[X.nstz,X.srjy,X.d],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'她的_很大。',opts:['眼睛','身体','生日'],ans:0,k:'p08-yjd-m',fb:'<span class="zh">她的眼睛很大。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('今天','jīntiān'),tl('是','shì'),tl('我的','wǒ de'),tl('生日','shēngrì'),tl('快乐','kuàilè')],ans:[0,1,2,3],end:'！',k:'p08-srwd-g'}),
+ /* 5 · จบบท */
+ fin({title:'อวยพรวันเกิดได้แล้ว',html:dlgH(D,{noTh:1}),chips:[HZ,NH,NVH,LR,SR,KL,ST,YJ].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L08',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

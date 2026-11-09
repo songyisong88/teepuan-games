@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 1-2 ดูแลคุณปู่</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 1-2 หน่วย 1 สวนครอบครัวสุขใจ: ดูแลคุณปู่ · คำใหม่ 照顾 空调 着急 等 跟 把
+   กิจกรรมเฉพาะบท: 把 + สิ่งของ + การกระทำ แตะสิ่งของ 等 หรือ 跟 着急 กับ 别着急 */
+const ZG=W('照顾','zhàogù','ดูแล',{s:'zhào gù'}),KT=W('空调','kōngtiáo','เครื่องปรับอากาศ',{s:'kōng tiáo',sl:[1]}),ZJ=W('着急','zháojí','ร้อนใจ / กังวลรีบร้อน',{s:'zháo jí',sl:[0]}),
+ DENG=W('等','děng','รอ'),GEN=W('跟','gēn','กับ / ตาม'),BA=W('把','bǎ','เอา…ไปทำ… (โครงสร้างประโยค)');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，爷爷怎么了？','Mǎlì, yéye zěnme le?','มะลิ คุณปู่เป็นอะไรไป','p02-a-m'),
+ b:S('爷爷感冒了，我在家照顾他。','yéye gǎnmào le, wǒ zài jiā zhàogù tā.','คุณปู่เป็นหวัด ฉันอยู่บ้านดูแลท่าน','p02-b-f'),
+ c:S('房间里很冷，我把空调关了吧。','fángjiān lǐ hěn lěng, wǒ bǎ kōngtiáo guān le ba.','ในห้องหนาวมาก ผมปิดแอร์ให้นะ','p02-c-m'),
+ d:S('好，谢谢！医生还没来，我很着急。','hǎo, xièxie! yīshēng hái méi lái, wǒ hěn zháojí.','ดีเลย ขอบคุณนะ คุณหมอยังไม่มา ฉันร้อนใจมาก','p02-d-f'),
+ e:S('别着急，我们一起等。','bié zháojí, wǒmen yìqǐ děng.','ไม่ต้องร้อนใจ เรารอด้วยกัน','p02-e-m'),
+ f:S('你跟我去外边看看吧。','nǐ gēn wǒ qù wàibian kànkan ba.','ไปดูข้างนอกกับฉันหน่อยนะ','p02-f-f'),
+ mzh:S('妈妈照顾孩子。','māma zhàogù háizi.','แม่ดูแลลูก','p02-mzh-g'),
+ xzg:S('谢谢你照顾我！','xièxie nǐ zhàogù wǒ!','ขอบคุณที่ดูแลฉันนะ','p02-xzg-f'),
+ fkt:S('房间里有空调。','fángjiān lǐ yǒu kōngtiáo.','ในห้องมีแอร์','p02-fkt-t'),
+ ktl:S('空调太冷了。','kōngtiáo tài lěng le.','แอร์เย็นเกินไป','p02-ktl-g'),
+ bzj:S('别着急！','bié zháojí!','ใจเย็น ๆ ไม่ต้องรีบร้อน','p02-bzj-t'),
+ thz:S('他很着急。','tā hěn zháojí.','เขาร้อนใจมาก','p02-thz-g'),
+ qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่','p02-qdx-t'),
+ czd:S('我在车站等你。','wǒ zài chēzhàn děng nǐ.','ฉันรอเธอที่สถานี','p02-czd-f'),
+ gmm:S('我跟妈妈去医院。','wǒ gēn māma qù yīyuàn.','ฉันไปโรงพยาบาลกับแม่','p02-gmm-f'),
+ gwl:S('你跟我来。','nǐ gēn wǒ lái.','ตามฉันมา','p02-gwl-t'),
+ bmg:S('请把门关上。','qǐng bǎ mén guānshang.','ช่วยปิดประตูหน่อย','p02-bmg-t'),
+ byg:S('我把药给爷爷。','wǒ bǎ yào gěi yéye.','ฉันเอายาให้คุณปู่','p02-byg-f'),
+ bsg:S('请把水给我。','qǐng bǎ shuǐ gěi wǒ.','ช่วยเอาน้ำให้ฉันหน่อย','p02-bsg-g'),
+ bkg:S('我把空调关了。','wǒ bǎ kōngtiáo guān le.','ฉันปิดแอร์แล้ว','p02-bkg-m'),
+ hd:S('好的。','hǎo de.','ได้เลย','p02-hd-m'),
+ c1:S('把门','bǎ mén','เอาประตู…','p02-c1-t'),c2:S('把空调','bǎ kōngtiáo','เอาแอร์…','p02-c2-t'),c3:S('把药','bǎ yào','เอายา…','p02-c3-t'),c4:S('把水','bǎ shuǐ','เอาน้ำ…','p02-c4-t'),
+ hzj:S('我很着急。','wǒ hěn zháojí.','ฉันร้อนใจมาก','p02-hzj-f'),
+ hzjm:S('我很着急。','wǒ hěn zháojí.','ผมร้อนใจมาก','p02-hzjm-m'),
+ dzt:S('我肚子疼。','wǒ dùzi téng.','ฉันปวดท้อง','p01-dzt-f'),
+ mxx:S('今天很忙，我想休息。','jīntiān hěn máng, wǒ xiǎng xiūxi.','วันนี้ยุ่งมาก ฉันอยากพักผ่อน','p02-mxx-g'),
+ bzd:S('别着急，我们一起等。','bié zháojí, wǒmen yìqǐ děng.','ไม่ต้องร้อนใจ เรารอด้วยกัน','p02-e-m'),
+ el:S('我饿了。','wǒ è le.','ฉันหิวแล้ว','p01-el-m'),
+ bkb:S('我把空调关了吧。','wǒ bǎ kōngtiáo guān le ba.','ฉันปิดแอร์ให้นะ','p02-bkb-f'),
+ ngw:S('我跟你去。','wǒ gēn nǐ qù.','ฉันไปกับเธอ','p02-ngw-f')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'}};
+const D=[{sit:'คุณปู่เป็นหวัด หวังหมิงมาเยี่ยมที่บ้านของมะลิ',img:NL(ZG)},L.a,L.b,L.c,L.d,L.e,L.f];
+const OBJ=[{img:ART('门'),th:'ประตู'},{img:KT.img,th:'แอร์'},{img:ART('药'),th:'ยา'},{img:ART('水'),th:'น้ำ'}];
+const BINS=[{img:NL(DENG),zh:'等',py:'děng',th:'รอ'},{img:NL(GEN),zh:'跟',py:'gēn',th:'ไปด้วยกัน / ตาม'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:2,code:'บท 1-2',title:'ดูแลคุณปู่',goal:{do:'บอกว่ากำลังดูแลคนในบ้าน ขอให้คนอื่นรอ ชวนไปด้วยกัน และขอให้ช่วยทำบางอย่างด้วย 把',sub:'ใช้ <span class="gz">照顾 · 别着急 · 等一下 · 跟我来 · 把…关了</span>',min:12},steps:[
+ intro({scene:NL(ZG),cap:'สถานการณ์ของบทนี้',title:'คุณปู่เป็นหวัด',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะขอให้คนอื่นช่วยทำสิ่งต่าง ๆ ได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZG,KT,ZJ,DENG,GEN,BA]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['照顾','空调','着急','等','跟','把'],note:'ใช้คำจากบทก่อน เช่น 感冒 疼 ร่วมด้วย'}),
+ ...WC(ZG,1,6,{cap:'ครอบครัว',hint:'คล้าย <b>"จ้าว กู้"</b> · zh ม้วนลิ้น',use:'ดูแล · 照顾 + คน',ex:[X.mzh,X.xzg]}),
+ ...WC(KT,2,6,{cap:'ในบ้าน',hint:'คล้าย <b>"คง เถียว"</b> · 调 ในคำนี้อ่าน tiáo',use:'เครื่องปรับอากาศ แอร์',ex:[X.fkt,X.ktl]}),
+ ...WC(ZJ,3,6,{cap:'ความรู้สึก',hint:'คล้าย <b>"จ๋าว จี๋"</b> · 着 ในคำนี้อ่าน zháo',use:'ร้อนใจ รีบร้อน · 别着急 = ใจเย็น ๆ',ex:[X.bzj,X.thz]}),
+ RC('คำที่ 1–3/6',[ZG,KT,ZJ]),
+ ...WC(DENG,4,6,{cap:'การกระทำ',hint:'คล้าย <b>"เติ่ง"</b> · เสียง 3',use:'รอ · 等一下 = รอสักครู่',ex:[X.qdx,X.czd]}),
+ use({n:'คำที่ 1–4/6',w:DENG,when:[{img:NL(DENG),t:'ขอให้อีกฝ่ายรอ'},{img:NL(ZJ),t:'ปลอบคนที่ร้อนใจ'}],lines:[{...X.qdx,who:'t'},{...X.e,who:'f'}],tip:'ขอให้รอแบบสุภาพ <span class="zh">请等一下。</span>'}),
+ ...WC(GEN,5,6,{cap:'คำเชื่อม',hint:'คล้าย <b>"เกิน"</b> · เสียง 1',use:'กับ ตาม · A 跟 B + การกระทำ',ex:[X.gmm,X.gwl]}),
+ ...WC(BA,6,6,{cap:'โครงสร้างประโยค',hint:'คล้าย <b>"ป่า"</b> · เสียง 3',use:'把 + สิ่งของ + การกระทำ · บอกว่าทำอะไรกับสิ่งนั้น',ex:[X.bmg,X.byg]}),
+ RC('คำที่ 4–6/6',[DENG,GEN,BA]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','把 + สิ่งของ','แตะสิ่งของ','等 หรือ 跟','着急 กับ 别着急','ข้อควรระวัง'],note:'ฝึกขอให้คนอื่นช่วยและรอด้วยกัน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่บ้าน',title:'คุณปู่เป็นหวัด',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'把空调关了 = ปิดแอร์ · 别着急 = ไม่ต้องร้อนใจ'}),
+ talk({cap:'เทคนิค 2/6 · 把 + สิ่งของ',title:'ทำอะไรกับสิ่งนั้น',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.bmg,who:'t'},{...X.hd,who:'f'},{...X.bsg,who:'g'},{...X.byg,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">把</span> + สิ่งของ + การกระทำ · ต้องมีการกระทำต่อท้ายเสมอ เช่น <span class="zh">关上 · 给我</span>'}),
+ point({tag:'เทคนิค 3/6 · แตะสิ่งของ',q:'ฟังแต่ละประโยค แล้วแตะสิ่งของที่พูดถึง',this:'คือสิ่งนี้',cards:OBJ,rounds:[
+  {zh:X.bkg.zh,k:X.bkg.k,ans:1},{zh:X.bmg.zh,k:X.bmg.k,ans:0},{zh:X.bsg.zh,k:X.bsg.k,ans:3},{zh:X.byg.zh,k:X.byg.k,ans:2}]}),
+ sortmap({tag:'เทคนิค 4/6 · 等 หรือ 跟',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 等 หรือ 跟',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('手表'),X.qdx,0),it(ART('朋友'),X.gwl,1),it(ART('站'),X.czd,0),it(A2('医院'),X.gmm,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 着急 กับ 别着急',title:'ร้อนใจ กับ ใจเย็น ๆ',text:'แตะการ์ดเพื่อฟัง',a:{who:'บอกความรู้สึก',img:NL(ZJ),zh:X.hzj.zh,zhb:'很着急',py:'hěn zháojí',th:'ร้อนใจมาก',k:X.hzj.k},b:{who:'ปลอบใจ',img:ART('朋友'),zh:X.bzj.zh,zhb:'别着急',py:'bié zháojí',th:'ใจเย็น ๆ',k:X.bzj.k},
+  tip:'<span class="zh">别</span> + คำ = อย่า… · <span class="zh">别着急</span> ใช้ปลอบคนที่กำลังรีบร้อนหรือกังวล'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'สถานที่อยู่หน้าการกระทำ',bad:'我等你在车站。',good:'我在车站等你。',k:'p02-czd-f'},
+  {h:'把 ต้องมีการกระทำต่อท้าย',bad:'我把空调。',good:'我把空调关了。',k:'p02-bkg-m'},
+  {h:'跟 + คน อยู่หน้าการกระทำ',bad:'我去医院跟妈妈。',good:'我跟妈妈去医院。',k:'p02-gmm-f'},
+  {h:'一下 อยู่หลังการกระทำ',bad:'请一下等。',good:'请等一下。',k:'p02-qdx-t'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:空调',opts:['เครื่องปรับอากาศ','ประตู','ยา'],ans:0,fb:'<span class="zh">空调</span> <b>kōngtiáo</b> = เครื่องปรับอากาศ'}),
+ ask({rv:'ทบทวนบท 1-1 ไม่สบายตรงไหน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p01-dzt-f',opts:['ฉันปวดท้อง','ฉันปวดหัว','ฉันหิวแล้ว'],ans:0,fb:'<span class="zh">肚子疼</span> = ปวดท้อง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:照顾',opts:[{img:NL(ZG)},{img:NL(DENG)},{img:NL(GEN)}],ans:0,fb:'<span class="zh">照顾</span> <b>zhàogù</b> = ดูแล'}),
+ blank({tag:TQ(3),s:'请_一下。',th:'กรุณารอสักครู่',opts:['等','跟','把'],ans:0,k:'p02-qdx-t',fb:'<span class="zh">请等一下。</span>'}),
+ ask({rv:7,q:'ฟัง 着急 แล้วเลือกพยัญชนะตัวแรกของ 着',k:'w:着急',opts:['zh','j','z'],ans:0,fb:'<b>zh</b>áojí · zh ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'หวังหมิงบอกว่าร้อนใจมาก คุณปลอบเขา',line:{...X.hzjm,who:'f'},opts:[X.bzd,X.ktl,X.el],ans:0,why:'ปลอบด้วย 别着急'}),
+ ask({rv:'ทบทวนเล่ม 2 บท 6-5 ที่บริษัท',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p02-mxx-g',opts:['วันนี้ยุ่งมาก ฉันอยากพักผ่อน','วันนี้ว่าง ฉันอยากไปเที่ยว','วันนี้ยุ่งมาก ฉันอยากทำงาน'],ans:0,fb:'<span class="zh">忙</span> = ยุ่ง · <span class="zh">休息</span> = พักผ่อน'}),
+ order({tag:TQ(5),th:'ฉันไปโรงพยาบาลกับแม่',tiles:[tl('我','wǒ'),tl('跟','gēn'),tl('妈妈','māma'),tl('去医院','qù yīyuàn'),tl('等','děng')],ans:[0,1,2,3],end:'。',k:'p02-gmm-f'}),
+ tf({tag:TQ(6),k:'p02-d-f',img:NL(ZJ),card:'<b>คุณหมอ</b><br>มาถึงบ้านแล้ว',ans:1,fb:'<span class="zh">医生还没来。</span> = คุณหมอยังไม่มา'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ช่วยกันดูแลคนในบ้าน',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะสิ่งของ',this:'คือสิ่งนี้',cards:OBJ,rounds:[{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c2.zh,k:X.c2.k,ans:1},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c3.zh,k:X.c3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนบอกว่าแอร์เย็นเกินไป',line:{...X.ktl,who:'g'},opts:[X.bkb,X.ngw,X.dzt],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'你_我来。',opts:['跟','等','把'],ans:0,k:'p02-gwl-t',fb:'<span class="zh">你跟我来。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('请','qǐng'),tl('把','bǎ'),tl('门','mén'),tl('关上','guānshang'),tl('等','děng')],ans:[0,1,2,3],end:'。',k:'p02-bmg-t'}),
+ fin({title:'ช่วยดูแลคนในบ้านได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZG,KT,ZJ,DENG,GEN,BA].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L02',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

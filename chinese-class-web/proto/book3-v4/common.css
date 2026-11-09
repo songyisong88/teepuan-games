@@ -1,0 +1,24 @@
+/* เพิ่มเฉพาะส่วนที่ต้นแบบต้องใช้ · สี ฟอนต์ ปุ่ม การ์ด ใช้ของแอปเดิมทั้งหมด */
+#frame{max-width:430px}
+.v4in{animation:v4in .42s var(--ease) both}
+@keyframes v4in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.pill.v4off{opacity:.38;filter:grayscale(.4)}
+.v4tag{font-size:13px}
+.pgrid.v4two{grid-template-columns:1fr 1fr}
+.pgrid.v4three{grid-template-columns:1fr 1fr 1fr}
+.pgrid.v4three .ptile .l1tl{font-size:18px}
+.ptile .v4hint{font-size:12px;color:var(--sub2);margin-top:-2px}
+.l1tbig .dt{transition:opacity .2s}
+.v4lead{font-size:15.5px;line-height:1.55;margin:10px 26px 0;color:var(--ink)}
+.v4big{font-size:52px;font-weight:600;line-height:1.1}
+.v4zh{font-size:30px}
+.audio.playing,.l1tn.playing,.v4card.playing{animation:bump .6s var(--spring) 2}
+#finger{position:fixed;left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(39,33,30,.18);border:2.5px solid rgba(255,255,255,.95);box-shadow:0 2px 10px rgba(0,0,0,.18);pointer-events:none;opacity:0;z-index:99;transition:transform .5s var(--ease),opacity .25s}
+#finger.down{background:rgba(200,16,46,.28);transform-origin:center}
+
+/* คำแปลไทยใต้ภาพ · ใช้สีป้ายคำเดิมของแอป (.plab) วางใต้ภาพ ไม่ทับภาพ */
+.v4lab{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:2px 10px;border-radius:999px;background:#FFF1D6;color:#7A4A00;font-weight:700;font-size:13px;line-height:1.5}
+.v4fig{display:flex;flex-direction:column;align-items:center;gap:6px}
+.v4fig .v4lab{font-size:14px;padding:2px 12px}
+.m4row .c .v4lab{font-size:11.5px;padding:0 7px}
+.opt.ptile .v4lab{flex:none;font-size:12.5px;padding:1px 9px;margin-top:2px}

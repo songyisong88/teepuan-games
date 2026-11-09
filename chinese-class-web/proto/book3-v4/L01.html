@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 1-1 ไม่สบายตรงไหน</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 1-1 หน่วย 1 สวนครอบครัวสุขใจ: ไม่สบายตรงไหน · คำใหม่ 头 手 脚 肚子 疼 感冒 饿 渴
+   กิจกรรมเฉพาะบท: …疼 บอกที่เจ็บ แตะส่วนของร่างกาย 饿 หรือ 渴 疼 กับ 累 */
+WHO.m={n:'คุณปู่',img:ART('爷爷')};
+const TOU=W('头','tóu','หัว'),SHOU=W('手','shǒu','มือ'),JIAO=W('脚','jiǎo','เท้า'),DZ=W('肚子','dùzi','ท้อง',{s:'dù zi'}),
+ TENG=W('疼','téng','เจ็บ / ปวด'),GM=W('感冒','gǎnmào','เป็นหวัด',{s:'gǎn mào'}),E_=W('饿','è','หิว'),KE=W('渴','kě','กระหายน้ำ');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，你怎么了？','Mǎlì, nǐ zěnme le?','มะลิ เป็นอะไรไปหลาน','p01-a-t'),
+ b:S('爷爷，我头疼，肚子也疼。','yéye, wǒ tóu téng, dùzi yě téng.','คุณปู่คะ หนูปวดหัว ปวดท้องด้วยค่ะ','p01-b-f'),
+ c:S('你是不是感冒了？','nǐ shì bu shì gǎnmào le?','หลานเป็นหวัดหรือเปล่า','p01-c-t'),
+ d:S('可能是。我不想吃饭，但是很渴。','kěnéng shì. wǒ bù xiǎng chī fàn, dànshì hěn kě.','น่าจะใช่ค่ะ หนูไม่อยากกินข้าว แต่กระหายน้ำมาก','p01-d-f'),
+ e:S('来，先喝水。你饿不饿？','lái, xiān hē shuǐ. nǐ è bu è?','มา ดื่มน้ำก่อน หิวไหม','p01-e-t'),
+ f:S('不饿。我的手和脚都很冷。','bú è. wǒ de shǒu hé jiǎo dōu hěn lěng.','ไม่หิวค่ะ มือกับเท้าหนูเย็นไปหมดเลย','p01-f-f'),
+ tdd:S('他的头很大。','tā de tóu hěn dà.','หัวของเขาใหญ่มาก','p01-tdd-m'),
+ tyr:S('我的头有点儿热。','wǒ de tóu yǒudiǎnr rè.','หัวของฉันร้อนนิดหน่อย','p01-tyr-f'),
+ xs:S('请洗手。','qǐng xǐ shǒu.','กรุณาล้างมือ','p01-xs-t'),
+ slk:S('我的手很冷。','wǒ de shǒu hěn lěng.','มือของฉันเย็นมาก','p01-slk-f'),
+ jdd:S('他的脚很大。','tā de jiǎo hěn dà.','เท้าของเขาใหญ่มาก','p01-jdd-g'),
+ jl:S('我走了很多路，脚很累。','wǒ zǒu le hěn duō lù, jiǎo hěn lèi.','ฉันเดินมาไกล เท้าเมื่อยมาก','p01-jl-f'),
+ gdz:S('小狗的肚子很大。','xiǎo gǒu de dùzi hěn dà.','ท้องของลูกหมาใหญ่มาก','p01-gdz-g'),
+ dzm:S('你的肚子怎么了？','nǐ de dùzi zěnme le?','ท้องเป็นอะไรไป','p01-dzm-t'),
+ tt:S('我头疼。','wǒ tóu téng.','ฉันปวดหัว','p01-tt-f'),
+ jt:S('他的脚很疼。','tā de jiǎo hěn téng.','เท้าของเขาเจ็บมาก','p01-jt-g'),
+ gml:S('我感冒了。','wǒ gǎnmào le.','ฉันเป็นหวัดแล้ว','p01-gml-f'),
+ bgm:S('天冷了，别感冒了。','tiān lěng le, bié gǎnmào le.','อากาศหนาวแล้ว ระวังอย่าเป็นหวัดนะ','p01-bgm-t'),
+ el:S('我饿了。','wǒ è le.','ฉันหิวแล้ว','p01-el-m'),
+ ebe:S('你饿不饿？','nǐ è bu è?','หิวไหม','p01-ebe-g'),
+ kh:S('我很渴，想喝水。','wǒ hěn kě, xiǎng hē shuǐ.','ฉันกระหายน้ำมาก อยากดื่มน้ำ','p01-kh-f'),
+ trk:S('天太热了，我渴了。','tiān tài rè le, wǒ kě le.','อากาศร้อนเกินไป ฉันกระหายน้ำแล้ว','p01-trk-m'),
+ nnt:S('你哪儿疼？','nǐ nǎr téng?','เจ็บตรงไหน','p01-nnt-t'),
+ dzt:S('我肚子疼。','wǒ dùzi téng.','ฉันปวดท้อง','p01-dzt-f'),
+ nzm:S('你怎么了？','nǐ zěnme le?','เป็นอะไรไป','p01-nzm-g'),
+ c1:S('头疼','tóu téng','ปวดหัว','p01-c1-t'),c2:S('手疼','shǒu téng','เจ็บมือ','p01-c2-t'),c3:S('脚疼','jiǎo téng','เจ็บเท้า','p01-c3-t'),c4:S('肚子疼','dùzi téng','ปวดท้อง','p01-c4-t'),
+ cmt:S('我想吃面条。','wǒ xiǎng chī miàntiáo.','ฉันอยากกินบะหมี่','p01-cmt-m'),
+ hnn:S('我想喝牛奶。','wǒ xiǎng hē niúnǎi.','ฉันอยากดื่มนม','p01-hnn-g'),
+ cmf:S('我想吃米饭。','wǒ xiǎng chī mǐfàn.','ฉันอยากกินข้าว','p01-cmf-f'),
+ hgz:S('我想喝茶。','wǒ xiǎng hē chá.','ฉันอยากดื่มชา','p01-hgz-m'),
+ jlei:S('我的脚很累。','wǒ de jiǎo hěn lèi.','เท้าของฉันเมื่อยมาก','p01-jlei-f'),
+ sby:S('我生病了，要吃药。','wǒ shēngbìng le, yào chī yào.','ฉันป่วย ต้องกินยา','p01-sby-g'),
+ yst:S('爷爷的身体很好。','yéye de shēntǐ hěn hǎo.','ร่างกายของคุณปู่แข็งแรงดี','p01-yst-g'),
+ qcf:S('我们去吃饭吧！','wǒmen qù chī fàn ba!','เราไปกินข้าวกันเถอะ','p01-qcf-m'),
+ ytt:S('我也头疼。','wǒ yě tóu téng.','ฉันก็ปวดหัวเหมือนกัน','p01-ytt-g'),
+ dzyt:S('我肚子有点儿疼。','wǒ dùzi yǒudiǎnr téng.','ฉันปวดท้องนิดหน่อย','p01-dzyt-f')};
+const L={a:{...X.a,who:'m'},b:{...X.b,who:'me'},c:{...X.c,who:'m'},d:{...X.d,who:'me'},e:{...X.e,who:'m'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลิไม่สบาย คุณปู่ถามว่าเป็นอะไร',img:NL(GM)},L.a,L.b,L.c,L.d,L.e,L.f];
+const BODY=[{img:TOU.img,th:'หัว'},{img:SHOU.img,th:'มือ'},{img:JIAO.img,th:'เท้า'},{img:DZ.img,th:'ท้อง'}];
+const BINS=[{img:NL(E_),zh:'饿',py:'è',th:'อยากกิน'},{img:NL(KE),zh:'渴',py:'kě',th:'อยากดื่ม'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:1,code:'บท 1-1',title:'ไม่สบายตรงไหน',goal:{do:'บอกว่าเจ็บหรือปวดตรงไหน บอกว่าเป็นหวัด หิว หรือกระหายน้ำ',sub:'ใช้ <span class="gz">头疼 · 肚子疼 · 感冒了 · 饿不饿 · 很渴</span>',min:12},steps:[
+ intro({scene:NL(GM),cap:'สถานการณ์ของบทนี้',title:'ไม่สบายที่บ้าน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกได้ว่าไม่สบายตรงไหน'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[TOU,SHOU,JIAO,DZ,TENG,GM,E_,KE]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['头','手','脚','肚子','疼','感冒','饿','渴'],note:'ใช้คำจากเล่ม 2 เช่น 生病 药 累 ร่วมด้วย'}),
+ ...WC(TOU,1,8,{cap:'ร่างกาย',hint:'คล้าย <b>"โถว"</b> · เสียง 2',use:'หัว · 头疼 = ปวดหัว',ex:[X.tdd,X.tyr]}),
+ ...WC(SHOU,2,8,{cap:'ร่างกาย',hint:'คล้าย <b>"โส่ว"</b> · sh ม้วนลิ้น เสียง 3',use:'มือ · 洗手 = ล้างมือ',ex:[X.xs,X.slk]}),
+ ...WC(JIAO,3,8,{cap:'ร่างกาย',hint:'คล้าย <b>"เจี่ยว"</b> · เสียง 3',use:'เท้า',ex:[X.jdd,X.jl]}),
+ RC('คำที่ 1–3/8',[TOU,SHOU,JIAO]),
+ ...WC(DZ,4,8,{cap:'ร่างกาย',hint:'คล้าย <b>"ตู้ จึ"</b> · 子 อ่านเบา',use:'ท้อง · 肚子疼 = ปวดท้อง',ex:[X.gdz,X.dzm]}),
+ ...WC(TENG,5,8,{cap:'อาการ',hint:'คล้าย <b>"เถิง"</b> · เสียง 2',use:'เจ็บ ปวด · ส่วนของร่างกาย + 疼',ex:[X.tt,X.jt]}),
+ RC('คำที่ 4–5/8',[DZ,TENG]),
+ use({n:'คำที่ 1–5/8',w:TENG,when:[{img:NL(TENG),t:'บอกว่าเจ็บตรงไหน'},{img:DZ.img,t:'บอกว่าปวดท้อง'}],lines:[{...X.nnt,who:'m'},{...X.dzt,who:'me'}],tip:'ส่วนของร่างกายอยู่หน้า <span class="zh">疼</span> · <span class="zh">头疼 · 肚子疼</span>'}),
+ ...WC(GM,6,8,{cap:'อาการ',hint:'คล้าย <b>"ก่าน เม่า"</b> · เสียง 3 + เสียง 4',use:'เป็นหวัด · มักพูดว่า 感冒了',ex:[X.gml,X.bgm]}),
+ ...WC(E_,7,8,{cap:'ความรู้สึก',hint:'คล้าย <b>"เออ"</b> เสียงต่ำลง · เสียง 4',use:'หิว · 饿了 = หิวแล้ว',ex:[X.el,X.ebe]}),
+ ...WC(KE,8,8,{cap:'ความรู้สึก',hint:'คล้าย <b>"เข่อ"</b> · k พ่นลม เสียง 3',use:'กระหายน้ำ · 渴了 = หิวน้ำแล้ว',ex:[X.kh,X.trk]}),
+ RC('คำที่ 6–8/8',[GM,E_,KE]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','哪儿疼','แตะส่วนร่างกาย','饿 หรือ 渴','疼 กับ 累','ข้อควรระวัง'],note:'ฝึกบอกอาการเวลาไม่สบาย'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่บ้าน',title:'ไม่สบายที่บ้าน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'บอกที่ปวดด้วย …疼 · ถามว่าหิวไหมด้วย 饿不饿'}),
+ talk({cap:'เทคนิค 2/6 · 哪儿疼',title:'ถามและบอกว่าเจ็บตรงไหน',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.nzm,who:'g'},{...X.tt,who:'me'},{...X.nnt,who:'m'},{...X.dzt,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ถาม <span class="zh">你哪儿疼？</span> · ตอบ ส่วนของร่างกาย + <span class="zh">疼</span>'}),
+ point({tag:'เทคนิค 3/6 · แตะส่วนร่างกาย',q:'ฟังแต่ละประโยค แล้วแตะส่วนของร่างกายที่พูดถึง',this:'คือส่วนนี้',cards:BODY,rounds:[
+  {zh:X.tt.zh,k:X.tt.k,ans:0},{zh:X.slk.zh,k:X.slk.k,ans:1},{zh:X.jdd.zh,k:X.jdd.k,ans:2},{zh:X.dzm.zh,k:X.dzm.k,ans:3}]}),
+ sortmap({tag:'เทคนิค 4/6 · 饿 หรือ 渴',q:'ฟังแต่ละประโยค แล้วแตะว่าคนพูดหิว หรือกระหายน้ำ',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('面条'),X.cmt,0),it(ART('牛奶'),X.hnn,1),it(ART('米饭'),X.cmf,0),it(ART('茶'),X.hgz,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 疼 กับ 累',title:'เจ็บ กับ เมื่อย',text:'แตะการ์ดเพื่อฟัง',a:{who:'บาดเจ็บ',img:NL(TENG),zh:X.jt.zh,zhb:'很疼',py:'hěn téng',th:'เจ็บมาก',k:X.jt.k},b:{who:'ใช้งานมาก',img:NL(W('累','lèi','เหนื่อย')),zh:X.jlei.zh,zhb:'很累',py:'hěn lèi',th:'เมื่อยมาก',k:X.jlei.k},
+  tip:'<span class="zh">疼</span> = เจ็บ ปวด · <span class="zh">累</span> = เหนื่อย เมื่อย หลังทำงานหรือเดินมาก'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'ส่วนของร่างกายอยู่หน้า 疼',bad:'我疼头。',good:'我头疼。',k:'p01-tt-f'},
+  {h:'เป็นหวัดแล้ว ใช้ 了',bad:'我是感冒。',good:'我感冒了。',k:'p01-gml-f'},
+  {h:'渴 ไม่มีกรรมตามหลัง',bad:'我渴水。',good:'我很渴，想喝水。',k:'p01-kh-f'},
+  {h:'很 อยู่หน้าคำบอกลักษณะ',bad:'我的手冷很。',good:'我的手很冷。',k:'p01-slk-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:脚',opts:['เท้า','มือ','หัว'],ans:0,fb:'<span class="zh">脚</span> <b>jiǎo</b> = เท้า'}),
+ ask({rv:'ทบทวนเล่ม 2 บท 8-1 ป่วยเพราะอะไร',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p01-sby-g',opts:['ฉันป่วย ต้องกินยา','ฉันเหนื่อย ต้องพักผ่อน','ฉันหิว ต้องกินข้าว'],ans:0,fb:'<span class="zh">生病</span> = ป่วย · <span class="zh">吃药</span> = กินยา'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:肚子',opts:[{img:DZ.img},{img:TOU.img},{img:SHOU.img}],ans:0,fb:'<span class="zh">肚子</span> <b>dùzi</b> = ท้อง'}),
+ blank({tag:TQ(3),s:'我很_，想喝水。',th:'ฉันกระหายน้ำมาก อยากดื่มน้ำ',opts:['渴','饿','疼'],ans:0,k:'p01-kh-f',fb:'<span class="zh">我很渴，想喝水。</span>'}),
+ ask({rv:2,q:'ฟัง 疼 téng แล้วเลือกวรรณยุกต์',k:'sy:疼',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">疼</span> t<b>é</b>ng เสียง 2 = เจ็บ ปวด'}),
+ reply({tag:TQ(4),q:'คุณปู่ถามว่าเป็นอะไร คุณปวดหัว',line:{...X.a,who:'m'},opts:[X.tt,X.el,X.jdd],ans:0,why:'บอกที่ปวดด้วย …疼'}),
+ ask({rv:'ทบทวนเล่ม 2 บท 3-2 งานวันเกิด',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p01-yst-g',opts:['ร่างกายของคุณปู่แข็งแรงดี','คุณปู่อายุมากแล้ว','คุณปู่ไม่สบาย'],ans:0,fb:'<span class="zh">身体</span> = ร่างกาย · <span class="zh">很好</span> = ดีมาก'}),
+ order({tag:TQ(5),th:'ฉันปวดท้องนิดหน่อย',tiles:[tl('我','wǒ'),tl('肚子','dùzi'),tl('有点儿','yǒudiǎnr'),tl('疼','téng'),tl('饿','è')],ans:[0,1,2,3],end:'。',k:'p01-dzyt-f'}),
+ tf({tag:TQ(6),k:'p01-f-f',img:SHOU.img,card:'<b>มะลิ</b><br>มือและเท้าร้อน',ans:1,fb:'<span class="zh">我的手和脚都很冷。</span> = มือกับเท้าเย็น ไม่ใช่ร้อน'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'บอกอาการให้คุณหมอฟัง',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะส่วนที่เจ็บ',this:'คือส่วนนี้',cards:BODY,rounds:[{zh:X.c3.zh,k:X.c3.k,ans:2},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c2.zh,k:X.c2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนบอกว่าหิวแล้ว คุณชวนไปกินข้าว',line:{...X.el,who:'f'},opts:[X.qcf,X.ytt,X.kh],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'天冷了，别_了。',opts:['感冒','饿','渴'],ans:0,k:'p01-bgm-t',fb:'<span class="zh">天冷了，别感冒了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我的','wǒ de'),tl('手','shǒu'),tl('很','hěn'),tl('冷','lěng'),tl('疼','téng')],ans:[0,1,2,3],end:'。',k:'p01-slk-f'}),
+ fin({title:'บอกอาการไม่สบายได้แล้ว',html:dlgH(D,{noTh:1}),chips:[TOU,SHOU,JIAO,DZ,TENG,GM,E_,KE].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L01',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

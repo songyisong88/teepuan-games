@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 1-3 งานวันเกิดคุณปู่</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 1-3 หน่วย 1 สวนครอบครัวสุขใจ: งานวันเกิดคุณปู่ · คำใหม่ 礼物 衬衫 眼镜 表演 节目 声音 见面
+   กิจกรรมเฉพาะบท: 送 + คน + ของ แตะของขวัญ 表演 หรือ 节目 见 กับ 见面 */
+WHO.m={n:'คุณปู่',img:ART('爷爷')};
+const LW=W('礼物','lǐwù','ของขวัญ',{s:'lǐ wù'}),CS=W('衬衫','chènshān','เสื้อเชิ้ต',{s:'chèn shān'}),YJ=W('眼镜','yǎnjìng','แว่นตา',{s:'yǎn jìng'}),
+ BY=W('表演','biǎoyǎn','แสดง / การแสดง',{s:'biǎo yǎn'}),JM=W('节目','jiémù','รายการ / ชุดการแสดง',{s:'jié mù'}),SY=W('声音','shēngyīn','เสียง',{s:'shēng yīn'}),
+ JMN=W('见面','jiànmiàn','พบหน้า',{s:'jiàn miàn'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，今天是你爷爷的生日吧？','Mǎlì, jīntiān shì nǐ yéye de shēngrì ba?','มะลิ วันนี้วันเกิดคุณปู่ของเธอใช่ไหม','p03-a-g'),
+ b:S('对！我的礼物是一件衬衫。','duì! wǒ de lǐwù shì yí jiàn chènshān.','ใช่ ของขวัญของฉันคือเสื้อเชิ้ตหนึ่งตัว','p03-b-f'),
+ c:S('孩子们准备了一个节目，要表演唱歌。','háizimen zhǔnbèi le yí ge jiémù, yào biǎoyǎn chàng gē.','เด็ก ๆ เตรียมการแสดงไว้ชุดหนึ่ง จะแสดงร้องเพลง','p03-c-g'),
+ d:S('太好了！我很喜欢跟大家见面。','tài hǎo le! wǒ hěn xǐhuan gēn dàjiā jiànmiàn.','ดีจริง ๆ ปู่ชอบได้เจอหน้าทุกคนมาก','p03-d-t'),
+ e:S('爷爷，这是我的礼物，您看看！','yéye, zhè shì wǒ de lǐwù, nín kànkan!','คุณปู่คะ นี่ของขวัญของหนู ลองดูสิคะ','p03-e-f'),
+ f:S('谢谢！我先找我的眼镜。','xièxie! wǒ xiān zhǎo wǒ de yǎnjìng.','ขอบใจนะ ปู่ขอหาแว่นก่อน','p03-f-t'),
+ zsw:S('这是我的礼物。','zhè shì wǒ de lǐwù.','นี่คือของขวัญของฉัน','p03-zsw-f'),
+ slw:S('我送你一个礼物。','wǒ sòng nǐ yí ge lǐwù.','ฉันให้ของขวัญเธอชิ้นหนึ่ง','p03-slw-m'),
+ bcs:S('他穿白衬衫。','tā chuān bái chènshān.','เขาใส่เสื้อเชิ้ตสีขาว','p03-bcs-g'),
+ csp:S('这件衬衫很漂亮。','zhè jiàn chènshān hěn piàoliang.','เสื้อเชิ้ตตัวนี้สวยมาก','p03-csp-f'),
+ yjn:S('我的眼镜呢？','wǒ de yǎnjìng ne?','แว่นของฉันอยู่ไหนนะ','p03-yjn-t'),
+ yzy:S('爷爷找眼镜。','yéye zhǎo yǎnjìng.','คุณปู่หาแว่น','p03-yzy-g'),
+ hzby:S('孩子们在表演。','háizimen zài biǎoyǎn.','เด็ก ๆ กำลังแสดง','p03-hzby-t'),
+ bytw:S('她表演跳舞。','tā biǎoyǎn tiàowǔ.','เธอแสดงเต้นรำ','p03-bytw-m'),
+ jmh:S('这个节目很好看。','zhège jiémù hěn hǎokàn.','การแสดงชุดนี้น่าดูมาก','p03-jmh-g'),
+ jws:S('今天晚上有什么节目？','jīntiān wǎnshang yǒu shénme jiémù?','คืนนี้มีการแสดงอะไรบ้าง','p03-jws-f'),
+ syd:S('他的声音很大。','tā de shēngyīn hěn dà.','เสียงของเขาดังมาก','p03-syd-f'),
+ tjs:S('我听见一个声音。','wǒ tīngjiàn yí ge shēngyīn.','ฉันได้ยินเสียงหนึ่ง','p03-tjs-g'),
+ mjm:S('我们明天见面吧。','wǒmen míngtiān jiànmiàn ba.','พรุ่งนี้เราเจอกันนะ','p03-mjm-m'),
+ jcj:S('我们在机场见面。','wǒmen zài jīchǎng jiànmiàn.','เราเจอกันที่สนามบิน','p03-jcj-f'),
+ ssm:S('你送爷爷什么？','nǐ sòng yéye shénme?','เธอให้อะไรคุณปู่','p03-ssm-g'),
+ scs:S('我送爷爷一件衬衫。','wǒ sòng yéye yí jiàn chènshān.','ฉันให้เสื้อเชิ้ตคุณปู่หนึ่งตัว','p03-scs-f'),
+ lws:S('你的礼物是什么？','nǐ de lǐwù shì shénme?','ของขวัญของเธอคืออะไร','p03-lws-g'),
+ lwy:S('我的礼物是眼镜。','wǒ de lǐwù shì yǎnjìng.','ของขวัญของฉันคือแว่นตา','p03-lwy-f'),
+ c1:S('一件衬衫','yí jiàn chènshān','เสื้อเชิ้ตหนึ่งตัว','p03-c1-t'),c2:S('一个礼物','yí ge lǐwù','ของขวัญหนึ่งชิ้น','p03-c2-t'),c3:S('一个蛋糕','yí ge dàngāo','เค้กหนึ่งก้อน','p03-c3-t'),c4:S('一块手表','yí kuài shǒubiǎo','นาฬิกาหนึ่งเรือน','p03-c4-t'),
+ mdg:S('我们买一个蛋糕吧。','wǒmen mǎi yí ge dàngāo ba.','เราซื้อเค้กสักก้อนเถอะ','p03-mdg-g'),
+ mtj:S('明天见！','míngtiān jiàn!','เจอกันพรุ่งนี้','p03-mtj-f'),
+ gtj:S('我明天跟他见面。','wǒ míngtiān gēn tā jiànmiàn.','พรุ่งนี้ฉันจะเจอเขา','p03-gtj-f'),
+ mjc:S('我买了一件衬衫。','wǒ mǎi le yí jiàn chènshān.','ฉันซื้อเสื้อเชิ้ตมาหนึ่งตัว','p03-mjc-g'),
+ qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่','p02-qdx-t'),
+ nsr:S('今天是奶奶的生日。','jīntiān shì nǎinai de shēngrì.','วันนี้เป็นวันเกิดคุณย่า','p03-nsr-g'),
+ lwt:S('你的礼物是什么？','nǐ de lǐwù shì shénme?','ของขวัญของหลานคืออะไร','p03-lwt-t')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'g'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'วันเกิดคุณปู่ มะลิกับหลี่น่ามาร่วมงาน',img:LW.img},L.a,L.b,L.c,L.d,L.e,L.f];
+const GIFT=[{img:LW.img,th:'ของขวัญ'},{img:CS.img,th:'เสื้อเชิ้ต'},{img:YJ.img,th:'แว่นตา'},{img:ART('蛋糕'),th:'เค้ก'}];
+const BINS=[{img:NL(BY),zh:'表演',py:'biǎoyǎn',th:'กำลังแสดง (การกระทำ)'},{img:JM.img,zh:'节目',py:'jiémù',th:'ชุดการแสดง (สิ่ง)'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:3,code:'บท 1-3',title:'งานวันเกิดคุณปู่',goal:{do:'บอกว่าให้ของขวัญอะไรใคร พูดถึงการแสดงในงาน และนัดเจอหน้ากัน',sub:'ใช้ <span class="gz">送…一件衬衫 · 礼物 · 表演 · 节目 · 见面</span>',min:12},steps:[
+ intro({scene:LW.img,cap:'สถานการณ์ของบทนี้',title:'งานวันเกิดคุณปู่',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะพูดเรื่องของขวัญและการแสดงได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[LW,CS,YJ,BY,JM,SY,JMN]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['礼物','衬衫','眼镜','表演','节目','声音','见面'],note:'ใช้คำจากเล่ม 2 เช่น 生日 送 件 ร่วมด้วย'}),
+ ...WC(LW,1,7,{cap:'งานวันเกิด',hint:'คล้าย <b>"หลี่ อู้"</b> · เสียง 3 + เสียง 4',use:'ของขวัญ · 送礼物 = ให้ของขวัญ',ex:[X.zsw,X.slw]}),
+ ...WC(CS,2,7,{cap:'เสื้อผ้า',hint:'คล้าย <b>"เช่น ซาน"</b> · ch และ sh ม้วนลิ้น',use:'เสื้อเชิ้ต · ลักษณนาม 件',ex:[X.bcs,X.csp]}),
+ ...WC(YJ,3,7,{cap:'ของใช้',hint:'คล้าย <b>"เหยี่ยน จิ้ง"</b> · เสียง 3 + เสียง 4',use:'แว่นตา',ex:[X.yjn,X.yzy]}),
+ RC('คำที่ 1–3/7',[LW,CS,YJ]),
+ ...WC(BY,4,7,{cap:'การแสดง',hint:'คล้าย <b>"เปียว เหยี่ยน"</b> · 3 + 3 อ่านตัวแรกเป็นเสียง 2',use:'แสดง · 表演 + สิ่งที่แสดง',ex:[X.hzby,X.bytw]}),
+ ...WC(JM,5,7,{cap:'การแสดง',hint:'คล้าย <b>"เจี๋ย มู่"</b> · เสียง 2 + เสียง 4',use:'รายการ ชุดการแสดง · ลักษณนาม 个',ex:[X.jmh,X.jws]}),
+ RC('คำที่ 4–5/7',[BY,JM]),
+ use({n:'คำที่ 1–5/7',w:LW,when:[{img:LW.img,t:'บอกว่าให้ของขวัญอะไร'},{img:CS.img,t:'ถามว่าของขวัญคืออะไร'}],lines:[{...X.ssm,who:'g'},{...X.scs,who:'me'}],tip:'<span class="zh">送</span> + คน + ของ · <span class="zh">我送爷爷一件衬衫。</span>'}),
+ ...WC(SY,6,7,{cap:'การได้ยิน',hint:'คล้าย <b>"เชิง อิน"</b> · เสียง 1 + เสียง 1',use:'เสียง · 声音很大 = เสียงดัง',ex:[X.syd,X.tjs]}),
+ ...WC(JMN,7,7,{cap:'นัดพบ',hint:'คล้าย <b>"เจี้ยน เมี่ยน"</b> · เสียง 4 + เสียง 4',use:'พบหน้า · 跟 + คน + 见面',ex:[X.mjm,X.jcj]}),
+ RC('คำที่ 6–7/7',[SY,JMN]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','送 + คน + ของ','แตะของขวัญ','表演 หรือ 节目','见 กับ 见面','ข้อควรระวัง'],note:'ฝึกพูดในงานวันเกิด'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในงาน',title:'งานวันเกิดคุณปู่',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'พูดกับผู้ใหญ่ใช้ 您 · 跟大家见面 = เจอหน้าทุกคน'}),
+ talk({cap:'เทคนิค 2/6 · 送 + คน + ของ',title:'ให้อะไรใคร',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.ssm,who:'g'},{...X.scs,who:'me'},{...X.lws,who:'g'},{...X.lwy,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">送</span> + คน + จำนวน + ลักษณนาม + ของ · เสื้อใช้ <span class="zh">件</span> ของขวัญใช้ <span class="zh">个</span>'}),
+ point({tag:'เทคนิค 3/6 · แตะของขวัญ',q:'ฟังแต่ละประโยค แล้วแตะของที่พูดถึง',this:'คือสิ่งนี้',cards:GIFT,rounds:[
+  {zh:X.zsw.zh,k:X.zsw.k,ans:0},{zh:X.bcs.zh,k:X.bcs.k,ans:1},{zh:X.yjn.zh,k:X.yjn.k,ans:2},{zh:X.mdg.zh,k:X.mdg.k,ans:3}]}),
+ sortmap({tag:'เทคนิค 4/6 · 表演 หรือ 节目',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ 表演 หรือ 节目',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('孩子'),X.hzby,0),it(ART('电视'),X.jmh,1),it(A2('跳舞'),X.bytw,0),it(ART('照片'),X.jws,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 见 กับ 见面',title:'บอกลา กับ นัดพบ',text:'แตะการ์ดเพื่อฟัง',a:{who:'บอกลา',img:ART('朋友'),zh:X.mtj.zh,zhb:'明天见',py:'míngtiān jiàn',th:'เจอกันพรุ่งนี้',k:X.mtj.k},b:{who:'นัดพบ',img:NL(JMN),zh:X.mjm.zh,zhb:'见面',py:'jiànmiàn',th:'พบหน้ากัน',k:X.mjm.k},
+  tip:'<span class="zh">见面</span> ไม่มีกรรมต่อท้าย · พูดว่า <span class="zh">跟</span> + คน + <span class="zh">见面</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'见面 ไม่มีกรรม',bad:'我明天见面他。',good:'我明天跟他见面。',k:'p03-gtj-f'},
+  {h:'คนรับอยู่หน้าของ',bad:'我送一件衬衫爷爷。',good:'我送爷爷一件衬衫。',k:'p03-scs-f'},
+  {h:'衬衫 ใช้ลักษณนาม 件',bad:'我买了一个衬衫。',good:'我买了一件衬衫。',k:'p03-mjc-g'},
+  {h:'สถานที่อยู่หน้า 见面',bad:'我们见面在机场。',good:'我们在机场见面。',k:'p03-jcj-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:眼镜',opts:['แว่นตา','เสื้อเชิ้ต','ของขวัญ'],ans:0,fb:'<span class="zh">眼镜</span> <b>yǎnjìng</b> = แว่นตา'}),
+ ask({rv:'ทบทวนบท 1-2 ดูแลคุณปู่',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p02-qdx-t',opts:['กรุณารอสักครู่','ตามฉันมา','ช่วยปิดประตู'],ans:0,fb:'<span class="zh">等一下</span> = รอสักครู่'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:衬衫',opts:[{img:CS.img},{img:LW.img},{img:YJ.img}],ans:0,fb:'<span class="zh">衬衫</span> <b>chènshān</b> = เสื้อเชิ้ต'}),
+ blank({tag:TQ(3),s:'我们明天_吧。',th:'พรุ่งนี้เราเจอกันนะ',opts:['见面','表演','声音'],ans:0,k:'p03-mjm-m',fb:'<span class="zh">我们明天见面吧。</span>'}),
+ ask({rv:10,q:'ฟัง 表 แล้วเลือกสระ',k:'sy:表',opts:['iao','ao','iu'],ans:0,fb:'b<b>iao</b> · สระผสม i + ao'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าคุณให้อะไรคุณปู่',line:{...X.ssm,who:'g'},opts:[X.scs,X.yjn,X.syd],ans:0,why:'ตอบด้วย 我送爷爷…'}),
+ ask({rv:'ทบทวนเล่ม 2 บท 3-2 งานวันเกิด',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p03-nsr-g',opts:['วันนี้เป็นวันเกิดคุณย่า','วันนี้คุณย่าไม่สบาย','พรุ่งนี้เป็นวันเกิดคุณย่า'],ans:0,fb:'<span class="zh">奶奶</span> = คุณย่า · <span class="zh">生日</span> = วันเกิด'}),
+ order({tag:TQ(5),th:'การแสดงชุดนี้น่าดูมาก',tiles:[tl('这个','zhège'),tl('节目','jiémù'),tl('很','hěn'),tl('好看','hǎokàn'),tl('声音','shēngyīn')],ans:[0,1,2,3],end:'。',k:'p03-jmh-g'}),
+ tf({tag:TQ(6),k:'p03-f-t',img:YJ.img,card:'<b>คุณปู่</b><br>ใส่แว่นอยู่แล้ว',ans:1,fb:'<span class="zh">我先找我的眼镜。</span> = ขอหาแว่นก่อน แปลว่ายังไม่ได้ใส่'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เลือกของขวัญให้คุณปู่',chips:['ฟังแล้วแตะ','ตอบคุณปู่','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะของที่พูดถึง',this:'คือสิ่งนี้',cards:GIFT,rounds:[{zh:X.yzy.zh,k:X.yzy.k,ans:2},{zh:X.slw.zh,k:X.slw.k,ans:0},{zh:X.c3.zh,k:X.c3.k,ans:3},{zh:X.csp.zh,k:X.csp.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณปู่ถามว่าของขวัญของคุณคืออะไร',line:{...X.lwt,who:'m'},opts:[X.b,X.jcj,X.hzby],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'她_跳舞。',opts:['表演','节目','见面'],ans:0,k:'p03-bytw-m',fb:'<span class="zh">她表演跳舞。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('送','sòng'),tl('你','nǐ'),tl('一个礼物','yí ge lǐwù'),tl('节目','jiémù')],ans:[0,1,2,3],end:'。',k:'p03-slw-m'}),
+ fin({title:'พูดเรื่องของขวัญและการแสดงได้แล้ว',html:dlgH(D,{noTh:1}),chips:[LW,CS,YJ,BY,JM,SY,JMN].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L03',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

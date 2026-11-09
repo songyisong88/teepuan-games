@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 4-6 คุยกับคนขับแท็กซี่</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 4-6 หน่วย 4 ถนนสีสันและการเปรียบเทียบ: คุยกับคนขับแท็กซี่ · คำใหม่ 国家 文化 健康 同意 司机 敢
+   กิจกรรมเฉพาะบท: 我同意 แตะภาพ แยก 敢 กับ 不敢 健康 กับ 生病 */
+WHO.m={n:'คนขับแท็กซี่',img:ART('司机')};
+const GJ=W('国家','guójiā','ประเทศ',{s:'guó jiā'}),WH=W('文化','wénhuà','วัฒนธรรม',{s:'wén huà'}),JK=W('健康','jiànkāng','สุขภาพ / แข็งแรง',{s:'jiàn kāng'}),
+ TY_=W('同意','tóngyì','เห็นด้วย',{s:'tóng yì'}),SJ=W('司机','sījī','คนขับรถ',{s:'sī jī'}),GAN=W('敢','gǎn','กล้า');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('你好！你是哪个国家的人？','nǐ hǎo! nǐ shì nǎge guójiā de rén?','สวัสดีครับ คุณมาจากประเทศไหนครับ','p18-a-t'),
+ b:S('我是泰国人。我很喜欢中国文化。','wǒ shì Tàiguó rén. wǒ hěn xǐhuan Zhōngguó wénhuà.','ฉันเป็นคนไทยค่ะ ฉันชอบวัฒนธรรมจีนมากค่ะ','p18-b-f'),
+ c:S('你的汉语很好！','nǐ de Hànyǔ hěn hǎo!','ภาษาจีนของคุณดีมากครับ','p18-c-t'),
+ d:S('谢谢！你做司机很多年了吗？','xièxie! nǐ zuò sījī hěn duō nián le ma?','ขอบคุณค่ะ คุณเป็นคนขับรถมาหลายปีแล้วเหรอคะ','p18-d-f'),
+ e:S('对，二十年了。我觉得健康最重要，所以每天锻炼。','duì, èrshí nián le. wǒ juéde jiànkāng zuì zhòngyào, suǒyǐ měitiān duànliàn.','ใช่ครับ ยี่สิบปีแล้ว ผมว่าสุขภาพสำคัญที่สุด เลยออกกำลังกายทุกวันครับ','p18-e-t'),
+ f:S('我同意！但是我不敢在这儿开车，车太多了。','wǒ tóngyì! dànshì wǒ bù gǎn zài zhèr kāichē, chē tài duō le.','เห็นด้วยค่ะ แต่ฉันไม่กล้าขับรถที่นี่ รถเยอะเกินไปค่ะ','p18-f-f'),
+ gj1:S('你是哪个国家的人？','nǐ shì nǎge guójiā de rén?','เธอเป็นคนประเทศไหน','p18-gj1-g'),
+ gj2:S('中国是一个很大的国家。','Zhōngguó shì yí ge hěn dà de guójiā.','จีนเป็นประเทศที่ใหญ่มาก','p18-gj2-t'),
+ wh1:S('我喜欢中国文化。','wǒ xǐhuan Zhōngguó wénhuà.','ฉันชอบวัฒนธรรมจีน','p18-wh1-f'),
+ wh2:S('每个国家的文化都不一样。','měi ge guójiā de wénhuà dōu bù yíyàng.','วัฒนธรรมของแต่ละประเทศไม่เหมือนกัน','p18-wh2-t'),
+ jk1:S('爷爷的身体很健康。','yéye de shēntǐ hěn jiànkāng.','คุณปู่ร่างกายแข็งแรงมาก','p18-jk1-g'),
+ jk2:S('多运动，身体健康。','duō yùndòng, shēntǐ jiànkāng.','ออกกำลังกายเยอะ ๆ ร่างกายจะแข็งแรง','p18-jk2-t'),
+ ty1:S('我同意你的话。','wǒ tóngyì nǐ de huà.','ฉันเห็นด้วยกับที่เธอพูด','p18-ty1-f'),
+ ty2:S('妈妈不同意。','māma bù tóngyì.','แม่ไม่เห็นด้วย','p18-ty2-m'),
+ sj1:S('他是出租车司机。','tā shì chūzūchē sījī.','เขาเป็นคนขับแท็กซี่','p18-sj1-g'),
+ sj2:S('司机开得很慢。','sījī kāi de hěn màn.','คนขับขับรถช้ามาก','p18-sj2-m'),
+ gn1:S('我不敢开车。','wǒ bù gǎn kāichē.','ฉันไม่กล้าขับรถ','p18-gn1-f'),
+ gn2:S('你敢一个人去吗？','nǐ gǎn yí ge rén qù ma?','เธอกล้าไปคนเดียวไหม','p18-gn2-g'),
+ gnA:S('我敢一个人去。','wǒ gǎn yí ge rén qù.','ฉันกล้าไปคนเดียว','p18-gna-g'),
+ gnB:S('他不敢游泳。','tā bù gǎn yóuyǒng.','เขาไม่กล้าว่ายน้ำ','p18-gnb-m'),
+ gnC:S('弟弟敢一个人睡觉。','dìdi gǎn yí ge rén shuìjiào.','น้องชายกล้านอนคนเดียว','p18-gnc-t'),
+ sb:S('他生病了。','tā shēngbìng le.','เขาป่วยแล้ว','p18-sb-g'),
+ c1:S('哪个国家','nǎge guójiā','ประเทศไหน','p18-c1-t'),c2:S('中国文化','Zhōngguó wénhuà','วัฒนธรรมจีน','p18-c2-t'),
+ c3:S('很健康','hěn jiànkāng','แข็งแรงมาก','p18-c3-t'),c4:S('出租车司机','chūzūchē sījī','คนขับแท็กซี่','p18-c4-t'),
+ jie1:S('我可以借你的书吗？','wǒ kěyǐ jiè nǐ de shū ma?','ขอยืมหนังสือของเธอได้ไหม','p17-jie1-g'),he1:S('这条河很长。','zhè tiáo hé hěn cháng.','แม่น้ำสายนี้ยาวมาก','p16-he1-t'),
+ ka1:S('这个孩子很可爱。','zhège háizi hěn kě\'ài.','เด็กคนนี้น่ารักมาก','p15-ka1-t'),sjh:S('我的手机坏了。','wǒ de shǒujī huài le.','มือถือของฉันเสียแล้ว','p09-sjh-f')};
+const L={a:{...X.a,who:'m'},b:{...X.b,who:'me'},c:{...X.c,who:'m'},d:{...X.d,who:'me'},e:{...X.e,who:'m'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลินั่งแท็กซี่ แล้วคุยกับคนขับระหว่างทาง',img:ART('出租车')},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:NL(GJ),th:'ประเทศ'},{img:NL(WH),th:'วัฒนธรรม'},{img:NL(JK),th:'แข็งแรง'},{img:NL(SJ),th:'คนขับรถ'}];
+const BINS=[{img:NL(GAN),zh:'敢',py:'gǎn',th:'กล้า'},{img:A2('害怕'),zh:'不敢',py:'bù gǎn',th:'ไม่กล้า'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:18,code:'บท 4-6',title:'คุยกับคนขับแท็กซี่',goal:{do:'บอกว่ามาจากประเทศไหน คุยเรื่องวัฒนธรรมและสุขภาพ บอกว่าเห็นด้วย และบอกว่าไม่กล้าทำอะไร',sub:'ใช้ <span class="gz">哪个国家 · 文化 · 健康 · 我同意 · 司机 · 不敢</span>',min:12},steps:[
+ intro({scene:ART('出租车'),cap:'สถานการณ์ของบทนี้',title:'คุยกับคนขับแท็กซี่',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะคุยเรื่องประเทศ วัฒนธรรม และสุขภาพได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[GJ,WH,JK,TY_,SJ,GAN]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['国家','文化','健康','同意','司机','敢'],note:'ใช้คำจากบทก่อน เช่น 出租车 开车 锻炼 ร่วมด้วย'}),
+ ...WC(GJ,1,6,{cap:'โลกรอบตัว',hint:'คล้าย <b>"กั๋ว เจีย"</b> · เสียง 2 + เสียง 1',use:'ประเทศ · 哪个国家 = ประเทศไหน',ex:[X.gj1,X.gj2]}),
+ ...WC(WH,2,6,{cap:'โลกรอบตัว',hint:'คล้าย <b>"เหวิน ฮว่า"</b> · เสียง 2 + เสียง 4',use:'วัฒนธรรม · 中国文化 = วัฒนธรรมจีน',ex:[X.wh1,X.wh2]}),
+ ...WC(JK,3,6,{cap:'สุขภาพ',hint:'คล้าย <b>"เจี้ยน คาง"</b> · k มีลมออก',use:'สุขภาพ แข็งแรง · 身体很健康',ex:[X.jk1,X.jk2]}),
+ RC('คำที่ 1–3/6',[GJ,WH,JK]),
+ use({n:'คำที่ 1–3/6',w:GJ,when:[{img:NL(GJ),t:'ถามว่ามาจากประเทศไหน'},{img:NL(WH),t:'บอกว่าชอบวัฒนธรรมจีน'}],lines:[{...X.gj1,who:'g'},{...X.wh1,who:'me'}],tip:'<span class="zh">你是哪个国家的人？</span> ตอบ <span class="zh">我是泰国人。</span>'}),
+ ...WC(TY_,4,6,{cap:'ความเห็น',hint:'คล้าย <b>"ถง อี้"</b> · t มีลมออก เสียง 2 + เสียง 4',use:'เห็นด้วย · 不同意 = ไม่เห็นด้วย',ex:[X.ty1,X.ty2]}),
+ ...WC(SJ,5,6,{cap:'อาชีพ',hint:'คล้าย <b>"ซือ จี"</b> · ทั้งสองพยางค์เสียง 1',use:'คนขับรถ · 出租车司机 = คนขับแท็กซี่',ex:[X.sj1,X.sj2]}),
+ ...WC(GAN,6,6,{cap:'ความรู้สึก',hint:'คล้าย <b>"ก่าน"</b> · เสียง 3',use:'กล้า · 不敢 + กริยา = ไม่กล้าทำ',ex:[X.gn1,X.gn2]}),
+ RC('คำที่ 4–6/6',[TY_,SJ,GAN]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','เห็นด้วยไหม','แตะภาพ','敢 หรือ 不敢','健康 กับ 生病','ข้อควรระวัง'],note:'ฝึกคุยกับคนขับแท็กซี่'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในรถ',title:'คุยกับคนขับแท็กซี่',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'不敢 อ่าน bù gǎn · 最重要 = สำคัญที่สุด'}),
+ talk({cap:'เทคนิค 2/6 · เห็นด้วยไหม',title:'同意 กับ 不同意',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.e,who:'m'},{...X.f,who:'me'},{...X.ty2,who:'f'}],
+  chips:[{...X.ty1},{...X.ty2}],tip:'<span class="zh">我同意</span> = ฉันเห็นด้วย · <span class="zh">不同意</span> อ่าน bù tóngyì'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[
+  {zh:X.wh1.zh,k:X.wh1.k,ans:1},{zh:X.sj1.zh,k:X.sj1.k,ans:3},{zh:X.gj2.zh,k:X.gj2.k,ans:0},{zh:X.jk1.zh,k:X.jk1.k,ans:2}]}),
+ sortmap({tag:'เทคนิค 4/6 · 敢 หรือ 不敢',q:'ฟังแต่ละประโยค แล้วแตะว่ากล้าหรือไม่กล้า',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('出租车'),X.gn1,1),it(ART('女孩'),X.gnA,0),it(A2('游泳'),X.gnB,1),it(A2('睡觉'),X.gnC,0)]}),
+ cmp({cap:'เทคนิค 5/6 · 健康 กับ 生病',title:'แข็งแรง กับ ป่วย',text:'แตะการ์ดเพื่อฟัง',a:{who:'แข็งแรง',img:NL(JK),zh:X.jk1.zh,zhb:'健康',py:'jiànkāng',th:'แข็งแรง',k:X.jk1.k},b:{who:'ป่วย',img:A2('生病'),zh:X.sb.zh,zhb:'生病',py:'shēngbìng',th:'ป่วย',k:X.sb.k},
+  tip:'<span class="zh">健康</span> = ร่างกายแข็งแรง · <span class="zh">生病</span> = ป่วย'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'哪个 อยู่หน้า 国家',bad:'你是国家哪个的人？',good:'你是哪个国家的人？',k:'p18-gj1-g'},
+  {h:'不 อยู่หน้า 敢',bad:'我敢不开车。',good:'我不敢开车。',k:'p18-gn1-f'},
+  {h:'同意 ตามด้วยความเห็นได้เลย',bad:'我同意和你的话。',good:'我同意你的话。',k:'p18-ty1-f'},
+  {h:'出租车 อยู่หน้า 司机',bad:'他是司机出租车。',good:'他是出租车司机。',k:'p18-sj1-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:文化',opts:['วัฒนธรรม','ประเทศ','สุขภาพ'],ans:0,fb:'<span class="zh">文化</span> <b>wénhuà</b> = วัฒนธรรม'}),
+ ask({rv:'ทบทวนบท 4-5 เรียนกับเพื่อน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p17-jie1-g',opts:['ขอยืมหนังสือของเธอได้ไหม','ขอยืมปากกาของเธอได้ไหม','ฉันยืมหนังสือมาหนึ่งเล่ม'],ans:0,fb:'<span class="zh">借你的书</span> = ยืมหนังสือของเธอ'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:司机',opts:[{img:NL(SJ)},{img:NL(GJ)},{img:NL(WH)}],ans:0,fb:'<span class="zh">司机</span> <b>sījī</b> = คนขับรถ'}),
+ blank({tag:TQ(3),s:'我不_开车。',th:'ฉันไม่กล้าขับรถ',opts:['敢','国家','健康'],ans:0,k:'p18-gn1-f',fb:'<span class="zh">我不敢开车。</span>'}),
+ ask({rv:7,q:'ฟัง 司机 แล้วเลือกพยัญชนะตัวแรกของ 司',k:'w:司机',opts:['s','sh','x'],ans:0,fb:'<b>s</b>ījī · s ไม่ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'คนขับแท็กซี่ถามว่าคุณมาจากประเทศไหน',line:{...X.a,who:'m'},opts:[X.b,X.he1,X.sjh],ans:0,why:'ตอบว่าเป็นคนไทย'}),
+ ask({rv:2,q:'ฟัง 敢 gǎn แล้วเลือกวรรณยุกต์',k:'sy:敢',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">敢</span> g<b>ǎ</b>n เสียง 3 = กล้า'}),
+ order({tag:TQ(5),th:'แม่ไม่เห็นด้วย',tiles:[tl('妈妈','māma'),tl('不','bù'),tl('同意','tóngyì'),tl('国家','guójiā')],ans:[0,1,2],end:'。',k:'p18-ty2-m'}),
+ tf({tag:TQ(6),k:'p18-e-t',img:NL(JK),card:'<b>คนขับแท็กซี่</b><br>ออกกำลังกายทุกวัน',ans:0,fb:'<span class="zh">所以每天锻炼。</span> = เลยออกกำลังกายทุกวัน'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'นั่งแท็กซี่ในเมือง',chips:['ฟังแล้วแตะ','ตอบคนขับ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.c3.zh,k:X.c3.k,ans:2},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c2.zh,k:X.c2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'คนขับบอกว่าสุขภาพสำคัญที่สุด',line:{...X.e,who:'m'},opts:[X.f,X.ka1,X.sjh],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'我_你的话。',opts:['同意','敢','司机'],ans:0,k:'p18-ty1-f',fb:'<span class="zh">我同意你的话。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('他','tā'),tl('是','shì'),tl('出租车','chūzūchē'),tl('司机','sījī'),tl('敢','gǎn')],ans:[0,1,2,3],end:'。',k:'p18-sj1-g'}),
+ fin({title:'คุยกับคนขับแท็กซี่ได้แล้ว',html:dlgH(D,{noTh:1}),chips:[GJ,WH,JK,TY_,SJ,GAN].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L18',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

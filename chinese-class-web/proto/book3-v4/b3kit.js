@@ -20,3 +20,25 @@ function WC(x,no,of,o={}){const S=x.s,T=S.map(TN),n=S.length;
 function RC(n,ws){return rec({n,ws:ws.map((x,i)=>i?Object.assign({},x,{img:NL(x)}):x)})}
 /* ตัวละครประจำเล่ม (ต่อจากเล่ม 1): คุณ = 玛莉 มะลิ · 王明 เพื่อนผู้ชาย · 李娜 เพื่อนผู้หญิง */
 Object.assign(WHO,{f:{n:'หวังหมิง',img:ART('男孩')},g:{n:'หลี่น่า',img:ART('女孩')}});
+
+/* เล่ม 3: กระจายตำแหน่งคำตอบที่ถูก (ข้อมูลบทเรียนเขียนคำตอบไว้ตัวเลือกแรก ตัวช่วยนี้ย้ายไปตำแหน่งที่ใช้น้อยที่สุดในบท
+   เลือกตำแหน่งเท่ากันด้วย seed จากเนื้อหาข้อ ผลคงที่ทุกครั้ง) · ตัวเลือกใน reply ใช้เสียงมะลิ (-f) ทุกตัว · ไม่แก้ engine.js */
+const B3N={};
+function b3h(s){let h=2166136261;for(const c of String(s)){h^=c.codePointAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function b3bal(o){if(!o||!Array.isArray(o.opts)||o.opts.length<2||typeof o.ans!=='number')return o;
+ const n=o.opts.length,h=b3h(JSON.stringify([o.k||'',o.q||'',o.s||'',o.opts]));let best=[],m=1e9;
+ for(let i=0;i<n;i++){const c=B3N[i]||0;if(c<m){m=c;best=[i]}else if(c===m)best.push(i)}
+ const t=best[h%best.length];B3N[t]=(B3N[t]||0)+1;
+ const cor=o.opts[o.ans],rest=o.opts.filter((_,i)=>i!==o.ans),r=(h>>>8)%Math.max(1,rest.length),rr=rest.slice(r).concat(rest.slice(0,r));
+ return Object.assign({},o,{opts:[...rr.slice(0,t),cor,...rr.slice(t)],ans:t})}
+const b3f=x=>x&&typeof x.k==='string'&&/-[mgt]$/.test(x.k)?Object.assign({},x,{k:x.k.replace(/-([mgt])$/,'$1-f')}):x;
+let B3IN=0;const B3ASK=ask,B3BLANK=blank,B3TF=tf,B3REPLY=reply,B3POINT=point;
+ask=o=>B3IN?B3ASK(o):B3ASK(b3bal(o));
+blank=o=>{const b=b3bal(o);B3IN++;try{return B3BLANK(b)}finally{B3IN--}};
+tf=o=>{B3IN++;try{return B3TF(o)}finally{B3IN--}};
+reply=o=>B3REPLY(b3bal(Object.assign({},o,{opts:(o.opts||[]).map(b3f)})));
+/* แตะภาพ: สลับลำดับรอบด้วย seed ไม่ให้คำตอบเรียง 0 1 2 3 */
+point=o=>{const R=(o.rounds||[]).slice(),h=b3h(JSON.stringify(R.map(r=>r.k)));
+ for(let i=R.length-1;i>0;i--){const j=b3h(h+':'+i)%(i+1);[R[i],R[j]]=[R[j],R[i]]}
+ if(R.length>1&&R.every((r,i)=>i===0||R[i-1].ans<r.ans))R.push(R.shift());
+ return B3POINT(Object.assign({},o,{rounds:R}))};

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · ทบทวนหน่วยที่ 4</title>
+</head><body>
+<script>
+/* เล่ม 3 ทบทวนหน่วยที่ 4 ถนนสีสันและการเปรียบเทียบ: ทวนคำทั้ง 6 บท → บทสนทนาเดินถนนสีสัน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+const GX=W('更','gèng','ยิ่ง / …ขึ้นอีก',{nosk:1}),YY=W('一样','yíyàng','เหมือนกัน',{s:'yí yàng',sl:[0]}),TB=W('特别','tèbié','พิเศษ / เป็นพิเศษ',{s:'tè bié'}),
+ AI=W('矮','ǎi','เตี้ย'),PANG=W('胖','pàng','อ้วน'),SHOU=W('瘦','shòu','ผอม'),ZHONG=W('重','zhòng','หนัก',{nosk:1});
+const KZ=W('裤子','kùzi','กางเกง',{s:'kù zi'}),QZ_=W('裙子','qúnzi','กระโปรง',{s:'qún zi'}),MZ=W('帽子','màozi','หมวก',{s:'mào zi'}),
+ BAO=W('包','bāo','กระเป๋า / ห่อ'),SHUANG=W('双','shuāng','คู่ (ลักษณนาม)'),TIAO=W('条','tiáo','ตัว / เส้น (ลักษณนามของยาว)'),HUAN=W('换','huàn','เปลี่ยน / แลก');
+const PZ=W('盘子','pánzi','จาน',{s:'pán zi'}),ZXJ=W('照相机','zhàoxiàngjī','เครื่องถ่ายรูป / กล้อง',{s:'zhào xiàng jī',sl:[1]}),LIANG=W('辆','liàng','คัน (ลักษณนามของรถ)'),
+ ZHI=W('只','zhī','ตัว (ลักษณนามของสัตว์)',{nosk:1}),ZHONG_=W('种','zhǒng','ชนิด / แบบ',{nosk:1}),KA=W('可爱','kě\'ài','น่ารัก',{s:'kě ài'}),XM=W('熊猫','xióngmāo','แพนด้า',{s:'xióng māo'});
+const WEI=W('位','wèi','ท่าน (ลักษณนามสุภาพของคน)'),MI=W('米','mǐ','เมตร'),JIAO=W('角','jiǎo','เจี่ยว (1/10 หยวน)',{nosk:1}),
+ WAN_=W('万','wàn','หมื่น'),DUAN_=W('段','duàn','ช่วง / ท่อน'),HE=W('河','hé','แม่น้ำ');
+const RY=W('容易','róngyì','ง่าย',{s:'róng yì'}),NAN=W('难','nán','ยาก'),CM=W('聪明','cōngming','ฉลาด',{s:'cōng ming'}),
+ NL_=W('努力','nǔlì','ขยัน / พยายาม',{s:'nǔ lì'}),JIE=W('借','jiè','ยืม / ให้ยืม'),BI=W('笔','bǐ','ปากกา / ดินสอ'),LS=W('历史','lìshǐ','ประวัติศาสตร์',{s:'lì shǐ'});
+const GJ=W('国家','guójiā','ประเทศ',{s:'guó jiā'}),WH=W('文化','wénhuà','วัฒนธรรม',{s:'wén huà'}),JK=W('健康','jiànkāng','สุขภาพ / แข็งแรง',{s:'jiàn kāng'}),
+ TY_=W('同意','tóngyì','เห็นด้วย',{s:'tóng yì'}),SJ=W('司机','sījī','คนขับรถ',{s:'sī jī'}),GAN=W('敢','gǎn','กล้า');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，你看，这条裙子和你的一样！','Mǎlì, nǐ kàn, zhè tiáo qúnzi hé nǐ de yíyàng!','มะลิ ดูสิ กระโปรงตัวนี้เหมือนของเธอเลย','p19-a-m'),
+ b:S('真的！但是这条更长。','zhēn de! dànshì zhè tiáo gèng cháng.','จริงด้วย แต่ตัวนี้ยาวกว่า','p19-b-f'),
+ c:S('我想借你的照相机，可以吗？','wǒ xiǎng jiè nǐ de zhàoxiàngjī, kěyǐ ma?','ผมขอยืมกล้องถ่ายรูปของเธอได้ไหม','p19-c-m'),
+ d:S('可以，给你。这个照相机有点儿重。','kěyǐ, gěi nǐ. zhège zhàoxiàngjī yǒudiǎnr zhòng.','ได้ นี่ กล้องตัวนี้หนักนิดหน่อยนะ','p19-d-f'),
+ e:S('没关系。我们去河边坐船吧！一张票五块五角。','méi guānxi. wǒmen qù hé biān zuò chuán ba! yì zhāng piào wǔ kuài wǔ jiǎo.','ไม่เป็นไร ไปนั่งเรือที่ริมแม่น้ำกันเถอะ ตั๋วใบละห้าหยวนห้าเจี่ยว','p19-e-m'),
+ f:S('好啊！我同意。','hǎo a! wǒ tóngyì.','ดีเลย ฉันเห็นด้วย','p19-f-f'),
+ qz2:S('这条裙子多少钱？','zhè tiáo qúnzi duōshao qián?','กระโปรงตัวนี้ราคาเท่าไร','p14-qz2-g'),zx1:S('我有一个照相机。','wǒ yǒu yí ge zhàoxiàngjī.','ผมมีกล้องถ่ายรูปหนึ่งตัว','p15-zx1-m'),
+ he1:S('这条河很长。','zhè tiáo hé hěn cháng.','แม่น้ำสายนี้ยาวมาก','p16-he1-t'),bi2:S('我没有笔。','wǒ méiyǒu bǐ.','ฉันไม่มีปากกา','p17-bi2-f'),
+ gx2:S('今天比昨天更冷。','jīntiān bǐ zuótiān gèng lěng.','วันนี้หนาวกว่าเมื่อวานอีก','p13-gx2-t'),ka1:S('这个孩子很可爱。','zhège háizi hěn kě\'ài.','เด็กคนนี้น่ารักมาก','p15-ka1-t'),
+ sjh:S('我的手机坏了。','wǒ de shǒujī huài le.','มือถือของฉันเสียแล้ว','p09-sjh-f')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลิกับหวังหมิงเดินเที่ยวถนนสีสัน มีร้านเสื้อผ้าและท่าเรือ',img:A2('商店')},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:NL(QZ_),th:'กระโปรง'},{img:NL(ZXJ),th:'กล้องถ่ายรูป'},{img:NL(HE),th:'แม่น้ำ'},{img:NL(BI),th:'ปากกา'}];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+const ALL=[GX,YY,TB,AI,PANG,SHOU,ZHONG,KZ,QZ_,MZ,BAO,SHUANG,TIAO,HUAN,PZ,ZXJ,LIANG,ZHI,ZHONG_,KA,XM,WEI,MI,JIAO,WAN_,DUAN_,HE,RY,NAN,CM,NL_,JIE,BI,LS,GJ,WH,JK,TY_,SJ,GAN];
+LESSON({no:19,code:'ทบทวนหน่วย 4',title:'ทบทวนหน่วยที่ 4',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 4 เปรียบเทียบ นับของด้วยลักษณนาม ซื้อตั๋ว และคุยเรื่องการเรียนกับสุขภาพ',sub:'比…更 · 一样 · 一条 · 一双 · 一辆 · 几位 · 可以借…吗 · 我同意',min:10},steps:[
+ intro({scene:A2('商店'),cap:'บททบทวน',title:'เดินถนนสีสัน',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 4-1 ถึง 4-6'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 4',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'4-1 ใครสูงกว่ากัน',items:[GX,YY,TB,AI,PANG,SHOU,ZHONG]},{lab:'4-2 ร้านเสื้อผ้า',items:[KZ,QZ_,MZ,BAO,SHUANG,TIAO,HUAN]},
+  {lab:'4-3 ร้านของน่ารัก',items:[PZ,ZXJ,LIANG,ZHI,ZHONG_,KA,XM]},{lab:'4-4 ล่องเรือชมแม่น้ำ',items:[WEI,MI,JIAO,WAN_,DUAN_,HE]},
+  {lab:'4-5 เรียนกับเพื่อน',items:[RY,NAN,CM,NL_,JIE,BI,LS]},{lab:'4-6 คุยกับคนขับแท็กซี่',items:[GJ,WH,JK,TY_,SJ,GAN]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'เดินถนนสีสัน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะ','เติมคำ','ตอบเพื่อน','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[KZ,XM,HE,BI,SJ]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[
+  {zh:X.zx1.zh,k:X.zx1.k,ans:1},{zh:X.qz2.zh,k:X.qz2.k,ans:0},{zh:X.bi2.zh,k:X.bi2.k,ans:3},{zh:X.he1.zh,k:X.he1.k,ans:2}]}),
+ ask({rv:2,q:'ฟัง 万 แล้วเลือกวรรณยุกต์',k:'w:万',opts:[{tone:4,lab:'เสียง 4'},{tone:2,lab:'เสียง 2'}],ans:0,fb:'<span class="zh">万</span> w<b>à</b>n เสียง 4 = หมื่น'}),
+ blank({tag:TQ(3),s:'我家有一_车。',th:'บ้านฉันมีรถหนึ่งคัน',opts:['辆','只','双'],ans:0,k:'p15-li2-f',fb:'<span class="zh">一辆车</span> = รถหนึ่งคัน'}),
+ reply({tag:TQ(4),q:'หวังหมิงขอยืมกล้องถ่ายรูปของคุณ',line:{...X.c,who:'f'},opts:[X.d,X.he1,X.gx2],ans:0,why:'ตอบว่าได้ แล้วยื่นให้ 给你'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p13-d-f',opts:['ไม่เท่ากัน เธอเตี้ยกว่าฉันอีก แล้วก็ผอมกว่าด้วย','เธอสูงเท่ากับฉัน','เธอสูงกว่าฉันอีก แล้วก็อ้วนกว่าด้วย'],ans:0,fb:'<span class="zh">她比我更矮，也更瘦。</span>'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:帽子',opts:[{img:NL(MZ)},{img:NL(BAO)},{img:NL(KZ)}],ans:0,fb:'<span class="zh">帽子</span> <b>màozi</b> = หมวก'}),
+ ask({rv:'ทบทวนหน่วย 3 เรื่องวุ่น ๆ ในชีวิตประจำวัน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p12-e-m',opts:['ดูสิ พระจันทร์สว่างเหลือเกิน','ดูสิ ไฟสว่างมาก','พระจันทร์ใหญ่มาก'],ans:0,fb:'<span class="zh">多么亮啊</span> = สว่างเหลือเกิน'}),
+ lineup({tag:TQ(7),sit:'หวังหมิงขอยืมกล้องของมะลิ แล้วชวนไปนั่งเรือ',lines:[L.c,L.d,L.e]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 您几位？',opts:['ถามจำนวนแขกอย่างสุภาพ','ถามราคาตั๋ว','ถามว่าแม่น้ำยาวไหม'],ans:0,fb:'<span class="zh">您几位？</span> = มากี่ท่าน'}),
+ ask({rv:12,q:'ฟัง 我不敢开车 แล้วเลือกเสียงของ 不',k:'p18-gn1-f',opts:[{tone:4,lab:'เสียง 4'},{tone:2,lab:'เสียง 2'}],ans:0,fb:'不 อยู่หน้าเสียง 3 อ่านเสียง 4 ตามเดิม · <b>bù gǎn</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:容易',opts:['ง่าย','ยาก','ขยัน'],ans:0,fb:'<span class="zh">容易</span> <b>róngyì</b> = ง่าย'}),
+ blank({tag:TQ(10),s:'每个国家的_都不一样。',th:'วัฒนธรรมของแต่ละประเทศไม่เหมือนกัน',opts:['文化','司机','健康'],ans:0,k:'p18-wh2-t',fb:'<span class="zh">每个国家的文化都不一样。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'วันเที่ยวถนนสีสัน',chips:['ตอบเพื่อน','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'หวังหมิงบอกว่ากระโปรงตัวนี้เหมือนของคุณ',line:{...X.a,who:'f'},opts:[X.b,X.sjh,X.ka1],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p15-xm2-f',opts:[{img:NL(XM)},{img:NL(PZ)},{img:NL(LIANG)}],ans:0,fb:'<span class="zh">我想去看熊猫。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('哥哥','gēge'),tl('比我','bǐ wǒ'),tl('更','gèng'),tl('高','gāo'),tl('双','shuāng')],ans:[0,1,2,3],end:'。',k:'p13-gx1-f'}),
+ blank({tag:MQ(4),noTh:1,s:'十_是一块。',opts:['角','米','位'],ans:0,k:'p16-ji2-t',fb:'<span class="zh">十角是一块。</span>'}),
+ fin({title:'จบหน่วยที่ 4 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L19',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

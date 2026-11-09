@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 4-2 ร้านเสื้อผ้า</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 4-2 หน่วย 4 ถนนสีสันและการเปรียบเทียบ: ร้านเสื้อผ้า · คำใหม่ 裤子 裙子 帽子 包 双 条 换
+   กิจกรรมเฉพาะบท: ลักษณนาม 条 双 แตะภาพเสื้อผ้า แยก 条 กับ 双 裤子 กับ 裙子 */
+const KZ=W('裤子','kùzi','กางเกง',{s:'kù zi'}),QZ_=W('裙子','qúnzi','กระโปรง',{s:'qún zi'}),MZ=W('帽子','màozi','หมวก',{s:'mào zi'}),
+ BAO=W('包','bāo','กระเป๋า / ห่อ'),SHUANG=W('双','shuāng','คู่ (ลักษณนาม)'),TIAO=W('条','tiáo','ตัว / เส้น (ลักษณนามของยาว)'),HUAN=W('换','huàn','เปลี่ยน / แลก');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，这条裙子漂亮吗？','Mǎlì, zhè tiáo qúnzi piàoliang ma?','มะลิ กระโปรงตัวนี้สวยไหม','p14-a-g'),
+ b:S('很漂亮，但是有点儿小。','hěn piàoliang, dànshì yǒudiǎnr xiǎo.','สวยมาก แต่เล็กไปหน่อย','p14-b-f'),
+ c:S('那我换一条大的。你想买什么？','nà wǒ huàn yì tiáo dà de. nǐ xiǎng mǎi shénme?','งั้นฉันเปลี่ยนเป็นตัวใหญ่ แล้วเธออยากซื้ออะไร','p14-c-g'),
+ d:S('我想买一条裤子，还想买帽子。','wǒ xiǎng mǎi yì tiáo kùzi, hái xiǎng mǎi màozi.','ฉันอยากซื้อกางเกงหนึ่งตัว แล้วก็อยากซื้อหมวกด้วย','p14-d-f'),
+ e:S('你看，这双鞋也很好看！','nǐ kàn, zhè shuāng xié yě hěn hǎokàn!','ดูสิ รองเท้าคู่นี้ก็สวยนะ','p14-e-g'),
+ f:S('好看！但是我的包里没有钱了。','hǎokàn! dànshì wǒ de bāo lǐ méiyǒu qián le.','สวย แต่ในกระเป๋าฉันไม่มีเงินแล้ว','p14-f-f'),
+ kz1:S('这条裤子很长。','zhè tiáo kùzi hěn cháng.','กางเกงตัวนี้ยาวมาก','p14-kz1-t'),
+ kz2:S('我喜欢穿裤子。','wǒ xǐhuan chuān kùzi.','ฉันชอบใส่กางเกง','p14-kz2-f'),
+ qz1:S('她穿了一条红裙子。','tā chuān le yì tiáo hóng qúnzi.','เธอใส่กระโปรงสีแดง','p14-qz1-m'),
+ qz2:S('这条裙子多少钱？','zhè tiáo qúnzi duōshao qián?','กระโปรงตัวนี้ราคาเท่าไร','p14-qz2-g'),
+ mz1:S('这个帽子很好看。','zhège màozi hěn hǎokàn.','หมวกใบนี้สวยดี','p14-mz1-g'),
+ mz2:S('我的帽子呢？','wǒ de màozi ne?','หมวกของฉันล่ะ','p14-mz2-f'),
+ bao1:S('我的包很重。','wǒ de bāo hěn zhòng.','กระเป๋าของฉันหนักมาก','p14-bao1-f'),
+ bao2:S('妈妈买了一个新包。','māma mǎi le yí ge xīn bāo.','แม่ซื้อกระเป๋าใบใหม่','p14-bao2-m'),
+ sh1:S('我买了一双鞋。','wǒ mǎi le yì shuāng xié.','ฉันซื้อรองเท้ามาหนึ่งคู่','p14-sh1-f'),
+ sh2:S('这双鞋太小了。','zhè shuāng xié tài xiǎo le.','รองเท้าคู่นี้เล็กเกินไป','p14-sh2-g'),
+ ti1:S('我有两条裙子。','wǒ yǒu liǎng tiáo qúnzi.','ฉันมีกระโปรงสองตัว','p14-ti1-g'),
+ ti2:S('这条路很长。','zhè tiáo lù hěn cháng.','ถนนเส้นนี้ยาวมาก','p14-ti2-t'),
+ hu1:S('我想换一条大的。','wǒ xiǎng huàn yì tiáo dà de.','ฉันอยากเปลี่ยนเป็นตัวใหญ่','p14-hu1-f'),
+ hu2:S('可以换吗？','kěyǐ huàn ma?','เปลี่ยนได้ไหม','p14-hu2-g'),
+ hb:S('这条裙子有点儿小，我想换一条大的。','zhè tiáo qúnzi yǒudiǎnr xiǎo, wǒ xiǎng huàn yì tiáo dà de.','กระโปรงตัวนี้เล็กไปหน่อย ฉันอยากเปลี่ยนเป็นตัวใหญ่','p14-hb-f'),
+ mk:S('我想买一条裤子。','wǒ xiǎng mǎi yì tiáo kùzi.','ฉันอยากซื้อกางเกงหนึ่งตัว','p14-mk-f'),
+ c1:S('一条裤子','yì tiáo kùzi','กางเกงหนึ่งตัว','p14-c1-t'),c2:S('一个包','yí ge bāo','กระเป๋าหนึ่งใบ','p14-c2-t'),
+ c3:S('一条裙子','yì tiáo qúnzi','กระโปรงหนึ่งตัว','p14-c3-t'),c4:S('一个帽子','yí ge màozi','หมวกหนึ่งใบ','p14-c4-t'),c5:S('一双鞋','yì shuāng xié','รองเท้าหนึ่งคู่','p14-c5-t'),
+ gx1:S('哥哥比我更高。','gēge bǐ wǒ gèng gāo.','พี่ชายสูงกว่าฉันอีก','p13-gx1-f'),gx2:S('今天比昨天更冷。','jīntiān bǐ zuótiān gèng lěng.','วันนี้หนาวกว่าเมื่อวานอีก','p13-gx2-t'),
+ kdb:S('我开灯吧。','wǒ kāi dēng ba.','ฉันเปิดไฟให้นะ','p09-kdb-f'),tyk:S('今天有体育课。','jīntiān yǒu tǐyù kè.','วันนี้มีวิชาพละ','p10-tyk-t'),
+ sjh:S('我的手机坏了。','wǒ de shǒujī huài le.','มือถือของฉันเสียแล้ว','p09-sjh-f')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'g'},d:{...X.d,who:'me'},e:{...X.e,who:'g'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลิกับหลี่น่าไปเดินร้านเสื้อผ้า หลี่น่ากำลังลองกระโปรง',img:NL(QZ_)},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:NL(KZ),th:'กางเกง'},{img:NL(QZ_),th:'กระโปรง'},{img:NL(MZ),th:'หมวก'},{img:NL(BAO),th:'กระเป๋า'}];
+const BINS=[{img:NL(TIAO),zh:'条',py:'tiáo',th:'ตัว / เส้น'},{img:NL(SHUANG),zh:'双',py:'shuāng',th:'คู่'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:14,code:'บท 4-2',title:'ร้านเสื้อผ้า',goal:{do:'เรียกชื่อเสื้อผ้าและกระเป๋า นับด้วยลักษณนาม 条 双 และขอเปลี่ยนตัวใหม่',sub:'ใช้ <span class="gz">一条裤子 · 一双鞋 · 帽子 · 包 · 换一条大的</span>',min:12},steps:[
+ intro({scene:NL(QZ_),cap:'สถานการณ์ของบทนี้',title:'ร้านเสื้อผ้า',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเลือกเสื้อผ้าและขอเปลี่ยนไซซ์ได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[KZ,QZ_,MZ,BAO,SHUANG,TIAO,HUAN]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['裤子','裙子','帽子','包','双','条','换'],note:'ใช้คำจากบทก่อน เช่น 穿 鞋 漂亮 大 小 ร่วมด้วย'}),
+ ...WC(KZ,1,7,{cap:'เสื้อผ้า',hint:'คล้าย <b>"คู่ จึ"</b> · k มีลมออก 子 อ่านเบา',use:'กางเกง · ลักษณนาม 条',ex:[X.kz1,X.kz2]}),
+ ...WC(QZ_,2,7,{cap:'เสื้อผ้า',hint:'คล้าย <b>"ฉวิน จึ"</b> · q มีลมออก ห่อปาก',use:'กระโปรง · ลักษณนาม 条',ex:[X.qz1,X.qz2]}),
+ ...WC(MZ,3,7,{cap:'เสื้อผ้า',hint:'คล้าย <b>"เม่า จึ"</b> · เสียง 4 + เบา',use:'หมวก',ex:[X.mz1,X.mz2]}),
+ ...WC(BAO,4,7,{cap:'ของใช้',hint:'คล้าย <b>"เปา"</b> · เสียง 1 สูงเรียบ',use:'กระเป๋า · 包里 = ในกระเป๋า',ex:[X.bao1,X.bao2]}),
+ RC('คำที่ 1–4/7',[KZ,QZ_,MZ,BAO]),
+ use({n:'คำที่ 1–4/7',w:QZ_,when:[{img:NL(QZ_),t:'ถามเพื่อนว่าสวยไหม'},{img:NL(KZ),t:'บอกว่าอยากซื้ออะไร'}],lines:[{...X.a,who:'g'},{...X.mk,who:'me'}],tip:'这 + ลักษณนาม + สิ่งของ เช่น <span class="zh">这条裙子</span> = กระโปรงตัวนี้'}),
+ ...WC(SHUANG,5,7,{cap:'ลักษณนาม',hint:'คล้าย <b>"ซวง"</b> · sh ม้วนลิ้น เสียง 1',use:'คู่ · ใช้กับของที่มาเป็นคู่ เช่น 一双鞋',ex:[X.sh1,X.sh2]}),
+ ...WC(TIAO,6,7,{cap:'ลักษณนาม',hint:'คล้าย <b>"เถียว"</b> · t มีลมออก เสียง 2',use:'ตัว เส้น · ใช้กับของยาว เช่น กางเกง กระโปรง ถนน',ex:[X.ti1,X.ti2]}),
+ ...WC(HUAN,7,7,{cap:'ในร้าน',hint:'คล้าย <b>"ฮ่วน"</b> · เสียง 4',use:'เปลี่ยน แลก · 换一条大的 = เปลี่ยนเป็นตัวใหญ่',ex:[X.hu1,X.hu2]}),
+ RC('คำที่ 5–7/7',[SHUANG,TIAO,HUAN]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','ลักษณนาม','แตะภาพ','条 หรือ 双','裤子 กับ 裙子','ข้อควรระวัง'],note:'ฝึกเลือกเสื้อผ้าในร้าน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาในร้าน',title:'ลองกระโปรง',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'一条 อ่าน yì tiáo · 一双 อ่าน yì shuāng'}),
+ talk({cap:'เทคนิค 2/6 · ลักษณนาม',title:'นับเสื้อผ้า',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.kz1,who:'t'},{...X.sh2,who:'g'},{...X.qz2,who:'g'}],
+  chips:[X.c1,X.c3,X.c5,X.c4],tip:'<span class="zh">条</span> ใช้กับของยาว เช่น กางเกง กระโปรง · <span class="zh">双</span> ใช้กับของเป็นคู่ เช่น รองเท้า'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[
+  {zh:X.mz1.zh,k:X.mz1.k,ans:2},{zh:X.kz2.zh,k:X.kz2.k,ans:0},{zh:X.bao1.zh,k:X.bao1.k,ans:3},{zh:X.qz1.zh,k:X.qz1.k,ans:1}]}),
+ sortmap({tag:'เทคนิค 4/6 · 条 หรือ 双',q:'ฟังแต่ละประโยค แล้วแตะว่าใช้ลักษณนามตัวไหน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(KZ),X.kz1,0),it(ART('鞋'),X.sh1,1),it(NL(QZ_),X.ti1,0),it(NL(SHUANG),X.sh2,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 裤子 กับ 裙子',title:'กางเกง กับ กระโปรง',text:'แตะการ์ดเพื่อฟัง',a:{who:'กางเกง',img:NL(KZ),zh:X.kz1.zh,zhb:'裤子',py:'kùzi',th:'กางเกง',k:X.kz1.k},b:{who:'กระโปรง',img:NL(QZ_),zh:X.qz2.zh,zhb:'裙子',py:'qúnzi',th:'กระโปรง',k:X.qz2.k},
+  tip:'<span class="zh">裤</span> kù เสียง 4 · <span class="zh">裙</span> qún เสียง 2 · ทั้งสองคำใช้ลักษณนาม <span class="zh">条</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'กางเกงใช้ลักษณนาม 条',bad:'一个裤子',good:'一条裤子',k:'p14-c1-t'},
+  {h:'รองเท้าใช้ลักษณนาม 双',bad:'我买了一个鞋。',good:'我买了一双鞋。',k:'p14-sh1-f'},
+  {h:'换 อยู่หน้าสิ่งที่จะเปลี่ยน',bad:'我想一条大的换。',good:'我想换一条大的。',k:'p14-hu1-f'},
+  {h:'这 ต้องมีลักษณนามตามมา',bad:'这裙子多少钱？',good:'这条裙子多少钱？',k:'p14-qz2-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:帽子',opts:['หมวก','กระเป๋า','กระโปรง'],ans:0,fb:'<span class="zh">帽子</span> <b>màozi</b> = หมวก'}),
+ ask({rv:'ทบทวนบท 4-1 ใครสูงกว่ากัน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p13-gx1-f',opts:['พี่ชายสูงกว่าฉันอีก','พี่ชายเตี้ยกว่าฉัน','เราสูงเท่ากัน'],ans:0,fb:'<span class="zh">比我更高</span> = สูงกว่าฉันอีก'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:裤子',opts:[{img:NL(KZ)},{img:NL(QZ_)},{img:NL(MZ)}],ans:0,fb:'<span class="zh">裤子</span> <b>kùzi</b> = กางเกง'}),
+ blank({tag:TQ(3),s:'我买了一_鞋。',th:'ฉันซื้อรองเท้ามาหนึ่งคู่',opts:['双','条','个'],ans:0,k:'p14-sh1-f',fb:'<span class="zh">一双鞋</span> = รองเท้าหนึ่งคู่'}),
+ ask({rv:7,q:'ฟัง 双 แล้วเลือกพยัญชนะตัวแรก',k:'w:双',opts:['sh','s','x'],ans:0,fb:'<b>sh</b>uāng · sh ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่ากระโปรงตัวนี้สวยไหม',line:{...X.a,who:'g'},opts:[X.b,X.tyk,X.kdb],ans:0,why:'ตอบว่าสวย แต่เล็กไปหน่อย'}),
+ ask({rv:11,q:'ฟัง 裙子 แล้วเลือกเสียงท้ายของ 裙',k:'w:裙子',opts:['-n','-ng'],ans:0,fb:'q<b>ún</b> ลงท้าย -n ปลายลิ้นแตะเหงือก'}),
+ order({tag:TQ(5),th:'รองเท้าคู่นี้เล็กเกินไป',tiles:[tl('这双','zhè shuāng'),tl('鞋','xié'),tl('太小了','tài xiǎo le'),tl('条','tiáo')],ans:[0,1,2],end:'。',k:'p14-sh2-g'}),
+ tf({tag:TQ(6),k:'p14-f-f',img:NL(BAO),card:'<b>มะลิ</b><br>ในกระเป๋าไม่มีเงินแล้ว',ans:0,fb:'<span class="zh">我的包里没有钱了。</span> = ในกระเป๋าไม่มีเงินแล้ว'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ช้อปปิ้งกับเพื่อน',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.c3.zh,k:X.c3.k,ans:1},{zh:X.c2.zh,k:X.c2.k,ans:3},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c4.zh,k:X.c4.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'หลี่น่าชวนดูรองเท้า',line:{...X.e,who:'g'},opts:[X.f,X.sjh,X.gx2],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'这条裙子有点儿小，我想_一条大的。',opts:['换','双','包'],ans:0,k:'p14-hb-f',fb:'<span class="zh">我想换一条大的。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('想买','xiǎng mǎi'),tl('一条','yì tiáo'),tl('裤子','kùzi'),tl('双','shuāng')],ans:[0,1,2,3],end:'。',k:'p14-mk-f'}),
+ fin({title:'เลือกเสื้อผ้าในร้านได้แล้ว',html:dlgH(D,{noTh:1}),chips:[KZ,QZ_,MZ,BAO,SHUANG,TIAO,HUAN].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L14',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 3-1 เช้าวันวุ่น ๆ</title>
+</head><body>
+<script>
+/* เล่ม 3 บท 3-1 หน่วย 3 เรื่องวุ่น ๆ ในชีวิตประจำวัน: เช้าวันวุ่น ๆ · คำใหม่ 早 晚 坏 灯 亮 奇怪 清楚
+   กิจกรรมเฉพาะบท: …坏了 แตะของที่เสีย แยก 早 กับ 晚 灯不亮 กับ 灯很亮 */
+const ZAO=W('早','zǎo','เช้า / เร็ว'),WAN=W('晚','wǎn','ช้า / ค่ำ'),HUAI=W('坏','huài','เสีย / แย่ / ไม่ดี'),DENG=W('灯','dēng','โคมไฟ'),
+ LIANG=W('亮','liàng','สว่าง'),QG=W('奇怪','qíguài','แปลก / ประหลาด',{s:'qí guài'}),QC=W('清楚','qīngchu','ชัดเจน / เข้าใจชัด',{s:'qīng chu'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，快起床！你今天起晚了。','Mǎlì, kuài qǐchuáng! nǐ jīntiān qǐ wǎn le.','มะลิ รีบตื่นเร็ว วันนี้เธอตื่นสายแล้ว','p09-a-g'),
+ b:S('现在几点了？我的手机坏了。','xiànzài jǐ diǎn le? wǒ de shǒujī huài le.','ตอนนี้กี่โมงแล้ว มือถือของฉันเสีย','p09-b-f'),
+ c:S('七点半了。房间里太黑了，我开灯吧。','qī diǎn bàn le. fángjiān lǐ tài hēi le, wǒ kāi dēng ba.','เจ็ดโมงครึ่งแล้ว ในห้องมืดเกินไป ฉันเปิดไฟนะ','p09-c-g'),
+ d:S('奇怪，灯不亮。','qíguài, dēng bú liàng.','แปลกจัง ไฟไม่ติด','p09-d-f'),
+ e:S('灯也坏了！','dēng yě huài le!','ไฟก็เสียด้วย','p09-e-g'),
+ f:S('我看不清楚。明天我要早一点儿起床！','wǒ kàn bu qīngchu. míngtiān wǒ yào zǎo yìdiǎnr qǐchuáng!','ฉันมองไม่ชัดเลย พรุ่งนี้ฉันจะตื่นให้เช้ากว่านี้','p09-f-f'),
+ zqc:S('我每天很早起床。','wǒ měitiān hěn zǎo qǐchuáng.','ฉันตื่นเช้ามากทุกวัน','p09-zqc-f'),
+ lzl:S('今天你来早了。','jīntiān nǐ lái zǎo le.','วันนี้เธอมาเร็ว','p09-lzl-t'),
+ lwl:S('对不起，我来晚了。','duìbuqǐ, wǒ lái wǎn le.','ขอโทษครับ ผมมาสาย','p09-lwl-m'),
+ twh:S('太晚了，我们回家吧。','tài wǎn le, wǒmen huí jiā ba.','ดึกเกินไปแล้ว กลับบ้านกันเถอะ','p09-twh-g'),
+ sjh:S('我的手机坏了。','wǒ de shǒujī huài le.','มือถือของฉันเสียแล้ว','p09-sjh-f'),
+ dnh:S('电脑坏了。','diànnǎo huài le.','คอมพิวเตอร์เสียแล้ว','p09-dnh-t'),
+ kd:S('请开灯。','qǐng kāi dēng.','กรุณาเปิดไฟ','p09-kd-t'),
+ bdg:S('请把灯关上。','qǐng bǎ dēng guānshang.','ช่วยปิดไฟหน่อย','p09-bdg-g'),
+ dhl:S('灯很亮。','dēng hěn liàng.','ไฟสว่างมาก','p09-dhl-g'),
+ tl_:S('天亮了。','tiān liàng le.','ฟ้าสว่างแล้ว','p09-tl-t'),
+ rqg:S('这个人很奇怪。','zhège rén hěn qíguài.','คนนี้แปลกมาก','p09-rqg-g'),
+ qgs:S('奇怪，我的书呢？','qíguài, wǒ de shū ne?','แปลกจัง หนังสือของฉันล่ะ','p09-qgs-f'),
+ tbq:S('我听不清楚。','wǒ tīng bu qīngchu.','ผมฟังไม่ชัด','p09-tbq-m'),
+ lsq:S('老师说得很清楚。','lǎoshī shuō de hěn qīngchu.','คุณครูพูดชัดเจนมาก','p09-lsq-g'),
+ kbq:S('我看不清楚。','wǒ kàn bu qīngchu.','ฉันมองไม่ชัด','p09-kbq-f'),
+ dyh:S('灯也坏了。','dēng yě huài le.','ไฟก็เสียด้วย','p09-dyh-g'),
+ kth:S('空调坏了。','kōngtiáo huài le.','แอร์เสียแล้ว','p09-kth-t'),
+ dbl:S('灯不亮。','dēng bú liàng.','ไฟไม่ติด','p09-dbl-f'),
+ hei:S('房间里太黑了。','fángjiān lǐ tài hēi le.','ในห้องมืดเกินไป','p09-hei-g'),
+ kdb:S('我开灯吧。','wǒ kāi dēng ba.','ฉันเปิดไฟให้นะ','p09-kdb-f'),
+ mgx:S('没关系！','méi guānxi!','ไม่เป็นไร','p09-mgx-f'),
+ c1:S('手机坏了','shǒujī huài le','มือถือเสียแล้ว','p09-c1-t'),c2:S('灯坏了','dēng huài le','ไฟเสียแล้ว','p09-c2-t'),
+ c3:S('电脑坏了','diànnǎo huài le','คอมพิวเตอร์เสียแล้ว','p09-c3-t'),c4:S('空调坏了','kōngtiáo huài le','แอร์เสียแล้ว','p09-c4-t'),
+ pth:S('他的普通话很好。','tā de pǔtōnghuà hěn hǎo.','ภาษาจีนกลางของเขาดีมาก','p04-pth-f'),
+ wst:S('我要少糖。','wǒ yào shǎotáng.','ฉันขอหวานน้อย','p07-wst-f'),
+ xgz:S('吸管在这儿。','xīguǎn zài zhèr.','หลอดอยู่ตรงนี้','p06-xgz-t')};
+const L={a:{...X.a,who:'g'},b:{...X.b,who:'me'},c:{...X.c,who:'g'},d:{...X.d,who:'me'},e:{...X.e,who:'g'},f:{...X.f,who:'me'}};
+const D=[{sit:'เช้าวันเรียน มะลิตื่นสาย หลี่น่าเข้ามาปลุก',img:NL(WAN)},L.a,L.b,L.c,L.d,L.e,L.f];
+const BRK=[{img:ART('手机'),th:'มือถือ'},{img:NL(DENG),th:'ไฟ'},{img:ART('电脑'),th:'คอมพิวเตอร์'},{img:ART('空调'),th:'แอร์'}];
+const BINS=[{img:NL(ZAO),zh:'早',py:'zǎo',th:'เช้า / เร็ว'},{img:NL(WAN),zh:'晚',py:'wǎn',th:'ช้า / ดึก'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:9,code:'บท 3-1',title:'เช้าวันวุ่น ๆ',goal:{do:'บอกว่าตื่นเช้าหรือสาย ของเสีย ไฟไม่ติด และบอกว่ามองหรือฟังไม่ชัด',sub:'ใช้ <span class="gz">起晚了 · 坏了 · 灯不亮 · 奇怪 · 看不清楚</span>',min:12},steps:[
+ intro({scene:NL(WAN),cap:'สถานการณ์ของบทนี้',title:'ตื่นสายอีกแล้ว',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเล่าเรื่องวุ่น ๆ ตอนเช้าได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZAO,WAN,HUAI,DENG,LIANG,QG,QC]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['早','晚','坏','灯','亮','奇怪','清楚'],note:'ใช้คำที่รู้แล้ว เช่น 起床 手机 开 ร่วมด้วย'}),
+ ...WC(ZAO,1,7,{cap:'เวลา',hint:'คล้าย <b>"เจ่า"</b> · z ไม่ม้วนลิ้น เสียง 3',use:'เช้า เร็วกว่าเวลา · 来早了 = มาเร็ว',ex:[X.zqc,X.lzl]}),
+ ...WC(WAN,2,7,{cap:'เวลา',hint:'คล้าย <b>"หว่าน"</b> · เสียง 3',use:'ช้า สาย ดึก · 来晚了 = มาสาย',ex:[X.lwl,X.twh]}),
+ ...WC(HUAI,3,7,{cap:'สิ่งของ',hint:'คล้าย <b>"ฮว่าย"</b> · เสียง 4',use:'เสีย แย่ · สิ่งของ + 坏了 = เสียแล้ว',ex:[X.sjh,X.dnh]}),
+ RC('คำที่ 1–3/7',[ZAO,WAN,HUAI]),
+ use({n:'คำที่ 1–3/7',w:HUAI,when:[{img:ART('手机'),t:'บอกว่าของเสีย'},{img:NL(WAN),t:'ขอโทษที่มาสาย'}],lines:[{...X.sjh,who:'me'},{...X.lwl,who:'f'}],tip:'บอกว่าของเสียใช้ <span class="zh">สิ่งของ + 坏了</span>'}),
+ ...WC(DENG,4,7,{cap:'ในบ้าน',hint:'คล้าย <b>"เติง"</b> · เสียง 1 ลงท้าย -ng',use:'ไฟ โคมไฟ · 开灯 = เปิดไฟ',ex:[X.kd,X.bdg]}),
+ ...WC(LIANG,5,7,{cap:'แสง',hint:'คล้าย <b>"เลี่ยง"</b> · เสียง 4',use:'สว่าง · 灯不亮 = ไฟไม่ติด',ex:[X.dhl,X.tl_]}),
+ ...WC(QG,6,7,{cap:'ความรู้สึก',hint:'คล้าย <b>"ฉี กว้าย"</b> · q มีลมออก',use:'แปลก · พูดขึ้นต้นประโยคได้ เช่น 奇怪，…',ex:[X.qgs,X.rqg]}),
+ ...WC(QC,7,7,{cap:'การรับรู้',hint:'คล้าย <b>"ชิง ชู"</b> · 楚 อ่านเบา ๆ',use:'ชัดเจน · 看不清楚 = มองไม่ชัด',ex:[X.tbq,X.lsq]}),
+ RC('คำที่ 4–7/7',[DENG,LIANG,QG,QC]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','…坏了','แตะของที่เสีย','早 หรือ 晚','不亮 กับ 很亮','ข้อควรระวัง'],note:'ฝึกเล่าเรื่องวุ่น ๆ ตอนเช้า'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาตอนเช้า',title:'ตื่นสายอีกแล้ว',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'起晚了 = ตื่นสาย · 看不清楚 = มองไม่ชัด'}),
+ talk({cap:'เทคนิค 2/6 · …坏了',title:'อะไรเสีย',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.sjh,who:'me'},{...X.dyh,who:'g'},{...X.kth,who:'t'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'สิ่งของ + <span class="zh">坏了</span> = เสียแล้ว · ต้องมี <span class="zh">了</span> ต่อท้าย'}),
+ point({tag:'เทคนิค 3/6 · แตะของที่เสีย',q:'ฟังแต่ละประโยค แล้วแตะของที่เสีย',this:'คือสิ่งนี้',cards:BRK,rounds:[
+  {zh:X.dnh.zh,k:X.dnh.k,ans:2},{zh:X.sjh.zh,k:X.sjh.k,ans:0},{zh:X.kth.zh,k:X.kth.k,ans:3},{zh:X.dyh.zh,k:X.dyh.k,ans:1}]}),
+ sortmap({tag:'เทคนิค 4/6 · 早 หรือ 晚',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงเช้า/เร็ว หรือ ช้า/ดึก',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(A2('起床'),X.zqc,0),it(ART('朋友'),X.lwl,1),it(ART('学生'),X.lzl,0),it(ART('家'),X.twh,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 灯不亮 กับ 灯很亮',title:'ไฟไม่ติด กับ ไฟสว่าง',text:'แตะการ์ดเพื่อฟัง',a:{who:'ไฟเสีย',img:NL(HUAI),zh:X.dbl.zh,zhb:'不亮',py:'bú liàng',th:'ไม่สว่าง ไฟไม่ติด',k:X.dbl.k},b:{who:'ไฟดี',img:NL(LIANG),zh:X.dhl.zh,zhb:'很亮',py:'hěn liàng',th:'สว่างมาก',k:X.dhl.k},
+  tip:'<span class="zh">不亮</span> อ่าน <b>bú liàng</b> เพราะ 不 อยู่หน้าเสียง 4'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'来 + 晚了',bad:'对不起，我晚来了。',good:'对不起，我来晚了。',k:'p09-lwl-m'},
+  {h:'不 อยู่ระหว่าง 看 กับ 清楚',bad:'我不看清楚。',good:'我看不清楚。',k:'p09-kbq-f'},
+  {h:'坏 ต้องมี 了',bad:'我的手机坏。',good:'我的手机坏了。',k:'p09-sjh-f'},
+  {h:'很 อยู่หน้า 奇怪',bad:'这个人奇怪很。',good:'这个人很奇怪。',k:'p09-rqg-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:坏',opts:['เสีย / แย่','ใหม่','สว่าง'],ans:0,fb:'<span class="zh">坏</span> <b>huài</b> = เสีย แย่'}),
+ ask({rv:'ทบทวนบท 2-2 สั่งแบบที่ชอบ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p07-wst-f',opts:['ฉันขอหวานน้อย','ฉันไม่ใส่น้ำตาล','ฉันขอแก้วเล็ก'],ans:0,fb:'<span class="zh">少糖</span> = หวานน้อย'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:灯',opts:[{img:NL(DENG)},{img:NL(ZAO)},{img:NL(QG)}],ans:0,fb:'<span class="zh">灯</span> <b>dēng</b> = ไฟ โคมไฟ'}),
+ blank({tag:TQ(3),s:'对不起，我来_了。',th:'ขอโทษ ผมมาสาย',opts:['晚','早','坏'],ans:0,k:'p09-lwl-m',fb:'<span class="zh">对不起，我来晚了。</span>'}),
+ ask({rv:7,q:'ฟัง 清楚 แล้วเลือกพยัญชนะตัวแรกของ 楚',k:'w:清楚',opts:['ch','q','c'],ans:0,fb:'qīng<b>ch</b>u · ch ม้วนลิ้นมีลม'}),
+ reply({tag:TQ(4),q:'หลี่น่าบอกว่าในห้องมืดเกินไป',line:{...X.hei,who:'g'},opts:[X.kdb,X.sjh,X.wst],ans:0,why:'เสนอเปิดไฟด้วย 我开灯吧'}),
+ ask({rv:'ทบทวนบท 1-4 ข่าวในครอบครัว',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p04-pth-f',opts:['ภาษาจีนกลางของเขาดีมาก','เขาดูข่าวทุกวัน','เขาชอบสัตว์มาก'],ans:0,fb:'<span class="zh">普通话</span> = ภาษาจีนกลาง'}),
+ order({tag:TQ(5),th:'มือถือของฉันเสียแล้ว',tiles:[tl('我的','wǒ de'),tl('手机','shǒujī'),tl('坏了','huài le'),tl('早','zǎo')],ans:[0,1,2],end:'。',k:'p09-sjh-f'}),
+ tf({tag:TQ(6),k:'p09-d-f',img:NL(DENG),card:'<b>ไฟในห้อง</b><br>สว่างดี',ans:1,fb:'<span class="zh">灯不亮。</span> = ไฟไม่ติด'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เช้าวุ่น ๆ ของฉัน',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะของที่เสีย',this:'คือสิ่งนี้',cards:BRK,rounds:[{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c2.zh,k:X.c2.k,ans:1},{zh:X.c3.zh,k:X.c3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'หวังหมิงขอโทษที่มาสาย',line:{...X.lwl,who:'f'},opts:[X.mgx,X.dhl,X.xgz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'请开_。',opts:['灯','早','坏'],ans:0,k:'p09-kd-t',fb:'<span class="zh">请开灯。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('太晚了','tài wǎn le'),tl('我们','wǒmen'),tl('回家','huí jiā'),tl('吧','ba'),tl('早','zǎo')],ans:[0,1,2,3],end:'。',k:'p09-twh-g'}),
+ fin({title:'เล่าเรื่องเช้าวุ่น ๆ ได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZAO,WAN,HUAI,DENG,LIANG,QG,QC].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L09',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

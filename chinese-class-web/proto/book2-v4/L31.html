@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 8-3 เล่าเรื่องให้ฟัง</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 8-3 หน่วย 8 สะพานเหตุผล: เล่าเรื่องให้ฟัง · คำใหม่ 告诉 意思 事情 它 可能 就
+   ทบทวนจากบทก่อน: 件 出 还 找 · กิจกรรมเฉพาะบท: 告诉 + คน 他 หรือ 它 แตะภาพ 可能 กับ 就 */
+const GSU=W('告诉','gàosu','บอก',{s:'gào su'}),YISI=W('意思','yìsi','ความหมาย',{s:'yì si'}),SQ=W('事情','shìqing','เรื่อง / ธุระ',{s:'shì qing'}),
+ TA=W('它','tā','มัน (สัตว์ สิ่งของ)'),KN=W('可能','kěnéng','อาจจะ',{s:'kě néng'}),JIU=W('就','jiù','ก็ / เลย / …นี่เอง');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('玛莉，我告诉你一件事情。','Mǎlì, wǒ gàosu nǐ yí jiàn shìqing.','มะลิ ผมมีเรื่องจะบอก','p31-a-m'),
+ b:S('什么事情？','shénme shìqing?','เรื่องอะไร','p31-b-f'),
+ c:S('我家的猫不见了！它早上出去了，还没回来。','wǒ jiā de māo bú jiàn le! tā zǎoshang chūqu le, hái méi huílai.','แมวที่บ้านผมหายไป มันออกไปตั้งแต่เช้า ยังไม่กลับมาเลย','p31-c-m'),
+ d:S('它可能在外面玩。','tā kěnéng zài wàimiàn wán.','มันอาจจะเล่นอยู่ข้างนอก','p31-d-f'),
+ e:S('你说得对。我现在就去找它！','nǐ shuō de duì. wǒ xiànzài jiù qù zhǎo tā!','จริงด้วย ผมจะไปหามันเดี๋ยวนี้เลย','p31-e-m'),
+ f:S('我和你一起去！','wǒ hé nǐ yìqǐ qù!','ฉันไปด้วย','p31-f-f'),
+ gmz:S('请告诉我你的名字。','qǐng gàosu wǒ nǐ de míngzi.','กรุณาบอกชื่อของคุณหน่อย','p31-gmz-t'),
+ gks:S('他告诉我明天有考试。','tā gàosu wǒ míngtiān yǒu kǎoshì.','เขาบอกฉันว่าพรุ่งนี้มีสอบ','p31-gks-g'),
+ zsy:S('这个字是什么意思？','zhège zì shì shénme yìsi?','ตัวอักษรนี้แปลว่าอะไร','p31-zsy-f'),
+ xxy:S('"谢谢"是什么意思？','"xièxie" shì shénme yìsi?','"谢谢" แปลว่าอะไร','p31-xxy-g'),
+ yjs:S('我有一件事情。','wǒ yǒu yí jiàn shìqing.','ฉันมีธุระเรื่องหนึ่ง','p31-yjs-f'),
+ sqd:S('今天的事情很多。','jīntiān de shìqing hěn duō.','วันนี้มีเรื่องต้องทำเยอะ','p31-sqd-m'),
+ tsm:S('它是我的猫。','tā shì wǒ de māo.','มันคือแมวของฉัน','p31-tsm-f'),
+ thx:S('它很小。','tā hěn xiǎo.','มันตัวเล็กมาก','p31-thx-g'),
+ kxy:S('明天可能下雨。','míngtiān kěnéng xià yǔ.','พรุ่งนี้อาจจะฝนตก','p31-kxy-t'),
+ kbs:S('他可能生病了。','tā kěnéng shēng bìng le.','เขาอาจจะป่วย','p31-kbs-g'),
+ jq:S('我现在就去。','wǒ xiànzài jiù qù.','ฉันจะไปเดี๋ยวนี้เลย','p31-jq-f'),
+ jzq:S('学校就在前面。','xuéxiào jiù zài qiánmiàn.','โรงเรียนอยู่ข้างหน้านี่เอง','p31-jzq-m'),
+ tgg:S('他是我哥哥。','tā shì wǒ gēge.','เขาเป็นพี่ชายฉัน','p31-tgg-f'),
+ q1:S('你告诉他了吗？','nǐ gàosu tā le ma?','บอกเขาแล้วหรือยัง','p31-q1-g'),
+ a1:S('告诉了。','gàosu le.','บอกแล้ว','p31-a1-f'),
+ q2:S('他说什么？','tā shuō shénme?','เขาพูดว่าอะไร','p31-q2-g'),
+ a2:S('他说明天可能下雨。','tā shuō míngtiān kěnéng xià yǔ.','เขาบอกว่าพรุ่งนี้อาจจะฝนตก','p31-a2-f'),
+ lgc:S('老师告诉我，这个题我做错了。','lǎoshī gàosu wǒ, zhège tí wǒ zuò cuò le.','ครูบอกฉันว่าข้อนี้ฉันทำผิด','p31-lgc-g'),
+ jmz:S('我就买这件！','wǒ jiù mǎi zhè jiàn!','ฉันเอาตัวนี้แหละ','p31-jmz-f'),
+ wgs:S('我告诉你一件事情。','wǒ gàosu nǐ yí jiàn shìqing.','ฉันมีเรื่องจะบอกเธอ','p31-wgs-m'),
+ m1:S('我告诉你。','wǒ gàosu nǐ.','ฉันจะบอกเธอ','p31-m1-t'),m2:S('这是什么意思？','zhè shì shénme yìsi?','นี่แปลว่าอะไร','p31-m2-t'),
+ m3:S('它是我的猫。','tā shì wǒ de māo.','มันคือแมวของฉัน','p31-m3-t'),m4:S('明天可能下雨。','míngtiān kěnéng xià yǔ.','พรุ่งนี้อาจจะฝนตก','p31-m4-t'),
+ c1:S('告诉我','gàosu wǒ','บอกฉัน','p31-c1-t'),c2:S('告诉你','gàosu nǐ','บอกเธอ','p31-c2-t'),c3:S('告诉他','gàosu tā','บอกเขา','p31-c3-t'),c4:S('告诉老师','gàosu lǎoshī','บอกครู','p31-c4-t')};
+const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'}};
+const D=[{sit:'หวังหมิงมีเรื่องด่วนมาเล่าให้มะลิฟัง',img:NL(GSU)},L.a,L.b,L.c,L.d,L.e,L.f];
+const PIC=[{img:NL(GSU),th:'บอก'},{img:YISI.img,th:'ความหมาย'},{img:ART('猫'),th:'แมว'},{img:ART('下雨'),th:'ฝนตก'}];
+const BINS=[{img:ART('哥哥'),zh:'他',py:'tā',th:'เขา (คน)'},{img:TA.img,zh:'它',py:'tā',th:'มัน (สัตว์ สิ่งของ)'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:31,code:'บท 8-3',title:'เล่าเรื่องให้ฟัง',goal:{do:'บอกเรื่องที่เกิดขึ้นให้เพื่อนฟัง ถามความหมายของคำ และเดาด้วย 可能',sub:'ใช้ <span class="gz">告诉你 · 什么意思 · 可能 · 就</span>',min:12},steps:[
+ intro({scene:NL(GSU),cap:'สถานการณ์ของบทนี้',title:'แมวหายไปไหน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะเล่าเรื่องให้เพื่อนฟังได้'}),
+ vgrid({title:'6 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[GSU,YISI,SQ,TA,KN,JIU]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['告诉','意思','事情','它','可能','就'],note:'ใช้คำจากบทก่อน เช่น 件 还没 找 ร่วมด้วย'}),
+ ...WC(GSU,1,6,{cap:'การพูด',hint:'คล้าย <b>"เก้า ซุ"</b> · 诉 อ่านเบา',use:'บอก · 告诉 + คน + เรื่อง',ex:[X.gmz,X.gks]}),
+ ...WC(YISI,2,6,{cap:'การพูด',hint:'คล้าย <b>"อี้ สึ"</b> · 思 อ่านเบา',use:'ความหมาย · 什么意思 แปลว่าอะไร',ex:[X.zsy,X.xxy]}),
+ RC('คำที่ 1–2/6',[GSU,YISI]),
+ ...WC(SQ,3,6,{cap:'เรื่องราว',hint:'คล้าย <b>"ซื่อ ชิง"</b> · 情 อ่านเบา',use:'เรื่อง ธุระ · ลักษณนาม 件',ex:[X.yjs,X.sqd]}),
+ ...WC(TA,4,6,{cap:'คำแทน',hint:'คล้าย <b>"ทา"</b> · อ่านเหมือน 他 และ 她',use:'มัน · ใช้กับสัตว์และสิ่งของ',ex:[X.tsm,X.thx]}),
+ RC('คำที่ 3–4/6',[SQ,TA]),
+ use({n:'คำที่ 1–4/6',w:SQ,when:[{img:NL(GSU),t:'บอกว่ามีเรื่องจะเล่า'},{img:ART('猫'),t:'เล่าว่าแมวหาย'}],lines:[{...X.a,who:'f'},{...X.c,who:'f'}],tip:'<span class="zh">我告诉你一件事情</span> ฉันมีเรื่องจะบอก · พูดถึงแมวใช้ <span class="zh">它</span>'}),
+ ...WC(KN,5,6,{cap:'การคาดเดา',hint:'คล้าย <b>"เข่อ เหนิง"</b> · ลงท้าย -ng',use:'อาจจะ · วางหน้ากริยา',ex:[X.kxy,X.kbs]}),
+ ...WC(JIU,6,6,{cap:'การเน้น',hint:'คล้าย <b>"จิ้ว"</b> · เสียง 4',use:'เลย ทันที · …นี่เอง · วางหน้ากริยา',ex:[X.jq,X.jzq]}),
+ RC('คำที่ 5–6/6',[KN,JIU]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','告诉 + คน','他 หรือ 它','แตะภาพ','可能 กับ 就','ข้อควรระวัง'],note:'ฝึกเล่าเรื่องและถามความหมาย'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาเรื่องแมว',title:'แมวหายไปไหน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'เปิดเรื่องด้วย 我告诉你… · เดาด้วย 可能 · ทำทันทีด้วย 就'}),
+ talk({cap:'เทคนิค 2/6 · 告诉 + คน',title:'บอกใคร บอกอะไร',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.q1,who:'g'},{...X.a1,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">告诉</span> + คน + เรื่อง · เล่าต่อว่าเขาพูดอะไรใช้ <span class="zh">他说…</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · 他 หรือ 它',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงคนหรือสัตว์',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('哥哥'),X.tgg,0),it(ART('猫'),X.tsm,1),it(ART('男孩'),X.kbs,0),it(ART('狗'),X.thx,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.gmz.zh,k:X.gmz.k,ans:0},{zh:X.zsy.zh,k:X.zsy.k,ans:1},{zh:X.tsm.zh,k:X.tsm.k,ans:2},{zh:X.kxy.zh,k:X.kxy.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 可能 กับ 就',title:'อาจจะ กับ เลย',text:'แตะการ์ดเพื่อฟัง',a:{who:'ไม่แน่ใจ',img:KN.img,zh:X.kbs.zh,zhb:'可能',py:'kěnéng',th:'อาจจะ',k:X.kbs.k},b:{who:'ทันที',img:JIU.img,zh:X.jq.zh,zhb:'就',py:'jiù',th:'เลย',k:X.jq.k},
+  tip:'<span class="zh">可能</span> เดา ไม่แน่ใจ · <span class="zh">就</span> ทำทันที หรือเน้นว่า…นี่เอง · ทั้งสองคำวางหน้ากริยา'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'告诉 + คน + เรื่อง',bad:'他告诉明天有考试我。',good:'他告诉我明天有考试。',k:'p31-gks-g'},
+  {h:'什么意思 อยู่ท้าย',bad:'什么意思是这个字？',good:'这个字是什么意思？',k:'p31-zsy-f'},
+  {h:'可能 อยู่หน้ากริยา',bad:'明天下雨可能。',good:'明天可能下雨。',k:'p31-kxy-t'},
+  {h:'就 อยู่หน้ากริยา',bad:'我现在去就。',good:'我现在就去。',k:'p31-jq-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:可能',opts:['อาจจะ','บอก','ความหมาย'],ans:0,fb:'<span class="zh">可能</span> <b>kěnéng</b> = อาจจะ'}),
+ ask({rv:'ทบทวนบท 8-2 ถามตอบในห้องเรียน',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p31-lgc-g',opts:['ครูบอกฉันว่าข้อนี้ฉันทำผิด','ครูบอกฉันว่าข้อนี้ฉันทำถูก','ครูถามฉันว่าข้อนี้ทำได้ไหม'],ans:0,fb:'<span class="zh">做错了</span> = ทำผิด'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:它',opts:[{img:TA.img},{img:NL(GSU)},{img:YISI.img}],ans:0,fb:'<span class="zh">它</span> <b>tā</b> = มัน (สัตว์ สิ่งของ)'}),
+ blank({tag:TQ(3),s:'这个字是什么_？',th:'ตัวอักษรนี้แปลว่าอะไร',opts:['意思','事情','可能'],ans:0,k:'p31-zsy-f',fb:'<span class="zh">这个字是什么意思？</span>'}),
+ ask({rv:7,q:'ฟัง 事 shì แล้วเลือกพยัญชนะตัวแรก',k:'sy:事',opts:['sh','s','x'],ans:0,fb:'<b>sh</b>ì · ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'หวังหมิงบอกว่ามีเรื่องจะเล่า คุณถามว่าเรื่องอะไร',line:{...X.wgs,who:'f'},opts:[X.b,X.thx,X.jq],ans:0,why:'ถามต่อด้วย 什么事情？'}),
+ ask({rv:'ทบทวนบท 7-2 ซื้อของขวัญ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p31-jmz-f',opts:['ฉันเอาตัวนี้แหละ','ฉันลองตัวนี้ก่อน','ฉันไม่เอาตัวนี้'],ans:0,fb:'<span class="zh">就</span> เน้นว่าตัดสินใจแล้ว · <span class="zh">这件</span> = ตัวนี้'}),
+ order({tag:TQ(5),th:'พรุ่งนี้อาจจะฝนตก',tiles:[tl('明天','míngtiān'),tl('可能','kěnéng'),tl('下雨','xià yǔ'),tl('就','jiù')],ans:[0,1,2],end:'。',k:'p31-kxy-t'}),
+ tf({tag:TQ(6),k:'p31-c-m',img:ART('猫'),card:'<b>แมวของหวังหมิง</b><br>กลับบ้านแล้ว',ans:1,fb:'<span class="zh">还没回来</span> = ยังไม่กลับมา · ไม่ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'เล่าเรื่องให้ฟัง',chips:['ฟังแล้วแตะภาพ','ถามความหมาย','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณไม่รู้ความหมายของตัวอักษรตัวหนึ่ง จึงถามเพื่อน',opts:[X.zsy,X.jq,X.thx],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'他_生病了。',opts:['可能','告诉','意思'],ans:0,k:'p31-kbs-g',fb:'<span class="zh">他可能生病了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('请','qǐng'),tl('告诉','gàosu'),tl('我','wǒ'),tl('你的','nǐ de'),tl('名字','míngzi'),tl('意思','yìsi')],ans:[0,1,2,3,4],end:'。',k:'p31-gmz-t'}),
+ fin({title:'เล่าเรื่องให้ฟังได้แล้ว',html:dlgH(D,{noTh:1}),chips:[GSU,YISI,SQ,TA,KN,JIU].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L31',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

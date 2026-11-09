@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · บท 8-4 กำลังทำอะไรอยู่</title>
+</head><body>
+<script>
+/* เล่ม 2 บท 8-4 หน่วย 8 สะพานเหตุผล: กำลังทำอะไรอยู่ · คำใหม่ 着 正在 为 向 从 让 别
+   ทบทวนจากบทก่อน: 准备 公司 门 累 就 · กิจกรรมเฉพาะบท: 正在 + กริยา ให้ทำหรือห้ามทำ แตะภาพ 从 กับ 向 */
+const ZHE=W('着','zhe','(อยู่ ค้างอยู่ ต่อท้ายกริยา)',{nosk:1}),ZZ=W('正在','zhèngzài','กำลัง',{s:'zhèng zài'}),WEI=W('为','wèi','เพื่อ / ให้แก่',{nosk:1}),
+ XIANG=W('向','xiàng','ไปทาง / ต่อ'),CONG=W('从','cóng','จาก'),RANG=W('让','ràng','ให้ (ใครทำอะไร)'),BIE=W('别','bié','อย่า');
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('喂，李娜，你在做什么？','wéi, Lǐ Nà, nǐ zài zuò shénme?','ฮัลโหล หลี่น่า ทำอะไรอยู่','p32-a-f'),
+ b:S('我正在做饭。妈妈让我准备晚饭。','wǒ zhèngzài zuò fàn. māma ràng wǒ zhǔnbèi wǎnfàn.','ฉันกำลังทำอาหาร แม่ให้ฉันเตรียมอาหารเย็น','p32-b-g'),
+ c:S('你妈妈呢？','nǐ māma ne?','แล้วแม่เธอล่ะ','p32-c-f'),
+ d:S('她从公司回来，还在路上。','tā cóng gōngsī huílai, hái zài lù shang.','แม่กำลังกลับจากบริษัท ยังอยู่ระหว่างทาง','p32-d-g'),
+ e:S('你为妈妈做饭，真好！','nǐ wèi māma zuò fàn, zhēn hǎo!','เธอทำอาหารให้แม่ ดีจังเลย','p32-e-f'),
+ f:S('门开着呢，你来我家吃饭吧！','mén kāi zhe ne, nǐ lái wǒ jiā chī fàn ba!','ประตูเปิดอยู่นะ มากินข้าวที่บ้านฉันสิ','p32-f-g'),
+ g:S('好！你别太累了。','hǎo! nǐ bié tài lèi le.','ได้ อย่าเหนื่อยเกินไปนะ','p32-g-f'),
+ mkz:S('门开着。','mén kāi zhe.','ประตูเปิดอยู่','p32-mkz-t'),
+ xzs:S('他笑着说："你好！"','tā xiào zhe shuō: "nǐ hǎo!"','เขายิ้มแล้วพูดว่า "สวัสดี"','p32-xzs-g'),
+ zsk:S('我正在上课。','wǒ zhèngzài shàng kè.','ฉันกำลังเรียนอยู่','p32-zsk-f'),
+ zdh:S('他正在打电话。','tā zhèngzài dǎ diànhuà.','เขากำลังคุยโทรศัพท์','p32-zdh-m'),
+ wgx:S('我为你高兴。','wǒ wèi nǐ gāoxìng.','ฉันดีใจด้วยนะ','p32-wgx-f'),
+ wwf:S('妈妈为我们做了晚饭。','māma wèi wǒmen zuò le wǎnfàn.','แม่ทำอาหารเย็นให้พวกเรา','p32-wwf-g'),
+ xqz:S('向前走。','xiàng qián zǒu.','เดินไปข้างหน้า','p32-xqz-t'),
+ xyz:S('向右走。','xiàng yòu zǒu.','เดินไปทางขวา','p32-xyz-t'),
+ ctg:S('我从泰国来。','wǒ cóng Tàiguó lái.','ฉันมาจากประเทศไทย','p32-ctg-f'),
+ czd:S('从这儿到学校很近。','cóng zhèr dào xuéxiào hěn jìn.','จากตรงนี้ไปโรงเรียนใกล้มาก','p32-czd-m'),
+ rzs:S('妈妈让我早一点儿睡觉。','māma ràng wǒ zǎo yìdiǎnr shuì jiào.','แม่ให้ฉันเข้านอนเร็วหน่อย','p32-rzs-g'),
+ rds:S('老师让我们读书。','lǎoshī ràng wǒmen dú shū.','ครูให้พวกเราอ่านหนังสือ','p32-rds-t'),
+ bsh:S('别说话！','bié shuō huà!','อย่าพูด','p32-bsh-t'),
+ bz:S('别走！','bié zǒu!','อย่าเพิ่งไป','p32-bz-g'),
+ zds:S('她正在看电视。','tā zhèngzài kàn diànshì.','เธอกำลังดูทีวี','p32-zds-f'),
+ zsj:S('他正在睡觉。','tā zhèngzài shuì jiào.','เขากำลังนอนหลับ','p32-zsj-t'),
+ q1:S('你在做什么？','nǐ zài zuò shénme?','ทำอะไรอยู่','p32-q1-g'),
+ a1:S('我正在学习汉语。','wǒ zhèngzài xuéxí Hànyǔ.','ฉันกำลังเรียนภาษาจีน','p32-a1-f'),
+ q2:S('你妈妈呢？','nǐ māma ne?','แล้วแม่ของคุณล่ะ','p32-q2-g'),
+ a2:S('她正在看电视。','tā zhèngzài kàn diànshì.','แม่กำลังดูทีวี','p32-a2-f'),
+ zzf:S('我正在做饭。','wǒ zhèngzài zuò fàn.','ฉันกำลังทำอาหาร','p32-zzf-f'),
+ lrg:S('老师让我告诉你，明天有考试。','lǎoshī ràng wǒ gàosu nǐ, míngtiān yǒu kǎoshì.','ครูให้ฉันมาบอกเธอว่าพรุ่งนี้มีสอบ','p32-lrg-g'),
+ btl:S('你别太累了。','nǐ bié tài lèi le.','อย่าเหนื่อยเกินไปนะ','p32-btl-f'),
+ m1:S('我正在打电话。','wǒ zhèngzài dǎ diànhuà.','ฉันกำลังคุยโทรศัพท์','p32-m1-t'),m2:S('我正在上课。','wǒ zhèngzài shàng kè.','ฉันกำลังเรียน','p32-m2-t'),
+ m3:S('我正在看电视。','wǒ zhèngzài kàn diànshì.','ฉันกำลังดูทีวี','p32-m3-t'),m4:S('我正在睡觉。','wǒ zhèngzài shuì jiào.','ฉันกำลังนอน','p32-m4-t'),
+ c1:S('正在吃饭','zhèngzài chī fàn','กำลังกินข้าว','p32-c1-t'),c2:S('正在上课','zhèngzài shàng kè','กำลังเรียน','p32-c2-t'),c3:S('正在打电话','zhèngzài dǎ diànhuà','กำลังคุยโทรศัพท์','p32-c3-t'),c4:S('正在睡觉','zhèngzài shuì jiào','กำลังนอน','p32-c4-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'g'},c:{...X.c,who:'me'},d:{...X.d,who:'g'},e:{...X.e,who:'me'},f:{...X.f,who:'g'},g:{...X.g,who:'me'}};
+const D=[{sit:'มะลิโทรหาหลี่น่าตอนเย็น',img:NL(ZZ)},L.a,L.b,L.c,L.d,L.e,L.f,L.g];
+const PIC=[{img:A2('打电话'),th:'โทรศัพท์'},{img:ART('课'),th:'เรียน'},{img:ART('电视'),th:'ทีวี'},{img:A2('睡觉'),th:'นอน'}];
+const BINS=[{img:NL(RANG),zh:'让',py:'ràng',th:'ให้ทำ'},{img:NL(BIE),zh:'别',py:'bié',th:'ห้ามทำ'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:32,code:'บท 8-4',title:'กำลังทำอะไรอยู่',goal:{do:'บอกว่ากำลังทำอะไร บอกว่ามาจากไหน ขอให้คนอื่นทำ และห้ามอย่างสุภาพ',sub:'ใช้ <span class="gz">正在 · 开着 · 从…来 · 让 · 别</span>',min:12},steps:[
+ intro({scene:NL(ZZ),cap:'สถานการณ์ของบทนี้',title:'โทรหาหลี่น่าตอนเย็น',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะบอกว่ากำลังทำอะไรได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[ZHE,ZZ,WEI,XIANG,CONG,RANG,BIE]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['着','正在','为','向','从','让','别'],note:'ใช้คำจากบทก่อน เช่น 准备 公司 门 累 ร่วมด้วย'}),
+ ...WC(ZHE,1,7,{cap:'ไวยากรณ์',hint:'อ่านเบา <b>"เจอะ"</b> · ไม่มีเสียงวรรณยุกต์',use:'กริยา + 着 = สภาพที่ค้างอยู่ เช่น 开着 เปิดอยู่',ex:[X.mkz,X.xzs]}),
+ ...WC(ZZ,2,7,{cap:'เวลา',hint:'คล้าย <b>"เจิ้ง จ้าย"</b> · zh ม้วนลิ้น',use:'กำลัง · 正在 + กริยา',ex:[X.zsk,X.zdh]}),
+ RC('คำที่ 1–2/7',[ZHE,ZZ]),
+ ...WC(WEI,3,7,{cap:'ไวยากรณ์',hint:'คล้าย <b>"เว่ย"</b> · เสียง 4',use:'เพื่อ ให้แก่ · 为 + คน + กริยา',ex:[X.wgx,X.wwf]}),
+ ...WC(XIANG,4,7,{cap:'ทิศทาง',hint:'คล้าย <b>"เซี่ยง"</b> · x ลิ้นแตะฟันล่าง',use:'ไปทาง · 向 + ทิศ + 走',ex:[X.xqz,X.xyz]}),
+ ...WC(CONG,5,7,{cap:'ทิศทาง',hint:'คล้าย <b>"ฉง"</b> · c ลิ้นแตะฟัน พ่นลม',use:'จาก · 从 + ที่ + 来 · 从…到… จาก…ถึง…',ex:[X.ctg,X.czd]}),
+ RC('คำที่ 3–5/7',[WEI,XIANG,CONG]),
+ use({n:'คำที่ 1–5/7',w:ZZ,when:[{img:NL(ZZ),t:'หลี่น่ากำลังทำอาหาร'},{img:CONG.img,t:'แม่กำลังกลับจากบริษัท'}],lines:[{...X.b,who:'g'},{...X.d,who:'g'}],tip:'<span class="zh">正在</span> + กริยา กำลัง… · <span class="zh">从</span> + ที่ + <span class="zh">回来</span> กลับมาจาก…'}),
+ ...WC(RANG,6,7,{cap:'การขอ',hint:'คล้าย <b>"ญ่าง"</b> · r ม้วนลิ้น',use:'ให้ (ใครทำอะไร) · 让 + คน + กริยา',ex:[X.rzs,X.rds]}),
+ ...WC(BIE,7,7,{cap:'การขอ',hint:'คล้าย <b>"เปี๋ย"</b> · เสียง 2',use:'อย่า · 别 + กริยา',ex:[X.bsh,X.bz]}),
+ RC('คำที่ 6–7/7',[RANG,BIE]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','正在 + กริยา','ให้ทำหรือห้ามทำ','แตะภาพ','从 กับ 向','ข้อควรระวัง'],note:'ฝึกบอกว่ากำลังทำอะไร'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาทางโทรศัพท์',title:'โทรหาหลี่น่าตอนเย็น',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'กำลังทำใช้ 正在 · เป็นห่วงด้วย 别太累了'}),
+ talk({cap:'เทคนิค 2/6 · 正在 + กริยา',title:'ตอนนี้ทำอะไรอยู่',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.q1,who:'g'},{...X.a1,who:'me'},{...X.q2,who:'g'},{...X.a2,who:'me'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">正在</span> + กริยา · ถามสั้น ๆ <span class="zh">你在做什么？</span>'}),
+ sortmap({tag:'เทคนิค 3/6 · ให้ทำหรือห้ามทำ',q:'ฟังแต่ละประโยค แล้วแตะว่าให้ทำหรือห้ามทำ',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(ART('妈妈'),X.rzs,0),it(ART('老师'),X.bsh,1),it(ART('老师'),X.rds,0),it(ART('女孩'),X.bz,1)]}),
+ point({tag:'เทคนิค 4/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[
+  {zh:X.zdh.zh,k:X.zdh.k,ans:0},{zh:X.zsk.zh,k:X.zsk.k,ans:1},{zh:X.zds.zh,k:X.zds.k,ans:2},{zh:X.zsj.zh,k:X.zsj.k,ans:3}]}),
+ cmp({cap:'เทคนิค 5/6 · 从 กับ 向',title:'จาก กับ ไปทาง',text:'แตะการ์ดเพื่อฟัง',a:{who:'จุดเริ่ม',img:CONG.img,zh:X.ctg.zh,zhb:'从',py:'cóng',th:'จาก',k:X.ctg.k},b:{who:'ทิศทาง',img:XIANG.img,zh:X.xqz.zh,zhb:'向',py:'xiàng',th:'ไปทาง',k:X.xqz.k},
+  tip:'<span class="zh">从</span> บอกว่ามาจากไหน · <span class="zh">向</span> บอกว่าหันหรือไปทางไหน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'着 อยู่หลังกริยา',bad:'门着开。',good:'门开着。',k:'p32-mkz-t'},
+  {h:'让 + คน + กริยา',bad:'妈妈让早一点儿睡觉我。',good:'妈妈让我早一点儿睡觉。',k:'p32-rzs-g'},
+  {h:'ห้ามใช้ 别',bad:'不说话！',good:'别说话！',k:'p32-bsh-t'},
+  {h:'从 + ที่ + 来',bad:'我来从泰国。',good:'我从泰国来。',k:'p32-ctg-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:别',opts:['อย่า','ให้','จาก'],ans:0,fb:'<span class="zh">别</span> <b>bié</b> = อย่า'}),
+ ask({rv:'ทบทวนบท 8-3 เล่าเรื่องให้ฟัง',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p32-lrg-g',opts:['ครูให้ฉันมาบอกเธอว่าพรุ่งนี้มีสอบ','ครูบอกว่าวันนี้มีสอบ','ฉันให้ครูบอกเธอว่าพรุ่งนี้มีสอบ'],ans:0,fb:'<span class="zh">让我告诉你</span> = ให้ฉันมาบอกเธอ'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:从',opts:[{img:CONG.img},{img:NL(BIE)},{img:NL(RANG)}],ans:0,fb:'<span class="zh">从</span> <b>cóng</b> = จาก'}),
+ blank({tag:TQ(3),s:'我_泰国来。',th:'ฉันมาจากประเทศไทย',opts:['从','向','为'],ans:0,k:'p32-ctg-f',fb:'<span class="zh">我从泰国来。</span>'}),
+ ask({rv:11,q:'ฟัง 从 cóng แล้วเลือกเสียงท้าย',k:'sy:从',opts:['-ng','-n'],ans:0,fb:'c<b>óng</b> ลงท้าย -ng · โคนลิ้นยกขึ้น'}),
+ reply({tag:TQ(4),q:'หลี่น่าถามว่าทำอะไรอยู่ คุณกำลังทำอาหาร',line:{...X.q1,who:'g'},opts:[X.zzf,X.bz,X.xqz],ans:0,why:'ตอบด้วย 我正在…'}),
+ ask({rv:'ทบทวนบท 4-3 ไกล ใกล้ ซ้าย ขวา',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p32-czd-m',opts:['จากตรงนี้ไปโรงเรียนใกล้มาก','จากตรงนี้ไปโรงเรียนไกลมาก','โรงเรียนอยู่ทางขวา'],ans:0,fb:'<span class="zh">近</span> = ใกล้'}),
+ order({tag:TQ(5),th:'เขากำลังคุยโทรศัพท์',tiles:[tl('他','tā'),tl('正在','zhèngzài'),tl('打电话','dǎ diànhuà'),tl('别','bié')],ans:[0,1,2],end:'。',k:'p32-zdh-m'}),
+ tf({tag:TQ(6),k:'p32-b-g',img:NL(ZZ),card:'<b>หลี่น่า</b><br>กำลังทำอาหาร',ans:0,fb:'<span class="zh">我正在做饭。</span> = ฉันกำลังทำอาหาร · ตรงกับบัตร'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ตอนนี้ทำอะไรอยู่',chips:['ฟังแล้วแตะภาพ','เป็นห่วงเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:PIC,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนทำงานหนักทั้งวัน คุณเป็นห่วง',opts:[X.btl,X.ctg,X.mkz],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'门开_。',opts:['着','从','向'],ans:0,k:'p32-mkz-t',fb:'<span class="zh">门开着。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('为','wèi'),tl('你','nǐ'),tl('高兴','gāoxìng'),tl('让','ràng')],ans:[0,1,2,3],end:'。',k:'p32-wgx-f'}),
+ fin({title:'บอกว่ากำลังทำอะไรได้แล้ว',html:dlgH(D,{noTh:1}),chips:[ZHE,ZZ,WEI,XIANG,CONG,RANG,BIE].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L32',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

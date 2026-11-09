@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b2kit.js"></script>
+<title>ต้นแบบ · เล่ม 2 · ทบทวนหน่วยที่ 8</title>
+</head><body>
+<script>
+/* เล่ม 2 ทบทวนหน่วยที่ 8 สะพานเหตุผล: ทวนคำทั้ง 4 บท → บทสนทนาในห้องเรียน → แบบทดสอบผสมทุกรูปแบบ → ภารกิจ */
+const SBING=W('生病','shēng bìng','ป่วย',{s:'shēng bìng'}),YAOW=W('药','yào','ยา'),LEI=W('累','lèi','เหนื่อย'),
+ YW=W('因为','yīnwèi','เพราะ',{s:'yīn wèi',sl:[1]}),SY=W('所以','suǒyǐ','ดังนั้น / จึง',{s:'suǒ yǐ'}),DS=W('但是','dànshì','แต่',{s:'dàn shì'});
+const WEN=W('问','wèn','ถาม'),HD=W('回答','huídá','ตอบ',{s:'huí dá'}),WT=W('问题','wèntí','คำถาม / ปัญหา',{s:'wèn tí'}),
+ TI2=W('题','tí','โจทย์ / ข้อ (ในข้อสอบ)'),DONG=W('懂','dǒng','เข้าใจ'),CUO=W('错','cuò','ผิด');
+const GSU=W('告诉','gàosu','บอก',{s:'gào su'}),YISI=W('意思','yìsi','ความหมาย',{s:'yì si'}),SQ=W('事情','shìqing','เรื่อง / ธุระ',{s:'shì qing'}),
+ TA=W('它','tā','มัน (สัตว์ สิ่งของ)'),KN=W('可能','kěnéng','อาจจะ',{s:'kě néng'}),JIU=W('就','jiù','ก็ / เลย / …นี่เอง');
+const ZHE=W('着','zhe','(อยู่ ค้างอยู่ ต่อท้ายกริยา)',{nosk:1}),ZZ=W('正在','zhèngzài','กำลัง',{s:'zhèng zài'}),WEI=W('为','wèi','เพื่อ / ให้แก่',{nosk:1}),
+ XIANG=W('向','xiàng','ไปทาง / ต่อ'),CONG=W('从','cóng','จาก'),RANG=W('让','ràng','ให้ (ใครทำอะไร)'),BIE=W('别','bié','อย่า');const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('同学们，李娜今天没来。谁知道为什么？','tóngxuémen, Lǐ Nà jīntiān méi lái. shéi zhīdào wèishénme?','นักเรียน วันนี้หลี่น่าไม่มา ใครรู้บ้างว่าทำไม','p33-a-t'),
+ b:S('老师，她告诉我，因为她生病了，所以没来。','lǎoshī, tā gàosu wǒ, yīnwèi tā shēng bìng le, suǒyǐ méi lái.','คุณครูคะ เธอบอกหนูว่าเพราะป่วย เลยไม่ได้มา','p33-b-f'),
+ c:S('玛莉，请告诉她，别太累了。','Mǎlì, qǐng gàosu tā, bié tài lèi le.','มะลิ ฝากบอกเธอด้วยว่าอย่าหักโหมนะ','p33-c-t'),
+ d:S('好的。老师，这个题我不懂。','hǎo de. lǎoshī, zhège tí wǒ bù dǒng.','ได้ค่ะ คุณครูคะ ข้อนี้หนูไม่เข้าใจ','p33-d-f'),
+ e:S('没关系，我们一起看。你从这儿开始读。','méi guānxi, wǒmen yìqǐ kàn. nǐ cóng zhèr kāishǐ dú.','ไม่เป็นไร มาดูด้วยกัน เริ่มอ่านจากตรงนี้','p33-e-t'),
+ f:S('我懂了！谢谢老师。','wǒ dǒng le! xièxie lǎoshī.','หนูเข้าใจแล้ว ขอบคุณค่ะคุณครู','p33-f-f'),
+ tsb:S('他生病了。','tā shēng bìng le.','เขาป่วย','p29-tsb-m'),
+ yzz:S('药在桌子上。','yào zài zhuōzi shang.','ยาอยู่บนโต๊ะ','p29-yzz-g'),
+ tsm:S('它是我的猫。','tā shì wǒ de māo.','มันคือแมวของฉัน','p31-tsm-f'),
+ gkx:S('他告诉我明天可能下雨。','tā gàosu wǒ míngtiān kěnéng xià yǔ.','เขาบอกฉันว่าพรุ่งนี้อาจจะฝนตก','p33-gkx-g'),
+ ndl:S('你懂了吗？','nǐ dǒng le ma?','เข้าใจหรือยัง','p30-ndl-t'),
+ dlx:S('懂了！谢谢老师。','dǒng le! xièxie lǎoshī.','เข้าใจแล้ว ขอบคุณค่ะคุณครู','p30-dlx-f'),
+ bsh:S('别说话！','bié shuō huà!','อย่าพูด','p32-bsh-t'),
+ thx:S('它很小。','tā hěn xiǎo.','มันตัวเล็กมาก','p31-thx-g'),
+ rzs:S('妈妈让我早一点儿睡觉。','māma ràng wǒ zǎo yìdiǎnr shuì jiào.','แม่ให้ฉันเข้านอนเร็วหน่อย','p32-rzs-g'),
+ blc:S('今天比昨天冷，所以我多穿一点儿。','jīntiān bǐ zuótiān lěng, suǒyǐ wǒ duō chuān yìdiǎnr.','วันนี้หนาวกว่าเมื่อวาน ฉันเลยใส่เสื้อเยอะหน่อย','p33-blc-m'),
+ yxy:S('因为下雨，我们不去了。','yīnwèi xià yǔ, wǒmen bú qù le.','เพราะฝนตก เราไม่ไปแล้ว','p29-yxy-g'),
+ xqz:S('向前走。','xiàng qián zǒu.','เดินไปข้างหน้า','p32-xqz-t'),
+ q1:S('你怎么不去？','nǐ zěnme bú qù?','ทำไมคุณไม่ไป','p29-q1-g'),
+ ysb:S('因为我生病了，所以不去。','yīnwèi wǒ shēng bìng le, suǒyǐ bú qù.','เพราะฉันป่วย เลยไม่ไป','p33-ysb-f'),
+ mkz:S('门开着。','mén kāi zhe.','ประตูเปิดอยู่','p32-mkz-t'),
+ jq:S('我现在就去。','wǒ xiànzài jiù qù.','ฉันจะไปเดี๋ยวนี้เลย','p31-jq-f'),
+ zdh:S('他正在打电话。','tā zhèngzài dǎ diànhuà.','เขากำลังคุยโทรศัพท์','p32-zdh-m'),
+ zsy:S('这个字是什么意思？','zhège zì shì shénme yìsi?','ตัวอักษรนี้แปลว่าอะไร','p31-zsy-f'),
+ btl:S('你别太累了。','nǐ bié tài lèi le.','อย่าเหนื่อยเกินไปนะ','p32-btl-f')};
+const L={a:{...X.a,who:'t'},b:{...X.b,who:'me'},c:{...X.c,who:'t'},d:{...X.d,who:'me'},e:{...X.e,who:'t'},f:{...X.f,who:'me'}};
+const D=[{sit:'ในห้องเรียน ครูถามถึงหลี่น่าที่ไม่ได้มา',img:ART('教室')},L.a,L.b,L.c,{sit:'หลังจากนั้น มะลิถามโจทย์ที่ไม่เข้าใจ',img:NL(WT)},L.d,L.e,L.f];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+const ALL=[SBING,YAOW,LEI,YW,SY,DS,WEN,HD,WT,TI2,DONG,CUO,GSU,YISI,SQ,TA,KN,JIU,ZHE,ZZ,WEI,XIANG,CONG,RANG,BIE];
+LESSON({no:33,code:'ทบทวนหน่วย 8',title:'ทบทวนหน่วยที่ 8',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 8 บอกเหตุผล ถามตอบในห้องเรียน เล่าเรื่อง และบอกว่ากำลังทำอะไร',sub:'因为…所以… · 我不懂 · 告诉 · 正在 · 别',min:8},steps:[
+ intro({scene:ART('教室'),cap:'บททบทวน',title:'วันที่หลี่น่าไม่มาเรียน',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 8-1 ถึง 8-4'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 8',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'8-1 ป่วยเพราะอะไร',items:[SBING,YAOW,LEI,YW,SY,DS]},{lab:'8-2 ถามตอบในห้องเรียน',items:[WEN,HD,WT,TI2,DONG,CUO]},{lab:'8-3 เล่าเรื่องให้ฟัง',items:[GSU,YISI,SQ,TA,KN,JIU]},{lab:'8-4 กำลังทำอะไรอยู่',items:[ZHE,ZZ,WEI,XIANG,CONG,RANG,BIE]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'วันที่หลี่น่าไม่มาเรียน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะภาพ','เติมคำ','ตอบครู','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[YAOW,LEI,WT,TA,BIE]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คืออันนี้',cards:[{img:NL(SBING),th:'ป่วย'},{img:YAOW.img,th:'ยา'},{img:ART('猫'),th:'แมว'}],rounds:[
+  {zh:X.yzz.zh,k:X.yzz.k,ans:1},{zh:X.tsm.zh,k:X.tsm.k,ans:2},{zh:X.tsb.zh,k:X.tsb.k,ans:0}]}),
+ ask({rv:2,q:'ฟัง 懂 dǒng แล้วเลือกวรรณยุกต์',k:'sy:懂',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">懂</span> d<b>ǒng</b> เสียง 3 = เข้าใจ'}),
+ blank({tag:TQ(3),s:'他告诉我明天_下雨。',th:'เขาบอกฉันว่าพรุ่งนี้อาจจะฝนตก',opts:['可能','就','别'],ans:0,k:'p33-gkx-g',fb:'<span class="zh">他告诉我明天可能下雨。</span>'}),
+ reply({tag:TQ(4),q:'ครูถามว่าเข้าใจหรือยัง คุณเข้าใจแล้ว',line:{...X.ndl,who:'t'},opts:[X.dlx,X.bsh,X.thx],ans:0,why:'ตอบด้วย 懂了'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p32-rzs-g',opts:['แม่ให้ฉันเข้านอนเร็วหน่อย','แม่ห้ามฉันนอน','แม่กำลังนอนหลับ'],ans:0,fb:'<span class="zh">让</span> + คน + กริยา = ให้ใครทำอะไร'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:药',opts:[{img:YAOW.img},{img:NL(LEI)},{img:ART('医院')}],ans:0,fb:'<span class="zh">药</span> <b>yào</b> = ยา'}),
+ ask({rv:'ทบทวนบท 7-3 เปรียบเทียบ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p33-blc-m',opts:['วันนี้หนาวกว่าเมื่อวาน ฉันเลยใส่เสื้อเยอะหน่อย','วันนี้ร้อนกว่าเมื่อวาน ฉันเลยใส่เสื้อน้อยหน่อย','เมื่อวานหนาวกว่าวันนี้'],ans:0,fb:'A <span class="zh">比</span> B + คำคุณศัพท์ · <span class="zh">所以</span> = เลย'}),
+ lineup({tag:TQ(7),sit:'ในห้องเรียน ครูถามถึงหลี่น่า',lines:[L.a,L.b,L.c]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 别说话',opts:['ขอให้คนเงียบ เช่น ในห้องสอบ','ถามว่าเพื่อนทำอะไรอยู่','บอกว่ามาจากไหน'],ans:0,fb:'<span class="zh">别</span> + กริยา = อย่า…'}),
+ ask({rv:12,q:'ฟัง 我们不去了 แล้วเลือกเสียงของ 不',k:'p29-yxy-g',opts:[{tone:2,lab:'เสียง 2'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'不 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>bú qù</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:告诉',opts:['บอก','ถาม','ตอบ'],ans:0,fb:'<span class="zh">告诉</span> <b>gàosu</b> = บอก'}),
+ blank({tag:TQ(10),s:'_前走。',th:'เดินไปข้างหน้า',opts:['向','从','让'],ans:0,k:'p32-xqz-t',fb:'<span class="zh">向前走。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'เหตุผลและเรื่องราว',chips:['บอกเหตุผล','ฟังแล้วเลือกภาพ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'เพื่อนถามว่าทำไมไม่ไป คุณป่วย',line:{...X.q1,who:'g'},opts:[X.ysb,X.mkz,X.jq],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกภาพ',k:'p32-zdh-m',opts:[{img:A2('打电话')},{img:A2('睡觉')},{img:ART('电视')}],ans:0,fb:'<span class="zh">他正在打电话。</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('这个字','zhège zì'),tl('是','shì'),tl('什么','shénme'),tl('意思','yìsi'),tl('事情','shìqing')],ans:[0,1,2,3],end:'？',k:'p31-zsy-f'}),
+ blank({tag:MQ(4),noTh:1,s:'你别太_了。',opts:['累','错','懂'],ans:0,k:'p32-btl-f',fb:'<span class="zh">你别太累了。</span>'}),
+ fin({title:'จบหน่วยที่ 8 แล้ว · จบเล่ม 2',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L33',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

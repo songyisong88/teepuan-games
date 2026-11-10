@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 6-1 ถามทางที่สถานี</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 6-1 หน่วย 6 สถานีเดินทางสบายใจ: ถามทางที่สถานี · คำใหม่ 附近 对面 外面 中间 往 一直 汽车 行李
+   กิจกรรมเฉพาะบท: 往 + ทิศ แตะตำแหน่ง แยก 外面 กับ 对面 一直走 กับ 坐汽车 */
+WHO.m={n:'ลุงถามทาง',img:ART('爷爷')};
+const FJ=W('附近','fùjìn','บริเวณใกล้เคียง',{s:'fù jìn'}),DM=W('对面','duìmiàn','ฝั่งตรงข้าม',{s:'duì miàn'}),
+ WM=W('外面','wàimiàn','ข้างนอก',{s:'wài miàn'}),ZJ=W('中间','zhōngjiān','ตรงกลาง / ระหว่าง',{s:'zhōng jiān',sl:[0]}),
+ WANG=W('往','wǎng','ไปทาง / มุ่งไป',{nosk:1}),YZ=W('一直','yìzhí','ตรงไปเรื่อย ๆ',{s:'yì zhí',sl:[0]}),
+ QC=W('汽车','qìchē','รถยนต์',{s:'qì chē'}),XL=W('行李','xíngli','สัมภาระ / กระเป๋าเดินทาง',{s:'xíng li'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('请问，附近有汽车站吗？','qǐngwèn, fùjìn yǒu qìchē zhàn ma?','ขอถามหน่อยคะ แถวนี้มีป้ายรถไหมคะ','p23-a-f'),
+ b:S('有。往前一直走，车站在商店对面。','yǒu. wǎng qián yìzhí zǒu, chēzhàn zài shāngdiàn duìmiàn.','มีครับ เดินตรงไปข้างหน้า ป้ายรถอยู่ตรงข้ามร้านค้าครับ','p23-b-t'),
+ c:S('我的行李有点儿重。可以坐汽车去吗？','wǒ de xíngli yǒudiǎnr zhòng. kěyǐ zuò qìchē qù ma?','สัมภาระของฉันหนักนิดหน่อย นั่งรถไปได้ไหมคะ','p23-c-f'),
+ d:S('可以。汽车就在外面。','kěyǐ. qìchē jiù zài wàimiàn.','ได้ครับ รถอยู่ข้างนอกเลยครับ','p23-d-t'),
+ e:S('谢谢！那我们走吧。','xièxie! nà wǒmen zǒu ba.','ขอบคุณค่ะ งั้นเราไปกันเถอะค่ะ','p23-e-f'),
+ f:S('好。你走在中间，我帮你看行李。','hǎo. nǐ zǒu zài zhōngjiān, wǒ bāng nǐ kàn xíngli.','ได้ครับ เธอเดินตรงกลาง ผมช่วยดูสัมภาระให้ครับ','p23-f-m'),
+ fj1:S('附近有商店吗？','fùjìn yǒu shāngdiàn ma?','แถวนี้มีร้านค้าไหม','p23-fj1-f'),
+ fj2:S('学校附近有医院。','xuéxiào fùjìn yǒu yīyuàn.','ใกล้โรงเรียนมีโรงพยาบาล','p23-fj2-g'),
+ dm1:S('医院在学校对面。','yīyuàn zài xuéxiào duìmiàn.','โรงพยาบาลอยู่ตรงข้ามโรงเรียน','p23-dm1-t'),
+ dm2:S('商店在对面。','shāngdiàn zài duìmiàn.','ร้านค้าอยู่ฝั่งตรงข้าม','p23-dm2-f'),
+ wm1:S('外面很冷。','wàimiàn hěn lěng.','ข้างนอกหนาวมาก','p23-wm1-g'),
+ wm2:S('他在外面等你。','tā zài wàimiàn děng nǐ.','เขาอยู่ข้างนอกรอเธอ','p23-wm2-t'),
+ zj1:S('他坐在我们中间。','tā zuò zài wǒmen zhōngjiān.','เขานั่งอยู่ตรงกลางระหว่างพวกเรา','p23-zj1-f'),
+ zj2:S('桌子在房间中间。','zhuōzi zài fángjiān zhōngjiān.','โต๊ะอยู่ตรงกลางห้อง','p23-zj2-g'),
+ wg1:S('往前面走。','wǎng qiánmiàn zǒu.','เดินไปข้างหน้า','p23-wg1-t'),
+ wg2:S('往学校走。','wǎng xuéxiào zǒu.','เดินไปทางโรงเรียน','p23-wg2-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ','p23-yz1-t'),
+ yz2:S('昨天一直下雨。','zuótiān yìzhí xià yǔ.','เมื่อวานฝนตกตลอด','p23-yz2-g'),
+ qc1:S('这辆汽车是我哥哥的。','zhè liàng qìchē shì wǒ gēge de.','รถยนต์คันนี้เป็นของพี่ชายฉัน','p23-qc1-f'),
+ qc2:S('我坐汽车去商店。','wǒ zuò qìchē qù shāngdiàn.','ฉันนั่งรถยนต์ไปร้านค้า','p23-qc2-m'),
+ xl1:S('我的行李很重。','wǒ de xíngli hěn zhòng.','สัมภาระของฉันหนักมาก','p23-xl1-f'),
+ xl2:S('请帮我看行李。','qǐng bāng wǒ kàn xíngli.','ช่วยดูแลสัมภาระให้หน่อย','p23-xl2-g'),
+ c1:S('往前走','wǎng qián zǒu','เดินไปข้างหน้า','p23-c1-t'),c2:S('一直走','yìzhí zǒu','เดินตรงไปเรื่อย ๆ','p23-c2-t'),
+ c3:S('在对面','zài duìmiàn','อยู่ฝั่งตรงข้าม','p23-c3-t'),c4:S('在外面','zài wàimiàn','อยู่ข้างนอก','p23-c4-t'),
+ yg1:S('一共多少钱？','yígòng duōshao qián?','รวมทั้งหมดเท่าไร','p21-yg1-f'),
+ by1:S('不用了，谢谢。','bú yòng le, xièxie.','ไม่ต้องค่ะ ขอบคุณ','p21-by1-f'),
+ md1:S('服务员，买单！','fúwùyuán, mǎidān!','พนักงาน เช็คบิลด้วย','p20-md1-f'),
+ qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่','p02-qdx-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'f'}};
+const D=[{sit:'มะลิถามทางไปป้ายรถ แล้วหวังหมิงช่วยถือสัมภาระ',img:NL(QC)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(QC),th:'รถยนต์'},{img:NL(XL),th:'สัมภาระ'},{img:A2('医院'),th:'โรงพยาบาล'},{img:A2('学校'),th:'โรงเรียน'}];
+const BINS=[{img:NL(WM),zh:'外面',py:'wàimiàn',th:'ข้างนอก'},{img:NL(DM),zh:'对面',py:'duìmiàn',th:'ฝั่งตรงข้าม'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:23,code:'บท 6-1',title:'ถามทางที่สถานี',goal:{do:'ถามว่าแถวนี้มีอะไร บอกทางด้วย 往 และ 一直 และพูดถึงรถยนต์กับสัมภาระ',sub:'ใช้ <span class="gz">附近 · 对面 · 往前一直走 · 汽车 · 行李</span>',min:12},steps:[
+ intro({scene:NL(QC),cap:'สถานการณ์ของบทนี้',title:'ถามทางที่สถานี',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะถามทางและบอกทางสั้น ๆ ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[FJ,DM,WM,ZJ,WANG,YZ,QC,XL]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['附近','对面','外面','中间','往','一直','汽车','行李'],note:'ใช้คำที่รู้แล้ว เช่น 走 坐 医院 学校 商店 ร่วมด้วย'}),
+ ...WC(FJ,1,8,{cap:'ตำแหน่ง',hint:'คล้าย <b>"ฟู่ จิ้น"</b> · เสียง 4 + เสียง 4',use:'บริเวณใกล้เคียง · 附近有…吗',ex:[X.fj1,X.fj2]}),
+ ...WC(DM,2,8,{cap:'ตำแหน่ง',hint:'คล้าย <b>"ตุ้ย เมี่ยน"</b> · 对 = ตรงกัน',use:'ฝั่งตรงข้าม · 在…对面',ex:[X.dm1,X.dm2]}),
+ ...WC(WM,3,8,{cap:'ตำแหน่ง',hint:'คล้าย <b>"ไว่ เมี่ยน"</b> · 外 = นอก',use:'ข้างนอก · 在外面',ex:[X.wm1,X.wm2]}),
+ ...WC(ZJ,4,8,{cap:'ตำแหน่ง',hint:'คล้าย <b>"จง เจียน"</b> · 中 ในคำนี้อ่าน zhōng',use:'ตรงกลาง ระหว่าง · 在…中间',ex:[X.zj1,X.zj2]}),
+ RC('คำที่ 1–4/8',[FJ,DM,WM,ZJ]),
+ use({n:'คำที่ 1–4/8',w:DM,when:[{img:A2('医院'),t:'บอกว่าโรงพยาบาลอยู่ตรงไหน'},{img:A2('学校'),t:'เทียบกับโรงเรียน'}],lines:[{...X.dm1,who:'t'},{...X.fj2,who:'g'}],tip:'บอกตำแหน่งเทียบกับสิ่งอื่นใช้ <span class="zh">在 + สถานที่ + 对面 / 附近</span>'}),
+ ...WC(WANG,5,8,{cap:'ทิศทาง',hint:'คล้าย <b>"หวัง"</b> · เสียง 3',use:'ไปทาง · 往 + ที่หมาย + 走',ex:[X.wg1,X.wg2]}),
+ ...WC(YZ,6,8,{cap:'ทิศทาง',hint:'คล้าย <b>"อี้ จือ"</b> · 一 อ่านเสียง 4 เพราะอยู่หน้าเสียง 2',use:'ตรงไปเรื่อย ๆ · 一直往前走',ex:[X.yz1,X.yz2]}),
+ ...WC(QC,7,8,{cap:'ยานพาหนะ',hint:'คล้าย <b>"ชี่ เชอ"</b> · q มีลมออก',use:'รถยนต์ · 坐汽车 = นั่งรถ',ex:[X.qc1,X.qc2]}),
+ ...WC(XL,8,8,{cap:'ของเดินทาง',hint:'คล้าย <b>"สิง ลิ"</b> · 子 ไม่ออกเสียงเป็น zi',use:'สัมภาระ กระเป๋าเดินทาง',ex:[X.xl1,X.xl2]}),
+ RC('คำที่ 5–8/8',[WANG,YZ,QC,XL]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','往 + ทิศ','แตะภาพ','外面 หรือ 对面','一直走 กับ 坐汽车','ข้อควรระวัง'],note:'ฝึกถามทางและบอกทาง'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาที่สถานี',title:'ถามทางไปป้ายรถ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'往前一直走 = ตรงไปข้างหน้า · 在对面 = อยู่ฝั่งตรงข้าม'}),
+ talk({cap:'เทคนิค 2/6 · 往 + ทิศ',title:'บอกทางสั้น ๆ',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.yz1,who:'m'},{...X.dm2,who:'m'},{...X.wm2,who:'g'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'บอกทางใช้ <span class="zh">往 + ทิศ/ที่หมาย + 走</span> · เน้นว่าตรงไปใช้ <span class="zh">一直</span>'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.dm1.zh,k:X.dm1.k,ans:2},{zh:X.xl1.zh,k:X.xl1.k,ans:1},{zh:X.wg2.zh,k:X.wg2.k,ans:3},{zh:X.qc1.zh,k:X.qc1.k,ans:0}]}),
+ sortmap({tag:'เทคนิค 4/6 · 外面 หรือ 对面',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงข้างนอกหรือฝั่งตรงข้าม',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(WM),X.wm1,0),it(NL(DM),X.dm1,1),it(ART('朋友'),X.wm2,0),it(ART('商店'),X.dm2,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 一直走 กับ 坐汽车',title:'เดินตรง กับ นั่งรถ',text:'แตะการ์ดเพื่อฟัง',a:{who:'ไปด้วยเท้า',img:NL(YZ),zh:X.yz1.zh,zhb:'一直走',py:'yìzhí zǒu',th:'เดินตรงไปเรื่อย ๆ',k:X.yz1.k},b:{who:'ไปด้วยรถ',img:NL(QC),zh:X.qc2.zh,zhb:'坐汽车',py:'zuò qìchē',th:'นั่งรถยนต์',k:X.qc2.k},
+  tip:'ใกล้ ๆ ใช้ <span class="zh">一直走</span> · ไกลหรือของหนักใช้ <span class="zh">坐汽车</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'往 อยู่หน้าทิศหรือที่หมาย',bad:'走往前面。',good:'往前面走。',k:'p23-wg1-t'},
+  {h:'对面 ไม่ต้องมี 的 หลังคำนาม',bad:'在学校的对面。',good:'在学校对面。',k:'p23-dm1-t'},
+  {h:'坐 + ยานพาหนะ',bad:'我去汽车商店。',good:'我坐汽车去商店。',k:'p23-qc2-m'},
+  {h:'行李 ไม่ใช่คน',bad:'行李很累。',good:'我的行李很重。',k:'p23-xl1-f'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:对面',opts:['ฝั่งตรงข้าม', 'ข้างนอก', 'ตรงกลาง'],ans:0,fb:'<span class="zh">对面</span> <b>duìmiàn</b> = ฝั่งตรงข้าม'}),
+ ask({rv:'ทบทวนบท 5-2 ซูเปอร์มาร์เก็ต',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p21-yg1-f',opts:['กล้วยสดมาก', 'รวมทั้งหมดเท่าไร', 'ไม่ต้องขอบคุณ'],ans:1,fb:'<span class="zh">一共</span> = ทั้งหมด'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:行李',opts:[{img:NL(WM)}, {img:NL(QC)}, {img:NL(XL)}],ans:2,fb:'<span class="zh">行李</span> <b>xíngli</b> = สัมภาระ'}),
+ blank({tag:TQ(3),s:'_前面走。',th:'เดินไปข้างหน้า',opts:['在', '坐', '往'],ans:2,k:'p23-wg1-t',fb:'<span class="zh">往前面走。</span>'}),
+ ask({rv:2,q:'ฟัง 往 wǎng แล้วเลือกวรรณยุกต์',k:'sy:往',opts:[{tone:4,lab:'เสียง 4'}, {tone:3,lab:'เสียง 3'}],ans:1,fb:'<span class="zh">往</span> w<b>ǎ</b>ng เสียง 3 = ไปทาง'}),
+ reply({tag:TQ(4),q:'ลุงบอกว่าป้ายรถอยู่ตรงข้ามธนาคาร',line:{...X.b,who:'m'},opts:[X.e, X.xl1, X.wm1],ans:0,why:'ขอบคุณแล้วชวนไป'}),
+ ask({rv:'ทบทวนบท 5-1 ในร้านอาหาร',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p20-md1-f',opts:['พนักงาน เช็คบิลด้วย', 'ขอเมนู', 'ขอห่อกลับ'],ans:0,fb:'<span class="zh">买单</span> = เช็คบิล'}),
+ order({tag:TQ(5),th:'แถวนี้มีร้านค้าไหม',tiles:[tl('附近','fùjìn'),tl('有','yǒu'),tl('商店','shāngdiàn'),tl('吗','ma'),tl('汽车','qìchē')],ans:[0,1,2,3],end:'？',k:'p23-fj1-f'}),
+ tf({tag:TQ(6),k:'p23-wm1-g',img:NL(WM),card:'<b>ข้างนอก</b><br>อากาศหนาวมาก',ans:0,fb:'<span class="zh">外面很冷。</span> = ข้างนอกหนาวมาก'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'พาเพื่อนไปป้ายรถ',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.dm1.zh,k:X.dm1.k,ans:2},{zh:X.qc2.zh,k:X.qc2.k,ans:0},{zh:X.xl2.zh,k:X.xl2.k,ans:1},{zh:X.wg2.zh,k:X.wg2.k,ans:3}]}),
+ reply({tag:MQ(2),noTh:1,q:'หวังหมิงถามว่าแถวนี้มีร้านไหม',line:{...X.fj1,who:'f'},opts:[X.by1, X.dm2, X.xl2],ans:1}),
+ blank({tag:MQ(3),noTh:1,s:'汽车就在_。',opts:['附近', '中间', '外面'],ans:2,k:'p23-d-t',fb:'<span class="zh">汽车就在外面。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('一直','yìzhí'),tl('往前','wǎng qián'),tl('走','zǒu'),tl('行李','xíngli')],ans:[0,1,2],end:'。',k:'p23-yz1-t'}),
+ fin({title:'ถามทางและบอกทางได้แล้ว',html:dlgH(D,{noTh:1}),chips:[FJ,DM,WM,ZJ,WANG,YZ,QC,XL].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L23',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

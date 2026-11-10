@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · ทบทวนหน่วยที่ 6</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 ทบทวนหน่วยที่ 6 สถานีเดินทางสบายใจ: ทวนคำทั้ง 2 บท → บทสนทนาถามทางและใช้ทิศ → แบบทดสอบผสม → ภารกิจ */
+WHO.m={n:'ลุงถามทาง',img:ART('爷爷')};
+const FJ=W('附近','fùjìn','บริเวณใกล้เคียง',{s:'fù jìn'}),DM=W('对面','duìmiàn','ฝั่งตรงข้าม',{s:'duì miàn'}),
+ WM=W('外面','wàimiàn','ข้างนอก',{s:'wài miàn'}),ZJ=W('中间','zhōngjiān','ตรงกลาง / ระหว่าง',{s:'zhōng jiān',sl:[0]}),
+ WANG=W('往','wǎng','ไปทาง / มุ่งไป',{nosk:1}),YZ=W('一直','yìzhí','ตรงไปเรื่อย ๆ',{s:'yì zhí',sl:[0]}),
+ QC=W('汽车','qìchē','รถยนต์',{s:'qì chē'}),XL=W('行李','xíngli','สัมภาระ / กระเป๋าเดินทาง',{s:'xíng li'});
+const DONG=W('东','dōng','ทิศตะวันออก',{nosk:1}),NAN=W('南','nán','ทิศใต้',{nosk:1}),
+ XI=W('西','xī','ทิศตะวันตก',{nosk:1}),BEI=W('北','běi','ทิศเหนือ',{nosk:1}),
+ ML=W('迷路','mílù','หลงทาง',{s:'mí lù'}),DT=W('地图','dìtú','แผนที่',{s:'dì tú'}),
+ GY=W('公园','gōngyuán','สวนสาธารณะ',{s:'gōng yuán'}),YH=W('银行','yínháng','ธนาคาร',{s:'yín háng'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('请问，附近有公园吗？我迷路了。','qǐngwèn, fùjìn yǒu gōngyuán ma? wǒ mílù le.','ขอถามหน่อยคะ แถวนี้มีสวนไหมคะ ฉันหลงทางค่ะ','p25-a-f'),
+ b:S('有。你看地图，往东一直走。','yǒu. nǐ kàn dìtú, wǎng dōng yìzhí zǒu.','มีครับ ดูแผนที่สิ ตรงไปทางตะวันออกครับ','p25-b-t'),
+ c:S('公园在银行对面吗？','gōngyuán zài yínháng duìmiàn ma?','สวนอยู่ตรงข้ามธนาคารไหมคะ','p25-c-f'),
+ d:S('对。汽车站在外面，你走在中间。','duì. qìchē zhàn zài wàimiàn, nǐ zǒu zài zhōngjiān.','ใช่ครับ ป้ายรถอยู่ข้างนอก เธอเดินตรงกลางครับ','p25-d-t'),
+ e:S('往南走是学校，往北走是医院。','wǎng nán zǒu shì xuéxiào, wǎng běi zǒu shì yīyuàn.','ไปทางใต้คือโรงเรียน ไปทางเหนือคือโรงพยาบาลครับ','p25-e-t'),
+ f:S('谢谢！我不会再迷路了。','xièxie! wǒ bú huì zài mílù le.','ขอบคุณค่ะ ฉันจะไม่หลงทางอีกแล้วค่ะ','p25-f-f'),
+ fj1:S('附近有商店吗？','fùjìn yǒu shāngdiàn ma?','แถวนี้มีร้านค้าไหม','p23-fj1-f'),
+ dm1:S('医院在学校对面。','yīyuàn zài xuéxiào duìmiàn.','โรงพยาบาลอยู่ตรงข้ามโรงเรียน','p23-dm1-t'),
+ wm1:S('外面很冷。','wàimiàn hěn lěng.','ข้างนอกหนาวมาก','p23-wm1-g'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ','p23-yz1-t'),
+ qc1:S('这辆汽车是我哥哥的。','zhè liàng qìchē shì wǒ gēge de.','รถยนต์คันนี้เป็นของพี่ชายฉัน','p23-qc1-f'),
+ xl1:S('我的行李很重。','wǒ de xíngli hěn zhòng.','สัมภาระของฉันหนักมาก','p23-xl1-f'),
+ d1:S('往东走。','wǎng dōng zǒu.','เดินไปทางตะวันออก','p24-d1-t'),
+ n1:S('往南走。','wǎng nán zǒu.','เดินไปทางใต้','p24-n1-t'),
+ x1:S('往西走。','wǎng xī zǒu.','เดินไปทางตะวันตก','p24-x1-f'),
+ b1:S('往北走。','wǎng běi zǒu.','เดินไปทางเหนือ','p24-b1-g'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ dt1:S('请给我地图。','qǐng gěi wǒ dìtú.','ขอแผนที่หน่อย','p24-dt1-f'),
+ gy1:S('我们去公园吧。','wǒmen qù gōngyuán ba.','เราไปสวนสาธารณะกันเถอะ','p24-gy1-f'),
+ yh2:S('我去银行。','wǒ qù yínháng.','ฉันไปธนาคาร','p24-yh2-f'),
+ yg1:S('一共多少钱？','yígòng duōshao qián?','รวมทั้งหมดเท่าไร','p21-yg1-f'),
+ by1:S('不用了，谢谢。','bú yòng le, xièxie.','ไม่ต้องค่ะ ขอบคุณ','p21-by1-f')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'m'},f:{...X.f,who:'me'}};
+const D=[{sit:'มะลิหลงทาง ลุงช่วยดูแผนที่แล้วบอกทางครบ',img:NL(DT)},L.a,L.b,L.c,L.d,L.e,L.f];
+const DIR=[{img:NL(DONG),th:'ตะวันออก'},{img:NL(NAN),th:'ใต้'},{img:NL(XI),th:'ตะวันตก'},{img:NL(BEI),th:'เหนือ'}];
+const TQ=i=>`แบบทดสอบ ${i}/10 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+const ALL=[FJ,DM,WM,ZJ,WANG,YZ,QC,XL,DONG,NAN,XI,BEI,ML,DT,GY,YH];
+LESSON({no:25,code:'ทบทวนหน่วย 6',title:'ทบทวนหน่วยที่ 6',goal:{do:'ใช้คำทั้งหมดของหน่วยที่ 6 ถามทาง บอกทิศ พูดถึงรถยนต์ สัมภาระ สวน และธนาคาร',sub:'附近 · 对面 · 往东走 · 迷路 · 地图 · 公园 · 银行',min:8},steps:[
+ intro({scene:NL(DT),cap:'บททบทวน',title:'ถามทางทั้งสถานี',line:L.a,note:'แตะฟองเพื่อฟัง · บทนี้รวมทุกอย่างจากบทที่ 6-1 และ 6-2'}),
+ recap({title:'คำทั้งหมดของหน่วยที่ 6',text:'แตะการ์ดเพื่อฟังทวนทีละคำ คำไหนจำไม่ได้ ให้แตะฟังหลายครั้ง',groups:[
+  {lab:'6-1 ถามทางที่สถานี',items:[FJ,DM,WM,ZJ,WANG,YZ,QC,XL]},{lab:'6-2 หลงทาง',items:[DONG,NAN,XI,BEI,ML,DT,GY,YH]}]}),
+ dialog({cap:'บทสนทนาเต็ม',title:'หาสวนสาธารณะ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำที่เรียนไปแล้ว'}),
+ part({lab:'แบบทดสอบ',no:1,of:2,title:'แบบทดสอบรวมหน่วย',chips:['จับคู่','ฟังแล้วแตะ','เติมคำ','ตอบลุง','เรียงบทสนทนา'],note:'ทุกรูปแบบจากบทที่ผ่านมา ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ match({tag:TQ(1),pairs:[FJ,XL,DT,GY,YH]}),
+ point({tag:TQ(2),q:'ฟังแต่ละประโยค แล้วแตะทิศที่พูดถึง',this:'คือทิศนี้',cards:DIR,rounds:[{zh:X.x1.zh,k:X.x1.k,ans:2},{zh:X.d1.zh,k:X.d1.k,ans:0},{zh:X.b1.zh,k:X.b1.k,ans:3},{zh:X.n1.zh,k:X.n1.k,ans:1}]}),
+ ask({rv:2,q:'ฟัง 北 běi แล้วเลือกวรรณยุกต์',k:'sy:北',opts:[{tone:3,lab:'เสียง 3'}, {tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">北</span> b<b>ě</b>i เสียง 3 = ทิศเหนือ'}),
+ blank({tag:TQ(3),s:'往前_走。',th:'ตรงไปข้างหน้าเรื่อย ๆ',opts:['外面', '一直', '对面'],ans:1,k:'p23-yz1-t',fb:'<span class="zh">一直往前走。</span>'}),
+ reply({tag:TQ(4),q:'ลุงบอกให้ดูแผนที่แล้วตรงไปทางตะวันออก',line:{...X.b,who:'m'},opts:[X.wm1, X.yh2, X.d1],ans:2,why:'ทำตาม 往东走'}),
+ ask({tag:TQ(5),q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-ml1-f',opts:['ฉันดูแผนที่', 'ฉันหลงทาง', 'ฉันไปธนาคาร'],ans:1,fb:'<span class="zh">迷路</span> = หลงทาง'}),
+ ask({tag:TQ(6),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:汽车',opts:[{img:NL(QC)}, {img:NL(XL)}, {img:NL(DT)}],ans:0,fb:'<span class="zh">汽车</span> <b>qìchē</b> = รถยนต์'}),
+ ask({rv:'ทบทวนบท 5-2 ซูเปอร์มาร์เก็ต',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p21-yg1-f',opts:['กล้วยสดมาก', 'ไม่ต้องขอบคุณ', 'รวมทั้งหมดเท่าไร'],ans:2,fb:'<span class="zh">一共</span> = ทั้งหมด'}),
+ lineup({tag:TQ(7),sit:'มะลิถามทางไปสวนสาธารณะ',lines:[L.a,L.b,L.c]}),
+ ask({tag:TQ(8),q:'สถานการณ์ไหนควรพูด 对面',opts:['บอกว่าหลงทาง', 'บอกว่าอยู่ฝั่งตรงข้าม', 'บอกว่าอยู่ข้างนอก'],ans:1,fb:'<span class="zh">对面</span> = ฝั่งตรงข้าม'}),
+ ask({rv:12,q:'ฟัง 不会再迷路 แล้วเลือกเสียงของ 不',k:'p25-f-f',opts:[{tone:2,lab:'เสียง 2'}, {tone:4,lab:'เสียง 4'}],ans:0,fb:'不 อยู่หน้าเสียง 4 อ่านเป็นเสียง 2 · <b>bú huì</b>'}),
+ ask({tag:TQ(9),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:银行',opts:['แผนที่', 'สวนสาธารณะ', 'ธนาคาร'],ans:2,fb:'<span class="zh">银行</span> <b>yínháng</b> = ธนาคาร'}),
+ blank({tag:TQ(10),s:'医院在学校_。',th:'โรงพยาบาลอยู่ตรงข้ามโรงเรียน',opts:['外面', '中间', '对面'],ans:2,k:'p23-dm1-t',fb:'<span class="zh">医院在学校对面。</span>'}),
+ part({lab:'ภารกิจท้ายหน่วย',of:0,title:'สถานีเดินทางของเรา',chips:['ตอบเพื่อน','ฟังแล้วเลือกทิศ','เรียงประโยค','เติมคำ'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ reply({tag:MQ(1),noTh:1,q:'หวังหมิงบอกว่าหลงทาง',line:{...X.ml1,who:'f'},opts:[X.dt1, X.by1, X.qc1],ans:0}),
+ ask({tag:MQ(2),noTh:1,q:'ฟังประโยค แล้วเลือกทิศ',k:'p24-x1-f',opts:[{img:NL(DONG)}, {img:NL(XI)}, {img:NL(NAN)}],ans:1,fb:'<span class="zh">往西走</span>'}),
+ order({tag:MQ(3),noTh:1,th:'',tiles:[tl('我们','wǒmen'),tl('去','qù'),tl('公园','gōngyuán'),tl('吧','ba'),tl('行李','xíngli')],ans:[0,1,2,3],end:'。',k:'p24-gy1-f'}),
+ blank({tag:MQ(4),noTh:1,s:'我的_很重。',opts:['银行', '地图', '行李'],ans:2,k:'p23-xl1-f',fb:'<span class="zh">我的行李很重。</span>'}),
+ fin({title:'จบหน่วยที่ 6 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L25',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 6-2 หลงทาง</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 6-2 หน่วย 6 สถานีเดินทางสบายใจ: หลงทาง · คำใหม่ 东 南 西 北 迷路 地图 公园 银行
+   กิจกรรมเฉพาะบท: 往 + ทิศทั้งสี่ แตะทิศ แยก 公园 กับ 银行 迷路 กับ 看地图 */
+WHO.m={n:'ลุงถามทาง',img:ART('爷爷')};
+const DONG=W('东','dōng','ทิศตะวันออก',{nosk:1}),NAN=W('南','nán','ทิศใต้',{nosk:1}),
+ XI=W('西','xī','ทิศตะวันตก',{nosk:1}),BEI=W('北','běi','ทิศเหนือ',{nosk:1}),
+ ML=W('迷路','mílù','หลงทาง',{s:'mí lù'}),DT=W('地图','dìtú','แผนที่',{s:'dì tú'}),
+ GY=W('公园','gōngyuán','สวนสาธารณะ',{s:'gōng yuán'}),YH=W('银行','yínháng','ธนาคาร',{s:'yín háng'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('我迷路了。请问，公园在哪儿？','wǒ mílù le. qǐngwèn, gōngyuán zài nǎr?','ฉันหลงทางค่ะ ขอถามหน่อย สวนสาธารณะอยู่ไหนคะ','p24-a-f'),
+ b:S('你看地图。往东走，再往南走。','nǐ kàn dìtú. wǎng dōng zǒu, zài wǎng nán zǒu.','ดูแผนที่สิครับ ไปทางตะวันออก แล้วไปทางใต้ครับ','p24-b-t'),
+ c:S('银行在公园西边吗？','yínháng zài gōngyuán xībian ma?','ธนาคารอยู่ทางตะวันตกของสวนไหมคะ','p24-c-f'),
+ d:S('对。银行在西边，公园在东边。','duì. yínháng zài xībian, gōngyuán zài dōngbian.','ใช่ครับ ธนาคารอยู่ทางตะวันตก สวนอยู่ทางตะวันออกครับ','p24-d-t'),
+ e:S('那北边有什么？','nà běibian yǒu shénme?','แล้วทางเหนือมีอะไรคะ','p24-e-f'),
+ f:S('北边有学校。你不会再迷路了。','běibian yǒu xuéxiào. nǐ bú huì zài mílù le.','ทางเหนือมีโรงเรียนครับ เธอจะไม่หลงทางอีกแล้วครับ','p24-f-t'),
+ d1:S('往东走。','wǎng dōng zǒu.','เดินไปทางตะวันออก','p24-d1-t'),
+ d2:S('我家在东边。','wǒ jiā zài dōngbian.','บ้านฉันอยู่ทางตะวันออก','p24-d2-f'),
+ n1:S('往南走。','wǎng nán zǒu.','เดินไปทางใต้','p24-n1-t'),
+ n2:S('学校在南边。','xuéxiào zài nánbian.','โรงเรียนอยู่ทางใต้','p24-n2-g'),
+ x1:S('往西走。','wǎng xī zǒu.','เดินไปทางตะวันตก','p24-x1-f'),
+ x2:S('商店在西边。','shāngdiàn zài xībian.','ร้านค้าอยู่ทางตะวันตก','p24-x2-t'),
+ b1:S('往北走。','wǎng běi zǒu.','เดินไปทางเหนือ','p24-b1-g'),
+ b2:S('医院在北边。','yīyuàn zài běibian.','โรงพยาบาลอยู่ทางเหนือ','p24-b2-f'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ ml2:S('别迷路。','bié mílù.','อย่าหลงทาง','p24-ml2-t'),
+ dt1:S('请给我地图。','qǐng gěi wǒ dìtú.','ขอแผนที่หน่อย','p24-dt1-f'),
+ dt2:S('看看地图就知道了。','kànkan dìtú jiù zhīdào le.','ดูแผนที่ก็รู้แล้ว','p24-dt2-g'),
+ gy1:S('我们去公园吧。','wǒmen qù gōngyuán ba.','เราไปสวนสาธารณะกันเถอะ','p24-gy1-f'),
+ gy2:S('公园很大。','gōngyuán hěn dà.','สวนสาธารณะใหญ่มาก','p24-gy2-t'),
+ yh1:S('银行在哪儿？','yínháng zài nǎr?','ธนาคารอยู่ไหน','p24-yh1-g'),
+ yh2:S('我去银行。','wǒ qù yínháng.','ฉันไปธนาคาร','p24-yh2-f'),
+ c1:S('往东走','wǎng dōng zǒu','ไปทางตะวันออก','p24-c1-t'),c2:S('往南走','wǎng nán zǒu','ไปทางใต้','p24-c2-t'),
+ c3:S('往西走','wǎng xī zǒu','ไปทางตะวันตก','p24-c3-t'),c4:S('往北走','wǎng běi zǒu','ไปทางเหนือ','p24-c4-t'),
+ fj1:S('附近有商店吗？','fùjìn yǒu shāngdiàn ma?','แถวนี้มีร้านค้าไหม','p23-fj1-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ','p23-yz1-t'),
+ xl1:S('我的行李很重。','wǒ de xíngli hěn zhòng.','สัมภาระของฉันหนักมาก','p23-xl1-f'),
+ qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่','p02-qdx-t')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'มะลิหลงทาง ลุงช่วยดูแผนที่แล้วบอกทิศ',img:NL(DT)},L.a,L.b,L.c,L.d,L.e,L.f];
+const DIR=[{img:NL(DONG),th:'ตะวันออก'},{img:NL(NAN),th:'ใต้'},{img:NL(XI),th:'ตะวันตก'},{img:NL(BEI),th:'เหนือ'}];
+const BINS=[{img:NL(GY),zh:'公园',py:'gōngyuán',th:'สวนสาธารณะ'},{img:NL(YH),zh:'银行',py:'yínháng',th:'ธนาคาร'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:24,code:'บท 6-2',title:'หลงทาง',goal:{do:'บอกว่าหลงทาง ดูแผนที่ แล้วบอกทางด้วยทิศทั้งสี่ รวมถึงสวนสาธารณะและธนาคาร',sub:'ใช้ <span class="gz">迷路 · 地图 · 往东走 · 公园 · 银行</span>',min:12},steps:[
+ intro({scene:NL(DT),cap:'สถานการณ์ของบทนี้',title:'หลงทาง',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะใช้ทิศทั้งสี่บอกทางได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[DONG,NAN,XI,BEI,ML,DT,GY,YH]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['东','南','西','北','迷路','地图','公园','银行'],note:'ใช้คำจากบทก่อน เช่น 往 一直 附近 ร่วมด้วย'}),
+ ...WC(DONG,1,8,{cap:'ทิศ',hint:'คล้าย <b>"ตง"</b> · เสียง 1 สูงเรียบ',use:'ทิศตะวันออก · 往东走 / 东边',ex:[X.d1,X.d2]}),
+ ...WC(NAN,2,8,{cap:'ทิศ',hint:'คล้าย <b>"หนาน"</b> · เสียง 2 ขึ้น',use:'ทิศใต้ · 往南走 / 南边',ex:[X.n1,X.n2]}),
+ ...WC(XI,3,8,{cap:'ทิศ',hint:'คล้าย <b>"ซี"</b> · เสียง 1',use:'ทิศตะวันตก · 往西走 / 西边',ex:[X.x1,X.x2]}),
+ ...WC(BEI,4,8,{cap:'ทิศ',hint:'คล้าย <b>"เป่ย"</b> · เสียง 3',use:'ทิศเหนือ · 往北走 / 北边',ex:[X.b1,X.b2]}),
+ RC('คำที่ 1–4/8',[DONG,NAN,XI,BEI]),
+ use({n:'คำที่ 1–4/8',w:DONG,when:[{img:NL(DT),t:'ดูแผนที่แล้วบอกทิศ'},{img:NL(DONG),t:'ชี้ทางตะวันออก'}],lines:[{...X.b,who:'m'},{...X.d1,who:'m'}],tip:'บอกทางใช้ <span class="zh">往 + ทิศ + 走</span> เช่น <span class="zh">往东走</span>'}),
+ ...WC(ML,5,8,{cap:'ปัญหา',hint:'คล้าย <b>"หมิ ลู่"</b> · 迷 = งง 路 = ทาง',use:'หลงทาง · 我迷路了',ex:[X.ml1,X.ml2]}),
+ ...WC(DT,6,8,{cap:'ของช่วย',hint:'คล้าย <b>"ตี้ ทู่"</b> · 地 = พื้นดิน 图 = รูป',use:'แผนที่ · 看地图',ex:[X.dt1,X.dt2]}),
+ ...WC(GY,7,8,{cap:'สถานที่',hint:'คล้าย <b>"กง หยวน"</b> · 公 = สาธารณะ 园 = สวน',use:'สวนสาธารณะ',ex:[X.gy1,X.gy2]}),
+ ...WC(YH,8,8,{cap:'สถานที่',hint:'คล้าย <b>"อิน หาง"</b> · h มีลมออก',use:'ธนาคาร',ex:[X.yh1,X.yh2]}),
+ RC('คำที่ 5–8/8',[ML,DT,GY,YH]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','往 + ทิศ','แตะทิศ','公园 หรือ 银行','迷路 กับ 看地图','ข้อควรระวัง'],note:'ฝึกบอกทางด้วยทิศ'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนาหลงทาง',title:'หาสวนสาธารณะ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'往东走 = ไปทางตะวันออก · 西边 = ทางตะวันตก'}),
+ talk({cap:'เทคนิค 2/6 · 往 + ทิศ',title:'ทิศทั้งสี่',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.d1,who:'m'},{...X.n1,who:'m'},{...X.x1,who:'me'},{...X.b1,who:'g'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ทิศสั้น ๆ ใช้หลัง <span class="zh">往</span> · บอกตำแหน่งใช้ <span class="zh">东边 南边 西边 北边</span>'}),
+ point({tag:'เทคนิค 3/6 · แตะทิศ',q:'ฟังแต่ละประโยค แล้วแตะทิศที่พูดถึง',this:'คือทิศนี้',cards:DIR,rounds:[{zh:X.x1.zh,k:X.x1.k,ans:2},{zh:X.d1.zh,k:X.d1.k,ans:0},{zh:X.b1.zh,k:X.b1.k,ans:3},{zh:X.n1.zh,k:X.n1.k,ans:1}]}),
+ sortmap({tag:'เทคนิค 4/6 · 公园 หรือ 银行',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงสวนหรือธนาคาร',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(GY),X.gy1,0),it(NL(YH),X.yh1,1),it(NL(GY),X.gy2,0),it(NL(YH),X.yh2,1)]}),
+ cmp({cap:'เทคนิค 5/6 · 迷路 กับ 看地图',title:'หลงทาง กับ ดูแผนที่',text:'แตะการ์ดเพื่อฟัง',a:{who:'หาทางไม่เจอ',img:NL(ML),zh:X.ml1.zh,zhb:'迷路',py:'mílù',th:'หลงทาง',k:X.ml1.k},b:{who:'หาทางจากแผนที่',img:NL(DT),zh:X.dt1.zh,zhb:'地图',py:'dìtú',th:'แผนที่',k:X.dt1.k},
+  tip:'หลงทางแล้วให้ <span class="zh">看地图</span> หรือถาม <span class="zh">请问…在哪儿？</span>'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
+  {h:'往 อยู่หน้าทิศ',bad:'东往走。',good:'往东走。',k:'p24-d1-t'},
+  {h:'边 อยู่หลังทิศเมื่อบอกตำแหน่ง',bad:'在东。',good:'在东边。',k:'p24-d2-f'},
+  {h:'迷路 เป็นกริยา ไม่ต้องมีกรรม',bad:'我迷路路了。',good:'我迷路了。',k:'p24-ml1-f'},
+  {h:'银行 อ่าน háng ไม่ใช่ xíng ของ 行李',bad:'银行 xíngháng',good:'银行 yínháng',k:'p24-yh1-g'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:迷路',opts:['สวนสาธารณะ', 'หลงทาง', 'แผนที่'],ans:1,fb:'<span class="zh">迷路</span> <b>mílù</b> = หลงทาง'}),
+ ask({rv:'ทบทวนบท 6-1 ถามทางที่สถานี',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-fj1-f',opts:['สัมภาระหนักมาก', 'ตรงไปข้างหน้า', 'แถวนี้มีร้านค้าไหม'],ans:2,fb:'<span class="zh">附近</span> = บริเวณใกล้เคียง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:地图',opts:[{img:NL(DT)}, {img:NL(GY)}, {img:NL(YH)}],ans:0,fb:'<span class="zh">地图</span> <b>dìtú</b> = แผนที่'}),
+ blank({tag:TQ(3),s:'往_走。',th:'เดินไปทางตะวันออก',opts:['东', '西', '南'],ans:0,k:'p24-d1-t',fb:'<span class="zh">往东走。</span>'}),
+ ask({rv:2,q:'ฟัง 南 nán แล้วเลือกวรรณยุกต์',k:'sy:南',opts:[{tone:1,lab:'เสียง 1'}, {tone:2,lab:'เสียง 2'}],ans:1,fb:'<span class="zh">南</span> n<b>á</b>n เสียง 2 = ทิศใต้'}),
+ reply({tag:TQ(4),q:'ลุงบอกให้ดูแผนที่แล้วไปทางตะวันออก',line:{...X.b,who:'m'},opts:[X.yh2, X.gy2, X.d1],ans:2,why:'ทำตามคำบอกทาง 往东走'}),
+ ask({rv:'ทบทวนบท 6-1 ถามทางที่สถานี',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-yz1-t',opts:['ตรงไปข้างหน้าเรื่อย ๆ', 'นั่งรถยนต์ไป', 'อยู่ฝั่งตรงข้าม'],ans:0,fb:'<span class="zh">一直</span> = ตรงไปเรื่อย ๆ'}),
+ order({tag:TQ(5),th:'เราไปสวนสาธารณะกันเถอะ',tiles:[tl('我们','wǒmen'),tl('去','qù'),tl('公园','gōngyuán'),tl('吧','ba'),tl('银行','yínháng')],ans:[0,1,2,3],end:'。',k:'p24-gy1-f'}),
+ tf({tag:TQ(6),k:'p24-d-t',img:NL(YH),card:'<b>ลุง</b><br>บอกว่าธนาคารอยู่ทางตะวันออก',ans:1,fb:'<span class="zh">银行在西边</span> = ธนาคารอยู่ทางตะวันตก'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'หาทางกลับบ้าน',chips:['ฟังแล้วแตะ','ตอบลุง','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะทิศ',this:'คือทิศนี้',cards:DIR,rounds:[{zh:X.n1.zh,k:X.n1.k,ans:1},{zh:X.x1.zh,k:X.x1.k,ans:2},{zh:X.b1.zh,k:X.b1.k,ans:3},{zh:X.d1.zh,k:X.d1.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'ลุงถามว่าธนาคารอยู่ไหน',line:{...X.yh1,who:'m'},opts:[X.xl1, X.ml2, X.x2],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'我_了。',opts:['公园', '迷路', '地图'],ans:1,k:'p24-ml1-f',fb:'<span class="zh">我迷路了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('请','qǐng'),tl('给','gěi'),tl('我','wǒ'),tl('地图','dìtú'),tl('南','nán')],ans:[0,1,2,3],end:'。',k:'p24-dt1-f'}),
+ fin({title:'ใช้ทิศบอกทางได้แล้ว',html:dlgH(D,{noTh:1}),chips:[DONG,NAN,XI,BEI,ML,DT,GY,YH].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L24',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

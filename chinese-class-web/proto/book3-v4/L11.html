@@ -7,6 +7,7 @@
 <title>ต้นแบบ · เล่ม 3 · บท 3-3 คืนชมพระจันทร์</title>
 </head><body>
 <script>
+/* b3shuf:done */
 /* เล่ม 3 บท 3-3 หน่วย 3 เรื่องวุ่น ๆ ในชีวิตประจำวัน: คืนชมพระจันทร์ · คำใหม่ 月亮 举行 有名 热情 相同 啊 多么
    กิจกรรมเฉพาะบท: 多么…啊 แตะภาพตามประโยค แยกอุทาน 啊 กับคำถาม 吗 很漂亮 กับ 多么漂亮啊 */
 const YL=W('月亮','yuèliang','พระจันทร์',{s:'yuè liang'}),JX=W('举行','jǔxíng','จัดงาน',{s:'jǔ xíng',sl:[1]}),YM=W('有名','yǒumíng','มีชื่อเสียง',{s:'yǒu míng'}),
@@ -71,8 +72,7 @@ LESSON({no:11,code:'บท 3-3',title:'คืนชมพระจันทร�
  dialog({cap:'เทคนิค 1/6 · บทสนทนาในงาน',title:'คืนชมพระจันทร์',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'多么漂亮啊 = สวยเหลือเกิน · 是啊 = ใช่เลย'}),
  talk({cap:'เทคนิค 2/6 · 多么…啊',title:'อุทานชื่นชม',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.e,who:'g'},{...X.sa,who:'me'},{...X.dgx,who:'t'}],
   chips:[X.c1,X.c2,X.c3,X.c4],tip:'<span class="zh">多么</span> + คำบรรยาย + <span class="zh">啊</span> ใช้ตอนรู้สึกมาก ๆ · พูดสั้นว่า <span class="zh">多…啊</span> ก็ได้'}),
- point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[
-  {zh:X.rqt.zh,k:X.rqt.k,ans:2},{zh:X.ylr.zh,k:X.ylr.k,ans:0},{zh:X.xty.zh,k:X.xty.k,ans:3},{zh:X.ymf.zh,k:X.ymf.k,ans:1}]}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.rqt.zh,k:X.rqt.k,ans:2},{zh:X.ymf.zh,k:X.ymf.k,ans:1},{zh:X.xty.zh,k:X.xty.k,ans:3},{zh:X.ylr.zh,k:X.ylr.k,ans:0}]}),
  sortmap({tag:'เทคนิค 4/6 · 啊 หรือ 吗',q:'ฟังแต่ละประโยค แล้วแตะว่าเป็นคำอุทานหรือคำถาม',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
   items:[it(NL(YL),X.dml,0),it(NL(YM),X.ymm,1),it(ART('朋友'),X.nhm,1),it(NL(DM),X.dpa,0)]}),
  cmp({cap:'เทคนิค 5/6 · 很 กับ 多么',title:'สวยมาก กับ สวยเหลือเกิน',text:'แตะการ์ดเพื่อฟัง',a:{who:'บอกธรรมดา',img:NL(YL),zh:X.hpl.zh,zhb:'很漂亮',py:'hěn piàoliang',th:'สวยมาก',k:X.hpl.k},b:{who:'อุทาน',img:NL(DM),zh:X.dml.zh,zhb:'多么漂亮啊',py:'duōme piàoliang a',th:'สวยเหลือเกิน',k:X.dml.k},
@@ -83,19 +83,19 @@ LESSON({no:11,code:'บท 3-3',title:'คืนชมพระจันทร�
   {h:'有名的 อยู่หน้าคน',bad:'他是一个医生有名的。',good:'他是一个有名的医生。',k:'p11-ymy-g'},
   {h:'相同 ใช้ได้เลยไม่ต้องมี 是',bad:'我们的生日是相同。',good:'我们的生日相同。',k:'p11-xts-m'}]}),
  part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:热情',opts:['เป็นมิตร / อบอุ่น','มีชื่อเสียง','ตรงกัน'],ans:0,fb:'<span class="zh">热情</span> <b>rèqíng</b> = เป็นมิตร'}),
- ask({rv:'ทบทวนบท 3-2 หายป่วยแล้วไปวิ่ง',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p10-dls-f',opts:['ฉันออกกำลังกายทุกวัน','ฉันเป็นไข้ อยากพักผ่อน','วันนี้มีวิชาพละ'],ans:0,fb:'<span class="zh">锻炼身体</span> = ออกกำลังกาย'}),
- ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:月亮',opts:[{img:NL(YL)},{img:NL(YM)},{img:NL(JX)}],ans:0,fb:'<span class="zh">月亮</span> <b>yuèliang</b> = พระจันทร์'}),
- blank({tag:TQ(3),s:'学校明天_晚会。',th:'พรุ่งนี้โรงเรียนจัดงานเลี้ยงตอนค่ำ',opts:['举行','有名','相同'],ans:0,k:'p11-jxw-t',fb:'<span class="zh">学校明天举行晚会。</span>'}),
- ask({rv:7,q:'ฟัง 热情 แล้วเลือกพยัญชนะตัวแรกของ 热',k:'w:热情',opts:['r','l','sh'],ans:0,fb:'<b>r</b>èqíng · r ม้วนลิ้น'}),
- reply({tag:TQ(4),q:'หลี่น่าบอกว่าพระจันทร์สวยเหลือเกิน',line:{...X.e,who:'g'},opts:[X.sa,X.sjh,X.fsl],ans:0,why:'เห็นด้วยด้วย 是啊'}),
- ask({rv:11,q:'ฟัง 相同 แล้วเลือกเสียงท้ายของ 相',k:'w:相同',opts:['-ng','-n'],ans:0,fb:'xi<b>āng</b> ลงท้าย -ng'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:热情',opts:['ตรงกัน', 'เป็นมิตร / อบอุ่น', 'มีชื่อเสียง'],ans:1,fb:'<span class="zh">热情</span> <b>rèqíng</b> = เป็นมิตร'}),
+ ask({rv:'ทบทวนบท 3-2 หายป่วยแล้วไปวิ่ง',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p10-dls-f',opts:['วันนี้มีวิชาพละ', 'ฉันเป็นไข้ อยากพักผ่อน', 'ฉันออกกำลังกายทุกวัน'],ans:2,fb:'<span class="zh">锻炼身体</span> = ออกกำลังกาย'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:月亮',opts:[{img:NL(YL)}, {img:NL(YM)}, {img:NL(JX)}],ans:0,fb:'<span class="zh">月亮</span> <b>yuèliang</b> = พระจันทร์'}),
+ blank({tag:TQ(3),s:'学校明天_晚会。',th:'พรุ่งนี้โรงเรียนจัดงานเลี้ยงตอนค่ำ',opts:['有名', '相同', '举行'],ans:2,k:'p11-jxw-t',fb:'<span class="zh">学校明天举行晚会。</span>'}),
+ ask({rv:7,q:'ฟัง 热情 แล้วเลือกพยัญชนะตัวแรกของ 热',k:'w:热情',opts:['r', 'sh', 'l'],ans:0,fb:'<b>r</b>èqíng · r ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'หลี่น่าบอกว่าพระจันทร์สวยเหลือเกิน',line:{...X.e,who:'g'},opts:[X.sjh, X.sa, X.fsl],ans:1,why:'เห็นด้วยด้วย 是啊'}),
+ ask({rv:11,q:'ฟัง 相同 แล้วเลือกเสียงท้ายของ 相',k:'w:相同',opts:['-n', '-ng'],ans:1,fb:'xi<b>āng</b> ลงท้าย -ng'}),
  order({tag:TQ(5),th:'เขาเป็นหมอที่มีชื่อเสียง',tiles:[tl('他是','tā shì'),tl('一个','yí ge'),tl('有名的','yǒumíng de'),tl('医生','yīshēng'),tl('相同','xiāngtóng')],ans:[0,1,2,3],end:'。',k:'p11-ymy-g'}),
  tf({tag:TQ(6),k:'p11-c-m',img:NL(YM),card:'<b>ที่นี่</b><br>ทุกปีมีคนมาเยอะ',ans:0,fb:'<span class="zh">每年都有很多人来。</span> = ทุกปีมีคนมาเยอะ'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'ไปงานชมพระจันทร์',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
- point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.m3.zh,k:X.m3.k,ans:2},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m2.zh,k:X.m2.k,ans:1}]}),
- reply({tag:MQ(2),noTh:1,q:'หวังหมิงชวนไปงานคืนนี้',line:{...X.jtw,who:'f'},opts:[X.hay,X.tfd,X.stc],ans:0}),
- blank({tag:MQ(3),noTh:1,s:'这个饭店很_。',opts:['有名','相同','举行'],ans:0,k:'p11-ymf-t',fb:'<span class="zh">这个饭店很有名。</span>'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.m2.zh,k:X.m2.k,ans:1},{zh:X.m4.zh,k:X.m4.k,ans:3},{zh:X.m1.zh,k:X.m1.k,ans:0},{zh:X.m3.zh,k:X.m3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'หวังหมิงชวนไปงานคืนนี้',line:{...X.jtw,who:'f'},opts:[X.stc, X.tfd, X.hay],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'这个饭店很_。',opts:['有名', '相同', '举行'],ans:0,k:'p11-ymf-t',fb:'<span class="zh">这个饭店很有名。</span>'}),
  order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我们的','wǒmen de'),tl('生日','shēngrì'),tl('相同','xiāngtóng'),tl('举行','jǔxíng')],ans:[0,1,2],end:'。',k:'p11-xts-m'}),
  fin({title:'ชวนเพื่อนไปงานและอุทานชื่นชมได้แล้ว',html:dlgH(D,{noTh:1}),chips:[YL,JX,YM,RQ,XT,A_,DM].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L11',kl:'ฟังทั้งบทสนทนา'})]});
 

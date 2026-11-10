@@ -7,6 +7,7 @@
 <title>ต้นแบบ · เล่ม 3 · บท 3-2 หายป่วยแล้วไปวิ่ง</title>
 </head><body>
 <script>
+/* b3shuf:done */
 /* เล่ม 3 บท 3-2 หน่วย 3 เรื่องวุ่น ๆ ในชีวิตประจำวัน: หายป่วยแล้วไปวิ่ง · คำใหม่ 发烧 厚 软 短 差 影响 锻炼 体育
    กิจกรรมเฉพาะบท: A 影响 B แตะภาพตามคำบรรยาย แยก 锻炼 กับ 休息 很短 กับ 很长 */
 const FS=W('发烧','fāshāo','เป็นไข้',{s:'fā shāo'}),HOU=W('厚','hòu','หนา'),RUAN=W('软','ruǎn','นุ่ม'),DUAN=W('短','duǎn','สั้น'),
@@ -71,8 +72,7 @@ LESSON({no:10,code:'บท 3-2',title:'หายป่วยแล้วไป�
  dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'หายไข้แล้วไปวิ่ง',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'影响 = ส่งผลต่อ · 有点儿差 = ไม่ค่อยดี'}),
  talk({cap:'เทคนิค 2/6 · A 影响 B',title:'อะไรส่งผลต่ออะไร',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.c,who:'f'},{...X.gyx,who:'me'},{...X.tyx,who:'g'}],
   chips:[{...X.gyx},{...X.tyx}],tip:'สาเหตุ + <span class="zh">影响</span> + สิ่งที่ได้รับผล เช่น <span class="zh">感冒影响学习</span>'}),
- point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[
-  {zh:X.bzr.zh,k:X.bzr.k,ans:1},{zh:X.dls.zh,k:X.dls.k,ans:3},{zh:X.shh.zh,k:X.shh.k,ans:0},{zh:X.tfd.zh,k:X.tfd.k,ans:2}]}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.shh.zh,k:X.shh.k,ans:0},{zh:X.tfd.zh,k:X.tfd.k,ans:2},{zh:X.dls.zh,k:X.dls.k,ans:3},{zh:X.bzr.zh,k:X.bzr.k,ans:1}]}),
  sortmap({tag:'เทคนิค 4/6 · 锻炼 หรือ 休息',q:'ฟังแต่ละประโยค แล้วแตะว่าออกกำลังกายหรือพักผ่อน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
   items:[it(A2('跑步'),X.dls,0),it(NL(FS),X.xx,1),it(ART('爷爷'),X.yyz,0),it(ART('被子'),X.fsx,1)]}),
  cmp({cap:'เทคนิค 5/6 · 很短 กับ 很长',title:'สั้น กับ ยาว',text:'แตะการ์ดเพื่อฟัง',a:{who:'สั้น',img:NL(DUAN),zh:X.tfd.zh,zhb:'很短',py:'hěn duǎn',th:'สั้นมาก',k:X.tfd.k},b:{who:'ยาว',img:A2('长'),zh:X.tfc.zh,zhb:'很长',py:'hěn cháng',th:'ยาวมาก',k:X.tfc.k},
@@ -83,19 +83,19 @@ LESSON({no:10,code:'บท 3-2',title:'หายป่วยแล้วไป�
   {h:'锻炼 อยู่หน้า 身体',bad:'我每天身体锻炼。',good:'我每天锻炼身体。',k:'p10-dls-f'},
   {h:'有点儿 อยู่หน้าคำบรรยาย',bad:'我的身体差有点儿。',good:'我的身体有点儿差。',k:'p10-stc-f'}]}),
  part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
- ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:软',opts:['นุ่ม','หนา','สั้น'],ans:0,fb:'<span class="zh">软</span> <b>ruǎn</b> = นุ่ม'}),
- ask({rv:'ทบทวนบท 3-1 เช้าวันวุ่น ๆ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p09-sjh-f',opts:['มือถือของฉันเสียแล้ว','ไฟก็เสียด้วย','ฉันมองไม่ชัด'],ans:0,fb:'<span class="zh">坏了</span> = เสียแล้ว'}),
- ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:发烧',opts:[{img:NL(FS)},{img:NL(TY)},{img:NL(HOU)}],ans:0,fb:'<span class="zh">发烧</span> <b>fāshāo</b> = เป็นไข้'}),
- blank({tag:TQ(3),s:'我每天_身体。',th:'ฉันออกกำลังกายทุกวัน',opts:['锻炼','影响','体育'],ans:0,k:'p10-dls-f',fb:'<span class="zh">我每天锻炼身体。</span>'}),
- ask({rv:7,q:'ฟัง 发烧 แล้วเลือกพยัญชนะตัวแรกของ 烧',k:'w:发烧',opts:['sh','s','x'],ans:0,fb:'fā<b>sh</b>āo · sh ม้วนลิ้น'}),
- reply({tag:TQ(4),q:'หวังหมิงถามว่าคุณหายไข้แล้วหรือยัง',line:{...X.a,who:'f'},opts:[X.hlx,X.dhl,X.wst],ans:0,why:'ตอบว่า 好了 แล้วขอบคุณ'}),
- ask({rv:2,q:'ฟัง 软 ruǎn แล้วเลือกวรรณยุกต์',k:'sy:软',opts:[{tone:3,lab:'เสียง 3'},{tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">软</span> ru<b>ǎ</b>n เสียง 3 = นุ่ม'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:软',opts:['หนา', 'สั้น', 'นุ่ม'],ans:2,fb:'<span class="zh">软</span> <b>ruǎn</b> = นุ่ม'}),
+ ask({rv:'ทบทวนบท 3-1 เช้าวันวุ่น ๆ',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p09-sjh-f',opts:['มือถือของฉันเสียแล้ว', 'ฉันมองไม่ชัด', 'ไฟก็เสียด้วย'],ans:0,fb:'<span class="zh">坏了</span> = เสียแล้ว'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:发烧',opts:[{img:NL(TY)}, {img:NL(FS)}, {img:NL(HOU)}],ans:1,fb:'<span class="zh">发烧</span> <b>fāshāo</b> = เป็นไข้'}),
+ blank({tag:TQ(3),s:'我每天_身体。',th:'ฉันออกกำลังกายทุกวัน',opts:['体育', '锻炼', '影响'],ans:1,k:'p10-dls-f',fb:'<span class="zh">我每天锻炼身体。</span>'}),
+ ask({rv:7,q:'ฟัง 发烧 แล้วเลือกพยัญชนะตัวแรกของ 烧',k:'w:发烧',opts:['sh', 'x', 's'],ans:0,fb:'fā<b>sh</b>āo · sh ม้วนลิ้น'}),
+ reply({tag:TQ(4),q:'หวังหมิงถามว่าคุณหายไข้แล้วหรือยัง',line:{...X.a,who:'f'},opts:[X.wst, X.dhl, X.hlx],ans:2,why:'ตอบว่า 好了 แล้วขอบคุณ'}),
+ ask({rv:2,q:'ฟัง 软 ruǎn แล้วเลือกวรรณยุกต์',k:'sy:软',opts:[{tone:3,lab:'เสียง 3'}, {tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">软</span> ru<b>ǎ</b>n เสียง 3 = นุ่ม'}),
  order({tag:TQ(5),th:'วันนี้มีวิชาพละ',tiles:[tl('今天','jīntiān'),tl('有','yǒu'),tl('体育课','tǐyù kè'),tl('短','duǎn')],ans:[0,1,2],end:'。',k:'p10-tyk-t'}),
  tf({tag:TQ(6),k:'p10-d-f',img:NL(CHA),card:'<b>มะลิ</b><br>ร่างกายแข็งแรงดีมากแล้ว',ans:1,fb:'<span class="zh">我的身体还有点儿差。</span> = ร่างกายยังไม่ค่อยดี'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'กลับมาแข็งแรง',chips:['ฟังแล้วแตะ','ตอบเพื่อน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
- point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.c3.zh,k:X.c3.k,ans:2},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c2.zh,k:X.c2.k,ans:1}]}),
- reply({tag:MQ(2),noTh:1,q:'หวังหมิงบอกว่าพรุ่งนี้มีวิชาพละ',line:{...X.mty,who:'f'},opts:[X.yqd,X.lzl,X.sjh],ans:0}),
- blank({tag:MQ(3),noTh:1,s:'我_了，想休息。',opts:['发烧','锻炼','体育'],ans:0,k:'p10-xx-f',fb:'<span class="zh">我发烧了，想休息。</span>'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพ',this:'คือภาพนี้',cards:PIC,rounds:[{zh:X.c2.zh,k:X.c2.k,ans:1},{zh:X.c4.zh,k:X.c4.k,ans:3},{zh:X.c1.zh,k:X.c1.k,ans:0},{zh:X.c3.zh,k:X.c3.k,ans:2}]}),
+ reply({tag:MQ(2),noTh:1,q:'หวังหมิงบอกว่าพรุ่งนี้มีวิชาพละ',line:{...X.mty,who:'f'},opts:[X.sjh, X.lzl, X.yqd],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'我_了，想休息。',opts:['锻炼', '发烧', '体育'],ans:1,k:'p10-xx-f',fb:'<span class="zh">我发烧了，想休息。</span>'}),
  order({tag:MQ(4),noTh:1,th:'',tiles:[tl('感冒','gǎnmào'),tl('影响了','yǐngxiǎng le'),tl('我的','wǒ de'),tl('学习','xuéxí'),tl('软','ruǎn')],ans:[0,1,2,3],end:'。',k:'p10-gyx-f'}),
  fin({title:'เล่าอาการและชวนออกกำลังกายได้แล้ว',html:dlgH(D,{noTh:1}),chips:[FS,HOU,RUAN,DUAN,CHA,YX,DL,TY].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L10',kl:'ฟังทั้งบทสนทนา'})]});
 

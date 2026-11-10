@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 8-1 เรื่องเล่าเมื่อก่อน</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 8-1 หน่วย 8: เรื่องเล่าเมื่อก่อน · คำใหม่ 以前 过去 年轻 故事 记得 忘记 后来
+   สถานการณ์: คุณตาเล่าเรื่องสมัยหนุ่มให้มะลิฟัง */
+WHO.m={n:'คุณตา',img:ART('爷爷')};
+const Yq=W('以前','yǐqián','เมื่อก่อน',{s:'yǐ qián'}),Gq=W('过去','guòqù','ในอดีต',{s:'guò qù'}),
+ Nq=W('年轻','niánqīng','หนุ่มสาว',{s:'nián qīng'}),Gs=W('故事','gùshi','เรื่องเล่า',{s:'gù shi'}),
+ Jd=W('记得','jìde','จำได้',{s:'jì de'}),Wj=W('忘记','wàngjì','ลืม',{s:'wàng jì'}),
+ Hl=W('后来','hòulái','ต่อมา',{s:'hòu lái'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('爷爷，您还记得以前的故事吗？','yéye, nín hái jìde yǐqián de gùshi ma?','คุณตา คุณตายังจำเรื่องเมื่อก่อนได้ไหมคะ','p36-a-f'),
+ b:S('记得。过去我很年轻。','jìde. guòqù wǒ hěn niánqīng.','จำได้ครับ เมื่อก่อนตายังหนุ่มมาก','p36-b-t'),
+ c:S('后来您去哪儿了？','hòulái nín qù nǎr le?','ต่อมาคุณตาไปไหนคะ','p36-c-f'),
+ d:S('后来我搬到了北京。','hòulái wǒ bān dào le Běijīng.','ต่อมาตาย้ายไปอยู่ปักกิ่งครับ','p36-d-t'),
+ e:S('我怕会忘记这个故事。','wǒ pà huì wàngjì zhè ge gùshi.','ฉันกลัวว่าจะลืมเรื่องนี้ค่ะ','p36-e-f'),
+ f:S('别忘记。我再给你讲一次。','bié wàngjì. wǒ zài gěi nǐ jiǎng yí cì.','อย่าลืม ตาจะเล่าให้ฟังอีกครั้งครับ','p36-f-t'),
+ ok:S('好。我不会忘记。','hǎo. wǒ bú huì wàngjì.','ได้ ฉันจะไม่ลืมค่ะ','p36-ok-f'),
+ w0a:S('我以前住在这儿。','wǒ yǐqián zhù zài zhèr.','เมื่อก่อนฉันอยู่ที่นี่ค่ะ','p36-w0a-f'),
+ w0b:S('你以前是老师吗？','nǐ yǐqián shì lǎoshī ma?','เมื่อก่อนคุณเป็นครูไหมครับ','p36-w0b-t'),
+ w1a:S('过去我不会游泳。','guòqù wǒ bú huì yóuyǒng.','ในอดีตฉันว่ายน้ำไม่เป็นค่ะ','p36-w1a-f'),
+ w1b:S('过去的事情我还记得。','guòqù de shìqing wǒ hái jìde.','เรื่องในอดีตฉันยังจำได้ครับ','p36-w1b-t'),
+ w2a:S('她很年轻。','tā hěn niánqīng.','เธอยังสาวมากค่ะ','p36-w2a-f'),
+ w2b:S('爷爷年轻的时候很忙。','yéye niánqīng de shíhou hěn máng.','ตอนคุณตายังหนุ่ม ท่านยุ่งมากครับ','p36-w2b-t'),
+ w3a:S('请给我讲一个故事。','qǐng gěi wǒ jiǎng yí ge gùshi.','กรุณาเล่าเรื่องหนึ่งให้ฉันฟังค่ะ','p36-w3a-f'),
+ w3b:S('这是一个有意思的故事。','zhè shì yí ge yǒu yìsi de gùshi.','นี่เป็นเรื่องที่น่าสนใจครับ','p36-w3b-t'),
+ w4a:S('你还记得她的名字吗？','nǐ hái jìde tā de míngzi ma?','คุณยังจำชื่อเธอได้ไหมคะ','p36-w4a-f'),
+ w4b:S('我记得这个地方。','wǒ jìde zhè ge dìfang.','ฉันจำที่นี่ได้ครับ','p36-w4b-t'),
+ w5a:S('我忘记带手机了。','wǒ wàngjì dài shǒujī le.','ฉันลืมเอามือถือมาค่ะ','p36-w5a-f'),
+ w5b:S('不要忘记这个故事。','bú yào wàngjì zhè ge gùshi.','อย่าลืมเรื่องนี้ครับ','p36-w5b-t'),
+ w6a:S('后来他搬到了北京。','hòulái tā bān dào le Běijīng.','ต่อมาเขาย้ายไปอยู่ปักกิ่งค่ะ','p36-w6a-f'),
+ w6b:S('后来我们去了北京。','hòulái wǒmen qù le Běijīng.','ต่อมาเราไปปักกิ่งครับ','p36-w6b-t'),
+ c1:S('你还记得吗？','nǐ hái jìde ma?','คุณยังจำได้ไหมครับ','p36-c1-t'),
+ c2:S('过去我很年轻。','guòqù wǒ hěn niánqīng.','ในอดีตผมยังหนุ่มมากครับ','p36-c2-t'),
+ c3:S('后来去了北京。','hòulái qù le Běijīng.','ต่อมาได้ไปปักกิ่งครับ','p36-c3-t'),
+ c4:S('不要忘记。','bú yào wàngjì.','อย่าลืมครับ','p36-c4-t'),
+ rv1:S('我喜欢画画。','wǒ xǐhuan huàhuà.','ฉันชอบวาดรูปค่ะ','p34-w3a-f'),
+ rv2:S('我喜欢秋天。','wǒ xǐhuan qiūtiān.','ฉันชอบฤดูใบไม้ร่วงค่ะ','p33-w4a-f')};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'คุณตาเล่าเรื่องสมัยหนุ่มให้มะลิฟัง',img:NL(Gs)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(Gs),th:'เรื่องเล่า'},{img:NL(Nq),th:'หนุ่มสาว'},{img:NL(Wj),th:'ลืม'},{img:NL(Hl),th:'ต่อมา'}];
+const BINS=[{img:NL(Jd),zh:'记得',py:'jìde',th:'จำได้'},{img:NL(Wj),zh:'忘记',py:'wàngjì',th:'ลืม'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:36,code:'บท 8-1',title:'เรื่องเล่าเมื่อก่อน',goal:{do:'ฟังคุณตาเล่าเรื่องสมัยหนุ่ม ถามเรื่องเมื่อก่อน และบอกว่าจำได้หรือลืม',sub:'ใช้ <span class="gz">以前 · 过去 · 年轻 · 故事 · 记得 · 忘记 · 后来</span>',min:12},steps:[
+ intro({scene:NL(Gs),cap:'สถานการณ์ของบทนี้',title:'เรื่องเล่าเมื่อก่อน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะพูดถึงเรื่องเมื่อก่อนได้'}),
+ vgrid({title:'7 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[Yq,Gq,Nq,Gs,Jd,Wj,Hl]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['以前','过去','年轻','故事','记得','忘记','后来'],note:'ใช้คำที่รู้แล้ว เช่น 爷爷 北京 讲 ร่วมด้วย'}),
+ ...WC(Yq,1,7,{cap:'เวลา',hint:'คล้าย <b>"อี่ เฉียน"</b> · ทั้งสองพยางค์เสียง 3+2',use:'เมื่อก่อน · 我以前住在这儿',ex:[X.w0a,X.w0b]}),
+ ...WC(Gq,2,7,{cap:'เวลา',hint:'คล้าย <b>"กั่ว ชวี่"</b> · ทั้งสองพยางค์เสียง 4',use:'ในอดีต · 过去我很年轻',ex:[X.w1a,X.w1b]}),
+ ...WC(Nq,3,7,{cap:'คน',hint:'คล้าย <b>"เนียน ชิง"</b> · ทั้งสองพยางค์เสียง 2+1',use:'หนุ่มสาว · 她很年轻',ex:[X.w2a,X.w2b]}),
+ ...WC(Gs,4,7,{cap:'เรื่อง',hint:'คล้าย <b>"กู้ ซือ"</b> · 事 อ่านเบา',use:'เรื่องเล่า · 讲一个故事',ex:[X.w3a,X.w3b]}),
+ RC('คำที่ 1–4/7',[Yq,Gq,Nq,Gs]),
+ use({n:'คำที่ 1–4/7',w:Gs,when:[{img:NL(Yq),t:'ถามเรื่องเมื่อก่อน'},{img:NL(Gs),t:'ขอให้เล่าเรื่อง'}],lines:[{...X.a,who:'me'},{...X.w3a,who:'me'}],tip:'ถามว่าจำเรื่องเมื่อก่อนได้ไหม ใช้ <span class="zh">还记得以前的故事吗？</span>'}),
+ ...WC(Jd,5,7,{cap:'ความจำ',hint:'คล้าย <b>"จี้ เตอะ"</b> · 得 อ่านเบา',use:'จำได้ · 你还记得吗',ex:[X.w4a,X.w4b]}),
+ ...WC(Wj,6,7,{cap:'ความจำ',hint:'คล้าย <b>"ว่าง จี้"</b> · ทั้งสองพยางค์เสียง 4',use:'ลืม · 不要忘记',ex:[X.w5a,X.w5b]}),
+ ...WC(Hl,7,7,{cap:'ลำดับเวลา',hint:'คล้าย <b>"โฮ่ว ไหล"</b> · 后 เสียง 4',use:'ต่อมา · 后来我搬到了北京',ex:[X.w6a,X.w6b]}),
+ RC('คำที่ 5–7/7',[Jd,Wj,Hl]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','พูดสั้น ๆ','แตะภาพ','แยกคำ','เทียบคำ','ข้อควรระวัง'],note:'ฝึกพูดถึงเรื่องเมื่อก่อน'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'คุณตาเล่าเรื่องสมัยหนุ่ม',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'以前 / 过去 = เมื่อก่อน · 后来 = ต่อมา · 记得 ≠ 忘记'}),
+ talk({cap:'เทคนิค 2/6 · พูดสั้น ๆ',title:'คุยกับคุณตา',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.b,who:'m'},{...X.c,who:'me'},{...X.d,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ฟังแล้วพูดตาม · ถามว่าจำได้ไหม แล้วถามว่าต่อมาเป็นอย่างไร'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w3a.zh,k:X.w3a.k,ans:0},{zh:X.w2a.zh,k:X.w2a.k,ans:1},{zh:X.w6a.zh,k:X.w6a.k,ans:3},{zh:X.w5a.zh,k:X.w5a.k,ans:2}]}),
+ sortmap({tag:'เทคนิค 4/6 · 记得 หรือ 忘记',q:'ฟังแต่ละประโยค แล้วแตะว่าพูดถึงการจำได้หรือการลืม',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(Jd),X.w4a,0),it(NL(Wj),X.w5a,1),it(NL(Jd),X.w4b,0),it(NL(Wj),X.w5b,1)]}),
+ cmp({cap:'เทคนิค 5/6 · เทียบคำ',title:'记得 กับ 忘记',text:'แตะการ์ดเพื่อฟัง',a:{who:'จำได้',img:NL(Jd),zh:X.w4b.zh,zhb:'记得',py:'jìde',th:'จำได้',k:X.w4b.k},b:{who:'ลืม',img:NL(Wj),zh:X.w5a.zh,zhb:'忘记',py:'wàngjì',th:'ลืม',k:X.w5a.k},
+  tip:'<span class="zh">记得</span> = จำได้ · <span class="zh">忘记</span> = ลืม'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[{h:'记得 得 อ่านเบา de ไม่ใช่ dé',bad:'我记得 dé 这个地方。',good:'我记得这个地方。',k:'p36-w4b-t'},{h:'故事 事 อ่านเบา shi',bad:'请给我讲一个故事 shì。',good:'请给我讲一个故事。',k:'p36-w3a-f'},{h:'后来 ใช้ขึ้นต้นตอนถัดไปของเรื่อง ไม่ใส่ 了 ติดกับ 后来',bad:'后来了我搬到了北京。',good:'后来我搬到了北京。',k:'p36-d-t'},{h:'พูดถึงสมัยหนุ่ม ใส่ 的时候 หลัง 年轻',bad:'爷爷年轻很忙。',good:'爷爷年轻的时候很忙。',k:'p36-w2b-t'}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร ระบบจะเฉลยแล้วให้ลองข้อเดิมอีกครั้ง'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:以前',opts:['เมื่อก่อน', 'ต่อมา', 'เรื่องเล่า'],ans:0,fb:'<span class="zh">以前</span> <b>yǐqián</b> = เมื่อก่อน'}),
+ ask({rv:'ทบทวนบท 7-9',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p34-w3a-f',opts:['ห้องสะอาดมาก', 'ฉันชอบวาดรูป', 'ฉันชอบฤดูใบไม้ร่วง'],ans:1,fb:'<span class="zh">我喜欢画画。</span>'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:故事',opts:[{img:NL(Wj)}, {img:NL(Nq)}, {img:NL(Gs)}],ans:2,fb:'<span class="zh">故事</span> <b>gùshi</b> = เรื่องเล่า'}),
+ blank({tag:TQ(3),s:'你还_她的名字吗？',th:'คุณยังจำชื่อเธอได้ไหม',opts:['后来', '记得', '忘记'],ans:1,k:X.w4a.k,fb:'<span class="zh">你还记得她的名字吗？</span>'}),
+ ask({rv:2,q:'ฟัง 以 แล้วเลือกวรรณยุกต์',k:'sy:以',opts:[{tone:3,lab:'เสียง 3'}, {tone:2,lab:'เสียง 2'}],ans:0,fb:'<span class="zh">以</span> เสียง 3'}),
+ reply({tag:TQ(4),q:'คุณตาบอกว่าจำได้ และเมื่อก่อนท่านยังหนุ่ม',line:{...X.b,who:'m'},opts:[X.rv2, X.w5a, X.c],ans:2,why:'ถามต่อว่าต่อมาคุณตาไปไหน'}),
+ ask({rv:'ทบทวนบท 7-8',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p33-w4a-f',opts:['โลกกว้างใหญ่มาก', 'ฉันชอบฤดูใบไม้ร่วง', 'ฉันชอบวาดรูป'],ans:1,fb:'<span class="zh">我喜欢秋天。</span>'}),
+ order({tag:TQ(5),th:'ต่อมาตาย้ายไปอยู่ปักกิ่ง',tiles:[tl('后来','hòulái'),tl('我','wǒ'),tl('搬到了北京','bān dào le Běijīng'),tl('很年轻','hěn niánqīng')],ans:[0,1,2],end:'。',k:X.d.k}),
+ tf({tag:TQ(6),k:X.d.k,img:ART('爷爷'),card:'<b>คุณตา</b><br>บอกว่าต่อมาย้ายไปอยู่ปักกิ่ง',ans:0,fb:'<span class="zh">后来我搬到了北京。</span> = ต่อมาย้ายไปอยู่ปักกิ่ง'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:1},{zh:X.w3a.zh,k:X.w3a.k,ans:0},{zh:X.w5a.zh,k:X.w5a.k,ans:2},{zh:X.w6a.zh,k:X.w6a.k,ans:3}]}),
+ reply({tag:MQ(2),noTh:1,q:'คุณตาบอกว่าอย่าลืม แล้วจะเล่าให้ฟังอีกครั้ง',line:{...X.f,who:'m'},opts:[X.w2a, X.w0a, X.ok],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'我_带手机了。',opts:['忘记', '记得', '后来'],ans:0,k:X.w5a.k,fb:'<span class="zh">我忘记带手机了。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我以前','wǒ yǐqián'),tl('住在','zhù zài'),tl('这儿','zhèr'),tl('忘记','wàngjì')],ans:[0,1,2],end:'。',k:X.w0a.k}),
+ fin({title:'จบบท เรื่องเล่าเมื่อก่อน',html:dlgH(D,{noTh:1}),chips:[Yq,Gq,Nq,Gs,Jd,Wj,Hl].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L36',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

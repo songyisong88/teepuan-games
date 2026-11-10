@@ -83,15 +83,15 @@ LESSON({no:30,code:'บท 7-5',title:'งานแต่งของเพื�
  ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:客人',opts:[{img:NL(Jhun)}, {img:NL(Yyi)}, {img:NL(Kren)}],ans:2,fb:'<span class="zh">客人</span> <b>kèrén</b> = แขก'}),
  blank({tag:TQ(3),s:'我的同事要_了。',th:'เพื่อนร่วมงานของฉันจะแต่งงานแล้ว',opts:['愿意', '地方', '结婚'],ans:2,k:X.w0a.k,fb:'<span class="zh">我的同事要结婚了。</span>'}),
  ask({rv:2,q:'ฟัง 婚 แล้วเลือกวรรณยุกต์',k:'sy:婚',opts:[{tone:1,lab:'เสียง 1'}, {tone:2,lab:'เสียง 2'}],ans:0,fb:'<span class="zh">婚</span> เสียง 1'}),
- reply({tag:TQ(4),q:'มะลิชวนเพื่อนร่วมงานไปช่วยงานแต่งเสี่ยวหวัง',line:{...X.a,who:'me'},opts:[X.w1b, X.b, X.w7b],ans:1,why:'เพื่อนร่วมงานตอบว่าเต็มใจ และบอกว่าที่จริงห่วงใยเธอ'}),
+ reply({tag:TQ(4),q:'เพื่อนร่วมงานบอกว่าเต็มใจไปช่วย แล้วถามว่าแขกเยอะไหม',line:{...X.b,who:'m'},opts:[X.w0a, X.w1a, X.w5a],ans:1,why:'ตอบว่าแขกเยอะ'}),
  ask({rv:'ทบทวนบท 7-3',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p28-w0a-f',opts:['อย่าเสียใจ', 'ในที่สุดก็ถึงแล้ว', 'ฉันกังวลเรื่องสอบพรุ่งนี้มาก'],ans:2,fb:'<span class="zh">我很担心明天的考试。</span>'}),
- order({tag:TQ(5),th:'ได้ ผมเชื่อว่าเราทำได้ดี',tiles:[tl('好','hǎo'),tl('我相信我们能做好','wǒ xiāngxìn wǒmen néng zuò hǎo'),tl('客人很多','kèrén hěn duō')],ans:[0,1],end:'。',k:X.d.k}),
+ order({tag:TQ(5),th:'ได้ ผมเชื่อว่าเราทำได้ดี',tiles:[tl('好','hǎo'),tl('我相信','wǒ xiāngxìn'),tl('我们能做好','wǒmen néng zuò hǎo'),tl('客人很多','kèrén hěn duō')],ans:[0,1,2],end:'。',k:X.d.k}),
  tf({tag:TQ(6),k:X.b.k,img:NL(Yyi),card:'<b>เพื่อนร่วมงาน</b><br>บอกว่าไม่เต็มใจไปช่วยงานแต่ง',ans:1,fb:'<span class="zh">愿意。其实我很关心她。</span> = เต็มใจ ที่จริงห่วงใยเธอ'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w3a.zh,k:X.w3a.k,ans:2},{zh:X.w5a.zh,k:X.w5a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
- reply({tag:MQ(2),noTh:1,q:'มะลิบอกว่าแขกเยอะ สถานที่อยู่ใกล้บริษัท',line:{...X.c,who:'me'},opts:[X.d, X.w6b, X.w0b],ans:0}),
+ reply({tag:MQ(2),noTh:1,q:'เพื่อนร่วมงานบอกว่าเชื่อว่าเราทำได้ดี',line:{...X.d,who:'m'},opts:[X.e, X.w0a, X.w2b],ans:0}),
  blank({tag:MQ(3),noTh:1,s:'_地方不远。',opts:['结婚', '其实', '客人'],ans:1,k:X.w6a.k,fb:'<span class="zh">其实地方不远。</span>'}),
- order({tag:MQ(4),noTh:1,th:'',tiles:[tl('地方在','dìfang zài'),tl('公司附近','gōngsī fùjìn'),tl('结婚','jiéhūn')],ans:[0,1],end:'。',k:X.w7a.k}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('地方','dìfang'),tl('在','zài'),tl('公司附近','gōngsī fùjìn'),tl('结婚','jiéhūn')],ans:[0,1,2],end:'。',k:X.w7a.k}),
  fin({title:'จบบท งานแต่งของเพื่อนร่วมงาน',html:dlgH(D,{noTh:1}),chips:[Jhun,Kren,Gxin,Bmang,Xxin,Yyi,Qshi,Dfang].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L30',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>

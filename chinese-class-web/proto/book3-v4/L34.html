@@ -12,7 +12,7 @@
    สถานการณ์: มะลิคุยกับคุณลุงเรื่องงานอดิเรก การวาดรูป อินเทอร์เน็ต และการอาบน้ำให้ห้องสะอาด */
 WHO.m={n:'คุณลุง',img:ART('叔叔')};
 const Aih=W('爱好','àihào','งานอดิเรก',{s:'ài hào'}),Xqu=W('兴趣','xìngqù','ความสนใจ',{s:'xìng qù'}),
- Swang=W('上网','shàngwǎng','ออนไลน์ / เล่นเน็ต',{s:'shàng wǎng'}),Hua=W('画','huà','วาด / ภาพวาด',{nosk:1}),
+ Swang=W('上网','shàngwǎng','เล่นเน็ต',{s:'shàng wǎng'}),Hua=W('画','huà','วาด / ภาพวาด',{nosk:1}),
  Xzao=W('洗澡','xǐzǎo','อาบน้ำ',{s:'xǐ zǎo'}),Gjing=W('干净','gānjing','สะอาด',{s:'gān jing'}),
  Ayi=W('阿姨','āyí','คุณน้า / คุณป้า',{s:'ā yí'}),Shushu=W('叔叔','shūshu','คุณลุง',{s:'shū shu'});
 const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
@@ -20,7 +20,7 @@ const X={
  a:S('叔叔，您有什么爱好？','shūshu, nín yǒu shénme àihào?','คุณลุง คุณลุงมีงานอดิเรกอะไรคะ','p34-a-f'),
  b:S('我对画画很有兴趣，有时候也上网。','wǒ duì huàhuà hěn yǒu xìngqù, yǒu shíhou yě shàngwǎng.','ลุงสนใจวาดรูปมาก บางทีก็เล่นเน็ตด้วยครับ','p34-b-t'),
  c:S('阿姨呢？她也喜欢画画吗？','āyí ne? tā yě xǐhuan huàhuà ma?','คุณป้าล่ะ คุณป้าก็ชอบวาดรูปไหมคะ','p34-c-f'),
- d:S('她喜欢干净的房间。洗完澡以后房间更干净。','tā xǐhuan gānjing de fángjiān. xǐ wán zǎo yǐhòu fángjiān gèng gānjing.','คุณป้าชอบห้องที่สะอาด อาบน้ำเสร็จแล้วห้องยิ่งสะอาดครับ','p34-d-t'),
+ d:S('她也喜欢画画。她喜欢先洗澡，再画画。','tā yě xǐhuan huàhuà. tā xǐhuan xiān xǐzǎo, zài huàhuà.','คุณป้าก็ชอบวาดรูป คุณป้าชอบอาบน้ำก่อนแล้วค่อยวาดครับ','p34-d-t'),
  e:S('那我先去洗澡，再跟您学画画。','nà wǒ xiān qù xǐzǎo, zài gēn nín xué huàhuà.','งั้นฉันไปอาบน้ำก่อน แล้วมาเรียนวาดรูปกับคุณลุงค่ะ','p34-e-f'),
  f:S('好。但是不要一直上网。','hǎo. dànshì bú yào yìzhí shàngwǎng.','ได้ แต่อย่าเล่นเน็ตเรื่อย ๆ นะครับ','p34-f-t'),
  w0a:S('你有什么爱好？','nǐ yǒu shénme àihào?','คุณมีงานอดิเรกอะไรคะ','p34-w0a-f'),
@@ -83,15 +83,15 @@ LESSON({no:34,code:'บท 7-9',title:'งานอดิเรกหลัง�
  ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:画',opts:[{img:NL(Hua)}, {img:NL(Swang)}, {img:NL(Xzao)}],ans:0,fb:'<span class="zh">画</span> <b>huà</b> = วาด / ภาพวาด'}),
  blank({tag:TQ(3),s:'不要一直_。',th:'อย่าเล่นเน็ตเรื่อย ๆ',opts:['画画', '上网', '洗澡'],ans:1,k:X.w2a.k,fb:'<span class="zh">不要一直上网。</span>'}),
  ask({rv:2,q:'ฟัง 爱 แล้วเลือกวรรณยุกต์',k:'sy:爱',opts:[{tone:4,lab:'เสียง 4'}, {tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">爱</span> เสียง 4'}),
- reply({tag:TQ(4),q:'มะลิถามคุณลุงว่างานอดิเรกคืออะไร',line:{...X.a,who:'me'},opts:[X.w4b, X.w5b, X.b],ans:2,why:'คุณลุงสนใจวาดรูป และบางทีก็เล่นเน็ต'}),
+ reply({tag:TQ(4),q:'คุณลุงบอกว่าสนใจวาดรูป และบางทีก็เล่นเน็ต',line:{...X.b,who:'m'},opts:[X.w3a, X.w2b, X.w6a],ans:2,why:'ถามต่อเรื่องคุณป้า'}),
  ask({rv:'ทบทวนบท 7-8',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p33-w0a-f',opts:['ฤดูหนาวหนาวมาก', 'ทิวทัศน์แถวนี้สวยมาก', 'โลกกว้างใหญ่มาก'],ans:1,fb:'<span class="zh">这儿的风景很漂亮。</span>'}),
- order({tag:TQ(5),th:'งั้นฉันไปอาบน้ำก่อน แล้วมาเรียนวาดรูปกับคุณลุง',tiles:[tl('那我先去洗澡','nà wǒ xiān qù xǐzǎo'),tl('再跟您学画画','zài gēn nín xué huàhuà'),tl('房间很干净','fángjiān hěn gānjing')],ans:[0,1],end:'。',k:X.e.k}),
+ order({tag:TQ(5),th:'งั้นฉันไปอาบน้ำก่อน แล้วมาเรียนวาดรูปกับคุณลุง',tiles:[tl('那我','nà wǒ'),tl('先去洗澡','xiān qù xǐzǎo'),tl('再跟您学画画','zài gēn nín xué huàhuà'),tl('房间很干净','fángjiān hěn gānjing')],ans:[0,1,2],end:'。',k:X.e.k}),
  tf({tag:TQ(6),k:X.f.k,img:NL(Swang),card:'<b>คุณลุง</b><br>บอกให้เล่นเน็ตได้ทั้งวัน ไม่ต้องอาบน้ำ',ans:1,fb:'<span class="zh">不要一直上网。</span> = อย่าเล่นเน็ตเรื่อย ๆ'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w0a.zh,k:X.w0a.k,ans:0},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w1a.zh,k:X.w1a.k,ans:1}]}),
- reply({tag:MQ(2),noTh:1,q:'มะลิถามว่าคุณป้าก็ชอบวาดรูปไหม',line:{...X.c,who:'me'},opts:[X.w0b, X.w2a, X.d],ans:2}),
+ reply({tag:MQ(2),noTh:1,q:'คุณลุงบอกว่าคุณป้าก็ชอบวาดรูป และชอบอาบน้ำก่อนแล้วค่อยวาด',line:{...X.d,who:'m'},opts:[X.w5a, X.w4a, X.w2b],ans:1}),
  blank({tag:MQ(3),noTh:1,s:'房间很_。',opts:['干净', '爱好', '兴趣'],ans:0,k:X.w5a.k,fb:'<span class="zh">房间很干净。</span>'}),
- order({tag:MQ(4),noTh:1,th:'',tiles:[tl('叔叔喜欢','shūshu xǐhuan'),tl('画画','huàhuà'),tl('洗澡','xǐzǎo')],ans:[0,1],end:'。',k:X.w7a.k}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('叔叔','shūshu'),tl('喜欢','xǐhuan'),tl('画画','huàhuà'),tl('洗澡','xǐzǎo')],ans:[0,1,2],end:'。',k:X.w7a.k}),
  fin({title:'จบบท งานอดิเรกหลังเลิกงาน',html:dlgH(D,{noTh:1}),chips:[Aih,Xqu,Swang,Hua,Xzao,Gjing,Ayi,Shushu].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L34',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>

@@ -83,15 +83,15 @@ LESSON({no:33,code:'บท 7-8',title:'ทิวทัศน์สี่ฤด�
  ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:春天',opts:[{img:NL(Dtn)}, {img:NL(Ctn)}, {img:NL(Xtn)}],ans:1,fb:'<span class="zh">春天</span> <b>chūntiān</b> = ฤดูใบไม้ผลิ'}),
  blank({tag:TQ(3),s:'我喜欢_。',th:'ฉันชอบฤดูใบไม้ร่วง',opts:['夏天', '秋天', '冬天'],ans:1,k:X.w4a.k,fb:'<span class="zh">我喜欢秋天。</span>'}),
  ask({rv:2,q:'ฟัง 春 แล้วเลือกวรรณยุกต์',k:'sy:春',opts:[{tone:1,lab:'เสียง 1'}, {tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">春</span> เสียง 1'}),
- reply({tag:TQ(4),q:'มะลิถามว่าชอบฤดูอะไร และทิวทัศน์ฤดูใบไม้ผลิเป็นอย่างไร',line:{...X.a,who:'me'},opts:[X.w6a, X.w5b, X.b],ans:2,why:'หวังหมิงชอบฤดูใบไม้ผลิ ร้อนไปหนาวไป'}),
+ reply({tag:TQ(4),q:'หวังหมิงบอกว่าชอบฤดูใบไม้ผลิ ร้อนไปหนาวไป',line:{...X.b,who:'f'},opts:[X.w5a, X.w3a, X.w4a],ans:2,why:'บอกว่าชอบฤดูใบไม้ร่วง'}),
  ask({rv:'ทบทวนบท 7-7',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p32-w3a-m',opts:['สิ่งแวดล้อมดีมาก', 'ระหว่างทางจะรถติด', 'เมืองนี้ใหญ่มาก'],ans:1,fb:'<span class="zh">路上会堵车。</span>'}),
  order({tag:TQ(5),th:'ผมชอบฤดูใบไม้ผลิ ฤดูร้อนร้อนไป ฤดูหนาวก็หนาวไป',tiles:[tl('我喜欢春天','wǒ xǐhuan chūntiān'),tl('夏天太热','xiàtiān tài rè'),tl('冬天太冷','dōngtiān tài lěng'),tl('世界真大','shìjiè zhēn dà')],ans:[0,1,2],end:'。',k:X.b.k}),
  tf({tag:TQ(6),k:X.b.k,img:NL(Ctn),card:'<b>หวังหมิง</b><br>บอกว่าชอบฤดูร้อนที่สุด เพราะไม่ร้อนเลย',ans:1,fb:'<span class="zh">我喜欢春天。夏天太热。</span> = ชอบฤดูใบไม้ผลิ ฤดูร้อนร้อนไป'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w0a.zh,k:X.w0a.k,ans:0},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w1a.zh,k:X.w1a.k,ans:1}]}),
- reply({tag:MQ(2),noTh:1,q:'มะลิบอกว่าชอบฤดูใบไม้ร่วง และการเปลี่ยนแปลงในโลกไม่เหมือนกัน',line:{...X.c,who:'me'},opts:[X.w6a, X.w3a, X.d],ans:2}),
- blank({tag:MQ(3),noTh:1,s:'北方的_很冷。',opts:['冬天', '夏天', '春天'],ans:0,k:X.w5a.k,fb:'<span class="zh">北方的冬天很冷。</span>'}),
- order({tag:MQ(4),noTh:1,th:'',tiles:[tl('世界的变化','shìjiè de biànhuà'),tl('很大','hěn dà'),tl('春天','chūntiān')],ans:[0,1],end:'。',k:X.w7b.k}),
+ reply({tag:MQ(2),noTh:1,q:'หวังหมิงบอกว่าทิวทัศน์ฤดูหนาวทางเหนือก็สวย',line:{...X.d,who:'f'},opts:[X.e, X.w7a, X.c],ans:0}),
+ blank({tag:MQ(3),noTh:1,s:'北方的_很冷。',opts:['夏天', '春天', '冬天'],ans:2,k:X.w5a.k,fb:'<span class="zh">北方的冬天很冷。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('世界的','shìjiè de'),tl('变化','biànhuà'),tl('很大','hěn dà'),tl('春天','chūntiān')],ans:[0,1,2],end:'。',k:X.w7b.k}),
  fin({title:'จบบท ทิวทัศน์สี่ฤดู',html:dlgH(D,{noTh:1}),chips:[Fjng,Jjie,Ctn,Xtn,Qtn,Dtn,Shij,Bianh].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L33',kl:'ฟังทั้งบทสนทนา'})]});
 
 </script>

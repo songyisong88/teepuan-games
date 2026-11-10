@@ -83,7 +83,7 @@ LESSON({no:32,code:'บท 7-7',title:'ไปทำงานต่างเม�
  ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:护照',opts:[{img:NL(Hzhao)}, {img:NL(Bguan)}, {img:NL(Xlxiang)}],ans:0,fb:'<span class="zh">护照</span> <b>hùzhào</b> = หนังสือเดินทาง'}),
  blank({tag:TQ(3),s:'我要去_工作。',th:'ฉันจะไปทำงานทางเหนือ',opts:['宾馆', '北方', '行李箱'],ans:1,k:X.w7a.k,fb:'<span class="zh">我要去北方工作。</span>'}),
  ask({rv:2,q:'ฟัง 城 แล้วเลือกวรรณยุกต์',k:'sy:城',opts:[{tone:2,lab:'เสียง 2'}, {tone:4,lab:'เสียง 4'}],ans:0,fb:'<span class="zh">城</span> เสียง 2'}),
- reply({tag:TQ(4),q:'หวังหมิงบอกว่าสิ่งแวดล้อมดี แต่บางทีรถติด',line:{...X.b,who:'f'},opts:[X.w0a, X.w3b, X.e],ans:2,why:'ตอบว่ากลัวว่าระหว่างทางจะรถติด'}),
+ reply({tag:TQ(4),q:'หวังหมิงบอกว่าสิ่งแวดล้อมดี แต่บางทีรถติด',line:{...X.b,who:'f'},opts:[X.w0a, X.w4a, X.e],ans:2,why:'ตอบว่ากลัวว่าระหว่างทางจะรถติด'}),
  ask({rv:'ทบทวนบท 7-5',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p30-w5a-f',opts:['ที่จริงไม่ไกล', 'ฉันเต็มใจไป', 'แขกเยอะมาก'],ans:1,fb:'<span class="zh">我愿意去。</span>'}),
  order({tag:TQ(5),th:'สิ่งแวดล้อมดีมาก แต่การจราจรบางทีก็รถติด',tiles:[tl('环境很好','huánjìng hěn hǎo'),tl('可是','kěshì'),tl('交通有时候会堵车','jiāotōng yǒu shíhou huì dǔchē'),tl('这个城市很大','zhège chéngshì hěn dà')],ans:[0,1,2],end:'。',k:X.b.k}),
  tf({tag:TQ(6),k:X.d.k,img:NL(Hzhao),card:'<b>หวังหมิง</b><br>บอกว่าไม่ต้องเอาหนังสือเดินทางไป และกระเป๋าจะใหญ่แค่ไหนก็ได้',ans:1,fb:'<span class="zh">护照要带，行李箱不要太大。</span>'}),

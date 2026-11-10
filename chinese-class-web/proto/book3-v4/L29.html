@@ -83,14 +83,14 @@ LESSON({no:29,code:'บท 7-4',title:'โอกาสแข่งขัน',goa
  ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:比赛',opts:[{img:NL(Yhui)}, {img:NL(Cjia)}, {img:NL(Bisai)}],ans:2,fb:'<span class="zh">比赛</span> <b>bǐsài</b> = การแข่งขัน'}),
  blank({tag:TQ(3),s:'_我经验不多，但是我想参加比赛。',th:'แม้ว่าฉันจะมีประสบการณ์น้อย แต่ฉันอยากร่วมแข่ง',opts:['完成', '虽然', '需要'],ans:1,k:X.a.k,fb:'<span class="zh">虽然我经验不多，但是我想参加比赛。</span>'}),
  ask({rv:2,q:'ฟัง 会 แล้วเลือกวรรณยุกต์',k:'sy:会',opts:[{tone:4,lab:'เสียง 4'}, {tone:2,lab:'เสียง 2'}],ans:0,fb:'<span class="zh">会</span> ใน 机会 เสียง 4'}),
- reply({tag:TQ(4),q:'หวังหมิงบอกว่านี่เป็นโอกาสดี ต้องสมัครให้เสร็จก่อน',line:{...X.b,who:'f'},opts:[X.w0a, X.w5b, X.w2a],ans:2,why:'ตอบว่าต้องการความช่วยเหลือ'}),
+ reply({tag:TQ(4),q:'หวังหมิงบอกว่านี่เป็นโอกาสดี ต้องสมัครให้เสร็จก่อน',line:{...X.b,who:'f'},opts:[X.w2a, X.rv1, X.w0a],ans:0,why:'ตอบว่าต้องการความช่วยเหลือ'}),
  ask({rv:'ทบทวนบท 7-3',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p28-c1-m',opts:['อย่าเสียใจ', 'อย่ากังวล', 'อย่าโกรธ'],ans:1,fb:'<span class="zh">别担心。</span>'}),
  order({tag:TQ(5),th:'นี่เป็นโอกาสดี เธอต้องสมัครให้เสร็จก่อน',tiles:[tl('这是','zhè shì'),tl('一个好机会','yí ge hǎo jīhuì'),tl('你需要先完成报名','nǐ xūyào xiān wánchéng bàomíng'),tl('经验很多','jīngyàn hěn duō')],ans:[0,1,2],end:'。',k:X.b.k}),
  tf({tag:TQ(6),k:X.a.k,img:NL(Bisai),card:'<b>มะลิ</b><br>บอกว่าประสบการณ์มากแล้ว ไม่อยากแข่ง',ans:1,fb:'<span class="zh">虽然我经验不多，但是我想参加比赛。</span> = แม้ประสบการณ์น้อยก็อยากแข่ง'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w0a.zh,k:X.w0a.k,ans:0},{zh:X.w4a.zh,k:X.w4a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w3a.zh,k:X.w3a.k,ans:2}]}),
- reply({tag:MQ(2),noTh:1,q:'หวังหมิงบอกว่าทำให้เสร็จด้วยกัน',line:{...X.d,who:'f'},opts:[X.w4b, X.w0a, X.w5b],ans:0}),
- blank({tag:MQ(3),noTh:1,s:'今天的工作_了。',opts:['虽然', '参加', '完成'],ans:2,k:X.w5b.k,fb:'<span class="zh">今天的工作完成了。</span>'}),
+ reply({tag:MQ(2),noTh:1,q:'หวังหมิงบอกว่าทำให้เสร็จด้วยกัน',line:{...X.d,who:'f'},opts:[X.rv1, X.w4b, X.w0a],ans:1}),
+ blank({tag:MQ(3),noTh:1,s:'今天的工作_了。',opts:['完成', '虽然', '参加'],ans:0,k:X.w5b.k,fb:'<span class="zh">今天的工作完成了。</span>'}),
  order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我们的','wǒmen de'),tl('关系','guānxi'),tl('很好','hěn hǎo'),tl('比赛','bǐsài')],ans:[0,1,2],end:'。',k:X.w6a.k}),
  fin({title:'จบบท โอกาสแข่งขัน',html:dlgH(D,{noTh:1}),chips:[Jyan,Yhui,Xuyao,Cjia,Bisai,Wcheng,Gxi,Suiran].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L29',kl:'ฟังทั้งบทสนทนา'})]});
 

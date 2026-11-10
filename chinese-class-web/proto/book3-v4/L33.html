@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 7-8 ทิวทัศน์สี่ฤดู</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 7-8 หน่วย 7: ทิวทัศน์สี่ฤดู · คำใหม่ 风景 季节 春天 夏天 秋天 冬天 世界 变化
+   สถานการณ์: เล่าเรื่องฤดูกาลและความเปลี่ยนแปลงในโลก */
+WHO.m={n:'หวังหมิง',img:ART('王明')};
+const Fngjng=W('风景','fēngjǐng','ทิวทัศน์',{s:'fēng jǐng'}),Jji=W('季节','jìjié','ฤดูกาล',{s:'jì jié'}),
+ Chuntin=W('春天','chūntiān','ฤดูใบไม้ผลิ',{s:'chūn tiān'}),Xitin=W('夏天','xiàtiān','ฤดูร้อน',{s:'xià tiān'}),
+ Qiutin=W('秋天','qiūtiān','ฤดูใบไม้ร่วง',{s:'qiū tiān'}),Dngtin=W('冬天','dōngtiān','ฤดูหนาว',{s:'dōng tiān'}),
+ Shji=W('世界','shìjiè','โลก',{s:'shì jiè'}),Binhu=W('变化','biànhuà','การเปลี่ยนแปลง',{s:'biàn huà'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('你喜欢哪个季节？','nǐ xǐ huān nǎ ge jì jié?','คุณชอบฤดูไหนคะ','p33-a-f'),
+ b:S('我喜欢春天，风景很漂亮。','wǒ xǐ huān chūn tiān ， fēng jǐng hěn piào liàng.','ผมชอบฤดูใบไม้ผลิ ทิวทัศน์สวยมากครับ','p33-b-m'),
+ c:S('夏天很热，秋天怎么样？','xià tiān hěn rè ， qiū tiān zěn me yàng?','ฤดูร้อนร้อนมาก ฤดูใบไม้ร่วงเป็นยังไงค่ะ','p33-c-f'),
+ d:S('秋天不冷也不热。','qiū tiān bù lěng yě bù rè.','ฤดูใบไม้ร่วงไม่หนาวไม่ร้อนครับ','p33-d-m'),
+ e:S('世界变化很大。','shì jiè biàn huà hěn dà.','โลกเปลี่ยนแปลงมากค่ะ','p33-e-f'),
+ f:S('对。我喜欢冬天。','duì 。 wǒ xǐ huān dōng tiān.','ใช่ ผมชอบฤดูหนาวครับ','p33-f-m'),
+ w0a:S('这里的风景真漂亮。','zhè lǐ de fēng jǐng zhēn piào liàng.','ทิวทัศน์ที่นี่สวยจริง ๆค่ะ','p33-w0a-f'),
+ w0b:S('风景很漂亮。','fēng jǐng hěn piào liàng.','ทิวทัศน์ครับ','p33-w0b-t'),
+ w1a:S('你喜欢哪个季节？','nǐ xǐ huān nǎ ge jì jié?','คุณชอบฤดูไหนครับ','p33-w1a-m'),
+ w1b:S('什么季节？','shén me jì jié?','ฤดูกาลค่ะ','p33-w1b-f'),
+ w2a:S('我喜欢春天。','wǒ xǐ huān chūn tiān.','ฉันชอบฤดูใบไม้ผลิค่ะ','p33-w2a-f'),
+ w2b:S('我喜欢春天。','wǒ xǐ huān chūn tiān.','ฤดูใบไม้ผลิครับ','p33-w2b-t'),
+ w3a:S('夏天很热。','xià tiān hěn rè.','ฤดูร้อนร้อนมากครับ','p33-w3a-m'),
+ w3b:S('夏天很热。','xià tiān hěn rè.','ฤดูร้อน','p33-w3b-f'),
+ w4a:S('秋天不冷也不热。','qiū tiān bù lěng yě bù rè.','ฤดูใบไม้ร่วงไม่หนาวไม่ร้อนค่ะ','p33-w4a-f'),
+ w4b:S('秋天很好。','qiū tiān hěn hǎo.','ฤดูใบไม้ร่วงครับ','p33-w4b-t'),
+ w5a:S('我喜欢冬天。','wǒ xǐ huān dōng tiān.','ฉันชอบฤดูหนาวครับ','p33-w5a-m'),
+ w5b:S('冬天很冷。','dōng tiān hěn lěng.','ฤดูหนาว','p33-w5b-f'),
+ w6a:S('世界很大。','shì jiè hěn dà.','โลกกว้างใหญ่มากค่ะ','p33-w6a-f'),
+ w6b:S('世界很大。','shì jiè hěn dà.','โลกครับ','p33-w6b-t'),
+ w7a:S('这几年城市的变化很大。','zhè jǐ nián chéng shì de biàn huà hěn dà.','หลายปีมานี้เมืองเปลี่ยนไปมากครับ','p33-w7a-m'),
+ w7b:S('变化很大。','biàn huà hěn dà.','การเปลี่ยนแปลงค่ะ','p33-w7b-f'),
+ c1:S('风景','fēng jǐng','ทิวทัศน์ครับ','p33-c1-t'),
+ c2:S('季节','jì jié','ฤดูกาลครับ','p33-c2-t'),
+ c3:S('春天','chūn tiān','ฤดูใบไม้ผลิครับ','p33-c3-t'),
+ c4:S('夏天','xià tiān','ฤดูร้อนครับ','p33-c4-t'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ ครับ','p23-yz1-t'),};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'เล่าเรื่องฤดูกาลและความเปลี่ยนแปลงในโลก',img:NL(Fngjng)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(Fngjng),th:'ทิวทัศน์'},{img:NL(Jji),th:'ฤดูกาล'},{img:NL(Chuntin),th:'ฤดูใบไม้ผลิ'},{img:NL(Xitin),th:'ฤดูร้อน'}];
+const BINS=[{img:NL(Fngjng),zh:'风景',py:'fēngjǐng',th:'ทิวทัศน์'},{img:NL(Jji),zh:'季节',py:'jìjié',th:'ฤดูกาล'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:33,code:'บท 7-8',title:'ทิวทัศน์สี่ฤดู',goal:{do:'เล่าเรื่องฤดูกาลและความเปลี่ยนแปลงในโลก',sub:'ใช้ <span class="gz">风景 · 季节 · 春天 · 夏天 · 秋天</span>',min:12},steps:[
+ intro({scene:NL(Fngjng),cap:'สถานการณ์ของบทนี้',title:'ทิวทัศน์สี่ฤดู',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะใช้คำใหม่ของบทนี้ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[Fngjng,Jji,Chuntin,Xitin,Qiutin,Dngtin,Shji,Binhu]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['风景','季节','春天','夏天','秋天','冬天','世界','变化'],note:'ใช้คำที่รู้แล้วร่วมด้วย'}),
+ ...WC(Fngjng,1,8,{cap:'คำใหม่',hint:'คล้าย <b>"fēngjǐng"</b>',use:'ทิวทัศน์',ex:[X.w0a,X.w0b]}),
+ ...WC(Jji,2,8,{cap:'คำใหม่',hint:'คล้าย <b>"jìjié"</b>',use:'ฤดูกาล',ex:[X.w1a,X.w1b]}),
+ ...WC(Chuntin,3,8,{cap:'คำใหม่',hint:'คล้าย <b>"chūntiān"</b>',use:'ฤดูใบไม้ผลิ',ex:[X.w2a,X.w2b]}),
+ ...WC(Xitin,4,8,{cap:'คำใหม่',hint:'คล้าย <b>"xiàtiān"</b>',use:'ฤดูร้อน',ex:[X.w3a,X.w3b]}),
+ RC('คำที่ 1–4/8',[Fngjng,Jji,Chuntin,Xitin]),
+ use({n:'คำที่ 1–4/8',w:Fngjng,when:[{img:NL(Fngjng),t:'ใช้คำนี้'},{img:NL(Jji),t:'เทียบกับคำข้าง ๆ'}],lines:[{...X.w0a,who:'me'},{...X.w0b,who:'g'}],tip:'ฟังตัวอย่างแล้วพูดตาม'}),
+ ...WC(Qiutin,5,8,{cap:'คำใหม่',hint:'คล้าย <b>"qiūtiān"</b>',use:'ฤดูใบไม้ร่วง',ex:[X.w4a,X.w4b]}),
+ ...WC(Dngtin,6,8,{cap:'คำใหม่',hint:'คล้าย <b>"dōngtiān"</b>',use:'ฤดูหนาว',ex:[X.w5a,X.w5b]}),
+ ...WC(Shji,7,8,{cap:'คำใหม่',hint:'คล้าย <b>"shìjiè"</b>',use:'โลก',ex:[X.w6a,X.w6b]}),
+ ...WC(Binhu,8,8,{cap:'คำใหม่',hint:'คล้าย <b>"biànhuà"</b>',use:'การเปลี่ยนแปลง',ex:[X.w7a,X.w7b]}),
+ RC('คำที่ 5–8/8',[Qiutin,Dngtin,Shji,Binhu]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','พูดสั้น ๆ','แตะภาพ','แยกคำ','เทียบคำ','ข้อควรระวัง'],note:'ฝึกใช้คำใหม่'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'ทิวทัศน์สี่ฤดู',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำในบทนี้'}),
+ talk({cap:'เทคนิค 2/6 · พูดสั้น ๆ',title:'ฝึกประโยค',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.b,who:'m'},{...X.c,who:'me'},{...X.d,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ฟังแล้วพูดตาม · ใช้คำใหม่ให้ครบ'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ sortmap({tag:'เทคนิค 4/6 · แยกคำ',q:'ฟังแต่ละประโยค แล้วแตะคำที่ตรงกัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(Fngjng),X.w0a,0),it(NL(Jji),X.w1a,1),it(NL(Fngjng),X.w0b,0),it(NL(Jji),X.w1b,1)]}),
+ cmp({cap:'เทคนิค 5/6 · เทียบคำ',title:'风景 กับ 季节',text:'แตะการ์ดเพื่อฟัง',a:{who:'ทิวทัศน์',img:NL(Fngjng),zh:X.w0a.zh,zhb:'风景',py:'fēngjǐng',th:'ทิวทัศน์',k:X.w0a.k},b:{who:'ฤดูกาล',img:NL(Jji),zh:X.w1a.zh,zhb:'季节',py:'jìjié',th:'ฤดูกาล',k:X.w1a.k},
+  tip:'จำความหมายให้ต่างกัน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[{h:'ใช้ 风景 ให้ถูกที่',bad:'…风景…',good:'这里的风景真漂亮。',k:X.w0a.k},{h:'ใช้ 季节 ให้ถูกที่',bad:'…季节…',good:'你喜欢哪个季节？',k:X.w1a.k},{h:'ใช้ 春天 ให้ถูกที่',bad:'…春天…',good:'我喜欢春天。',k:X.w2a.k},{h:'ใช้ 夏天 ให้ถูกที่',bad:'…夏天…',good:'夏天很热。',k:X.w3a.k}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:风景',opts:['ฤดูกาล', 'ทิวทัศน์', 'ฤดูใบไม้ผลิ'],ans:1,fb:'<span class="zh">风景</span> = ทิวทัศน์'}),
+ ask({rv:'ทบทวนบท 6-2',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-ml1-f',opts:['ดูแผนที่', 'ไปสวน', 'ฉันหลงทาง'],ans:2,fb:'<span class="zh">迷路</span> = หลงทาง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:季节',opts:[{img:NL(Jji)}, {img:NL(Chuntin)}, {img:NL(Fngjng)}],ans:0,fb:'<span class="zh">季节</span>'}),
+ blank({tag:TQ(3),s:'这里的_真漂亮。',th:'ทิวทัศน์ที่นี่สวยจริง ๆ',opts:['风景', '季节', '春天'],ans:0,k:X.w0a.k,fb:'<span class="zh">这里的风景真漂亮。</span>'}),
+ ask({rv:2,q:'ฟัง 风 แล้วเลือกวรรณยุกต์',k:'sy:风',opts:[{tone:3,lab:'เสียง 3'}, {tone:1,lab:'เสียง 1'}],ans:1,fb:'<span class="zh">风</span> เสียง 1'}),
+ reply({tag:TQ(4),q:'ฟังแล้วเลือกคำตอบที่เหมาะ',line:{...X.a,who:'me'},opts:[X.c1, X.c2, X.b],ans:2,why:'ตอบให้ต่อบทสนทนา'}),
+ ask({rv:'ทบทวนบท 6-1',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-yz1-t',opts:['ตรงไปข้างหน้าเรื่อย ๆ', 'นั่งรถยนต์', 'อยู่ฝั่งตรงข้าม'],ans:0,fb:'<span class="zh">一直</span> = ตรงไปเรื่อย ๆ'}),
+ order({tag:TQ(5),th:'ทิวทัศน์ที่นี่สวยจริง ๆ',tiles:[tl('风景','fēngjǐng'),tl('了','le'),tl('季节','jìjié')],ans:[0,1],end:'。',k:X.w0a.k}),
+ tf({tag:TQ(6),k:X.w0a.k,img:NL(Fngjng),card:'<b>风景</b><br>ทิวทัศน์ที่นี่สวยจริง ๆ',ans:0,fb:'<span class="zh">这里的风景真漂亮。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'ฟังแล้วเลือกคำตอบ',line:{...X.c,who:'f'},opts:[X.c4, X.c3, X.d],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'这里的_真漂亮。',opts:['季节', '风景', '春天'],ans:1,k:X.w0a.k,fb:'<span class="zh">这里的风景真漂亮。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('风景','fēngjǐng'),tl('了','le'),tl('季节','jìjié')],ans:[0,1],end:'。',k:X.w0b.k}),
+ fin({title:'จบบท ทิวทัศน์สี่ฤดู',html:dlgH(D,{noTh:1}),chips:[Fngjng,Jji,Chuntin,Xitin,Qiutin,Dngtin,Shji,Binhu].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L33',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

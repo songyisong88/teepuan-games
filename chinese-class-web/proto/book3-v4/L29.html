@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 7-4 โอกาสแข่งขัน</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 7-4 หน่วย 7: โอกาสแข่งขัน · คำใหม่ 经验 机会 需要 参加 比赛 完成 关系 虽然
+   สถานการณ์: ประสบการณ์น้อยแต่อยากเข้าร่วมการแข่งขัน */
+WHO.m={n:'หวังหมิง',img:ART('王明')};
+const Jngyn=W('经验','jīngyàn','ประสบการณ์',{s:'jīng yàn'}),Jhu=W('机会','jīhuì','โอกาส',{s:'jī huì'}),
+ Xuyo=W('需要','xūyào','ต้องการ / จำเป็นต้อง',{s:'xū yào'}),Cnji=W('参加','cānjiā','เข้าร่วม',{s:'cān jiā'}),
+ Bsi=W('比赛','bǐsài','แข่งขัน / การแข่งขัน',{s:'bǐ sài'}),Wnchng=W('完成','wánchéng','เสร็จสิ้น',{s:'wán chéng'}),
+ Gunxi=W('关系','guānxi','ความสัมพันธ์',{s:'guān xì'}),Surn=W('虽然','suīrán','แม้ว่า',{s:'suī rán'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('这是一个很好的机会。','zhè shì yí gè hěn hǎo de jī huì.','นี่เป็นโอกาสที่ดีมากค่ะ','p29-a-f'),
+ b:S('对。你应该参加比赛。','duì 。 nǐ yīng gāi cān jiā bǐ sài.','ใช่ เธอควรเข้าร่วมการแข่งขันครับ','p29-b-m'),
+ c:S('可是我没有很多经验。','kě shì wǒ méi yǒu hěn duō jīng yàn.','แต่ฉันไม่มีประสบการณ์มากนักค่ะ','p29-c-f'),
+ d:S('没关系。我需要你的帮助。','méi guān xì 。 wǒ xū yào nǐ de bāng zhù.','ไม่เป็นไร ผมต้องการความช่วยเหลือของเธอครับ','p29-d-m'),
+ e:S('虽然很累，但是我想完成。','suī rán hěn lèi ， dàn shì wǒ xiǎng wán chéng.','ถึงจะเหนื่อย แต่ฉันอยากทำให้เสร็จค่ะ','p29-e-f'),
+ f:S('好。我们的关系很好。','hǎo 。 wǒ men de guān xì hěn hǎo.','ได้ ความสัมพันธ์ของเราดีมากครับ','p29-f-m'),
+ w0a:S('她有很多工作经验。','tā yǒu hěn duō gōng zuò jīng yàn.','เธอมีประสบการณ์ทำงานมากค่ะ','p29-w0a-f'),
+ w0b:S('她有经验。','tā yǒu jīng yàn.','ประสบการณ์ครับ','p29-w0b-t'),
+ w1a:S('这是一个很好的机会。','zhè shì yí gè hěn hǎo de jī huì.','นี่เป็นโอกาสที่ดีมากครับ','p29-w1a-m'),
+ w1b:S('这是好机会。','zhè shì hǎo jī huì.','โอกาส','p29-w1b-f'),
+ w2a:S('我需要你的帮助。','wǒ xū yào nǐ de bāng zhù.','ฉันต้องการความช่วยเหลือของคุณค่ะ','p29-w2a-f'),
+ w2b:S('我需要帮助。','wǒ xū yào bāng zhù.','ต้องการครับ','p29-w2b-t'),
+ w3a:S('你应该参加。','nǐ yīng gāi cān jiā.','คุณควรเข้าร่วมครับ','p29-w3a-m'),
+ w3b:S('我想参加。','wǒ xiǎng cān jiā.','เข้าร่วมค่ะ','p29-w3b-f'),
+ w4a:S('比赛结束了。','bǐ sài jié shù le.','การแข่งขันจบแล้วค่ะ','p29-w4a-f'),
+ w4b:S('比赛开始了。','bǐ sài kāi shǐ le.','แข่งขันครับ','p29-w4b-t'),
+ w5a:S('我完成了作业。','wǒ wán chéng le zuò yè.','ฉันทำการบ้านเสร็จแล้วครับ','p29-w5a-m'),
+ w5b:S('我完成了。','wǒ wán chéng le.','เสร็จสิ้นค่ะ','p29-w5b-f'),
+ w6a:S('我们的关系很好。','wǒ men de guān xì hěn hǎo.','ความสัมพันธ์ของเราดีมากค่ะ','p29-w6a-f'),
+ w6b:S('关系很好。','guān xì hěn hǎo.','ความสัมพันธ์ครับ','p29-w6b-t'),
+ w7a:S('虽然很累，但是我很高兴。','suī rán hěn lèi ， dàn shì wǒ hěn gāo xìng.','ถึงจะเหนื่อยมาก แต่ฉันก็ดีใจครับ','p29-w7a-m'),
+ w7b:S('虽然累，但是高兴。','suī rán lèi ， dàn shì gāo xìng.','แม้ว่า','p29-w7b-f'),
+ c1:S('经验','jīng yàn','ประสบการณ์ครับ','p29-c1-t'),
+ c2:S('机会','jī huì','โอกาส','p29-c2-t'),
+ c3:S('需要','xū yào','ต้องการครับ','p29-c3-t'),
+ c4:S('参加','cān jiā','เข้าร่วมครับ','p29-c4-t'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ ครับ','p23-yz1-t'),};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'ประสบการณ์น้อยแต่อยากเข้าร่วมการแข่งขัน',img:NL(Jngyn)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(Jngyn),th:'ประสบการณ์'},{img:NL(Jhu),th:'โอกาส'},{img:NL(Xuyo),th:'ต้องการ'},{img:NL(Cnji),th:'เข้าร่วม'}];
+const BINS=[{img:NL(Jngyn),zh:'经验',py:'jīngyàn',th:'ประสบการณ์'},{img:NL(Jhu),zh:'机会',py:'jīhuì',th:'โอกาส'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:29,code:'บท 7-4',title:'โอกาสแข่งขัน',goal:{do:'ประสบการณ์น้อยแต่อยากเข้าร่วมการแข่งขัน',sub:'ใช้ <span class="gz">经验 · 机会 · 需要 · 参加 · 比赛</span>',min:12},steps:[
+ intro({scene:NL(Jngyn),cap:'สถานการณ์ของบทนี้',title:'โอกาสแข่งขัน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะใช้คำใหม่ของบทนี้ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[Jngyn,Jhu,Xuyo,Cnji,Bsi,Wnchng,Gunxi,Surn]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['经验','机会','需要','参加','比赛','完成','关系','虽然'],note:'ใช้คำที่รู้แล้วร่วมด้วย'}),
+ ...WC(Jngyn,1,8,{cap:'คำใหม่',hint:'คล้าย <b>"jīngyàn"</b>',use:'ประสบการณ์',ex:[X.w0a,X.w0b]}),
+ ...WC(Jhu,2,8,{cap:'คำใหม่',hint:'คล้าย <b>"jīhuì"</b>',use:'โอกาส',ex:[X.w1a,X.w1b]}),
+ ...WC(Xuyo,3,8,{cap:'คำใหม่',hint:'คล้าย <b>"xūyào"</b>',use:'ต้องการ / จำเป็นต้อง',ex:[X.w2a,X.w2b]}),
+ ...WC(Cnji,4,8,{cap:'คำใหม่',hint:'คล้าย <b>"cānjiā"</b>',use:'เข้าร่วม',ex:[X.w3a,X.w3b]}),
+ RC('คำที่ 1–4/8',[Jngyn,Jhu,Xuyo,Cnji]),
+ use({n:'คำที่ 1–4/8',w:Jngyn,when:[{img:NL(Jngyn),t:'ใช้คำนี้'},{img:NL(Jhu),t:'เทียบกับคำข้าง ๆ'}],lines:[{...X.w0a,who:'me'},{...X.w0b,who:'g'}],tip:'ฟังตัวอย่างแล้วพูดตาม'}),
+ ...WC(Bsi,5,8,{cap:'คำใหม่',hint:'คล้าย <b>"bǐsài"</b>',use:'แข่งขัน / การแข่งขัน',ex:[X.w4a,X.w4b]}),
+ ...WC(Wnchng,6,8,{cap:'คำใหม่',hint:'คล้าย <b>"wánchéng"</b>',use:'เสร็จสิ้น',ex:[X.w5a,X.w5b]}),
+ ...WC(Gunxi,7,8,{cap:'คำใหม่',hint:'คล้าย <b>"guānxi"</b>',use:'ความสัมพันธ์',ex:[X.w6a,X.w6b]}),
+ ...WC(Surn,8,8,{cap:'คำใหม่',hint:'คล้าย <b>"suīrán"</b>',use:'แม้ว่า',ex:[X.w7a,X.w7b]}),
+ RC('คำที่ 5–8/8',[Bsi,Wnchng,Gunxi,Surn]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','พูดสั้น ๆ','แตะภาพ','แยกคำ','เทียบคำ','ข้อควรระวัง'],note:'ฝึกใช้คำใหม่'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'โอกาสแข่งขัน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำในบทนี้'}),
+ talk({cap:'เทคนิค 2/6 · พูดสั้น ๆ',title:'ฝึกประโยค',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.b,who:'m'},{...X.c,who:'me'},{...X.d,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ฟังแล้วพูดตาม · ใช้คำใหม่ให้ครบ'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ sortmap({tag:'เทคนิค 4/6 · แยกคำ',q:'ฟังแต่ละประโยค แล้วแตะคำที่ตรงกัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(Jngyn),X.w0a,0),it(NL(Jhu),X.w1a,1),it(NL(Jngyn),X.w0b,0),it(NL(Jhu),X.w1b,1)]}),
+ cmp({cap:'เทคนิค 5/6 · เทียบคำ',title:'经验 กับ 机会',text:'แตะการ์ดเพื่อฟัง',a:{who:'ประสบการณ์',img:NL(Jngyn),zh:X.w0a.zh,zhb:'经验',py:'jīngyàn',th:'ประสบการณ์',k:X.w0a.k},b:{who:'โอกาส',img:NL(Jhu),zh:X.w1a.zh,zhb:'机会',py:'jīhuì',th:'โอกาส',k:X.w1a.k},
+  tip:'จำความหมายให้ต่างกัน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[{h:'ใช้ 经验 ให้ถูกที่',bad:'…经验…',good:'她有很多工作经验。',k:X.w0a.k},{h:'ใช้ 机会 ให้ถูกที่',bad:'…机会…',good:'这是一个很好的机会。',k:X.w1a.k},{h:'ใช้ 需要 ให้ถูกที่',bad:'…需要…',good:'我需要你的帮助。',k:X.w2a.k},{h:'ใช้ 参加 ให้ถูกที่',bad:'…参加…',good:'你应该参加。',k:X.w3a.k}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:经验',opts:['ต้องการ', 'ประสบการณ์', 'โอกาส'],ans:1,fb:'<span class="zh">经验</span> = ประสบการณ์'}),
+ ask({rv:'ทบทวนบท 6-2',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-ml1-f',opts:['ดูแผนที่', 'ไปสวน', 'ฉันหลงทาง'],ans:2,fb:'<span class="zh">迷路</span> = หลงทาง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:机会',opts:[{img:NL(Jhu)}, {img:NL(Jngyn)}, {img:NL(Xuyo)}],ans:0,fb:'<span class="zh">机会</span>'}),
+ blank({tag:TQ(3),s:'她有很多工作_。',th:'เธอมีประสบการณ์ทำงานมาก',opts:['经验', '机会', '需要'],ans:0,k:X.w0a.k,fb:'<span class="zh">她有很多工作经验。</span>'}),
+ ask({rv:2,q:'ฟัง 经 แล้วเลือกวรรณยุกต์',k:'sy:经',opts:[{tone:3,lab:'เสียง 3'}, {tone:1,lab:'เสียง 1'}],ans:1,fb:'<span class="zh">经</span> เสียง 1'}),
+ reply({tag:TQ(4),q:'ฟังแล้วเลือกคำตอบที่เหมาะ',line:{...X.a,who:'me'},opts:[X.c1, X.c2, X.b],ans:2,why:'ตอบให้ต่อบทสนทนา'}),
+ ask({rv:'ทบทวนบท 6-1',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-yz1-t',opts:['ตรงไปข้างหน้าเรื่อย ๆ', 'นั่งรถยนต์', 'อยู่ฝั่งตรงข้าม'],ans:0,fb:'<span class="zh">一直</span> = ตรงไปเรื่อย ๆ'}),
+ order({tag:TQ(5),th:'เธอมีประสบการณ์ทำงานมาก',tiles:[tl('经验','jīngyàn'),tl('了','le'),tl('机会','jīhuì')],ans:[0,1],end:'。',k:X.w0a.k}),
+ tf({tag:TQ(6),k:X.w0a.k,img:NL(Jngyn),card:'<b>经验</b><br>เธอมีประสบการณ์ทำงานมาก',ans:0,fb:'<span class="zh">她有很多工作经验。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'ฟังแล้วเลือกคำตอบ',line:{...X.c,who:'f'},opts:[X.c4, X.c3, X.d],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'她有很多工作_。',opts:['机会', '经验', '需要'],ans:1,k:X.w0a.k,fb:'<span class="zh">她有很多工作经验。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('经验','jīngyàn'),tl('了','le'),tl('机会','jīhuì')],ans:[0,1],end:'。',k:X.w0b.k}),
+ fin({title:'จบบท โอกาสแข่งขัน',html:dlgH(D,{noTh:1}),chips:[Jngyn,Jhu,Xuyo,Cnji,Bsi,Wnchng,Gunxi,Surn].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L29',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

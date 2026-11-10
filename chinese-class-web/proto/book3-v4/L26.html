@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 7-1 วันแรกที่ออฟฟิศ</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 7-1 หน่วย 7: วันแรกที่ออฟฟิศ · คำใหม่ 经理 同事 办公室 电梯 迟到 会议 结束 习惯
+   สถานการณ์: รู้จักผู้จัดการและเพื่อนร่วมงาน ไปประชุม ยังไม่ชิน */
+WHO.m={n:'เพื่อนร่วมงาน',img:ART('同事')};
+const Jngl=W('经理','jīnglǐ','ผู้จัดการ',{s:'jīng lǐ'}),Tngsh=W('同事','tóngshì','เพื่อนร่วมงาน',{s:'tóng shì'}),
+ Bngngsh=W('办公室','bàngōngshì','ห้องทำงาน / ออฟฟิศ',{s:'bàn gōng shì'}),Dint=W('电梯','diàntī','ลิฟต์',{s:'diàn tī'}),
+ Chdo=W('迟到','chídào','มาสาย',{s:'chí dào'}),Huy=W('会议','huìyì','การประชุม',{s:'huì yì'}),
+ Jishu=W('结束','jiéshù','สิ้นสุด',{s:'jié shù'}),Xgun=W('习惯','xíguàn','ความเคยชิน / ชิน',{s:'xí guàn'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('请问，经理在办公室吗？','qǐng wèn ， jīng lǐ zài bàn gōng shì ma?','ขอถามหน่อย ผู้จัดการอยู่ในห้องทำงานไหมคะ','p26-a-f'),
+ b:S('在。我们坐电梯上去吧。','zài 。 wǒ men zuò diàn tī shàng qù ba.','อยู่ เรานั่งลิฟต์ขึ้นไปกันเถอะครับ','p26-b-t'),
+ c:S('好。今天下午有会议吗？','hǎo 。 jīn tiān xià wǔ yǒu huì yì ma?','ได้ บ่ายนี้มีประชุมไหมคะ','p26-c-f'),
+ d:S('有。三点开始，五点结束。','yǒu 。 sān diǎn kāi shǐ ， wǔ diǎn jié shù.','มี เริ่มสามโมง เลิกห้าโมงครับ','p26-d-t'),
+ e:S('我还不太习惯这里。','wǒ hái bù tài xí guàn zhè lǐ.','ฉันยังไม่ค่อยชินที่นี่ค่ะ','p26-e-f'),
+ f:S('没关系。同事们都很好。','méi guān xì 。 tóng shì men dōu hěn hǎo.','ไม่เป็นไร เพื่อนร่วมงานดีทุกคนครับ','p26-f-m'),
+ w0a:S('经理今天不在公司。','jīng lǐ jīn tiān bù zài gōng sī.','วันนี้ผู้จัดการไม่อยู่ที่บริษัทค่ะ','p26-w0a-f'),
+ w0b:S('经理在公司。','jīng lǐ zài gōng sī.','ผู้จัดการครับ','p26-w0b-t'),
+ w1a:S('我的同事都很好。','wǒ de tóng shì dōu hěn hǎo.','เพื่อนร่วมงานของฉันดีทุกคนครับ','p26-w1a-m'),
+ w1b:S('同事很好。','tóng shì hěn hǎo.','เพื่อนร่วมงานค่ะ','p26-w1b-f'),
+ w2a:S('经理在办公室里。','jīng lǐ zài bàn gōng shì lǐ.','ผู้จัดการอยู่ในห้องทำงานค่ะ','p26-w2a-f'),
+ w2b:S('我在办公室。','wǒ zài bàn gōng shì.','ห้องทำงานครับ','p26-w2b-t'),
+ w3a:S('我们坐电梯吧。','wǒ men zuò diàn tī ba.','เรานั่งลิฟต์กันเถอะครับ','p26-w3a-m'),
+ w3b:S('请坐电梯。','qǐng zuò diàn tī.','ลิฟต์','p26-w3b-f'),
+ w4a:S('今天我上班迟到了。','jīn tiān wǒ shàng bān chí dào le.','วันนี้ฉันไปทำงานสายค่ะ','p26-w4a-f'),
+ w4b:S('我迟到了。','wǒ chí dào le.','มาสายครับ','p26-w4b-t'),
+ w5a:S('下午三点有一个会议。','xià wǔ sān diǎn yǒu yí gè huì yì.','บ่ายสามมีประชุมหนึ่งครั้งครับ','p26-w5a-m'),
+ w5b:S('有一个会议。','yǒu yí gè huì yì.','การประชุมค่ะ','p26-w5b-f'),
+ w6a:S('会议几点结束？','huì yì jǐ diǎn jié shù?','การประชุมจบกี่โมงค่ะ','p26-w6a-f'),
+ w6b:S('会议结束了。','huì yì jié shù le.','สิ้นสุดครับ','p26-w6b-t'),
+ w7a:S('我已经习惯了这里的天气。','wǒ yǐ jīng xí guàn le zhè lǐ de tiān qì.','ฉันชินกับอากาศที่นี่แล้วครับ','p26-w7a-m'),
+ w7b:S('我习惯了。','wǒ xí guàn le.','ความเคยชินค่ะ','p26-w7b-f'),
+ c1:S('经理','jīng lǐ','ผู้จัดการครับ','p26-c1-t'),
+ c2:S('同事','tóng shì','เพื่อนร่วมงานครับ','p26-c2-t'),
+ c3:S('办公室','bàn gōng shì','ห้องทำงานครับ','p26-c3-t'),
+ c4:S('电梯','diàn tī','ลิฟต์','p26-c4-t'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ ครับ','p23-yz1-t'),};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'รู้จักผู้จัดการและเพื่อนร่วมงาน ไปประชุม ยังไม่ชิน',img:NL(Jngl)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(Jngl),th:'ผู้จัดการ'},{img:NL(Tngsh),th:'เพื่อนร่วมงาน'},{img:NL(Bngngsh),th:'ห้องทำงาน'},{img:NL(Dint),th:'ลิฟต์'}];
+const BINS=[{img:NL(Jngl),zh:'经理',py:'jīnglǐ',th:'ผู้จัดการ'},{img:NL(Tngsh),zh:'同事',py:'tóngshì',th:'เพื่อนร่วมงาน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:26,code:'บท 7-1',title:'วันแรกที่ออฟฟิศ',goal:{do:'รู้จักผู้จัดการและเพื่อนร่วมงาน ไปประชุม ยังไม่ชิน',sub:'ใช้ <span class="gz">经理 · 同事 · 办公室 · 电梯 · 迟到</span>',min:12},steps:[
+ intro({scene:NL(Jngl),cap:'สถานการณ์ของบทนี้',title:'วันแรกที่ออฟฟิศ',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะใช้คำใหม่ของบทนี้ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[Jngl,Tngsh,Bngngsh,Dint,Chdo,Huy,Jishu,Xgun]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['经理','同事','办公室','电梯','迟到','会议','结束','习惯'],note:'ใช้คำที่รู้แล้วร่วมด้วย'}),
+ ...WC(Jngl,1,8,{cap:'คำใหม่',hint:'คล้าย <b>"jīnglǐ"</b>',use:'ผู้จัดการ',ex:[X.w0a,X.w0b]}),
+ ...WC(Tngsh,2,8,{cap:'คำใหม่',hint:'คล้าย <b>"tóngshì"</b>',use:'เพื่อนร่วมงาน',ex:[X.w1a,X.w1b]}),
+ ...WC(Bngngsh,3,8,{cap:'คำใหม่',hint:'คล้าย <b>"bàngōngshì"</b>',use:'ห้องทำงาน / ออฟฟิศ',ex:[X.w2a,X.w2b]}),
+ ...WC(Dint,4,8,{cap:'คำใหม่',hint:'คล้าย <b>"diàntī"</b>',use:'ลิฟต์',ex:[X.w3a,X.w3b]}),
+ RC('คำที่ 1–4/8',[Jngl,Tngsh,Bngngsh,Dint]),
+ use({n:'คำที่ 1–4/8',w:Jngl,when:[{img:NL(Jngl),t:'ใช้คำนี้'},{img:NL(Tngsh),t:'เทียบกับคำข้าง ๆ'}],lines:[{...X.w0a,who:'me'},{...X.w0b,who:'g'}],tip:'ฟังตัวอย่างแล้วพูดตาม'}),
+ ...WC(Chdo,5,8,{cap:'คำใหม่',hint:'คล้าย <b>"chídào"</b>',use:'มาสาย',ex:[X.w4a,X.w4b]}),
+ ...WC(Huy,6,8,{cap:'คำใหม่',hint:'คล้าย <b>"huìyì"</b>',use:'การประชุม',ex:[X.w5a,X.w5b]}),
+ ...WC(Jishu,7,8,{cap:'คำใหม่',hint:'คล้าย <b>"jiéshù"</b>',use:'สิ้นสุด',ex:[X.w6a,X.w6b]}),
+ ...WC(Xgun,8,8,{cap:'คำใหม่',hint:'คล้าย <b>"xíguàn"</b>',use:'ความเคยชิน / ชิน',ex:[X.w7a,X.w7b]}),
+ RC('คำที่ 5–8/8',[Chdo,Huy,Jishu,Xgun]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','พูดสั้น ๆ','แตะภาพ','แยกคำ','เทียบคำ','ข้อควรระวัง'],note:'ฝึกใช้คำใหม่'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'วันแรกที่ออฟฟิศ',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำในบทนี้'}),
+ talk({cap:'เทคนิค 2/6 · พูดสั้น ๆ',title:'ฝึกประโยค',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.b,who:'m'},{...X.c,who:'me'},{...X.d,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ฟังแล้วพูดตาม · ใช้คำใหม่ให้ครบ'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ sortmap({tag:'เทคนิค 4/6 · แยกคำ',q:'ฟังแต่ละประโยค แล้วแตะคำที่ตรงกัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(Jngl),X.w0a,0),it(NL(Tngsh),X.w1a,1),it(NL(Jngl),X.w0b,0),it(NL(Tngsh),X.w1b,1)]}),
+ cmp({cap:'เทคนิค 5/6 · เทียบคำ',title:'经理 กับ 同事',text:'แตะการ์ดเพื่อฟัง',a:{who:'ผู้จัดการ',img:NL(Jngl),zh:X.w0a.zh,zhb:'经理',py:'jīnglǐ',th:'ผู้จัดการ',k:X.w0a.k},b:{who:'เพื่อนร่วมงาน',img:NL(Tngsh),zh:X.w1a.zh,zhb:'同事',py:'tóngshì',th:'เพื่อนร่วมงาน',k:X.w1a.k},
+  tip:'จำความหมายให้ต่างกัน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[{h:'ใช้ 经理 ให้ถูกที่',bad:'…经理…',good:'经理今天不在公司。',k:X.w0a.k},{h:'ใช้ 同事 ให้ถูกที่',bad:'…同事…',good:'我的同事都很好。',k:X.w1a.k},{h:'ใช้ 办公室 ให้ถูกที่',bad:'…办公室…',good:'经理在办公室里。',k:X.w2a.k},{h:'ใช้ 电梯 ให้ถูกที่',bad:'…电梯…',good:'我们坐电梯吧。',k:X.w3a.k}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:经理',opts:['ผู้จัดการ', 'ห้องทำงาน', 'เพื่อนร่วมงาน'],ans:0,fb:'<span class="zh">经理</span> = ผู้จัดการ'}),
+ ask({rv:'ทบทวนบท 6-2',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-ml1-f',opts:['ดูแผนที่', 'ไปสวน', 'ฉันหลงทาง'],ans:2,fb:'<span class="zh">迷路</span> = หลงทาง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:同事',opts:[{img:NL(Jngl)}, {img:NL(Tngsh)}, {img:NL(Bngngsh)}],ans:1,fb:'<span class="zh">同事</span>'}),
+ blank({tag:TQ(3),s:'_今天不在公司。',th:'วันนี้ผู้จัดการไม่อยู่ที่บริษัท',opts:['办公室', '经理', '同事'],ans:1,k:X.w0a.k,fb:'<span class="zh">经理今天不在公司。</span>'}),
+ ask({rv:2,q:'ฟัง 经 แล้วเลือกวรรณยุกต์',k:'sy:经',opts:[{tone:1,lab:'เสียง 1'}, {tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">经</span> เสียง 1'}),
+ reply({tag:TQ(4),q:'ฟังแล้วเลือกคำตอบที่เหมาะ',line:{...X.a,who:'me'},opts:[X.c1, X.c2, X.b],ans:2,why:'ตอบให้ต่อบทสนทนา'}),
+ ask({rv:'ทบทวนบท 6-1',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-yz1-t',opts:['ตรงไปข้างหน้าเรื่อย ๆ', 'นั่งรถยนต์', 'อยู่ฝั่งตรงข้าม'],ans:0,fb:'<span class="zh">一直</span> = ตรงไปเรื่อย ๆ'}),
+ order({tag:TQ(5),th:'วันนี้ผู้จัดการไม่อยู่ที่บริษัท',tiles:[tl('经理','jīnglǐ'),tl('了','le'),tl('同事','tóngshì')],ans:[0,1],end:'。',k:X.w0a.k}),
+ tf({tag:TQ(6),k:X.w0a.k,img:NL(Jngl),card:'<b>经理</b><br>วันนี้ผู้จัดการไม่อยู่ที่บริษัท',ans:0,fb:'<span class="zh">经理今天不在公司。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'ฟังแล้วเลือกคำตอบ',line:{...X.c,who:'f'},opts:[X.c4, X.c3, X.d],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'_今天不在公司。',opts:['办公室', '经理', '同事'],ans:1,k:X.w0a.k,fb:'<span class="zh">经理今天不在公司。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('经理','jīnglǐ'),tl('了','le'),tl('同事','tóngshì')],ans:[0,1],end:'。',k:X.w0b.k}),
+ fin({title:'จบบท วันแรกที่ออฟฟิศ',html:dlgH(D,{noTh:1}),chips:[Jngl,Tngsh,Bngngsh,Dint,Chdo,Huy,Jishu,Xgun].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L26',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

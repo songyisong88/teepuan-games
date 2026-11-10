@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 7-3 ความรู้สึกวันประกาศผล</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 7-3 หน่วย 7: ความรู้สึกวันประกาศผล · คำใหม่ 担心 害怕 生气 难过 激动 满意 突然 终于
+   สถานการณ์: กังวล กลัว เสียใจ ตื่นเต้น และพอใจ */
+WHO.m={n:'หวังหมิง',img:ART('王明')};
+const Dnxn=W('担心','dānxīn','กังวล',{s:'dān xīn'}),Hip=W('害怕','hàipà','กลัว',{s:'hài pà'}),
+ Shngq=W('生气','shēng qì','โกรธ',{s:'shēng qì'}),Nngu=W('难过','nánguò','เสียใจ',{s:'nán guò'}),
+ Jdng=W('激动','jīdòng','ตื่นเต้น / ซาบซึ้ง',{s:'jī dòng'}),Mny=W('满意','mǎnyì','พอใจ',{s:'mǎn yì'}),
+ Turn=W('突然','tūrán','ทันใดนั้น',{s:'tū rán'}),Zhngyu=W('终于','zhōngyú','ในที่สุด',{s:'zhōng yú'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('明天有考试，我很担心。','míng tiān yǒu kǎo shì ， wǒ hěn dān xīn.','พรุ่งนี้มีสอบ ฉันกังวลมากค่ะ','p28-a-f'),
+ b:S('别害怕，你准备得很好。','bié hài pà ， nǐ zhǔn bèi dé hěn hǎo.','อย่ากลัว เธอเตรียมตัวดีมากแล้วครับ','p28-b-m'),
+ c:S('可是我有点儿难过。','kě shì wǒ yǒu diǎn ér nán guò.','แต่ฉันเสียใจนิดหน่อยค่ะ','p28-c-f'),
+ d:S('别生气，也别难过。','bié shēng qì ， yě bié nán guò.','อย่าโกรธนะ อย่าเสียใจด้วยครับ','p28-d-m'),
+ e:S('突然听到成绩，我很激动。','tū rán tīng dào chéng jì ， wǒ hěn jī dòng.','ได้ยินผลสอบจู่ ๆ ฉันตื่นเต้นมากค่ะ','p28-e-f'),
+ f:S('太好了！我对你很满意。','tài hǎo le ！ wǒ duì nǐ hěn mǎn yì.','ดีจัง ผมพอใจในตัวเธอมากครับ','p28-f-m'),
+ w0a:S('我很担心明天的考试。','wǒ hěn dān xīn míng tiān de kǎo shì.','ฉันกังวลเรื่องสอบพรุ่งนี้มากค่ะ','p28-w0a-f'),
+ w0b:S('我很担心。','wǒ hěn dān xīn.','กังวลครับ','p28-w0b-t'),
+ w1a:S('我有点儿害怕。','wǒ yǒu diǎn ér hài pà.','ฉันกลัวนิด ๆครับ','p28-w1a-m'),
+ w1b:S('我有点儿害怕。','wǒ yǒu diǎn ér hài pà.','กลัว','p28-w1b-f'),
+ w2a:S('别生气，好吗？','bié shēng qì ， hǎo ma?','อย่าโกรธนะ ได้ไหมคะ','p28-w2a-f'),
+ w2b:S('别生气。','bié shēng qì.','โกรธครับ','p28-w2b-t'),
+ w3a:S('我有点儿难过。','wǒ yǒu diǎn ér nán guò.','ฉันเสียใจนิดหน่อยครับ','p28-w3a-m'),
+ w3b:S('我很难过。','wǒ hěn nán guò.','เสียใจ','p28-w3b-f'),
+ w4a:S('我有点儿担心，但是也很激动。','wǒ yǒu diǎn ér dān xīn ， dàn shì yě hěn jī dòng.','ฉันกังวลนิดหน่อยแต่ก็ตื่นเต้นด้วยค่ะ','p28-w4a-f'),
+ w4b:S('我很激动。','wǒ hěn jī dòng.','ตื่นเต้นครับ','p28-w4b-t'),
+ w5a:S('我对成绩很满意。','wǒ duì chéng jì hěn mǎn yì.','ฉันพอใจกับผลสอบมากครับ','p28-w5a-m'),
+ w5b:S('我很满意。','wǒ hěn mǎn yì.','พอใจ','p28-w5b-f'),
+ w6a:S('突然下雨了。','tū rán xià yǔ le.','จู่ ๆ ฝนก็ตกค่ะ','p28-w6a-f'),
+ w6b:S('突然下雨了。','tū rán xià yǔ le.','ทันใดนั้นครับ','p28-w6b-t'),
+ w7a:S('太好了，我们终于到了。','tài hǎo le ， wǒ men zhōng yú dào le.','ดีจัง ในที่สุดเราก็ถึงแล้วครับ','p28-w7a-m'),
+ w7b:S('我们终于到了。','wǒ men zhōng yú dào le.','ในที่สุดค่ะ','p28-w7b-f'),
+ c1:S('担心','dān xīn','กังวล','p28-c1-t'),
+ c2:S('害怕','hài pà','กลัว','p28-c2-t'),
+ c3:S('生气','shēng qì','โกรธ','p28-c3-t'),
+ c4:S('难过','nán guò','เสียใจครับ','p28-c4-t'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ ครับ','p23-yz1-t'),};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'m'},c:{...X.c,who:'me'},d:{...X.d,who:'m'},e:{...X.e,who:'me'},f:{...X.f,who:'m'}};
+const D=[{sit:'กังวล กลัว เสียใจ ตื่นเต้น และพอใจ',img:NL(Dnxn)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(Dnxn),th:'กังวล'},{img:NL(Hip),th:'กลัว'},{img:NL(Shngq),th:'โกรธ'},{img:NL(Nngu),th:'เสียใจ'}];
+const BINS=[{img:NL(Dnxn),zh:'担心',py:'dānxīn',th:'กังวล'},{img:NL(Hip),zh:'害怕',py:'hàipà',th:'กลัว'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:28,code:'บท 7-3',title:'ความรู้สึกวันประกาศผล',goal:{do:'กังวล กลัว เสียใจ ตื่นเต้น และพอใจ',sub:'ใช้ <span class="gz">担心 · 害怕 · 生气 · 难过 · 激动</span>',min:12},steps:[
+ intro({scene:NL(Dnxn),cap:'สถานการณ์ของบทนี้',title:'ความรู้สึกวันประกาศผล',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะใช้คำใหม่ของบทนี้ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[Dnxn,Hip,Shngq,Nngu,Jdng,Mny,Turn,Zhngyu]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['担心','害怕','生气','难过','激动','满意','突然','终于'],note:'ใช้คำที่รู้แล้วร่วมด้วย'}),
+ ...WC(Dnxn,1,8,{cap:'คำใหม่',hint:'คล้าย <b>"dānxīn"</b>',use:'กังวล',ex:[X.w0a,X.w0b]}),
+ ...WC(Hip,2,8,{cap:'คำใหม่',hint:'คล้าย <b>"hàipà"</b>',use:'กลัว',ex:[X.w1a,X.w1b]}),
+ ...WC(Shngq,3,8,{cap:'คำใหม่',hint:'คล้าย <b>"shēng qì"</b>',use:'โกรธ',ex:[X.w2a,X.w2b]}),
+ ...WC(Nngu,4,8,{cap:'คำใหม่',hint:'คล้าย <b>"nánguò"</b>',use:'เสียใจ',ex:[X.w3a,X.w3b]}),
+ RC('คำที่ 1–4/8',[Dnxn,Hip,Shngq,Nngu]),
+ use({n:'คำที่ 1–4/8',w:Dnxn,when:[{img:NL(Dnxn),t:'ใช้คำนี้'},{img:NL(Hip),t:'เทียบกับคำข้าง ๆ'}],lines:[{...X.w0a,who:'me'},{...X.w0b,who:'g'}],tip:'ฟังตัวอย่างแล้วพูดตาม'}),
+ ...WC(Jdng,5,8,{cap:'คำใหม่',hint:'คล้าย <b>"jīdòng"</b>',use:'ตื่นเต้น / ซาบซึ้ง',ex:[X.w4a,X.w4b]}),
+ ...WC(Mny,6,8,{cap:'คำใหม่',hint:'คล้าย <b>"mǎnyì"</b>',use:'พอใจ',ex:[X.w5a,X.w5b]}),
+ ...WC(Turn,7,8,{cap:'คำใหม่',hint:'คล้าย <b>"tūrán"</b>',use:'ทันใดนั้น',ex:[X.w6a,X.w6b]}),
+ ...WC(Zhngyu,8,8,{cap:'คำใหม่',hint:'คล้าย <b>"zhōngyú"</b>',use:'ในที่สุด',ex:[X.w7a,X.w7b]}),
+ RC('คำที่ 5–8/8',[Jdng,Mny,Turn,Zhngyu]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','พูดสั้น ๆ','แตะภาพ','แยกคำ','เทียบคำ','ข้อควรระวัง'],note:'ฝึกใช้คำใหม่'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'ความรู้สึกวันประกาศผล',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำในบทนี้'}),
+ talk({cap:'เทคนิค 2/6 · พูดสั้น ๆ',title:'ฝึกประโยค',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.b,who:'m'},{...X.c,who:'me'},{...X.d,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ฟังแล้วพูดตาม · ใช้คำใหม่ให้ครบ'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ sortmap({tag:'เทคนิค 4/6 · แยกคำ',q:'ฟังแต่ละประโยค แล้วแตะคำที่ตรงกัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(Dnxn),X.w0a,0),it(NL(Hip),X.w1a,1),it(NL(Dnxn),X.w0b,0),it(NL(Hip),X.w1b,1)]}),
+ cmp({cap:'เทคนิค 5/6 · เทียบคำ',title:'担心 กับ 害怕',text:'แตะการ์ดเพื่อฟัง',a:{who:'กังวล',img:NL(Dnxn),zh:X.w0a.zh,zhb:'担心',py:'dānxīn',th:'กังวล',k:X.w0a.k},b:{who:'กลัว',img:NL(Hip),zh:X.w1a.zh,zhb:'害怕',py:'hàipà',th:'กลัว',k:X.w1a.k},
+  tip:'จำความหมายให้ต่างกัน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[{h:'ใช้ 担心 ให้ถูกที่',bad:'…担心…',good:'我很担心明天的考试。',k:X.w0a.k},{h:'ใช้ 害怕 ให้ถูกที่',bad:'…害怕…',good:'我有点儿害怕。',k:X.w1a.k},{h:'ใช้ 生气 ให้ถูกที่',bad:'…生气…',good:'别生气，好吗？',k:X.w2a.k},{h:'ใช้ 难过 ให้ถูกที่',bad:'…难过…',good:'我有点儿难过。',k:X.w3a.k}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:担心',opts:['โกรธ', 'กังวล', 'กลัว'],ans:1,fb:'<span class="zh">担心</span> = กังวล'}),
+ ask({rv:'ทบทวนบท 6-2',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-ml1-f',opts:['ดูแผนที่', 'ไปสวน', 'ฉันหลงทาง'],ans:2,fb:'<span class="zh">迷路</span> = หลงทาง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:害怕',opts:[{img:NL(Hip)}, {img:NL(Shngq)}, {img:NL(Dnxn)}],ans:0,fb:'<span class="zh">害怕</span>'}),
+ blank({tag:TQ(3),s:'我很_明天的考试。',th:'ฉันกังวลเรื่องสอบพรุ่งนี้มาก',opts:['担心', '生气', '害怕'],ans:0,k:X.w0a.k,fb:'<span class="zh">我很担心明天的考试。</span>'}),
+ ask({rv:2,q:'ฟัง 担 แล้วเลือกวรรณยุกต์',k:'sy:担',opts:[{tone:3,lab:'เสียง 3'}, {tone:1,lab:'เสียง 1'}],ans:1,fb:'<span class="zh">担</span> เสียง 1'}),
+ reply({tag:TQ(4),q:'ฟังแล้วเลือกคำตอบที่เหมาะ',line:{...X.a,who:'me'},opts:[X.c1, X.c2, X.b],ans:2,why:'ตอบให้ต่อบทสนทนา'}),
+ ask({rv:'ทบทวนบท 6-1',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-yz1-t',opts:['ตรงไปข้างหน้าเรื่อย ๆ', 'นั่งรถยนต์', 'อยู่ฝั่งตรงข้าม'],ans:0,fb:'<span class="zh">一直</span> = ตรงไปเรื่อย ๆ'}),
+ order({tag:TQ(5),th:'ฉันกังวลเรื่องสอบพรุ่งนี้มาก',tiles:[tl('担心','dānxīn'),tl('了','le'),tl('害怕','hàipà')],ans:[0,1],end:'。',k:X.w0a.k}),
+ tf({tag:TQ(6),k:X.w0a.k,img:NL(Dnxn),card:'<b>担心</b><br>ฉันกังวลเรื่องสอบพรุ่งนี้มาก',ans:0,fb:'<span class="zh">我很担心明天的考试。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'ฟังแล้วเลือกคำตอบ',line:{...X.c,who:'f'},opts:[X.c4, X.c3, X.d],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'我很_明天的考试。',opts:['生气', '担心', '害怕'],ans:1,k:X.w0a.k,fb:'<span class="zh">我很担心明天的考试。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('担心','dānxīn'),tl('了','le'),tl('害怕','hàipà')],ans:[0,1],end:'。',k:X.w0b.k}),
+ fin({title:'จบบท ความรู้สึกวันประกาศผล',html:dlgH(D,{noTh:1}),chips:[Dnxn,Hip,Shngq,Nngu,Jdng,Mny,Turn,Zhngyu].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L28',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

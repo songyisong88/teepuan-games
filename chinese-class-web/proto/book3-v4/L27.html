@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../../assets/icons/favicon-64.png">
+<link rel="stylesheet" href="../../fonts/fonts.css"><link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../style2.css"><link rel="stylesheet" href="../../piclearn.css"><link rel="stylesheet" href="../../l1.css"><link rel="stylesheet" href="../../fx2.css">
+<link rel="stylesheet" href="common.css"><link rel="stylesheet" href="engine.css"><link rel="stylesheet" href="book1.css"><link rel="stylesheet" href="book2.css">
+<script src="dur.js"></script><script src="clips.js"></script><script src="common.js"></script><script src="engine.js"></script><script src="book1.js"></script><script src="b3kit.js"></script>
+<title>ต้นแบบ · เล่ม 3 · บท 7-2 ห้องเรียนภาษาจีน</title>
+</head><body>
+<script>
+/* b3shuf:done */
+/* เล่ม 3 บท 7-2 หน่วย 7: ห้องเรียนภาษาจีน · คำใหม่ 作业 成绩 复习 句子 讲 教 明白 应该
+   สถานการณ์: ครูอธิบายประโยค การบ้าน คะแนน และการทบทวน */
+WHO.m={n:'ครู',img:A2('老师')};
+const Zuy=W('作业','zuòyè','การบ้าน',{s:'zuò yè'}),Chngj=W('成绩','chéngjì','ผลการเรียน / คะแนน',{s:'chéng jì'}),
+ Fux=W('复习','fùxí','ทบทวนบทเรียน',{s:'fù xí'}),Juzi=W('句子','jùzi','ประโยค',{s:'jù zi'}),
+ Jing=W('讲','jiǎng','เล่า / บรรยาย',{nosk:1}),Jio=W('教','jiāo','สอน',{nosk:1}),
+ Mngbai=W('明白','míngbai','เข้าใจชัดเจน',{s:'míng bái'}),Ynggi=W('应该','yīnggāi','ควร',{s:'yīng gāi'});
+const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
+const X={
+ a:S('老师，这个句子我不太明白。','lǎo shī ， zhè ge jù zi wǒ bù tài míng bái.','ครู ประโยคนี้ฉันไม่ค่อยเข้าใจค่ะ','p27-a-f'),
+ b:S('好，我再讲一次。','hǎo ， wǒ zài jiǎng yī cì.','ได้ ครูจะอธิบายอีกครั้งครับ','p27-b-t'),
+ c:S('今天的作业多吗？','jīn tiān de zuò yè duō ma?','การบ้านวันนี้เยอะไหมคะ','p27-c-f'),
+ d:S('不多。你应该先复习。','bù duō 。 nǐ yīng gāi xiān fù xí.','ไม่เยอะ เธอควรทบทวนก่อนครับ','p27-d-t'),
+ e:S('他教我们汉语，我的成绩好多了。','tā jiào wǒ men hàn yǔ ， wǒ de chéng jì hǎo duō le.','เขาสอนภาษาจีนให้เรา คะแนนฉันดีขึ้นมาก','p27-e-f'),
+ f:S('很好！你明白了就行。','hěn hǎo ！ nǐ míng bái le jiù xíng.','ดีมาก เข้าใจแล้วก็พอครับ','p27-f-t'),
+ w0a:S('今天的作业很多。','jīn tiān de zuò yè hěn duō.','การบ้านวันนี้เยอะมากค่ะ','p27-w0a-f'),
+ w0b:S('作业很多。','zuò yè hěn duō.','การบ้านครับ','p27-w0b-t'),
+ w1a:S('他的成绩非常好。','tā de chéng jì fēi cháng hǎo.','ผลการเรียนของเขาดีมากครับ','p27-w1a-m'),
+ w1b:S('成绩很好。','chéng jì hěn hǎo.','ผลการเรียนค่ะ','p27-w1b-f'),
+ w2a:S('明天有考试，我要复习。','míng tiān yǒu kǎo shì ， wǒ yào fù xí.','พรุ่งนี้มีสอบ ฉันต้องทบทวนค่ะ','p27-w2a-f'),
+ w2b:S('我要复习。','wǒ yào fù xí.','ทบทวนบทเรียนครับ','p27-w2b-t'),
+ w3a:S('这个句子很难。','zhè ge jù zi hěn nán.','ประโยคนี้ยากมากครับ','p27-w3a-m'),
+ w3b:S('这个句子难。','zhè ge jù zi nán.','ประโยค','p27-w3b-f'),
+ w4a:S('老师讲得很清楚，我明白了。','lǎo shī jiǎng dé hěn qīng chǔ ， wǒ míng bái le.','ครูอธิบายชัดเจน ฉันเข้าใจแล้วค่ะ','p27-w4a-f'),
+ w4b:S('老师讲课。','lǎo shī jiǎng kè.','เล่าครับ','p27-w4b-t'),
+ w5a:S('他教我们汉语。','tā jiào wǒ men hàn yǔ.','เขาสอนภาษาจีนให้เราครับ','p27-w5a-m'),
+ w5b:S('他教汉语。','tā jiào hàn yǔ.','สอน','p27-w5b-f'),
+ w6a:S('老师讲得很清楚，我明白了。','lǎo shī jiǎng dé hěn qīng chǔ ， wǒ míng bái le.','ครูอธิบายชัดเจน ฉันเข้าใจแล้วค่ะ','p27-w6a-f'),
+ w6b:S('我明白了。','wǒ míng bái le.','เข้าใจชัดเจนครับ','p27-w6b-t'),
+ w7a:S('你应该早点儿休息。','nǐ yīng gāi zǎo diǎn ér xiū xī.','คุณควรพักผ่อนเร็วหน่อยครับ','p27-w7a-m'),
+ w7b:S('你应该休息。','nǐ yīng gāi xiū xī.','ควร','p27-w7b-f'),
+ c1:S('作业','zuò yè','การบ้านครับ','p27-c1-t'),
+ c2:S('成绩','chéng jì','ผลการเรียนครับ','p27-c2-t'),
+ c3:S('复习','fù xí','ทบทวนบทเรียนครับ','p27-c3-t'),
+ c4:S('句子','jù zi','ประโยคครับ','p27-c4-t'),
+ ml1:S('我迷路了。','wǒ mílù le.','ฉันหลงทาง','p24-ml1-f'),
+ yz1:S('一直往前走。','yìzhí wǎng qián zǒu.','ตรงไปข้างหน้าเรื่อย ๆ ครับ','p23-yz1-t'),};
+const L={a:{...X.a,who:'me'},b:{...X.b,who:'t'},c:{...X.c,who:'me'},d:{...X.d,who:'t'},e:{...X.e,who:'me'},f:{...X.f,who:'t'}};
+const D=[{sit:'ครูอธิบายประโยค การบ้าน คะแนน และการทบทวน',img:NL(Zuy)},L.a,L.b,L.c,L.d,L.e,L.f];
+const ITEMS=[{img:NL(Zuy),th:'การบ้าน'},{img:NL(Chngj),th:'ผลการเรียน'},{img:NL(Fux),th:'ทบทวนบทเรียน'},{img:NL(Juzi),th:'ประโยค'}];
+const BINS=[{img:NL(Zuy),zh:'作业',py:'zuòyè',th:'การบ้าน'},{img:NL(Chngj),zh:'成绩',py:'chéngjì',th:'ผลการเรียน'}];
+const it=(img,x,bin)=>({img,zh:x.zh,py:x.py,th:x.th,k:x.k,bin});
+const TQ=i=>`แบบทดสอบ ${i}/6 · มีคำแปลช่วย`,MQ=i=>`ภารกิจ ${i}/4 · ไม่มีตัวช่วยภาษาไทย`;
+const tl=(zh,py)=>({zh,py});
+LESSON({no:27,code:'บท 7-2',title:'ห้องเรียนภาษาจีน',goal:{do:'ครูอธิบายประโยค การบ้าน คะแนน และการทบทวน',sub:'ใช้ <span class="gz">作业 · 成绩 · 复习 · 句子 · 讲</span>',min:12},steps:[
+ intro({scene:NL(Zuy),cap:'สถานการณ์ของบทนี้',title:'ห้องเรียนภาษาจีน',line:L.a,note:'แตะฟองเพื่อฟัง · จบบทนี้คุณจะใช้คำใหม่ของบทนี้ได้'}),
+ vgrid({title:'8 คำที่จะได้เรียน',text:'แตะการ์ดเพื่อฟังเสียงทีละคำ',items:[Zuy,Chngj,Fux,Juzi,Jing,Jio,Mngbai,Ynggi]}),
+ part({lab:'ช่วงที่ 1/3',no:1,of:3,title:'เรียนทีละคำ',chips:['作业','成绩','复习','句子','讲','教','明白','应该'],note:'ใช้คำที่รู้แล้วร่วมด้วย'}),
+ ...WC(Zuy,1,8,{cap:'คำใหม่',hint:'คล้าย <b>"zuòyè"</b>',use:'การบ้าน',ex:[X.w0a,X.w0b]}),
+ ...WC(Chngj,2,8,{cap:'คำใหม่',hint:'คล้าย <b>"chéngjì"</b>',use:'ผลการเรียน / คะแนน',ex:[X.w1a,X.w1b]}),
+ ...WC(Fux,3,8,{cap:'คำใหม่',hint:'คล้าย <b>"fùxí"</b>',use:'ทบทวนบทเรียน',ex:[X.w2a,X.w2b]}),
+ ...WC(Juzi,4,8,{cap:'คำใหม่',hint:'คล้าย <b>"jùzi"</b>',use:'ประโยค',ex:[X.w3a,X.w3b]}),
+ RC('คำที่ 1–4/8',[Zuy,Chngj,Fux,Juzi]),
+ use({n:'คำที่ 1–4/8',w:Zuy,when:[{img:NL(Zuy),t:'ใช้คำนี้'},{img:NL(Chngj),t:'เทียบกับคำข้าง ๆ'}],lines:[{...X.w0a,who:'me'},{...X.w0b,who:'g'}],tip:'ฟังตัวอย่างแล้วพูดตาม'}),
+ ...WC(Jing,5,8,{cap:'คำใหม่',hint:'คล้าย <b>"jiǎng"</b>',use:'เล่า / บรรยาย',ex:[X.w4a,X.w4b]}),
+ ...WC(Jio,6,8,{cap:'คำใหม่',hint:'คล้าย <b>"jiāo"</b>',use:'สอน',ex:[X.w5a,X.w5b]}),
+ ...WC(Mngbai,7,8,{cap:'คำใหม่',hint:'คล้าย <b>"míngbai"</b>',use:'เข้าใจชัดเจน',ex:[X.w6a,X.w6b]}),
+ ...WC(Ynggi,8,8,{cap:'คำใหม่',hint:'คล้าย <b>"yīnggāi"</b>',use:'ควร',ex:[X.w7a,X.w7b]}),
+ RC('คำที่ 5–8/8',[Jing,Jio,Mngbai,Ynggi]),
+ part({lab:'ช่วงที่ 2/3',no:2,of:3,title:'เทคนิคการใช้',chips:['บทสนทนา','พูดสั้น ๆ','แตะภาพ','แยกคำ','เทียบคำ','ข้อควรระวัง'],note:'ฝึกใช้คำใหม่'}),
+ dialog({cap:'เทคนิค 1/6 · บทสนทนา',title:'ห้องเรียนภาษาจีน',text:'ฟังทั้งบทสนทนา แตะฟองเพื่อฟังซ้ำได้',lines:D,note:'ทุกประโยคใช้คำในบทนี้'}),
+ talk({cap:'เทคนิค 2/6 · พูดสั้น ๆ',title:'ฝึกประโยค',text:'แตะแต่ละคำเพื่อฟัง',lines:[{...X.a,who:'me'},{...X.b,who:'m'},{...X.c,who:'me'},{...X.d,who:'m'}],
+  chips:[X.c1,X.c2,X.c3,X.c4],tip:'ฟังแล้วพูดตาม · ใช้คำใหม่ให้ครบ'}),
+ point({tag:'เทคนิค 3/6 · แตะภาพ',q:'ฟังแต่ละประโยค แล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ sortmap({tag:'เทคนิค 4/6 · แยกคำ',q:'ฟังแต่ละประโยค แล้วแตะคำที่ตรงกัน',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
+  items:[it(NL(Zuy),X.w0a,0),it(NL(Chngj),X.w1a,1),it(NL(Zuy),X.w0b,0),it(NL(Chngj),X.w1b,1)]}),
+ cmp({cap:'เทคนิค 5/6 · เทียบคำ',title:'作业 กับ 成绩',text:'แตะการ์ดเพื่อฟัง',a:{who:'การบ้าน',img:NL(Zuy),zh:X.w0a.zh,zhb:'作业',py:'zuòyè',th:'การบ้าน',k:X.w0a.k},b:{who:'ผลการเรียน',img:NL(Chngj),zh:X.w1a.zh,zhb:'成绩',py:'chéngjì',th:'ผลการเรียน',k:X.w1a.k},
+  tip:'จำความหมายให้ต่างกัน'}),
+ tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[{h:'ใช้ 作业 ให้ถูกที่',bad:'…作业…',good:'今天的作业很多。',k:X.w0a.k},{h:'ใช้ 成绩 ให้ถูกที่',bad:'…成绩…',good:'他的成绩非常好。',k:X.w1a.k},{h:'ใช้ 复习 ให้ถูกที่',bad:'…复习…',good:'明天有考试，我要复习。',k:X.w2a.k},{h:'ใช้ 句子 ให้ถูกที่',bad:'…句子…',good:'这个句子很难。',k:X.w3a.k}]}),
+ part({lab:'ช่วงที่ 3/3',no:3,of:3,title:'แบบทดสอบท้ายบท',chips:['ฟังคำ','ดูภาพ','เติมคำ','ตอบในบทสนทนา','ถูกหรือไม่ถูก'],note:'ตอบผิดไม่เป็นไร'}),
+ ask({tag:TQ(1),q:'ฟังเสียง แล้วเลือกความหมาย',k:'w:作业',opts:['การบ้าน', 'ผลการเรียน', 'ทบทวนบทเรียน'],ans:0,fb:'<span class="zh">作业</span> = การบ้าน'}),
+ ask({rv:'ทบทวนบท 6-2',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p24-ml1-f',opts:['ดูแผนที่', 'ไปสวน', 'ฉันหลงทาง'],ans:2,fb:'<span class="zh">迷路</span> = หลงทาง'}),
+ ask({tag:TQ(2),q:'ฟังคำ แล้วเลือกภาพที่ตรงกัน',k:'w:成绩',opts:[{img:NL(Zuy)}, {img:NL(Chngj)}, {img:NL(Fux)}],ans:1,fb:'<span class="zh">成绩</span>'}),
+ blank({tag:TQ(3),s:'今天的_很多。',th:'การบ้านวันนี้เยอะมาก',opts:['复习', '作业', '成绩'],ans:1,k:X.w0a.k,fb:'<span class="zh">今天的作业很多。</span>'}),
+ ask({rv:2,q:'ฟัง 作 แล้วเลือกวรรณยุกต์',k:'sy:作',opts:[{tone:4,lab:'เสียง 4'}, {tone:3,lab:'เสียง 3'}],ans:0,fb:'<span class="zh">作</span> เสียง 4'}),
+ reply({tag:TQ(4),q:'ฟังแล้วเลือกคำตอบที่เหมาะ',line:{...X.a,who:'me'},opts:[X.c1, X.c2, X.b],ans:2,why:'ตอบให้ต่อบทสนทนา'}),
+ ask({rv:'ทบทวนบท 6-1',q:'ฟังประโยค แล้วเลือกความหมาย',k:'p23-yz1-t',opts:['ตรงไปข้างหน้าเรื่อย ๆ', 'นั่งรถยนต์', 'อยู่ฝั่งตรงข้าม'],ans:0,fb:'<span class="zh">一直</span> = ตรงไปเรื่อย ๆ'}),
+ order({tag:TQ(5),th:'การบ้านวันนี้เยอะมาก',tiles:[tl('作业','zuòyè'),tl('了','le'),tl('成绩','chéngjì')],ans:[0,1],end:'。',k:X.w0a.k}),
+ tf({tag:TQ(6),k:X.w0a.k,img:NL(Zuy),card:'<b>作业</b><br>การบ้านวันนี้เยอะมาก',ans:0,fb:'<span class="zh">今天的作业很多。</span>'}),
+ part({lab:'ภารกิจท้ายบท',of:0,title:'ภารกิจ',chips:['ฟังแล้วแตะ','ตอบ','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว'}),
+ point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะภาพที่ตรงกัน',this:'คือภาพนี้',cards:ITEMS,rounds:[{zh:X.w2a.zh,k:X.w2a.k,ans:2},{zh:X.w3a.zh,k:X.w3a.k,ans:3},{zh:X.w1a.zh,k:X.w1a.k,ans:1},{zh:X.w0a.zh,k:X.w0a.k,ans:0}]}),
+ reply({tag:MQ(2),noTh:1,q:'ฟังแล้วเลือกคำตอบ',line:{...X.c,who:'f'},opts:[X.c4, X.c3, X.d],ans:2}),
+ blank({tag:MQ(3),noTh:1,s:'今天的_很多。',opts:['复习', '作业', '成绩'],ans:1,k:X.w0a.k,fb:'<span class="zh">今天的作业很多。</span>'}),
+ order({tag:MQ(4),noTh:1,th:'',tiles:[tl('作业','zuòyè'),tl('了','le'),tl('成绩','chéngjì')],ans:[0,1],end:'。',k:X.w0b.k}),
+ fin({title:'จบบท ห้องเรียนภาษาจีน',html:dlgH(D,{noTh:1}),chips:[Zuy,Chngj,Fux,Juzi,Jing,Jio,Mngbai,Ynggi].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองเพื่อฟังอีกครั้ง',k:'dlg:L27',kl:'ฟังทั้งบทสนทนา'})]});
+
+</script>
+</body></html>

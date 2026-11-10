@@ -19,18 +19,18 @@ const YL=W('月亮','yuèliang','พระจันทร์',{s:'yuè liang'}),
  A_=W('啊','a','นะ / จังเลย (คำลงท้ายแสดงอารมณ์)',{nosk:1}),DM=W('多么','duōme','…เหลือเกิน / ช่าง…',{s:'duō me'});
 const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
 const X={
- a:S('玛莉，今天你来晚了，怎么了？','Mǎlì, jīntiān nǐ lái wǎn le, zěnme le?','มะลิ วันนี้มาสายนะ เป็นอะไรไป','p12-a-m'),
- b:S('我的手机坏了，我起晚了。','wǒ de shǒujī huài le, wǒ qǐ wǎn le.','มือถือฉันเสีย ฉันเลยตื่นสาย','p12-b-f'),
- c:S('你的身体好了吗？上个星期你发烧了。','nǐ de shēntǐ hǎo le ma? shàng ge xīngqī nǐ fāshāo le.','ร่างกายหายดีหรือยัง อาทิตย์ที่แล้วเธอเป็นไข้','p12-c-m'),
+ a:S('玛莉，今天你来晚了，怎么了？','Mǎlì, jīntiān nǐ lái wǎn le, zěnme le?','มะลิ วันนี้มาสายนะครับ เป็นอะไรไปครับ','p12-a-m'),
+ b:S('我的手机坏了，我不知道几点了。','wǒ de shǒujī huài le, wǒ bù zhīdào jǐ diǎn le.','มือถือฉันเสีย ฉันไม่รู้ว่ากี่โมงแล้ว','p12-b-f'),
+ c:S('你的身体好了吗？上个星期你发烧了。','nǐ de shēntǐ hǎo le ma? shàng ge xīngqī nǐ fāshāo le.','ร่างกายหายดีหรือยังครับ อาทิตย์ที่แล้วเธอเป็นไข้ครับ','p12-c-m'),
  d:S('好多了。我每天早上锻炼。','hǎo duō le. wǒ měitiān zǎoshang duànliàn.','ดีขึ้นมากแล้ว ฉันออกกำลังกายทุกเช้า','p12-d-f'),
- e:S('你看，月亮多么亮啊！','nǐ kàn, yuèliang duōme liàng a!','ดูสิ พระจันทร์สว่างเหลือเกิน','p12-e-m'),
+ e:S('你看，月亮多么亮啊！','nǐ kàn, yuèliang duōme liàng a!','ดูสิครับ พระจันทร์สว่างเหลือเกินครับ','p12-e-m'),
  f:S('是啊！这个晚会很有名，这儿的人也很热情。','shì a! zhège wǎnhuì hěn yǒumíng, zhèr de rén yě hěn rèqíng.','ใช่เลย งานนี้มีชื่อเสียงมาก คนที่นี่ก็เป็นมิตรด้วย','p12-f-f'),
  shh:S('这本书很厚。','zhè běn shū hěn hòu.','หนังสือเล่มนี้หนามาก','p10-shh-g'),bzr:S('被子很软。','bèizi hěn ruǎn.','ผ้าห่มนุ่มมาก','p10-bzr-g'),
  tfd:S('他的头发很短。','tā de tóufa hěn duǎn.','ผมของเขาสั้นมาก','p10-tfd-g'),kyl:S('我喜欢看月亮。','wǒ xǐhuan kàn yuèliang.','ฉันชอบดูพระจันทร์','p11-kyl-f'),
  hei:S('房间里太黑了。','fángjiān lǐ tài hēi le.','ในห้องมืดเกินไป','p09-hei-g'),kdb:S('我开灯吧。','wǒ kāi dēng ba.','ฉันเปิดไฟให้นะ','p09-kdb-f'),
- ha:S('好啊！','hǎo a!','ได้เลย','p11-ha-f'),xts:S('我们的生日相同。','wǒmen de shēngrì xiāngtóng.','วันเกิดของเราตรงกัน','p11-xts-m'),
+ ha:S('好啊！','hǎo a!','ได้เลย','p11-ha-f'),xts:S('我们的生日相同。','wǒmen de shēngrì xiāngtóng.','วันเกิดของเราตรงกันครับ','p11-xts-m'),
  lwl:S('对不起，我来晚了。','duìbuqǐ, wǒ lái wǎn le.','ขอโทษครับ ผมมาสาย','p09-lwl-m'),mgx:S('没关系！','méi guānxi!','ไม่เป็นไร','p09-mgx-f'),
- dml:S('月亮多么漂亮啊！','yuèliang duōme piàoliang a!','พระจันทร์สวยเหลือเกิน','p11-dml-f'),tyk:S('今天有体育课。','jīntiān yǒu tǐyù kè.','วันนี้มีวิชาพละ','p10-tyk-t')};
+ dml:S('月亮多么漂亮啊！','yuèliang duōme piàoliang a!','พระจันทร์สวยเหลือเกิน','p11-dml-f'),tyk:S('今天有体育课。','jīntiān yǒu tǐyù kè.','วันนี้มีวิชาพละครับ','p10-tyk-t')};
 const L={a:{...X.a,who:'f'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'f'},f:{...X.f,who:'me'}};
 const D=[{sit:'คืนงานชมพระจันทร์ มะลิมาถึงช้า หวังหมิงรออยู่',img:NL(YL)},L.a,L.b,L.c,L.d,L.e,L.f];
 const PIC=[{img:NL(HOU),th:'หนา'},{img:NL(RUAN),th:'นุ่ม'},{img:NL(DUAN),th:'สั้น'},{img:NL(YL),th:'พระจันทร์'}];
@@ -62,6 +62,7 @@ LESSON({no:12,code:'ทบทวนหน่วย 3',title:'ทบทวนห�
  order({tag:MQ(3),noTh:1,th:'',tiles:[tl('学校','xuéxiào'),tl('明天','míngtiān'),tl('举行','jǔxíng'),tl('晚会','wǎnhuì'),tl('软','ruǎn')],ans:[0,1,2,3],end:'。',k:'p11-jxw-t'}),
  blank({tag:MQ(4),noTh:1,s:'_，我的书呢？',opts:['清楚', '奇怪', '有名'],ans:1,k:'p09-qgs-f',fb:'<span class="zh">奇怪，我的书呢？</span>'}),
  fin({title:'จบหน่วยที่ 3 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L12',kl:'ฟังทั้งบทสนทนา'})]});
+
 
 </script>
 </body></html>

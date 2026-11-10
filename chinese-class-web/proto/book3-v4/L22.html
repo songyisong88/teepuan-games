@@ -33,14 +33,14 @@ const X={
  cs1:S('我去超市买水果。','wǒ qù chāoshì mǎi shuǐguǒ.','ฉันไปซื้อผลไม้ที่ซูเปอร์มาร์เก็ต','p21-cs1-f'),
  mb1:S('我早饭吃面包。','wǒ zǎofàn chī miànbāo.','ฉันกินขนมปังเป็นอาหารเช้า','p21-mb1-f'),
  xj1:S('孩子们都喜欢吃香蕉。','háizimen dōu xǐhuan chī xiāngjiāo.','เด็ก ๆ ชอบกินกล้วยกันทุกคน','p21-xj1-g'),
- xx1:S('这条鱼很新鲜。','zhè tiáo yú hěn xīnxiān.','ปลาตัวนี้สดมาก','p21-xx1-t'),
+ xx1:S('这条鱼很新鲜。','zhè tiáo yú hěn xīnxiān.','ปลาตัวนี้สดมากครับ','p21-xx1-t'),
  yg1:S('一共多少钱？','yígòng duōshao qián?','รวมทั้งหมดเท่าไร','p21-yg1-f'),
- yg2:S('一共三十块。','yígòng sānshí kuài.','รวมทั้งหมดสามสิบหยวน','p21-yg2-t'),
+ yg2:S('一共三十块。','yígòng sānshí kuài.','รวมทั้งหมดสามสิบหยวนครับ','p21-yg2-t'),
  by1:S('不用了，谢谢。','bú yòng le, xièxie.','ไม่ต้องค่ะ ขอบคุณ','p21-by1-f'),
  jn1:S('这种香蕉多少钱一斤？','zhè zhǒng xiāngjiāo duōshao qián yì jīn?','กล้วยชนิดนี้จินละเท่าไร','p21-jn1-g'),
- hy1:S('欢迎光临，请进。','huānyíng guānglín, qǐng jìn.','ยินดีต้อนรับ เชิญเข้ามา','p20-hy1-t'),
+ hy1:S('欢迎光临，请进。','huānyíng guānglín, qǐng jìn.','ยินดีต้อนรับ เชิญเข้ามาครับ','p20-hy1-t'),
  wn1:S('请来一碗米饭。','qǐng lái yì wǎn mǐfàn.','ขอข้าวหนึ่งชาม','p20-wn1-f'),
- qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่','p02-qdx-t'),
+ qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่ครับ','p02-qdx-t'),
  wyw:S('我要外带。','wǒ yào wàidài.','ฉันขอรับกลับบ้าน','p07-wyw-f')};
 const L={a:{...X.a,who:'m'},b:{...X.b,who:'me'},c:{...X.c,who:'f'},d:{...X.d,who:'me'},e:{...X.e,who:'m'},f:{...X.f,who:'me'}};
 const D=[{sit:'มะลิกินข้าวแล้วชวนหวังหมิงไปซูเปอร์มาร์เก็ต',img:NL(HYG)},L.a,L.b,L.c,L.d,L.e,L.f];
@@ -73,6 +73,7 @@ LESSON({no:22,code:'ทบทวนหน่วย 5',title:'ทบทวนห�
  order({tag:MQ(3),noTh:1,th:'',tiles:[tl('请','qǐng'),tl('给','gěi'),tl('我','wǒ'),tl('菜单','càidān'),tl('香蕉','xiāngjiāo')],ans:[0,1,2,3],end:'。',k:'p20-cd1-f'}),
  blank({tag:MQ(4),noTh:1,s:'_了，谢谢。',opts:['一共', '新鲜', '不用'],ans:2,k:'p21-by1-f',fb:'<span class="zh">不用了，谢谢。</span>'}),
  fin({title:'จบหน่วยที่ 5 แล้ว',html:dlgH(D,{noTh:1}),chips:ALL.map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L22',kl:'ฟังทั้งบทสนทนา'})]});
+
 
 </script>
 </body></html>

@@ -10,7 +10,7 @@
 /* b3shuf:done */
 /* เล่ม 3 บท 6-2 หน่วย 6 สถานีเดินทางสบายใจ: หลงทาง · คำใหม่ 东 南 西 北 迷路 地图 公园 银行
    กิจกรรมเฉพาะบท: 往 + ทิศทั้งสี่ แตะทิศ แยก 公园 กับ 银行 迷路 กับ 看地图 */
-WHO.m={n:'ลุงถามทาง',img:ART('爷爷')};
+WHO.m={n:'ลุงบอกทาง',img:ART('爷爷')};
 const DONG=W('东','dōng','ทิศตะวันออก',{nosk:1}),NAN=W('南','nán','ทิศใต้',{nosk:1}),
  XI=W('西','xī','ทิศตะวันตก',{nosk:1}),BEI=W('北','běi','ทิศเหนือ',{nosk:1}),
  ML=W('迷路','mílù','หลงทาง',{s:'mí lù'}),DT=W('地图','dìtú','แผนที่',{s:'dì tú'}),
@@ -93,7 +93,7 @@ LESSON({no:24,code:'บท 6-2',title:'หลงทาง',goal:{do:'บอก�
  tf({tag:TQ(6),k:'p24-d-t',img:NL(YH),card:'<b>ลุง</b><br>บอกว่าธนาคารอยู่ทางตะวันออก',ans:1,fb:'<span class="zh">银行在西边</span> = ธนาคารอยู่ทางตะวันตก'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'หาทางกลับบ้าน',chips:['ฟังแล้วแตะ','ตอบลุง','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะทิศ',this:'คือทิศนี้',cards:DIR,rounds:[{zh:X.n1.zh,k:X.n1.k,ans:1},{zh:X.x1.zh,k:X.x1.k,ans:2},{zh:X.b1.zh,k:X.b1.k,ans:3},{zh:X.d1.zh,k:X.d1.k,ans:0}]}),
- reply({tag:MQ(2),noTh:1,q:'ลุงถามว่าธนาคารอยู่ไหน',line:{...X.yh1,who:'m'},opts:[X.xl1, X.ml2, X.x2],ans:2}),
+ reply({tag:MQ(2),noTh:1,q:'หลี่น่าถามว่าธนาคารอยู่ไหน',line:{...X.yh1,who:'g'},opts:[X.xl1, X.ml2, X.x2],ans:2}),
  blank({tag:MQ(3),noTh:1,s:'我_了。',opts:['公园', '迷路', '地图'],ans:1,k:'p24-ml1-f',fb:'<span class="zh">我迷路了。</span>'}),
  order({tag:MQ(4),noTh:1,th:'',tiles:[tl('请','qǐng'),tl('给','gěi'),tl('我','wǒ'),tl('地图','dìtú'),tl('南','nán')],ans:[0,1,2,3],end:'。',k:'p24-dt1-f'}),
  fin({title:'ใช้ทิศบอกทางได้แล้ว',html:dlgH(D,{noTh:1}),chips:[DONG,NAN,XI,BEI,ML,DT,GY,YH].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L24',kl:'ฟังทั้งบทสนทนา'})]});

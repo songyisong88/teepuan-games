@@ -23,7 +23,7 @@ Object.assign(WHO,{f:{n:'หวังหมิง',img:ART('男孩')},g:{n:'ห�
 
 /* เล่ม 3: ตัวเลือกใน reply ใช้เสียงมะลิ (-f) ทุกตัว · ตำแหน่งคำตอบสลับในไฟล์ HTML หลัง build ด้วย work/shuffle-b3.py
    (ใช้ proto/tools/shuffle-ans-positions.py) · ไม่แก้ engine.js */
-const b3f=x=>{if(!x||typeof x.k!=='string'||!/-[mgt]$/.test(x.k))return x;const o=Object.assign({},x,{k:x.k.replace(/-([mgt])$/,'$1-f')});if(typeof o.th==='string')o.th=o.th.replace(/ครับ/g,'ค่ะ').replace(/ผม/g,'ฉัน');return o;};
+const b3f=x=>{if(!x||typeof x.k!=='string'||!/-[mgt]$/.test(x.k))return x;const o=Object.assign({},x,{k:x.k.replace(/-([mgt])$/,'$1-f')});if(typeof o.th==='string')o.th=o.th.replace(/ครับ/g,'ค่ะ').replace(/(?<!เส้น|ทรง|ทำ|ตัด)ผม(?!ของ|ยาว|สั้น)/g,'ฉัน');return o;};
 /* ครูในเล่ม 3 ใช้ภาพครูแบบปัจจุบัน */
 if(typeof WHO!=='undefined'&&WHO.t)WHO.t.img=ART('老师-v2');
 const B3REPLY=reply;

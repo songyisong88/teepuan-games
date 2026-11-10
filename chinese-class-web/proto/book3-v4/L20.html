@@ -11,7 +11,7 @@
 /* เล่ม 3 บท 5-1 หน่วย 5 ตลาดอร่อยทุกมุม: ในร้านอาหาร · คำใหม่ 欢迎光临 菜单 汤 碗 筷子 打包 买单
    กิจกรรมเฉพาะบท: สั่งอาหารด้วย 一碗 แตะของในร้าน แยก 打包 กับ 买单 碗 กับ 杯子 */
 WHO.m={n:'พนักงานร้านอาหาร',img:ART('服务员')};
-const HYG=W('欢迎光临','huānyíng guānglín','ยินดีต้อนรับ (พนักงานพูด)',{s:'huān yíng guāng lín'}),CD=W('菜单','càidān','เมนู',{s:'cài dān'}),
+const HYG=W('欢迎光临','huānyíng guānglín','ยินดีต้อนรับ',{s:'huān yíng guāng lín'}),CD=W('菜单','càidān','เมนู',{s:'cài dān'}),
  TANG=W('汤','tāng','ซุป'),WAN=W('碗','wǎn','ชาม'),KZ=W('筷子','kuàizi','ตะเกียบ',{s:'kuài zi'}),
  DB=W('打包','dǎbāo','ห่อกลับบ้าน',{s:'dǎ bāo'}),MD=W('买单','mǎidān','เช็คบิล',{s:'mǎi dān'});
 const S=(zh,py,th,k,who)=>({who,zh,py,th,k});
@@ -23,11 +23,11 @@ const X={
  e:S('请再给我们一双筷子。','qǐng zài gěi wǒmen yì shuāng kuàizi.','ขอตะเกียบอีกหนึ่งคู่ด้วยครับ','p20-e-m'),
  f:S('我们要打包，买单！','wǒmen yào dǎbāo, mǎidān!','ขอห่อกลับแล้วเช็คบิลด้วยค่ะ','p20-f-f'),
  hy1:S('欢迎光临，请进。','huānyíng guānglín, qǐng jìn.','ยินดีต้อนรับ เชิญเข้ามาครับ','p20-hy1-t'),
- hy2:S('老师说：欢迎光临！','lǎoshī shuō: huānyíng guānglín!','ครูพูดว่า ยินดีต้อนรับ','p20-hy2-g'),
+ hy2:S('欢迎光临！请坐。','huānyíng guānglín! qǐng zuò.','ยินดีต้อนรับ เชิญนั่งครับ','p20-hy2-t'),
  cd1:S('请给我菜单。','qǐng gěi wǒ càidān.','ขอเมนูหน่อย','p20-cd1-f'),
  cd2:S('菜单在这儿。','càidān zài zhèr.','เมนูอยู่ตรงนี้ครับ','p20-cd2-t'),
  tg1:S('我要一碗汤。','wǒ yào yì wǎn tāng.','ฉันขอซุปหนึ่งชาม','p20-tg1-f'),
- tg2:S('这个汤很好喝。','zhège tāng hěn hǎohē.','ซุปนี้ดื่มอร่อยมาก','p20-tg2-g'),
+ tg2:S('这个汤很好喝。','zhège tāng hěn hǎohē.','ซุปนี้อร่อยมาก','p20-tg2-g'),
  wn1:S('请来一碗米饭。','qǐng lái yì wǎn mǐfàn.','ขอข้าวหนึ่งชาม','p20-wn1-f'),
  wn2:S('桌子上有一个碗。','zhuōzi shàng yǒu yí ge wǎn.','บนโต๊ะมีชามหนึ่งใบครับ','p20-wn2-t'),
  kz1:S('桌子上有两双筷子。','zhuōzi shàng yǒu liǎng shuāng kuàizi.','บนโต๊ะมีตะเกียบสองคู่ครับ','p20-kz1-t'),
@@ -40,6 +40,7 @@ const X={
  c3:S('一双筷子','yì shuāng kuàizi','ตะเกียบหนึ่งคู่','p20-c3-t'),c4:S('一个菜单','yí ge càidān','เมนูหนึ่งใบ','p20-c4-t'),
  nhs:S('你们想喝什么？','nǐmen xiǎng hē shénme?','อยากดื่มอะไรครับ','p20-nhs-t'),
  wyc:S('我要一杯茶。','wǒ yào yì bēi chá.','ฉันขอชาหนึ่งแก้ว','p20-wyc-f'),
+ bz1:S('桌子上有一个杯子。','zhuōzi shàng yǒu yí ge bēizi.','บนโต๊ะมีแก้วหนึ่งใบครับ','p20-bz1-t'),
  qdx:S('请等一下。','qǐng děng yíxià.','กรุณารอสักครู่ครับ','p02-qdx-t'),
  el:S('我饿了。','wǒ è le.','ฉันหิวแล้ว','p01-el-f'),
  wyw:S('我要外带。','wǒ yào wàidài.','ฉันขอรับกลับบ้าน','p07-wyw-f'),
@@ -73,7 +74,7 @@ LESSON({no:20,code:'บท 5-1',title:'ในร้านอาหาร',goal:{
  point({tag:'เทคนิค 3/6 · แตะของในร้าน',q:'ฟังแต่ละประโยค แล้วแตะของที่พูดถึง',this:'คือสิ่งนี้',cards:ITEMS,rounds:[{zh:X.kz2.zh,k:X.kz2.k,ans:3},{zh:X.cd1.zh,k:X.cd1.k,ans:0},{zh:X.wn2.zh,k:X.wn2.k,ans:2},{zh:X.tg1.zh,k:X.tg1.k,ans:1}]}),
  sortmap({tag:'เทคนิค 4/6 · 打包 หรือ 买单',q:'ฟังแต่ละประโยค แล้วแตะว่าห่อกลับหรือเช็คบิล',bins:BINS,unit:'ประโยค',said:'ประโยคนี้คือ',done:'แยกครบแล้ว',
   items:[it(NL(DB),X.db1,0),it(NL(MD),X.md1,1),it(ART('米饭'),X.db2,0),it(ART('服务员'),X.md2,1)]}),
- cmp({cap:'เทคนิค 5/6 · 碗 กับ 杯子',title:'ชาม กับ แก้ว',text:'แตะการ์ดเพื่อฟัง',a:{who:'ใส่ข้าว ซุป',img:NL(WAN),zh:X.wn1.zh,zhb:'碗',py:'wǎn',th:'ชาม',k:X.wn1.k},b:{who:'ใส่เครื่องดื่ม',img:ART('杯子'),zh:X.wyc.zh,zhb:'杯子',py:'bēizi',th:'แก้ว',k:X.wyc.k},
+ cmp({cap:'เทคนิค 5/6 · 碗 กับ 杯子',title:'ชาม กับ แก้ว',text:'แตะการ์ดเพื่อฟัง',a:{who:'ใส่ข้าว ซุป',img:NL(WAN),zh:X.wn1.zh,zhb:'碗',py:'wǎn',th:'ชาม',k:X.wn1.k},b:{who:'ใส่เครื่องดื่ม',img:ART('杯子'),zh:X.bz1.zh,zhb:'杯子',py:'bēizi',th:'แก้ว',k:X.bz1.k},
   tip:'ข้าวและซุปใช้ <span class="zh">碗</span> · น้ำและชาใช้ <span class="zh">杯</span> หรือ <span class="zh">杯子</span>'}),
  tips({cap:'เทคนิค 6/6 · ข้อควรระวัง',title:'ผิดบ่อย',items:[
   {h:'ซุปใช้ลักษณนาม 碗 ไม่ใช่ 个',bad:'我要一个汤。',good:'我要一碗汤。',k:'p20-tg1-f'},
@@ -92,7 +93,7 @@ LESSON({no:20,code:'บท 5-1',title:'ในร้านอาหาร',goal:{
  tf({tag:TQ(6),k:'p20-a-t',img:NL(HYG),card:'<b>พนักงาน</b><br>พูดต้อนรับตอนลูกค้าเข้า',ans:0,fb:'<span class="zh">欢迎光临</span> = ยินดีต้อนรับ'}),
  part({lab:'ภารกิจท้ายบท',of:0,title:'พาเพื่อนไปกินข้าว',chips:['ฟังแล้วแตะ','ตอบพนักงาน','เติมคำ','เรียงประโยค'],note:'ไม่มีคำแปลภาษาไทยแล้ว ฟังแล้วตอบให้ถูกทั้ง 4 ข้อ'}),
  point({tag:MQ(1),noTh:1,q:'ฟังแล้วแตะของที่พูดถึง',this:'คือสิ่งนี้',cards:ITEMS,rounds:[{zh:X.wn1.zh,k:X.wn1.k,ans:2},{zh:X.cd2.zh,k:X.cd2.k,ans:0},{zh:X.kz1.zh,k:X.kz1.k,ans:3},{zh:X.tg2.zh,k:X.tg2.k,ans:1}]}),
- reply({tag:MQ(2),noTh:1,q:'หวังหมิงบอกว่ากินไม่หมดแล้ว',line:{...X.db2,who:'f'},opts:[X.hy2, X.db1, X.wyc],ans:1}),
+ reply({tag:MQ(2),noTh:1,q:'หลี่น่าบอกว่ากินไม่หมดแล้ว',line:{...X.db2,who:'g'},opts:[X.hy2, X.db1, X.wyc],ans:1}),
  blank({tag:MQ(3),noTh:1,s:'服务员，_！',opts:['菜单', '汤', '买单'],ans:2,k:'p20-md1-f',fb:'<span class="zh">服务员，买单！</span>'}),
  order({tag:MQ(4),noTh:1,th:'',tiles:[tl('我','wǒ'),tl('要','yào'),tl('打包','dǎbāo'),tl('筷子','kuàizi')],ans:[0,1,2],end:'。',k:'p20-db1-f'}),
  fin({title:'สั่งอาหารและเช็คบิลได้แล้ว',html:dlgH(D,{noTh:1}),chips:[HYG,CD,TANG,WAN,KZ,DB,MD].map(x=>({zh:x.zh,py:x.py,th:x.th,k:x.k})),note:'แตะฟองหรือคำเพื่อฟังอีกครั้ง',k:'dlg:L20',kl:'ฟังทั้งบทสนทนา'})]});
